@@ -1,0 +1,129 @@
+.TH "NTG_edge_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NTG_edge_o \- 
+.PP
+\fBNTG_edge_o\fP class This base class mimics <pair<NTid, NTid>>  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ntg_edge_obj.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNTG_edge_o\fP (\fBNTid\fP newSource=0, \fBNTid\fP newTarget=0)"
+.br
+.ti -1c
+.RI "\fBNTG_edge_o\fP (const \fBNTG_edge_o\fP &original)"
+.br
+.ti -1c
+.RI "const \fBNTG_edge_o\fP & \fBoperator=\fP (const \fBNTG_edge_o\fP &right)"
+.br
+.ti -1c
+.RI "virtual \fB~NTG_edge_o\fP ()"
+.br
+.ti -1c
+.RI "\fBNTid\fP \fBfirst\fP () const "
+.br
+.ti -1c
+.RI "\fBNTid\fP \fBSource\fP () const "
+.br
+.ti -1c
+.RI "\fBNTid\fP \fBsecond\fP () const "
+.br
+.ti -1c
+.RI "\fBNTid\fP \fBTarget\fP () const "
+.br
+.ti -1c
+.RI "\fBNTreturn\fP \fBSetSource\fP (\fBNTid\fP newSource)"
+.br
+.ti -1c
+.RI "\fBNTreturn\fP \fBSetTarget\fP (\fBNTid\fP newTarget)"
+.br
+.ti -1c
+.RI "\fBNTreturn\fP \fBSetConnection\fP (\fBNTid\fP newSource, \fBNTid\fP newTarget)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBBug\fP
+.RS 4
+unknown 
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+unknown 
+.RE
+.PP
+
+.PP
+Definition at line 56 of file ntg_edge_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "NTG_edge_o::NTG_edge_o (\fBNTid\fP newSource = \fC0\fP, \fBNTid\fP newTarget = \fC0\fP)"
+.SS "NTG_edge_o::NTG_edge_o (const \fBNTG_edge_o\fP & original)"
+.SS "virtual NTG_edge_o::~NTG_edge_o ()\fC [virtual]\fP"
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBNTid\fP NTG_edge_o::first () const\fC [inline]\fP"
+.PP
+Definition at line 64 of file ntg_edge_obj.h.
+.PP
+References Source().
+.PP
+.nf
+{ return Source();}
+.fi
+.SS "const \fBNTG_edge_o\fP& NTG_edge_o::operator= (const \fBNTG_edge_o\fP & right)"
+.SS "\fBNTid\fP NTG_edge_o::second () const\fC [inline]\fP"
+.PP
+Definition at line 66 of file ntg_edge_obj.h.
+.PP
+References Target().
+.PP
+.nf
+{ return Target();}
+.fi
+.SS "\fBNTreturn\fP NTG_edge_o::SetConnection (\fBNTid\fP newSource, \fBNTid\fP newTarget)"
+.SS "\fBNTreturn\fP NTG_edge_o::SetSource (\fBNTid\fP newSource)\fC [inline]\fP"
+.PP
+Definition at line 69 of file ntg_edge_obj.h.
+.PP
+.nf
+{ return NT_NOT_IMPLEMENTED;}
+.fi
+.SS "\fBNTreturn\fP NTG_edge_o::SetTarget (\fBNTid\fP newTarget)\fC [inline]\fP"
+.PP
+Definition at line 70 of file ntg_edge_obj.h.
+.PP
+.nf
+{ return NT_NOT_IMPLEMENTED;}
+.fi
+.SS "\fBNTid\fP NTG_edge_o::Source () const\fC [inline]\fP"
+.PP
+Definition at line 65 of file ntg_edge_obj.h.
+.PP
+Referenced by first().
+.PP
+.nf
+{ return source;}
+.fi
+.SS "\fBNTid\fP NTG_edge_o::Target () const\fC [inline]\fP"
+.PP
+Definition at line 67 of file ntg_edge_obj.h.
+.PP
+Referenced by second().
+.PP
+.nf
+{ return target;}
+.fi
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

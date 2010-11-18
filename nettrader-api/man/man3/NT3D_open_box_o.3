@@ -1,0 +1,82 @@
+.TH "NT3D_open_box_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NT3D_open_box_o \- 
+.PP
+\fBNT3D_open_box_o\fP class A box without bottom and top, with the walls beeing parallel to the width , i.e.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <nt3d_open_box_obj.h>\fP
+.PP
+Inherits \fBNT3D_surfaced_object_o\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNT3D_open_box_o\fP (\fBNTreal\fP width=1.0, \fBNTreal\fP depth=1.0, \fBNTreal\fP height=1.0)"
+.br
+.ti -1c
+.RI "\fBNT3D_open_box_o\fP (const \fBNT3D_open_box_o\fP &original)"
+.br
+.ti -1c
+.RI "const \fBNT3D_open_box_o\fP & \fBoperator=\fP (const \fBNT3D_open_box_o\fP &right)"
+.br
+.ti -1c
+.RI "virtual \fB~NT3D_open_box_o\fP ()"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBDrawSurfacedObj\fP ()"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBNT_vector3_o\fP \fBoScaling\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+the Z axis 
+.PP
+\fBBug\fP
+.RS 4
+unknown 
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+unknown 
+.RE
+.PP
+
+.PP
+Definition at line 58 of file nt3d_open_box_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "NT3D_open_box_o::NT3D_open_box_o (\fBNTreal\fP width = \fC1.0\fP, \fBNTreal\fP depth = \fC1.0\fP, \fBNTreal\fP height = \fC1.0\fP)"
+.SS "NT3D_open_box_o::NT3D_open_box_o (const \fBNT3D_open_box_o\fP & original)"
+.SS "virtual NT3D_open_box_o::~NT3D_open_box_o ()\fC [virtual]\fP"
+.SH "Member Function Documentation"
+.PP 
+.SS "void NT3D_open_box_o::DrawSurfacedObj ()\fC [protected, virtual]\fP"
+.PP
+Reimplemented from \fBNT3D_surfaced_object_o\fP.
+.SS "const \fBNT3D_open_box_o\fP& NT3D_open_box_o::operator= (const \fBNT3D_open_box_o\fP & right)"
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBNT_vector3_o\fP \fBNT3D_open_box_o::oScaling\fP\fC [protected]\fP"
+.PP
+Definition at line 71 of file nt3d_open_box_obj.h.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

@@ -1,0 +1,198 @@
+.TH "NT_vector_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NT_vector_o \- 
+.PP
+A n-dimensional real vector class with visualization capabilities.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <nt_vector_obj.h>\fP
+.PP
+Inherits \fBNT_o\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNT_vector_o\fP ()"
+.br
+.ti -1c
+.RI "\fBNT_vector_o\fP (\fBNTuint\fP dim)"
+.br
+.ti -1c
+.RI "\fBNT_vector_o\fP (\fBNTuint\fP dim, \fBNTreal\fP *elemVec)"
+.br
+.ti -1c
+.RI "\fBNT_vector_o\fP (\fBNTuint\fP dim, float *elemVec)"
+.br
+.ti -1c
+.RI "\fBNT_vector_o\fP (\fBNT_vector3_o\fP newVector3)"
+.br
+.ti -1c
+.RI "\fBNT_vector_o\fP (\fBNTreal\fP a, \fBNTreal\fP b)"
+.br
+.ti -1c
+.RI "\fBNT_vector_o\fP (\fBNTreal\fP a, \fBNTreal\fP b, \fBNTreal\fP c)"
+.br
+.ti -1c
+.RI "\fBNT_vector_o\fP (\fBNTreal\fP a, \fBNTreal\fP b, \fBNTreal\fP c, \fBNTreal\fP d)"
+.br
+.ti -1c
+.RI "\fBNT_vector_o\fP (const \fBNT_vector_o\fP &)"
+.br
+.ti -1c
+.RI "\fBNT_vector_o\fP & \fBoperator=\fP (\fBNT_vector_o\fP const &)"
+.br
+.ti -1c
+.RI "\fB~NT_vector_o\fP ()"
+.br
+.ti -1c
+.RI "\fBNT_vector_o\fP \fBoperator+\fP (const \fBNT_vector_o\fP &) const "
+.br
+.RI "\fIaddition C = A+B \fP"
+.ti -1c
+.RI "\fBNT_vector_o\fP \fBoperator-\fP (const \fBNT_vector_o\fP &) const "
+.br
+.RI "\fIsubtraction C = A-B \fP"
+.ti -1c
+.RI "\fBNTreal\fP \fBoperator*\fP (const \fBNT_vector_o\fP &) const "
+.br
+.RI "\fIscalar product r = A*B \fP"
+.ti -1c
+.RI "\fBNTreal\fP \fBDot\fP (const \fBNT_vector_o\fP right) const "
+.br
+.RI "\fIscalar (dot) product r = A*B \fP"
+.ti -1c
+.RI "\fBNTreal\fP \fBCosAng\fP (const \fBNT_vector_o\fP right)"
+.br
+.RI "\fIcosine of the angle between two \fBNT_vector_o\fP \fP"
+.ti -1c
+.RI "\fBNT_vector_o\fP \fBoperator*\fP (\fBNTreal\fP) const "
+.br
+.RI "\fIScaling, factor multiplication (from the RIGHT) C = A*alpha. \fP"
+.ti -1c
+.RI "\fBNTreal\fP & \fBoperator()\fP (\fBNTint\fP component) const "
+.br
+.RI "\fIAccess vector components 1..dimension slower and safer. \fP"
+.ti -1c
+.RI "\fBNTreal\fP & \fBoperator[]\fP (\fBNTint\fP component) const "
+.br
+.RI "\fIAccess vector components 0..(dimension-1) fast and no range checking. \fP"
+.ti -1c
+.RI "\fBNTreal\fP \fBoperator^\fP (\fBNT_vector_o\fP b)"
+.br
+.ti -1c
+.RI "\fBoperator NT_vector3_o\fP () const "
+.br
+.ti -1c
+.RI "\fBNT_vector_o\fP \fBBaseVectorAngle\fP () const "
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fBLength\fP () const "
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fBLenSqr\fP () const "
+.br
+.ti -1c
+.RI "\fBNTuint\fP \fB_dim\fP () const "
+.br
+.ti -1c
+.RI "\fBNTuint\fP \fB_dimension\fP () const "
+.br
+.ti -1c
+.RI "const \fBNTreal\fP * \fB_elem\fP () const "
+.br
+.ti -1c
+.RI "void \fBset_elem\fP (const \fBNTreal\fP *elemVec)"
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "ostream & \fBoperator<<\fP (ostream &os, const \fBNT_vector_o\fP &self)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Definition at line 120 of file nt_vector_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "NT_vector_o::NT_vector_o ()"
+.SS "NT_vector_o::NT_vector_o (\fBNTuint\fP dim)"
+.SS "NT_vector_o::NT_vector_o (\fBNTuint\fP dim, \fBNTreal\fP * elemVec)"
+.SS "NT_vector_o::NT_vector_o (\fBNTuint\fP dim, float * elemVec)"
+.SS "NT_vector_o::NT_vector_o (\fBNT_vector3_o\fP newVector3)"
+.SS "NT_vector_o::NT_vector_o (\fBNTreal\fP a, \fBNTreal\fP b)"
+.SS "NT_vector_o::NT_vector_o (\fBNTreal\fP a, \fBNTreal\fP b, \fBNTreal\fP c)"
+.SS "NT_vector_o::NT_vector_o (\fBNTreal\fP a, \fBNTreal\fP b, \fBNTreal\fP c, \fBNTreal\fP d)"
+.SS "NT_vector_o::NT_vector_o (const \fBNT_vector_o\fP &)"
+.SS "NT_vector_o::~NT_vector_o ()"
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBNTuint\fP NT_vector_o::_dim () const\fC [inline]\fP"
+.PP
+Definition at line 162 of file nt_vector_obj.h.
+.PP
+.nf
+{ return dimension;}
+.fi
+.SS "\fBNTuint\fP NT_vector_o::_dimension () const\fC [inline]\fP"
+.PP
+Definition at line 164 of file nt_vector_obj.h.
+.PP
+.nf
+{ return dimension;  };
+.fi
+.SS "const \fBNTreal\fP* NT_vector_o::_elem () const"
+.SS "\fBNT_vector_o\fP NT_vector_o::BaseVectorAngle () const"
+.SS "\fBNTreal\fP NT_vector_o::CosAng (const \fBNT_vector_o\fP right)\fC [inline]\fP"
+.PP
+Definition at line 147 of file nt_vector_obj.h.
+.PP
+References Length().
+.PP
+.nf
+  { return (*this)*(right) / (Length() * right.Length()); }
+.fi
+.SS "\fBNTreal\fP NT_vector_o::Dot (const \fBNT_vector_o\fP right) const\fC [inline]\fP"
+.PP
+Definition at line 144 of file nt_vector_obj.h.
+.PP
+.nf
+  { return (*this)*(right);}   
+.fi
+.SS "\fBNTreal\fP NT_vector_o::Length (void) const\fC [inline]\fP"
+.PP
+Definition at line 160 of file nt_vector_obj.h.
+.PP
+References LenSqr().
+.PP
+Referenced by CosAng().
+.PP
+.nf
+{return sqrt(LenSqr()); };
+.fi
+.SS "\fBNTreal\fP NT_vector_o::LenSqr () const"
+.PP
+Referenced by Length().
+.SS "NT_vector_o::operator \fBNT_vector3_o\fP () const"
+.SS "\fBNTreal\fP& NT_vector_o::operator() (\fBNTint\fP component) const"
+.SS "\fBNTreal\fP NT_vector_o::operator* (const \fBNT_vector_o\fP &) const"
+.SS "\fBNT_vector_o\fP NT_vector_o::operator* (\fBNTreal\fP) const"
+.SS "\fBNT_vector_o\fP NT_vector_o::operator+ (const \fBNT_vector_o\fP &) const"
+.SS "\fBNT_vector_o\fP NT_vector_o::operator- (const \fBNT_vector_o\fP &) const"
+.SS "\fBNT_vector_o\fP& NT_vector_o::operator= (\fBNT_vector_o\fP const &)"
+.SS "\fBNTreal\fP& NT_vector_o::operator[] (\fBNTint\fP component) const"
+.SS "\fBNTreal\fP NT_vector_o::operator^ (\fBNT_vector_o\fP b)"
+.SS "void NT_vector_o::set_elem (const \fBNTreal\fP * elemVec)"
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "ostream& operator<< (ostream & os, const \fBNT_vector_o\fP & self)\fC [friend]\fP"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

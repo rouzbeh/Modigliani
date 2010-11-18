@@ -1,0 +1,9 @@
+<map id="G" name="G">
+<area shape="rect" id="node5" href="$class_n_t__bounds__error__o.html" title="Class to report an integer bound error." alt="" coords="260,5,407,35"/>
+<area shape="rect" id="node7" href="$class_n_t__dimension__error__o.html" title="Class to report an dimension mismatch error." alt="" coords="251,59,416,88"/>
+<area shape="rect" id="node9" href="$class_n_t__invariant__error__o.html" title="Class to report an invariant failure." alt="" coords="256,112,411,141"/>
+<area shape="rect" id="node11" href="$class_n_t__mem__error__o.html" title="Class to report memory exhaustion." alt="" coords="267,165,400,195"/>
+<area shape="rect" id="node13" href="$class_n_t__postcond__error__o.html" title="Class to report a postondition failure." alt="" coords="255,219,412,248"/>
+<area shape="rect" id="node15" href="$class_n_t__precond__error__o.html" title="Class to report a precondition failure." alt="" coords="259,272,408,301"/>
+<area shape="rect" id="node2" href="$class_n_t__o.html" title="Master class for all NT objects." alt="" coords="7,139,60,168"/>
+</map>

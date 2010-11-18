@@ -1,0 +1,115 @@
+.TH "NT_timing_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NT_timing_o \- 
+.PP
+\fBNT_timing_o\fP a stopwatch like measurement object: void \fBstart()\fP : start timing double \fBstop()\fP : stop timing void \fBreset()\fP : set elapsed time to 0.0 double \fBread()\fP : read elapsed time (in seconds).  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <nt_timing_obj.h>\fP
+.PP
+Inherits \fBNT_o\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNT_timing_o\fP ()"
+.br
+.ti -1c
+.RI "void \fBreset\fP ()"
+.br
+.ti -1c
+.RI "void \fBstart\fP ()"
+.br
+.ti -1c
+.RI "\fBNTdouble\fP \fBstop\fP ()"
+.br
+.ti -1c
+.RI "\fBNTdouble\fP \fBread\fP ()"
+.br
+.ti -1c
+.RI "\fBNTdouble\fP \fBseconds\fP ()"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Definition at line 73 of file nt_timing_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "NT_timing_o::NT_timing_o ()\fC [inline]\fP"
+.PP
+Definition at line 80 of file nt_timing_obj.h.
+.PP
+References reset().
+.PP
+.nf
+{ reset(); secs_per_tick = 1.0 / CLOCKS_PER_SEC;}
+.fi
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBNTdouble\fP NT_timing_o::read ()\fC [inline]\fP"
+.PP
+Definition at line 90 of file nt_timing_obj.h.
+.PP
+References seconds().
+.PP
+.nf
+                          {  if (isRunning) 
+                            {
+                                total+= seconds() - last_time;
+                                last_time = seconds();
+                            }
+                           return total;
+                        }       
+.fi
+.SS "void NT_timing_o::reset ()\fC [inline]\fP"
+.PP
+Definition at line 81 of file nt_timing_obj.h.
+.PP
+Referenced by NT_timing_o().
+.PP
+.nf
+{ isRunning = false; last_time = 0.0; total=0.0; }
+.fi
+.SS "\fBNTdouble\fP NT_timing_o::seconds ()\fC [inline]\fP"
+.PP
+Definition at line 97 of file nt_timing_obj.h.
+.PP
+Referenced by read(), start(), and stop().
+.PP
+.nf
+{ return ( (NTdouble) clock() ) * secs_per_tick;}                 
+.fi
+.SS "void NT_timing_o::start ()\fC [inline]\fP"
+.PP
+Definition at line 82 of file nt_timing_obj.h.
+.PP
+References seconds().
+.PP
+.nf
+{ if (!isRunning) { last_time = seconds(); isRunning = true;}}
+.fi
+.SS "\fBNTdouble\fP NT_timing_o::stop ()\fC [inline]\fP"
+.PP
+Definition at line 83 of file nt_timing_obj.h.
+.PP
+References seconds().
+.PP
+.nf
+                         { if (isRunning) 
+                            {
+                                total += seconds() - last_time; 
+                                isRunning = false;
+                             }
+                          return total; 
+                        }
+.fi
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

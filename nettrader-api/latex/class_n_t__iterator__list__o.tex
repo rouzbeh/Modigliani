@@ -1,0 +1,152 @@
+\subsection{NT\_\-iterator\_\-list\_\-o$<$ T $>$ Class Template Reference}
+\label{class_n_t__iterator__list__o}\index{NT\_\-iterator\_\-list\_\-o@{NT\_\-iterator\_\-list\_\-o}}
+
+
+REMARKS: 1.  
+
+
+
+
+{\ttfamily \#include $<$nt\_\-list\_\-obj.h$>$}
+
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_t__iterator__list__o_a721a945bc848b7758e1650c6c4374ea7}{NT\_\-iterator\_\-list\_\-o} (const \hyperlink{class_n_t__list__o}{NT\_\-list\_\-o}$<$ T $>$ \&)
+\begin{DoxyCompactList}\small\item\em -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/ \item\end{DoxyCompactList}\item 
+void \hyperlink{class_n_t__iterator__list__o_a18c33cc4e01f56e25564f74b8ca50904}{next} ()
+\begin{DoxyCompactList}\small\item\em PURPOSE: move the iterator to the next position. \item\end{DoxyCompactList}\item 
+void \hyperlink{class_n_t__iterator__list__o_a48f0f98f2c6c42def8d24222fad3d300}{reset} ()
+\begin{DoxyCompactList}\small\item\em PURPOSE: reset the iterator. \item\end{DoxyCompactList}\item 
+const T \& \hyperlink{class_n_t__iterator__list__o_a015e2f8ff27d95a9c61470a8312190d4}{current} () const 
+\begin{DoxyCompactList}\small\item\em RETURNS: the value stored at the iterator position. \item\end{DoxyCompactList}\item 
+\hyperlink{nt__types_8h_a9f3200824a52174bb5be77bed3838822}{NTbool} \hyperlink{class_n_t__iterator__list__o_abafaf786b6d1ab5f282e149e6218692e}{at\_\-end} () const 
+\begin{DoxyCompactList}\small\item\em RETURNS: TRUE iff the iterator is at the end of the list. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\subsubsection*{template$<$class T$>$ class NT\_\-iterator\_\-list\_\-o$<$ T $>$}
+
+This iterator is for inspection of a list only. You can only modify a list through its own cursor 2. Modification of a list invalidates all iterators attached to it. 
+
+Definition at line 151 of file nt\_\-list\_\-obj.h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{NT\_\-iterator\_\-list\_\-o@{NT\_\-iterator\_\-list\_\-o}!NT\_\-iterator\_\-list\_\-o@{NT\_\-iterator\_\-list\_\-o}}
+\index{NT\_\-iterator\_\-list\_\-o@{NT\_\-iterator\_\-list\_\-o}!NT_iterator_list_o@{NT\_\-iterator\_\-list\_\-o}}
+\paragraph[{NT\_\-iterator\_\-list\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ {\bf NT\_\-iterator\_\-list\_\-o}$<$ T $>$::{\bf NT\_\-iterator\_\-list\_\-o} (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT\_\-list\_\-o}$<$ T $>$ \&}]{ l}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__iterator__list__o_a721a945bc848b7758e1650c6c4374ea7}
+RECEIVES: l -\/ the list to iterate over 
+
+Definition at line 405 of file nt\_\-list\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+:  _list(l),
+   _pre(0)
+{}
+\end{DoxyCode}
+
+
+
+
+\subsubsection{Member Function Documentation}
+\index{NT\_\-iterator\_\-list\_\-o@{NT\_\-iterator\_\-list\_\-o}!at\_\-end@{at\_\-end}}
+\index{at\_\-end@{at\_\-end}!NT_iterator_list_o@{NT\_\-iterator\_\-list\_\-o}}
+\paragraph[{at\_\-end}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ {\bf NTbool} {\bf NT\_\-iterator\_\-list\_\-o}$<$ T $>$::at\_\-end (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hfill\label{class_n_t__iterator__list__o_abafaf786b6d1ab5f282e149e6218692e}
+
+
+Definition at line 422 of file nt\_\-list\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{  return cursor() == 0;
+}
+\end{DoxyCode}
+
+
+\index{NT\_\-iterator\_\-list\_\-o@{NT\_\-iterator\_\-list\_\-o}!current@{current}}
+\index{current@{current}!NT_iterator_list_o@{NT\_\-iterator\_\-list\_\-o}}
+\paragraph[{current}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ const T \& {\bf NT\_\-iterator\_\-list\_\-o}$<$ T $>$::current (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hfill\label{class_n_t__iterator__list__o_a015e2f8ff27d95a9c61470a8312190d4}
+
+
+Definition at line 440 of file nt\_\-list\_\-obj.h.
+
+
+
+References NT\_\-link\_\-list\_\-o$<$ T $>$::\_\-info.
+
+
+
+
+\begin{DoxyCode}
+{  NT_link_list_o<T>* cur = cursor();
+   return cur ? cur->_info : NT_link_list_o<T>::defval();
+}
+\end{DoxyCode}
+
+
+\index{NT\_\-iterator\_\-list\_\-o@{NT\_\-iterator\_\-list\_\-o}!next@{next}}
+\index{next@{next}!NT_iterator_list_o@{NT\_\-iterator\_\-list\_\-o}}
+\paragraph[{next}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ void {\bf NT\_\-iterator\_\-list\_\-o}$<$ T $>$::next (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__iterator__list__o_a18c33cc4e01f56e25564f74b8ca50904}
+
+
+Definition at line 430 of file nt\_\-list\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{  if (!_pre) _pre = _list._head;
+   else if (_pre->_next) _pre = _pre->_next;
+   // do not advance past the tail of the list
+}
+\end{DoxyCode}
+
+
+\index{NT\_\-iterator\_\-list\_\-o@{NT\_\-iterator\_\-list\_\-o}!reset@{reset}}
+\index{reset@{reset}!NT_iterator_list_o@{NT\_\-iterator\_\-list\_\-o}}
+\paragraph[{reset}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ void {\bf NT\_\-iterator\_\-list\_\-o}$<$ T $>$::reset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__iterator__list__o_a48f0f98f2c6c42def8d24222fad3d300}
+
+
+Definition at line 414 of file nt\_\-list\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{  _pre = 0;
+}
+\end{DoxyCode}
+
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nt__list__obj_8h}{nt\_\-list\_\-obj.h}\end{DoxyCompactItemize}

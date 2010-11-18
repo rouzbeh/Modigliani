@@ -1,0 +1,147 @@
+.TH "NT3D_texture_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NT3D_texture_o \- 
+.PP
+\fBNT3D_texture_o\fP class This base class provides data independent facilities to manipulate and administrate textures.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <nt3d_texture_obj.h>\fP
+.PP
+Inherits \fBNT_o\fP.
+.PP
+Inherited by \fBNT3D_file_texture_o\fP, \fBNT3D_moonmap_texture_o\fP, \fBNT3D_pixel_texture_o\fP, and \fBNT3D_worldmap_texture_o\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNT3D_texture_o\fP (\fBNTsize\fP newTextureWidth=64, \fBNTsize\fP newTextureHeight=64, \fBNTsize\fP newDim=2, bool newMakeTextureCoord=false)"
+.br
+.ti -1c
+.RI "\fBNT3D_texture_o\fP (const \fBNT3D_texture_o\fP &original)"
+.br
+.ti -1c
+.RI "const \fBNT3D_texture_o\fP & \fBoperator=\fP (const \fBNT3D_texture_o\fP &right)"
+.br
+.ti -1c
+.RI "\fB~NT3D_texture_o\fP ()"
+.br
+.ti -1c
+.RI "void \fBPaint\fP ()"
+.br
+.RI "\fIAfter \fBPaint()\fP texture coordinates should be specified in the control flow. \fP"
+.ti -1c
+.RI "void \fBPainted\fP ()"
+.br
+.RI "\fIto be called after to be textured objects were drawn \fP"
+.ti -1c
+.RI "void \fBTextureCoord\fP (bool bSwitch)"
+.br
+.RI "\fISwitches texture coord generation on and off in the pipeline. \fP"
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual \fBNTreturn\fP \fBAssignTexture\fP ()"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "GLfloat * \fBtextureImagePtr\fP"
+.br
+.ti -1c
+.RI "GLuint \fBtextureId\fP"
+.br
+.ti -1c
+.RI "\fBNTsize\fP \fBtextureWidth\fP"
+.br
+.ti -1c
+.RI "\fBNTsize\fP \fBtextureHeight\fP"
+.br
+.ti -1c
+.RI "GLenum \fBdim\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The texture is bound to the object through the CreateTexture() call in the \fBNT3D_texture_o\fP constructor.
+.PP
+General drawing usage in a derived \fBNT3D_object_o\fP class is: \fBPaint()\fP -> DrawXYZ() -> \fBPainted()\fP
+.PP
+\fBBug\fP
+.RS 4
+unknown 
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+dim is 2 by default in this base class 
+.RE
+.PP
+
+.PP
+Definition at line 107 of file nt3d_texture_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "NT3D_texture_o::NT3D_texture_o (\fBNTsize\fP newTextureWidth = \fC64\fP, \fBNTsize\fP newTextureHeight = \fC64\fP, \fBNTsize\fP newDim = \fC2\fP, bool newMakeTextureCoord = \fCfalse\fP)"
+.SS "NT3D_texture_o::NT3D_texture_o (const \fBNT3D_texture_o\fP & original)"
+.SS "NT3D_texture_o::~NT3D_texture_o ()"
+.SH "Member Function Documentation"
+.PP 
+.SS "virtual \fBNTreturn\fP NT3D_texture_o::AssignTexture ()\fC [inline, protected, virtual]\fP"
+.PP
+Reimplemented in \fBNT3D_file_texture_o\fP, \fBNT3D_moonmap_texture_o\fP, \fBNT3D_pixel_texture_o\fP, and \fBNT3D_worldmap_texture_o\fP.
+.PP
+Definition at line 129 of file nt3d_texture_obj.h.
+.PP
+.nf
+{ NT_CERR(1,'NT3D_texture_o::AssignTexture - Error : Not overridden in derived class.'); return NT_FAIL;};
+.fi
+.SS "const \fBNT3D_texture_o\fP& NT3D_texture_o::operator= (const \fBNT3D_texture_o\fP & right)"
+.SS "void NT3D_texture_o::Paint ()"
+.SS "void NT3D_texture_o::Painted ()\fC [inline]\fP"
+.PP
+Definition at line 122 of file nt3d_texture_obj.h.
+.PP
+References dim.
+.PP
+.nf
+{ glDisable(dim); };
+.fi
+.SS "void NT3D_texture_o::TextureCoord (bool bSwitch)\fC [inline]\fP"
+.PP
+Definition at line 124 of file nt3d_texture_obj.h.
+.PP
+.nf
+{ makeTextureCoord = bSwitch;}
+.fi
+.SH "Member Data Documentation"
+.PP 
+.SS "GLenum \fBNT3D_texture_o::dim\fP\fC [protected]\fP"
+.PP
+Definition at line 135 of file nt3d_texture_obj.h.
+.PP
+Referenced by Painted().
+.SS "\fBNTsize\fP \fBNT3D_texture_o::textureHeight\fP\fC [protected]\fP"
+.PP
+Definition at line 134 of file nt3d_texture_obj.h.
+.SS "GLuint \fBNT3D_texture_o::textureId\fP\fC [protected]\fP"
+.PP
+Definition at line 132 of file nt3d_texture_obj.h.
+.SS "GLfloat* \fBNT3D_texture_o::textureImagePtr\fP\fC [protected]\fP"
+.PP
+Definition at line 129 of file nt3d_texture_obj.h.
+.SS "\fBNTsize\fP \fBNT3D_texture_o::textureWidth\fP\fC [protected]\fP"
+.PP
+Definition at line 133 of file nt3d_texture_obj.h.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

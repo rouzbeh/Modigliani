@@ -1,0 +1,107 @@
+\subsection{NT3D\_\-target\_\-camera\_\-o Class Reference}
+\label{class_n_t3_d__target__camera__o}\index{NT3D\_\-target\_\-camera\_\-o@{NT3D\_\-target\_\-camera\_\-o}}
+
+
+\hyperlink{class_n_t3_d__target__camera__o}{NT3D\_\-target\_\-camera\_\-o} class Provides an abstraction of a positionable camera which looks at a fixed target specified in camera coordinates.  
+
+
+
+
+{\ttfamily \#include $<$nt3d\_\-target\_\-camera\_\-obj.h$>$}
+
+
+
+Inheritance diagram for NT3D\_\-target\_\-camera\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=174pt]{class_n_t3_d__target__camera__o__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for NT3D\_\-target\_\-camera\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{class_n_t3_d__target__camera__o__coll__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_t3_d__target__camera__o_afa47e703c954b1785ca36b057f60e291}{NT3D\_\-target\_\-camera\_\-o} (const \hyperlink{class_n_t__vector3__o}{NT\_\-vector3\_\-o} \&oNewPosition=NT\_\-OriginVec3(), const \hyperlink{class_n_t__vector3__o}{NT\_\-vector3\_\-o} \&oNewTarget=NT\_\-UnitXVec3())
+\item 
+\hyperlink{class_n_t3_d__target__camera__o_aedcf1b0bad594f8212f2154e24edc8ec}{NT3D\_\-target\_\-camera\_\-o} (const \hyperlink{class_n_t3_d__target__camera__o}{NT3D\_\-target\_\-camera\_\-o} \&original)
+\item 
+const \hyperlink{class_n_t3_d__target__camera__o}{NT3D\_\-target\_\-camera\_\-o} \& \hyperlink{class_n_t3_d__target__camera__o_adcb27395e80572b4e1987f3e6376ab5d}{operator=} (const \hyperlink{class_n_t3_d__target__camera__o}{NT3D\_\-target\_\-camera\_\-o} \&right)
+\item 
+\hyperlink{class_n_t3_d__target__camera__o_ac703319f625b9a7c6a7eda871aa609eb}{$\sim$NT3D\_\-target\_\-camera\_\-o} ()
+\item 
+void \hyperlink{class_n_t3_d__target__camera__o_a2f5e1222a66bc7da4b24f84376a6afa7}{Draw} ()
+\begin{DoxyCompactList}\small\item\em set the camera position, i.e. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+The camera can be translated in space whith the view always pointing at the target coordinates. \begin{Desc}
+\item[\hyperlink{bug__bug000041}{Bug}]unknown \end{Desc}
+\begin{DoxyWarning}{Warning}
+Rotation of this camera has no effect 
+\end{DoxyWarning}
+
+
+Definition at line 68 of file nt3d\_\-target\_\-camera\_\-obj.h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{NT3D\_\-target\_\-camera\_\-o@{NT3D\_\-target\_\-camera\_\-o}!NT3D\_\-target\_\-camera\_\-o@{NT3D\_\-target\_\-camera\_\-o}}
+\index{NT3D\_\-target\_\-camera\_\-o@{NT3D\_\-target\_\-camera\_\-o}!NT3D_target_camera_o@{NT3D\_\-target\_\-camera\_\-o}}
+\paragraph[{NT3D\_\-target\_\-camera\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT3D\_\-target\_\-camera\_\-o::NT3D\_\-target\_\-camera\_\-o (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT\_\-vector3\_\-o} \&}]{ oNewPosition = {\ttfamily NT\_\-OriginVec3()}, }
+\item[{const {\bf NT\_\-vector3\_\-o} \&}]{ oNewTarget = {\ttfamily NT\_\-UnitXVec3()}}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__target__camera__o_afa47e703c954b1785ca36b057f60e291}
+\index{NT3D\_\-target\_\-camera\_\-o@{NT3D\_\-target\_\-camera\_\-o}!NT3D\_\-target\_\-camera\_\-o@{NT3D\_\-target\_\-camera\_\-o}}
+\index{NT3D\_\-target\_\-camera\_\-o@{NT3D\_\-target\_\-camera\_\-o}!NT3D_target_camera_o@{NT3D\_\-target\_\-camera\_\-o}}
+\paragraph[{NT3D\_\-target\_\-camera\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT3D\_\-target\_\-camera\_\-o::NT3D\_\-target\_\-camera\_\-o (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT3D\_\-target\_\-camera\_\-o} \&}]{ original}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__target__camera__o_aedcf1b0bad594f8212f2154e24edc8ec}
+\index{NT3D\_\-target\_\-camera\_\-o@{NT3D\_\-target\_\-camera\_\-o}!$\sim$NT3D\_\-target\_\-camera\_\-o@{$\sim$NT3D\_\-target\_\-camera\_\-o}}
+\index{$\sim$NT3D\_\-target\_\-camera\_\-o@{$\sim$NT3D\_\-target\_\-camera\_\-o}!NT3D_target_camera_o@{NT3D\_\-target\_\-camera\_\-o}}
+\paragraph[{$\sim$NT3D\_\-target\_\-camera\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT3D\_\-target\_\-camera\_\-o::$\sim$NT3D\_\-target\_\-camera\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__target__camera__o_ac703319f625b9a7c6a7eda871aa609eb}
+
+
+\subsubsection{Member Function Documentation}
+\index{NT3D\_\-target\_\-camera\_\-o@{NT3D\_\-target\_\-camera\_\-o}!Draw@{Draw}}
+\index{Draw@{Draw}!NT3D_target_camera_o@{NT3D\_\-target\_\-camera\_\-o}}
+\paragraph[{Draw}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-target\_\-camera\_\-o::Draw (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t3_d__target__camera__o_a2f5e1222a66bc7da4b24f84376a6afa7}
+set the projection and viewing transformation, The method is virtual such that derived classes can overwrite it 
+
+Reimplemented from \hyperlink{class_n_t3_d__camera__o_afc9910092ea4a4d4a1a9ec9c4ee603c8}{NT3D\_\-camera\_\-o}.
+
+\index{NT3D\_\-target\_\-camera\_\-o@{NT3D\_\-target\_\-camera\_\-o}!operator=@{operator=}}
+\index{operator=@{operator=}!NT3D_target_camera_o@{NT3D\_\-target\_\-camera\_\-o}}
+\paragraph[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf NT3D\_\-target\_\-camera\_\-o}\& NT3D\_\-target\_\-camera\_\-o::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT3D\_\-target\_\-camera\_\-o} \&}]{ right}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__target__camera__o_adcb27395e80572b4e1987f3e6376ab5d}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nt3d__target__camera__obj_8h}{nt3d\_\-target\_\-camera\_\-obj.h}\end{DoxyCompactItemize}

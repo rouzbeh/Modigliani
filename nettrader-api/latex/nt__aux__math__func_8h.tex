@@ -1,0 +1,97 @@
+\subsection{nt\_\-aux\_\-math\_\-func.h File Reference}
+\label{nt__aux__math__func_8h}\index{nt\_\-aux\_\-math\_\-func.h@{nt\_\-aux\_\-math\_\-func.h}}
+{\ttfamily \#include \char`\"{}nt\_\-main.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}nt\_\-types.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}nt\_\-obj.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}nt\_\-mersenne\_\-twister\_\-external\_\-obj.h\char`\"{}}\par
+{\ttfamily \#include $<$cmath$>$}\par
+Include dependency graph for nt\_\-aux\_\-math\_\-func.h:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{nt__aux__math__func_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{nt__aux__math__func_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{nt__aux__math__func_8h_af9447a0783cc9981e29296ee260b6e70}{NTComputePLogP} (\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} prob)
+\begin{DoxyCompactList}\small\item\em NTlimit01 Limit a value between \mbox{[}0,1\mbox{]}. \item\end{DoxyCompactList}\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{nt__aux__math__func_8h_a4f822883c561a6fade4e50d398134778}{NTlimit01} (\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} value)
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{nt__aux__math__func_8h_a437b45c5fbce8225f6d76a3604865b8a}{NTround} (\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} value)
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{nt__aux__math__func_8h_a24fb330c0b036476cc1a959c0b5c920e}{NTLogGammaFunction} (\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} arg)
+\item 
+\hyperlink{class_m_t_rand}{MTRand} \hyperlink{nt__aux__math__func_8h_abcf4a144ee4d1b47ec76f0bd248c7458}{NTMakeMTRandFunction} (\hyperlink{class_m_t_rand_a45478edf9e24dcd2a5164bac3889d6a2}{MTRand::uint32} oneSeed)
+\item 
+int \hyperlink{nt__aux__math__func_8h_addca8e142da42d69409b9dd482352d14}{NTisnan} (double value)
+\item 
+int \hyperlink{nt__aux__math__func_8h_a7a3caa9837447819941934b21df338b9}{NTisinf} (double value)
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Function Documentation}
+\index{nt\_\-aux\_\-math\_\-func.h@{nt\_\-aux\_\-math\_\-func.h}!NTComputePLogP@{NTComputePLogP}}
+\index{NTComputePLogP@{NTComputePLogP}!nt_aux_math_func.h@{nt\_\-aux\_\-math\_\-func.h}}
+\paragraph[{NTComputePLogP}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NTComputePLogP (
+\begin{DoxyParamCaption}
+\item[{{\bf NTreal}}]{ prob}
+\end{DoxyParamCaption}
+)}\hfill\label{nt__aux__math__func_8h_af9447a0783cc9981e29296ee260b6e70}
+\begin{Desc}
+\item[\hyperlink{bug__bug000094}{Bug}]unknown \end{Desc}
+\begin{DoxyWarning}{Warning}
+unknown 
+\end{DoxyWarning}
+\index{nt\_\-aux\_\-math\_\-func.h@{nt\_\-aux\_\-math\_\-func.h}!NTisinf@{NTisinf}}
+\index{NTisinf@{NTisinf}!nt_aux_math_func.h@{nt\_\-aux\_\-math\_\-func.h}}
+\paragraph[{NTisinf}]{\setlength{\rightskip}{0pt plus 5cm}int NTisinf (
+\begin{DoxyParamCaption}
+\item[{double}]{ value}
+\end{DoxyParamCaption}
+)}\hfill\label{nt__aux__math__func_8h_a7a3caa9837447819941934b21df338b9}
+\index{nt\_\-aux\_\-math\_\-func.h@{nt\_\-aux\_\-math\_\-func.h}!NTisnan@{NTisnan}}
+\index{NTisnan@{NTisnan}!nt_aux_math_func.h@{nt\_\-aux\_\-math\_\-func.h}}
+\paragraph[{NTisnan}]{\setlength{\rightskip}{0pt plus 5cm}int NTisnan (
+\begin{DoxyParamCaption}
+\item[{double}]{ value}
+\end{DoxyParamCaption}
+)}\hfill\label{nt__aux__math__func_8h_addca8e142da42d69409b9dd482352d14}
+\index{nt\_\-aux\_\-math\_\-func.h@{nt\_\-aux\_\-math\_\-func.h}!NTlimit01@{NTlimit01}}
+\index{NTlimit01@{NTlimit01}!nt_aux_math_func.h@{nt\_\-aux\_\-math\_\-func.h}}
+\paragraph[{NTlimit01}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NTlimit01 (
+\begin{DoxyParamCaption}
+\item[{{\bf NTreal}}]{ value}
+\end{DoxyParamCaption}
+)}\hfill\label{nt__aux__math__func_8h_a4f822883c561a6fade4e50d398134778}
+\index{nt\_\-aux\_\-math\_\-func.h@{nt\_\-aux\_\-math\_\-func.h}!NTLogGammaFunction@{NTLogGammaFunction}}
+\index{NTLogGammaFunction@{NTLogGammaFunction}!nt_aux_math_func.h@{nt\_\-aux\_\-math\_\-func.h}}
+\paragraph[{NTLogGammaFunction}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NTLogGammaFunction (
+\begin{DoxyParamCaption}
+\item[{{\bf NTreal}}]{ arg}
+\end{DoxyParamCaption}
+)}\hfill\label{nt__aux__math__func_8h_a24fb330c0b036476cc1a959c0b5c920e}
+\index{nt\_\-aux\_\-math\_\-func.h@{nt\_\-aux\_\-math\_\-func.h}!NTMakeMTRandFunction@{NTMakeMTRandFunction}}
+\index{NTMakeMTRandFunction@{NTMakeMTRandFunction}!nt_aux_math_func.h@{nt\_\-aux\_\-math\_\-func.h}}
+\paragraph[{NTMakeMTRandFunction}]{\setlength{\rightskip}{0pt plus 5cm}{\bf MTRand} NTMakeMTRandFunction (
+\begin{DoxyParamCaption}
+\item[{{\bf MTRand::uint32}}]{ oneSeed}
+\end{DoxyParamCaption}
+)}\hfill\label{nt__aux__math__func_8h_abcf4a144ee4d1b47ec76f0bd248c7458}
+\index{nt\_\-aux\_\-math\_\-func.h@{nt\_\-aux\_\-math\_\-func.h}!NTround@{NTround}}
+\index{NTround@{NTround}!nt_aux_math_func.h@{nt\_\-aux\_\-math\_\-func.h}}
+\paragraph[{NTround}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NTround (
+\begin{DoxyParamCaption}
+\item[{{\bf NTreal}}]{ value}
+\end{DoxyParamCaption}
+)}\hfill\label{nt__aux__math__func_8h_a437b45c5fbce8225f6d76a3604865b8a}

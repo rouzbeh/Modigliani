@@ -1,0 +1,130 @@
+.TH "nt_error_obj.h" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+nt_error_obj.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <iostream>\fP
+.br
+\fC#include <cstdlib>\fP
+.br
+\fC#include 'nt_main.h'\fP
+.br
+\fC#include 'nt_types.h'\fP
+.br
+\fC#include 'nt_obj.h'\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBNT_error_o\fP"
+.br
+.RI "\fINT superclass to report an error. \fP"
+.ti -1c
+.RI "class \fBNT_bounds_error_o\fP"
+.br
+.RI "\fIClass to report an integer bound error. \fP"
+.ti -1c
+.RI "class \fBNT_dimension_error_o\fP"
+.br
+.RI "\fIClass to report an dimension mismatch error. \fP"
+.ti -1c
+.RI "class \fBNT_precond_error_o\fP"
+.br
+.RI "\fIClass to report a precondition failure. \fP"
+.ti -1c
+.RI "class \fBNT_postcond_error_o\fP"
+.br
+.RI "\fIClass to report a postondition failure. \fP"
+.ti -1c
+.RI "class \fBNT_invariant_error_o\fP"
+.br
+.RI "\fIClass to report an invariant failure. \fP"
+.ti -1c
+.RI "class \fBNT_mem_error_o\fP"
+.br
+.RI "\fIClass to report memory exhaustion. \fP"
+.in -1c
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBNT_THROW\fP(E)   (E.abort())"
+.br
+.ti -1c
+.RI "#define \fBNT_ASSERT\fP(E)   ((E) ? (void)0 : NT_THROW(\fBNT_error_o\fP(__FILE__, __LINE__, #E)))"
+.br
+.ti -1c
+.RI "#define \fBNT_ASSERT_PRECOND\fP(E)   ((E) ? (void)0 : NT_THROW(\fBNT_precond_error_o\fP(__FILE__, __LINE__, #E)))"
+.br
+.ti -1c
+.RI "#define \fBNT_ASSERT_POSTCOND\fP(E)   ((E) ? (void)0 : NT_THROW(\fBNT_postcond_error_o\fP(__FILE__, __LINE__, #E)))"
+.br
+.ti -1c
+.RI "#define \fBNT_ASSERT_INVARIANT\fP(E)   ((E) ? (void)0 : NT_THROW(\fBNT_invariant_error_o\fP(__FILE__, __LINE__, #E)))"
+.br
+.ti -1c
+.RI "#define \fBNT_ASSERT_MEM\fP(E)   ((E) ? (void)0 : NT_THROW(\fBNT_mem_error_o\fP(__FILE__, __LINE__, #E)))"
+.br
+.ti -1c
+.RI "#define \fBNT_ASSERT_BOUNDS\fP(I, L, H)   (NT_CheckBounds(__FILE__, __LINE__, I, L, H))"
+.br
+.ti -1c
+.RI "#define \fBNT_ASSERT_DIM\fP(L, R)   (NT_CheckDimension(__FILE__, __LINE__, L, R))"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBNT_CheckBounds\fP (const char *f, int l, int i, int lo, int hi)"
+.br
+.ti -1c
+.RI "void \fBNT_CheckDimension\fP (const char *f, int l, int leftDim, int rightDim)"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define NT_ASSERT(E)   ((E) ? (void)0 : NT_THROW(\fBNT_error_o\fP(__FILE__, __LINE__, #E)))"
+.PP
+Definition at line 188 of file nt_error_obj.h.
+.PP
+Referenced by NTBP_membrane_compartment_o::AttachedConductance(), NTBP_membrane_compartment_o::AttachedCurrent(), NTBP_membrane_compartment_o::AttachedReversalPotential(), NTBP_membrane_compartment_o::Current(), NT_multidim_array_o< NTsize >::Elem(), NT_multidim_array_o< NTsize >::ElemByIndex(), NTBP_membrane_patch_o::MembraneCurrent(), NodeDistanceMatrixConditioning(), NT_multidim_array_o< NTsize >::NT_multidim_array_o(), NTBP_membrane_current_o::Set_temperature(), NT3D_plot2d_vp_o::SetXRange(), and NT3D_plot2d_vp_o::SetYRange().
+.SS "#define NT_ASSERT_BOUNDS(I, L, H)   (NT_CheckBounds(__FILE__, __LINE__, I, L, H))"
+.PP
+Definition at line 193 of file nt_error_obj.h.
+.PP
+Referenced by NT_vector3_o::operator()().
+.SS "#define NT_ASSERT_DIM(L, R)   (NT_CheckDimension(__FILE__, __LINE__, L, R))"
+.PP
+Definition at line 194 of file nt_error_obj.h.
+.SS "#define NT_ASSERT_INVARIANT(E)   ((E) ? (void)0 : NT_THROW(\fBNT_invariant_error_o\fP(__FILE__, __LINE__, #E)))"
+.PP
+Definition at line 191 of file nt_error_obj.h.
+.SS "#define NT_ASSERT_MEM(E)   ((E) ? (void)0 : NT_THROW(\fBNT_mem_error_o\fP(__FILE__, __LINE__, #E)))"
+.PP
+Definition at line 192 of file nt_error_obj.h.
+.PP
+Referenced by NT_list_o< T >::insert(), NT_list_o< T >::insert_head(), and NT_list_o< T >::insert_tail().
+.SS "#define NT_ASSERT_POSTCOND(E)   ((E) ? (void)0 : NT_THROW(\fBNT_postcond_error_o\fP(__FILE__, __LINE__, #E)))"
+.PP
+Definition at line 190 of file nt_error_obj.h.
+.SS "#define NT_ASSERT_PRECOND(E)   ((E) ? (void)0 : NT_THROW(\fBNT_precond_error_o\fP(__FILE__, __LINE__, #E)))"
+.PP
+Definition at line 189 of file nt_error_obj.h.
+.PP
+Referenced by NT_list_o< T >::current().
+.SS "#define NT_THROW(E)   (E.abort())"
+.PP
+Definition at line 185 of file nt_error_obj.h.
+.SH "Function Documentation"
+.PP 
+.SS "void NT_CheckBounds (const char * f, int l, int i, int lo, int hi)"
+.SS "void NT_CheckDimension (const char * f, int l, int leftDim, int rightDim)"
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

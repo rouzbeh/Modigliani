@@ -1,0 +1,156 @@
+\subsection{NT\_\-histogram\_\-o Class Reference}
+\label{class_n_t__histogram__o}\index{NT\_\-histogram\_\-o@{NT\_\-histogram\_\-o}}
+
+
+\hyperlink{class_n_t__histogram__o}{NT\_\-histogram\_\-o} class.  
+
+
+
+
+{\ttfamily \#include $<$nt\_\-histogram\_\-obj.h$>$}
+
+
+
+Inheritance diagram for NT\_\-histogram\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=138pt]{class_n_t__histogram__o__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for NT\_\-histogram\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=138pt]{class_n_t__histogram__o__coll__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_t__histogram__o_a229f88c21c7527e2cc048c43e9bc10cf}{NT\_\-histogram\_\-o} (\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} minVal=0, \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} maxVal=1, \hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} numberOfBins=10)
+\item 
+\hyperlink{class_n_t__histogram__o_a26abef4bc37f9f1768913693d69756cd}{NT\_\-histogram\_\-o} (const \hyperlink{class_n_t__histogram__o}{NT\_\-histogram\_\-o} \&original)
+\item 
+const \hyperlink{class_n_t__histogram__o}{NT\_\-histogram\_\-o} \& \hyperlink{class_n_t__histogram__o_a4e6c0fa95b623834c021e3614b881881}{operator=} (const \hyperlink{class_n_t__histogram__o}{NT\_\-histogram\_\-o} \&right)
+\item 
+virtual \hyperlink{class_n_t__histogram__o_a7ffbc36700b3c1c97ca4fe4d93debd35}{$\sim$NT\_\-histogram\_\-o} ()
+\item 
+void \hyperlink{class_n_t__histogram__o_af67149357925545db10594eacf15cc29}{Reset} ()
+\item 
+void \hyperlink{class_n_t__histogram__o_a26ceff203764c4b288255c0aadd69ac3}{BinValue} (\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} value)
+\item 
+void \hyperlink{class_n_t__histogram__o_a2bacbd750700213b4e4b74312982c798}{Show} (bool showHeader=false) const 
+\item 
+vector$<$ \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} $>$ \hyperlink{class_n_t__histogram__o_a5f3937357969666b3c07f5ff8da71434}{PDF} () const 
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t__histogram__o_ae3e719124abf849401eb51a2e4489ac0}{ShannonEntropy} () const 
+\end{DoxyCompactItemize}
+\subsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+ostream \& \hyperlink{class_n_t__histogram__o_a08205718b05a07ad642674c8315b4941}{operator$<$$<$} (ostream \&str, const \hyperlink{class_n_t__histogram__o}{NT\_\-histogram\_\-o} \&self)
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\begin{Desc}
+\item[\hyperlink{bug__bug000099}{Bug}]unknown \end{Desc}
+\begin{DoxyWarning}{Warning}
+unknown 
+\end{DoxyWarning}
+
+
+Definition at line 55 of file nt\_\-histogram\_\-obj.h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{NT\_\-histogram\_\-o@{NT\_\-histogram\_\-o}!NT\_\-histogram\_\-o@{NT\_\-histogram\_\-o}}
+\index{NT\_\-histogram\_\-o@{NT\_\-histogram\_\-o}!NT_histogram_o@{NT\_\-histogram\_\-o}}
+\paragraph[{NT\_\-histogram\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-histogram\_\-o::NT\_\-histogram\_\-o (
+\begin{DoxyParamCaption}
+\item[{{\bf NTreal}}]{ minVal = {\ttfamily 0}, }
+\item[{{\bf NTreal}}]{ maxVal = {\ttfamily 1}, }
+\item[{{\bf NTsize}}]{ numberOfBins = {\ttfamily 10}}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__histogram__o_a229f88c21c7527e2cc048c43e9bc10cf}
+\index{NT\_\-histogram\_\-o@{NT\_\-histogram\_\-o}!NT\_\-histogram\_\-o@{NT\_\-histogram\_\-o}}
+\index{NT\_\-histogram\_\-o@{NT\_\-histogram\_\-o}!NT_histogram_o@{NT\_\-histogram\_\-o}}
+\paragraph[{NT\_\-histogram\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-histogram\_\-o::NT\_\-histogram\_\-o (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT\_\-histogram\_\-o} \&}]{ original}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__histogram__o_a26abef4bc37f9f1768913693d69756cd}
+\index{NT\_\-histogram\_\-o@{NT\_\-histogram\_\-o}!$\sim$NT\_\-histogram\_\-o@{$\sim$NT\_\-histogram\_\-o}}
+\index{$\sim$NT\_\-histogram\_\-o@{$\sim$NT\_\-histogram\_\-o}!NT_histogram_o@{NT\_\-histogram\_\-o}}
+\paragraph[{$\sim$NT\_\-histogram\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}virtual NT\_\-histogram\_\-o::$\sim$NT\_\-histogram\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t__histogram__o_a7ffbc36700b3c1c97ca4fe4d93debd35}
+
+
+\subsubsection{Member Function Documentation}
+\index{NT\_\-histogram\_\-o@{NT\_\-histogram\_\-o}!BinValue@{BinValue}}
+\index{BinValue@{BinValue}!NT_histogram_o@{NT\_\-histogram\_\-o}}
+\paragraph[{BinValue}]{\setlength{\rightskip}{0pt plus 5cm}void NT\_\-histogram\_\-o::BinValue (
+\begin{DoxyParamCaption}
+\item[{{\bf NTreal}}]{ value}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__histogram__o_a26ceff203764c4b288255c0aadd69ac3}
+\index{NT\_\-histogram\_\-o@{NT\_\-histogram\_\-o}!operator=@{operator=}}
+\index{operator=@{operator=}!NT_histogram_o@{NT\_\-histogram\_\-o}}
+\paragraph[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf NT\_\-histogram\_\-o}\& NT\_\-histogram\_\-o::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT\_\-histogram\_\-o} \&}]{ right}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__histogram__o_a4e6c0fa95b623834c021e3614b881881}
+\index{NT\_\-histogram\_\-o@{NT\_\-histogram\_\-o}!PDF@{PDF}}
+\index{PDF@{PDF}!NT_histogram_o@{NT\_\-histogram\_\-o}}
+\paragraph[{PDF}]{\setlength{\rightskip}{0pt plus 5cm}vector$<${\bf NTreal}$>$ NT\_\-histogram\_\-o::PDF (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hfill\label{class_n_t__histogram__o_a5f3937357969666b3c07f5ff8da71434}
+\index{NT\_\-histogram\_\-o@{NT\_\-histogram\_\-o}!Reset@{Reset}}
+\index{Reset@{Reset}!NT_histogram_o@{NT\_\-histogram\_\-o}}
+\paragraph[{Reset}]{\setlength{\rightskip}{0pt plus 5cm}void NT\_\-histogram\_\-o::Reset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__histogram__o_af67149357925545db10594eacf15cc29}
+\index{NT\_\-histogram\_\-o@{NT\_\-histogram\_\-o}!ShannonEntropy@{ShannonEntropy}}
+\index{ShannonEntropy@{ShannonEntropy}!NT_histogram_o@{NT\_\-histogram\_\-o}}
+\paragraph[{ShannonEntropy}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NT\_\-histogram\_\-o::ShannonEntropy (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hfill\label{class_n_t__histogram__o_ae3e719124abf849401eb51a2e4489ac0}
+\index{NT\_\-histogram\_\-o@{NT\_\-histogram\_\-o}!Show@{Show}}
+\index{Show@{Show}!NT_histogram_o@{NT\_\-histogram\_\-o}}
+\paragraph[{Show}]{\setlength{\rightskip}{0pt plus 5cm}void NT\_\-histogram\_\-o::Show (
+\begin{DoxyParamCaption}
+\item[{bool}]{ showHeader = {\ttfamily false}}
+\end{DoxyParamCaption}
+) const}\hfill\label{class_n_t__histogram__o_a2bacbd750700213b4e4b74312982c798}
+
+
+\subsubsection{Friends And Related Function Documentation}
+\index{NT\_\-histogram\_\-o@{NT\_\-histogram\_\-o}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!NT_histogram_o@{NT\_\-histogram\_\-o}}
+\paragraph[{operator$<$$<$}]{\setlength{\rightskip}{0pt plus 5cm}ostream\& operator$<$$<$ (
+\begin{DoxyParamCaption}
+\item[{ostream \&}]{ str, }
+\item[{const {\bf NT\_\-histogram\_\-o} \&}]{ self}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}friend\mbox{]}}}\hfill\label{class_n_t__histogram__o_a08205718b05a07ad642674c8315b4941}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nt__histogram__obj_8h}{nt\_\-histogram\_\-obj.h}\end{DoxyCompactItemize}

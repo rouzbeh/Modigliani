@@ -1,0 +1,216 @@
+.TH "nt_codes.h" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+nt_codes.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'nt_main.h'\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBNT_EURO_CURRENCY\fP   'Euro'"
+.br
+.ti -1c
+.RI "#define \fBNT_USA_CURRENCY\fP   'US-Dollar'"
+.br
+.ti -1c
+.RI "#define \fBNT_ITALY_CURRENCY\fP   'Lira Italiane'"
+.br
+.ti -1c
+.RI "#define \fBNT_GERMANY_CURRENCY\fP   'Deutsche Mark'"
+.br
+.ti -1c
+.RI "#define \fBNT_UNDEF\fP   0"
+.br
+.ti -1c
+.RI "#define \fBNT_CURRENCY\fP   100"
+.br
+.ti -1c
+.RI "#define \fBNT_STOCK_VALUE\fP   200"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBNTclassCode\fP { \fBNT_O\fP =  1, \fBNT3D_O\fP =  1000000 }"
+.br
+.RI "\fICLASS CODES. \fP"
+.ti -1c
+.RI "enum \fBNTimageFileType\fP { \fBNT_AUTO\fP, \fBNT_RAW\fP, \fBNT_NT\fP = 1, \fBNT_PPM\fP, \fBNT_BMP\fP, \fBNT_TGA\fP, \fBNT_GIF\fP, \fBNT_JPG\fP, \fBNT_PNG\fP, \fBNT_UNKNOWN\fP }"
+.br
+.RI "\fIimage/bitmap related CODES \fP"
+.ti -1c
+.RI "enum \fBNTimageDataFormat\fP { \fBNT_SINGLE_CHANNEL\fP =  1, \fBNT_RGB\fP =  3, \fBNT_RGBA\fP =  4, \fBNT_RED\fP, \fBNT_GREEN\fP, \fBNT_BLUE\fP, \fBNT_ALPHA\fP }"
+.br
+.ti -1c
+.RI "enum \fBNTcountryCode\fP { \fBNT_EU\fP = -1, \fBNT_USA\fP = 1, \fBNT_ITALY\fP = 39, \fBNT_UK\fP = 44, \fBNT_GERMANY\fP = 49 }"
+.br
+.RI "\fICOUNTRY CODES == intl. \fP"
+.ti -1c
+.RI "enum \fBNTstockExchangeId\fP { \fBNT_STKEXC_UNDEF\fP = 0, \fBNT_STKEXC_NYSE\fP = 1000, \fBNT_STKEXC_NASDAQ\fP = 2000, \fBNT_STKEXC_FTSE\fP = 10000, \fBNT_STKEXC_FSE\fP = 20000 }"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define NT_CURRENCY   100"
+.PP
+Definition at line 128 of file nt_codes.h.
+.SS "#define NT_EURO_CURRENCY   'Euro'"
+.PP
+Definition at line 103 of file nt_codes.h.
+.SS "#define NT_GERMANY_CURRENCY   'Deutsche Mark'"
+.PP
+Definition at line 106 of file nt_codes.h.
+.SS "#define NT_ITALY_CURRENCY   'Lira Italiane'"
+.PP
+Definition at line 105 of file nt_codes.h.
+.SS "#define NT_STOCK_VALUE   200"
+.PP
+Definition at line 129 of file nt_codes.h.
+.SS "#define NT_UNDEF   0"
+.PP
+Definition at line 127 of file nt_codes.h.
+.SS "#define NT_USA_CURRENCY   'US-Dollar'"
+.PP
+Definition at line 104 of file nt_codes.h.
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fBNTclassCode\fP"
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fINT_O \fP\fP
+NT class. 
+.TP
+\fB\fINT3D_O \fP\fP
+NT3D classes. 
+.PP
+Definition at line 74 of file nt_codes.h.
+.PP
+.nf
+                 { 
+NT_O = 1,
+NT3D_O = 1000000
+    };
+.fi
+.SS "enum \fBNTcountryCode\fP"phone code 
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fINT_EU \fP\fP
+.TP
+\fB\fINT_USA \fP\fP
+.TP
+\fB\fINT_ITALY \fP\fP
+.TP
+\fB\fINT_UK \fP\fP
+.TP
+\fB\fINT_GERMANY \fP\fP
+
+.PP
+Definition at line 88 of file nt_codes.h.
+.PP
+.nf
+                  { NT_EU           =-1, 
+                NT_USA          =1,
+                NT_ITALY        =39,
+                NT_UK           =44,
+                NT_GERMANY      =49
+            } ;
+.fi
+.SS "enum \fBNTimageDataFormat\fP"
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fINT_SINGLE_CHANNEL \fP\fP
+.TP
+\fB\fINT_RGB \fP\fP
+.TP
+\fB\fINT_RGBA \fP\fP
+.TP
+\fB\fINT_RED \fP\fP
+.TP
+\fB\fINT_GREEN \fP\fP
+.TP
+\fB\fINT_BLUE \fP\fP
+.TP
+\fB\fINT_ALPHA \fP\fP
+
+.PP
+Definition at line 83 of file nt_codes.h.
+.PP
+.nf
+                       {NT_SINGLE_CHANNEL = 1, NT_RGB = 3, NT_RGBA = 4,
+                        NT_RED, NT_GREEN, NT_BLUE, NT_ALPHA}; 
+.fi
+.SS "enum \fBNTimageFileType\fP"
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fINT_AUTO \fP\fP
+.TP
+\fB\fINT_RAW \fP\fP
+.TP
+\fB\fINT_NT \fP\fP
+.TP
+\fB\fINT_PPM \fP\fP
+.TP
+\fB\fINT_BMP \fP\fP
+.TP
+\fB\fINT_TGA \fP\fP
+.TP
+\fB\fINT_GIF \fP\fP
+.TP
+\fB\fINT_JPG \fP\fP
+.TP
+\fB\fINT_PNG \fP\fP
+.TP
+\fB\fINT_UNKNOWN \fP\fP
+
+.PP
+Definition at line 82 of file nt_codes.h.
+.PP
+.nf
+{NT_AUTO, NT_RAW, NT_NT=1, NT_PPM, NT_BMP, NT_TGA, NT_GIF, NT_JPG, NT_PNG, NT_UNKNOWN};
+.fi
+.SS "enum \fBNTstockExchangeId\fP"
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fINT_STKEXC_UNDEF \fP\fP
+.TP
+\fB\fINT_STKEXC_NYSE \fP\fP
+.TP
+\fB\fINT_STKEXC_NASDAQ \fP\fP
+.TP
+\fB\fINT_STKEXC_FTSE \fP\fP
+.TP
+\fB\fINT_STKEXC_FSE \fP\fP
+
+.PP
+Definition at line 109 of file nt_codes.h.
+.PP
+.nf
+                      {  NT_STKEXC_UNDEF       =0,
+                /* USA */
+                NT_STKEXC_NYSE      =1000,
+                NT_STKEXC_NASDAQ    =2000,
+                /* EUROPE */
+                NT_STKEXC_FTSE      =10000,
+                NT_STKEXC_FSE       =20000
+            } ;
+.fi
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

@@ -1,0 +1,340 @@
+\subsection{NTBP\_\-ion\_\-channels\_\-o Class Reference}
+\label{class_n_t_b_p__ion__channels__o}\index{NTBP\_\-ion\_\-channels\_\-o@{NTBP\_\-ion\_\-channels\_\-o}}
+
+
+\hyperlink{class_n_t_b_p__ion__channels__o}{NTBP\_\-ion\_\-channels\_\-o} class.  
+
+
+
+
+{\ttfamily \#include $<$ntbp\_\-ion\_\-channels\_\-obj.h$>$}
+
+
+
+Inheritance diagram for NTBP\_\-ion\_\-channels\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_n_t_b_p__ion__channels__o__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for NTBP\_\-ion\_\-channels\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=385pt]{class_n_t_b_p__ion__channels__o__coll__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_t_b_p__ion__channels__o_ade7da2e7c295b74a09d468ac850b8db1}{NTBP\_\-ion\_\-channels\_\-o} (\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} numNewChannels=1, \hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} numNewStates=1)
+\item 
+\hyperlink{class_n_t_b_p__ion__channels__o_af82d158610b12d1d5aaa2c2035c8d15c}{NTBP\_\-ion\_\-channels\_\-o} (const \hyperlink{class_n_t_b_p__ion__channels__o}{NTBP\_\-ion\_\-channels\_\-o} \&original)
+\item 
+const \hyperlink{class_n_t_b_p__ion__channels__o}{NTBP\_\-ion\_\-channels\_\-o} \& \hyperlink{class_n_t_b_p__ion__channels__o_a5da879b729ce1001963b84b4620c1641}{operator=} (const \hyperlink{class_n_t_b_p__ion__channels__o}{NTBP\_\-ion\_\-channels\_\-o} \&right)
+\item 
+virtual \hyperlink{class_n_t_b_p__ion__channels__o_a1406ae70ceb537a41d4e7c755a60dc01}{$\sim$NTBP\_\-ion\_\-channels\_\-o} ()
+\item 
+\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} \hyperlink{class_n_t_b_p__ion__channels__o_ac7d73247fc96b26c28ca6c0bc0482410}{\_\-numChannels} () const 
+\item 
+\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} \hyperlink{class_n_t_b_p__ion__channels__o_a0f713bc04c573ed0a887f734c9dcf5d4}{\_\-numStates} () const 
+\item 
+bool \hyperlink{class_n_t_b_p__ion__channels__o_a8e477f6a69715687a7dd60e5af9245c4}{GillespieStep} ()
+\item 
+virtual \hyperlink{nt__types_8h_ab9564ee8f091e809d21b8451c6683c53}{NTreturn} \hyperlink{class_n_t_b_p__ion__channels__o_a2f8fe07b7beaf904ffde81f8ec0c7009}{BinomialStep} ()
+\item 
+virtual bool \hyperlink{class_n_t_b_p__ion__channels__o_ad6e7f2db87a1b72afb707424d3fd3d12}{ComputeGillespieStep} (\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} channelStateId)
+\item 
+virtual void \hyperlink{class_n_t_b_p__ion__channels__o_a6732284521ed7491232fb3a9e4b034ef}{ShowStates} () const =0
+\item 
+virtual \hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} \hyperlink{class_n_t_b_p__ion__channels__o_a01b5d9b7fdf0526a276e9eb871003738}{NumOpen} () const =0
+\item 
+virtual \hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} \hyperlink{class_n_t_b_p__ion__channels__o_aa50f6de73c29f82ed85136d6f32eb4b9}{NumClosed} () const =0
+\item 
+virtual \hyperlink{nt__types_8h_ab9564ee8f091e809d21b8451c6683c53}{NTreturn} \hyperlink{class_n_t_b_p__ion__channels__o_a6af9a67869bbbb43b9ec5bd28beff681}{SteadyStateDistribution} ()=0
+\item 
+virtual \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t_b_p__ion__channels__o_adc3430ac3f77ed8f01f4a7041a912246}{ComputeChannelStateTimeConstant} () const =0
+\begin{DoxyCompactList}\small\item\em Sum of escape rates from current state \mbox{[}1/s\mbox{]}. \item\end{DoxyCompactList}\item 
+virtual \hyperlink{nt__types_8h_ab9564ee8f091e809d21b8451c6683c53}{NTreturn} \hyperlink{class_n_t_b_p__ion__channels__o_a6c865e74014bef8bc9ae547e4835ec81}{UpdateStateProb} (vector$<$ \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} $>$ rateConstVec)=0
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+vector$<$ \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} $>$ \hyperlink{class_n_t_b_p__ion__channels__o_a794757763f5dc40dc3f3336e96e30c0c}{statePersistenceProbVec}
+\item 
+vector$<$ \hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} $>$ \hyperlink{class_n_t_b_p__ion__channels__o_a2a06cae230e79c0548210d704fdab042}{stateCounterVec}
+\end{DoxyCompactItemize}
+\subsubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_n_t__uniform__rnd__dist__o}{NT\_\-uniform\_\-rnd\_\-dist\_\-o} \hyperlink{class_n_t_b_p__ion__channels__o_a4739d0046a028f8484d0d8948f9cd5be}{uniformRnd}
+\item 
+static \hyperlink{class_n_t__binomial__rnd__dist__o}{NT\_\-binomial\_\-rnd\_\-dist\_\-o} \hyperlink{class_n_t_b_p__ion__channels__o_a624ace6b6ed786eae71b2833c4d8e7a4}{binomRnd}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\begin{Desc}
+\item[\hyperlink{bug__bug000062}{Bug}]unknown \end{Desc}
+\begin{DoxyWarning}{Warning}
+unknown 
+\end{DoxyWarning}
+
+
+Definition at line 58 of file ntbp\_\-ion\_\-channels\_\-obj.h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{NTBP\_\-ion\_\-channels\_\-o@{NTBP\_\-ion\_\-channels\_\-o}!NTBP\_\-ion\_\-channels\_\-o@{NTBP\_\-ion\_\-channels\_\-o}}
+\index{NTBP\_\-ion\_\-channels\_\-o@{NTBP\_\-ion\_\-channels\_\-o}!NTBP_ion_channels_o@{NTBP\_\-ion\_\-channels\_\-o}}
+\paragraph[{NTBP\_\-ion\_\-channels\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NTBP\_\-ion\_\-channels\_\-o::NTBP\_\-ion\_\-channels\_\-o (
+\begin{DoxyParamCaption}
+\item[{{\bf NTsize}}]{ numNewChannels = {\ttfamily 1}, }
+\item[{{\bf NTsize}}]{ numNewStates = {\ttfamily 1}}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t_b_p__ion__channels__o_ade7da2e7c295b74a09d468ac850b8db1}
+\index{NTBP\_\-ion\_\-channels\_\-o@{NTBP\_\-ion\_\-channels\_\-o}!NTBP\_\-ion\_\-channels\_\-o@{NTBP\_\-ion\_\-channels\_\-o}}
+\index{NTBP\_\-ion\_\-channels\_\-o@{NTBP\_\-ion\_\-channels\_\-o}!NTBP_ion_channels_o@{NTBP\_\-ion\_\-channels\_\-o}}
+\paragraph[{NTBP\_\-ion\_\-channels\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NTBP\_\-ion\_\-channels\_\-o::NTBP\_\-ion\_\-channels\_\-o (
+\begin{DoxyParamCaption}
+\item[{const {\bf NTBP\_\-ion\_\-channels\_\-o} \&}]{ original}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t_b_p__ion__channels__o_af82d158610b12d1d5aaa2c2035c8d15c}
+\index{NTBP\_\-ion\_\-channels\_\-o@{NTBP\_\-ion\_\-channels\_\-o}!$\sim$NTBP\_\-ion\_\-channels\_\-o@{$\sim$NTBP\_\-ion\_\-channels\_\-o}}
+\index{$\sim$NTBP\_\-ion\_\-channels\_\-o@{$\sim$NTBP\_\-ion\_\-channels\_\-o}!NTBP_ion_channels_o@{NTBP\_\-ion\_\-channels\_\-o}}
+\paragraph[{$\sim$NTBP\_\-ion\_\-channels\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}virtual NTBP\_\-ion\_\-channels\_\-o::$\sim$NTBP\_\-ion\_\-channels\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t_b_p__ion__channels__o_a1406ae70ceb537a41d4e7c755a60dc01}
+
+
+\subsubsection{Member Function Documentation}
+\index{NTBP\_\-ion\_\-channels\_\-o@{NTBP\_\-ion\_\-channels\_\-o}!\_\-numChannels@{\_\-numChannels}}
+\index{\_\-numChannels@{\_\-numChannels}!NTBP_ion_channels_o@{NTBP\_\-ion\_\-channels\_\-o}}
+\paragraph[{\_\-numChannels}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTsize} NTBP\_\-ion\_\-channels\_\-o::\_\-numChannels (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t_b_p__ion__channels__o_ac7d73247fc96b26c28ca6c0bc0482410}
+
+
+Definition at line 66 of file ntbp\_\-ion\_\-channels\_\-obj.h.
+
+
+
+Referenced by NTBP\_\-sodium\_\-ion\_\-channels\_\-o::NumClosed(), NTBP\_\-potassium\_\-ion\_\-channels\_\-o::NumClosed(), NTBP\_\-patlak\_\-sodium\_\-ion\_\-channels\_\-o::NumClosed(), NTBP\_\-sga\_\-sodium\_\-current\_\-o::Show(), NTBP\_\-multi\_\-sodium\_\-current\_\-o::Show(), and NTBP\_\-hranvier\_\-sodium\_\-multi\_\-current\_\-o::Show().
+
+
+
+
+\begin{DoxyCode}
+{ return numChannels;}
+\end{DoxyCode}
+
+
+\index{NTBP\_\-ion\_\-channels\_\-o@{NTBP\_\-ion\_\-channels\_\-o}!\_\-numStates@{\_\-numStates}}
+\index{\_\-numStates@{\_\-numStates}!NTBP_ion_channels_o@{NTBP\_\-ion\_\-channels\_\-o}}
+\paragraph[{\_\-numStates}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTsize} NTBP\_\-ion\_\-channels\_\-o::\_\-numStates (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t_b_p__ion__channels__o_a0f713bc04c573ed0a887f734c9dcf5d4}
+
+
+Definition at line 67 of file ntbp\_\-ion\_\-channels\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ return numStates;}
+\end{DoxyCode}
+
+
+\index{NTBP\_\-ion\_\-channels\_\-o@{NTBP\_\-ion\_\-channels\_\-o}!BinomialStep@{BinomialStep}}
+\index{BinomialStep@{BinomialStep}!NTBP_ion_channels_o@{NTBP\_\-ion\_\-channels\_\-o}}
+\paragraph[{BinomialStep}]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf NTreturn} NTBP\_\-ion\_\-channels\_\-o::BinomialStep (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}\hfill\label{class_n_t_b_p__ion__channels__o_a2f8fe07b7beaf904ffde81f8ec0c7009}
+
+
+Reimplemented in \hyperlink{class_n_t_b_p__patlak__sodium__ion__channels__o_a3d572d7973c668f2daf24d974562b6fd}{NTBP\_\-patlak\_\-sodium\_\-ion\_\-channels\_\-o}, \hyperlink{class_n_t_b_p__potassium__ion__channels__o_a166a2fcc5bc92616955ce78c1084fd7a}{NTBP\_\-potassium\_\-ion\_\-channels\_\-o}, and \hyperlink{class_n_t_b_p__sodium__ion__channels__o_ad888125f6166e07a07c6dda135ff5bce}{NTBP\_\-sodium\_\-ion\_\-channels\_\-o}.
+
+
+
+Definition at line 69 of file ntbp\_\-ion\_\-channels\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ cerr << "NTBP_ion_channels_o::BinomialStep was not derived." << endl; return NT
+      _NOT_IMPLEMENTED;}
+\end{DoxyCode}
+
+
+\index{NTBP\_\-ion\_\-channels\_\-o@{NTBP\_\-ion\_\-channels\_\-o}!ComputeChannelStateTimeConstant@{ComputeChannelStateTimeConstant}}
+\index{ComputeChannelStateTimeConstant@{ComputeChannelStateTimeConstant}!NTBP_ion_channels_o@{NTBP\_\-ion\_\-channels\_\-o}}
+\paragraph[{ComputeChannelStateTimeConstant}]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf NTreal} NTBP\_\-ion\_\-channels\_\-o::ComputeChannelStateTimeConstant (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}\hfill\label{class_n_t_b_p__ion__channels__o_adc3430ac3f77ed8f01f4a7041a912246}
+
+
+Implemented in \hyperlink{class_n_t_b_p__patlak__sodium__ion__channels__o_a993416d61d13fbc227b7af744ad6eafe}{NTBP\_\-patlak\_\-sodium\_\-ion\_\-channels\_\-o}, \hyperlink{class_n_t_b_p__potassium__ion__channels__o_ae946df665a34cfa7042c6ce9a49a1c59}{NTBP\_\-potassium\_\-ion\_\-channels\_\-o}, and \hyperlink{class_n_t_b_p__sodium__ion__channels__o_abd74db620cecb51853a5c9a8cfbf3676}{NTBP\_\-sodium\_\-ion\_\-channels\_\-o}.
+
+\index{NTBP\_\-ion\_\-channels\_\-o@{NTBP\_\-ion\_\-channels\_\-o}!ComputeGillespieStep@{ComputeGillespieStep}}
+\index{ComputeGillespieStep@{ComputeGillespieStep}!NTBP_ion_channels_o@{NTBP\_\-ion\_\-channels\_\-o}}
+\paragraph[{ComputeGillespieStep}]{\setlength{\rightskip}{0pt plus 5cm}virtual bool NTBP\_\-ion\_\-channels\_\-o::ComputeGillespieStep (
+\begin{DoxyParamCaption}
+\item[{{\bf NTsize}}]{ channelStateId}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}\hfill\label{class_n_t_b_p__ion__channels__o_ad6e7f2db87a1b72afb707424d3fd3d12}
+
+
+Reimplemented in \hyperlink{class_n_t_b_p__potassium__ion__channels__o_a4f786d5e22e15720f2bb7f24de206c2e}{NTBP\_\-potassium\_\-ion\_\-channels\_\-o}, and \hyperlink{class_n_t_b_p__sodium__ion__channels__o_af3fd0046325755ffc770b38da3748a8b}{NTBP\_\-sodium\_\-ion\_\-channels\_\-o}.
+
+
+
+Definition at line 70 of file ntbp\_\-ion\_\-channels\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ cerr << "NTBP_ion_channels::ComputeGillespieStep - Error : Should be overridden
+       by derived class." << endl; return false;}
+\end{DoxyCode}
+
+
+\index{NTBP\_\-ion\_\-channels\_\-o@{NTBP\_\-ion\_\-channels\_\-o}!GillespieStep@{GillespieStep}}
+\index{GillespieStep@{GillespieStep}!NTBP_ion_channels_o@{NTBP\_\-ion\_\-channels\_\-o}}
+\paragraph[{GillespieStep}]{\setlength{\rightskip}{0pt plus 5cm}bool NTBP\_\-ion\_\-channels\_\-o::GillespieStep (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t_b_p__ion__channels__o_a8e477f6a69715687a7dd60e5af9245c4}
+
+
+Referenced by NTBP\_\-multi\_\-current\_\-o::ComputeGillespieStep().
+
+\index{NTBP\_\-ion\_\-channels\_\-o@{NTBP\_\-ion\_\-channels\_\-o}!NumClosed@{NumClosed}}
+\index{NumClosed@{NumClosed}!NTBP_ion_channels_o@{NTBP\_\-ion\_\-channels\_\-o}}
+\paragraph[{NumClosed}]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf NTsize} NTBP\_\-ion\_\-channels\_\-o::NumClosed (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}\hfill\label{class_n_t_b_p__ion__channels__o_aa50f6de73c29f82ed85136d6f32eb4b9}
+
+
+Implemented in \hyperlink{class_n_t_b_p__patlak__sodium__ion__channels__o_af91d8d1fa40e08247e0015e02967a5f9}{NTBP\_\-patlak\_\-sodium\_\-ion\_\-channels\_\-o}, \hyperlink{class_n_t_b_p__potassium__ion__channels__o_a8b81cc2ba47625b28759c87f85bb50b8}{NTBP\_\-potassium\_\-ion\_\-channels\_\-o}, and \hyperlink{class_n_t_b_p__sodium__ion__channels__o_a9fe662d5dffde34f80fe972383f844fe}{NTBP\_\-sodium\_\-ion\_\-channels\_\-o}.
+
+\index{NTBP\_\-ion\_\-channels\_\-o@{NTBP\_\-ion\_\-channels\_\-o}!NumOpen@{NumOpen}}
+\index{NumOpen@{NumOpen}!NTBP_ion_channels_o@{NTBP\_\-ion\_\-channels\_\-o}}
+\paragraph[{NumOpen}]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf NTsize} NTBP\_\-ion\_\-channels\_\-o::NumOpen (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}\hfill\label{class_n_t_b_p__ion__channels__o_a01b5d9b7fdf0526a276e9eb871003738}
+
+
+Implemented in \hyperlink{class_n_t_b_p__patlak__sodium__ion__channels__o_a8995eeb87fc7de8351c1ded3a6e50c5d}{NTBP\_\-patlak\_\-sodium\_\-ion\_\-channels\_\-o}, \hyperlink{class_n_t_b_p__potassium__ion__channels__o_afcd2354c53d4b027909fa03fcb6abf72}{NTBP\_\-potassium\_\-ion\_\-channels\_\-o}, and \hyperlink{class_n_t_b_p__sodium__ion__channels__o_a16bede0246bf016d77070519f769333b}{NTBP\_\-sodium\_\-ion\_\-channels\_\-o}.
+
+
+
+Referenced by NTBP\_\-delayed\_\-potassium\_\-rectifier\_\-current\_\-o::ComputeConductance(), NTBP\_\-sga\_\-sodium\_\-current\_\-o::Show(), NTBP\_\-multi\_\-sodium\_\-current\_\-o::Show(), and NTBP\_\-hranvier\_\-sodium\_\-multi\_\-current\_\-o::Show().
+
+\index{NTBP\_\-ion\_\-channels\_\-o@{NTBP\_\-ion\_\-channels\_\-o}!operator=@{operator=}}
+\index{operator=@{operator=}!NTBP_ion_channels_o@{NTBP\_\-ion\_\-channels\_\-o}}
+\paragraph[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf NTBP\_\-ion\_\-channels\_\-o}\& NTBP\_\-ion\_\-channels\_\-o::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf NTBP\_\-ion\_\-channels\_\-o} \&}]{ right}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t_b_p__ion__channels__o_a5da879b729ce1001963b84b4620c1641}
+\index{NTBP\_\-ion\_\-channels\_\-o@{NTBP\_\-ion\_\-channels\_\-o}!ShowStates@{ShowStates}}
+\index{ShowStates@{ShowStates}!NTBP_ion_channels_o@{NTBP\_\-ion\_\-channels\_\-o}}
+\paragraph[{ShowStates}]{\setlength{\rightskip}{0pt plus 5cm}virtual void NTBP\_\-ion\_\-channels\_\-o::ShowStates (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}\hfill\label{class_n_t_b_p__ion__channels__o_a6732284521ed7491232fb3a9e4b034ef}
+
+
+Implemented in \hyperlink{class_n_t_b_p__patlak__sodium__ion__channels__o_a85d7ec33e88d15d1241743adcbb715c1}{NTBP\_\-patlak\_\-sodium\_\-ion\_\-channels\_\-o}, \hyperlink{class_n_t_b_p__potassium__ion__channels__o_a36b949514e4fbe579f27a2b4173e9caf}{NTBP\_\-potassium\_\-ion\_\-channels\_\-o}, and \hyperlink{class_n_t_b_p__sodium__ion__channels__o_a8980fe2ed37fb8dc8f58afd841b7799c}{NTBP\_\-sodium\_\-ion\_\-channels\_\-o}.
+
+
+
+Referenced by NTBP\_\-sga\_\-sodium\_\-current\_\-o::ShowChannelStatePopulation(), NTBP\_\-multi\_\-sodium\_\-current\_\-o::ShowChannelStatePopulation(), and NTBP\_\-hranvier\_\-sodium\_\-multi\_\-current\_\-o::ShowChannelStatePopulation().
+
+\index{NTBP\_\-ion\_\-channels\_\-o@{NTBP\_\-ion\_\-channels\_\-o}!SteadyStateDistribution@{SteadyStateDistribution}}
+\index{SteadyStateDistribution@{SteadyStateDistribution}!NTBP_ion_channels_o@{NTBP\_\-ion\_\-channels\_\-o}}
+\paragraph[{SteadyStateDistribution}]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf NTreturn} NTBP\_\-ion\_\-channels\_\-o::SteadyStateDistribution (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}\hfill\label{class_n_t_b_p__ion__channels__o_a6af9a67869bbbb43b9ec5bd28beff681}
+
+
+Implemented in \hyperlink{class_n_t_b_p__patlak__sodium__ion__channels__o_ab45b8f8da67ca2f7e168258641cae478}{NTBP\_\-patlak\_\-sodium\_\-ion\_\-channels\_\-o}, \hyperlink{class_n_t_b_p__potassium__ion__channels__o_ad6366a99e20e95aa928918ce17b5fd7b}{NTBP\_\-potassium\_\-ion\_\-channels\_\-o}, and \hyperlink{class_n_t_b_p__sodium__ion__channels__o_ad6cccdf139751f6f517ba20aa491e968}{NTBP\_\-sodium\_\-ion\_\-channels\_\-o}.
+
+\index{NTBP\_\-ion\_\-channels\_\-o@{NTBP\_\-ion\_\-channels\_\-o}!UpdateStateProb@{UpdateStateProb}}
+\index{UpdateStateProb@{UpdateStateProb}!NTBP_ion_channels_o@{NTBP\_\-ion\_\-channels\_\-o}}
+\paragraph[{UpdateStateProb}]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf NTreturn} NTBP\_\-ion\_\-channels\_\-o::UpdateStateProb (
+\begin{DoxyParamCaption}
+\item[{vector$<$ {\bf NTreal} $>$}]{ rateConstVec}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}\hfill\label{class_n_t_b_p__ion__channels__o_a6c865e74014bef8bc9ae547e4835ec81}
+
+
+Implemented in \hyperlink{class_n_t_b_p__patlak__sodium__ion__channels__o_ad3ab2a983cdc7acb49acc91f217d1527}{NTBP\_\-patlak\_\-sodium\_\-ion\_\-channels\_\-o}, \hyperlink{class_n_t_b_p__potassium__ion__channels__o_af000db84e4f01e8f0e5af8f104711076}{NTBP\_\-potassium\_\-ion\_\-channels\_\-o}, and \hyperlink{class_n_t_b_p__sodium__ion__channels__o_a9eb9ea77b08b7a09650dc7409fca112d}{NTBP\_\-sodium\_\-ion\_\-channels\_\-o}.
+
+
+
+\subsubsection{Member Data Documentation}
+\index{NTBP\_\-ion\_\-channels\_\-o@{NTBP\_\-ion\_\-channels\_\-o}!binomRnd@{binomRnd}}
+\index{binomRnd@{binomRnd}!NTBP_ion_channels_o@{NTBP\_\-ion\_\-channels\_\-o}}
+\paragraph[{binomRnd}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NT\_\-binomial\_\-rnd\_\-dist\_\-o} {\bf NTBP\_\-ion\_\-channels\_\-o::binomRnd}\hspace{0.3cm}{\ttfamily  \mbox{[}static, protected\mbox{]}}}\hfill\label{class_n_t_b_p__ion__channels__o_a624ace6b6ed786eae71b2833c4d8e7a4}
+
+
+Definition at line 86 of file ntbp\_\-ion\_\-channels\_\-obj.h.
+
+\index{NTBP\_\-ion\_\-channels\_\-o@{NTBP\_\-ion\_\-channels\_\-o}!stateCounterVec@{stateCounterVec}}
+\index{stateCounterVec@{stateCounterVec}!NTBP_ion_channels_o@{NTBP\_\-ion\_\-channels\_\-o}}
+\paragraph[{stateCounterVec}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ {\bf NTsize} $>$ {\bf NTBP\_\-ion\_\-channels\_\-o::stateCounterVec}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_n_t_b_p__ion__channels__o_a2a06cae230e79c0548210d704fdab042}
+
+
+Definition at line 84 of file ntbp\_\-ion\_\-channels\_\-obj.h.
+
+
+
+Referenced by NTBP\_\-sodium\_\-ion\_\-channels\_\-o::NumOpen(), NTBP\_\-potassium\_\-ion\_\-channels\_\-o::NumOpen(), and NTBP\_\-patlak\_\-sodium\_\-ion\_\-channels\_\-o::NumOpen().
+
+\index{NTBP\_\-ion\_\-channels\_\-o@{NTBP\_\-ion\_\-channels\_\-o}!statePersistenceProbVec@{statePersistenceProbVec}}
+\index{statePersistenceProbVec@{statePersistenceProbVec}!NTBP_ion_channels_o@{NTBP\_\-ion\_\-channels\_\-o}}
+\paragraph[{statePersistenceProbVec}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ {\bf NTreal} $>$ {\bf NTBP\_\-ion\_\-channels\_\-o::statePersistenceProbVec}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_n_t_b_p__ion__channels__o_a794757763f5dc40dc3f3336e96e30c0c}
+
+
+Definition at line 83 of file ntbp\_\-ion\_\-channels\_\-obj.h.
+
+\index{NTBP\_\-ion\_\-channels\_\-o@{NTBP\_\-ion\_\-channels\_\-o}!uniformRnd@{uniformRnd}}
+\index{uniformRnd@{uniformRnd}!NTBP_ion_channels_o@{NTBP\_\-ion\_\-channels\_\-o}}
+\paragraph[{uniformRnd}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NT\_\-uniform\_\-rnd\_\-dist\_\-o} {\bf NTBP\_\-ion\_\-channels\_\-o::uniformRnd}\hspace{0.3cm}{\ttfamily  \mbox{[}static, protected\mbox{]}}}\hfill\label{class_n_t_b_p__ion__channels__o_a4739d0046a028f8484d0d8948f9cd5be}
+
+
+Definition at line 85 of file ntbp\_\-ion\_\-channels\_\-obj.h.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{ntbp__ion__channels__obj_8h}{ntbp\_\-ion\_\-channels\_\-obj.h}\end{DoxyCompactItemize}

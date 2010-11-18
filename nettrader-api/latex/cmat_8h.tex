@@ -1,0 +1,59 @@
+\subsection{cmat.h File Reference}
+\label{cmat_8h}\index{cmat.h@{cmat.h}}
+{\ttfamily \#include \char`\"{}tnt/subscript.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}tnt/vec.h\char`\"{}}\par
+{\ttfamily \#include $<$cstdlib$>$}\par
+{\ttfamily \#include $<$cassert$>$}\par
+{\ttfamily \#include $<$iostream$>$}\par
+{\ttfamily \#include $<$strstream$>$}\par
+Include dependency graph for cmat.h:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{cmat_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{cmat_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_t_n_t_1_1_matrix}{TNT::Matrix$<$ T $>$}
+\end{DoxyCompactItemize}
+\subsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \hyperlink{namespace_t_n_t}{TNT}
+\end{DoxyCompactItemize}
+\subsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class T $>$ }\\std::ostream \& \hyperlink{namespace_t_n_t_adeecd24f6af848eafc643c71ea35ea7f}{TNT::operator$<$$<$} (std::ostream \&s, const Matrix$<$ T $>$ \&A)
+\item 
+{\footnotesize template$<$class T $>$ }\\std::istream \& \hyperlink{namespace_t_n_t_ab9878fdc8dd7301c74dde5cf367f07bf}{TNT::operator$>$$>$} (std::istream \&s, Matrix$<$ T $>$ \&A)
+\item 
+{\footnotesize template$<$class T $>$ }\\Matrix$<$ T $>$ \hyperlink{namespace_t_n_t_a7652f9afa5f942b3484a18b332676ff8}{TNT::operator+} (const Matrix$<$ T $>$ \&A, const Matrix$<$ T $>$ \&B)
+\item 
+{\footnotesize template$<$class T $>$ }\\Matrix$<$ T $>$ \hyperlink{namespace_t_n_t_a05ffa4c326c0f51ef4e2c2be9abde552}{TNT::operator-\/} (const Matrix$<$ T $>$ \&A, const Matrix$<$ T $>$ \&B)
+\item 
+{\footnotesize template$<$class T $>$ }\\Matrix$<$ T $>$ \hyperlink{namespace_t_n_t_a39160bf84e65a9034369c1072456e83e}{TNT::mult\_\-element} (const Matrix$<$ T $>$ \&A, const Matrix$<$ T $>$ \&B)
+\item 
+{\footnotesize template$<$class T $>$ }\\Matrix$<$ T $>$ \hyperlink{namespace_t_n_t_aa97b646045595ba4d4a4b92fcc866cf8}{TNT::transpose} (const Matrix$<$ T $>$ \&A)
+\item 
+{\footnotesize template$<$class T $>$ }\\Matrix$<$ T $>$ \hyperlink{namespace_t_n_t_ad2ac1ae6c8d6dfdbdc22e63bc03700d7}{TNT::matmult} (const Matrix$<$ T $>$ \&A, const Matrix$<$ T $>$ \&B)
+\item 
+{\footnotesize template$<$class T $>$ }\\Matrix$<$ T $>$ \hyperlink{namespace_t_n_t_ac7d0ba2e0a49b98ca66bb673b65bebcf}{TNT::operator$\ast$} (const Matrix$<$ T $>$ \&A, const Matrix$<$ T $>$ \&B)
+\item 
+{\footnotesize template$<$class T $>$ }\\int \hyperlink{namespace_t_n_t_ab150bc9116fc808e59075bc0748e0e3c}{TNT::matmult} (Matrix$<$ T $>$ \&C, const Matrix$<$ T $>$ \&A, const Matrix$<$ T $>$ \&B)
+\item 
+{\footnotesize template$<$class T $>$ }\\Vector$<$ T $>$ \hyperlink{namespace_t_n_t_ae8ef3b83f0c645ffb3c5db9d653e0625}{TNT::matmult} (const Matrix$<$ T $>$ \&A, const Vector$<$ T $>$ \&x)
+\item 
+{\footnotesize template$<$class T $>$ }\\Vector$<$ T $>$ \hyperlink{namespace_t_n_t_a34f973c4d8e918b55ff43d661151fa3d}{TNT::operator$\ast$} (const Matrix$<$ T $>$ \&A, const Vector$<$ T $>$ \&x)
+\end{DoxyCompactItemize}

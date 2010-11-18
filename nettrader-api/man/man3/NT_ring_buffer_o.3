@@ -1,0 +1,182 @@
+.TH "NT_ring_buffer_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NT_ring_buffer_o \- 
+.PP
+\fBNT_ring_buffer_o\fP class.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <nt_ring_buffer_obj.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNT_ring_buffer_o\fP (\fBNTsize\fP newRingLength=2)"
+.br
+.ti -1c
+.RI "\fBNT_ring_buffer_o\fP (const \fBNT_ring_buffer_o\fP &original)"
+.br
+.ti -1c
+.RI "const \fBNT_ring_buffer_o\fP & \fBoperator=\fP (const \fBNT_ring_buffer_o\fP &right)"
+.br
+.ti -1c
+.RI "virtual \fB~NT_ring_buffer_o\fP ()"
+.br
+.ti -1c
+.RI "\fBNTsize\fP \fB_ringLength\fP () const "
+.br
+.ti -1c
+.RI "\fBNTreturn\fP \fBResize\fP (\fBNTsize\fP newRingLength)"
+.br
+.RI "\fIafter resize states are reset to scratch \fP"
+.ti -1c
+.RI "void \fBPush\fP (T value)"
+.br
+.ti -1c
+.RI "void \fBShow\fP ()"
+.br
+.ti -1c
+.RI "vector< T > \fBBuffer\fP ()"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNTsize\fP \fBIncreaseCounter\fP ()"
+.br
+.ti -1c
+.RI "\fBNTsize\fP \fB_counter\fP ()"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBNTsize\fP \fBringLength\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.SS "template<class T> class NT_ring_buffer_o< T >"
+\fBBug\fP
+.RS 4
+unknown 
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+unknown 
+.RE
+.PP
+
+.PP
+Definition at line 57 of file nt_ring_buffer_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "template<class T > \fBNT_ring_buffer_o\fP< T >::\fBNT_ring_buffer_o\fP (\fBNTsize\fP newRingLength = \fC2\fP)\fC [inline]\fP"
+.PP
+Definition at line 60 of file nt_ring_buffer_obj.h.
+.PP
+.nf
+{ Init(newRingLength); }
+.fi
+.SS "template<class T > \fBNT_ring_buffer_o\fP< T >::\fBNT_ring_buffer_o\fP (const \fBNT_ring_buffer_o\fP< T > & original)"
+.SS "template<class T > virtual \fBNT_ring_buffer_o\fP< T >::~\fBNT_ring_buffer_o\fP ()\fC [inline, virtual]\fP"
+.PP
+Definition at line 63 of file nt_ring_buffer_obj.h.
+.PP
+.nf
+{}
+.fi
+.SH "Member Function Documentation"
+.PP 
+.SS "template<class T > \fBNTsize\fP \fBNT_ring_buffer_o\fP< T >::_counter ()\fC [inline, protected]\fP"
+.PP
+Definition at line 81 of file nt_ring_buffer_obj.h.
+.PP
+Referenced by NT_ring_buffer_o< T >::Buffer().
+.PP
+.nf
+{ return counter; }
+.fi
+.SS "template<class T > \fBNTsize\fP \fBNT_ring_buffer_o\fP< T >::_ringLength () const\fC [inline]\fP"
+.PP
+Definition at line 65 of file nt_ring_buffer_obj.h.
+.PP
+References NT_ring_buffer_o< T >::ringLength.
+.PP
+Referenced by NT_ring_buffer_o< T >::Buffer(), and NT_ring_buffer_o< T >::Show().
+.PP
+.nf
+{ return ringLength;}
+.fi
+.SS "template<class T > vector<T> \fBNT_ring_buffer_o\fP< T >::Buffer ()\fC [inline]\fP"
+.PP
+Definition at line 71 of file nt_ring_buffer_obj.h.
+.PP
+References NT_ring_buffer_o< T >::_counter(), NT_ring_buffer_o< T >::_ringLength(), and NT_ring_buffer_o< T >::ringLength.
+.PP
+Referenced by NT_ring_buffer_o< T >::Show().
+.PP
+.nf
+                    {
+                            vector <T> tmpVec(ringLength);
+                            for (NTsize ll=0; ll< _ringLength(); ll++) tmpVec[ll] = bufferVec[(_counter()+ll+1) % ringLength];
+                            return tmpVec;
+                          }
+.fi
+.SS "template<class T > \fBNTsize\fP \fBNT_ring_buffer_o\fP< T >::IncreaseCounter ()\fC [inline, protected]\fP"
+.PP
+Definition at line 79 of file nt_ring_buffer_obj.h.
+.PP
+References NT_ring_buffer_o< T >::ringLength.
+.PP
+Referenced by NT_ring_buffer_o< T >::Push().
+.PP
+.nf
+                         {   counter = (counter + 1) % ringLength;
+                            return counter; }
+.fi
+.SS "template<class T > const \fBNT_ring_buffer_o\fP& \fBNT_ring_buffer_o\fP< T >::operator= (const \fBNT_ring_buffer_o\fP< T > & right)"
+.SS "template<class T > void \fBNT_ring_buffer_o\fP< T >::Push (T value)\fC [inline]\fP"
+.PP
+Definition at line 68 of file nt_ring_buffer_obj.h.
+.PP
+References NT_ring_buffer_o< T >::IncreaseCounter().
+.PP
+.nf
+{ bufferVec[IncreaseCounter()] = value;}
+.fi
+.SS "template<class T > \fBNTreturn\fP \fBNT_ring_buffer_o\fP< T >::Resize (\fBNTsize\fP newRingLength)\fC [inline]\fP"
+.PP
+Definition at line 67 of file nt_ring_buffer_obj.h.
+.PP
+.nf
+{ Init(newRingLength); }
+.fi
+.SS "template<class T > void \fBNT_ring_buffer_o\fP< T >::Show ()\fC [inline]\fP"
+.PP
+Definition at line 69 of file nt_ring_buffer_obj.h.
+.PP
+References NT_ring_buffer_o< T >::_ringLength(), and NT_ring_buffer_o< T >::Buffer().
+.PP
+.nf
+{ vector <T> tmpVec = Buffer(); for(NTsize ll=0; ll< _ringLength(); ll++) cout << tmpVec[ll] << ' '; cout << endl;}
+.fi
+.SH "Member Data Documentation"
+.PP 
+.SS "template<class T > \fBNTsize\fP \fBNT_ring_buffer_o\fP< T >::\fBringLength\fP\fC [protected]\fP"
+.PP
+Definition at line 83 of file nt_ring_buffer_obj.h.
+.PP
+Referenced by NT_ring_buffer_o< T >::_ringLength(), NT_ring_buffer_o< T >::Buffer(), and NT_ring_buffer_o< T >::IncreaseCounter().
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

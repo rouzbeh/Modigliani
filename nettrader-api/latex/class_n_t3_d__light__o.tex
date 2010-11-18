@@ -1,0 +1,276 @@
+\subsection{NT3D\_\-light\_\-o Class Reference}
+\label{class_n_t3_d__light__o}\index{NT3D\_\-light\_\-o@{NT3D\_\-light\_\-o}}
+
+
+\hyperlink{class_n_t3_d__light__o}{NT3D\_\-light\_\-o} class Light setup and manipulation (based OpenGL light implementation).  
+
+
+
+
+{\ttfamily \#include $<$nt3d\_\-light\_\-obj.h$>$}
+
+
+
+Inheritance diagram for NT3D\_\-light\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_n_t3_d__light__o__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for NT3D\_\-light\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{class_n_t3_d__light__o__coll__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_t3_d__light__o_a337101f2741ab79f03f4c8a93dafe485}{NT3D\_\-light\_\-o} ()
+\item 
+\hyperlink{class_n_t3_d__light__o_a932238de23aa33e8ceb1b214c84677bd}{NT3D\_\-light\_\-o} (const \hyperlink{class_n_t3_d__light__o}{NT3D\_\-light\_\-o} \&original)
+\item 
+const \hyperlink{class_n_t3_d__light__o}{NT3D\_\-light\_\-o} \& \hyperlink{class_n_t3_d__light__o_a0aa4e70e24d400d463560886d3c9262f}{operator=} (const \hyperlink{class_n_t3_d__light__o}{NT3D\_\-light\_\-o} \&right)
+\item 
+virtual \hyperlink{class_n_t3_d__light__o_a337f6ab9d405ba2dedd604d45f532441}{$\sim$NT3D\_\-light\_\-o} ()
+\item 
+void \hyperlink{class_n_t3_d__light__o_aa19feee937ca62b9cc57345e243bbf97}{Illuminate} ()
+\begin{DoxyCompactList}\small\item\em Do not override in derived classes use DrawLight() instead Do ONLY use calls to \hyperlink{class_n_t3_d__light__o_aa19feee937ca62b9cc57345e243bbf97}{Illuminate()} from outside this hierarchy. \item\end{DoxyCompactList}\item 
+void \hyperlink{class_n_t3_d__light__o_af5f7a52b03cd26dc6acee68dbec6273b}{On} ()
+\item 
+void \hyperlink{class_n_t3_d__light__o_adc6f859b8897bb595377e2ea66fbf526}{Off} ()
+\end{DoxyCompactItemize}
+\subsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_t3_d__color__o}{NT3D\_\-color\_\-o} \hyperlink{class_n_t3_d__light__o_a0a2eb91320561f70e6e8d9225eac48f6}{colorAmbient}
+\item 
+\hyperlink{class_n_t3_d__color__o}{NT3D\_\-color\_\-o} \hyperlink{class_n_t3_d__light__o_a271304f2bef7e9fb4ab228689d4f4f7d}{colorDiffuse}
+\item 
+\hyperlink{class_n_t3_d__color__o}{NT3D\_\-color\_\-o} \hyperlink{class_n_t3_d__light__o_a925f6392c85cd8d7938e331bc69aedb4}{colorSpecular}
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{class_n_t3_d__light__o_acca67ca286bb2f6c5ecdbcaeb935c66d}{IlluminateLight} ()=0
+\begin{DoxyCompactList}\small\item\em Derive to implement lights. \item\end{DoxyCompactList}\item 
+void \hyperlink{class_n_t3_d__light__o_a7fbc8e7323cf3501ed230eba0400a5c1}{IlluminateAmbient} ()
+\item 
+void \hyperlink{class_n_t3_d__light__o_a014b4c5f911e8b4361917ffd1f06848b}{IlluminateDiffuse} ()
+\item 
+void \hyperlink{class_n_t3_d__light__o_a4b5b552b082cd48577c4cf9736595c8d}{IlluminateSpecular} ()
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nt__types_8h_ab5cab5f78fdd2211c340cbe527a4afd7}{NTid} \hyperlink{class_n_t3_d__light__o_a908cd2700dcf23eb04f66e8c6b5c30e0}{lightId}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\begin{Desc}
+\item[\hyperlink{bug__bug000019}{Bug}]unknown \end{Desc}
+\begin{DoxyWarning}{Warning}
+unknown 
+\end{DoxyWarning}
+
+
+Definition at line 72 of file nt3d\_\-light\_\-obj.h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{NT3D\_\-light\_\-o@{NT3D\_\-light\_\-o}!NT3D\_\-light\_\-o@{NT3D\_\-light\_\-o}}
+\index{NT3D\_\-light\_\-o@{NT3D\_\-light\_\-o}!NT3D_light_o@{NT3D\_\-light\_\-o}}
+\paragraph[{NT3D\_\-light\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT3D\_\-light\_\-o::NT3D\_\-light\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__light__o_a337101f2741ab79f03f4c8a93dafe485}
+\index{NT3D\_\-light\_\-o@{NT3D\_\-light\_\-o}!NT3D\_\-light\_\-o@{NT3D\_\-light\_\-o}}
+\index{NT3D\_\-light\_\-o@{NT3D\_\-light\_\-o}!NT3D_light_o@{NT3D\_\-light\_\-o}}
+\paragraph[{NT3D\_\-light\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT3D\_\-light\_\-o::NT3D\_\-light\_\-o (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT3D\_\-light\_\-o} \&}]{ original}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__light__o_a932238de23aa33e8ceb1b214c84677bd}
+\index{NT3D\_\-light\_\-o@{NT3D\_\-light\_\-o}!$\sim$NT3D\_\-light\_\-o@{$\sim$NT3D\_\-light\_\-o}}
+\index{$\sim$NT3D\_\-light\_\-o@{$\sim$NT3D\_\-light\_\-o}!NT3D_light_o@{NT3D\_\-light\_\-o}}
+\paragraph[{$\sim$NT3D\_\-light\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}virtual NT3D\_\-light\_\-o::$\sim$NT3D\_\-light\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t3_d__light__o_a337f6ab9d405ba2dedd604d45f532441}
+
+
+\subsubsection{Member Function Documentation}
+\index{NT3D\_\-light\_\-o@{NT3D\_\-light\_\-o}!Illuminate@{Illuminate}}
+\index{Illuminate@{Illuminate}!NT3D_light_o@{NT3D\_\-light\_\-o}}
+\paragraph[{Illuminate}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-light\_\-o::Illuminate (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__light__o_aa19feee937ca62b9cc57345e243bbf97}
+
+
+Referenced by NT3D\_\-lamp\_\-o::DrawObj().
+
+\index{NT3D\_\-light\_\-o@{NT3D\_\-light\_\-o}!IlluminateAmbient@{IlluminateAmbient}}
+\index{IlluminateAmbient@{IlluminateAmbient}!NT3D_light_o@{NT3D\_\-light\_\-o}}
+\paragraph[{IlluminateAmbient}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-light\_\-o::IlluminateAmbient (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, protected\mbox{]}}}\hfill\label{class_n_t3_d__light__o_a7fbc8e7323cf3501ed230eba0400a5c1}
+
+
+Definition at line 93 of file nt3d\_\-light\_\-obj.h.
+
+
+
+References NT3D\_\-color\_\-o::\_\-colorPtr(), colorAmbient, and lightId.
+
+
+
+
+\begin{DoxyCode}
+{ glLightfv( (GLenum) lightId, GL_AMBIENT,  colorAmbient._colorPtr());}
+\end{DoxyCode}
+
+
+\index{NT3D\_\-light\_\-o@{NT3D\_\-light\_\-o}!IlluminateDiffuse@{IlluminateDiffuse}}
+\index{IlluminateDiffuse@{IlluminateDiffuse}!NT3D_light_o@{NT3D\_\-light\_\-o}}
+\paragraph[{IlluminateDiffuse}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-light\_\-o::IlluminateDiffuse (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, protected\mbox{]}}}\hfill\label{class_n_t3_d__light__o_a014b4c5f911e8b4361917ffd1f06848b}
+
+
+Definition at line 94 of file nt3d\_\-light\_\-obj.h.
+
+
+
+References NT3D\_\-color\_\-o::\_\-colorPtr(), colorDiffuse, and lightId.
+
+
+
+
+\begin{DoxyCode}
+{ glLightfv( (GLenum) lightId, GL_DIFFUSE,  colorDiffuse._colorPtr());}
+\end{DoxyCode}
+
+
+\index{NT3D\_\-light\_\-o@{NT3D\_\-light\_\-o}!IlluminateLight@{IlluminateLight}}
+\index{IlluminateLight@{IlluminateLight}!NT3D_light_o@{NT3D\_\-light\_\-o}}
+\paragraph[{IlluminateLight}]{\setlength{\rightskip}{0pt plus 5cm}virtual void NT3D\_\-light\_\-o::IlluminateLight (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected, pure virtual\mbox{]}}}\hfill\label{class_n_t3_d__light__o_acca67ca286bb2f6c5ecdbcaeb935c66d}
+
+
+Implemented in \hyperlink{class_n_t3_d__ambient__light__o_a882b74fe26d8f774f91b0e56bcfbdcc9}{NT3D\_\-ambient\_\-light\_\-o}.
+
+\index{NT3D\_\-light\_\-o@{NT3D\_\-light\_\-o}!IlluminateSpecular@{IlluminateSpecular}}
+\index{IlluminateSpecular@{IlluminateSpecular}!NT3D_light_o@{NT3D\_\-light\_\-o}}
+\paragraph[{IlluminateSpecular}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-light\_\-o::IlluminateSpecular (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, protected\mbox{]}}}\hfill\label{class_n_t3_d__light__o_a4b5b552b082cd48577c4cf9736595c8d}
+
+
+Definition at line 95 of file nt3d\_\-light\_\-obj.h.
+
+
+
+References NT3D\_\-color\_\-o::\_\-colorPtr(), colorSpecular, and lightId.
+
+
+
+
+\begin{DoxyCode}
+{ glLightfv( (GLenum) lightId, GL_SPECULAR, colorSpecular._colorPtr());}
+\end{DoxyCode}
+
+
+\index{NT3D\_\-light\_\-o@{NT3D\_\-light\_\-o}!Off@{Off}}
+\index{Off@{Off}!NT3D_light_o@{NT3D\_\-light\_\-o}}
+\paragraph[{Off}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-light\_\-o::Off (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__light__o_adc6f859b8897bb595377e2ea66fbf526}
+\index{NT3D\_\-light\_\-o@{NT3D\_\-light\_\-o}!On@{On}}
+\index{On@{On}!NT3D_light_o@{NT3D\_\-light\_\-o}}
+\paragraph[{On}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-light\_\-o::On (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__light__o_af5f7a52b03cd26dc6acee68dbec6273b}
+\index{NT3D\_\-light\_\-o@{NT3D\_\-light\_\-o}!operator=@{operator=}}
+\index{operator=@{operator=}!NT3D_light_o@{NT3D\_\-light\_\-o}}
+\paragraph[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf NT3D\_\-light\_\-o}\& NT3D\_\-light\_\-o::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT3D\_\-light\_\-o} \&}]{ right}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__light__o_a0aa4e70e24d400d463560886d3c9262f}
+
+
+\subsubsection{Member Data Documentation}
+\index{NT3D\_\-light\_\-o@{NT3D\_\-light\_\-o}!colorAmbient@{colorAmbient}}
+\index{colorAmbient@{colorAmbient}!NT3D_light_o@{NT3D\_\-light\_\-o}}
+\paragraph[{colorAmbient}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NT3D\_\-color\_\-o} {\bf NT3D\_\-light\_\-o::colorAmbient}}\hfill\label{class_n_t3_d__light__o_a0a2eb91320561f70e6e8d9225eac48f6}
+
+
+Definition at line 86 of file nt3d\_\-light\_\-obj.h.
+
+
+
+Referenced by IlluminateAmbient().
+
+\index{NT3D\_\-light\_\-o@{NT3D\_\-light\_\-o}!colorDiffuse@{colorDiffuse}}
+\index{colorDiffuse@{colorDiffuse}!NT3D_light_o@{NT3D\_\-light\_\-o}}
+\paragraph[{colorDiffuse}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NT3D\_\-color\_\-o} {\bf NT3D\_\-light\_\-o::colorDiffuse}}\hfill\label{class_n_t3_d__light__o_a271304f2bef7e9fb4ab228689d4f4f7d}
+
+
+Definition at line 87 of file nt3d\_\-light\_\-obj.h.
+
+
+
+Referenced by IlluminateDiffuse().
+
+\index{NT3D\_\-light\_\-o@{NT3D\_\-light\_\-o}!colorSpecular@{colorSpecular}}
+\index{colorSpecular@{colorSpecular}!NT3D_light_o@{NT3D\_\-light\_\-o}}
+\paragraph[{colorSpecular}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NT3D\_\-color\_\-o} {\bf NT3D\_\-light\_\-o::colorSpecular}}\hfill\label{class_n_t3_d__light__o_a925f6392c85cd8d7938e331bc69aedb4}
+
+
+Definition at line 88 of file nt3d\_\-light\_\-obj.h.
+
+
+
+Referenced by IlluminateSpecular().
+
+\index{NT3D\_\-light\_\-o@{NT3D\_\-light\_\-o}!lightId@{lightId}}
+\index{lightId@{lightId}!NT3D_light_o@{NT3D\_\-light\_\-o}}
+\paragraph[{lightId}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTid} {\bf NT3D\_\-light\_\-o::lightId}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_n_t3_d__light__o_a908cd2700dcf23eb04f66e8c6b5c30e0}
+
+
+Definition at line 99 of file nt3d\_\-light\_\-obj.h.
+
+
+
+Referenced by IlluminateAmbient(), IlluminateDiffuse(), and IlluminateSpecular().
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nt3d__light__obj_8h}{nt3d\_\-light\_\-obj.h}\end{DoxyCompactItemize}

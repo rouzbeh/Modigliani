@@ -1,0 +1,156 @@
+.TH "NT3D_vp_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NT3D_vp_o \- 
+.PP
+\fBNT3D_vp_o\fP class Superclass that unifys a common interface for abstract viewport implementations and their driver dependend realisations for various window systems (viewport driver).  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <nt3d_vp_obj.h>\fP
+.PP
+Inherits \fBNT3D_o\fP.
+.PP
+Inherited by \fBNT3D_abstract_vp_o\fP, and \fBNT3D_drv_vp_o\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNT3D_vp_o\fP ()"
+.br
+.ti -1c
+.RI "\fBNT3D_vp_o\fP (const \fBNT3D_vp_o\fP &original)"
+.br
+.ti -1c
+.RI "const \fBNT3D_vp_o\fP & \fBoperator=\fP (const \fBNT3D_vp_o\fP &right)"
+.br
+.ti -1c
+.RI "virtual \fB~NT3D_vp_o\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBInit\fP ()=0"
+.br
+.ti -1c
+.RI "virtual void \fBMakeCurrent\fP ()=0"
+.br
+.ti -1c
+.RI "virtual void \fBSwapBuffer\fP ()"
+.br
+.ti -1c
+.RI "virtual \fBNTreturn\fP \fBResize\fP (\fBNTsize\fP width, \fBNTsize\fP height)=0"
+.br
+.ti -1c
+.RI "virtual void \fBRedraw\fP ()=0"
+.br
+.ti -1c
+.RI "\fBNTreturn\fP \fBConnect\fP (\fBNT3D_vp_o\fP *connectingVP)"
+.br
+.ti -1c
+.RI "\fBNTreturn\fP \fBDisconnect\fP ()"
+.br
+.ti -1c
+.RI "virtual \fBNT3D_bitmap_o\fP \fBView2Bitmap\fP ()=0"
+.br
+.ti -1c
+.RI "virtual \fBNT3D_bitmap_o\fP * \fBView2BitmapPtr\fP (\fBNT3D_bitmap_o\fP *bmpPtr)=0"
+.br
+.ti -1c
+.RI "virtual \fBNTsize\fP \fB_width\fP ()=0"
+.br
+.ti -1c
+.RI "virtual \fBNTsize\fP \fB_height\fP ()=0"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBNT3D_vp_o\fP * \fBpVP\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBNT3D_drv_vp_o\fP basically provides an implementation for all the functionality or infrastructure defined by this class, which is assigned to an \fBNT3D_abstract_vp_o\fP which uses this infrastructure. In this context it is possible that an \fBNT3D_abstract_vp_o\fP can be assigned to different drivers. On the other side the abstract viewport should provide all drawing within the \fBDraw()\fP method for the viewport drivers, which is the only method called from the driver classes. In the other direction the abstract classes should actually avoid to call the \fBDraw()\fP method themselves. 
+.PP
+\fBBug\fP
+.RS 4
+unknown 
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+unknown 
+.RE
+.PP
+
+.PP
+Definition at line 84 of file nt3d_vp_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "NT3D_vp_o::NT3D_vp_o ()"
+.SS "NT3D_vp_o::NT3D_vp_o (const \fBNT3D_vp_o\fP & original)"
+.SS "virtual NT3D_vp_o::~NT3D_vp_o ()\fC [inline, virtual]\fP"
+.PP
+Definition at line 90 of file nt3d_vp_obj.h.
+.PP
+References Disconnect().
+.PP
+.nf
+{Disconnect();};
+.fi
+.SH "Member Function Documentation"
+.PP 
+.SS "virtual \fBNTsize\fP NT3D_vp_o::_height ()\fC [pure virtual]\fP"
+.PP
+Implemented in \fBNT3D_abstract_vp_o\fP, \fBNT3D_drv_vp_o\fP, and \fBNT3D_glx_drv_o\fP.
+.SS "virtual \fBNTsize\fP NT3D_vp_o::_width ()\fC [pure virtual]\fP"
+.PP
+Implemented in \fBNT3D_abstract_vp_o\fP, \fBNT3D_drv_vp_o\fP, and \fBNT3D_glx_drv_o\fP.
+.SS "\fBNTreturn\fP NT3D_vp_o::Connect (\fBNT3D_vp_o\fP * connectingVP)"
+.SS "\fBNTreturn\fP NT3D_vp_o::Disconnect ()"
+.PP
+Referenced by ~NT3D_vp_o().
+.SS "virtual void NT3D_vp_o::Init ()\fC [pure virtual]\fP"
+.PP
+Implemented in \fBNT3D_abstract_vp_o\fP, and \fBNT3D_drv_vp_o\fP.
+.PP
+Referenced by NT3D_abstract_vp_o::_height().
+.SS "virtual void NT3D_vp_o::MakeCurrent ()\fC [pure virtual]\fP"
+.PP
+Implemented in \fBNT3D_abstract_vp_o\fP, and \fBNT3D_glx_drv_o\fP.
+.SS "const \fBNT3D_vp_o\fP& NT3D_vp_o::operator= (const \fBNT3D_vp_o\fP & right)"
+.SS "virtual void NT3D_vp_o::Redraw ()\fC [pure virtual]\fP"
+.PP
+Implemented in \fBNT3D_abstract_vp_o\fP, and \fBNT3D_drv_vp_o\fP.
+.SS "virtual \fBNTreturn\fP NT3D_vp_o::Resize (\fBNTsize\fP width, \fBNTsize\fP height)\fC [pure virtual]\fP"
+.PP
+Implemented in \fBNT3D_abstract_vp_o\fP, \fBNT3D_drv_vp_o\fP, and \fBNT3D_glx_drv_o\fP.
+.SS "virtual void NT3D_vp_o::SwapBuffer ()\fC [inline, virtual]\fP"
+.PP
+Reimplemented in \fBNT3D_abstract_vp_o\fP, and \fBNT3D_glx_drv_o\fP.
+.PP
+Definition at line 94 of file nt3d_vp_obj.h.
+.PP
+.nf
+{};
+.fi
+.SS "virtual \fBNT3D_bitmap_o\fP NT3D_vp_o::View2Bitmap ()\fC [pure virtual]\fP"
+.PP
+Implemented in \fBNT3D_abstract_vp_o\fP, \fBNT3D_drv_vp_o\fP, and \fBNT3D_glx_drv_o\fP.
+.SS "virtual \fBNT3D_bitmap_o\fP* NT3D_vp_o::View2BitmapPtr (\fBNT3D_bitmap_o\fP * bmpPtr)\fC [pure virtual]\fP"
+.PP
+Implemented in \fBNT3D_abstract_vp_o\fP, \fBNT3D_drv_vp_o\fP, and \fBNT3D_glx_drv_o\fP.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBNT3D_vp_o\fP* \fBNT3D_vp_o::pVP\fP\fC [protected]\fP"
+.PP
+Definition at line 106 of file nt3d_vp_obj.h.
+.PP
+Referenced by NT3D_abstract_vp_o::_height().
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

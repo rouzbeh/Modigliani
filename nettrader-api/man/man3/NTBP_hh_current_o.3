@@ -1,0 +1,106 @@
+.TH "NTBP_hh_current_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NTBP_hh_current_o \- 
+.PP
+\fBNTBP_hh_current_o\fP class Hodkgin-Huxley type description of population of ion-channels.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ntbp_hh_current_obj.h>\fP
+.PP
+Inherits \fBNTBP_membrane_current_o\fP.
+.PP
+Inherited by \fBNTBP_hh_sga_leak_current_o\fP, \fBNTBP_hh_sga_potassium_current_o\fP, and \fBNTBP_hh_sga_sodium_current_o\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNTBP_hh_current_o\fP (\fBNTreal\fP reversalPotential, \fBNTreal\fP maxConductivity, \fBNTreal\fP area)"
+.br
+.ti -1c
+.RI "\fBNTBP_hh_current_o\fP (const \fBNTBP_hh_current_o\fP &original)"
+.br
+.ti -1c
+.RI "const \fBNTBP_hh_current_o\fP & \fBoperator=\fP (const \fBNTBP_hh_current_o\fP &right)"
+.br
+.ti -1c
+.RI "virtual \fB~NTBP_hh_current_o\fP ()"
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fBComputeChannelStateTimeConstant\fP () const "
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fB_maxConductivity\fP () const "
+.br
+.RI "\fIin mSiemens/cm^2 \fP"
+.ti -1c
+.RI "\fBNTreal\fP \fB_area\fP () const "
+.br
+.RI "\fIin muMeter^2 \fP"
+.ti -1c
+.RI "virtual void \fBShow\fP ()=0"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBBug\fP
+.RS 4
+unknown 
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+unknown 
+.RE
+.PP
+
+.PP
+Definition at line 49 of file ntbp_hh_current_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "NTBP_hh_current_o::NTBP_hh_current_o (\fBNTreal\fP reversalPotential, \fBNTreal\fP maxConductivity, \fBNTreal\fP area)"
+.SS "NTBP_hh_current_o::NTBP_hh_current_o (const \fBNTBP_hh_current_o\fP & original)"
+.SS "virtual NTBP_hh_current_o::~NTBP_hh_current_o ()\fC [virtual]\fP"
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBNTreal\fP NTBP_hh_current_o::_area () const\fC [inline]\fP"
+.PP
+Definition at line 61 of file ntbp_hh_current_obj.h.
+.PP
+Referenced by NTBP_hh_sga_leak_current_o::UpdateConductance().
+.PP
+.nf
+{ return area; }
+.fi
+.SS "\fBNTreal\fP NTBP_hh_current_o::_maxConductivity () const\fC [inline, virtual]\fP"
+.PP
+Implements \fBNTBP_membrane_current_o\fP.
+.PP
+Definition at line 59 of file ntbp_hh_current_obj.h.
+.PP
+Referenced by NTBP_hh_sga_leak_current_o::UpdateConductance().
+.PP
+.nf
+{return maxConductivity;}
+.fi
+.SS "\fBNTreal\fP NTBP_hh_current_o::ComputeChannelStateTimeConstant () const\fC [inline, virtual]\fP"
+.PP
+Reimplemented from \fBNTBP_membrane_current_o\fP.
+.PP
+Definition at line 57 of file ntbp_hh_current_obj.h.
+.PP
+.nf
+{return 0; /* no stochasticity */ }
+.fi
+.SS "const \fBNTBP_hh_current_o\fP& NTBP_hh_current_o::operator= (const \fBNTBP_hh_current_o\fP & right)"
+.SS "virtual void NTBP_hh_current_o::Show ()\fC [pure virtual]\fP"
+.PP
+Implemented in \fBNTBP_hh_sga_leak_current_o\fP, \fBNTBP_hh_sga_potassium_current_o\fP, and \fBNTBP_hh_sga_sodium_current_o\fP.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

@@ -1,0 +1,97 @@
+.TH "NTBP_membrane_patch_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NTBP_membrane_patch_o \- 
+.PP
+\fBNTBP_membrane_patch_o\fP class.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ntbp_membrane_patch_obj.h>\fP
+.PP
+Inherits \fBNTBP_membrane_compartment_o\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNTBP_membrane_patch_o\fP (\fBNTreal\fP area, \fBNTreal\fP newCM)"
+.br
+.ti -1c
+.RI "\fBNTBP_membrane_patch_o\fP (const \fBNTBP_membrane_patch_o\fP &original)"
+.br
+.ti -1c
+.RI "const \fBNTBP_membrane_patch_o\fP & \fBoperator=\fP (const \fBNTBP_membrane_patch_o\fP &right)"
+.br
+.ti -1c
+.RI "virtual \fB~NTBP_membrane_patch_o\fP ()"
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fBMembranePotential\fP () const "
+.br
+.ti -1c
+.RI "\fBNTreturn\fP \fBStep\fP ()"
+.br
+.RI "\fINo descriptions. \fP"
+.ti -1c
+.RI "\fBNTreturn\fP \fBInitialStep\fP ()"
+.br
+.RI "\fINo descriptions. \fP"
+.ti -1c
+.RI "\fBNTreal\fP \fBMembraneCurrent\fP (\fBNTsize\fP currentIndex) const "
+.br
+.RI "\fICurrent [nA]. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBBug\fP
+.RS 4
+unknown 
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+unknown 
+.RE
+.PP
+
+.PP
+Definition at line 47 of file ntbp_membrane_patch_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "NTBP_membrane_patch_o::NTBP_membrane_patch_o (\fBNTreal\fP area, \fBNTreal\fP newCM)"
+.SS "NTBP_membrane_patch_o::NTBP_membrane_patch_o (const \fBNTBP_membrane_patch_o\fP & original)"
+.SS "virtual NTBP_membrane_patch_o::~NTBP_membrane_patch_o ()\fC [virtual]\fP"
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBNTreturn\fP NTBP_membrane_patch_o::InitialStep ()"
+.SS "\fBNTreal\fP NTBP_membrane_patch_o::MembraneCurrent (\fBNTsize\fP currentIndex) const\fC [inline]\fP"
+.PP
+Definition at line 61 of file ntbp_membrane_patch_obj.h.
+.PP
+References NTBP_membrane_compartment_o::currentVec, and NT_ASSERT.
+.PP
+.nf
+                                                  {
+                        NT_ASSERT((currentIndex > 0) && (currentIndex-1 < currentVec.size()));
+                        return currentVec[currentIndex-1]->_current();}
+.fi
+.SS "\fBNTreal\fP NTBP_membrane_patch_o::MembranePotential () const\fC [inline]\fP"
+.PP
+Definition at line 55 of file ntbp_membrane_patch_obj.h.
+.PP
+References NTBP_membrane_compartment_o::_vM().
+.PP
+.nf
+{return _vM();}
+.fi
+.SS "const \fBNTBP_membrane_patch_o\fP& NTBP_membrane_patch_o::operator= (const \fBNTBP_membrane_patch_o\fP & right)"
+.SS "\fBNTreturn\fP NTBP_membrane_patch_o::Step ()\fC [virtual]\fP"
+.PP
+Reimplemented from \fBNTBP_object_o\fP.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

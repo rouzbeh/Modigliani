@@ -1,0 +1,2217 @@
+.TH "TNT" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+TNT \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBMatrix\fP"
+.br
+.ti -1c
+.RI "class \fBFortran_Sparse_Col_Matrix\fP"
+.br
+.ti -1c
+.RI "class \fBFortran_Matrix\fP"
+.br
+.ti -1c
+.RI "class \fBFortran_Sparse_Vector\fP"
+.br
+.ti -1c
+.RI "class \fBIndex1D\fP"
+.br
+.ti -1c
+.RI "class \fBRegion1D\fP"
+.br
+.ti -1c
+.RI "class \fBconst_Region1D\fP"
+.br
+.ti -1c
+.RI "class \fBRegion2D\fP"
+.br
+.ti -1c
+.RI "class \fBconst_Region2D\fP"
+.br
+.ti -1c
+.RI "class \fBstopwatch\fP"
+.br
+.ti -1c
+.RI "class \fBTranspose_View\fP"
+.br
+.ti -1c
+.RI "class \fBLowerTriangularView\fP"
+.br
+.ti -1c
+.RI "class \fBUnitLowerTriangularView\fP"
+.br
+.ti -1c
+.RI "class \fBUpperTriangularView\fP"
+.br
+.ti -1c
+.RI "class \fBUnitUpperTriangularView\fP"
+.br
+.ti -1c
+.RI "class \fBVector\fP"
+.br
+.ti -1c
+.RI "class \fBVector_Adaptor\fP"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef TNT_SUBSCRIPT_TYPE \fBSubscript\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "template<class SPDMatrix , class SymmMatrix > int \fBCholesky_upper_factorization\fP (SPDMatrix &A, SymmMatrix &L)"
+.br
+.ti -1c
+.RI "template<class T > std::ostream & \fBoperator<<\fP (std::ostream &s, const \fBMatrix\fP< T > &A)"
+.br
+.ti -1c
+.RI "template<class T > std::istream & \fBoperator>>\fP (std::istream &s, \fBMatrix\fP< T > &A)"
+.br
+.ti -1c
+.RI "template<class T > \fBMatrix\fP< T > \fBoperator+\fP (const \fBMatrix\fP< T > &A, const \fBMatrix\fP< T > &B)"
+.br
+.ti -1c
+.RI "template<class T > \fBMatrix\fP< T > \fBoperator-\fP (const \fBMatrix\fP< T > &A, const \fBMatrix\fP< T > &B)"
+.br
+.ti -1c
+.RI "template<class T > \fBMatrix\fP< T > \fBmult_element\fP (const \fBMatrix\fP< T > &A, const \fBMatrix\fP< T > &B)"
+.br
+.ti -1c
+.RI "template<class T > \fBMatrix\fP< T > \fBtranspose\fP (const \fBMatrix\fP< T > &A)"
+.br
+.ti -1c
+.RI "template<class T > \fBMatrix\fP< T > \fBmatmult\fP (const \fBMatrix\fP< T > &A, const \fBMatrix\fP< T > &B)"
+.br
+.ti -1c
+.RI "template<class T > \fBMatrix\fP< T > \fBoperator*\fP (const \fBMatrix\fP< T > &A, const \fBMatrix\fP< T > &B)"
+.br
+.ti -1c
+.RI "template<class T > int \fBmatmult\fP (\fBMatrix\fP< T > &C, const \fBMatrix\fP< T > &A, const \fBMatrix\fP< T > &B)"
+.br
+.ti -1c
+.RI "template<class T > \fBVector\fP< T > \fBmatmult\fP (const \fBMatrix\fP< T > &A, const \fBVector\fP< T > &x)"
+.br
+.ti -1c
+.RI "template<class T > \fBVector\fP< T > \fBoperator*\fP (const \fBMatrix\fP< T > &A, const \fBVector\fP< T > &x)"
+.br
+.ti -1c
+.RI "template<class T > ostream & \fBoperator<<\fP (ostream &s, const \fBFortran_Sparse_Col_Matrix\fP< T > &A)"
+.br
+.ti -1c
+.RI "template<class T > std::ostream & \fBoperator<<\fP (std::ostream &s, const \fBFortran_Matrix\fP< T > &A)"
+.br
+.ti -1c
+.RI "template<class T > std::istream & \fBoperator>>\fP (std::istream &s, \fBFortran_Matrix\fP< T > &A)"
+.br
+.ti -1c
+.RI "template<class T > \fBFortran_Matrix\fP< T > \fBoperator+\fP (const \fBFortran_Matrix\fP< T > &A, const \fBFortran_Matrix\fP< T > &B)"
+.br
+.ti -1c
+.RI "template<class T > \fBFortran_Matrix\fP< T > \fBoperator-\fP (const \fBFortran_Matrix\fP< T > &A, const \fBFortran_Matrix\fP< T > &B)"
+.br
+.ti -1c
+.RI "template<class T > \fBFortran_Matrix\fP< T > \fBmult_element\fP (const \fBFortran_Matrix\fP< T > &A, const \fBFortran_Matrix\fP< T > &B)"
+.br
+.ti -1c
+.RI "template<class T > \fBFortran_Matrix\fP< T > \fBtranspose\fP (const \fBFortran_Matrix\fP< T > &A)"
+.br
+.ti -1c
+.RI "template<class T > \fBFortran_Matrix\fP< T > \fBmatmult\fP (const \fBFortran_Matrix\fP< T > &A, const \fBFortran_Matrix\fP< T > &B)"
+.br
+.ti -1c
+.RI "template<class T > \fBFortran_Matrix\fP< T > \fBoperator*\fP (const \fBFortran_Matrix\fP< T > &A, const \fBFortran_Matrix\fP< T > &B)"
+.br
+.ti -1c
+.RI "template<class T > int \fBmatmult\fP (\fBFortran_Matrix\fP< T > &C, const \fBFortran_Matrix\fP< T > &A, const \fBFortran_Matrix\fP< T > &B)"
+.br
+.ti -1c
+.RI "template<class T > \fBVector\fP< T > \fBmatmult\fP (const \fBFortran_Matrix\fP< T > &A, const \fBVector\fP< T > &x)"
+.br
+.ti -1c
+.RI "template<class T > \fBVector\fP< T > \fBoperator*\fP (const \fBFortran_Matrix\fP< T > &A, const \fBVector\fP< T > &x)"
+.br
+.ti -1c
+.RI "template<class T > \fBFortran_Matrix\fP< T > \fBoperator*\fP (const \fBFortran_Matrix\fP< T > &A, const T &x)"
+.br
+.ti -1c
+.RI "template<class T > ostream & \fBoperator<<\fP (ostream &s, const \fBFortran_Sparse_Vector\fP< T > &A)"
+.br
+.ti -1c
+.RI "template<class T > istream & \fBoperator>>\fP (istream &s, \fBFortran_Sparse_Vector\fP< T > &A)"
+.br
+.ti -1c
+.RI "\fBIndex1D\fP \fBoperator+\fP (const \fBIndex1D\fP &D, \fBSubscript\fP i)"
+.br
+.ti -1c
+.RI "\fBIndex1D\fP \fBoperator+\fP (\fBSubscript\fP i, const \fBIndex1D\fP &D)"
+.br
+.ti -1c
+.RI "\fBIndex1D\fP \fBoperator-\fP (\fBIndex1D\fP &D, \fBSubscript\fP i)"
+.br
+.ti -1c
+.RI "\fBIndex1D\fP \fBoperator-\fP (\fBSubscript\fP i, \fBIndex1D\fP &D)"
+.br
+.ti -1c
+.RI "template<class MaTRiX , class VecToRSubscript > int \fBLU_factor\fP (MaTRiX &A, VecToRSubscript &indx)"
+.br
+.ti -1c
+.RI "template<class MaTRiX , class VecToR , class VecToRSubscripts > int \fBLU_solve\fP (const MaTRiX &A, const VecToRSubscripts &indx, VecToR &b)"
+.br
+.ti -1c
+.RI "template<class MaTRiX , class Vector > int \fBQR_factor\fP (MaTRiX &A, \fBVector\fP &C, \fBVector\fP &D)"
+.br
+.ti -1c
+.RI "template<class MaTRiX , class Vector > int \fBR_solve\fP (const MaTRiX &A, \fBVector\fP &D, \fBVector\fP &b)"
+.br
+.ti -1c
+.RI "template<class MaTRiX , class Vector > int \fBQR_solve\fP (const MaTRiX &A, const \fBVector\fP &c, \fBVector\fP &d, \fBVector\fP &b)"
+.br
+.ti -1c
+.RI "template<class Array1D > std::ostream & \fBoperator<<\fP (std::ostream &s, \fBRegion1D\fP< Array1D > &A)"
+.br
+.ti -1c
+.RI "template<class Array1D > std::ostream & \fBoperator<<\fP (std::ostream &s, \fBconst_Region1D\fP< Array1D > &A)"
+.br
+.ti -1c
+.RI "template<class Array2D > std::ostream & \fBoperator<<\fP (std::ostream &s, const \fBconst_Region2D\fP< Array2D > &A)"
+.br
+.ti -1c
+.RI "template<class Array2D > std::ostream & \fBoperator<<\fP (std::ostream &s, const \fBRegion2D\fP< Array2D > &A)"
+.br
+.ti -1c
+.RI "double \fBseconds\fP (void)"
+.br
+.ti -1c
+.RI "double \fBabs\fP (double t)"
+.br
+.ti -1c
+.RI "double \fBmin\fP (double a, double b)"
+.br
+.ti -1c
+.RI "double \fBmax\fP (double a, double b)"
+.br
+.ti -1c
+.RI "float \fBabs\fP (float t)"
+.br
+.ti -1c
+.RI "float \fBmin\fP (float a, float b)"
+.br
+.ti -1c
+.RI "float \fBmax\fP (float a, float b)"
+.br
+.ti -1c
+.RI "double \fBsign\fP (double a)"
+.br
+.ti -1c
+.RI "float \fBsign\fP (float a)"
+.br
+.ti -1c
+.RI "template<class Matrix > \fBTranspose_View\fP< \fBMatrix\fP > \fBTranspose_view\fP (const \fBMatrix\fP &A)"
+.br
+.ti -1c
+.RI "template<class Matrix , class T > \fBVector\fP< T > \fBmatmult\fP (const \fBTranspose_View\fP< \fBMatrix\fP > &A, const \fBVector\fP< T > &B)"
+.br
+.ti -1c
+.RI "template<class Matrix , class T > \fBVector\fP< T > \fBoperator*\fP (const \fBTranspose_View\fP< \fBMatrix\fP > &A, const \fBVector\fP< T > &B)"
+.br
+.ti -1c
+.RI "template<class Matrix > std::ostream & \fBoperator<<\fP (std::ostream &s, const \fBTranspose_View\fP< \fBMatrix\fP > &A)"
+.br
+.ti -1c
+.RI "template<class MaTRiX , class VecToR > VecToR \fBmatmult\fP (\fBLowerTriangularView\fP< MaTRiX > &A, VecToR &x)"
+.br
+.ti -1c
+.RI "template<class MaTRiX , class VecToR > VecToR \fBoperator*\fP (\fBLowerTriangularView\fP< MaTRiX > &A, VecToR &x)"
+.br
+.ti -1c
+.RI "template<class MaTRiX > \fBLowerTriangularView\fP< MaTRiX > \fBLower_triangular_view\fP (MaTRiX &A)"
+.br
+.ti -1c
+.RI "template<class MaTRiX > \fBUnitLowerTriangularView\fP< MaTRiX > \fBUnit_lower_triangular_view\fP (MaTRiX &A)"
+.br
+.ti -1c
+.RI "template<class MaTRiX , class VecToR > VecToR \fBmatmult\fP (\fBUnitLowerTriangularView\fP< MaTRiX > &A, VecToR &x)"
+.br
+.ti -1c
+.RI "template<class MaTRiX , class VecToR > VecToR \fBoperator*\fP (\fBUnitLowerTriangularView\fP< MaTRiX > &A, VecToR &x)"
+.br
+.ti -1c
+.RI "template<class MaTRiX > std::ostream & \fBoperator<<\fP (std::ostream &s, const \fBLowerTriangularView\fP< MaTRiX > &A)"
+.br
+.ti -1c
+.RI "template<class MaTRiX > std::ostream & \fBoperator<<\fP (std::ostream &s, const \fBUnitLowerTriangularView\fP< MaTRiX > &A)"
+.br
+.ti -1c
+.RI "template<class MaTRiX , class VecToR > VecToR \fBmatmult\fP (\fBUpperTriangularView\fP< MaTRiX > &A, VecToR &x)"
+.br
+.ti -1c
+.RI "template<class MaTRiX , class VecToR > VecToR \fBoperator*\fP (\fBUpperTriangularView\fP< MaTRiX > &A, VecToR &x)"
+.br
+.ti -1c
+.RI "template<class MaTRiX > \fBUpperTriangularView\fP< MaTRiX > \fBUpper_triangular_view\fP (MaTRiX &A)"
+.br
+.ti -1c
+.RI "template<class MaTRiX > \fBUnitUpperTriangularView\fP< MaTRiX > \fBUnit_upper_triangular_view\fP (MaTRiX &A)"
+.br
+.ti -1c
+.RI "template<class MaTRiX , class VecToR > VecToR \fBmatmult\fP (\fBUnitUpperTriangularView\fP< MaTRiX > &A, VecToR &x)"
+.br
+.ti -1c
+.RI "template<class MaTRiX , class VecToR > VecToR \fBoperator*\fP (\fBUnitUpperTriangularView\fP< MaTRiX > &A, VecToR &x)"
+.br
+.ti -1c
+.RI "template<class MaTRiX > std::ostream & \fBoperator<<\fP (std::ostream &s, \fBUpperTriangularView\fP< MaTRiX > &A)"
+.br
+.ti -1c
+.RI "template<class MaTRiX > std::ostream & \fBoperator<<\fP (std::ostream &s, \fBUnitUpperTriangularView\fP< MaTRiX > &A)"
+.br
+.ti -1c
+.RI "template<class MaTriX , class VecToR > VecToR \fBLower_triangular_solve\fP (MaTriX &A, VecToR &b)"
+.br
+.ti -1c
+.RI "template<class MaTriX , class VecToR > VecToR \fBUnit_lower_triangular_solve\fP (MaTriX &A, VecToR &b)"
+.br
+.ti -1c
+.RI "template<class MaTriX , class VecToR > VecToR \fBlinear_solve\fP (\fBLowerTriangularView\fP< MaTriX > &A, VecToR &b)"
+.br
+.ti -1c
+.RI "template<class MaTriX , class VecToR > VecToR \fBlinear_solve\fP (\fBUnitLowerTriangularView\fP< MaTriX > &A, VecToR &b)"
+.br
+.ti -1c
+.RI "template<class MaTriX , class VecToR > VecToR \fBUpper_triangular_solve\fP (MaTriX &A, VecToR &b)"
+.br
+.ti -1c
+.RI "template<class MaTriX , class VecToR > VecToR \fBUnit_upper_triangular_solve\fP (MaTriX &A, VecToR &b)"
+.br
+.ti -1c
+.RI "template<class MaTriX , class VecToR > VecToR \fBlinear_solve\fP (\fBUpperTriangularView\fP< MaTriX > &A, VecToR &b)"
+.br
+.ti -1c
+.RI "template<class MaTriX , class VecToR > VecToR \fBlinear_solve\fP (\fBUnitUpperTriangularView\fP< MaTriX > &A, VecToR &b)"
+.br
+.ti -1c
+.RI "template<class T > std::ostream & \fBoperator<<\fP (std::ostream &s, const \fBVector\fP< T > &A)"
+.br
+.ti -1c
+.RI "template<class T > std::istream & \fBoperator>>\fP (std::istream &s, \fBVector\fP< T > &A)"
+.br
+.ti -1c
+.RI "template<class T > \fBVector\fP< T > \fBoperator+\fP (const \fBVector\fP< T > &A, const \fBVector\fP< T > &B)"
+.br
+.ti -1c
+.RI "template<class T > \fBVector\fP< T > \fBoperator-\fP (const \fBVector\fP< T > &A, const \fBVector\fP< T > &B)"
+.br
+.ti -1c
+.RI "template<class T > \fBVector\fP< T > \fBoperator*\fP (const \fBVector\fP< T > &A, const \fBVector\fP< T > &B)"
+.br
+.ti -1c
+.RI "template<class T > T \fBdot_prod\fP (const \fBVector\fP< T > &A, const \fBVector\fP< T > &B)"
+.br
+.ti -1c
+.RI "template<class BBVec > std::ostream & \fBoperator<<\fP (std::ostream &s, const \fBVector_Adaptor\fP< BBVec > &A)"
+.br
+.ti -1c
+.RI "template<class BBVec > std::istream & \fBoperator>>\fP (std::istream &s, \fBVector_Adaptor\fP< BBVec > &A)"
+.br
+.in -1c
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef TNT_SUBSCRIPT_TYPE \fBTNT::Subscript\fP"
+.PP
+Definition at line 47 of file subscript.h.
+.SH "Function Documentation"
+.PP 
+.SS "double TNT::abs (double t)\fC [inline]\fP"
+.PP
+Definition at line 38 of file tntmath.h.
+.PP
+.nf
+{
+    return ( t > 0 ? t : -t);
+}
+.fi
+.SS "float TNT::abs (float t)\fC [inline]\fP"
+.PP
+Definition at line 53 of file tntmath.h.
+.PP
+.nf
+{
+    return ( t > 0 ? t : -t);
+}
+.fi
+.SS "template<class SPDMatrix , class SymmMatrix > int TNT::Cholesky_upper_factorization (SPDMatrix & A, SymmMatrix & L)"
+.PP
+Definition at line 42 of file cholesky.h.
+.PP
+.nf
+{
+    Subscript M = A.dim(1);
+    Subscript N = A.dim(2);
+
+    assert(M == N);                 // make sure A is square
+
+    // readjust size of L, if necessary
+
+    if (M != L.dim(1) || N != L.dim(2))
+        L = SymmMatrix(N,N);
+
+    Subscript i,j,k;
+
+
+    typename SPDMatrix::element_type dot=0;
+
+
+    for (j=1; j<=N; j++)                // form column j of L
+    {
+        dot= 0;
+
+        for (i=1; i<j; i++)             // for k= 1 TO j-1
+            dot = dot +  L(j,i)*L(j,i);
+
+        L(j,j) = A(j,j) - dot;
+
+        for (i=j+1; i<=N; i++)
+        {
+            dot = 0;
+            for (k=1; k<j; k++)
+                dot = dot +  L(i,k)*L(j,k);
+            L(i,j) = A(j,i) - dot;
+        }
+
+        if (L(j,j) <= 0.0) return 1;
+
+        L(j,j) = sqrt( L(j,j) );
+
+        for (i=j+1; i<=N; i++)
+            L(i,j) = L(i,j) / L(j,j);
+
+    }
+
+    return 0;
+}
+.fi
+.SS "template<class T > T TNT::dot_prod (const Vector< T > & A, const Vector< T > & B)"
+.PP
+Definition at line 386 of file vec.h.
+.PP
+References TNT::Vector< T >::dim().
+.PP
+.nf
+{
+    Subscript N = A.dim();
+    assert(N == B.dim());
+
+    Subscript i;
+    T sum = 0;
+
+    for (i=0; i<N; i++)
+        sum += A[i] * B[i];
+
+    return sum;
+}
+.fi
+.SS "template<class MaTriX , class VecToR > VecToR TNT::linear_solve (LowerTriangularView< MaTriX > & A, VecToR & b)"
+.PP
+Definition at line 91 of file trisolve.h.
+.PP
+References Lower_triangular_solve().
+.PP
+.nf
+{
+.fi
+.SS "template<class MaTriX , class VecToR > VecToR TNT::linear_solve (UnitLowerTriangularView< MaTriX > & A, VecToR & b)"
+.PP
+Definition at line 98 of file trisolve.h.
+.PP
+References Unit_lower_triangular_solve().
+.PP
+.nf
+{
+.fi
+.SS "template<class MaTriX , class VecToR > VecToR TNT::linear_solve (UpperTriangularView< MaTriX > & A, VecToR & b)"
+.PP
+Definition at line 165 of file trisolve.h.
+.PP
+References Upper_triangular_solve().
+.PP
+.nf
+{
+.fi
+.SS "template<class MaTriX , class VecToR > VecToR TNT::linear_solve (UnitUpperTriangularView< MaTriX > & A, VecToR & b)"
+.PP
+Definition at line 172 of file trisolve.h.
+.PP
+References Unit_upper_triangular_solve().
+.PP
+.nf
+{
+.fi
+.SS "template<class MaTriX , class VecToR > VecToR TNT::Lower_triangular_solve (MaTriX & A, VecToR & b)"
+.PP
+Definition at line 36 of file trisolve.h.
+.PP
+Referenced by linear_solve().
+.PP
+.nf
+{
+    Subscript N = A.num_rows();
+
+    // make sure matrix sizes agree; A must be square
+
+    assert(A.num_cols() == N);
+    assert(b.dim() == N);
+
+    VecToR x(N);
+
+    Subscript i;
+    for (i=1; i<=N; i++)
+    {
+        typename MaTriX::element_type tmp=0;
+
+        for (Subscript j=1; j<i; j++)
+                tmp = tmp + A(i,j)*x(j);
+
+        x(i) =  (b(i) - tmp)/ A(i,i);
+    }
+
+.fi
+.SS "template<class MaTRiX > \fBLowerTriangularView\fP<MaTRiX> TNT::Lower_triangular_view (MaTRiX & A)"
+.PP
+Definition at line 237 of file triang.h.
+.PP
+.nf
+{
+    return LowerTriangularView<MaTRiX>(A);
+}
+.fi
+.SS "template<class MaTRiX , class VecToRSubscript > int TNT::LU_factor (MaTRiX & A, VecToRSubscript & indx)"
+.PP
+Definition at line 84 of file lu.h.
+.PP
+.nf
+{
+    assert(A.lbound() == 1);                // currently for 1-offset
+    assert(indx.lbound() == 1);             // vectors and matrices
+
+    Subscript M = A.num_rows();
+    Subscript N = A.num_cols();
+
+    if (M == 0 || N==0) return 0;
+    if (indx.dim() != M)
+        indx.newsize(M);
+
+    Subscript i=0,j=0,k=0;
+    Subscript jp=0;
+
+    typename MaTRiX::element_type t;
+
+    Subscript minMN =  (M < N ? M : N) ;        // min(M,N);
+
+    for (j=1; j<= minMN; j++)
+    {
+
+        // find pivot in column j and  test for singularity.
+
+        jp = j;
+        t = fabs(A(j,j));
+        for (i=j+1; i<=M; i++)
+            if ( fabs(A(i,j)) > t)
+            {
+                jp = i;
+                t = fabs(A(i,j));
+            }
+
+        indx(j) = jp;
+
+        // jp now has the index of maximum element 
+        // of column j, below the diagonal
+
+        if ( A(jp,j) == 0 )                 
+            return 1;       // factorization failed because of zero pivot
+
+
+        if (jp != j)            // swap rows j and jp
+            for (k=1; k<=N; k++)
+            {
+                t = A(j,k);
+                A(j,k) = A(jp,k);
+                A(jp,k) =t;
+            }
+
+        if (j<M)                // compute elements j+1:M of jth column
+        {
+            // note A(j,j), was A(jp,p) previously which was
+            // guarranteed not to be zero (Label #1)
+            //
+            typename MaTRiX::element_type recp =  1.0 / A(j,j);
+
+            for (k=j+1; k<=M; k++)
+                A(k,j) *= recp;
+        }
+
+
+        if (j < minMN)
+        {
+            // rank-1 update to trailing submatrix:   E = E - x*y;
+            //
+            // E is the region A(j+1:M, j+1:N)
+            // x is the column vector A(j+1:M,j)
+            // y is row vector A(j,j+1:N)
+
+            Subscript ii,jj;
+
+            for (ii=j+1; ii<=M; ii++)
+                for (jj=j+1; jj<=N; jj++)
+                    A(ii,jj) -= A(ii,j)*A(j,jj);
+        }
+    }
+
+    return 0;
+}   
+.fi
+.SS "template<class MaTRiX , class VecToR , class VecToRSubscripts > int TNT::LU_solve (const MaTRiX & A, const VecToRSubscripts & indx, VecToR & b)"
+.PP
+Definition at line 169 of file lu.h.
+.PP
+.nf
+{
+    assert(A.lbound() == 1);                // currently for 1-offset
+    assert(indx.lbound() == 1);             // vectors and matrices
+    assert(b.lbound() == 1);
+
+    Subscript i,ii=0,ip,j;
+    Subscript n = b.dim();
+    typename MaTRiX::element_type sum = 0.0;
+
+    for (i=1;i<=n;i++) 
+    {
+        ip=indx(i);
+        sum=b(ip);
+        b(ip)=b(i);
+        if (ii)
+            for (j=ii;j<=i-1;j++) 
+                sum -= A(i,j)*b(j);
+        else if (sum) ii=i;
+            b(i)=sum;
+    }
+    for (i=n;i>=1;i--) 
+    {
+        sum=b(i);
+        for (j=i+1;j<=n;j++) 
+            sum -= A(i,j)*b(j);
+        b(i)=sum/A(i,i);
+    }
+
+    return 0;
+}
+.fi
+.SS "template<class MaTRiX , class VecToR > VecToR TNT::matmult (UnitUpperTriangularView< MaTRiX > & A, VecToR & x)"
+.PP
+Definition at line 550 of file triang.h.
+.PP
+References TNT::UnitUpperTriangularView< MaTRiX >::lbound(), TNT::UnitUpperTriangularView< MaTRiX >::num_cols(), and TNT::UnitUpperTriangularView< MaTRiX >::num_rows().
+.PP
+.nf
+{
+    Subscript M = A.num_rows();
+    Subscript N = A.num_cols();
+
+    assert(N == x.dim());
+
+    Subscript i, j;
+    typename VecToR::element_type sum=0.0;
+    VecToR result(M);
+
+    Subscript start = A.lbound();
+    Subscript Mend = M + A.lbound() -1 ;
+
+    for (i=start; i<=Mend; i++)
+    {
+        sum = x(i);
+        for (j=i+1; j<=N; j++)
+            sum = sum + A(i,j)*x(j);
+        result(i) = sum + x(i);
+    }
+
+    return result;
+}
+.fi
+.SS "template<class T > \fBMatrix\fP<T> TNT::matmult (const Matrix< T > & A, const Matrix< T > & B)\fC [inline]\fP"
+.PP
+Definition at line 487 of file cmat.h.
+.PP
+References TNT::Matrix< T >::num_cols(), and TNT::Matrix< T >::num_rows().
+.PP
+Referenced by operator*().
+.PP
+.nf
+{
+
+#ifdef TNT_BOUNDS_CHECK
+    assert(A.num_cols() == B.num_rows());
+#endif
+
+    Subscript M = A.num_rows();
+    Subscript N = A.num_cols();
+    Subscript K = B.num_cols();
+
+    Matrix<T> tmp(M,K);
+    T sum;
+
+    for (Subscript i=0; i<M; i++)
+    for (Subscript k=0; k<K; k++)
+    {
+        sum = 0;
+        for (Subscript j=0; j<N; j++)
+            sum = sum +  A[i][j] * B[j][k];
+
+        tmp[i][k] = sum; 
+    }
+
+    return tmp;
+}
+.fi
+.SS "template<class T > int TNT::matmult (Matrix< T > & C, const Matrix< T > & A, const Matrix< T > & B)\fC [inline]\fP"
+.PP
+Definition at line 523 of file cmat.h.
+.PP
+References TNT::Matrix< T >::newsize(), TNT::Matrix< T >::num_cols(), and TNT::Matrix< T >::num_rows().
+.PP
+.nf
+{
+
+    assert(A.num_cols() == B.num_rows());
+
+    Subscript M = A.num_rows();
+    Subscript N = A.num_cols();
+    Subscript K = B.num_cols();
+
+    C.newsize(M,K);
+
+    T sum;
+
+    const T* row_i;
+    const T* col_k;
+
+    for (Subscript i=0; i<M; i++)
+    for (Subscript k=0; k<K; k++)
+    {
+        row_i  = &(A[i][0]);
+        col_k  = &(B[0][k]);
+        sum = 0;
+        for (Subscript j=0; j<N; j++)
+        {
+            sum  += *row_i * *col_k;
+            row_i++;
+            col_k += K;
+        }
+        C[i][k] = sum; 
+    }
+
+    return 0;
+}
+.fi
+.SS "template<class T > \fBFortran_Matrix\fP<T> TNT::matmult (const Fortran_Matrix< T > & A, const Fortran_Matrix< T > & B)\fC [inline]\fP"
+.PP
+Definition at line 447 of file fmat.h.
+.PP
+References TNT::Fortran_Matrix< T >::num_cols(), and TNT::Fortran_Matrix< T >::num_rows().
+.PP
+.nf
+{
+
+#ifdef TNT_BOUNDS_CHECK
+    assert(A.num_cols() == B.num_rows());
+#endif
+
+    Subscript M = A.num_rows();
+    Subscript N = A.num_cols();
+    Subscript K = B.num_cols();
+
+    Fortran_Matrix<T> tmp(M,K);
+    T sum;
+
+    for (Subscript i=1; i<=M; i++)
+    for (Subscript k=1; k<=K; k++)
+    {
+        sum = 0;
+        for (Subscript j=1; j<=N; j++)
+            sum = sum +  A(i,j) * B(j,k);
+
+        tmp(i,k) = sum; 
+    }
+
+    return tmp;
+}
+.fi
+.SS "template<class T > \fBVector\fP<T> TNT::matmult (const Matrix< T > & A, const Vector< T > & x)"
+.PP
+Definition at line 560 of file cmat.h.
+.PP
+References TNT::Vector< T >::dim(), TNT::Matrix< T >::num_cols(), and TNT::Matrix< T >::num_rows().
+.PP
+.nf
+{
+
+#ifdef TNT_BOUNDS_CHECK
+    assert(A.num_cols() == x.dim());
+#endif
+
+    Subscript M = A.num_rows();
+    Subscript N = A.num_cols();
+
+    Vector<T> tmp(M);
+    T sum;
+
+    for (Subscript i=0; i<M; i++)
+    {
+        sum = 0;
+        const T* rowi = A[i];
+        for (Subscript j=0; j<N; j++)
+            sum = sum +  rowi[j] * x[j];
+
+        tmp[i] = sum; 
+    }
+
+    return tmp;
+}
+.fi
+.SS "template<class T > int TNT::matmult (Fortran_Matrix< T > & C, const Fortran_Matrix< T > & A, const Fortran_Matrix< T > & B)\fC [inline]\fP"
+.PP
+Definition at line 483 of file fmat.h.
+.PP
+References TNT::Fortran_Matrix< T >::newsize(), TNT::Fortran_Matrix< T >::num_cols(), and TNT::Fortran_Matrix< T >::num_rows().
+.PP
+.nf
+{
+
+    assert(A.num_cols() == B.num_rows());
+
+    Subscript M = A.num_rows();
+    Subscript N = A.num_cols();
+    Subscript K = B.num_cols();
+
+    C.newsize(M,K);         // adjust shape of C, if necessary
+
+
+    T sum; 
+
+    const T* row_i;
+    const T* col_k;
+
+    for (Subscript i=1; i<=M; i++)
+    {
+        for (Subscript k=1; k<=K; k++)
+        {
+            row_i = &A(i,1);
+            col_k = &B(1,k);
+            sum = 0;
+            for (Subscript j=1; j<=N; j++)
+            {
+                sum +=  *row_i * *col_k;
+                row_i += M;
+                col_k ++;
+            }
+        
+            C(i,k) = sum; 
+        }
+
+    }
+
+    return 0;
+}
+.fi
+.SS "template<class T > \fBVector\fP<T> TNT::matmult (const Fortran_Matrix< T > & A, const Vector< T > & x)"
+.PP
+Definition at line 525 of file fmat.h.
+.PP
+References TNT::Vector< T >::dim(), TNT::Fortran_Matrix< T >::num_cols(), and TNT::Fortran_Matrix< T >::num_rows().
+.PP
+.nf
+{
+
+#ifdef TNT_BOUNDS_CHECK
+    assert(A.num_cols() == x.dim());
+#endif
+
+    Subscript M = A.num_rows();
+    Subscript N = A.num_cols();
+
+    Vector<T> tmp(M);
+    T sum;
+
+    for (Subscript i=1; i<=M; i++)
+    {
+        sum = 0;
+        for (Subscript j=1; j<=N; j++)
+            sum = sum +  A(i,j) * x(j);
+
+        tmp(i) = sum; 
+    }
+
+    return tmp;
+}
+.fi
+.SS "template<class MaTRiX , class VecToR > VecToR TNT::matmult (LowerTriangularView< MaTRiX > & A, VecToR & x)"
+.PP
+Definition at line 122 of file triang.h.
+.PP
+References TNT::LowerTriangularView< MaTRiX >::lbound(), TNT::LowerTriangularView< MaTRiX >::num_cols(), and TNT::LowerTriangularView< MaTRiX >::num_rows().
+.PP
+.nf
+{
+    Subscript M = A.num_rows();
+    Subscript N = A.num_cols();
+
+    assert(N == x.dim());
+
+    Subscript i, j;
+    typename MaTRiX::element_type sum=0.0;
+    VecToR result(M);
+
+    Subscript start = A.lbound();
+    Subscript Mend = M + A.lbound() -1 ;
+
+    for (i=start; i<=Mend; i++)
+    {
+        sum = 0.0;
+        for (j=start; j<=i; j++)
+            sum = sum + A(i,j)*x(j);
+        result(i) = sum;
+    }
+
+    return result;
+}
+.fi
+.SS "template<class Matrix , class T > \fBVector\fP<T> TNT::matmult (const Transpose_View< Matrix > & A, const Vector< T > & B)"
+.PP
+Definition at line 101 of file transv.h.
+.PP
+References TNT::Vector< T >::dim(), TNT::Transpose_View< Array2D >::num_cols(), and TNT::Transpose_View< Array2D >::num_rows().
+.PP
+.nf
+{
+    Subscript  M = A.num_rows();
+    Subscript  N = A.num_cols();
+
+    assert(B.dim() == N);
+
+    Vector<T> x(N);
+
+    Subscript i, j;
+    T tmp = 0;
+
+    for (i=1; i<=M; i++)
+    {
+        tmp = 0;
+        for (j=1; j<=N; j++)
+            tmp += A(i,j) * B(j);
+        x(i) = tmp;
+    }
+
+    return x;
+}
+.fi
+.SS "template<class MaTRiX , class VecToR > VecToR TNT::matmult (UnitLowerTriangularView< MaTRiX > & A, VecToR & x)"
+.PP
+Definition at line 252 of file triang.h.
+.PP
+References TNT::UnitLowerTriangularView< MaTRiX >::lbound(), TNT::UnitLowerTriangularView< MaTRiX >::num_cols(), and TNT::UnitLowerTriangularView< MaTRiX >::num_rows().
+.PP
+.nf
+{
+    Subscript M = A.num_rows();
+    Subscript N = A.num_cols();
+
+    assert(N == x.dim());
+
+    Subscript i, j;
+    typename MaTRiX::element_type sum=0.0;
+    VecToR result(M);
+
+    Subscript start = A.lbound();
+    Subscript Mend = M + A.lbound() -1 ;
+
+    for (i=start; i<=Mend; i++)
+    {
+        sum = 0.0;
+        for (j=start; j<i; j++)
+            sum = sum + A(i,j)*x(j);
+        result(i) = sum + x(i);
+    }
+
+    return result;
+}
+.fi
+.SS "template<class MaTRiX , class VecToR > VecToR TNT::matmult (UpperTriangularView< MaTRiX > & A, VecToR & x)"
+.PP
+Definition at line 420 of file triang.h.
+.PP
+References TNT::UpperTriangularView< MaTRiX >::lbound(), TNT::UpperTriangularView< MaTRiX >::num_cols(), and TNT::UpperTriangularView< MaTRiX >::num_rows().
+.PP
+.nf
+{
+    Subscript M = A.num_rows();
+    Subscript N = A.num_cols();
+
+    assert(N == x.dim());
+
+    Subscript i, j;
+    typename VecToR::element_type sum=0.0;
+    VecToR result(M);
+
+    Subscript start = A.lbound();
+    Subscript Mend = M + A.lbound() -1 ;
+
+    for (i=start; i<=Mend; i++)
+    {
+        sum = 0.0;
+        for (j=i; j<=N; j++)
+            sum = sum + A(i,j)*x(j);
+        result(i) = sum;
+    }
+
+    return result;
+}
+.fi
+.SS "double TNT::max (double a, double b)\fC [inline]\fP"
+.PP
+Definition at line 48 of file tntmath.h.
+.PP
+.nf
+{
+    return (a > b ? a : b);
+}
+.fi
+.SS "float TNT::max (float a, float b)\fC [inline]\fP"
+.PP
+Definition at line 63 of file tntmath.h.
+.PP
+.nf
+{
+    return (a > b ? a : b);
+}
+.fi
+.SS "double TNT::min (double a, double b)\fC [inline]\fP"
+.PP
+Definition at line 43 of file tntmath.h.
+.PP
+.nf
+{
+    return (a < b ? a : b);
+}
+.fi
+.SS "float TNT::min (float a, float b)\fC [inline]\fP"
+.PP
+Definition at line 58 of file tntmath.h.
+.PP
+.nf
+{
+    return (a < b ? a : b);
+}
+.fi
+.SS "template<class T > \fBFortran_Matrix\fP<T> TNT::mult_element (const Fortran_Matrix< T > & A, const Fortran_Matrix< T > & B)"
+.PP
+Definition at line 408 of file fmat.h.
+.PP
+References TNT::Fortran_Matrix< T >::num_cols(), and TNT::Fortran_Matrix< T >::num_rows().
+.PP
+.nf
+{
+    Subscript M = A.num_rows();
+    Subscript N = A.num_cols();
+
+    assert(M==B.num_rows());
+    assert(N==B.num_cols());
+
+    Fortran_Matrix<T> tmp(M,N);
+    Subscript i,j;
+
+    for (i=1; i<=M; i++)
+        for (j=1; j<=N; j++)
+            tmp(i,j) = A(i,j) * B(i,j);
+
+    return tmp;
+}
+.fi
+.SS "template<class T > \fBMatrix\fP<T> TNT::mult_element (const Matrix< T > & A, const Matrix< T > & B)"
+.PP
+Definition at line 448 of file cmat.h.
+.PP
+References TNT::Matrix< T >::num_cols(), and TNT::Matrix< T >::num_rows().
+.PP
+.nf
+{
+    Subscript M = A.num_rows();
+    Subscript N = A.num_cols();
+
+    assert(M==B.num_rows());
+    assert(N==B.num_cols());
+
+    Matrix<T> tmp(M,N);
+    Subscript i,j;
+
+    for (i=0; i<M; i++)
+        for (j=0; j<N; j++)
+            tmp[i][j] = A[i][j] * B[i][j];
+
+    return tmp;
+}
+.fi
+.SS "template<class MaTRiX , class VecToR > VecToR TNT::operator* (UnitUpperTriangularView< MaTRiX > & A, VecToR & x)\fC [inline]\fP"
+.PP
+Definition at line 576 of file triang.h.
+.PP
+References matmult().
+.PP
+.nf
+{
+    return matmult(A,x);
+}
+.fi
+.SS "template<class T > \fBMatrix\fP<T> TNT::operator* (const Matrix< T > & A, const Matrix< T > & B)\fC [inline]\fP"
+.PP
+Definition at line 516 of file cmat.h.
+.PP
+References matmult().
+.PP
+.nf
+{
+    return matmult(A,B);
+}
+.fi
+.SS "template<class T > \fBVector\fP<T> TNT::operator* (const Vector< T > & A, const Vector< T > & B)"
+.PP
+Definition at line 368 of file vec.h.
+.PP
+References TNT::Vector< T >::dim().
+.PP
+.nf
+{
+    Subscript N = A.dim();
+
+    assert(N==B.dim());
+
+    Vector<T> tmp(N);
+    Subscript i;
+
+    for (i=0; i<N; i++)
+            tmp[i] = A[i] * B[i];
+
+    return tmp;
+}
+.fi
+.SS "template<class T > \fBFortran_Matrix\fP<T> TNT::operator* (const Fortran_Matrix< T > & A, const Fortran_Matrix< T > & B)\fC [inline]\fP"
+.PP
+Definition at line 476 of file fmat.h.
+.PP
+References matmult().
+.PP
+.nf
+{
+    return matmult(A,B);
+}
+.fi
+.SS "template<class T > \fBVector\fP<T> TNT::operator* (const Matrix< T > & A, const Vector< T > & x)\fC [inline]\fP"
+.PP
+Definition at line 587 of file cmat.h.
+.PP
+References matmult().
+.PP
+.nf
+{
+    return matmult(A,x);
+}
+.fi
+.SS "template<class T > \fBVector\fP<T> TNT::operator* (const Fortran_Matrix< T > & A, const Vector< T > & x)\fC [inline]\fP"
+.PP
+Definition at line 551 of file fmat.h.
+.PP
+References matmult().
+.PP
+.nf
+{
+    return matmult(A,x);
+}
+.fi
+.SS "template<class T > \fBFortran_Matrix\fP<T> TNT::operator* (const Fortran_Matrix< T > & A, const T & x)\fC [inline]\fP"
+.PP
+Definition at line 557 of file fmat.h.
+.PP
+References TNT::Fortran_Matrix< T >::begin(), TNT::Fortran_Matrix< T >::end(), TNT::Fortran_Matrix< T >::num_cols(), and TNT::Fortran_Matrix< T >::num_rows().
+.PP
+.nf
+{
+    Subscript M = A.num_rows();
+    Subscript N = A.num_cols();
+
+    Subscript MN = M*N; 
+
+    Fortran_Matrix<T> res(M,N);
+    const T* a = A.begin();
+    T* t = res.begin();
+    T* tend = res.end();
+
+    for (t=res.begin(); t < tend; t++, a++)
+        *t = *a * x;
+
+    return res;
+} 
+.fi
+.SS "template<class Matrix , class T > \fBVector\fP<T> TNT::operator* (const Transpose_View< Matrix > & A, const Vector< T > & B)\fC [inline]\fP"
+.PP
+Definition at line 127 of file transv.h.
+.PP
+References matmult().
+.PP
+.nf
+{
+    return matmult(A,B);
+}
+.fi
+.SS "template<class MaTRiX , class VecToR > VecToR TNT::operator* (LowerTriangularView< MaTRiX > & A, VecToR & x)\fC [inline]\fP"
+.PP
+Definition at line 148 of file triang.h.
+.PP
+References matmult().
+.PP
+.nf
+{
+    return matmult(A,x);
+}
+.fi
+.SS "template<class MaTRiX , class VecToR > VecToR TNT::operator* (UnitLowerTriangularView< MaTRiX > & A, VecToR & x)\fC [inline]\fP"
+.PP
+Definition at line 278 of file triang.h.
+.PP
+References matmult().
+.PP
+.nf
+{
+    return matmult(A,x);
+}
+.fi
+.SS "template<class MaTRiX , class VecToR > VecToR TNT::operator* (UpperTriangularView< MaTRiX > & A, VecToR & x)\fC [inline]\fP"
+.PP
+Definition at line 446 of file triang.h.
+.PP
+References matmult().
+.PP
+.nf
+{
+    return matmult(A,x);
+}
+.fi
+.SS "template<class T > \fBFortran_Matrix\fP<T> TNT::operator+ (const Fortran_Matrix< T > & A, const Fortran_Matrix< T > & B)"
+.PP
+Definition at line 364 of file fmat.h.
+.PP
+References TNT::Fortran_Matrix< T >::num_cols(), and TNT::Fortran_Matrix< T >::num_rows().
+.PP
+.nf
+{
+    Subscript M = A.num_rows();
+    Subscript N = A.num_cols();
+
+    assert(M==B.num_rows());
+    assert(N==B.num_cols());
+
+    Fortran_Matrix<T> tmp(M,N);
+    Subscript i,j;
+
+    for (i=1; i<=M; i++)
+        for (j=1; j<=N; j++)
+            tmp(i,j) = A(i,j) + B(i,j);
+
+    return tmp;
+}
+.fi
+.SS "template<class T > \fBMatrix\fP<T> TNT::operator+ (const Matrix< T > & A, const Matrix< T > & B)"
+.PP
+Definition at line 408 of file cmat.h.
+.PP
+References TNT::Matrix< T >::num_cols(), and TNT::Matrix< T >::num_rows().
+.PP
+.nf
+{
+    Subscript M = A.num_rows();
+    Subscript N = A.num_cols();
+
+    assert(M==B.num_rows());
+    assert(N==B.num_cols());
+
+    Matrix<T> tmp(M,N);
+    Subscript i,j;
+
+    for (i=0; i<M; i++)
+        for (j=0; j<N; j++)
+            tmp[i][j] = A[i][j] + B[i][j];
+
+    return tmp;
+}
+.fi
+.SS "template<class T > \fBVector\fP<T> TNT::operator+ (const Vector< T > & A, const Vector< T > & B)"
+.PP
+Definition at line 334 of file vec.h.
+.PP
+References TNT::Vector< T >::dim().
+.PP
+.nf
+{
+    Subscript N = A.dim();
+
+    assert(N==B.dim());
+
+    Vector<T> tmp(N);
+    Subscript i;
+
+    for (i=0; i<N; i++)
+            tmp[i] = A[i] + B[i];
+
+    return tmp;
+}
+.fi
+.SS "\fBIndex1D\fP TNT::operator+ (Subscript i, const Index1D & D)\fC [inline]\fP"
+.PP
+Definition at line 63 of file index.h.
+.PP
+References TNT::Index1D::lbound(), and TNT::Index1D::ubound().
+.PP
+.nf
+{
+    return Index1D(i+D.lbound(), i+D.ubound());
+}
+.fi
+.SS "\fBIndex1D\fP TNT::operator+ (const Index1D & D, Subscript i)\fC [inline]\fP"
+.PP
+Definition at line 58 of file index.h.
+.PP
+References TNT::Index1D::lbound(), and TNT::Index1D::ubound().
+.PP
+.nf
+{
+    return Index1D(i+D.lbound(), i+D.ubound());
+}
+.fi
+.SS "template<class T > \fBFortran_Matrix\fP<T> TNT::operator- (const Fortran_Matrix< T > & A, const Fortran_Matrix< T > & B)"
+.PP
+Definition at line 384 of file fmat.h.
+.PP
+References TNT::Fortran_Matrix< T >::num_cols(), and TNT::Fortran_Matrix< T >::num_rows().
+.PP
+.nf
+{
+    Subscript M = A.num_rows();
+    Subscript N = A.num_cols();
+
+    assert(M==B.num_rows());
+    assert(N==B.num_cols());
+
+    Fortran_Matrix<T> tmp(M,N);
+    Subscript i,j;
+
+    for (i=1; i<=M; i++)
+        for (j=1; j<=N; j++)
+            tmp(i,j) = A(i,j) - B(i,j);
+
+    return tmp;
+}
+.fi
+.SS "template<class T > \fBVector\fP<T> TNT::operator- (const Vector< T > & A, const Vector< T > & B)"
+.PP
+Definition at line 351 of file vec.h.
+.PP
+References TNT::Vector< T >::dim().
+.PP
+.nf
+{
+    Subscript N = A.dim();
+
+    assert(N==B.dim());
+
+    Vector<T> tmp(N);
+    Subscript i;
+
+    for (i=0; i<N; i++)
+            tmp[i] = A[i] - B[i];
+
+    return tmp;
+}
+.fi
+.SS "template<class T > \fBMatrix\fP<T> TNT::operator- (const Matrix< T > & A, const Matrix< T > & B)"
+.PP
+Definition at line 428 of file cmat.h.
+.PP
+References TNT::Matrix< T >::num_cols(), and TNT::Matrix< T >::num_rows().
+.PP
+.nf
+{
+    Subscript M = A.num_rows();
+    Subscript N = A.num_cols();
+
+    assert(M==B.num_rows());
+    assert(N==B.num_cols());
+
+    Matrix<T> tmp(M,N);
+    Subscript i,j;
+
+    for (i=0; i<M; i++)
+        for (j=0; j<N; j++)
+            tmp[i][j] = A[i][j] - B[i][j];
+
+    return tmp;
+}
+.fi
+.SS "\fBIndex1D\fP TNT::operator- (Index1D & D, Subscript i)\fC [inline]\fP"
+.PP
+Definition at line 70 of file index.h.
+.PP
+References TNT::Index1D::lbound(), and TNT::Index1D::ubound().
+.PP
+.nf
+{
+    return Index1D(D.lbound()-i, D.ubound()-i);
+}
+.fi
+.SS "\fBIndex1D\fP TNT::operator- (Subscript i, Index1D & D)\fC [inline]\fP"
+.PP
+Definition at line 75 of file index.h.
+.PP
+References TNT::Index1D::lbound(), and TNT::Index1D::ubound().
+.PP
+.nf
+{
+    return Index1D(i-D.lbound(), i-D.ubound());
+}
+.fi
+.SS "template<class T > std::ostream& TNT::operator<< (std::ostream & s, const Matrix< T > & A)"
+.PP
+Definition at line 360 of file cmat.h.
+.PP
+.nf
+{
+    Subscript M=A.num_rows();
+    Subscript N=A.num_cols();
+
+    s << M << ' ' << N << '\n';
+
+    for (Subscript i=0; i<M; i++)
+    {
+        for (Subscript j=0; j<N; j++)
+        {
+            s << A[i][j] << ' ';
+        }
+        s << '\n';
+    }
+
+
+    return s;
+}
+.fi
+.SS "template<class MaTRiX > std::ostream& TNT::operator<< (std::ostream & s, UpperTriangularView< MaTRiX > & A)"
+.PP
+Definition at line 587 of file triang.h.
+.PP
+References TNT::UpperTriangularView< MaTRiX >::num_cols(), and TNT::UpperTriangularView< MaTRiX >::num_rows().
+.PP
+.nf
+{
+    Subscript M=A.num_rows();
+    Subscript N=A.num_cols();
+
+    s << M << ' ' << N << endl;
+
+    for (Subscript i=1; i<=M; i++)
+    {
+        for (Subscript j=1; j<=N; j++)
+        {
+            s << A(i,j) << ' ';
+        }
+        s << endl;
+    }
+
+
+    return s;
+}
+.fi
+.SS "template<class Array1D > std::ostream& TNT::operator<< (std::ostream & s, Region1D< Array1D > & A)"
+.PP
+Definition at line 231 of file region1d.h.
+.PP
+.nf
+{
+    Subscript N=A.dim();
+    Subscript istart = TNT_BASE_OFFSET;
+    Subscript iend = N - 1 + TNT_BASE_OFFSET;
+
+    for (Subscript i=istart; i<=iend; i++)
+        s << A(i) << endl;
+
+    return s;
+}
+.fi
+.SS "template<class Array1D > std::ostream& TNT::operator<< (std::ostream & s, const_Region1D< Array1D > & A)"
+.PP
+Definition at line 357 of file region1d.h.
+.PP
+.nf
+{
+    Subscript N=A.dim();
+
+    for (Subscript i=1; i<=N; i++)
+        s << A(i) << endl;
+
+    return s;
+}
+.fi
+.SS "template<class Array2D > std::ostream& TNT::operator<< (std::ostream & s, const const_Region2D< Array2D > & A)"
+.PP
+Definition at line 420 of file region2d.h.
+.PP
+.nf
+{
+    Subscript start = A.lbound();
+    Subscript Mend=A.lbound()+ A.num_rows() - 1;
+    Subscript Nend=A.lbound() + A.num_cols() - 1;
+
+
+    s << A.num_rows() << '  ' << A.num_cols() << '\n';
+    for (Subscript i=start; i<=Mend; i++)
+    {
+        for (Subscript j=start; j<=Nend; j++)
+        {
+            s << A(i,j) << ' ';
+        }
+        s << '\n';
+    }
+
+
+    return s;
+}
+.fi
+.SS "template<class MaTRiX > std::ostream& TNT::operator<< (std::ostream & s, const UnitLowerTriangularView< MaTRiX > & A)"
+.PP
+Definition at line 310 of file triang.h.
+.PP
+References TNT::UnitLowerTriangularView< MaTRiX >::num_cols(), and TNT::UnitLowerTriangularView< MaTRiX >::num_rows().
+.PP
+.nf
+{
+    Subscript M=A.num_rows();
+    Subscript N=A.num_cols();
+
+    s << M << ' ' << N << endl;
+
+    for (Subscript i=1; i<=M; i++)
+    {
+        for (Subscript j=1; j<=N; j++)
+        {
+            s << A(i,j) << ' ';
+        }
+        s << endl;
+    }
+
+
+    return s;
+}
+.fi
+.SS "template<class MaTRiX > std::ostream& TNT::operator<< (std::ostream & s, const LowerTriangularView< MaTRiX > & A)"
+.PP
+Definition at line 289 of file triang.h.
+.PP
+.nf
+{
+    Subscript M=A.num_rows();
+    Subscript N=A.num_cols();
+
+    s << M << ' ' << N << endl;
+
+    for (Subscript i=1; i<=M; i++)
+    {
+        for (Subscript j=1; j<=N; j++)
+        {
+            s << A(i,j) << ' ';
+        }
+        s << endl;
+    }
+
+
+    return s;
+}
+.fi
+.SS "template<class BBVec > std::ostream& TNT::operator<< (std::ostream & s, const Vector_Adaptor< BBVec > & A)"
+.PP
+Definition at line 262 of file vecadaptor.h.
+.PP
+.nf
+{
+    Subscript M=A.size();
+
+    s << M << endl;
+    for (Subscript i=1; i<=M; i++)
+            s << A(i) << endl;
+    return s;
+}
+.fi
+.SS "template<class MaTRiX > std::ostream& TNT::operator<< (std::ostream & s, UnitUpperTriangularView< MaTRiX > & A)"
+.PP
+Definition at line 609 of file triang.h.
+.PP
+References TNT::UnitUpperTriangularView< MaTRiX >::num_cols(), and TNT::UnitUpperTriangularView< MaTRiX >::num_rows().
+.PP
+.nf
+{
+    Subscript M=A.num_rows();
+    Subscript N=A.num_cols();
+
+    s << M << ' ' << N << endl;
+
+    for (Subscript i=1; i<=M; i++)
+    {
+        for (Subscript j=1; j<=N; j++)
+        {
+            s << A(i,j) << ' ';
+        }
+        s << endl;
+    }
+
+
+    return s;
+}
+.fi
+.SS "template<class T > ostream& TNT::operator<< (ostream & s, const Fortran_Sparse_Vector< T > & A)"
+.PP
+Definition at line 131 of file fspvec.h.
+.PP
+.nf
+{
+    // output format is :   N nz val1 ind1 val2 ind2 ... 
+    Subscript nz=A.num_nonzeros();
+
+    s <<  A.dim() << ' ' << nz << endl;
+
+    for (Subscript i=1; i<=nz; i++)
+        s   << A.val(i) << '  ' << A.index(i) << endl;
+    s << endl;
+
+    return s;
+}
+.fi
+.SS "template<class Matrix > std::ostream& TNT::operator<< (std::ostream & s, const Transpose_View< Matrix > & A)"
+.PP
+Definition at line 134 of file transv.h.
+.PP
+.nf
+{
+    Subscript M=A.num_rows();
+    Subscript N=A.num_cols();
+
+    Subscript start = A.lbound();
+    Subscript Mend = M + A.lbound() - 1;
+    Subscript Nend = N + A.lbound() - 1;
+
+    s << M << '  ' << N << endl;
+    for (Subscript i=start; i<=Mend; i++)
+    {
+        for (Subscript j=start; j<=Nend; j++)
+        {
+            s << A(i,j) << ' ';
+        }
+        s << endl;
+    }
+
+
+    return s;
+}
+.fi
+.SS "template<class T > std::ostream& TNT::operator<< (std::ostream & s, const Fortran_Matrix< T > & A)"
+.PP
+Definition at line 316 of file fmat.h.
+.PP
+.nf
+{
+    Subscript M=A.num_rows();
+    Subscript N=A.num_cols();
+
+    s << M << ' ' << N << '\n';
+
+    for (Subscript i=1; i<=M; i++)
+    {
+        for (Subscript j=1; j<=N; j++)
+        {
+            s << A(i,j) << ' ';
+        }
+        s << '\n';
+    }
+
+
+    return s;
+}
+.fi
+.SS "template<class T > ostream& TNT::operator<< (ostream & s, const Fortran_Sparse_Col_Matrix< T > & A)"
+.PP
+Definition at line 137 of file fcscmat.h.
+.PP
+.nf
+{
+    Subscript M=A.num_rows();
+    Subscript N=A.num_cols();
+
+    s << M << ' ' << N << ' ' << A.num_nonzeros() <<  endl;
+
+
+    for (Subscript k=1; k<=N; k++)
+    {
+        Subscript start = A.col_ptr(k);
+        Subscript end = A.col_ptr(k+1);
+
+        for (Subscript i= start; i<end; i++)
+        {
+            s << A.row_ind(i) << ' ' << k << ' ' << A.val(i) << endl;
+        }
+    }
+
+    return s;
+}
+.fi
+.SS "template<class Array2D > std::ostream& TNT::operator<< (std::ostream & s, const Region2D< Array2D > & A)"
+.PP
+Definition at line 442 of file region2d.h.
+.PP
+.nf
+{
+    Subscript start = A.lbound();
+    Subscript Mend=A.lbound()+ A.num_rows() - 1;
+    Subscript Nend=A.lbound() + A.num_cols() - 1;
+
+
+    s << A.num_rows() << '  ' << A.num_cols() << '\n';
+    for (Subscript i=start; i<=Mend; i++)
+    {
+        for (Subscript j=start; j<=Nend; j++)
+        {
+            s << A(i,j) << ' ';
+        }
+        s << '\n';
+    }
+
+
+    return s;
+
+}
+.fi
+.SS "template<class T > std::ostream& TNT::operator<< (std::ostream & s, const Vector< T > & A)"
+.PP
+Definition at line 296 of file vec.h.
+.PP
+.nf
+{
+    Subscript N=A.dim();
+
+    s <<  N << endl;
+
+    for (Subscript i=0; i<N; i++)
+        s   << A[i] << ' ' << endl;
+    s << endl;
+
+    return s;
+}
+.fi
+.SS "template<class BBVec > std::istream& TNT::operator>> (std::istream & s, Vector_Adaptor< BBVec > & A)"
+.PP
+Definition at line 273 of file vecadaptor.h.
+.PP
+References TNT::Vector_Adaptor< BBVec >::resize().
+.PP
+.nf
+{
+    Subscript N;
+    
+    s >> N;
+
+    A.resize(N);
+
+    for (Subscript i=1; i<=N; i++)
+        s >> A(i);
+
+    return s;
+}
+.fi
+.SS "template<class T > std::istream& TNT::operator>> (std::istream & s, Fortran_Matrix< T > & A)"
+.PP
+Definition at line 337 of file fmat.h.
+.PP
+References TNT::Fortran_Matrix< T >::newsize(), TNT::Fortran_Matrix< T >::num_cols(), and TNT::Fortran_Matrix< T >::num_rows().
+.PP
+.nf
+{
+
+    Subscript M, N;
+
+    s >> M >> N;
+
+    if ( !(M == A.num_rows() && N == A.num_cols()))
+    {
+        A.newsize(M,N);
+    }
+
+
+    for (Subscript i=1; i<=M; i++)
+        for (Subscript j=1; j<=N; j++)
+        {
+            s >>  A(i,j);
+        }
+
+
+    return s;
+}
+.fi
+.SS "template<class T > std::istream& TNT::operator>> (std::istream & s, Vector< T > & A)"
+.PP
+Definition at line 310 of file vec.h.
+.PP
+References TNT::Vector< T >::newsize(), and TNT::Vector< T >::size().
+.PP
+.nf
+{
+
+    Subscript N;
+
+    s >> N;
+
+    if ( !(N == A.size() ))
+    {
+        A.newsize(N);
+    }
+
+
+    for (Subscript i=0; i<N; i++)
+            s >>  A[i];
+
+
+    return s;
+}
+.fi
+.SS "template<class T > istream& TNT::operator>> (istream & s, Fortran_Sparse_Vector< T > & A)"
+.PP
+Definition at line 147 of file fspvec.h.
+.PP
+References TNT::Fortran_Sparse_Vector< T >::index(), TNT::Fortran_Sparse_Vector< T >::newsize(), and TNT::Fortran_Sparse_Vector< T >::val().
+.PP
+.nf
+{
+    // output format is :   N nz val1 ind1 val2 ind2 ... 
+
+    Subscript N;
+    Subscript nz;
+
+    s >> N >> nz;
+
+    A.newsize(N, nz);
+
+    for (Subscript i=1; i<=nz; i++)
+            s >>  A.val(i) >> A.index(i);
+
+
+    return s;
+}
+.fi
+.SS "template<class T > std::istream& TNT::operator>> (std::istream & s, Matrix< T > & A)"
+.PP
+Definition at line 381 of file cmat.h.
+.PP
+References TNT::Matrix< T >::newsize(), TNT::Matrix< T >::num_cols(), and TNT::Matrix< T >::num_rows().
+.PP
+.nf
+{
+
+    Subscript M, N;
+
+    s >> M >> N;
+
+    if ( !(M == A.num_rows() && N == A.num_cols() ))
+    {
+        A.newsize(M,N);
+    }
+
+
+    for (Subscript i=0; i<M; i++)
+        for (Subscript j=0; j<N; j++)
+        {
+            s >>  A[i][j];
+        }
+
+
+    return s;
+}
+.fi
+.SS "template<class MaTRiX , class Vector > int TNT::QR_factor (MaTRiX & A, Vector & C, Vector & D)"
+.PP
+Definition at line 85 of file qr.h.
+.PP
+References TNT::Vector< T >::lbound(), TNT::Vector< T >::newsize(), sign(), and TNT::Vector< T >::size().
+.PP
+.nf
+{
+    assert(A.lbound() == 1);        // ensure these are all 
+    assert(C.lbound() == 1);        // 1-based arrays and vectors
+    assert(D.lbound() == 1);
+
+    Subscript M = A.num_rows();
+    Subscript N = A.num_cols(); 
+
+    assert(M == N);                 // make sure A is square
+
+    Subscript i,j,k;
+    typename MaTRiX::element_type eta, sigma, sum;
+
+    // adjust the shape of C and D, if needed...
+
+    if (N != C.size())  C.newsize(N);
+    if (N != D.size())  D.newsize(N);
+
+    for (k=1; k<N; k++)
+    {
+        // eta = max |M(i,k)|,  for k <= i <= n
+        //
+        eta = 0;
+        for (i=k; i<=N; i++)
+        {
+            double absA = fabs(A(i,k));
+            eta = ( absA >  eta ? absA : eta ); 
+        }
+
+        if (eta == 0)           // matrix is singular
+        {
+            cerr << 'QR: k=' << k << '\n';
+            return 1;
+        }
+
+        // form Qk and premiltiply M by it
+        //
+        for(i=k; i<=N; i++)
+            A(i,k)  = A(i,k) / eta;
+
+        sum = 0;
+        for (i=k; i<=N; i++)
+            sum = sum + A(i,k)*A(i,k);
+        sigma = sign(A(k,k)) *  sqrt(sum);
+
+
+        A(k,k) = A(k,k) + sigma;
+        C(k) = sigma * A(k,k);
+        D(k) = -eta * sigma;
+
+        for (j=k+1; j<=N; j++)
+        {
+            sum = 0;
+            for (i=k; i<=N; i++)
+                sum = sum + A(i,k)*A(i,j);
+            sum = sum / C(k);
+
+            for (i=k; i<=N; i++)
+                A(i,j) = A(i,j) - sum * A(i,k);
+        }
+
+        D(N) = A(N,N);
+    }
+
+    return 0;
+}
+.fi
+.SS "template<class MaTRiX , class Vector > int TNT::QR_solve (const MaTRiX & A, const Vector & c, Vector & d, Vector & b)"
+.PP
+Definition at line 194 of file qr.h.
+.PP
+References TNT::Vector< T >::dim(), TNT::Vector< T >::lbound(), and R_solve().
+.PP
+.nf
+{
+    assert(A.lbound() == 1);        // ensure these are all 
+    assert(c.lbound() == 1);        // 1-based arrays and vectors
+    assert(d.lbound() == 1);
+
+    Subscript N=A.num_rows();
+
+    assert(N == A.num_cols());
+    assert(N == c.dim());
+    assert(N == d.dim());
+    assert(N == b.dim());
+
+    Subscript i,j;
+    typename MaTRiX::element_type sum, tau;
+
+    for (j=1; j<N; j++)
+    {
+        // form Q'*b
+        sum = 0;
+        for (i=j; i<=N; i++)
+            sum = sum + A(i,j)*b(i);
+        if (c(j) == 0)
+            return 1;
+        tau = sum / c(j);
+       for (i=j; i<=N; i++)
+            b(i) = b(i) - tau * A(i,j);
+    }
+    return R_solve(A, d, b);        // solve Rx = Q'b
+}
+.fi
+.SS "template<class MaTRiX , class Vector > int TNT::R_solve (const MaTRiX & A, Vector & D, Vector & b)"
+.PP
+Definition at line 157 of file qr.h.
+.PP
+References TNT::Vector< T >::dim(), and TNT::Vector< T >::lbound().
+.PP
+Referenced by QR_solve().
+.PP
+.nf
+{
+    assert(A.lbound() == 1);        // ensure these are all 
+    assert(D.lbound() == 1);        // 1-based arrays and vectors
+    assert(b.lbound() == 1);
+
+    Subscript i,j;
+    Subscript N = A.num_rows();
+
+    assert(N == A.num_cols());
+    assert(N == D.dim());
+    assert(N == b.dim());
+
+    typename MaTRiX::element_type sum;
+
+    if (D(N) == 0)
+        return 1;
+
+    b(N) = b(N) / 
+            D(N);
+
+    for (i=N-1; i>=1; i--)
+    {
+        if (D(i) == 0)
+            return 1;
+        sum = 0;
+        for (j=i+1; j<=N; j++)
+            sum = sum + A(i,j)*b(j);
+        b(i) = ( b(i) - sum ) / 
+            D(i);
+    }
+
+    return 0;
+}
+.fi
+.SS "double TNT::seconds (void)\fC [inline]\fP"
+.PP
+Definition at line 44 of file stopwatch.h.
+.PP
+Referenced by TNT::stopwatch::read(), TNT::stopwatch::start(), and TNT::stopwatch::stop().
+.PP
+.nf
+{
+    static const double secs_per_tick = 1.0 / CLOCKS_PER_SEC;
+    return ( (double) clock() ) * secs_per_tick;
+}
+.fi
+.SS "float TNT::sign (float a)\fC [inline]\fP"
+.PP
+Definition at line 75 of file tntmath.h.
+.PP
+.nf
+{
+    return (a > 0.0 ? 1.0f : -1.0f);
+}
+.fi
+.SS "double TNT::sign (double a)\fC [inline]\fP"
+.PP
+Definition at line 68 of file tntmath.h.
+.PP
+Referenced by QR_factor().
+.PP
+.nf
+{
+    return (a > 0 ? 1.0 : -1.0);
+}
+.fi
+.SS "template<class T > \fBMatrix\fP<T> TNT::transpose (const Matrix< T > & A)"
+.PP
+Definition at line 469 of file cmat.h.
+.PP
+References TNT::Matrix< T >::num_cols(), and TNT::Matrix< T >::num_rows().
+.PP
+.nf
+{
+    Subscript M = A.num_rows();
+    Subscript N = A.num_cols();
+
+    Matrix<T> S(N,M);
+    Subscript i, j;
+
+    for (i=0; i<M; i++)
+        for (j=0; j<N; j++)
+            S[j][i] = A[i][j];
+
+    return S;
+}
+.fi
+.SS "template<class T > \fBFortran_Matrix\fP<T> TNT::transpose (const Fortran_Matrix< T > & A)"
+.PP
+Definition at line 429 of file fmat.h.
+.PP
+References TNT::Fortran_Matrix< T >::num_cols(), and TNT::Fortran_Matrix< T >::num_rows().
+.PP
+.nf
+{
+    Subscript M = A.num_rows();
+    Subscript N = A.num_cols();
+
+    Fortran_Matrix<T> S(N,M);
+    Subscript i, j;
+
+    for (i=1; i<=M; i++)
+        for (j=1; j<=N; j++)
+            S(j,i) = A(i,j);
+
+    return S;
+}
+.fi
+.SS "template<class Matrix > \fBTranspose_View\fP<\fBMatrix\fP> TNT::Transpose_view (const Matrix & A)"
+.PP
+Definition at line 95 of file transv.h.
+.PP
+.nf
+{
+    return Transpose_View<Matrix>(A);
+}
+.fi
+.SS "template<class MaTriX , class VecToR > VecToR TNT::Unit_lower_triangular_solve (MaTriX & A, VecToR & b)"
+.PP
+Definition at line 63 of file trisolve.h.
+.PP
+Referenced by linear_solve().
+.PP
+.nf
+{
+    Subscript N = A.num_rows();
+
+    // make sure matrix sizes agree; A must be square
+
+    assert(A.num_cols() == N);
+    assert(b.dim() == N);
+
+    VecToR x(N);
+
+    Subscript i;
+    for (i=1; i<=N; i++)
+    {
+
+        typename MaTriX::element_type tmp=0;
+
+        for (Subscript j=1; j<i; j++)
+                tmp = tmp + A(i,j)*x(j);
+
+        x(i) =  b(i) - tmp;
+    }
+
+.fi
+.SS "template<class MaTRiX > \fBUnitLowerTriangularView\fP<MaTRiX> TNT::Unit_lower_triangular_view (MaTRiX & A)"
+.PP
+Definition at line 245 of file triang.h.
+.PP
+.nf
+{
+    return UnitLowerTriangularView<MaTRiX>(A);
+}
+.fi
+.SS "template<class MaTriX , class VecToR > VecToR TNT::Unit_upper_triangular_solve (MaTriX & A, VecToR & b)"
+.PP
+Definition at line 137 of file trisolve.h.
+.PP
+Referenced by linear_solve().
+.PP
+.nf
+{
+    Subscript N = A.num_rows();
+
+    // make sure matrix sizes agree; A must be square
+
+    assert(A.num_cols() == N);
+    assert(b.dim() == N);
+
+    VecToR x(N);
+
+    Subscript i;
+    for (i=N; i>=1; i--)
+    {
+
+        typename MaTriX::element_type tmp=0;
+
+        for (Subscript j=i+1; j<i; j++)
+                tmp = tmp + A(i,j)*x(j);
+
+        x(i) =  b(i) - tmp;
+    }
+
+.fi
+.SS "template<class MaTRiX > \fBUnitUpperTriangularView\fP<MaTRiX> TNT::Unit_upper_triangular_view (MaTRiX & A)"
+.PP
+Definition at line 543 of file triang.h.
+.PP
+.nf
+{
+    return UnitUpperTriangularView<MaTRiX>(A);
+}
+.fi
+.SS "template<class MaTriX , class VecToR > VecToR TNT::Upper_triangular_solve (MaTriX & A, VecToR & b)"
+.PP
+Definition at line 109 of file trisolve.h.
+.PP
+Referenced by linear_solve().
+.PP
+.nf
+{
+    Subscript N = A.num_rows();
+
+    // make sure matrix sizes agree; A must be square
+
+    assert(A.num_cols() == N);
+    assert(b.dim() == N);
+
+    VecToR x(N);
+
+    Subscript i;
+    for (i=N; i>=1; i--)
+    {
+
+        typename MaTriX::element_type tmp=0;
+
+        for (Subscript j=i+1; j<=N; j++)
+                tmp = tmp + A(i,j)*x(j);
+
+        x(i) =  (b(i) - tmp)/ A(i,i);
+    }
+
+.fi
+.SS "template<class MaTRiX > \fBUpperTriangularView\fP<MaTRiX> TNT::Upper_triangular_view (MaTRiX & A)"
+.PP
+Definition at line 535 of file triang.h.
+.PP
+.nf
+{
+    return UpperTriangularView<MaTRiX>(A);
+}
+.fi
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

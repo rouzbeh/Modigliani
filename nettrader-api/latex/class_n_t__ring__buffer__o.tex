@@ -1,0 +1,311 @@
+\subsection{NT\_\-ring\_\-buffer\_\-o$<$ T $>$ Class Template Reference}
+\label{class_n_t__ring__buffer__o}\index{NT\_\-ring\_\-buffer\_\-o@{NT\_\-ring\_\-buffer\_\-o}}
+
+
+\hyperlink{class_n_t__ring__buffer__o}{NT\_\-ring\_\-buffer\_\-o} class.  
+
+
+
+
+{\ttfamily \#include $<$nt\_\-ring\_\-buffer\_\-obj.h$>$}
+
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_t__ring__buffer__o_a3264edac1b94525a4a5dcb182fd2aaff}{NT\_\-ring\_\-buffer\_\-o} (\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} newRingLength=2)
+\item 
+\hyperlink{class_n_t__ring__buffer__o_af56de04cda9e72a894ec74140f77fd0b}{NT\_\-ring\_\-buffer\_\-o} (const \hyperlink{class_n_t__ring__buffer__o}{NT\_\-ring\_\-buffer\_\-o} \&original)
+\item 
+const \hyperlink{class_n_t__ring__buffer__o}{NT\_\-ring\_\-buffer\_\-o} \& \hyperlink{class_n_t__ring__buffer__o_a4d8afaa170622da3c9607f137a956df4}{operator=} (const \hyperlink{class_n_t__ring__buffer__o}{NT\_\-ring\_\-buffer\_\-o} \&right)
+\item 
+virtual \hyperlink{class_n_t__ring__buffer__o_a17e53d888ed8cd7a33d94c29635ed530}{$\sim$NT\_\-ring\_\-buffer\_\-o} ()
+\item 
+\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} \hyperlink{class_n_t__ring__buffer__o_a8345e785c586da2bda9b4eed41f09dc8}{\_\-ringLength} () const 
+\item 
+\hyperlink{nt__types_8h_ab9564ee8f091e809d21b8451c6683c53}{NTreturn} \hyperlink{class_n_t__ring__buffer__o_ad29dd730de47d919552f79be26286660}{Resize} (\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} newRingLength)
+\begin{DoxyCompactList}\small\item\em after resize states are reset to scratch \item\end{DoxyCompactList}\item 
+void \hyperlink{class_n_t__ring__buffer__o_afa58fcaa8cf00b048aac4747e9862af3}{Push} (T value)
+\item 
+void \hyperlink{class_n_t__ring__buffer__o_a954b6f964f1ca530bb0575472c96c7f2}{Show} ()
+\item 
+vector$<$ T $>$ \hyperlink{class_n_t__ring__buffer__o_ad7037e3c1b552d97d1b4cd209b9408b0}{Buffer} ()
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} \hyperlink{class_n_t__ring__buffer__o_a314f3fe40e9fdaf27ecf492c6cdd1428}{IncreaseCounter} ()
+\item 
+\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} \hyperlink{class_n_t__ring__buffer__o_a1022a3bca11f5ef68d0f1593b4dd1649}{\_\-counter} ()
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} \hyperlink{class_n_t__ring__buffer__o_ad0be2ccb66b4e601eb47d3ea85771bf0}{ringLength}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\subsubsection*{template$<$class T$>$ class NT\_\-ring\_\-buffer\_\-o$<$ T $>$}
+
+\begin{Desc}
+\item[\hyperlink{bug__bug000107}{Bug}]unknown \end{Desc}
+\begin{DoxyWarning}{Warning}
+unknown 
+\end{DoxyWarning}
+
+
+Definition at line 57 of file nt\_\-ring\_\-buffer\_\-obj.h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{NT\_\-ring\_\-buffer\_\-o@{NT\_\-ring\_\-buffer\_\-o}!NT\_\-ring\_\-buffer\_\-o@{NT\_\-ring\_\-buffer\_\-o}}
+\index{NT\_\-ring\_\-buffer\_\-o@{NT\_\-ring\_\-buffer\_\-o}!NT_ring_buffer_o@{NT\_\-ring\_\-buffer\_\-o}}
+\paragraph[{NT\_\-ring\_\-buffer\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ {\bf NT\_\-ring\_\-buffer\_\-o}$<$ T $>$::{\bf NT\_\-ring\_\-buffer\_\-o} (
+\begin{DoxyParamCaption}
+\item[{{\bf NTsize}}]{ newRingLength = {\ttfamily 2}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__ring__buffer__o_a3264edac1b94525a4a5dcb182fd2aaff}
+
+
+Definition at line 60 of file nt\_\-ring\_\-buffer\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ Init(newRingLength); }
+\end{DoxyCode}
+
+
+\index{NT\_\-ring\_\-buffer\_\-o@{NT\_\-ring\_\-buffer\_\-o}!NT\_\-ring\_\-buffer\_\-o@{NT\_\-ring\_\-buffer\_\-o}}
+\index{NT\_\-ring\_\-buffer\_\-o@{NT\_\-ring\_\-buffer\_\-o}!NT_ring_buffer_o@{NT\_\-ring\_\-buffer\_\-o}}
+\paragraph[{NT\_\-ring\_\-buffer\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ {\bf NT\_\-ring\_\-buffer\_\-o}$<$ T $>$::{\bf NT\_\-ring\_\-buffer\_\-o} (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT\_\-ring\_\-buffer\_\-o}$<$ T $>$ \&}]{ original}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__ring__buffer__o_af56de04cda9e72a894ec74140f77fd0b}
+\index{NT\_\-ring\_\-buffer\_\-o@{NT\_\-ring\_\-buffer\_\-o}!$\sim$NT\_\-ring\_\-buffer\_\-o@{$\sim$NT\_\-ring\_\-buffer\_\-o}}
+\index{$\sim$NT\_\-ring\_\-buffer\_\-o@{$\sim$NT\_\-ring\_\-buffer\_\-o}!NT_ring_buffer_o@{NT\_\-ring\_\-buffer\_\-o}}
+\paragraph[{$\sim$NT\_\-ring\_\-buffer\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ virtual {\bf NT\_\-ring\_\-buffer\_\-o}$<$ T $>$::$\sim${\bf NT\_\-ring\_\-buffer\_\-o} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}\hfill\label{class_n_t__ring__buffer__o_a17e53d888ed8cd7a33d94c29635ed530}
+
+
+Definition at line 63 of file nt\_\-ring\_\-buffer\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{}
+\end{DoxyCode}
+
+
+
+
+\subsubsection{Member Function Documentation}
+\index{NT\_\-ring\_\-buffer\_\-o@{NT\_\-ring\_\-buffer\_\-o}!\_\-counter@{\_\-counter}}
+\index{\_\-counter@{\_\-counter}!NT_ring_buffer_o@{NT\_\-ring\_\-buffer\_\-o}}
+\paragraph[{\_\-counter}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ {\bf NTsize} {\bf NT\_\-ring\_\-buffer\_\-o}$<$ T $>$::\_\-counter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, protected\mbox{]}}}\hfill\label{class_n_t__ring__buffer__o_a1022a3bca11f5ef68d0f1593b4dd1649}
+
+
+Definition at line 81 of file nt\_\-ring\_\-buffer\_\-obj.h.
+
+
+
+Referenced by NT\_\-ring\_\-buffer\_\-o$<$ T $>$::Buffer().
+
+
+
+
+\begin{DoxyCode}
+{ return counter; }
+\end{DoxyCode}
+
+
+\index{NT\_\-ring\_\-buffer\_\-o@{NT\_\-ring\_\-buffer\_\-o}!\_\-ringLength@{\_\-ringLength}}
+\index{\_\-ringLength@{\_\-ringLength}!NT_ring_buffer_o@{NT\_\-ring\_\-buffer\_\-o}}
+\paragraph[{\_\-ringLength}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ {\bf NTsize} {\bf NT\_\-ring\_\-buffer\_\-o}$<$ T $>$::\_\-ringLength (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__ring__buffer__o_a8345e785c586da2bda9b4eed41f09dc8}
+
+
+Definition at line 65 of file nt\_\-ring\_\-buffer\_\-obj.h.
+
+
+
+References NT\_\-ring\_\-buffer\_\-o$<$ T $>$::ringLength.
+
+
+
+Referenced by NT\_\-ring\_\-buffer\_\-o$<$ T $>$::Buffer(), and NT\_\-ring\_\-buffer\_\-o$<$ T $>$::Show().
+
+
+
+
+\begin{DoxyCode}
+{ return ringLength;}
+\end{DoxyCode}
+
+
+\index{NT\_\-ring\_\-buffer\_\-o@{NT\_\-ring\_\-buffer\_\-o}!Buffer@{Buffer}}
+\index{Buffer@{Buffer}!NT_ring_buffer_o@{NT\_\-ring\_\-buffer\_\-o}}
+\paragraph[{Buffer}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ vector$<$T$>$ {\bf NT\_\-ring\_\-buffer\_\-o}$<$ T $>$::Buffer (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__ring__buffer__o_ad7037e3c1b552d97d1b4cd209b9408b0}
+
+
+Definition at line 71 of file nt\_\-ring\_\-buffer\_\-obj.h.
+
+
+
+References NT\_\-ring\_\-buffer\_\-o$<$ T $>$::\_\-counter(), NT\_\-ring\_\-buffer\_\-o$<$ T $>$::\_\-ringLength(), and NT\_\-ring\_\-buffer\_\-o$<$ T $>$::ringLength.
+
+
+
+Referenced by NT\_\-ring\_\-buffer\_\-o$<$ T $>$::Show().
+
+
+
+
+\begin{DoxyCode}
+                    {
+                            vector <T> tmpVec(ringLength);
+                            for (NTsize ll=0; ll< _ringLength(); ll++) tmpVec[ll]
+       = bufferVec[(_counter()+ll+1) % ringLength];
+                            return tmpVec;
+                          }
+\end{DoxyCode}
+
+
+\index{NT\_\-ring\_\-buffer\_\-o@{NT\_\-ring\_\-buffer\_\-o}!IncreaseCounter@{IncreaseCounter}}
+\index{IncreaseCounter@{IncreaseCounter}!NT_ring_buffer_o@{NT\_\-ring\_\-buffer\_\-o}}
+\paragraph[{IncreaseCounter}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ {\bf NTsize} {\bf NT\_\-ring\_\-buffer\_\-o}$<$ T $>$::IncreaseCounter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, protected\mbox{]}}}\hfill\label{class_n_t__ring__buffer__o_a314f3fe40e9fdaf27ecf492c6cdd1428}
+
+
+Definition at line 79 of file nt\_\-ring\_\-buffer\_\-obj.h.
+
+
+
+References NT\_\-ring\_\-buffer\_\-o$<$ T $>$::ringLength.
+
+
+
+Referenced by NT\_\-ring\_\-buffer\_\-o$<$ T $>$::Push().
+
+
+
+
+\begin{DoxyCode}
+                         {  counter = (counter + 1) % ringLength;
+                            return counter; }
+\end{DoxyCode}
+
+
+\index{NT\_\-ring\_\-buffer\_\-o@{NT\_\-ring\_\-buffer\_\-o}!operator=@{operator=}}
+\index{operator=@{operator=}!NT_ring_buffer_o@{NT\_\-ring\_\-buffer\_\-o}}
+\paragraph[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ const {\bf NT\_\-ring\_\-buffer\_\-o}\& {\bf NT\_\-ring\_\-buffer\_\-o}$<$ T $>$::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT\_\-ring\_\-buffer\_\-o}$<$ T $>$ \&}]{ right}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__ring__buffer__o_a4d8afaa170622da3c9607f137a956df4}
+\index{NT\_\-ring\_\-buffer\_\-o@{NT\_\-ring\_\-buffer\_\-o}!Push@{Push}}
+\index{Push@{Push}!NT_ring_buffer_o@{NT\_\-ring\_\-buffer\_\-o}}
+\paragraph[{Push}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ void {\bf NT\_\-ring\_\-buffer\_\-o}$<$ T $>$::Push (
+\begin{DoxyParamCaption}
+\item[{T}]{ value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__ring__buffer__o_afa58fcaa8cf00b048aac4747e9862af3}
+
+
+Definition at line 68 of file nt\_\-ring\_\-buffer\_\-obj.h.
+
+
+
+References NT\_\-ring\_\-buffer\_\-o$<$ T $>$::IncreaseCounter().
+
+
+
+
+\begin{DoxyCode}
+{ bufferVec[IncreaseCounter()] = value;}
+\end{DoxyCode}
+
+
+\index{NT\_\-ring\_\-buffer\_\-o@{NT\_\-ring\_\-buffer\_\-o}!Resize@{Resize}}
+\index{Resize@{Resize}!NT_ring_buffer_o@{NT\_\-ring\_\-buffer\_\-o}}
+\paragraph[{Resize}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ {\bf NTreturn} {\bf NT\_\-ring\_\-buffer\_\-o}$<$ T $>$::Resize (
+\begin{DoxyParamCaption}
+\item[{{\bf NTsize}}]{ newRingLength}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__ring__buffer__o_ad29dd730de47d919552f79be26286660}
+
+
+Definition at line 67 of file nt\_\-ring\_\-buffer\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ Init(newRingLength); }
+\end{DoxyCode}
+
+
+\index{NT\_\-ring\_\-buffer\_\-o@{NT\_\-ring\_\-buffer\_\-o}!Show@{Show}}
+\index{Show@{Show}!NT_ring_buffer_o@{NT\_\-ring\_\-buffer\_\-o}}
+\paragraph[{Show}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ void {\bf NT\_\-ring\_\-buffer\_\-o}$<$ T $>$::Show (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__ring__buffer__o_a954b6f964f1ca530bb0575472c96c7f2}
+
+
+Definition at line 69 of file nt\_\-ring\_\-buffer\_\-obj.h.
+
+
+
+References NT\_\-ring\_\-buffer\_\-o$<$ T $>$::\_\-ringLength(), and NT\_\-ring\_\-buffer\_\-o$<$ T $>$::Buffer().
+
+
+
+
+\begin{DoxyCode}
+{ vector <T> tmpVec = Buffer(); for(NTsize ll=0; ll< _ringLength(); ll++) cout <<
+       tmpVec[ll] << " "; cout << endl;}
+\end{DoxyCode}
+
+
+
+
+\subsubsection{Member Data Documentation}
+\index{NT\_\-ring\_\-buffer\_\-o@{NT\_\-ring\_\-buffer\_\-o}!ringLength@{ringLength}}
+\index{ringLength@{ringLength}!NT_ring_buffer_o@{NT\_\-ring\_\-buffer\_\-o}}
+\paragraph[{ringLength}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ {\bf NTsize} {\bf NT\_\-ring\_\-buffer\_\-o}$<$ T $>$::{\bf ringLength}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_n_t__ring__buffer__o_ad0be2ccb66b4e601eb47d3ea85771bf0}
+
+
+Definition at line 83 of file nt\_\-ring\_\-buffer\_\-obj.h.
+
+
+
+Referenced by NT\_\-ring\_\-buffer\_\-o$<$ T $>$::\_\-ringLength(), NT\_\-ring\_\-buffer\_\-o$<$ T $>$::Buffer(), and NT\_\-ring\_\-buffer\_\-o$<$ T $>$::IncreaseCounter().
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nt__ring__buffer__obj_8h}{nt\_\-ring\_\-buffer\_\-obj.h}\end{DoxyCompactItemize}

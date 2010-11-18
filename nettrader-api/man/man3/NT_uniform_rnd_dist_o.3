@@ -1,0 +1,122 @@
+.TH "NT_uniform_rnd_dist_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NT_uniform_rnd_dist_o \- 
+.PP
+\fBNT_uniform_rnd_dist_o\fP returns values out of a uniform random distribution objects.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <nt_uniform_rnd_dist_obj.h>\fP
+.PP
+Inherits \fBNT_rnd_dist_o\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNT_uniform_rnd_dist_o\fP ()"
+.br
+.ti -1c
+.RI "\fBNT_uniform_rnd_dist_o\fP (\fBNTreal\fP lowerBound, \fBNTreal\fP upperBound)"
+.br
+.ti -1c
+.RI "\fBNT_uniform_rnd_dist_o\fP (const \fBNT_uniform_rnd_dist_o\fP &)"
+.br
+.ti -1c
+.RI "\fB~NT_uniform_rnd_dist_o\fP ()"
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fBRndVal\fP () const "
+.br
+.ti -1c
+.RI "\fBoperator NTreal\fP () const "
+.br
+.ti -1c
+.RI "\fBNTreturn\fP \fBChangeBounds\fP (\fBNTreal\fP lowerBound, \fBNTreal\fP upperBound)"
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fB_a\fP () const "
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fB_b\fP () const "
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fB_mean\fP () const "
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fB_variance\fP () const "
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "ostream & \fBoperator<<\fP (ostream &os, const \fBNT_uniform_rnd_dist_o\fP &self)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Idea : The usage idea is to asign the object to the desired variable either an NTreal or an \fBNT_vector_o\fP. The corresponding 'type cast' will return random values in the data structure of requested type (implementing a true random 'variable')
+.PP
+A dimension check is included to enhace tye safety HOWEVER, if necessary a typecast should be explicitly written: \fBNT_uniform_rnd_dist_o\fP uniform; float a = (NTreal) uniform; 
+.PP
+Definition at line 91 of file nt_uniform_rnd_dist_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "NT_uniform_rnd_dist_o::NT_uniform_rnd_dist_o ()"
+.SS "NT_uniform_rnd_dist_o::NT_uniform_rnd_dist_o (\fBNTreal\fP lowerBound, \fBNTreal\fP upperBound)"
+.SS "NT_uniform_rnd_dist_o::NT_uniform_rnd_dist_o (const \fBNT_uniform_rnd_dist_o\fP &)"
+.SS "NT_uniform_rnd_dist_o::~NT_uniform_rnd_dist_o ()"
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBNTreal\fP NT_uniform_rnd_dist_o::_a () const\fC [inline]\fP"
+.PP
+Definition at line 105 of file nt_uniform_rnd_dist_obj.h.
+.PP
+.nf
+{return a; };
+.fi
+.SS "\fBNTreal\fP NT_uniform_rnd_dist_o::_b () const\fC [inline]\fP"
+.PP
+Definition at line 106 of file nt_uniform_rnd_dist_obj.h.
+.PP
+.nf
+{return b; };
+.fi
+.SS "\fBNTreal\fP NT_uniform_rnd_dist_o::_mean () const\fC [inline]\fP"
+.PP
+Reimplemented from \fBNT_rnd_dist_o\fP.
+.PP
+Definition at line 107 of file nt_uniform_rnd_dist_obj.h.
+.PP
+References NT_rnd_dist_o::mean.
+.PP
+.nf
+{ return mean; };            
+.fi
+.SS "\fBNTreal\fP NT_uniform_rnd_dist_o::_variance () const\fC [inline]\fP"
+.PP
+Reimplemented from \fBNT_rnd_dist_o\fP.
+.PP
+Definition at line 108 of file nt_uniform_rnd_dist_obj.h.
+.PP
+References NT_rnd_dist_o::variance.
+.PP
+.nf
+{ return variance; };            
+.fi
+.SS "\fBNTreturn\fP NT_uniform_rnd_dist_o::ChangeBounds (\fBNTreal\fP lowerBound, \fBNTreal\fP upperBound)"
+.SS "NT_uniform_rnd_dist_o::operator \fBNTreal\fP () const"
+.SS "\fBNTreal\fP NT_uniform_rnd_dist_o::RndVal () const\fC [virtual]\fP"
+.PP
+Implements \fBNT_rnd_dist_o\fP.
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "ostream& operator<< (ostream & os, const \fBNT_uniform_rnd_dist_o\fP & self)\fC [friend]\fP"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

@@ -1,0 +1,239 @@
+\subsection{NT\_\-uniform\_\-rnd\_\-dist\_\-o Class Reference}
+\label{class_n_t__uniform__rnd__dist__o}\index{NT\_\-uniform\_\-rnd\_\-dist\_\-o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}}
+
+
+\hyperlink{class_n_t__uniform__rnd__dist__o}{NT\_\-uniform\_\-rnd\_\-dist\_\-o} returns values out of a uniform random distribution objects.  
+
+
+
+
+{\ttfamily \#include $<$nt\_\-uniform\_\-rnd\_\-dist\_\-obj.h$>$}
+
+
+
+Inheritance diagram for NT\_\-uniform\_\-rnd\_\-dist\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=170pt]{class_n_t__uniform__rnd__dist__o__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for NT\_\-uniform\_\-rnd\_\-dist\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=170pt]{class_n_t__uniform__rnd__dist__o__coll__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_t__uniform__rnd__dist__o_a8080222882e03991206cc0ab45b33ba9}{NT\_\-uniform\_\-rnd\_\-dist\_\-o} ()
+\item 
+\hyperlink{class_n_t__uniform__rnd__dist__o_ad5ca2e602baf3039e453cb636f148ee6}{NT\_\-uniform\_\-rnd\_\-dist\_\-o} (\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} lowerBound, \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} upperBound)
+\item 
+\hyperlink{class_n_t__uniform__rnd__dist__o_adeeb9c7fd267d75e3c13622bce35016d}{NT\_\-uniform\_\-rnd\_\-dist\_\-o} (const \hyperlink{class_n_t__uniform__rnd__dist__o}{NT\_\-uniform\_\-rnd\_\-dist\_\-o} \&)
+\item 
+\hyperlink{class_n_t__uniform__rnd__dist__o_a4e7396853d4a1ac8e03af02e2fbdef16}{$\sim$NT\_\-uniform\_\-rnd\_\-dist\_\-o} ()
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t__uniform__rnd__dist__o_a37e4f70755b300a469a5af332ecd31ef}{RndVal} () const 
+\item 
+\hyperlink{class_n_t__uniform__rnd__dist__o_a08bf02422a5e48d01b002e4a753a6ccf}{operator NTreal} () const 
+\item 
+\hyperlink{nt__types_8h_ab9564ee8f091e809d21b8451c6683c53}{NTreturn} \hyperlink{class_n_t__uniform__rnd__dist__o_af12edfc771e062c2af641fa8c99d85bc}{ChangeBounds} (\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} lowerBound, \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} upperBound)
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t__uniform__rnd__dist__o_a255e49ba55d593269a4ceefdd4a326cc}{\_\-a} () const 
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t__uniform__rnd__dist__o_aa175c7a6c7578052ea926a9a9b8864b0}{\_\-b} () const 
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t__uniform__rnd__dist__o_a7a6784d12e257131b14456a221007ff7}{\_\-mean} () const 
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t__uniform__rnd__dist__o_ac757c6b47d1f36efadb3ce771ac0d0d8}{\_\-variance} () const 
+\end{DoxyCompactItemize}
+\subsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+ostream \& \hyperlink{class_n_t__uniform__rnd__dist__o_a91a5ac3620b9f329f88f0a51fbc5560c}{operator$<$$<$} (ostream \&os, const \hyperlink{class_n_t__uniform__rnd__dist__o}{NT\_\-uniform\_\-rnd\_\-dist\_\-o} \&self)
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+Idea : The usage idea is to asign the object to the desired variable either an NTreal or an \hyperlink{class_n_t__vector__o}{NT\_\-vector\_\-o}. The corresponding \char`\"{}type cast\char`\"{} will return random values in the data structure of requested type (implementing a true random \char`\"{}variable\char`\"{})
+
+A dimension check is included to enhace tye safety HOWEVER, if necessary a typecast should be explicitly written: \hyperlink{class_n_t__uniform__rnd__dist__o}{NT\_\-uniform\_\-rnd\_\-dist\_\-o} uniform; float a = (NTreal) uniform; 
+
+Definition at line 91 of file nt\_\-uniform\_\-rnd\_\-dist\_\-obj.h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{NT\_\-uniform\_\-rnd\_\-dist\_\-o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}!NT\_\-uniform\_\-rnd\_\-dist\_\-o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}}
+\index{NT\_\-uniform\_\-rnd\_\-dist\_\-o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}!NT_uniform_rnd_dist_o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}}
+\paragraph[{NT\_\-uniform\_\-rnd\_\-dist\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-uniform\_\-rnd\_\-dist\_\-o::NT\_\-uniform\_\-rnd\_\-dist\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__uniform__rnd__dist__o_a8080222882e03991206cc0ab45b33ba9}
+\index{NT\_\-uniform\_\-rnd\_\-dist\_\-o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}!NT\_\-uniform\_\-rnd\_\-dist\_\-o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}}
+\index{NT\_\-uniform\_\-rnd\_\-dist\_\-o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}!NT_uniform_rnd_dist_o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}}
+\paragraph[{NT\_\-uniform\_\-rnd\_\-dist\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-uniform\_\-rnd\_\-dist\_\-o::NT\_\-uniform\_\-rnd\_\-dist\_\-o (
+\begin{DoxyParamCaption}
+\item[{{\bf NTreal}}]{ lowerBound, }
+\item[{{\bf NTreal}}]{ upperBound}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__uniform__rnd__dist__o_ad5ca2e602baf3039e453cb636f148ee6}
+\index{NT\_\-uniform\_\-rnd\_\-dist\_\-o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}!NT\_\-uniform\_\-rnd\_\-dist\_\-o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}}
+\index{NT\_\-uniform\_\-rnd\_\-dist\_\-o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}!NT_uniform_rnd_dist_o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}}
+\paragraph[{NT\_\-uniform\_\-rnd\_\-dist\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-uniform\_\-rnd\_\-dist\_\-o::NT\_\-uniform\_\-rnd\_\-dist\_\-o (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT\_\-uniform\_\-rnd\_\-dist\_\-o} \&}]{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__uniform__rnd__dist__o_adeeb9c7fd267d75e3c13622bce35016d}
+\index{NT\_\-uniform\_\-rnd\_\-dist\_\-o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}!$\sim$NT\_\-uniform\_\-rnd\_\-dist\_\-o@{$\sim$NT\_\-uniform\_\-rnd\_\-dist\_\-o}}
+\index{$\sim$NT\_\-uniform\_\-rnd\_\-dist\_\-o@{$\sim$NT\_\-uniform\_\-rnd\_\-dist\_\-o}!NT_uniform_rnd_dist_o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}}
+\paragraph[{$\sim$NT\_\-uniform\_\-rnd\_\-dist\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-uniform\_\-rnd\_\-dist\_\-o::$\sim$NT\_\-uniform\_\-rnd\_\-dist\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__uniform__rnd__dist__o_a4e7396853d4a1ac8e03af02e2fbdef16}
+
+
+\subsubsection{Member Function Documentation}
+\index{NT\_\-uniform\_\-rnd\_\-dist\_\-o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}!\_\-a@{\_\-a}}
+\index{\_\-a@{\_\-a}!NT_uniform_rnd_dist_o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}}
+\paragraph[{\_\-a}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NT\_\-uniform\_\-rnd\_\-dist\_\-o::\_\-a (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__uniform__rnd__dist__o_a255e49ba55d593269a4ceefdd4a326cc}
+
+
+Definition at line 105 of file nt\_\-uniform\_\-rnd\_\-dist\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{return a; };
+\end{DoxyCode}
+
+
+\index{NT\_\-uniform\_\-rnd\_\-dist\_\-o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}!\_\-b@{\_\-b}}
+\index{\_\-b@{\_\-b}!NT_uniform_rnd_dist_o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}}
+\paragraph[{\_\-b}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NT\_\-uniform\_\-rnd\_\-dist\_\-o::\_\-b (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__uniform__rnd__dist__o_aa175c7a6c7578052ea926a9a9b8864b0}
+
+
+Definition at line 106 of file nt\_\-uniform\_\-rnd\_\-dist\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{return b; };
+\end{DoxyCode}
+
+
+\index{NT\_\-uniform\_\-rnd\_\-dist\_\-o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}!\_\-mean@{\_\-mean}}
+\index{\_\-mean@{\_\-mean}!NT_uniform_rnd_dist_o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}}
+\paragraph[{\_\-mean}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NT\_\-uniform\_\-rnd\_\-dist\_\-o::\_\-mean (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__uniform__rnd__dist__o_a7a6784d12e257131b14456a221007ff7}
+
+
+Reimplemented from \hyperlink{class_n_t__rnd__dist__o_ad4ad87c5f5ccdd56e46da7d5f0653866}{NT\_\-rnd\_\-dist\_\-o}.
+
+
+
+Definition at line 107 of file nt\_\-uniform\_\-rnd\_\-dist\_\-obj.h.
+
+
+
+References NT\_\-rnd\_\-dist\_\-o::mean.
+
+
+
+
+\begin{DoxyCode}
+{ return mean; };           
+\end{DoxyCode}
+
+
+\index{NT\_\-uniform\_\-rnd\_\-dist\_\-o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}!\_\-variance@{\_\-variance}}
+\index{\_\-variance@{\_\-variance}!NT_uniform_rnd_dist_o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}}
+\paragraph[{\_\-variance}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NT\_\-uniform\_\-rnd\_\-dist\_\-o::\_\-variance (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__uniform__rnd__dist__o_ac757c6b47d1f36efadb3ce771ac0d0d8}
+
+
+Reimplemented from \hyperlink{class_n_t__rnd__dist__o_a72ad9cef4f69ba1a160b818999c18b36}{NT\_\-rnd\_\-dist\_\-o}.
+
+
+
+Definition at line 108 of file nt\_\-uniform\_\-rnd\_\-dist\_\-obj.h.
+
+
+
+References NT\_\-rnd\_\-dist\_\-o::variance.
+
+
+
+
+\begin{DoxyCode}
+{ return variance; };           
+\end{DoxyCode}
+
+
+\index{NT\_\-uniform\_\-rnd\_\-dist\_\-o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}!ChangeBounds@{ChangeBounds}}
+\index{ChangeBounds@{ChangeBounds}!NT_uniform_rnd_dist_o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}}
+\paragraph[{ChangeBounds}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreturn} NT\_\-uniform\_\-rnd\_\-dist\_\-o::ChangeBounds (
+\begin{DoxyParamCaption}
+\item[{{\bf NTreal}}]{ lowerBound, }
+\item[{{\bf NTreal}}]{ upperBound}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__uniform__rnd__dist__o_af12edfc771e062c2af641fa8c99d85bc}
+\index{NT\_\-uniform\_\-rnd\_\-dist\_\-o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}!operator NTreal@{operator NTreal}}
+\index{operator NTreal@{operator NTreal}!NT_uniform_rnd_dist_o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}}
+\paragraph[{operator NTreal}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-uniform\_\-rnd\_\-dist\_\-o::operator {\bf NTreal} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hfill\label{class_n_t__uniform__rnd__dist__o_a08bf02422a5e48d01b002e4a753a6ccf}
+\index{NT\_\-uniform\_\-rnd\_\-dist\_\-o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}!RndVal@{RndVal}}
+\index{RndVal@{RndVal}!NT_uniform_rnd_dist_o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}}
+\paragraph[{RndVal}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NT\_\-uniform\_\-rnd\_\-dist\_\-o::RndVal (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t__uniform__rnd__dist__o_a37e4f70755b300a469a5af332ecd31ef}
+
+
+Implements \hyperlink{class_n_t__rnd__dist__o_a46234bbd8bd9e2ce5ae0fa7c2065531c}{NT\_\-rnd\_\-dist\_\-o}.
+
+
+
+\subsubsection{Friends And Related Function Documentation}
+\index{NT\_\-uniform\_\-rnd\_\-dist\_\-o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!NT_uniform_rnd_dist_o@{NT\_\-uniform\_\-rnd\_\-dist\_\-o}}
+\paragraph[{operator$<$$<$}]{\setlength{\rightskip}{0pt plus 5cm}ostream\& operator$<$$<$ (
+\begin{DoxyParamCaption}
+\item[{ostream \&}]{ os, }
+\item[{const {\bf NT\_\-uniform\_\-rnd\_\-dist\_\-o} \&}]{ self}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}friend\mbox{]}}}\hfill\label{class_n_t__uniform__rnd__dist__o_a91a5ac3620b9f329f88f0a51fbc5560c}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nt__uniform__rnd__dist__obj_8h}{nt\_\-uniform\_\-rnd\_\-dist\_\-obj.h}\end{DoxyCompactItemize}

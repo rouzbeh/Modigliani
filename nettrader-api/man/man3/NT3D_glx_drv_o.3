@@ -1,0 +1,143 @@
+.TH "NT3D_glx_drv_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NT3D_glx_drv_o \- 
+.PP
+\fBNT3D_glx_drv_o\fP class Driver class to provide drawing window for OpenGL under X11 through the GLX extensions (No GLX support required by X server if Mesa is used!).  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <nt3d_glx_drv_obj.h>\fP
+.PP
+Inherits \fBNT3D_drv_vp_o\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNT3D_glx_drv_o\fP (\fBNTsize\fP windowWidth=200, \fBNTsize\fP windowHeight=200, bool useCommonContext=false)"
+.br
+.ti -1c
+.RI "\fBNT3D_glx_drv_o\fP (const \fBNT3D_glx_drv_o\fP &original)"
+.br
+.ti -1c
+.RI "const \fBNT3D_glx_drv_o\fP & \fBoperator=\fP (const \fBNT3D_glx_drv_o\fP &right)"
+.br
+.ti -1c
+.RI "virtual \fB~NT3D_glx_drv_o\fP ()"
+.br
+.ti -1c
+.RI "\fBNTreturn\fP \fBOpen\fP (\fBNT3D_vp_spec_o\fP newWinSpec)"
+.br
+.ti -1c
+.RI "\fBNTreturn\fP \fBClose\fP ()"
+.br
+.ti -1c
+.RI "void \fBMakeCurrent\fP ()"
+.br
+.RI "\fImakes the window associated with this object the current rendering context \fP"
+.ti -1c
+.RI "void \fBSwapBuffer\fP ()"
+.br
+.RI "\fIcall instead of glXSwapBuffers \fP"
+.ti -1c
+.RI "\fBNTreturn\fP \fBResize\fP (\fBNTsize\fP width, \fBNTsize\fP height)"
+.br
+.ti -1c
+.RI "\fBNTreturn\fP \fBSetWindowTitle\fP (string newTitle)"
+.br
+.ti -1c
+.RI "\fBNT3D_bitmap_o\fP \fBView2Bitmap\fP ()"
+.br
+.RI "\fIMake sure that the method is called directly after a Draw() to the VP, as neither a \fBMakeCurrent()\fP nor a Draw() is executed by this method. \fP"
+.ti -1c
+.RI "\fBNT3D_bitmap_o\fP * \fBView2BitmapPtr\fP (\fBNT3D_bitmap_o\fP *bmpPtr)"
+.br
+.ti -1c
+.RI "\fBNTsize\fP \fB_width\fP ()"
+.br
+.ti -1c
+.RI "\fBNTsize\fP \fB_height\fP ()"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBBug\fP
+.RS 4
+unknown 
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+When both common and individual contexts are to be used on, make sure that the first VP to open is a common context. Otherwise later opened common VP might miss their propoer drawing object init. 
+.RE
+.PP
+
+.PP
+Definition at line 111 of file nt3d_glx_drv_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "NT3D_glx_drv_o::NT3D_glx_drv_o (\fBNTsize\fP windowWidth = \fC200\fP, \fBNTsize\fP windowHeight = \fC200\fP, bool useCommonContext = \fCfalse\fP)"
+.SS "NT3D_glx_drv_o::NT3D_glx_drv_o (const \fBNT3D_glx_drv_o\fP & original)"
+.SS "virtual NT3D_glx_drv_o::~NT3D_glx_drv_o ()\fC [virtual]\fP"
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBNTsize\fP NT3D_glx_drv_o::_height ()\fC [inline, virtual]\fP"
+.PP
+Reimplemented from \fBNT3D_drv_vp_o\fP.
+.PP
+Definition at line 115 of file nt3d_glx_drv_obj.h.
+.PP
+.nf
+{ /*cerr << 'NT3D_glx_drv_o : '<<_uniqId() <<'MC'<<endl;*/
+.fi
+.SS "\fBNTsize\fP NT3D_glx_drv_o::_width ()\fC [inline, virtual]\fP"
+.PP
+Reimplemented from \fBNT3D_drv_vp_o\fP.
+.PP
+Definition at line 114 of file nt3d_glx_drv_obj.h.
+.PP
+.nf
+{ /*cerr << 'NT3D_glx_drv_o : '<<_uniqId() <<'MC'<<endl;*/
+.fi
+.SS "\fBNTreturn\fP NT3D_glx_drv_o::Close ()\fC [virtual]\fP"
+.PP
+Reimplemented from \fBNT3D_drv_vp_o\fP.
+.SS "void NT3D_glx_drv_o::MakeCurrent ()\fC [inline, virtual]\fP"
+.PP
+Implements \fBNT3D_vp_o\fP.
+.PP
+Definition at line 99 of file nt3d_glx_drv_obj.h.
+.PP
+.nf
+                     : public NT3D_drv_vp_o {
+.fi
+.SS "\fBNTreturn\fP NT3D_glx_drv_o::Open (\fBNT3D_vp_spec_o\fP newWinSpec)\fC [virtual]\fP"
+.PP
+Reimplemented from \fBNT3D_drv_vp_o\fP.
+.SS "const \fBNT3D_glx_drv_o\fP& NT3D_glx_drv_o::operator= (const \fBNT3D_glx_drv_o\fP & right)"
+.SS "\fBNTreturn\fP NT3D_glx_drv_o::Resize (\fBNTsize\fP width, \fBNTsize\fP height)\fC [virtual]\fP"
+.PP
+Reimplemented from \fBNT3D_drv_vp_o\fP.
+.SS "\fBNTreturn\fP NT3D_glx_drv_o::SetWindowTitle (string newTitle)"
+.SS "void NT3D_glx_drv_o::SwapBuffer ()\fC [inline, virtual]\fP"
+.PP
+Reimplemented from \fBNT3D_vp_o\fP.
+.PP
+Definition at line 104 of file nt3d_glx_drv_obj.h.
+.PP
+.nf
+                     : public NT3D_drv_vp_o {
+.fi
+.SS "\fBNT3D_bitmap_o\fP NT3D_glx_drv_o::View2Bitmap ()\fC [virtual]\fP"
+.PP
+Reimplemented from \fBNT3D_drv_vp_o\fP.
+.SS "\fBNT3D_bitmap_o\fP* NT3D_glx_drv_o::View2BitmapPtr (\fBNT3D_bitmap_o\fP * bmpPtr)\fC [virtual]\fP"
+.PP
+Reimplemented from \fBNT3D_drv_vp_o\fP.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

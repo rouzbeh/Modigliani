@@ -1,0 +1,174 @@
+.TH "NT3D_drv_vp_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NT3D_drv_vp_o \- 
+.PP
+\fBNT3D_drv_vp_o\fP class This viewport driver parent class provides the infrastructure for the \fBNT3D_abstract_vp_o\fP child classes which register with this class.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <nt3d_drv_vp_obj.h>\fP
+.PP
+Inherits \fBNT3D_vp_o\fP.
+.PP
+Inherited by \fBNT3D_glx_drv_o\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNT3D_drv_vp_o\fP ()"
+.br
+.ti -1c
+.RI "virtual \fB~NT3D_drv_vp_o\fP ()"
+.br
+.ti -1c
+.RI "virtual \fBNTreturn\fP \fBOpen\fP (\fBNT3D_vp_spec_o\fP newWinSpec)"
+.br
+.ti -1c
+.RI "virtual \fBNTreturn\fP \fBClose\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBInit\fP ()"
+.br
+.ti -1c
+.RI "virtual \fBNTreturn\fP \fBResize\fP (\fBNTsize\fP width, \fBNTsize\fP height)"
+.br
+.ti -1c
+.RI "virtual void \fBRedraw\fP ()"
+.br
+.ti -1c
+.RI "virtual \fBNT3D_bitmap_o\fP \fBView2Bitmap\fP ()"
+.br
+.ti -1c
+.RI "virtual \fBNT3D_bitmap_o\fP * \fBView2BitmapPtr\fP (\fBNT3D_bitmap_o\fP *bmpPtr)"
+.br
+.ti -1c
+.RI "virtual \fBNTsize\fP \fB_width\fP ()"
+.br
+.ti -1c
+.RI "virtual \fBNTsize\fP \fB_height\fP ()"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+In return this class dos not use its Draw() method so the draw method in the abstract class is called! 
+.PP
+\fBBug\fP
+.RS 4
+unknown 
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+Do not override Draw() ! 
+.RE
+.PP
+
+.PP
+Definition at line 83 of file nt3d_drv_vp_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "NT3D_drv_vp_o::NT3D_drv_vp_o ()"
+.SS "virtual NT3D_drv_vp_o::~NT3D_drv_vp_o ()\fC [virtual]\fP"
+.SH "Member Function Documentation"
+.PP 
+.SS "virtual \fBNTsize\fP NT3D_drv_vp_o::_height ()\fC [inline, virtual]\fP"
+.PP
+Implements \fBNT3D_vp_o\fP.
+.PP
+Reimplemented in \fBNT3D_glx_drv_o\fP.
+.PP
+Definition at line 88 of file nt3d_drv_vp_obj.h.
+.PP
+.nf
+{NT_CERR(5,'NT3D_drv_vp_o::Open()');return NT_SUCCESS;};
+.fi
+.SS "virtual \fBNTsize\fP NT3D_drv_vp_o::_width ()\fC [inline, virtual]\fP"
+.PP
+Implements \fBNT3D_vp_o\fP.
+.PP
+Reimplemented in \fBNT3D_glx_drv_o\fP.
+.PP
+Definition at line 87 of file nt3d_drv_vp_obj.h.
+.PP
+.nf
+{NT_CERR(5,'NT3D_drv_vp_o::Open()');return NT_SUCCESS;};
+.fi
+.SS "virtual \fBNTreturn\fP NT3D_drv_vp_o::Close ()\fC [inline, virtual]\fP"
+.PP
+Reimplemented in \fBNT3D_glx_drv_o\fP.
+.PP
+Definition at line 78 of file nt3d_drv_vp_obj.h.
+.PP
+.nf
+: public NT3D_vp_o {
+.fi
+.SS "virtual void NT3D_drv_vp_o::Init ()\fC [inline, virtual]\fP"
+.PP
+Implements \fBNT3D_vp_o\fP.
+.PP
+Definition at line 79 of file nt3d_drv_vp_obj.h.
+.PP
+.nf
+: public NT3D_vp_o {
+.fi
+.SS "virtual \fBNTreturn\fP NT3D_drv_vp_o::Open (\fBNT3D_vp_spec_o\fP newWinSpec)\fC [inline, virtual]\fP"
+.PP
+Reimplemented in \fBNT3D_glx_drv_o\fP.
+.PP
+Definition at line 77 of file nt3d_drv_vp_obj.h.
+.PP
+.nf
+: public NT3D_vp_o {
+.fi
+.SS "virtual void NT3D_drv_vp_o::Redraw ()\fC [inline, virtual]\fP"
+.PP
+Implements \fBNT3D_vp_o\fP.
+.PP
+Definition at line 81 of file nt3d_drv_vp_obj.h.
+.PP
+.nf
+: public NT3D_vp_o {
+.fi
+.SS "virtual \fBNTreturn\fP NT3D_drv_vp_o::Resize (\fBNTsize\fP width, \fBNTsize\fP height)\fC [inline, virtual]\fP"
+.PP
+Implements \fBNT3D_vp_o\fP.
+.PP
+Reimplemented in \fBNT3D_glx_drv_o\fP.
+.PP
+Definition at line 80 of file nt3d_drv_vp_obj.h.
+.PP
+.nf
+: public NT3D_vp_o {
+.fi
+.SS "virtual \fBNT3D_bitmap_o\fP NT3D_drv_vp_o::View2Bitmap ()\fC [inline, virtual]\fP"
+.PP
+Implements \fBNT3D_vp_o\fP.
+.PP
+Reimplemented in \fBNT3D_glx_drv_o\fP.
+.PP
+Definition at line 82 of file nt3d_drv_vp_obj.h.
+.PP
+.nf
+                    : public NT3D_vp_o {
+.fi
+.SS "virtual \fBNT3D_bitmap_o\fP* NT3D_drv_vp_o::View2BitmapPtr (\fBNT3D_bitmap_o\fP * bmpPtr)\fC [inline, virtual]\fP"
+.PP
+Implements \fBNT3D_vp_o\fP.
+.PP
+Reimplemented in \fBNT3D_glx_drv_o\fP.
+.PP
+Definition at line 84 of file nt3d_drv_vp_obj.h.
+.PP
+.nf
+      :
+  /***   Constructors, CopyAssignment and Destructor  ***/  
+.fi
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

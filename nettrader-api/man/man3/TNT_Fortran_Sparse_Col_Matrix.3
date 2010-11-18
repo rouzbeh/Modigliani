@@ -1,0 +1,295 @@
+.TH "TNT::Fortran_Sparse_Col_Matrix" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+TNT::Fortran_Sparse_Col_Matrix \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <fcscmat.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBFortran_Sparse_Col_Matrix\fP (void)"
+.br
+.ti -1c
+.RI "\fBFortran_Sparse_Col_Matrix\fP (const \fBFortran_Sparse_Col_Matrix\fP< T > &S)"
+.br
+.ti -1c
+.RI "\fBFortran_Sparse_Col_Matrix\fP (\fBSubscript\fP M, \fBSubscript\fP N, \fBSubscript\fP nz, const T *val, const \fBSubscript\fP *r, const \fBSubscript\fP *c)"
+.br
+.ti -1c
+.RI "\fBFortran_Sparse_Col_Matrix\fP (\fBSubscript\fP M, \fBSubscript\fP N, \fBSubscript\fP nz, char *val, char *r, char *c)"
+.br
+.ti -1c
+.RI "\fBFortran_Sparse_Col_Matrix\fP (\fBSubscript\fP M, \fBSubscript\fP N, \fBSubscript\fP nz, const T *val, \fBSubscript\fP *r, \fBSubscript\fP *c)"
+.br
+.ti -1c
+.RI "\fB~Fortran_Sparse_Col_Matrix\fP ()"
+.br
+.ti -1c
+.RI "T & \fBval\fP (\fBSubscript\fP i)"
+.br
+.ti -1c
+.RI "const T & \fBval\fP (\fBSubscript\fP i) const "
+.br
+.ti -1c
+.RI "\fBSubscript\fP & \fBrow_ind\fP (\fBSubscript\fP i)"
+.br
+.ti -1c
+.RI "const \fBSubscript\fP & \fBrow_ind\fP (\fBSubscript\fP i) const "
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBcol_ptr\fP (\fBSubscript\fP i)"
+.br
+.ti -1c
+.RI "const \fBSubscript\fP \fBcol_ptr\fP (\fBSubscript\fP i) const "
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBnum_cols\fP () const "
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBnum_rows\fP () const "
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBdim\fP (\fBSubscript\fP i) const "
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBnum_nonzeros\fP () const "
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBlbound\fP () const "
+.br
+.ti -1c
+.RI "\fBFortran_Sparse_Col_Matrix\fP & \fBoperator=\fP (const \fBFortran_Sparse_Col_Matrix\fP &C)"
+.br
+.ti -1c
+.RI "\fBFortran_Sparse_Col_Matrix\fP & \fBnewsize\fP (\fBSubscript\fP M, \fBSubscript\fP N, \fBSubscript\fP nz)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBVector\fP< T > \fBval_\fP"
+.br
+.ti -1c
+.RI "\fBVector\fP< \fBSubscript\fP > \fBrowind_\fP"
+.br
+.ti -1c
+.RI "\fBVector\fP< \fBSubscript\fP > \fBcolptr_\fP"
+.br
+.ti -1c
+.RI "int \fBnz_\fP"
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBm_\fP"
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBn_\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.SS "template<class T> class TNT::Fortran_Sparse_Col_Matrix< T >"
+
+.PP
+Definition at line 46 of file fcscmat.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "template<class T> \fBTNT::Fortran_Sparse_Col_Matrix\fP< T >::\fBFortran_Sparse_Col_Matrix\fP (void)"
+.SS "template<class T> \fBTNT::Fortran_Sparse_Col_Matrix\fP< T >::\fBFortran_Sparse_Col_Matrix\fP (const \fBFortran_Sparse_Col_Matrix\fP< T > & S)\fC [inline]\fP"
+.PP
+Definition at line 63 of file fcscmat.h.
+.PP
+.nf
+        : val_(S.val_), rowind_(S.rowind_), colptr_(S.colptr_), nz_(S.nz_),
+            m_(S.m_), n_(S.n_) {};
+.fi
+.SS "template<class T> \fBTNT::Fortran_Sparse_Col_Matrix\fP< T >::\fBFortran_Sparse_Col_Matrix\fP (\fBSubscript\fP M, \fBSubscript\fP N, \fBSubscript\fP nz, const T * val, const \fBSubscript\fP * r, const \fBSubscript\fP * c)\fC [inline]\fP"
+.PP
+Definition at line 66 of file fcscmat.h.
+.PP
+.nf
+                                : val_(nz, val), rowind_(nz, r), 
+            colptr_(N+1, c), nz_(nz), m_(M), n_(N) {};
+.fi
+.SS "template<class T> \fBTNT::Fortran_Sparse_Col_Matrix\fP< T >::\fBFortran_Sparse_Col_Matrix\fP (\fBSubscript\fP M, \fBSubscript\fP N, \fBSubscript\fP nz, char * val, char * r, char * c)\fC [inline]\fP"
+.PP
+Definition at line 71 of file fcscmat.h.
+.PP
+.nf
+                     : val_(nz, val), rowind_(nz, r), 
+            colptr_(N+1, c), nz_(nz), m_(M), n_(N) {};
+.fi
+.SS "template<class T> \fBTNT::Fortran_Sparse_Col_Matrix\fP< T >::\fBFortran_Sparse_Col_Matrix\fP (\fBSubscript\fP M, \fBSubscript\fP N, \fBSubscript\fP nz, const T * val, \fBSubscript\fP * r, \fBSubscript\fP * c)\fC [inline]\fP"
+.PP
+Definition at line 76 of file fcscmat.h.
+.PP
+.nf
+            : val_(nz, val), rowind_(nz, r), colptr_(N+1, c), nz_(nz), 
+                    m_(M), n_(N) {};
+.fi
+.SS "template<class T> \fBTNT::Fortran_Sparse_Col_Matrix\fP< T >::~\fBFortran_Sparse_Col_Matrix\fP ()\fC [inline]\fP"
+.PP
+Definition at line 81 of file fcscmat.h.
+.PP
+.nf
+{};
+.fi
+.SH "Member Function Documentation"
+.PP 
+.SS "template<class T> \fBSubscript\fP \fBTNT::Fortran_Sparse_Col_Matrix\fP< T >::col_ptr (\fBSubscript\fP i)\fC [inline]\fP"
+.PP
+Definition at line 90 of file fcscmat.h.
+.PP
+.nf
+{ return colptr_(i);}
+.fi
+.SS "template<class T> const \fBSubscript\fP \fBTNT::Fortran_Sparse_Col_Matrix\fP< T >::col_ptr (\fBSubscript\fP i) const\fC [inline]\fP"
+.PP
+Definition at line 91 of file fcscmat.h.
+.PP
+.nf
+{ return colptr_(i);}
+.fi
+.SS "template<class T> \fBSubscript\fP \fBTNT::Fortran_Sparse_Col_Matrix\fP< T >::dim (\fBSubscript\fP i) const\fC [inline]\fP"
+.PP
+Definition at line 97 of file fcscmat.h.
+.PP
+.nf
+       {
+#ifdef TNT_BOUNDS_CHECK
+            assert( 1 <= i );
+            assert( i <= 2 );
+#endif
+            if (i==1) return m_;
+            else if (i==2) return m_;
+            else return 0;
+        }
+.fi
+.SS "template<class T> \fBSubscript\fP \fBTNT::Fortran_Sparse_Col_Matrix\fP< T >::lbound () const\fC [inline]\fP"
+.PP
+Definition at line 109 of file fcscmat.h.
+.PP
+.nf
+{return 1;}
+.fi
+.SS "template<class T> \fBFortran_Sparse_Col_Matrix\fP& \fBTNT::Fortran_Sparse_Col_Matrix\fP< T >::newsize (\fBSubscript\fP M, \fBSubscript\fP N, \fBSubscript\fP nz)\fC [inline]\fP"
+.PP
+Definition at line 126 of file fcscmat.h.
+.PP
+.nf
+        {
+            val_.newsize(nz);
+            rowind_.newsize(nz);
+            colptr_.newsize(N+1);
+            return *this;
+        }
+.fi
+.SS "template<class T> \fBSubscript\fP \fBTNT::Fortran_Sparse_Col_Matrix\fP< T >::num_cols () const\fC [inline]\fP"
+.PP
+Definition at line 94 of file fcscmat.h.
+.PP
+.nf
+{ return m_;}
+.fi
+.SS "template<class T> \fBSubscript\fP \fBTNT::Fortran_Sparse_Col_Matrix\fP< T >::num_nonzeros () const\fC [inline]\fP"
+.PP
+Definition at line 108 of file fcscmat.h.
+.PP
+.nf
+{return nz_;};
+.fi
+.SS "template<class T> \fBSubscript\fP \fBTNT::Fortran_Sparse_Col_Matrix\fP< T >::num_rows () const\fC [inline]\fP"
+.PP
+Definition at line 95 of file fcscmat.h.
+.PP
+.nf
+{ return n_; }
+.fi
+.SS "template<class T> \fBFortran_Sparse_Col_Matrix\fP& \fBTNT::Fortran_Sparse_Col_Matrix\fP< T >::operator= (const \fBFortran_Sparse_Col_Matrix\fP< T > & C)\fC [inline]\fP"
+.PP
+Definition at line 113 of file fcscmat.h.
+.PP
+References TNT::Fortran_Sparse_Col_Matrix< T >::colptr_, TNT::Fortran_Sparse_Col_Matrix< T >::m_, TNT::Fortran_Sparse_Col_Matrix< T >::n_, TNT::Fortran_Sparse_Col_Matrix< T >::nz_, TNT::Fortran_Sparse_Col_Matrix< T >::rowind_, and TNT::Fortran_Sparse_Col_Matrix< T >::val_.
+.PP
+.nf
+        {
+            val_ = C.val_;
+            rowind_ = C.rowind_;
+            colptr_ = C.colptr_;
+            nz_ = C.nz_;
+            m_ = C.m_;
+            n_ = C.n_;
+
+            return *this;
+        }
+.fi
+.SS "template<class T> const \fBSubscript\fP& \fBTNT::Fortran_Sparse_Col_Matrix\fP< T >::row_ind (\fBSubscript\fP i) const\fC [inline]\fP"
+.PP
+Definition at line 88 of file fcscmat.h.
+.PP
+.nf
+{ return rowind_(i); }
+.fi
+.SS "template<class T> \fBSubscript\fP& \fBTNT::Fortran_Sparse_Col_Matrix\fP< T >::row_ind (\fBSubscript\fP i)\fC [inline]\fP"
+.PP
+Definition at line 87 of file fcscmat.h.
+.PP
+.nf
+{ return rowind_(i); }
+.fi
+.SS "template<class T> const T& \fBTNT::Fortran_Sparse_Col_Matrix\fP< T >::val (\fBSubscript\fP i) const\fC [inline]\fP"
+.PP
+Definition at line 85 of file fcscmat.h.
+.PP
+.nf
+{ return val_(i); }
+.fi
+.SS "template<class T> T& \fBTNT::Fortran_Sparse_Col_Matrix\fP< T >::val (\fBSubscript\fP i)\fC [inline]\fP"
+.PP
+Definition at line 84 of file fcscmat.h.
+.PP
+.nf
+{ return val_(i); }
+.fi
+.SH "Member Data Documentation"
+.PP 
+.SS "template<class T> \fBVector\fP<\fBSubscript\fP> \fBTNT::Fortran_Sparse_Col_Matrix\fP< T >::\fBcolptr_\fP\fC [protected]\fP"
+.PP
+Definition at line 53 of file fcscmat.h.
+.PP
+Referenced by TNT::Fortran_Sparse_Col_Matrix< T >::operator=().
+.SS "template<class T> \fBSubscript\fP \fBTNT::Fortran_Sparse_Col_Matrix\fP< T >::\fBm_\fP\fC [protected]\fP"
+.PP
+Definition at line 56 of file fcscmat.h.
+.PP
+Referenced by TNT::Fortran_Sparse_Col_Matrix< T >::operator=().
+.SS "template<class T> \fBSubscript\fP \fBTNT::Fortran_Sparse_Col_Matrix\fP< T >::\fBn_\fP\fC [protected]\fP"
+.PP
+Definition at line 57 of file fcscmat.h.
+.PP
+Referenced by TNT::Fortran_Sparse_Col_Matrix< T >::operator=().
+.SS "template<class T> int \fBTNT::Fortran_Sparse_Col_Matrix\fP< T >::\fBnz_\fP\fC [protected]\fP"
+.PP
+Definition at line 55 of file fcscmat.h.
+.PP
+Referenced by TNT::Fortran_Sparse_Col_Matrix< T >::operator=().
+.SS "template<class T> \fBVector\fP<\fBSubscript\fP> \fBTNT::Fortran_Sparse_Col_Matrix\fP< T >::\fBrowind_\fP\fC [protected]\fP"
+.PP
+Definition at line 52 of file fcscmat.h.
+.PP
+Referenced by TNT::Fortran_Sparse_Col_Matrix< T >::operator=().
+.SS "template<class T> \fBVector\fP<T> \fBTNT::Fortran_Sparse_Col_Matrix\fP< T >::\fBval_\fP\fC [protected]\fP"
+.PP
+Definition at line 51 of file fcscmat.h.
+.PP
+Referenced by TNT::Fortran_Sparse_Col_Matrix< T >::operator=().
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

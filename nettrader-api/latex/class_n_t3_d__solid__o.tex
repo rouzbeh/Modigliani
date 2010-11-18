@@ -1,0 +1,278 @@
+\subsection{NT3D\_\-solid\_\-o Class Reference}
+\label{class_n_t3_d__solid__o}\index{NT3D\_\-solid\_\-o@{NT3D\_\-solid\_\-o}}
+
+
+\hyperlink{class_n_t3_d__solid__o}{NT3D\_\-solid\_\-o} class ...  
+
+
+
+
+{\ttfamily \#include $<$nt3d\_\-solid\_\-obj.h$>$}
+
+
+
+Inheritance diagram for NT3D\_\-solid\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_n_t3_d__solid__o__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for NT3D\_\-solid\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_n_t3_d__solid__o__coll__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_t3_d__solid__o_a95fd6fbeb0b612c8076cb0bbf4b9b41e}{NT3D\_\-solid\_\-o} (const \hyperlink{class_n_t__vector3__o}{NT\_\-vector3\_\-o} \&oNewPosition=NT\_\-OriginVec3())
+\item 
+\hyperlink{class_n_t3_d__solid__o_a6c4325811642226e86ef613d57dd89b1}{NT3D\_\-solid\_\-o} (const \hyperlink{class_n_t3_d__solid__o}{NT3D\_\-solid\_\-o} \&original)
+\item 
+const \hyperlink{class_n_t3_d__solid__o}{NT3D\_\-solid\_\-o} \& \hyperlink{class_n_t3_d__solid__o_a4bd17ed59cee41950353aafa6dba9786}{operator=} (const \hyperlink{class_n_t3_d__solid__o}{NT3D\_\-solid\_\-o} \&right)
+\item 
+\hyperlink{class_n_t3_d__solid__o_ac68c10afb83bc16ecae8c220aa0496f8}{$\sim$NT3D\_\-solid\_\-o} ()
+\item 
+void \hyperlink{class_n_t3_d__solid__o_aecc87253889f4156016b15c83dda89d2}{Scale} (\hyperlink{class_n_t__vector3__o}{NT\_\-vector3\_\-o} oDeltaScaling)
+\item 
+void \hyperlink{class_n_t3_d__solid__o_a5aad20c85b01c4a562db53be7def3384}{ScaleX} (\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} deltaSclX)
+\item 
+void \hyperlink{class_n_t3_d__solid__o_a8194a6d58d5de0a57f431485ccc816e8}{ScaleY} (\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} deltaSclY)
+\item 
+void \hyperlink{class_n_t3_d__solid__o_a1b861d18dc390d54c77aea251340e6ef}{ScaleZ} (\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} deltaSclZ)
+\item 
+void \hyperlink{class_n_t3_d__solid__o_aa267835672fcd4e8f4e1cdc15caea030}{ScaleXYZ} (\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} deltaSclXYZ)
+\item 
+void \hyperlink{class_n_t3_d__solid__o_a8fc9ee1f5a5ecf7a6f734264020e5d5e}{ScaleUnit} ()
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_n_t3_d__solid__o_ac0d1c364c4bd5100c9f529ee88f6c6ef}{DrawSurfacedObj} ()
+\item 
+virtual void \hyperlink{class_n_t3_d__solid__o_a131f24aa3f954f8f5242ae4cc87b2d86}{DrawSolidObj} () const 
+\item 
+void \hyperlink{class_n_t3_d__solid__o_a4d528008fd20f2e4837982bf08a5b1ab}{ControlSurfacedObj} (\hyperlink{nt3d__object__obj_8h_ae59ecf13a3631bc4a9ea41f90de08351}{NT3Dcontroller} cntrl, \hyperlink{nt__types_8h_aee8aa0a9869e8b5c97c6c02217ff09cd}{NTint} value)
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+GLUquadricObj $\ast$ \hyperlink{class_n_t3_d__solid__o_ae163e13c24275d33bafb41ee4529b601}{pQuadObj}
+\begin{DoxyCompactList}\small\item\em pointer to the incomplete type of an GLUquadicObj \item\end{DoxyCompactList}\item 
+GLint \hyperlink{class_n_t3_d__solid__o_a7134b273f8665db6fd83ab2863d8224d}{slices}
+\item 
+GLint \hyperlink{class_n_t3_d__solid__o_a97f0bae59eed83b1452a74710ab51179}{stacks}
+\item 
+\hyperlink{class_n_t__vector3__o}{NT\_\-vector3\_\-o} \hyperlink{class_n_t3_d__solid__o_a4ea9ed495b7699150d7cdea2c637694e}{oScaling}
+\item 
+\hyperlink{nt__types_8h_aee8aa0a9869e8b5c97c6c02217ff09cd}{NTint} \hyperlink{class_n_t3_d__solid__o_afcc89c47ace5e27bc9915dbe8fe78151}{drawStyle}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\begin{Desc}
+\item[\hyperlink{bug__bug000035}{Bug}]unknown \end{Desc}
+\begin{DoxyWarning}{Warning}
+oTexturePtr is deleted by destructor 
+\end{DoxyWarning}
+
+
+Definition at line 142 of file nt3d\_\-solid\_\-obj.h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{NT3D\_\-solid\_\-o@{NT3D\_\-solid\_\-o}!NT3D\_\-solid\_\-o@{NT3D\_\-solid\_\-o}}
+\index{NT3D\_\-solid\_\-o@{NT3D\_\-solid\_\-o}!NT3D_solid_o@{NT3D\_\-solid\_\-o}}
+\paragraph[{NT3D\_\-solid\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT3D\_\-solid\_\-o::NT3D\_\-solid\_\-o (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT\_\-vector3\_\-o} \&}]{ oNewPosition = {\ttfamily NT\_\-OriginVec3()}}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__solid__o_a95fd6fbeb0b612c8076cb0bbf4b9b41e}
+\index{NT3D\_\-solid\_\-o@{NT3D\_\-solid\_\-o}!NT3D\_\-solid\_\-o@{NT3D\_\-solid\_\-o}}
+\index{NT3D\_\-solid\_\-o@{NT3D\_\-solid\_\-o}!NT3D_solid_o@{NT3D\_\-solid\_\-o}}
+\paragraph[{NT3D\_\-solid\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT3D\_\-solid\_\-o::NT3D\_\-solid\_\-o (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT3D\_\-solid\_\-o} \&}]{ original}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__solid__o_a6c4325811642226e86ef613d57dd89b1}
+\index{NT3D\_\-solid\_\-o@{NT3D\_\-solid\_\-o}!$\sim$NT3D\_\-solid\_\-o@{$\sim$NT3D\_\-solid\_\-o}}
+\index{$\sim$NT3D\_\-solid\_\-o@{$\sim$NT3D\_\-solid\_\-o}!NT3D_solid_o@{NT3D\_\-solid\_\-o}}
+\paragraph[{$\sim$NT3D\_\-solid\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT3D\_\-solid\_\-o::$\sim$NT3D\_\-solid\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__solid__o_ac68c10afb83bc16ecae8c220aa0496f8}
+
+
+\subsubsection{Member Function Documentation}
+\index{NT3D\_\-solid\_\-o@{NT3D\_\-solid\_\-o}!ControlSurfacedObj@{ControlSurfacedObj}}
+\index{ControlSurfacedObj@{ControlSurfacedObj}!NT3D_solid_o@{NT3D\_\-solid\_\-o}}
+\paragraph[{ControlSurfacedObj}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-solid\_\-o::ControlSurfacedObj (
+\begin{DoxyParamCaption}
+\item[{{\bf NT3Dcontroller}}]{ cntrl, }
+\item[{{\bf NTint}}]{ value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected, virtual\mbox{]}}}\hfill\label{class_n_t3_d__solid__o_a4d528008fd20f2e4837982bf08a5b1ab}
+
+
+Reimplemented from \hyperlink{class_n_t3_d__surfaced__object__o_a8cab0d5795fb35a049cd0b388113e7c0}{NT3D\_\-surfaced\_\-object\_\-o}.
+
+\index{NT3D\_\-solid\_\-o@{NT3D\_\-solid\_\-o}!DrawSolidObj@{DrawSolidObj}}
+\index{DrawSolidObj@{DrawSolidObj}!NT3D_solid_o@{NT3D\_\-solid\_\-o}}
+\paragraph[{DrawSolidObj}]{\setlength{\rightskip}{0pt plus 5cm}virtual void NT3D\_\-solid\_\-o::DrawSolidObj (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline, protected, virtual\mbox{]}}}\hfill\label{class_n_t3_d__solid__o_a131f24aa3f954f8f5242ae4cc87b2d86}
+
+
+Reimplemented in \hyperlink{class_n_t3_d__cylinder__o_abfe52757698135d4425e5346da55daeb}{NT3D\_\-cylinder\_\-o}, \hyperlink{class_n_t3_d__ellipsoid__o_a3ff3950a1ec380baabe84b3f4ced0a56}{NT3D\_\-ellipsoid\_\-o}, and \hyperlink{class_n_t3_d__sphere__o_a394b95242378f3ee26b4882936d8fcab}{NT3D\_\-sphere\_\-o}.
+
+
+
+Definition at line 160 of file nt3d\_\-solid\_\-obj.h.
+
+
+
+References NT\_\-CERR.
+
+
+
+
+\begin{DoxyCode}
+{NT_CERR(1,"NT3D_solid_o::DrawSolidObj() - Error : This method should be overridd
+      en by a derived class.");};
+\end{DoxyCode}
+
+
+\index{NT3D\_\-solid\_\-o@{NT3D\_\-solid\_\-o}!DrawSurfacedObj@{DrawSurfacedObj}}
+\index{DrawSurfacedObj@{DrawSurfacedObj}!NT3D_solid_o@{NT3D\_\-solid\_\-o}}
+\paragraph[{DrawSurfacedObj}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-solid\_\-o::DrawSurfacedObj (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected, virtual\mbox{]}}}\hfill\label{class_n_t3_d__solid__o_ac0d1c364c4bd5100c9f529ee88f6c6ef}
+
+
+Reimplemented from \hyperlink{class_n_t3_d__surfaced__object__o_a36d33a50784db0850a50cd925bab5cc9}{NT3D\_\-surfaced\_\-object\_\-o}.
+
+\index{NT3D\_\-solid\_\-o@{NT3D\_\-solid\_\-o}!operator=@{operator=}}
+\index{operator=@{operator=}!NT3D_solid_o@{NT3D\_\-solid\_\-o}}
+\paragraph[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf NT3D\_\-solid\_\-o}\& NT3D\_\-solid\_\-o::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT3D\_\-solid\_\-o} \&}]{ right}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__solid__o_a4bd17ed59cee41950353aafa6dba9786}
+\index{NT3D\_\-solid\_\-o@{NT3D\_\-solid\_\-o}!Scale@{Scale}}
+\index{Scale@{Scale}!NT3D_solid_o@{NT3D\_\-solid\_\-o}}
+\paragraph[{Scale}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-solid\_\-o::Scale (
+\begin{DoxyParamCaption}
+\item[{{\bf NT\_\-vector3\_\-o}}]{ oDeltaScaling}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__solid__o_aecc87253889f4156016b15c83dda89d2}
+\index{NT3D\_\-solid\_\-o@{NT3D\_\-solid\_\-o}!ScaleUnit@{ScaleUnit}}
+\index{ScaleUnit@{ScaleUnit}!NT3D_solid_o@{NT3D\_\-solid\_\-o}}
+\paragraph[{ScaleUnit}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-solid\_\-o::ScaleUnit (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t3_d__solid__o_a8fc9ee1f5a5ecf7a6f734264020e5d5e}
+
+
+Definition at line 154 of file nt3d\_\-solid\_\-obj.h.
+
+
+
+References oScaling.
+
+
+
+
+\begin{DoxyCode}
+{ oScaling = NT_vector3_o(1.0,1.0,1.0);}
+\end{DoxyCode}
+
+
+\index{NT3D\_\-solid\_\-o@{NT3D\_\-solid\_\-o}!ScaleX@{ScaleX}}
+\index{ScaleX@{ScaleX}!NT3D_solid_o@{NT3D\_\-solid\_\-o}}
+\paragraph[{ScaleX}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-solid\_\-o::ScaleX (
+\begin{DoxyParamCaption}
+\item[{{\bf NTreal}}]{ deltaSclX}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__solid__o_a5aad20c85b01c4a562db53be7def3384}
+\index{NT3D\_\-solid\_\-o@{NT3D\_\-solid\_\-o}!ScaleXYZ@{ScaleXYZ}}
+\index{ScaleXYZ@{ScaleXYZ}!NT3D_solid_o@{NT3D\_\-solid\_\-o}}
+\paragraph[{ScaleXYZ}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-solid\_\-o::ScaleXYZ (
+\begin{DoxyParamCaption}
+\item[{{\bf NTreal}}]{ deltaSclXYZ}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__solid__o_aa267835672fcd4e8f4e1cdc15caea030}
+\index{NT3D\_\-solid\_\-o@{NT3D\_\-solid\_\-o}!ScaleY@{ScaleY}}
+\index{ScaleY@{ScaleY}!NT3D_solid_o@{NT3D\_\-solid\_\-o}}
+\paragraph[{ScaleY}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-solid\_\-o::ScaleY (
+\begin{DoxyParamCaption}
+\item[{{\bf NTreal}}]{ deltaSclY}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__solid__o_a8194a6d58d5de0a57f431485ccc816e8}
+\index{NT3D\_\-solid\_\-o@{NT3D\_\-solid\_\-o}!ScaleZ@{ScaleZ}}
+\index{ScaleZ@{ScaleZ}!NT3D_solid_o@{NT3D\_\-solid\_\-o}}
+\paragraph[{ScaleZ}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-solid\_\-o::ScaleZ (
+\begin{DoxyParamCaption}
+\item[{{\bf NTreal}}]{ deltaSclZ}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__solid__o_a1b861d18dc390d54c77aea251340e6ef}
+
+
+\subsubsection{Member Data Documentation}
+\index{NT3D\_\-solid\_\-o@{NT3D\_\-solid\_\-o}!drawStyle@{drawStyle}}
+\index{drawStyle@{drawStyle}!NT3D_solid_o@{NT3D\_\-solid\_\-o}}
+\paragraph[{drawStyle}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTint} {\bf NT3D\_\-solid\_\-o::drawStyle}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_n_t3_d__solid__o_afcc89c47ace5e27bc9915dbe8fe78151}
+
+
+Definition at line 168 of file nt3d\_\-solid\_\-obj.h.
+
+\index{NT3D\_\-solid\_\-o@{NT3D\_\-solid\_\-o}!oScaling@{oScaling}}
+\index{oScaling@{oScaling}!NT3D_solid_o@{NT3D\_\-solid\_\-o}}
+\paragraph[{oScaling}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NT\_\-vector3\_\-o} {\bf NT3D\_\-solid\_\-o::oScaling}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_n_t3_d__solid__o_a4ea9ed495b7699150d7cdea2c637694e}
+
+
+Definition at line 167 of file nt3d\_\-solid\_\-obj.h.
+
+
+
+Referenced by ScaleUnit().
+
+\index{NT3D\_\-solid\_\-o@{NT3D\_\-solid\_\-o}!pQuadObj@{pQuadObj}}
+\index{pQuadObj@{pQuadObj}!NT3D_solid_o@{NT3D\_\-solid\_\-o}}
+\paragraph[{pQuadObj}]{\setlength{\rightskip}{0pt plus 5cm}GLUquadricObj$\ast$ {\bf NT3D\_\-solid\_\-o::pQuadObj}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_n_t3_d__solid__o_ae163e13c24275d33bafb41ee4529b601}
+
+
+Definition at line 164 of file nt3d\_\-solid\_\-obj.h.
+
+\index{NT3D\_\-solid\_\-o@{NT3D\_\-solid\_\-o}!slices@{slices}}
+\index{slices@{slices}!NT3D_solid_o@{NT3D\_\-solid\_\-o}}
+\paragraph[{slices}]{\setlength{\rightskip}{0pt plus 5cm}GLint {\bf NT3D\_\-solid\_\-o::slices}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_n_t3_d__solid__o_a7134b273f8665db6fd83ab2863d8224d}
+
+
+Definition at line 165 of file nt3d\_\-solid\_\-obj.h.
+
+\index{NT3D\_\-solid\_\-o@{NT3D\_\-solid\_\-o}!stacks@{stacks}}
+\index{stacks@{stacks}!NT3D_solid_o@{NT3D\_\-solid\_\-o}}
+\paragraph[{stacks}]{\setlength{\rightskip}{0pt plus 5cm}GLint {\bf NT3D\_\-solid\_\-o::stacks}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_n_t3_d__solid__o_a97f0bae59eed83b1452a74710ab51179}
+
+
+Definition at line 166 of file nt3d\_\-solid\_\-obj.h.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nt3d__solid__obj_8h}{nt3d\_\-solid\_\-obj.h}\end{DoxyCompactItemize}

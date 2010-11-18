@@ -1,0 +1,86 @@
+.TH "triang.h" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+triang.h \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBTNT::LowerTriangularView< MaTRiX >\fP"
+.br
+.ti -1c
+.RI "class \fBTNT::UnitLowerTriangularView< MaTRiX >\fP"
+.br
+.ti -1c
+.RI "class \fBTNT::UpperTriangularView< MaTRiX >\fP"
+.br
+.ti -1c
+.RI "class \fBTNT::UnitUpperTriangularView< MaTRiX >\fP"
+.br
+.in -1c
+.SS "Namespaces"
+
+.in +1c
+.ti -1c
+.RI "namespace \fBTNT\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "template<class MaTRiX , class VecToR > VecToR \fBTNT::matmult\fP (LowerTriangularView< MaTRiX > &A, VecToR &x)"
+.br
+.ti -1c
+.RI "template<class MaTRiX , class VecToR > VecToR \fBTNT::operator*\fP (LowerTriangularView< MaTRiX > &A, VecToR &x)"
+.br
+.ti -1c
+.RI "template<class MaTRiX > LowerTriangularView< MaTRiX > \fBTNT::Lower_triangular_view\fP (MaTRiX &A)"
+.br
+.ti -1c
+.RI "template<class MaTRiX > UnitLowerTriangularView< MaTRiX > \fBTNT::Unit_lower_triangular_view\fP (MaTRiX &A)"
+.br
+.ti -1c
+.RI "template<class MaTRiX , class VecToR > VecToR \fBTNT::matmult\fP (UnitLowerTriangularView< MaTRiX > &A, VecToR &x)"
+.br
+.ti -1c
+.RI "template<class MaTRiX , class VecToR > VecToR \fBTNT::operator*\fP (UnitLowerTriangularView< MaTRiX > &A, VecToR &x)"
+.br
+.ti -1c
+.RI "template<class MaTRiX > std::ostream & \fBTNT::operator<<\fP (std::ostream &s, const LowerTriangularView< MaTRiX > &A)"
+.br
+.ti -1c
+.RI "template<class MaTRiX > std::ostream & \fBTNT::operator<<\fP (std::ostream &s, const UnitLowerTriangularView< MaTRiX > &A)"
+.br
+.ti -1c
+.RI "template<class MaTRiX , class VecToR > VecToR \fBTNT::matmult\fP (UpperTriangularView< MaTRiX > &A, VecToR &x)"
+.br
+.ti -1c
+.RI "template<class MaTRiX , class VecToR > VecToR \fBTNT::operator*\fP (UpperTriangularView< MaTRiX > &A, VecToR &x)"
+.br
+.ti -1c
+.RI "template<class MaTRiX > UpperTriangularView< MaTRiX > \fBTNT::Upper_triangular_view\fP (MaTRiX &A)"
+.br
+.ti -1c
+.RI "template<class MaTRiX > UnitUpperTriangularView< MaTRiX > \fBTNT::Unit_upper_triangular_view\fP (MaTRiX &A)"
+.br
+.ti -1c
+.RI "template<class MaTRiX , class VecToR > VecToR \fBTNT::matmult\fP (UnitUpperTriangularView< MaTRiX > &A, VecToR &x)"
+.br
+.ti -1c
+.RI "template<class MaTRiX , class VecToR > VecToR \fBTNT::operator*\fP (UnitUpperTriangularView< MaTRiX > &A, VecToR &x)"
+.br
+.ti -1c
+.RI "template<class MaTRiX > std::ostream & \fBTNT::operator<<\fP (std::ostream &s, UpperTriangularView< MaTRiX > &A)"
+.br
+.ti -1c
+.RI "template<class MaTRiX > std::ostream & \fBTNT::operator<<\fP (std::ostream &s, UnitUpperTriangularView< MaTRiX > &A)"
+.br
+.in -1c
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

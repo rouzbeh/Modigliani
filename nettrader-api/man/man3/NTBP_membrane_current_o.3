@@ -1,0 +1,381 @@
+.TH "NTBP_membrane_current_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NTBP_membrane_current_o \- 
+.PP
+\fBNTBP_membrane_current_o\fP class Represents the current accross a membrane, with its generalisable properties.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ntbp_membrane_current_obj.h>\fP
+.PP
+Inherits \fBNTBP_object_o\fP.
+.PP
+Inherited by \fBNTBP_channels_current_o\fP, \fBNTBP_hh_current_o\fP, and \fBNTBP_multi_current_o\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNTBP_membrane_current_o\fP (\fBNTreal\fP reversalPotential)"
+.br
+.ti -1c
+.RI "\fBNTBP_membrane_current_o\fP (const \fBNTBP_membrane_current_o\fP &original)"
+.br
+.ti -1c
+.RI "const \fBNTBP_membrane_current_o\fP & \fBoperator=\fP (const \fBNTBP_membrane_current_o\fP &right)"
+.br
+.ti -1c
+.RI "virtual \fB~NTBP_membrane_current_o\fP ()"
+.br
+.ti -1c
+.RI "virtual \fBNTreal\fP \fB_maxConductivity\fP () const =0"
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fB_current\fP () const "
+.br
+.RI "\fImomentary current in nA \fP"
+.ti -1c
+.RI "\fBNTreal\fP \fB_conductance\fP () const "
+.br
+.RI "\fImomentary conductance in muFarad \fP"
+.ti -1c
+.RI "void \fBSet_reversalPotential\fP (\fBNTreal\fP eRev)"
+.br
+.RI "\fIreversal potential in mV \fP"
+.ti -1c
+.RI "\fBNTreal\fP \fB_reversalPotential\fP () const "
+.br
+.RI "\fIreversal potential in mV \fP"
+.ti -1c
+.RI "\fBNTreal\fP \fB_temperature\fP () const "
+.br
+.RI "\fItemperature in Celsius \fP"
+.ti -1c
+.RI "\fBNTreturn\fP \fBSet_temperature\fP (\fBNTreal\fP newTemp)"
+.br
+.RI "\fISet temperature in Celsius. \fP"
+.ti -1c
+.RI "\fBNTreal\fP \fB_q10\fP () const "
+.br
+.RI "\fIQ10. \fP"
+.ti -1c
+.RI "\fBNTreturn\fP \fBSet_q10\fP (\fBNTreal\fP newQ10)"
+.br
+.RI "\fISet Q10. \fP"
+.ti -1c
+.RI "enum \fBNTBPstochasticType\fP \fB_simulationMode\fP () const "
+.br
+.RI "\fISimulation mode. \fP"
+.ti -1c
+.RI "virtual void \fBSetSimulationMode\fP (enum \fBNTBPstochasticType\fP newMode)"
+.br
+.RI "\fISet simulation mode. \fP"
+.ti -1c
+.RI "\fBNTreturn\fP \fBStep\fP (\fBNTreal\fP newVm)"
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fBComputeCurrent\fP (\fBNTreal\fP vM)"
+.br
+.ti -1c
+.RI "virtual \fBNTreturn\fP \fBStepCurrent\fP ()=0"
+.br
+.ti -1c
+.RI "virtual \fBNTreal\fP \fBComputeConductance\fP ()=0"
+.br
+.RI "\fIcompute and return conductance in mSiemens \fP"
+.ti -1c
+.RI "virtual void \fBComputeRateConstants\fP (\fBNTreal\fP vM)=0"
+.br
+.RI "\fIcompute the rate constants ( in ms^-1 ) \fP"
+.ti -1c
+.RI "virtual \fBNTreal\fP \fBOpenChannels\fP () const "
+.br
+.RI "\fINumber of open ionic channels. \fP"
+.ti -1c
+.RI "virtual \fBNTreal\fP \fBNumChannels\fP () const "
+.br
+.RI "\fITotal number of ionic channels. \fP"
+.ti -1c
+.RI "virtual \fBNTreal\fP \fBOpenChannelsRatio\fP () const "
+.br
+.RI "\fINumber of open over total number of channels. \fP"
+.ti -1c
+.RI "virtual void \fBShowParam\fP () const "
+.br
+.ti -1c
+.RI "virtual \fBNTreal\fP \fBComputeChannelStateTimeConstant\fP () const "
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fBChannelStateTimeConstant\fP () const "
+.br
+.ti -1c
+.RI "bool \fBGillespieStep\fP ()"
+.br
+.ti -1c
+.RI "virtual bool \fBComputeGillespieStep\fP ()"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNTreal\fP \fBSet_current\fP (\fBNTreal\fP newVal)"
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fBSet_conductance\fP (\fBNTreal\fP newVal)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBNT_uniform_rnd_dist_o\fP \fBuniform\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+It computes the actual currents based on the Nernst-Equation accross the membrane neglecting diffusion/concentration effects and the conductivity values provided by the hh_current or channel_current classes. 
+.PP
+\fBBug\fP
+.RS 4
+unknown 
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+unknown 
+.RE
+.PP
+
+.PP
+Definition at line 67 of file ntbp_membrane_current_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "NTBP_membrane_current_o::NTBP_membrane_current_o (\fBNTreal\fP reversalPotential)"
+.SS "NTBP_membrane_current_o::NTBP_membrane_current_o (const \fBNTBP_membrane_current_o\fP & original)"
+.SS "virtual NTBP_membrane_current_o::~NTBP_membrane_current_o ()\fC [virtual]\fP"
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBNTreal\fP NTBP_membrane_current_o::_conductance () const\fC [inline]\fP"
+.PP
+Definition at line 81 of file ntbp_membrane_current_obj.h.
+.PP
+Referenced by NTBP_hh_sga_leak_current_o::ComputeConductance(), ComputeCurrent(), and NTBP_hh_sga_leak_current_o::Show().
+.PP
+.nf
+{ return conductance; }
+.fi
+.SS "\fBNTreal\fP NTBP_membrane_current_o::_current () const\fC [inline]\fP"
+.PP
+Definition at line 79 of file ntbp_membrane_current_obj.h.
+.PP
+.nf
+{ /*cerr << 'Current in nA' << current << endl*/; return current; }
+.fi
+.SS "virtual \fBNTreal\fP NTBP_membrane_current_o::_maxConductivity () const\fC [pure virtual]\fP"
+.PP
+Implemented in \fBNTBP_channels_current_o\fP, \fBNTBP_hh_current_o\fP, and \fBNTBP_multi_current_o\fP.
+.SS "\fBNTreal\fP NTBP_membrane_current_o::_q10 () const\fC [inline]\fP"
+.PP
+Definition at line 91 of file ntbp_membrane_current_obj.h.
+.PP
+.nf
+{return q10;}
+.fi
+.SS "\fBNTreal\fP NTBP_membrane_current_o::_reversalPotential () const\fC [inline]\fP"
+.PP
+Definition at line 85 of file ntbp_membrane_current_obj.h.
+.PP
+Referenced by ComputeCurrent().
+.PP
+.nf
+{ return reversalPotential; }
+.fi
+.SS "enum \fBNTBPstochasticType\fP NTBP_membrane_current_o::_simulationMode () const\fC [inline]\fP"
+.PP
+Definition at line 95 of file ntbp_membrane_current_obj.h.
+.PP
+.nf
+{ return simulationMode; }
+.fi
+.SS "\fBNTreal\fP NTBP_membrane_current_o::_temperature () const\fC [inline]\fP"
+.PP
+Definition at line 87 of file ntbp_membrane_current_obj.h.
+.PP
+.nf
+{ return temperature; }
+.fi
+.SS "\fBNTreal\fP NTBP_membrane_current_o::ChannelStateTimeConstant () const\fC [inline]\fP"
+.PP
+Definition at line 116 of file ntbp_membrane_current_obj.h.
+.PP
+References ComputeChannelStateTimeConstant().
+.PP
+.nf
+{ return ComputeChannelStateTimeConstant();}
+.fi
+.SS "virtual \fBNTreal\fP NTBP_membrane_current_o::ComputeChannelStateTimeConstant () const\fC [inline, virtual]\fP"
+.PP
+Reimplemented in \fBNTBP_colbert_axonal_potassium_multi_current_o\fP, \fBNTBP_colbert_axonal_sodium_multi_current_o\fP, \fBNTBP_delayed_potassium_rectifier_current_o\fP, \fBNTBP_hh_current_o\fP, \fBNTBP_hranvier_potassium_multi_current_o\fP, \fBNTBP_hranvier_sodium_multi_current_o\fP, \fBNTBP_multi_potassium_current_o\fP, \fBNTBP_multi_sodium_current_o\fP, and \fBNTBP_sga_sodium_current_o\fP.
+.PP
+Definition at line 115 of file ntbp_membrane_current_obj.h.
+.PP
+Referenced by ChannelStateTimeConstant().
+.PP
+.nf
+{ cerr << 'NTBP_membrane_current_o::ComputeChannelStateTimeConstant - Error : Method should be overridden by a stochastic current class or not be called for a deterministic current class.'<< endl; return 0;}
+.fi
+.SS "virtual \fBNTreal\fP NTBP_membrane_current_o::ComputeConductance ()\fC [pure virtual]\fP"
+.PP
+Implemented in \fBNTBP_channels_current_o\fP, \fBNTBP_colbert_axonal_potassium_multi_current_o\fP, \fBNTBP_colbert_axonal_sodium_multi_current_o\fP, \fBNTBP_delayed_potassium_rectifier_current_o\fP, \fBNTBP_hh_sga_leak_current_o\fP, \fBNTBP_hh_sga_potassium_current_o\fP, \fBNTBP_hh_sga_sodium_current_o\fP, \fBNTBP_hranvier_potassium_multi_current_o\fP, \fBNTBP_hranvier_sodium_multi_current_o\fP, \fBNTBP_multi_potassium_current_o\fP, \fBNTBP_multi_sodium_current_o\fP, and \fBNTBP_patlak_sodium_multi_current_o\fP.
+.PP
+Referenced by Step().
+.SS "\fBNTreal\fP NTBP_membrane_current_o::ComputeCurrent (\fBNTreal\fP vM)\fC [inline]\fP"
+.PP
+Definition at line 101 of file ntbp_membrane_current_obj.h.
+.PP
+References _conductance(), _reversalPotential(), and Set_current().
+.PP
+Referenced by Step().
+.PP
+.nf
+{ return Set_current( _conductance() /* mSiemens */ * 1000.0 /* mA/nA */ * (vM /* mV */- _reversalPotential()/* mV */ ) );}
+.fi
+.SS "virtual bool NTBP_membrane_current_o::ComputeGillespieStep ()\fC [inline, virtual]\fP"
+.PP
+Reimplemented in \fBNTBP_channels_current_o\fP, and \fBNTBP_multi_current_o\fP.
+.PP
+Definition at line 118 of file ntbp_membrane_current_obj.h.
+.PP
+Referenced by GillespieStep().
+.PP
+.nf
+{ cerr << 'NTBP_membrane_current_o::ComputeGillespieStep- Error : Method should be overridden by a stochastic current class or not be called for a deterministic current class.'<< endl; return NT_NOT_DERIVED;}
+.fi
+.SS "virtual void NTBP_membrane_current_o::ComputeRateConstants (\fBNTreal\fP vM)\fC [pure virtual]\fP"
+.PP
+Implemented in \fBNTBP_colbert_axonal_potassium_multi_current_o\fP, \fBNTBP_colbert_axonal_sodium_multi_current_o\fP, \fBNTBP_delayed_potassium_rectifier_current_o\fP, \fBNTBP_hh_sga_leak_current_o\fP, \fBNTBP_hh_sga_potassium_current_o\fP, \fBNTBP_hh_sga_sodium_current_o\fP, \fBNTBP_hranvier_potassium_multi_current_o\fP, \fBNTBP_hranvier_sodium_multi_current_o\fP, \fBNTBP_multi_potassium_current_o\fP, \fBNTBP_multi_sodium_current_o\fP, \fBNTBP_patlak_sodium_multi_current_o\fP, and \fBNTBP_sga_sodium_current_o\fP.
+.PP
+Referenced by Step().
+.SS "bool NTBP_membrane_current_o::GillespieStep ()\fC [inline]\fP"
+.PP
+Definition at line 117 of file ntbp_membrane_current_obj.h.
+.PP
+References ComputeGillespieStep(), and StepCurrent().
+.PP
+.nf
+{/*2DO is this necessary here*/StepCurrent();return ComputeGillespieStep();}
+.fi
+.SS "virtual \fBNTreal\fP NTBP_membrane_current_o::NumChannels () const\fC [inline, virtual]\fP"
+.PP
+Reimplemented in \fBNTBP_multi_current_o\fP.
+.PP
+Definition at line 110 of file ntbp_membrane_current_obj.h.
+.PP
+.nf
+{ cerr <<'NTBP_membrane_current_o::NumChannels() - Error : Not Implemented.' << endl; return -42; }
+.fi
+.SS "virtual \fBNTreal\fP NTBP_membrane_current_o::OpenChannels () const\fC [inline, virtual]\fP"
+.PP
+Reimplemented in \fBNTBP_colbert_axonal_potassium_multi_current_o\fP, \fBNTBP_colbert_axonal_sodium_multi_current_o\fP, \fBNTBP_hranvier_potassium_multi_current_o\fP, \fBNTBP_hranvier_sodium_multi_current_o\fP, \fBNTBP_multi_potassium_current_o\fP, \fBNTBP_multi_sodium_current_o\fP, and \fBNTBP_patlak_sodium_multi_current_o\fP.
+.PP
+Definition at line 108 of file ntbp_membrane_current_obj.h.
+.PP
+Referenced by NTBP_multi_current_o::OpenChannelsRatio().
+.PP
+.nf
+{ cerr <<'NTBP_membrane_current_o::OpenChannels() - Error : Not Implemented.' << endl; return -42; }
+.fi
+.SS "virtual \fBNTreal\fP NTBP_membrane_current_o::OpenChannelsRatio () const\fC [inline, virtual]\fP"
+.PP
+Reimplemented in \fBNTBP_hh_sga_potassium_current_o\fP, \fBNTBP_hh_sga_sodium_current_o\fP, and \fBNTBP_multi_current_o\fP.
+.PP
+Definition at line 112 of file ntbp_membrane_current_obj.h.
+.PP
+.nf
+{ cerr <<'NTBP_membrane_current_o::OpenChannelsRatio() - Error : Not Implemented.' << endl; return -42; }
+.fi
+.SS "const \fBNTBP_membrane_current_o\fP& NTBP_membrane_current_o::operator= (const \fBNTBP_membrane_current_o\fP & right)"
+.SS "\fBNTreal\fP NTBP_membrane_current_o::Set_conductance (\fBNTreal\fP newVal)\fC [inline, protected]\fP"
+.PP
+Definition at line 126 of file ntbp_membrane_current_obj.h.
+.PP
+Referenced by NTBP_delayed_potassium_rectifier_current_o::ComputeConductance(), and NTBP_hh_sga_leak_current_o::UpdateConductance().
+.PP
+.nf
+{ return conductance = newVal;}
+.fi
+.SS "\fBNTreal\fP NTBP_membrane_current_o::Set_current (\fBNTreal\fP newVal)\fC [inline, protected]\fP"
+.PP
+Definition at line 125 of file ntbp_membrane_current_obj.h.
+.PP
+Referenced by ComputeCurrent().
+.PP
+.nf
+{ return current = newVal; }
+.fi
+.SS "\fBNTreturn\fP NTBP_membrane_current_o::Set_q10 (\fBNTreal\fP newQ10)\fC [inline]\fP"
+.PP
+Definition at line 93 of file ntbp_membrane_current_obj.h.
+.PP
+.nf
+{ q10 = newQ10; return NT_SUCCESS; }
+.fi
+.SS "void NTBP_membrane_current_o::Set_reversalPotential (\fBNTreal\fP eRev)\fC [inline]\fP"
+.PP
+Definition at line 83 of file ntbp_membrane_current_obj.h.
+.PP
+.nf
+{ reversalPotential = eRev;}
+.fi
+.SS "\fBNTreturn\fP NTBP_membrane_current_o::Set_temperature (\fBNTreal\fP newTemp)\fC [inline]\fP"
+.PP
+Definition at line 89 of file ntbp_membrane_current_obj.h.
+.PP
+References NT_0_KELVIN, and NT_ASSERT.
+.PP
+.nf
+{ NT_ASSERT(newTemp > NT_0_KELVIN); temperature = newTemp; return NT_SUCCESS;}
+.fi
+.SS "virtual void NTBP_membrane_current_o::SetSimulationMode (enum \fBNTBPstochasticType\fP newMode)\fC [inline, virtual]\fP"
+.PP
+Definition at line 97 of file ntbp_membrane_current_obj.h.
+.PP
+.nf
+{ simulationMode = newMode; }
+.fi
+.SS "virtual void NTBP_membrane_current_o::ShowParam () const\fC [inline, virtual]\fP"
+.PP
+Reimplemented in \fBNTBP_colbert_axonal_potassium_multi_current_o\fP, \fBNTBP_colbert_axonal_sodium_multi_current_o\fP, \fBNTBP_hranvier_potassium_multi_current_o\fP, \fBNTBP_hranvier_sodium_multi_current_o\fP, \fBNTBP_multi_potassium_current_o\fP, and \fBNTBP_multi_sodium_current_o\fP.
+.PP
+Definition at line 113 of file ntbp_membrane_current_obj.h.
+.PP
+.nf
+{ cerr << 'NTBP_membrane_current_o::ShowParam - Warning : Not Implemented.'<< endl;}
+.fi
+.SS "\fBNTreturn\fP NTBP_membrane_current_o::Step (\fBNTreal\fP newVm)\fC [inline]\fP"
+.PP
+Definition at line 99 of file ntbp_membrane_current_obj.h.
+.PP
+References ComputeConductance(), ComputeCurrent(), ComputeRateConstants(), and StepCurrent().
+.PP
+.nf
+{ ComputeRateConstants(newVm); /* UpdateRateConstantsAND*/StepCurrent(); ComputeConductance(); ComputeCurrent(newVm); return NT_SUCCESS;}
+.fi
+.SS "virtual \fBNTreturn\fP NTBP_membrane_current_o::StepCurrent ()\fC [pure virtual]\fP"
+.PP
+Implemented in \fBNTBP_colbert_axonal_potassium_multi_current_o\fP, \fBNTBP_colbert_axonal_sodium_multi_current_o\fP, \fBNTBP_delayed_potassium_rectifier_current_o\fP, \fBNTBP_hh_sga_leak_current_o\fP, \fBNTBP_hh_sga_potassium_current_o\fP, \fBNTBP_hh_sga_sodium_current_o\fP, \fBNTBP_hranvier_potassium_multi_current_o\fP, \fBNTBP_hranvier_sodium_multi_current_o\fP, \fBNTBP_multi_potassium_current_o\fP, \fBNTBP_multi_sodium_current_o\fP, \fBNTBP_patlak_sodium_multi_current_o\fP, and \fBNTBP_sga_sodium_current_o\fP.
+.PP
+Referenced by GillespieStep(), and Step().
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBNT_uniform_rnd_dist_o\fP \fBNTBP_membrane_current_o::uniform\fP\fC [protected]\fP"
+.PP
+Definition at line 128 of file ntbp_membrane_current_obj.h.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

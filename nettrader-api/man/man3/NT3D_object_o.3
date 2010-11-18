@@ -1,0 +1,378 @@
+.TH "NT3D_object_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NT3D_object_o \- 
+.PP
+NT3D object class.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <nt3d_object_obj.h>\fP
+.PP
+Inherits \fBNT3D_o\fP.
+.PP
+Inherited by \fBNT3D_camera_o\fP, and \fBNT3D_hierarchic_object_o\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNT3D_object_o\fP ()"
+.br
+.ti -1c
+.RI "\fBNT3D_object_o\fP (const \fBNT_vector3_o\fP &oNewPosition)"
+.br
+.ti -1c
+.RI "\fBNT3D_object_o\fP (const \fBNT3D_object_o\fP &original)"
+.br
+.ti -1c
+.RI "virtual \fB~NT3D_object_o\fP ()"
+.br
+.ti -1c
+.RI "void \fBRotate\fP (const \fBNT_vector3_o\fP &oDeltaRotation)"
+.br
+.ti -1c
+.RI "void \fBRotateX\fP (\fBNTreal\fP deltaRotX)"
+.br
+.ti -1c
+.RI "void \fBRotateY\fP (\fBNTreal\fP deltaRotY)"
+.br
+.ti -1c
+.RI "void \fBRotateZ\fP (\fBNTreal\fP deltaRotZ)"
+.br
+.ti -1c
+.RI "void \fBRotateXYZ\fP (\fBNT_vector3_o\fP oDeltaRot)"
+.br
+.ti -1c
+.RI "void \fBRotateXYZ\fP (const \fBNTreal\fP deltaRot[3])"
+.br
+.ti -1c
+.RI "void \fBRotateNull\fP ()"
+.br
+.ti -1c
+.RI "void \fBSetRotationX\fP (const \fBNTreal\fP rotX)"
+.br
+.ti -1c
+.RI "void \fBSetRotationY\fP (const \fBNTreal\fP rotY)"
+.br
+.ti -1c
+.RI "void \fBSetRotationZ\fP (const \fBNTreal\fP rotZ)"
+.br
+.ti -1c
+.RI "void \fBSetRotationXYZ\fP (const \fBNT_vector3_o\fP &oRot)"
+.br
+.ti -1c
+.RI "virtual void \fBTranslate\fP (const \fBNT_vector3_o\fP &oDeltaTranslation)"
+.br
+.ti -1c
+.RI "virtual void \fBTranslateX\fP (const \fBNTreal\fP deltaTraX)"
+.br
+.ti -1c
+.RI "virtual void \fBTranslateY\fP (const \fBNTreal\fP deltaTraY)"
+.br
+.ti -1c
+.RI "virtual void \fBTranslateZ\fP (const \fBNTreal\fP deltaTraZ)"
+.br
+.ti -1c
+.RI "virtual void \fBTranslateXYZ\fP (const \fBNT_vector3_o\fP &oDeltaTra)"
+.br
+.ti -1c
+.RI "virtual void \fBTranslateXYZ\fP (const \fBNTreal\fP deltaTra[3])"
+.br
+.ti -1c
+.RI "virtual void \fBTranslateNull\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBSetTranslationX\fP (const \fBNTreal\fP traX)"
+.br
+.ti -1c
+.RI "virtual void \fBSetTranslationY\fP (const \fBNTreal\fP traY)"
+.br
+.ti -1c
+.RI "virtual void \fBSetTranslationZ\fP (const \fBNTreal\fP traZ)"
+.br
+.ti -1c
+.RI "virtual void \fBSetTranslationXYZ\fP (const \fBNT_vector3_o\fP &oTra)"
+.br
+.ti -1c
+.RI "void \fBCollinearize\fP (const \fBNT_vector3_o\fP &oRelativeVector)"
+.br
+.RI "\fIrotate the object such that its (oRotation vector would rotate a vector on the) x-axis in the direction of oRelativeVector \fP"
+.ti -1c
+.RI "\fBNT_vector3_o\fP \fB_oTranslation\fP () const "
+.br
+.ti -1c
+.RI "\fBNT_vector3_o\fP \fB_oRotation\fP () const "
+.br
+.ti -1c
+.RI "virtual void \fBDraw\fP ()=0"
+.br
+.RI "\fIThe \fBDraw()\fP method is the invocation method to use for users. \fP"
+.ti -1c
+.RI "void \fBControl\fP (\fBNT3Dcontroller\fP cntrl, \fBNTint\fP value)"
+.br
+.RI "\fISet any control/state variables in the object and in the child tree. \fP"
+.ti -1c
+.RI "void \fBControl\fP (\fBNT3Dcontroller\fP cntrl, \fBNTreal\fP value)"
+.br
+.ti -1c
+.RI "void \fBControl\fP (\fBNT3Dcontroller\fP cntrl, \fBNT_vector_o\fP value)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBControlImpl\fP (\fBNT3Dcontroller\fP cntrl, \fBNTint\fP value)=0"
+.br
+.RI "\fISet the control/state variable in *this object. \fP"
+.ti -1c
+.RI "virtual void \fBControlImpl\fP (\fBNT3Dcontroller\fP cntrl, \fBNTreal\fP value)=0"
+.br
+.ti -1c
+.RI "virtual void \fBControlImpl\fP (\fBNT3Dcontroller\fP cntrl, \fBNT_vector_o\fP value)=0"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBNT_vector3_o\fP \fBoTranslation\fP"
+.br
+.ti -1c
+.RI "\fBNT_vector3_o\fP \fBoRotation\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Definition of a drawable entity with positional and rotational characteristics in 3D space.
+.PP
+The 'main axis' of an object in space, should be constructed along the X-Axis, as methods will assume this. 
+.PP
+Definition at line 149 of file nt3d_object_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "NT3D_object_o::NT3D_object_o ()"
+.SS "NT3D_object_o::NT3D_object_o (const \fBNT_vector3_o\fP & oNewPosition)"
+.SS "NT3D_object_o::NT3D_object_o (const \fBNT3D_object_o\fP & original)"
+.SS "virtual NT3D_object_o::~NT3D_object_o ()\fC [virtual]\fP"
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBNT_vector3_o\fP NT3D_object_o::_oRotation () const\fC [inline]\fP"
+.PP
+Definition at line 187 of file nt3d_object_obj.h.
+.PP
+References oRotation.
+.PP
+.nf
+{ return oRotation; }
+.fi
+.SS "\fBNT_vector3_o\fP NT3D_object_o::_oTranslation () const\fC [inline]\fP"
+.PP
+Definition at line 186 of file nt3d_object_obj.h.
+.PP
+References oTranslation.
+.PP
+.nf
+{ return oTranslation; }
+.fi
+.SS "void NT3D_object_o::Collinearize (const \fBNT_vector3_o\fP & oRelativeVector)"
+.PP
+Reimplemented in \fBNT3D_arrow_o\fP.
+.SS "void NT3D_object_o::Control (\fBNT3Dcontroller\fP cntrl, \fBNTint\fP value)\fC [inline]\fP"
+.PP
+Definition at line 194 of file nt3d_object_obj.h.
+.PP
+References ControlImpl().
+.PP
+.nf
+{ControlImpl(cntrl , value);}
+.fi
+.SS "void NT3D_object_o::Control (\fBNT3Dcontroller\fP cntrl, \fBNTreal\fP value)\fC [inline]\fP"
+.PP
+Definition at line 195 of file nt3d_object_obj.h.
+.PP
+References ControlImpl().
+.PP
+.nf
+{ControlImpl(cntrl , value);}
+.fi
+.SS "void NT3D_object_o::Control (\fBNT3Dcontroller\fP cntrl, \fBNT_vector_o\fP value)\fC [inline]\fP"
+.PP
+Definition at line 196 of file nt3d_object_obj.h.
+.PP
+References ControlImpl().
+.PP
+.nf
+{ControlImpl(cntrl , value);}
+.fi
+.SS "virtual void NT3D_object_o::ControlImpl (\fBNT3Dcontroller\fP cntrl, \fBNT_vector_o\fP value)\fC [protected, pure virtual]\fP"
+.PP
+Implemented in \fBNT3D_camera_o\fP, and \fBNT3D_hierarchic_object_o\fP.
+.SS "virtual void NT3D_object_o::ControlImpl (\fBNT3Dcontroller\fP cntrl, \fBNTreal\fP value)\fC [protected, pure virtual]\fP"
+.PP
+Implemented in \fBNT3D_camera_o\fP, and \fBNT3D_hierarchic_object_o\fP.
+.SS "virtual void NT3D_object_o::ControlImpl (\fBNT3Dcontroller\fP cntrl, \fBNTint\fP value)\fC [protected, pure virtual]\fP"\fBControlImpl()\fP should be overridden by derived classes ONLY if control/state are to be applied to *this object ! 
+.PP
+Implemented in \fBNT3D_camera_o\fP, and \fBNT3D_hierarchic_object_o\fP.
+.PP
+Referenced by Control().
+.SS "virtual void NT3D_object_o::Draw ()\fC [pure virtual]\fP"It handles the drawing of the object 
+.PP
+Implements \fBNT3D_o\fP.
+.PP
+Implemented in \fBNT3D_camera_o\fP, \fBNT3D_hierarchic_object_o\fP, and \fBNT3D_target_camera_o\fP.
+.SS "void NT3D_object_o::Rotate (const \fBNT_vector3_o\fP & oDeltaRotation)"
+.SS "void NT3D_object_o::RotateNull ()\fC [inline]\fP"
+.PP
+Definition at line 163 of file nt3d_object_obj.h.
+.PP
+References NT_OriginVec3(), and oRotation.
+.PP
+.nf
+{ oRotation = NT_OriginVec3();};
+.fi
+.SS "void NT3D_object_o::RotateX (\fBNTreal\fP deltaRotX)"
+.PP
+Referenced by NT3D_camera_vp_o::SetRotationZ().
+.SS "void NT3D_object_o::RotateXYZ (\fBNT_vector3_o\fP oDeltaRot)\fC [inline]\fP"
+.PP
+Definition at line 161 of file nt3d_object_obj.h.
+.PP
+References oRotation.
+.PP
+.nf
+{ oRotation += oDeltaRot; }
+.fi
+.SS "void NT3D_object_o::RotateXYZ (const \fBNTreal\fP deltaRot[3])"
+.SS "void NT3D_object_o::RotateY (\fBNTreal\fP deltaRotY)"
+.PP
+Referenced by NT3D_camera_vp_o::TranslateX().
+.SS "void NT3D_object_o::RotateZ (\fBNTreal\fP deltaRotZ)"
+.PP
+Referenced by NT3D_camera_vp_o::TranslateY().
+.SS "void NT3D_object_o::SetRotationX (const \fBNTreal\fP rotX)\fC [inline]\fP"
+.PP
+Definition at line 164 of file nt3d_object_obj.h.
+.PP
+References oRotation, and NT_vector3_o::x.
+.PP
+Referenced by NT3D_camera_vp_o::TranslateZ().
+.PP
+.nf
+{ oRotation.x= rotX; }
+.fi
+.SS "void NT3D_object_o::SetRotationXYZ (const \fBNT_vector3_o\fP & oRot)\fC [inline]\fP"
+.PP
+Definition at line 167 of file nt3d_object_obj.h.
+.PP
+References oTranslation.
+.PP
+.nf
+{ oTranslation = oRot; }
+.fi
+.SS "void NT3D_object_o::SetRotationY (const \fBNTreal\fP rotY)\fC [inline]\fP"
+.PP
+Definition at line 165 of file nt3d_object_obj.h.
+.PP
+References oRotation, and NT_vector3_o::y.
+.PP
+Referenced by NT3D_camera_vp_o::SetTranslationX().
+.PP
+.nf
+{ oRotation.y= rotY; }
+.fi
+.SS "void NT3D_object_o::SetRotationZ (const \fBNTreal\fP rotZ)\fC [inline]\fP"
+.PP
+Definition at line 166 of file nt3d_object_obj.h.
+.PP
+References oRotation, and NT_vector3_o::z.
+.PP
+Referenced by NT3D_camera_vp_o::SetTranslationY().
+.PP
+.nf
+{ oRotation.z= rotZ; }
+.fi
+.SS "virtual void NT3D_object_o::SetTranslationX (const \fBNTreal\fP traX)\fC [inline, virtual]\fP"
+.PP
+Definition at line 176 of file nt3d_object_obj.h.
+.PP
+References oTranslation, and NT_vector3_o::x.
+.PP
+.nf
+{ oTranslation.x= traX; }
+.fi
+.SS "virtual void NT3D_object_o::SetTranslationXYZ (const \fBNT_vector3_o\fP & oTra)\fC [inline, virtual]\fP"
+.PP
+Definition at line 179 of file nt3d_object_obj.h.
+.PP
+References oTranslation.
+.PP
+.nf
+{ oTranslation = oTra; }
+.fi
+.SS "virtual void NT3D_object_o::SetTranslationY (const \fBNTreal\fP traY)\fC [inline, virtual]\fP"
+.PP
+Definition at line 177 of file nt3d_object_obj.h.
+.PP
+References oTranslation, and NT_vector3_o::y.
+.PP
+.nf
+{ oTranslation.y= traY; }
+.fi
+.SS "virtual void NT3D_object_o::SetTranslationZ (const \fBNTreal\fP traZ)\fC [inline, virtual]\fP"
+.PP
+Definition at line 178 of file nt3d_object_obj.h.
+.PP
+References oTranslation, and NT_vector3_o::z.
+.PP
+.nf
+{ oTranslation.z= traZ; }
+.fi
+.SS "virtual void NT3D_object_o::Translate (const \fBNT_vector3_o\fP & oDeltaTranslation)\fC [virtual]\fP"
+.SS "virtual void NT3D_object_o::TranslateNull ()\fC [inline, virtual]\fP"
+.PP
+Definition at line 175 of file nt3d_object_obj.h.
+.PP
+References NT_OriginVec3(), and oTranslation.
+.PP
+.nf
+{ oTranslation = NT_OriginVec3();};
+.fi
+.SS "virtual void NT3D_object_o::TranslateX (const \fBNTreal\fP deltaTraX)\fC [virtual]\fP"
+.PP
+Referenced by NT3D_camera_vp_o::SetTranslationZ().
+.SS "virtual void NT3D_object_o::TranslateXYZ (const \fBNT_vector3_o\fP & oDeltaTra)\fC [inline, virtual]\fP"
+.PP
+Definition at line 173 of file nt3d_object_obj.h.
+.PP
+References oTranslation.
+.PP
+.nf
+{ oTranslation += oDeltaTra; }
+.fi
+.SS "virtual void NT3D_object_o::TranslateXYZ (const \fBNTreal\fP deltaTra[3])\fC [virtual]\fP"
+.SS "virtual void NT3D_object_o::TranslateY (const \fBNTreal\fP deltaTraY)\fC [virtual]\fP"
+.PP
+Referenced by NT3D_camera_vp_o::SetTranslationXYZ().
+.SS "virtual void NT3D_object_o::TranslateZ (const \fBNTreal\fP deltaTraZ)\fC [virtual]\fP"
+.PP
+Referenced by NT3D_camera_vp_o::SetTarget().
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBNT_vector3_o\fP \fBNT3D_object_o::oRotation\fP\fC [protected]\fP"
+.PP
+Definition at line 200 of file nt3d_object_obj.h.
+.PP
+Referenced by _oRotation(), RotateNull(), RotateXYZ(), SetRotationX(), SetRotationY(), and SetRotationZ().
+.SS "\fBNT_vector3_o\fP \fBNT3D_object_o::oTranslation\fP\fC [protected]\fP"
+.PP
+Definition at line 199 of file nt3d_object_obj.h.
+.PP
+Referenced by _oTranslation(), SetRotationXYZ(), SetTranslationX(), SetTranslationXYZ(), SetTranslationY(), SetTranslationZ(), TranslateNull(), and TranslateXYZ().
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

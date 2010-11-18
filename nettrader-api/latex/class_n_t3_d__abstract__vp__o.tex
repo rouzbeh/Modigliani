@@ -1,0 +1,387 @@
+\subsection{NT3D\_\-abstract\_\-vp\_\-o Class Reference}
+\label{class_n_t3_d__abstract__vp__o}\index{NT3D\_\-abstract\_\-vp\_\-o@{NT3D\_\-abstract\_\-vp\_\-o}}
+
+
+\hyperlink{class_n_t3_d__abstract__vp__o}{NT3D\_\-abstract\_\-vp\_\-o} class The abstract viewport class houses the driver independent part of the visualisation routines.  
+
+
+
+
+{\ttfamily \#include $<$nt3d\_\-abstract\_\-vp\_\-obj.h$>$}
+
+
+
+Inheritance diagram for NT3D\_\-abstract\_\-vp\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_n_t3_d__abstract__vp__o__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for NT3D\_\-abstract\_\-vp\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=174pt]{class_n_t3_d__abstract__vp__o__coll__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_t3_d__abstract__vp__o_a74c73c65e2192872ec2812509726076e}{NT3D\_\-abstract\_\-vp\_\-o} ()
+\item 
+\hyperlink{class_n_t3_d__abstract__vp__o_a90c715dba0a32ff590e54e8959032657}{NT3D\_\-abstract\_\-vp\_\-o} (const \hyperlink{class_n_t3_d__abstract__vp__o}{NT3D\_\-abstract\_\-vp\_\-o} \&original)
+\item 
+const \hyperlink{class_n_t3_d__abstract__vp__o}{NT3D\_\-abstract\_\-vp\_\-o} \& \hyperlink{class_n_t3_d__abstract__vp__o_a982912ba8e2e85df53d21dda40481cc0}{operator=} (const \hyperlink{class_n_t3_d__abstract__vp__o}{NT3D\_\-abstract\_\-vp\_\-o} \&right)
+\item 
+\hyperlink{class_n_t3_d__abstract__vp__o_a9b2ea028b9342b7d78dbfe69bc52f3e0}{$\sim$NT3D\_\-abstract\_\-vp\_\-o} ()
+\item 
+virtual void \hyperlink{class_n_t3_d__abstract__vp__o_a482ad19f8201baa2d298e337820fe2b2}{Draw} ()=0
+\item 
+void \hyperlink{class_n_t3_d__abstract__vp__o_a859e73397277b95940cc6d842a7fca9e}{Init} ()
+\begin{DoxyCompactList}\small\item\em These methods call child and drv implementations. \item\end{DoxyCompactList}\item 
+\hyperlink{nt__types_8h_ab9564ee8f091e809d21b8451c6683c53}{NTreturn} \hyperlink{class_n_t3_d__abstract__vp__o_a85c4415b7be898881ae7360e7df2c789}{Resize} (\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} newWidth, \hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} newHeight)
+\item 
+void \hyperlink{class_n_t3_d__abstract__vp__o_a45bafcb9721b91bd88e2e91c17a6f4c3}{Redraw} ()
+\item 
+void \hyperlink{class_n_t3_d__abstract__vp__o_ab4537da43a1de2dce6ea0119df8446b7}{MakeCurrent} ()
+\item 
+void \hyperlink{class_n_t3_d__abstract__vp__o_adc452610655e9ce8ac6d91fb2f30735b}{SwapBuffer} ()
+\item 
+\hyperlink{class_n_t3_d__bitmap__o}{NT3D\_\-bitmap\_\-o} \hyperlink{class_n_t3_d__abstract__vp__o_a5cf2608761a3748591c1af0ca393587a}{View2Bitmap} ()
+\item 
+\hyperlink{class_n_t3_d__bitmap__o}{NT3D\_\-bitmap\_\-o} $\ast$ \hyperlink{class_n_t3_d__abstract__vp__o_ac04447c4fb5bd6f18aba4454bc63327e}{View2BitmapPtr} (\hyperlink{class_n_t3_d__bitmap__o}{NT3D\_\-bitmap\_\-o} $\ast$bmpPtr)
+\item 
+\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} \hyperlink{class_n_t3_d__abstract__vp__o_a17780c3a1c28c474fcca579843a9bc78}{\_\-width} ()
+\item 
+\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} \hyperlink{class_n_t3_d__abstract__vp__o_a4b70e023af30dfdca5c636d3651f6a54}{\_\-height} ()
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{class_n_t3_d__abstract__vp__o_a044f98747f0be214d62876869a0192db}{InitChild} ()=0
+\item 
+virtual \hyperlink{nt__types_8h_ab9564ee8f091e809d21b8451c6683c53}{NTreturn} \hyperlink{class_n_t3_d__abstract__vp__o_ab97005b21dd58269565426099a0fe77b}{ResizeChild} (\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} width, \hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} height)=0
+\item 
+virtual void \hyperlink{class_n_t3_d__abstract__vp__o_a440f6b8f70ab998f06c3685e64aa44b7}{RedrawChild} ()=0
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+It is connected/registered with a viewport driver class NT3D\_\-driver\_\-vp\_\-o childs. It uses the infrastructure provided by a driver class via the \hyperlink{class_n_t3_d__vp__o}{NT3D\_\-vp\_\-o} interface. \begin{Desc}
+\item[\hyperlink{bug__bug000002}{Bug}]unknown \end{Desc}
+\begin{DoxyWarning}{Warning}
+do not override \hyperlink{class_n_t3_d__abstract__vp__o_ab4537da43a1de2dce6ea0119df8446b7}{MakeCurrent()} and \hyperlink{class_n_t3_d__abstract__vp__o_adc452610655e9ce8ac6d91fb2f30735b}{SwapBuffer()} 
+\end{DoxyWarning}
+
+
+Definition at line 80 of file nt3d\_\-abstract\_\-vp\_\-obj.h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{NT3D\_\-abstract\_\-vp\_\-o@{NT3D\_\-abstract\_\-vp\_\-o}!NT3D\_\-abstract\_\-vp\_\-o@{NT3D\_\-abstract\_\-vp\_\-o}}
+\index{NT3D\_\-abstract\_\-vp\_\-o@{NT3D\_\-abstract\_\-vp\_\-o}!NT3D_abstract_vp_o@{NT3D\_\-abstract\_\-vp\_\-o}}
+\paragraph[{NT3D\_\-abstract\_\-vp\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT3D\_\-abstract\_\-vp\_\-o::NT3D\_\-abstract\_\-vp\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__abstract__vp__o_a74c73c65e2192872ec2812509726076e}
+\index{NT3D\_\-abstract\_\-vp\_\-o@{NT3D\_\-abstract\_\-vp\_\-o}!NT3D\_\-abstract\_\-vp\_\-o@{NT3D\_\-abstract\_\-vp\_\-o}}
+\index{NT3D\_\-abstract\_\-vp\_\-o@{NT3D\_\-abstract\_\-vp\_\-o}!NT3D_abstract_vp_o@{NT3D\_\-abstract\_\-vp\_\-o}}
+\paragraph[{NT3D\_\-abstract\_\-vp\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT3D\_\-abstract\_\-vp\_\-o::NT3D\_\-abstract\_\-vp\_\-o (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT3D\_\-abstract\_\-vp\_\-o} \&}]{ original}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__abstract__vp__o_a90c715dba0a32ff590e54e8959032657}
+\index{NT3D\_\-abstract\_\-vp\_\-o@{NT3D\_\-abstract\_\-vp\_\-o}!$\sim$NT3D\_\-abstract\_\-vp\_\-o@{$\sim$NT3D\_\-abstract\_\-vp\_\-o}}
+\index{$\sim$NT3D\_\-abstract\_\-vp\_\-o@{$\sim$NT3D\_\-abstract\_\-vp\_\-o}!NT3D_abstract_vp_o@{NT3D\_\-abstract\_\-vp\_\-o}}
+\paragraph[{$\sim$NT3D\_\-abstract\_\-vp\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT3D\_\-abstract\_\-vp\_\-o::$\sim$NT3D\_\-abstract\_\-vp\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__abstract__vp__o_a9b2ea028b9342b7d78dbfe69bc52f3e0}
+
+
+\subsubsection{Member Function Documentation}
+\index{NT3D\_\-abstract\_\-vp\_\-o@{NT3D\_\-abstract\_\-vp\_\-o}!\_\-height@{\_\-height}}
+\index{\_\-height@{\_\-height}!NT3D_abstract_vp_o@{NT3D\_\-abstract\_\-vp\_\-o}}
+\paragraph[{\_\-height}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTsize} NT3D\_\-abstract\_\-vp\_\-o::\_\-height (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}\hfill\label{class_n_t3_d__abstract__vp__o_a4b70e023af30dfdca5c636d3651f6a54}
+
+
+Implements \hyperlink{class_n_t3_d__vp__o_a96c819deb3509953ecfe4702f42bb997}{NT3D\_\-vp\_\-o}.
+
+
+
+Definition at line 88 of file nt3d\_\-abstract\_\-vp\_\-obj.h.
+
+
+
+References NT3D\_\-vp\_\-o::Init(), InitChild(), and NT3D\_\-vp\_\-o::pVP.
+
+
+
+
+\begin{DoxyCode}
+{InitChild();pVP->Init();}
+\end{DoxyCode}
+
+
+\index{NT3D\_\-abstract\_\-vp\_\-o@{NT3D\_\-abstract\_\-vp\_\-o}!\_\-width@{\_\-width}}
+\index{\_\-width@{\_\-width}!NT3D_abstract_vp_o@{NT3D\_\-abstract\_\-vp\_\-o}}
+\paragraph[{\_\-width}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTsize} NT3D\_\-abstract\_\-vp\_\-o::\_\-width (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}\hfill\label{class_n_t3_d__abstract__vp__o_a17780c3a1c28c474fcca579843a9bc78}
+
+
+Implements \hyperlink{class_n_t3_d__vp__o_a681be89436416268957e730c34b6bba2}{NT3D\_\-vp\_\-o}.
+
+
+
+Definition at line 87 of file nt3d\_\-abstract\_\-vp\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{InitChild();pVP->Init();}
+\end{DoxyCode}
+
+
+\index{NT3D\_\-abstract\_\-vp\_\-o@{NT3D\_\-abstract\_\-vp\_\-o}!Draw@{Draw}}
+\index{Draw@{Draw}!NT3D_abstract_vp_o@{NT3D\_\-abstract\_\-vp\_\-o}}
+\paragraph[{Draw}]{\setlength{\rightskip}{0pt plus 5cm}virtual void NT3D\_\-abstract\_\-vp\_\-o::Draw (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}pure virtual\mbox{]}}}\hfill\label{class_n_t3_d__abstract__vp__o_a482ad19f8201baa2d298e337820fe2b2}
+
+
+Implements \hyperlink{class_n_t3_d__o_a09f0d769add7e30f534dd792371b444c}{NT3D\_\-o}.
+
+
+
+Implemented in \hyperlink{class_n_t3_d__bitmap__vp__o_a18da5d4f0308c64f40ed843a09a09691}{NT3D\_\-bitmap\_\-vp\_\-o}, \hyperlink{class_n_t3_d__camera__vp__o_a21cea10d6b586143ecf025cb45888b04}{NT3D\_\-camera\_\-vp\_\-o}, \hyperlink{class_n_t3_d__plot2d__vp__o_a468dc219455b1f6d301f75c86c828075}{NT3D\_\-plot2d\_\-vp\_\-o}, \hyperlink{class_n_t3_d__universal__vp__o_ac3671542d72aa3ce3d38593e0c1f7e21}{NT3D\_\-universal\_\-vp\_\-o}, and \hyperlink{class_n_t3_d__universe__vp__o_a0ae04e4074fa409fd1fbabe40971a50c}{NT3D\_\-universe\_\-vp\_\-o}.
+
+\index{NT3D\_\-abstract\_\-vp\_\-o@{NT3D\_\-abstract\_\-vp\_\-o}!Init@{Init}}
+\index{Init@{Init}!NT3D_abstract_vp_o@{NT3D\_\-abstract\_\-vp\_\-o}}
+\paragraph[{Init}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-abstract\_\-vp\_\-o::Init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}\hfill\label{class_n_t3_d__abstract__vp__o_a859e73397277b95940cc6d842a7fca9e}
+
+
+Implements \hyperlink{class_n_t3_d__vp__o_a1f1337ae08f52c0d3e3f6efd3afcdbd5}{NT3D\_\-vp\_\-o}.
+
+
+
+Definition at line 79 of file nt3d\_\-abstract\_\-vp\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+: public NT3D_vp_o {
+\end{DoxyCode}
+
+
+\index{NT3D\_\-abstract\_\-vp\_\-o@{NT3D\_\-abstract\_\-vp\_\-o}!InitChild@{InitChild}}
+\index{InitChild@{InitChild}!NT3D_abstract_vp_o@{NT3D\_\-abstract\_\-vp\_\-o}}
+\paragraph[{InitChild}]{\setlength{\rightskip}{0pt plus 5cm}virtual void NT3D\_\-abstract\_\-vp\_\-o::InitChild (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected, pure virtual\mbox{]}}}\hfill\label{class_n_t3_d__abstract__vp__o_a044f98747f0be214d62876869a0192db}
+
+
+Implemented in \hyperlink{class_n_t3_d__bitmap__vp__o_a64d617f1df17374cb7018c753da52d1f}{NT3D\_\-bitmap\_\-vp\_\-o}, \hyperlink{class_n_t3_d__camera__vp__o_a10ee3834eb703b5b63051fc2662f85ed}{NT3D\_\-camera\_\-vp\_\-o}, \hyperlink{class_n_t3_d__plot2d__vp__o_a7d35b4898f38b28b74cebcf0239d6afb}{NT3D\_\-plot2d\_\-vp\_\-o}, and \hyperlink{class_n_t3_d__spheric__camera__o_a1ea6ee37f319cc46bb2af4d5e51cd792}{NT3D\_\-spheric\_\-camera\_\-o}.
+
+
+
+Referenced by \_\-height().
+
+\index{NT3D\_\-abstract\_\-vp\_\-o@{NT3D\_\-abstract\_\-vp\_\-o}!MakeCurrent@{MakeCurrent}}
+\index{MakeCurrent@{MakeCurrent}!NT3D_abstract_vp_o@{NT3D\_\-abstract\_\-vp\_\-o}}
+\paragraph[{MakeCurrent}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-abstract\_\-vp\_\-o::MakeCurrent (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}\hfill\label{class_n_t3_d__abstract__vp__o_ab4537da43a1de2dce6ea0119df8446b7}
+
+
+Implements \hyperlink{class_n_t3_d__vp__o_aedc795540953e702cc443560e04c4148}{NT3D\_\-vp\_\-o}.
+
+
+
+Definition at line 83 of file nt3d\_\-abstract\_\-vp\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{InitChild();pVP->Init();}
+\end{DoxyCode}
+
+
+\index{NT3D\_\-abstract\_\-vp\_\-o@{NT3D\_\-abstract\_\-vp\_\-o}!operator=@{operator=}}
+\index{operator=@{operator=}!NT3D_abstract_vp_o@{NT3D\_\-abstract\_\-vp\_\-o}}
+\paragraph[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf NT3D\_\-abstract\_\-vp\_\-o}\& NT3D\_\-abstract\_\-vp\_\-o::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT3D\_\-abstract\_\-vp\_\-o} \&}]{ right}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__abstract__vp__o_a982912ba8e2e85df53d21dda40481cc0}
+\index{NT3D\_\-abstract\_\-vp\_\-o@{NT3D\_\-abstract\_\-vp\_\-o}!Redraw@{Redraw}}
+\index{Redraw@{Redraw}!NT3D_abstract_vp_o@{NT3D\_\-abstract\_\-vp\_\-o}}
+\paragraph[{Redraw}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-abstract\_\-vp\_\-o::Redraw (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}\hfill\label{class_n_t3_d__abstract__vp__o_a45bafcb9721b91bd88e2e91c17a6f4c3}
+
+
+Implements \hyperlink{class_n_t3_d__vp__o_a44abbf4fa68027993d2be2a5ddac4536}{NT3D\_\-vp\_\-o}.
+
+
+
+Definition at line 81 of file nt3d\_\-abstract\_\-vp\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+:
+\end{DoxyCode}
+
+
+\index{NT3D\_\-abstract\_\-vp\_\-o@{NT3D\_\-abstract\_\-vp\_\-o}!RedrawChild@{RedrawChild}}
+\index{RedrawChild@{RedrawChild}!NT3D_abstract_vp_o@{NT3D\_\-abstract\_\-vp\_\-o}}
+\paragraph[{RedrawChild}]{\setlength{\rightskip}{0pt plus 5cm}virtual void NT3D\_\-abstract\_\-vp\_\-o::RedrawChild (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected, pure virtual\mbox{]}}}\hfill\label{class_n_t3_d__abstract__vp__o_a440f6b8f70ab998f06c3685e64aa44b7}
+
+
+Implemented in \hyperlink{class_n_t3_d__bitmap__vp__o_a5981726b9f4f96e3581a4157f01c9774}{NT3D\_\-bitmap\_\-vp\_\-o}, \hyperlink{class_n_t3_d__camera__vp__o_af5a8ae2d1f279394e66c5727c13e4c9c}{NT3D\_\-camera\_\-vp\_\-o}, \hyperlink{class_n_t3_d__plot2d__vp__o_abc17b1bb053566289767920b0525cb6f}{NT3D\_\-plot2d\_\-vp\_\-o}, and \hyperlink{class_n_t3_d__spheric__camera__o_a55f6b350316b1b64e6e1c5e685c3e3d4}{NT3D\_\-spheric\_\-camera\_\-o}.
+
+\index{NT3D\_\-abstract\_\-vp\_\-o@{NT3D\_\-abstract\_\-vp\_\-o}!Resize@{Resize}}
+\index{Resize@{Resize}!NT3D_abstract_vp_o@{NT3D\_\-abstract\_\-vp\_\-o}}
+\paragraph[{Resize}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreturn} NT3D\_\-abstract\_\-vp\_\-o::Resize (
+\begin{DoxyParamCaption}
+\item[{{\bf NTsize}}]{ newWidth, }
+\item[{{\bf NTsize}}]{ newHeight}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}\hfill\label{class_n_t3_d__abstract__vp__o_a85c4415b7be898881ae7360e7df2c789}
+
+
+Implements \hyperlink{class_n_t3_d__vp__o_ade1de94401e3af133bc398ebbe308815}{NT3D\_\-vp\_\-o}.
+
+
+
+Definition at line 80 of file nt3d\_\-abstract\_\-vp\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+: public NT3D_vp_o {
+\end{DoxyCode}
+
+
+\index{NT3D\_\-abstract\_\-vp\_\-o@{NT3D\_\-abstract\_\-vp\_\-o}!ResizeChild@{ResizeChild}}
+\index{ResizeChild@{ResizeChild}!NT3D_abstract_vp_o@{NT3D\_\-abstract\_\-vp\_\-o}}
+\paragraph[{ResizeChild}]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf NTreturn} NT3D\_\-abstract\_\-vp\_\-o::ResizeChild (
+\begin{DoxyParamCaption}
+\item[{{\bf NTsize}}]{ width, }
+\item[{{\bf NTsize}}]{ height}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected, pure virtual\mbox{]}}}\hfill\label{class_n_t3_d__abstract__vp__o_ab97005b21dd58269565426099a0fe77b}
+
+
+Implemented in \hyperlink{class_n_t3_d__bitmap__vp__o_aac4f5d45b904d1a96cc074b528255cbf}{NT3D\_\-bitmap\_\-vp\_\-o}, \hyperlink{class_n_t3_d__camera__vp__o_a0f7c80160d0cae26a83491d197cf59ef}{NT3D\_\-camera\_\-vp\_\-o}, \hyperlink{class_n_t3_d__plot2d__vp__o_a3bfe9a35ef18810ddb905c6df3b22f5f}{NT3D\_\-plot2d\_\-vp\_\-o}, and \hyperlink{class_n_t3_d__spheric__camera__o_a9f1f2565b1ca1d4839fdaa1f35f223e8}{NT3D\_\-spheric\_\-camera\_\-o}.
+
+\index{NT3D\_\-abstract\_\-vp\_\-o@{NT3D\_\-abstract\_\-vp\_\-o}!SwapBuffer@{SwapBuffer}}
+\index{SwapBuffer@{SwapBuffer}!NT3D_abstract_vp_o@{NT3D\_\-abstract\_\-vp\_\-o}}
+\paragraph[{SwapBuffer}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-abstract\_\-vp\_\-o::SwapBuffer (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}\hfill\label{class_n_t3_d__abstract__vp__o_adc452610655e9ce8ac6d91fb2f30735b}
+
+
+Reimplemented from \hyperlink{class_n_t3_d__vp__o_a2d7dc967be0443bfa0fba033a7477d78}{NT3D\_\-vp\_\-o}.
+
+
+
+Definition at line 84 of file nt3d\_\-abstract\_\-vp\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{InitChild();pVP->Init();}
+\end{DoxyCode}
+
+
+\index{NT3D\_\-abstract\_\-vp\_\-o@{NT3D\_\-abstract\_\-vp\_\-o}!View2Bitmap@{View2Bitmap}}
+\index{View2Bitmap@{View2Bitmap}!NT3D_abstract_vp_o@{NT3D\_\-abstract\_\-vp\_\-o}}
+\paragraph[{View2Bitmap}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NT3D\_\-bitmap\_\-o} NT3D\_\-abstract\_\-vp\_\-o::View2Bitmap (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}\hfill\label{class_n_t3_d__abstract__vp__o_a5cf2608761a3748591c1af0ca393587a}
+
+
+Implements \hyperlink{class_n_t3_d__vp__o_a2efa8d95e404abf1b3d7a054e9b6f223}{NT3D\_\-vp\_\-o}.
+
+
+
+Definition at line 85 of file nt3d\_\-abstract\_\-vp\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{InitChild();pVP->Init();}
+\end{DoxyCode}
+
+
+\index{NT3D\_\-abstract\_\-vp\_\-o@{NT3D\_\-abstract\_\-vp\_\-o}!View2BitmapPtr@{View2BitmapPtr}}
+\index{View2BitmapPtr@{View2BitmapPtr}!NT3D_abstract_vp_o@{NT3D\_\-abstract\_\-vp\_\-o}}
+\paragraph[{View2BitmapPtr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NT3D\_\-bitmap\_\-o}$\ast$ NT3D\_\-abstract\_\-vp\_\-o::View2BitmapPtr (
+\begin{DoxyParamCaption}
+\item[{{\bf NT3D\_\-bitmap\_\-o} $\ast$}]{ bmpPtr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}\hfill\label{class_n_t3_d__abstract__vp__o_ac04447c4fb5bd6f18aba4454bc63327e}
+
+
+Implements \hyperlink{class_n_t3_d__vp__o_a991d5acf827a4fa05a2aacc693f4e7fa}{NT3D\_\-vp\_\-o}.
+
+
+
+Definition at line 86 of file nt3d\_\-abstract\_\-vp\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{InitChild();pVP->Init();}
+\end{DoxyCode}
+
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nt3d__abstract__vp__obj_8h}{nt3d\_\-abstract\_\-vp\_\-obj.h}\end{DoxyCompactItemize}

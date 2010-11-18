@@ -1,0 +1,156 @@
+\subsection{NT\_\-simple\_\-markov\_\-o Class Reference}
+\label{class_n_t__simple__markov__o}\index{NT\_\-simple\_\-markov\_\-o@{NT\_\-simple\_\-markov\_\-o}}
+
+
+\hyperlink{class_n_t__simple__markov__o}{NT\_\-simple\_\-markov\_\-o} class Basic numState-\/dimensional 1st order markov state model.  
+
+
+
+
+{\ttfamily \#include $<$nt\_\-simple\_\-markov\_\-obj.h$>$}
+
+
+
+Inheritance diagram for NT\_\-simple\_\-markov\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=162pt]{class_n_t__simple__markov__o__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for NT\_\-simple\_\-markov\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{class_n_t__simple__markov__o__coll__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_t__simple__markov__o_a3753d63af02a021cb6ed1dad4f13eda0}{NT\_\-simple\_\-markov\_\-o} (\hyperlink{nt__types_8h_aee8aa0a9869e8b5c97c6c02217ff09cd}{NTint} numMarkovStates=1)
+\item 
+\hyperlink{class_n_t__simple__markov__o_a4f20765caf837529206b1832aaa88f74}{NT\_\-simple\_\-markov\_\-o} (const \hyperlink{class_n_t__simple__markov__o}{NT\_\-simple\_\-markov\_\-o} \&original)
+\item 
+const \hyperlink{class_n_t__simple__markov__o}{NT\_\-simple\_\-markov\_\-o} \& \hyperlink{class_n_t__simple__markov__o_ad6216f3868c7758acab50dbc7ee56594}{operator=} (const \hyperlink{class_n_t__simple__markov__o}{NT\_\-simple\_\-markov\_\-o} \&right)
+\item 
+virtual \hyperlink{class_n_t__simple__markov__o_a700dfa46df860bccc5ead19e039838be}{$\sim$NT\_\-simple\_\-markov\_\-o} ()
+\item 
+\hyperlink{nt__types_8h_ab9564ee8f091e809d21b8451c6683c53}{NTreturn} \hyperlink{class_n_t__simple__markov__o_a361c11a879c5b58b0a1534cd01b9127b}{MarkovStep} ()
+\item 
+\hyperlink{nt__types_8h_aee8aa0a9869e8b5c97c6c02217ff09cd}{NTint} \hyperlink{class_n_t__simple__markov__o_a4d1935aa5b4d46dfbdcf0cd63de54e28}{\_\-stateIndex} () const 
+\item 
+\hyperlink{nt__types_8h_ab9564ee8f091e809d21b8451c6683c53}{NTreturn} \hyperlink{class_n_t__simple__markov__o_a42097cf0e4df2ab7e6ba8129baaa5f19}{SetProbTransMatrix} (\hyperlink{class_t_n_t_1_1_matrix}{Matrix}$<$ \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} $>$ $\ast$ptrNewMtr)
+\item 
+\hyperlink{nt__types_8h_ab9564ee8f091e809d21b8451c6683c53}{NTreturn} \hyperlink{class_n_t__simple__markov__o_af8e1a0ff1d55555f2fef387795ba8cf7}{SetState} (\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} newStateIndex)
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_t_n_t_1_1_matrix}{Matrix}$<$ \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} $>$ $\ast$ \hyperlink{class_n_t__simple__markov__o_af2278c737d8230521f4d8740dd78faff}{ptrTPMtr}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+The transitions-\/probability matrix is set up for sharing among multiple instances of the class (hence no delete management of ptrPMtr) \begin{Desc}
+\item[\hyperlink{bug__bug000109}{Bug}]unknown \end{Desc}
+\begin{DoxyWarning}{Warning}
+ptrPMtr is not deleted! 
+\end{DoxyWarning}
+
+
+Definition at line 56 of file nt\_\-simple\_\-markov\_\-obj.h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{NT\_\-simple\_\-markov\_\-o@{NT\_\-simple\_\-markov\_\-o}!NT\_\-simple\_\-markov\_\-o@{NT\_\-simple\_\-markov\_\-o}}
+\index{NT\_\-simple\_\-markov\_\-o@{NT\_\-simple\_\-markov\_\-o}!NT_simple_markov_o@{NT\_\-simple\_\-markov\_\-o}}
+\paragraph[{NT\_\-simple\_\-markov\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-simple\_\-markov\_\-o::NT\_\-simple\_\-markov\_\-o (
+\begin{DoxyParamCaption}
+\item[{{\bf NTint}}]{ numMarkovStates = {\ttfamily 1}}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__simple__markov__o_a3753d63af02a021cb6ed1dad4f13eda0}
+\index{NT\_\-simple\_\-markov\_\-o@{NT\_\-simple\_\-markov\_\-o}!NT\_\-simple\_\-markov\_\-o@{NT\_\-simple\_\-markov\_\-o}}
+\index{NT\_\-simple\_\-markov\_\-o@{NT\_\-simple\_\-markov\_\-o}!NT_simple_markov_o@{NT\_\-simple\_\-markov\_\-o}}
+\paragraph[{NT\_\-simple\_\-markov\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-simple\_\-markov\_\-o::NT\_\-simple\_\-markov\_\-o (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT\_\-simple\_\-markov\_\-o} \&}]{ original}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__simple__markov__o_a4f20765caf837529206b1832aaa88f74}
+\index{NT\_\-simple\_\-markov\_\-o@{NT\_\-simple\_\-markov\_\-o}!$\sim$NT\_\-simple\_\-markov\_\-o@{$\sim$NT\_\-simple\_\-markov\_\-o}}
+\index{$\sim$NT\_\-simple\_\-markov\_\-o@{$\sim$NT\_\-simple\_\-markov\_\-o}!NT_simple_markov_o@{NT\_\-simple\_\-markov\_\-o}}
+\paragraph[{$\sim$NT\_\-simple\_\-markov\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}virtual NT\_\-simple\_\-markov\_\-o::$\sim$NT\_\-simple\_\-markov\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t__simple__markov__o_a700dfa46df860bccc5ead19e039838be}
+
+
+\subsubsection{Member Function Documentation}
+\index{NT\_\-simple\_\-markov\_\-o@{NT\_\-simple\_\-markov\_\-o}!\_\-stateIndex@{\_\-stateIndex}}
+\index{\_\-stateIndex@{\_\-stateIndex}!NT_simple_markov_o@{NT\_\-simple\_\-markov\_\-o}}
+\paragraph[{\_\-stateIndex}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTint} NT\_\-simple\_\-markov\_\-o::\_\-stateIndex (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__simple__markov__o_a4d1935aa5b4d46dfbdcf0cd63de54e28}
+
+
+Definition at line 65 of file nt\_\-simple\_\-markov\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{return stateIndex;}  
+\end{DoxyCode}
+
+
+\index{NT\_\-simple\_\-markov\_\-o@{NT\_\-simple\_\-markov\_\-o}!MarkovStep@{MarkovStep}}
+\index{MarkovStep@{MarkovStep}!NT_simple_markov_o@{NT\_\-simple\_\-markov\_\-o}}
+\paragraph[{MarkovStep}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreturn} NT\_\-simple\_\-markov\_\-o::MarkovStep (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__simple__markov__o_a361c11a879c5b58b0a1534cd01b9127b}
+\index{NT\_\-simple\_\-markov\_\-o@{NT\_\-simple\_\-markov\_\-o}!operator=@{operator=}}
+\index{operator=@{operator=}!NT_simple_markov_o@{NT\_\-simple\_\-markov\_\-o}}
+\paragraph[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf NT\_\-simple\_\-markov\_\-o}\& NT\_\-simple\_\-markov\_\-o::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT\_\-simple\_\-markov\_\-o} \&}]{ right}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__simple__markov__o_ad6216f3868c7758acab50dbc7ee56594}
+\index{NT\_\-simple\_\-markov\_\-o@{NT\_\-simple\_\-markov\_\-o}!SetProbTransMatrix@{SetProbTransMatrix}}
+\index{SetProbTransMatrix@{SetProbTransMatrix}!NT_simple_markov_o@{NT\_\-simple\_\-markov\_\-o}}
+\paragraph[{SetProbTransMatrix}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreturn} NT\_\-simple\_\-markov\_\-o::SetProbTransMatrix (
+\begin{DoxyParamCaption}
+\item[{{\bf Matrix}$<$ {\bf NTreal} $>$ $\ast$}]{ ptrNewMtr}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__simple__markov__o_a42097cf0e4df2ab7e6ba8129baaa5f19}
+\index{NT\_\-simple\_\-markov\_\-o@{NT\_\-simple\_\-markov\_\-o}!SetState@{SetState}}
+\index{SetState@{SetState}!NT_simple_markov_o@{NT\_\-simple\_\-markov\_\-o}}
+\paragraph[{SetState}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreturn} NT\_\-simple\_\-markov\_\-o::SetState (
+\begin{DoxyParamCaption}
+\item[{{\bf NTsize}}]{ newStateIndex}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__simple__markov__o_af8e1a0ff1d55555f2fef387795ba8cf7}
+
+
+\subsubsection{Member Data Documentation}
+\index{NT\_\-simple\_\-markov\_\-o@{NT\_\-simple\_\-markov\_\-o}!ptrTPMtr@{ptrTPMtr}}
+\index{ptrTPMtr@{ptrTPMtr}!NT_simple_markov_o@{NT\_\-simple\_\-markov\_\-o}}
+\paragraph[{ptrTPMtr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Matrix}$<${\bf NTreal}$>$$\ast$ {\bf NT\_\-simple\_\-markov\_\-o::ptrTPMtr}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_n_t__simple__markov__o_af2278c737d8230521f4d8740dd78faff}
+
+
+Definition at line 72 of file nt\_\-simple\_\-markov\_\-obj.h.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nt__simple__markov__obj_8h}{nt\_\-simple\_\-markov\_\-obj.h}\end{DoxyCompactItemize}

@@ -1,0 +1,110 @@
+.TH "NT3D_trajectory_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NT3D_trajectory_o \- 
+.PP
+\fBNT3D_trajectory_o\fP class Abstract trajectory unit that moves a projectile (any \fBNT3D_object_o\fP) through space-time for a given speed.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <nt3d_trajectory_obj.h>\fP
+.PP
+Inherits \fBNT3D_o\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNT3D_trajectory_o\fP ()"
+.br
+.ti -1c
+.RI "\fBNT3D_trajectory_o\fP (const \fBNT3D_trajectory_o\fP &original)"
+.br
+.ti -1c
+.RI "const \fBNT3D_trajectory_o\fP & \fBoperator=\fP (const \fBNT3D_trajectory_o\fP &right)"
+.br
+.ti -1c
+.RI "virtual \fB~NT3D_trajectory_o\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBStep\fP ()=0"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBNT_vector3_o\fP \fBh\fP"
+.br
+.RI "\fIheading of object \fP"
+.ti -1c
+.RI "\fBNT_vector3_o\fP \fBv\fP"
+.br
+.RI "\fIvelocity vector \fP"
+.ti -1c
+.RI "\fBNT_vector3_o\fP \fBx\fP"
+.br
+.RI "\fIposition vector, synch with projectile.oPosition \fP"
+.ti -1c
+.RI "\fBNTreal\fP \fBm\fP"
+.br
+.RI "\fImass (unused!) \fP"
+.ti -1c
+.RI "\fBNTlong\fP \fBtimestep\fP"
+.br
+.RI "\fItimestep \fP"
+.ti -1c
+.RI "\fBNTreal\fP \fBstepDuration\fP"
+.br
+.RI "\fITime resolution, how many seconds does a time step correspond. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBBug\fP
+.RS 4
+unknown 
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+unknown 
+.RE
+.PP
+
+.PP
+Definition at line 52 of file nt3d_trajectory_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "NT3D_trajectory_o::NT3D_trajectory_o ()"
+.SS "NT3D_trajectory_o::NT3D_trajectory_o (const \fBNT3D_trajectory_o\fP & original)"
+.SS "virtual NT3D_trajectory_o::~NT3D_trajectory_o ()\fC [virtual]\fP"
+.SH "Member Function Documentation"
+.PP 
+.SS "const \fBNT3D_trajectory_o\fP& NT3D_trajectory_o::operator= (const \fBNT3D_trajectory_o\fP & right)"
+.SS "virtual void NT3D_trajectory_o::Step ()\fC [pure virtual]\fP"
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBNT_vector3_o\fP \fBNT3D_trajectory_o::h\fP\fC [protected]\fP"
+.PP
+Definition at line 66 of file nt3d_trajectory_obj.h.
+.SS "\fBNTreal\fP \fBNT3D_trajectory_o::m\fP\fC [protected]\fP"
+.PP
+Definition at line 72 of file nt3d_trajectory_obj.h.
+.SS "\fBNTreal\fP \fBNT3D_trajectory_o::stepDuration\fP\fC [protected]\fP"This is not the actual computational duration of a timesteo 
+.PP
+Definition at line 77 of file nt3d_trajectory_obj.h.
+.SS "\fBNTlong\fP \fBNT3D_trajectory_o::timestep\fP\fC [protected]\fP"
+.PP
+Definition at line 74 of file nt3d_trajectory_obj.h.
+.SS "\fBNT_vector3_o\fP \fBNT3D_trajectory_o::v\fP\fC [protected]\fP"
+.PP
+Definition at line 68 of file nt3d_trajectory_obj.h.
+.SS "\fBNT_vector3_o\fP \fBNT3D_trajectory_o::x\fP\fC [protected]\fP"
+.PP
+Definition at line 70 of file nt3d_trajectory_obj.h.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

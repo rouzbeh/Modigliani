@@ -1,0 +1,35 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$ntbp__membrane__current__obj_8h.html" title="NTBP_membrane_current_o class header by Ahmed Aldo Faisal &copy; created 16.3.2001" alt="" coords="2232,83,2450,112"/>
+<area shape="rect" id="node31" href="$ntbp__membrane__obj_8h.html" title="NTBP_membrane_o class header by Ahmed Aldo Faisal &copy; created 16.3.2001" alt="" coords="2534,392,2700,421"/>
+<area shape="rect" id="node34" href="$ntbp__membrane__patch__obj_8h.html" title="NTBP_membrane_patch_o class header by Ahmed Aldo Faisal &copy; created 21.1.2002" alt="" coords="3168,392,3378,421"/>
+<area shape="rect" id="node93" href="$ntbp__ion__channels__obj_8h.html" title="NTBP_ion_channels_o class header by Ahmed Aldo Faisal &copy; created 15.3.2001" alt="" coords="1388,83,1566,112"/>
+<area shape="rect" id="node5" href="$ntbp__channels__current__obj_8h.html" title="NTBP_channels_current_o class header by Ahmed Aldo Faisal &copy; created 16.3.2001" alt="" coords="2064,160,2269,189"/>
+<area shape="rect" id="node9" href="$ntbp__membrane__compartment__obj_8h.html" title="NTBP_membrane_compartment_o class header by Ahmed Aldo Faisal &copy; created 16.3.2001" alt="" coords="2546,315,2808,344"/>
+<area shape="rect" id="node53" href="$ntbp__multi__current__obj_8h.html" title="NTBP_multi_current_o class header by Ahmed Aldo Faisal &copy; created 16.3.2001" alt="" coords="892,160,1073,189"/>
+<area shape="rect" id="node82" href="$ntbp__hh__current__obj_8h.html" title="NTBP_hh_current_o class header by Ahmed Aldo Faisal &copy; created 17.3.2001" alt="" coords="2748,160,2913,189"/>
+<area shape="rect" id="node7" href="$ntbp__delayed__potassium__rectifier__current__obj_8h.html" title="NTBP_delayed_potassium_rectifier_current_o class header by Ahmed Aldo Faisal &copy; created 16..." alt="" coords="1872,237,2200,267"/>
+<area shape="rect" id="node44" href="$ntbp__sga__sodium__current__obj_8h.html" title="NTBP_sga_sodium_current_o class header by Ahmed Aldo Faisal &copy; created 16.3.2001" alt="" coords="2224,237,2450,267"/>
+<area shape="rect" id="node13" href="$ntbp__custom__cylindrical__compartment__obj_8h.html" title="NTBP_custom_cylindrical_compartment_o class header by Ahmed Aldo Faisal &copy; created 26..." alt="" coords="2329,469,2636,499"/>
+<area shape="rect" id="node17" href="$ntbp___k__only__sga__cylindrical__compartment__obj_8h.html" title="ntbp_K_only_sga_cylindrical_compartment_obj.h" alt="" coords="1609,469,1940,499"/>
+<area shape="rect" id="node22" href="$ntbp___na__only__sga__cylindrical__compartment__obj_8h.html" title="ntbp_Na_only_sga_cylindrical_compartment_obj.h" alt="" coords="1964,469,2305,499"/>
+<area shape="rect" id="node24" href="$ntbp__sga__cylindrical__compartment__obj_8h.html" title="NTBP_sga_cylindrical_compartment_o class header by Ahmed Aldo Faisal &copy; created 26..." alt="" coords="524,469,806,499"/>
+<area shape="rect" id="node27" href="$ntbp__simple__myelinated__cylindrical__compartment__obj_8h.html" title="NTBP_simple_myelinated_cylindrical_compartment_o class header by Ahmed Aldo Faisal &copy; created 26..." alt="" coords="1206,469,1585,499"/>
+<area shape="rect" id="node29" href="$ntbp__simple__ranvier__cylindrical__compartment__obj_8h.html" title="NTBP_simple_ranvier_cylindrical_compartment_o class header by Ahmed Aldo Faisal &copy; created 26..." alt="" coords="830,469,1182,499"/>
+<area shape="rect" id="node11" href="$ntbp__cylindrical__compartment__obj_8h.html" title="NTBP_cylindrical_compartment_o class header by Ahmed Aldo Faisal &copy; created 26.3.2001" alt="" coords="1994,392,2248,421"/>
+<area shape="rect" id="node36" href="$ntbp__spherical__compartment__obj_8h.html" title="NTBP_spherical_compartment_o class header by Ahmed Aldo Faisal &copy; created 19.3.2001" alt="" coords="2724,392,2972,421"/>
+<area shape="rect" id="node19" href="$ntbp__membrane__compartment__sequence__obj_8h.html" title="NTBP_membrane_compartment_sequence_o class header by Ahmed Aldo Faisal &copy; created 26..." alt="" coords="2660,469,2990,499"/>
+<area shape="rect" id="node15" href="$modigliani__model__format__grammar__t_8h.html" title="modigliani_model_format_grammar_t.h" alt="" coords="2345,547,2620,576"/>
+<area shape="rect" id="node55" href="$ntbp__colbert__axonal__potassium__multi__current__obj_8h.html" title="NTBP_colbert_axonal_potassium_multi_current_o class header by Ahmed Aldo Faisal &copy; created 16..." alt="" coords="24,237,378,267"/>
+<area shape="rect" id="node57" href="$ntbp__colbert__axonal__sodium__multi__current__obj_8h.html" title="NTBP_colbert_axonal_sodium_multi_current_o class header by Ahmed Aldo Faisal &copy; created 16..." alt="" coords="1146,237,1480,267"/>
+<area shape="rect" id="node59" href="$ntbp__multi__potassium__current__obj_8h.html" title="NTBP_multi_potassium_current_o class header by Ahmed Aldo Faisal &copy; created 16.3.2001" alt="" coords="1004,392,1257,421"/>
+<area shape="rect" id="node67" href="$ntbp__multi__sodium__current__obj_8h.html" title="ntbp_multi_sodium_current_obj.h" alt="" coords="1449,392,1684,421"/>
+<area shape="rect" id="node75" href="$ntbp__hranvier__potassium__multi__current__obj_8h.html" title="NTBP_hranvier_potassium_multi_current_o class header by Ahmed Aldo Faisal &copy; created 16..." alt="" coords="402,237,717,267"/>
+<area shape="rect" id="node77" href="$ntbp__hranvier__sodium__multi__current__obj_8h.html" title="NTBP_hranvier_sodium_multi_current_o class header by Ahmed Aldo Faisal &copy; created 16..." alt="" coords="1504,237,1797,267"/>
+<area shape="rect" id="node79" href="$ntbp__patlak__sodium__multi__current__obj_8h.html" title="NTBP_patlak_sodium_multi_current_o class header by Ahmed Aldo Faisal &copy; created 12..." alt="" coords="842,237,1122,267"/>
+<area shape="rect" id="node84" href="$ntbp__hh__sga__potassium__current__obj_8h.html" title="NTBP_hh_sga_potassium_current_o class header by Ahmed Aldo Faisal &copy; created 17.3.2001" alt="" coords="3098,237,3368,267"/>
+<area shape="rect" id="node87" href="$ntbp__hh__sga__sodium__current__obj_8h.html" title="NTBP_hh_sga_sodium_current_o class header by Ahmed Aldo Faisal &copy; created 17.3.2001" alt="" coords="2576,237,2824,267"/>
+<area shape="rect" id="node90" href="$ntbp__hh__sga__leak__current__obj_8h.html" title="NTBP_hh_sga_leak_current_o class header by Ahmed Aldo Faisal &copy; created 19.3.2001" alt="" coords="2848,237,3074,267"/>
+<area shape="rect" id="node97" href="$ntbp__potassium__ion__channels__obj_8h.html" title="NTBP_potassium_ion_channels_o class header by Ahmed Aldo Faisal &copy; created 16.3.2001" alt="" coords="433,160,686,189"/>
+<area shape="rect" id="node103" href="$ntbp__sodium__ion__channels__obj_8h.html" title="NTBP_sodium_ion_channels_o class header by Ahmed Aldo Faisal &copy; created 15.3.2001" alt="" coords="1534,160,1766,189"/>
+<area shape="rect" id="node109" href="$ntbp__patlak__sodium__ion__channels__obj_8h.html" title="NTBP_patlak_sodium_ion_channels_o class header by Ahmed Aldo Faisal &copy; created 12..." alt="" coords="1165,160,1442,189"/>
+</map>

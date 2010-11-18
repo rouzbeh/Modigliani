@@ -1,0 +1,163 @@
+.TH "ntg_graph_obj.h" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ntg_graph_obj.h \- 
+.PP
+.IP "\(bu" 2
+\fBNTG_graph_o\fP class header by Ahmed Aldo Faisal (C) created 30.9.2000 
+.PP
+ 
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'nt_main.h'\fP
+.br
+\fC#include 'nt_types.h'\fP
+.br
+\fC#include 'nt_obj.h'\fP
+.br
+\fC#include 'nt_id_management_obj.h'\fP
+.br
+\fC#include 'ntg_node_obj.h'\fP
+.br
+\fC#include 'ntg_edge_obj.h'\fP
+.br
+\fC#include 'nt_uniform_rnd_dist_obj.h'\fP
+.br
+\fC#include 'nt_sequential_statistics_obj.h'\fP
+.br
+\fC#include <vector>\fP
+.br
+\fC#include <algorithm>\fP
+.br
+\fC#include 'tnt/tnt.h'\fP
+.br
+\fC#include 'tnt/cmat.h'\fP
+.br
+\fC#include <string>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBNTG_vertex_o\fP"
+.br
+.ti -1c
+.RI "class \fBNTG_graph_o\fP"
+.br
+.in -1c
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBNTG_MAX_NODES_IN_GRAPH\fP   100000"
+.br
+.RI "\fI\fBNTG_graph_o\fP class Concepts: the \fBNTG_graph_o\fP mimics the mathematical definition of a graph it is composed by a set E (here a <vector>) of \fBNTG_edge_o\fP objects and of vertices (here a <vector>) V. \fP"
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef vector< \fBNTG_vertex_o\fP > \fBNTG_NodeContainer\fP"
+.br
+.ti -1c
+.RI "typedef vector< \fBNTG_edge_o\fP > \fBNTG_EdgeContainer\fP"
+.br
+.ti -1c
+.RI "typedef vector< \fBNTid\fP > \fBNTG_NodeIdList\fP"
+.br
+.ti -1c
+.RI "typedef \fBMatrix\fP< \fBNTreal\fP > \fBNTG_PositiveCostMatrix\fP"
+.br
+.ti -1c
+.RI "typedef \fBMatrix\fP< bool > \fBNTG_AdjacencyMatrix\fP"
+.br
+.ti -1c
+.RI "typedef \fBMatrix\fP< \fBNTreal\fP > \fBNTG_NodeDistanceMatrix\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "template<class T > \fBNTG_NodeDistanceMatrix\fP \fBNodeDistanceMatrixConditioning\fP (const \fBMatrix\fP< T > &aMtr)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+Definition in file \fBntg_graph_obj.h\fP.
+.SH "Define Documentation"
+.PP 
+.SS "#define NTG_MAX_NODES_IN_GRAPH   100000"A vertex is a pair (<pair>) composed of a vertex id and a \fBNTG_node_o\fP which can be derived by the user according to needs. Similar edges can be derived using an \fBNTG_edge_o\fP object.
+.PP
+\fBBug\fP
+.RS 4
+unknown 
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+For digraphs: Adjacency and Connectivity matrices use A[i][j] to denote the connection from node i to node j. This does not correspond to standard dynamical system notation. 
+.RE
+.PP
+
+.PP
+Definition at line 85 of file ntg_graph_obj.h.
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef \fBMatrix\fP< bool > \fBNTG_AdjacencyMatrix\fP"
+.PP
+Definition at line 110 of file ntg_graph_obj.h.
+.SS "typedef vector< \fBNTG_edge_o\fP > \fBNTG_EdgeContainer\fP"
+.PP
+Definition at line 107 of file ntg_graph_obj.h.
+.SS "typedef vector< \fBNTG_vertex_o\fP > \fBNTG_NodeContainer\fP"
+.PP
+Definition at line 106 of file ntg_graph_obj.h.
+.SS "typedef \fBMatrix\fP< \fBNTreal\fP > \fBNTG_NodeDistanceMatrix\fP"
+.PP
+Definition at line 111 of file ntg_graph_obj.h.
+.SS "typedef vector< \fBNTid\fP > \fBNTG_NodeIdList\fP"
+.PP
+Definition at line 108 of file ntg_graph_obj.h.
+.SS "typedef \fBMatrix\fP< \fBNTreal\fP > \fBNTG_PositiveCostMatrix\fP"
+.PP
+Definition at line 109 of file ntg_graph_obj.h.
+.SH "Function Documentation"
+.PP 
+.SS "template<class T > \fBNTG_NodeDistanceMatrix\fP NodeDistanceMatrixConditioning (const \fBMatrix\fP< T > & aMtr)"
+.PP
+Definition at line 114 of file ntg_graph_obj.h.
+.PP
+References NT_ASSERT, TNT::Matrix< T >::num_cols(), TNT::Matrix< T >::num_rows(), and TNT::Matrix< T >::size().
+.PP
+.nf
+{
+    NTG_NodeDistanceMatrix dMtr(aMtr.num_rows(),aMtr.num_cols());   
+    NT_ASSERT( aMtr.size() == dMtr.size() );
+    for (NTsize lr=0; lr < (NTsize)aMtr.num_rows(); lr++){
+        for (NTsize lc=0; lc < (NTsize)aMtr.num_cols(); lc++) {
+            if (lr == lc) dMtr[lr][lc] = 0;
+            else {
+                T tmpVal = aMtr[lr][lc]; 
+                if ( 0 ==  tmpVal) dMtr[lr][lc] = 1/0.0; /* set value to infinity (NAN), this is correct code ! */ 
+                else
+                if ( (NTreal)tmpVal < 0) {
+                    cerr << 'NodeDistanceMatrixPrecondition - Warning : Negative values in matrix encountered. Using absolute values.' << endl; 
+                    dMtr[lr][lc] = -tmpVal;
+                } else dMtr[lr][lc] = tmpVal;
+            }
+        }   
+    }
+    
+    return dMtr;
+}
+.fi
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

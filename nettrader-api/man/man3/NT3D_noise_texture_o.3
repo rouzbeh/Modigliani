@@ -1,0 +1,75 @@
+.TH "NT3D_noise_texture_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NT3D_noise_texture_o \- 
+.PP
+\fBNT3D_noise_texture_o\fP class.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <nt3d_noise_texture_obj.h>\fP
+.PP
+Inherits \fBNT3D_pixel_texture_o\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNT3D_noise_texture_o\fP (\fBNTsize\fP newTextureWidth=64, \fBNTsize\fP newTextureHeight=64)"
+.br
+.ti -1c
+.RI "\fBNT3D_noise_texture_o\fP (const \fBNT3D_noise_texture_o\fP &original)"
+.br
+.ti -1c
+.RI "const \fBNT3D_noise_texture_o\fP & \fBoperator=\fP (const \fBNT3D_noise_texture_o\fP &right)"
+.br
+.ti -1c
+.RI "virtual \fB~NT3D_noise_texture_o\fP ()"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNTreturn\fP \fBAssignPixelTexture\fP ()"
+.br
+.ti -1c
+.RI "\fBNTreal\fP * \fBMakeRGBATexturePoint\fP (\fBNTreal\fP *colorVec, \fBNTreal\fP coorX, \fBNTreal\fP coorY)"
+.br
+.RI "\fIMake a colored point within the normalised texure area [0,1]x[0,1]. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBBug\fP
+.RS 4
+unknown 
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+unknown 
+.RE
+.PP
+
+.PP
+Definition at line 63 of file nt3d_noise_texture_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "NT3D_noise_texture_o::NT3D_noise_texture_o (\fBNTsize\fP newTextureWidth = \fC64\fP, \fBNTsize\fP newTextureHeight = \fC64\fP)"
+.SS "NT3D_noise_texture_o::NT3D_noise_texture_o (const \fBNT3D_noise_texture_o\fP & original)"
+.SS "virtual NT3D_noise_texture_o::~NT3D_noise_texture_o ()\fC [virtual]\fP"
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBNTreturn\fP NT3D_noise_texture_o::AssignPixelTexture ()\fC [protected, virtual]\fP"
+.PP
+Reimplemented from \fBNT3D_pixel_texture_o\fP.
+.SS "\fBNTreal\fP* NT3D_noise_texture_o::MakeRGBATexturePoint (\fBNTreal\fP * colorVec, \fBNTreal\fP coorX, \fBNTreal\fP coorY)\fC [protected, virtual]\fP"
+.PP
+Reimplemented from \fBNT3D_pixel_texture_o\fP.
+.SS "const \fBNT3D_noise_texture_o\fP& NT3D_noise_texture_o::operator= (const \fBNT3D_noise_texture_o\fP & right)"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

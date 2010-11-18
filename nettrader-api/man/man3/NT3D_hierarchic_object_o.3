@@ -1,0 +1,156 @@
+.TH "NT3D_hierarchic_object_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NT3D_hierarchic_object_o \- 
+.PP
+NetTrader 3D object visualisation superclass.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <nt3d_hierarchic_object_obj.h>\fP
+.PP
+Inherits \fBNT3D_object_o\fP.
+.PP
+Inherited by \fBNT3D_composite_o\fP, \fBNT3D_lamp_o\fP, \fBNT3D_line_o\fP, \fBNT3D_stub_o\fP, and \fBNT3D_surfaced_object_o\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNT3D_hierarchic_object_o\fP ()"
+.br
+.ti -1c
+.RI "\fBNT3D_hierarchic_object_o\fP (const \fBNT_vector3_o\fP &oNewPosition)"
+.br
+.ti -1c
+.RI "\fBNT3D_hierarchic_object_o\fP (const \fBNT3D_hierarchic_object_o\fP &original)"
+.br
+.ti -1c
+.RI "\fB~NT3D_hierarchic_object_o\fP ()"
+.br
+.RI "\fI2DO: Destroy or not destroy parent child objects ? \fP"
+.ti -1c
+.RI "void \fBDraw\fP ()"
+.br
+.RI "\fIThe \fBDraw()\fP method is the invocation method to use for users. \fP"
+.ti -1c
+.RI "\fBNTuint\fP \fBAddChild\fP (\fBNT3D_hierarchic_object_o\fP *pNewChild)"
+.br
+.RI "\fIDraws the unrotated and untranslated object. \fP"
+.ti -1c
+.RI "\fBNTreturn\fP \fBRemoveChild\fP (\fBNT3D_hierarchic_object_o\fP *pOldChild)"
+.br
+.ti -1c
+.RI "\fBNTreturn\fP \fBRemoveChild\fP (\fBNTuint\fP OldChild)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBDrawObj\fP ()"
+.br
+.ti -1c
+.RI "\fBNTreturn\fP \fBNT3DObjectCheck\fP () const "
+.br
+.ti -1c
+.RI "void \fBControlImpl\fP (\fBNT3Dcontroller\fP cntrl, \fBNTint\fP value)"
+.br
+.RI "\fIControlImpl overwrites the \fBNT3D_object_o\fP controllers, and are not to be overwritten themselves by derived classes, derived classes implement/overwrite ControlObj. \fP"
+.ti -1c
+.RI "void \fBControlImpl\fP (\fBNT3Dcontroller\fP cntrl, \fBNTreal\fP value)"
+.br
+.ti -1c
+.RI "void \fBControlImpl\fP (\fBNT3Dcontroller\fP cntrl, \fBNT_vector_o\fP value)"
+.br
+.ti -1c
+.RI "virtual void \fBControlObj\fP (\fBNT3Dcontroller\fP cntrl, \fBNTint\fP value)"
+.br
+.RI "\fIControlObj is to overwritten by derived classes to handle controller calls. \fP"
+.ti -1c
+.RI "virtual void \fBControlObj\fP (\fBNT3Dcontroller\fP cntrl, \fBNTreal\fP value)"
+.br
+.ti -1c
+.RI "virtual void \fBControlObj\fP (\fBNT3Dcontroller\fP cntrl, \fBNT_vector_o\fP value)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The 'main axis' of an object in space, should be constructed along the X-Axis, as methods will assume this. 
+.PP
+Definition at line 55 of file nt3d_hierarchic_object_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "NT3D_hierarchic_object_o::NT3D_hierarchic_object_o ()"
+.SS "NT3D_hierarchic_object_o::NT3D_hierarchic_object_o (const \fBNT_vector3_o\fP & oNewPosition)"
+.SS "NT3D_hierarchic_object_o::NT3D_hierarchic_object_o (const \fBNT3D_hierarchic_object_o\fP & original)"
+.SS "NT3D_hierarchic_object_o::~NT3D_hierarchic_object_o ()"
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBNTuint\fP NT3D_hierarchic_object_o::AddChild (\fBNT3D_hierarchic_object_o\fP * pNewChild)"\fBDrawObj()\fP is method should be overridden by derived classes to implement to pure unrotated untranslated object. 
+.PP
+\fBWarning:\fP
+.RS 4
+Note, it has to be declard virtual here, such that upon invocation via \fBDraw()\fP the child method is exectuded and not the parent method ! 
+.RE
+.PP
+
+.SS "void NT3D_hierarchic_object_o::ControlImpl (\fBNT3Dcontroller\fP cntrl, \fBNTreal\fP value)\fC [protected, virtual]\fP"
+.PP
+Implements \fBNT3D_object_o\fP.
+.SS "void NT3D_hierarchic_object_o::ControlImpl (\fBNT3Dcontroller\fP cntrl, \fBNT_vector_o\fP value)\fC [protected, virtual]\fP"
+.PP
+Implements \fBNT3D_object_o\fP.
+.SS "void NT3D_hierarchic_object_o::ControlImpl (\fBNT3Dcontroller\fP cntrl, \fBNTint\fP value)\fC [protected, virtual]\fP"
+.PP
+Implements \fBNT3D_object_o\fP.
+.SS "virtual void NT3D_hierarchic_object_o::ControlObj (\fBNT3Dcontroller\fP cntrl, \fBNTreal\fP value)\fC [inline, protected, virtual]\fP"
+.PP
+Reimplemented in \fBNT3D_composite_o\fP.
+.PP
+Definition at line 95 of file nt3d_hierarchic_object_obj.h.
+.PP
+.nf
+{}; 
+.fi
+.SS "virtual void NT3D_hierarchic_object_o::ControlObj (\fBNT3Dcontroller\fP cntrl, \fBNTint\fP value)\fC [inline, protected, virtual]\fP"
+.PP
+Reimplemented in \fBNT3D_composite_o\fP, and \fBNT3D_surfaced_object_o\fP.
+.PP
+Definition at line 94 of file nt3d_hierarchic_object_obj.h.
+.PP
+References NT_CERR.
+.PP
+.nf
+{NT_CERR(3,'NT3D_hierarchic_objet_o::ControlObj(...,NTint) - Warning : Not overridden be derived object.');};
+.fi
+.SS "virtual void NT3D_hierarchic_object_o::ControlObj (\fBNT3Dcontroller\fP cntrl, \fBNT_vector_o\fP value)\fC [inline, protected, virtual]\fP"
+.PP
+Reimplemented in \fBNT3D_composite_o\fP.
+.PP
+Definition at line 96 of file nt3d_hierarchic_object_obj.h.
+.PP
+.nf
+{};
+.fi
+.SS "void NT3D_hierarchic_object_o::Draw ()\fC [virtual]\fP"It handles the drawing of the object, its correct positioning and the drawing of the child objects. However, it should not be overridden! 
+.PP
+Implements \fBNT3D_object_o\fP.
+.SS "virtual void NT3D_hierarchic_object_o::DrawObj ()\fC [inline, protected, virtual]\fP"
+.PP
+Reimplemented in \fBNT3D_composite_o\fP, \fBNT3D_lamp_o\fP, \fBNT3D_line_o\fP, \fBNT3D_stub_o\fP, and \fBNT3D_surfaced_object_o\fP.
+.PP
+Definition at line 83 of file nt3d_hierarchic_object_obj.h.
+.PP
+.nf
+{cerr <<'NT3D_hierarchic_object_o::DrawObj() - Error : This method should be overriden by derived classes'<<endl;};
+.fi
+.SS "\fBNTreturn\fP NT3D_hierarchic_object_o::NT3DObjectCheck () const\fC [protected]\fP"
+.SS "\fBNTreturn\fP NT3D_hierarchic_object_o::RemoveChild (\fBNT3D_hierarchic_object_o\fP * pOldChild)"
+.SS "\fBNTreturn\fP NT3D_hierarchic_object_o::RemoveChild (\fBNTuint\fP OldChild)"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

@@ -1,0 +1,631 @@
+.TH "MTRand" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+MTRand \- 
+.PP
+file nt_mersenne_twiser_external_obj.h - uniform random number class 1:1 copy from MersenneTwister.h Mersenne Twister random number generator -- a C++ class \fBMTRand\fP Based on code by Makoto Matsumoto, Takuji Nishimura, and Shawn Cokus Richard J.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <nt_mersenne_twister_external_obj.h>\fP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "enum { \fBN\fP =  624 }"
+.br
+.ti -1c
+.RI "enum { \fBSAVE\fP =  N + 1 }"
+.br
+.ti -1c
+.RI "typedef unsigned long \fBuint32\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBMTRand\fP (const \fBuint32\fP &oneSeed)"
+.br
+.ti -1c
+.RI "\fBMTRand\fP (\fBuint32\fP *const bigSeed)"
+.br
+.ti -1c
+.RI "\fBMTRand\fP ()"
+.br
+.ti -1c
+.RI "double \fBrand\fP ()"
+.br
+.ti -1c
+.RI "double \fBrand\fP (const double &n)"
+.br
+.ti -1c
+.RI "double \fBrandExc\fP ()"
+.br
+.ti -1c
+.RI "double \fBrandExc\fP (const double &n)"
+.br
+.ti -1c
+.RI "double \fBrandDblExc\fP ()"
+.br
+.ti -1c
+.RI "double \fBrandDblExc\fP (const double &n)"
+.br
+.ti -1c
+.RI "\fBuint32\fP \fBrandInt\fP ()"
+.br
+.ti -1c
+.RI "\fBuint32\fP \fBrandInt\fP (const \fBuint32\fP &n)"
+.br
+.ti -1c
+.RI "double \fBoperator()\fP ()"
+.br
+.ti -1c
+.RI "void \fBseed\fP (\fBuint32\fP oneSeed)"
+.br
+.ti -1c
+.RI "void \fBseed\fP (\fBuint32\fP *const bigSeed)"
+.br
+.ti -1c
+.RI "void \fBseed\fP ()"
+.br
+.ti -1c
+.RI "void \fBsave\fP (\fBuint32\fP *saveArray) const "
+.br
+.ti -1c
+.RI "void \fBload\fP (\fBuint32\fP *const loadArray)"
+.br
+.in -1c
+.SS "Protected Types"
+
+.in +1c
+.ti -1c
+.RI "enum { \fBM\fP =  397 }"
+.br
+.ti -1c
+.RI "enum { \fBMAGIC\fP =  0x9908b0dfU }"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBreload\fP ()"
+.br
+.ti -1c
+.RI "\fBuint32\fP \fBhiBit\fP (const \fBuint32\fP &u) const "
+.br
+.ti -1c
+.RI "\fBuint32\fP \fBloBit\fP (const \fBuint32\fP &u) const "
+.br
+.ti -1c
+.RI "\fBuint32\fP \fBloBits\fP (const \fBuint32\fP &u) const "
+.br
+.ti -1c
+.RI "\fBuint32\fP \fBmixBits\fP (const \fBuint32\fP &u, const \fBuint32\fP &v) const "
+.br
+.ti -1c
+.RI "\fBuint32\fP \fBtwist\fP (const \fBuint32\fP &m, const \fBuint32\fP &s0, const \fBuint32\fP &s1) const "
+.br
+.in -1c
+.SS "Static Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBuint32\fP \fBhash\fP (time_t t, clock_t c)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBuint32\fP \fBstate\fP [N]"
+.br
+.ti -1c
+.RI "\fBuint32\fP * \fBpNext\fP"
+.br
+.ti -1c
+.RI "int \fBleft\fP"
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "std::ostream & \fBoperator<<\fP (std::ostream &os, const \fBMTRand\fP &mtrand)"
+.br
+.ti -1c
+.RI "std::istream & \fBoperator>>\fP (std::istream &is, \fBMTRand\fP &mtrand)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Wagner v0.7 12 July 2001 rjwagner@writeme.com The Mersenne Twister is an algorithm for generating random numbers. It was designed with consideration of the flaws in various other generators. The period, 2^19937-1, and the order of equidistribution, 623 dimensions, are far greater. The generator is also fast; it avoids multiplication and division, and it benefits from caches and pipelines. For more information see the inventors' web page at http://www.math.keio.ac.jp/~matumoto/emt.html
+.PP
+IMPORTANT: CHECK ON UPDATES FOR THE C++ CODE (AS INITIALISATION WEAKNESS WAS DISCOVERED, 22.2.2002 AAF)
+.PP
+Reference M. Matsumoto and T. Nishimura, 'Mersenne Twister: A 623-Dimensionally
+ Equidistributed Uniform Pseudo-Random Number Generator', ACM Transactions on Modeling and Computer Simulation, Vol. 8, No. 1, January 1998, pp 3-30.
+.PP
+Copyright (C) 2001 Richard J. Wagner
+.PP
+This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation; either version 2.1 of the License, or (at your option) any later version.
+.PP
+This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+.PP
+You should have received a copy of the GNU Lesser General Public License along with this library; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+.PP
+The original code included the following notice:
+.PP
+Copyright (C) 1997, 1999 Makoto Matsumoto and Takuji Nishimura. When you use this, send an email to: matumoto@math.keio.ac.jp with an appropriate reference to your work.
+.PP
+It would be nice to CC: rjwagner@writeme.com and Cokus@math.washington.edu when you write. 
+.PP
+Definition at line 58 of file nt_mersenne_twister_external_obj.h.
+.SH "Member Typedef Documentation"
+.PP 
+.SS "typedef unsigned long \fBMTRand::uint32\fP"
+.PP
+Definition at line 61 of file nt_mersenne_twister_external_obj.h.
+.SH "Member Enumeration Documentation"
+.PP 
+.SS "anonymous enum"
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fIN \fP\fP
+
+.PP
+Definition at line 62 of file nt_mersenne_twister_external_obj.h.
+.PP
+.nf
+{ N = 624 };              // length of state vector
+.fi
+.SS "anonymous enum"
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fISAVE \fP\fP
+
+.PP
+Definition at line 63 of file nt_mersenne_twister_external_obj.h.
+.PP
+.nf
+{ SAVE = N + 1 };         // length of array for save()
+.fi
+.SS "anonymous enum\fC [protected]\fP"
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fIM \fP\fP
+
+.PP
+Definition at line 66 of file nt_mersenne_twister_external_obj.h.
+.PP
+.nf
+{ M = 397 };              // period parameter
+.fi
+.SS "anonymous enum\fC [protected]\fP"
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fIMAGIC \fP\fP
+
+.PP
+Definition at line 67 of file nt_mersenne_twister_external_obj.h.
+.PP
+.nf
+{ MAGIC = 0x9908b0dfU };  // magic constant
+.fi
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "MTRand::MTRand (const \fBuint32\fP & oneSeed)\fC [inline]\fP"
+.PP
+Definition at line 118 of file nt_mersenne_twister_external_obj.h.
+.PP
+References seed().
+.PP
+.nf
+    { seed(oneSeed); }
+.fi
+.SS "MTRand::MTRand (\fBuint32\fP *const  bigSeed)\fC [inline]\fP"
+.PP
+Definition at line 121 of file nt_mersenne_twister_external_obj.h.
+.PP
+References seed().
+.PP
+.nf
+    { seed(bigSeed); }
+.fi
+.SS "MTRand::MTRand ()\fC [inline]\fP"
+.PP
+Definition at line 124 of file nt_mersenne_twister_external_obj.h.
+.PP
+References seed().
+.PP
+.nf
+    { seed(); }
+.fi
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBMTRand::uint32\fP MTRand::hash (time_t t, clock_t c)\fC [inline, static, protected]\fP"
+.PP
+Definition at line 254 of file nt_mersenne_twister_external_obj.h.
+.PP
+Referenced by seed().
+.PP
+.nf
+{
+    // Get a uint32 from t and c
+    // Better than uint32(x) in case x is floating point in [0,1]
+    // Based on code by Lawrence Kirby (fred@genesis.demon.co.uk)
+
+    static uint32 differ = 0;  // guarantee time-based seeds will change
+
+    uint32 h1 = 0;
+    unsigned char *p = (unsigned char *) &t;
+    for( size_t i = 0; i < sizeof(t); ++i )
+    {
+        h1 *= UCHAR_MAX + 2U;
+        h1 += p[i];
+    }
+    uint32 h2 = 0;
+    p = (unsigned char *) &c;
+    for( size_t j = 0; j < sizeof(c); ++j )
+    {
+        h2 *= UCHAR_MAX + 2U;
+        h2 += p[j];
+    }
+    return ( h1 + differ++ ) ^ h2;
+}
+.fi
+.SS "\fBuint32\fP MTRand::hiBit (const \fBuint32\fP & u) const\fC [inline, protected]\fP"
+.PP
+Definition at line 107 of file nt_mersenne_twister_external_obj.h.
+.PP
+Referenced by mixBits().
+.PP
+.nf
+{ return u & 0x80000000U; }
+.fi
+.SS "void MTRand::load (\fBuint32\fP *const  loadArray)\fC [inline]\fP"
+.PP
+Definition at line 290 of file nt_mersenne_twister_external_obj.h.
+.PP
+References left, N, pNext, and state.
+.PP
+.nf
+{
+    register uint32 *s = state;
+    register uint32 *la = loadArray;
+    register int i = N;
+    for( ; i--; *s++ = *la++ ) {}
+    left = *la;
+    pNext = &state[N-left];
+}
+.fi
+.SS "\fBuint32\fP MTRand::loBit (const \fBuint32\fP & u) const\fC [inline, protected]\fP"
+.PP
+Definition at line 108 of file nt_mersenne_twister_external_obj.h.
+.PP
+Referenced by twist().
+.PP
+.nf
+{ return u & 0x00000001U; }
+.fi
+.SS "\fBuint32\fP MTRand::loBits (const \fBuint32\fP & u) const\fC [inline, protected]\fP"
+.PP
+Definition at line 109 of file nt_mersenne_twister_external_obj.h.
+.PP
+Referenced by mixBits().
+.PP
+.nf
+{ return u & 0x7fffffffU; }
+.fi
+.SS "\fBuint32\fP MTRand::mixBits (const \fBuint32\fP & u, const \fBuint32\fP & v) const\fC [inline, protected]\fP"
+.PP
+Definition at line 110 of file nt_mersenne_twister_external_obj.h.
+.PP
+References hiBit(), and loBits().
+.PP
+Referenced by twist().
+.PP
+.nf
+        { return hiBit(u) | loBits(v); }
+.fi
+.SS "double MTRand::operator() ()\fC [inline]\fP"
+.PP
+Definition at line 92 of file nt_mersenne_twister_external_obj.h.
+.PP
+References rand().
+.PP
+.nf
+{ return rand(); }  // same as rand()
+.fi
+.SS "double MTRand::rand ()\fC [inline]\fP"
+.PP
+Definition at line 127 of file nt_mersenne_twister_external_obj.h.
+.PP
+References randInt().
+.PP
+Referenced by operator()(), rand(), and NT_rnd_dist_o::uniformMT().
+.PP
+.nf
+    { return double(randInt()) * 2.3283064370807974e-10; }
+.fi
+.SS "double MTRand::rand (const double & n)\fC [inline]\fP"
+.PP
+Definition at line 130 of file nt_mersenne_twister_external_obj.h.
+.PP
+References rand().
+.PP
+.nf
+    { return rand() * n; }
+.fi
+.SS "double MTRand::randDblExc ()\fC [inline]\fP"
+.PP
+Definition at line 139 of file nt_mersenne_twister_external_obj.h.
+.PP
+References randInt().
+.PP
+Referenced by randDblExc().
+.PP
+.nf
+    { return double( 1.0 + randInt() ) * 2.3283064359965952e-10; }
+.fi
+.SS "double MTRand::randDblExc (const double & n)\fC [inline]\fP"
+.PP
+Definition at line 142 of file nt_mersenne_twister_external_obj.h.
+.PP
+References randDblExc().
+.PP
+.nf
+    { return randDblExc() * n; }
+.fi
+.SS "double MTRand::randExc (const double & n)\fC [inline]\fP"
+.PP
+Definition at line 136 of file nt_mersenne_twister_external_obj.h.
+.PP
+References randExc().
+.PP
+.nf
+    { return randExc() * n; }
+.fi
+.SS "double MTRand::randExc ()\fC [inline]\fP"
+.PP
+Definition at line 133 of file nt_mersenne_twister_external_obj.h.
+.PP
+References randInt().
+.PP
+Referenced by randExc().
+.PP
+.nf
+    { return double(randInt()) * 2.3283064365386963e-10; }
+.fi
+.SS "\fBMTRand::uint32\fP MTRand::randInt (const \fBuint32\fP & n)\fC [inline]\fP"
+.PP
+Definition at line 159 of file nt_mersenne_twister_external_obj.h.
+.PP
+References randInt().
+.PP
+.nf
+{
+    // Find which bits are used in n
+    uint32 used = ~0;
+    for( uint32 m = n; m; used <<= 1, m >>= 1 ) {}
+    used = ~used;
+    
+    // Draw numbers until one is found in [0,n]
+    uint32 i;
+    do
+        i = randInt() & used;  // toss unused bits to shorten search
+    while( i > n );
+    return i;
+}
+.fi
+.SS "\fBMTRand::uint32\fP MTRand::randInt ()\fC [inline]\fP"
+.PP
+Definition at line 145 of file nt_mersenne_twister_external_obj.h.
+.PP
+References left, pNext, and reload().
+.PP
+Referenced by rand(), randDblExc(), randExc(), and randInt().
+.PP
+.nf
+{
+    if( left == 0 ) reload();
+    --left;
+        
+    register uint32 s1;
+    s1 = *pNext++;
+    s1 ^= (s1 >> 11);
+    s1 ^= (s1 <<  7) & 0x9d2c5680U;
+    s1 ^= (s1 << 15) & 0xefc60000U;
+    return ( s1 ^ (s1 >> 18) );
+}
+.fi
+.SS "void MTRand::reload ()\fC [inline, protected]\fP"
+.PP
+Definition at line 238 of file nt_mersenne_twister_external_obj.h.
+.PP
+References left, M, N, pNext, state, and twist().
+.PP
+Referenced by randInt(), and seed().
+.PP
+.nf
+{
+    // Generate N new values in state
+    // Made clearer and faster by Matthew Bellew (matthew.bellew@home.com)
+    register uint32 *p = state;
+    register int i;
+    for( i = N - M; i--; ++p )
+        *p = twist( p[M], p[0], p[1] );
+    for( i = M; --i; ++p )
+        *p = twist( p[M-N], p[0], p[1] );
+    *p = twist( p[M-N], p[0], state[0] );
+
+    left = N, pNext = state;
+}
+.fi
+.SS "void MTRand::save (\fBuint32\fP * saveArray) const\fC [inline]\fP"
+.PP
+Definition at line 280 of file nt_mersenne_twister_external_obj.h.
+.PP
+References left, and state.
+.PP
+.nf
+{
+    register uint32 *sa = saveArray;
+    register const uint32 *s = state;
+    register int i = N;
+    for( ; i--; *sa++ = *s++ ) {}
+    *sa = left;
+}
+.fi
+.SS "void MTRand::seed (\fBuint32\fP oneSeed)\fC [inline]\fP"
+.PP
+Definition at line 175 of file nt_mersenne_twister_external_obj.h.
+.PP
+References N, reload(), and state.
+.PP
+.nf
+{
+    // Seed the generator with a simple uint32
+    register uint32 *s;
+    register int i;
+    for( i = N, s = state;
+         i--;
+         *s    = oneSeed & 0xffff0000,
+         *s++ |= ( (oneSeed *= 69069U)++ & 0xffff0000 ) >> 16,
+         (oneSeed *= 69069U)++ ) {}  // hard to read, but fast
+    reload();
+}
+.fi
+.SS "void MTRand::seed ()\fC [inline]\fP"
+.PP
+Definition at line 205 of file nt_mersenne_twister_external_obj.h.
+.PP
+References hash(), reload(), and state.
+.PP
+Referenced by MTRand().
+.PP
+.nf
+{
+    // Seed the generator with an array from /dev/urandom if available
+    // Otherwise use a hash of time() and clock() values
+    
+    // First try getting an array from /dev/urandom
+    FILE* urandom = fopen( '/dev/urandom', 'rb' );
+    if( urandom )
+    {
+        register uint32 *s = state;
+        register int i = N;
+        register bool success = true;
+        while( success && i-- )
+        {
+            success = fread( s, sizeof(uint32), 1, urandom );
+            *s++ &= 0xffffffff;  // filter in case uint32 > 32 bits
+        }
+        fclose(urandom);
+        if( success )
+        {
+            // There is a 1 in 2^19937 chance that a working urandom gave
+            // 19937 consecutive zeroes and will make the generator fail
+            // Ignore that case and continue with initialization
+            reload();
+            return;
+        }
+    }
+    
+    // Was not successful, so use time() and clock() instead
+    seed( hash( time(NULL), clock() ) );
+}
+.fi
+.SS "void MTRand::seed (\fBuint32\fP *const  bigSeed)\fC [inline]\fP"
+.PP
+Definition at line 189 of file nt_mersenne_twister_external_obj.h.
+.PP
+References reload(), and state.
+.PP
+.nf
+{
+    // Seed the generator with an array of 624 uint32's
+    // There are 2^19937-1 possible initial states.  This function allows
+    // any one of those to be chosen by providing 19937 bits.  The lower
+    // 31 bits of the first element, bigSeed[0], are discarded.  Any bits
+    // above the lower 32 in each element are also discarded.  Theoretically,
+    // the rest of the array can contain any values except all zeroes.
+    // Just call seed() if you want to get array from /dev/urandom
+    register uint32 *s = state, *b = bigSeed;
+    register int i = N;
+    for( ; i--; *s++ = *b++ & 0xffffffff ) {}
+    reload();
+}
+.fi
+.SS "\fBuint32\fP MTRand::twist (const \fBuint32\fP & m, const \fBuint32\fP & s0, const \fBuint32\fP & s1) const\fC [inline, protected]\fP"
+.PP
+Definition at line 112 of file nt_mersenne_twister_external_obj.h.
+.PP
+References loBit(), MAGIC, and mixBits().
+.PP
+Referenced by reload().
+.PP
+.nf
+        { return m ^ (mixBits(s0,s1)>>1) ^ (loBit(s1) ? MAGIC : 0U); }
+.fi
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "std::ostream& operator<< (std::ostream & os, const \fBMTRand\fP & mtrand)\fC [friend]\fP"
+.PP
+Definition at line 301 of file nt_mersenne_twister_external_obj.h.
+.PP
+.nf
+{
+    register const MTRand::uint32 *s = mtrand.state;
+    register int i = mtrand.N;
+    for( ; i--; os << *s++ << '\t' ) {}
+    return os << mtrand.left;
+}
+.fi
+.SS "std::istream& operator>> (std::istream & is, \fBMTRand\fP & mtrand)\fC [friend]\fP"
+.PP
+Definition at line 310 of file nt_mersenne_twister_external_obj.h.
+.PP
+.nf
+{
+    register MTRand::uint32 *s = mtrand.state;
+    register int i = mtrand.N;
+    for( ; i--; is >> *s++ ) {}
+    is >> mtrand.left;
+    mtrand.pNext = &mtrand.state[mtrand.N-mtrand.left];
+    return is;
+}
+.fi
+.SH "Member Data Documentation"
+.PP 
+.SS "int \fBMTRand::left\fP\fC [protected]\fP"
+.PP
+Definition at line 71 of file nt_mersenne_twister_external_obj.h.
+.PP
+Referenced by load(), operator<<(), operator>>(), randInt(), reload(), and save().
+.SS "\fBuint32\fP* \fBMTRand::pNext\fP\fC [protected]\fP"
+.PP
+Definition at line 70 of file nt_mersenne_twister_external_obj.h.
+.PP
+Referenced by load(), operator>>(), randInt(), and reload().
+.SS "\fBuint32\fP \fBMTRand::state\fP[N]\fC [protected]\fP"
+.PP
+Definition at line 69 of file nt_mersenne_twister_external_obj.h.
+.PP
+Referenced by load(), operator<<(), operator>>(), reload(), save(), and seed().
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

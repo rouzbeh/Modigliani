@@ -1,0 +1,388 @@
+.TH "TNT::Region1D" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+TNT::Region1D \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <region1d.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "const Array1D & \fBarray\fP () const "
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBoffset\fP () const "
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBdim\fP () const "
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBoffset\fP (\fBSubscript\fP i) const "
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBdim\fP (\fBSubscript\fP i) const "
+.br
+.ti -1c
+.RI "\fBRegion1D\fP (Array1D &A, \fBSubscript\fP i1, \fBSubscript\fP i2)"
+.br
+.ti -1c
+.RI "\fBRegion1D\fP (Array1D &A, const \fBIndex1D\fP &I)"
+.br
+.ti -1c
+.RI "\fBRegion1D\fP (\fBRegion1D\fP< Array1D > &A, \fBSubscript\fP i1, \fBSubscript\fP i2)"
+.br
+.ti -1c
+.RI "\fBRegion1D\fP< Array1D > \fBoperator()\fP (\fBSubscript\fP i1, \fBSubscript\fP i2)"
+.br
+.ti -1c
+.RI "\fBRegion1D\fP< Array1D > \fBoperator()\fP (const \fBIndex1D\fP &I)"
+.br
+.ti -1c
+.RI "\fBT\fP & \fBoperator()\fP (\fBSubscript\fP i)"
+.br
+.ti -1c
+.RI "const \fBT\fP & \fBoperator()\fP (\fBSubscript\fP i) const "
+.br
+.ti -1c
+.RI "\fBRegion1D\fP< Array1D > & \fBoperator=\fP (const \fBRegion1D\fP< Array1D > &R)"
+.br
+.ti -1c
+.RI "\fBRegion1D\fP< Array1D > & \fBoperator=\fP (const \fBconst_Region1D\fP< Array1D > &R)"
+.br
+.ti -1c
+.RI "\fBRegion1D\fP< Array1D > & \fBoperator=\fP (const \fBT\fP &t)"
+.br
+.ti -1c
+.RI "\fBRegion1D\fP< Array1D > & \fBoperator=\fP (const Array1D &R)"
+.br
+.in -1c
+.SS "Protected Types"
+
+.in +1c
+.ti -1c
+.RI "typedef Array1D::element_type \fBT\fP"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "Array1D & \fBA_\fP"
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBoffset_\fP"
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBdim_\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.SS "template<class Array1D> class TNT::Region1D< Array1D >"
+
+.PP
+Definition at line 43 of file region1d.h.
+.SH "Member Typedef Documentation"
+.PP 
+.SS "template<class Array1D> typedef Array1D::element_type \fBTNT::Region1D\fP< Array1D >::\fBT\fP\fC [protected]\fP"
+.PP
+Definition at line 51 of file region1d.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "template<class Array1D> \fBTNT::Region1D\fP< Array1D >::\fBRegion1D\fP (Array1D & A, \fBSubscript\fP i1, \fBSubscript\fP i2)\fC [inline]\fP"
+.PP
+Definition at line 76 of file region1d.h.
+.PP
+References TNT::Region1D< Array1D >::dim_, TNT::Region1D< Array1D >::offset_, and TNT_BASE_OFFSET.
+.PP
+.nf
+                                                         : A_(A)
+        {
+#ifdef TNT_BOUNDS_CHECK
+            assert(TNT_BASE_OFFSET <= i1 );
+            assert(i2 <= A.dim() + (TNT_BASE_OFFSET-1));
+            assert(i1 <= i2);
+#endif
+            offset_ = i1 - TNT_BASE_OFFSET;
+            dim_ = i2-i1 + 1;
+        }
+.fi
+.SS "template<class Array1D> \fBTNT::Region1D\fP< Array1D >::\fBRegion1D\fP (Array1D & A, const \fBIndex1D\fP & I)\fC [inline]\fP"
+.PP
+Definition at line 87 of file region1d.h.
+.PP
+References TNT::Region1D< Array1D >::dim_, TNT::Index1D::lbound(), TNT::Region1D< Array1D >::offset_, TNT_BASE_OFFSET, and TNT::Index1D::ubound().
+.PP
+.nf
+                                               : A_(A)
+        {
+#ifdef TNT_BOUNDS_CHECK
+            assert(TNT_BASE_OFFSET <=I.lbound());
+            assert(I.ubound() <= A.dim() + (TNT_BASE_OFFSET-1));
+            assert(I.lbound() <= I.ubound());
+#endif
+            offset_ = I.lbound() - TNT_BASE_OFFSET;
+            dim_ = I.ubound() - I.lbound() + 1;
+        }
+.fi
+.SS "template<class Array1D> \fBTNT::Region1D\fP< Array1D >::\fBRegion1D\fP (\fBRegion1D\fP< Array1D > & A, \fBSubscript\fP i1, \fBSubscript\fP i2)\fC [inline]\fP"
+.PP
+Definition at line 98 of file region1d.h.
+.PP
+References TNT::Region1D< Array1D >::dim(), TNT::Region1D< Array1D >::dim_, TNT::Region1D< Array1D >::offset_, and TNT_BASE_OFFSET.
+.PP
+.nf
+                                                                   :
+                A_(A.A_)
+        {
+#ifdef TNT_BOUNDS_CHECK
+            assert(TNT_BASE_OFFSET <= i1 );
+            assert(i2 <= A.dim() + (TNT_BASE_OFFSET - 1));
+            assert(i1 <= i2);
+#endif
+                    //     (old-offset)        (new-offset)
+                    //
+            offset_ =  (i1 - TNT_BASE_OFFSET) + A.offset_;
+            dim_ = i2-i1 + 1;
+        }
+.fi
+.SH "Member Function Documentation"
+.PP 
+.SS "template<class Array1D> const Array1D& \fBTNT::Region1D\fP< Array1D >::array () const\fC [inline]\fP"
+.PP
+Definition at line 54 of file region1d.h.
+.PP
+References TNT::Region1D< Array1D >::A_.
+.PP
+.nf
+{ return A_; }
+.fi
+.SS "template<class Array1D> \fBSubscript\fP \fBTNT::Region1D\fP< Array1D >::dim (\fBSubscript\fP i) const\fC [inline]\fP"
+.PP
+Definition at line 67 of file region1d.h.
+.PP
+References TNT::Region1D< Array1D >::offset_, and TNT_BASE_OFFSET.
+.PP
+.nf
+        {
+#ifdef TNT_BOUNDS_CHECK
+            assert(i== TNT_BASE_OFFSET);
+#endif
+            return offset_;
+        }
+.fi
+.SS "template<class Array1D> \fBSubscript\fP \fBTNT::Region1D\fP< Array1D >::dim () const\fC [inline]\fP"
+.PP
+Definition at line 57 of file region1d.h.
+.PP
+References TNT::Region1D< Array1D >::dim_.
+.PP
+Referenced by TNT::Region1D< Array1D >::operator()(), TNT::Region1D< Array1D >::operator=(), and TNT::Region1D< Array1D >::Region1D().
+.PP
+.nf
+{ return dim_; }
+.fi
+.SS "template<class Array1D> \fBSubscript\fP \fBTNT::Region1D\fP< Array1D >::offset (\fBSubscript\fP i) const\fC [inline]\fP"
+.PP
+Definition at line 59 of file region1d.h.
+.PP
+References TNT::Region1D< Array1D >::offset_, and TNT_BASE_OFFSET.
+.PP
+.nf
+        {
+#ifdef TNT_BOUNDS_CHECK
+            assert(i==TNT_BASE_OFFSET);
+#endif
+            return offset_;
+        }
+.fi
+.SS "template<class Array1D> \fBSubscript\fP \fBTNT::Region1D\fP< Array1D >::offset () const\fC [inline]\fP"
+.PP
+Definition at line 56 of file region1d.h.
+.PP
+References TNT::Region1D< Array1D >::offset_.
+.PP
+.nf
+{ return offset_;}
+.fi
+.SS "template<class Array1D> \fBT\fP& \fBTNT::Region1D\fP< Array1D >::operator() (\fBSubscript\fP i)\fC [inline]\fP"
+.PP
+Definition at line 141 of file region1d.h.
+.PP
+References TNT::Region1D< Array1D >::A_, TNT::Region1D< Array1D >::dim(), TNT::Region1D< Array1D >::offset_, and TNT_BASE_OFFSET.
+.PP
+.nf
+        {
+#ifdef TNT_BOUNDS_CHECK
+            assert(TNT_BASE_OFFSET <= i);
+            assert(i <=  dim() + (TNT_BASE_OFFSET-1));
+#endif
+            return A_(i+offset_);
+        }
+.fi
+.SS "template<class Array1D> const \fBT\fP& \fBTNT::Region1D\fP< Array1D >::operator() (\fBSubscript\fP i) const\fC [inline]\fP"
+.PP
+Definition at line 150 of file region1d.h.
+.PP
+References TNT::Region1D< Array1D >::A_, TNT::Region1D< Array1D >::dim(), TNT::Region1D< Array1D >::offset_, and TNT_BASE_OFFSET.
+.PP
+.nf
+        {
+#ifdef TNT_BOUNDS_CHECK
+            assert(TNT_BASE_OFFSET <= i);
+            assert(i <= dim() + (TNT_BASE_OFFSET-1));
+#endif
+            return A_(i+offset_);
+        }
+.fi
+.SS "template<class Array1D> \fBRegion1D\fP<Array1D> \fBTNT::Region1D\fP< Array1D >::operator() (const \fBIndex1D\fP & I)\fC [inline]\fP"
+.PP
+Definition at line 127 of file region1d.h.
+.PP
+References TNT::Region1D< Array1D >::A_, TNT::Region1D< Array1D >::dim(), TNT::Index1D::lbound(), TNT::Region1D< Array1D >::offset_, TNT_BASE_OFFSET, and TNT::Index1D::ubound().
+.PP
+.nf
+        {
+#ifdef TNT_BOUNDS_CHECK
+            assert(TNT_BASE_OFFSET<=I.lbound());
+            assert(I.ubound() <= dim() + (TNT_BASE_OFFSET-1));
+            assert(I.lbound() <= I.ubound());
+#endif
+            return Region1D<Array1D>(A_, I.lbound()+offset_,
+                offset_ + I.ubound());
+        }
+.fi
+.SS "template<class Array1D> \fBRegion1D\fP<Array1D> \fBTNT::Region1D\fP< Array1D >::operator() (\fBSubscript\fP i1, \fBSubscript\fP i2)\fC [inline]\fP"
+.PP
+Definition at line 112 of file region1d.h.
+.PP
+References TNT::Region1D< Array1D >::A_, TNT::Region1D< Array1D >::dim(), TNT::Region1D< Array1D >::offset_, and TNT_BASE_OFFSET.
+.PP
+.nf
+        {
+#ifdef TNT_BOUNDS_CHECK
+            assert(TNT_BASE_OFFSET <= i1);
+            assert(i2 <= dim() + (TNT_BASE_OFFSET -1));
+            assert(i1 <= i2);
+#endif
+                    // offset_ is 0-based, so no need for
+                    //  ( - TNT_BASE_OFFSET)
+                    //
+            return Region1D<Array1D>(A_, i1+offset_,
+                    offset_ + i2);
+        }
+.fi
+.SS "template<class Array1D> \fBRegion1D\fP<Array1D>& \fBTNT::Region1D\fP< Array1D >::operator= (const \fBconst_Region1D\fP< Array1D > & R)\fC [inline]\fP"
+.PP
+Definition at line 178 of file region1d.h.
+.PP
+References TNT::const_Region1D< Array1D >::dim(), and TNT::Region1D< Array1D >::dim().
+.PP
+.nf
+        {
+            // make sure both sides conform
+            assert(dim() == R.dim());
+
+            Subscript N = dim();
+            Subscript i;
+            Subscript istart = TNT_BASE_OFFSET;
+            Subscript iend = istart + N-1;
+
+            for (i=istart; i<=iend; i++)
+                (*this)(i) = R(i);
+
+            return *this;
+
+        }
+.fi
+.SS "template<class Array1D> \fBRegion1D\fP<Array1D>& \fBTNT::Region1D\fP< Array1D >::operator= (const \fBRegion1D\fP< Array1D > & R)\fC [inline]\fP"
+.PP
+Definition at line 160 of file region1d.h.
+.PP
+References TNT::Region1D< Array1D >::dim().
+.PP
+.nf
+        {
+            // make sure both sides conform
+            assert(dim() == R.dim());
+
+            Subscript N = dim();
+            Subscript i;
+            Subscript istart = TNT_BASE_OFFSET;
+            Subscript iend = istart + N-1;
+
+            for (i=istart; i<=iend; i++)
+                (*this)(i) = R(i);
+
+            return *this;
+        }
+.fi
+.SS "template<class Array1D> \fBRegion1D\fP<Array1D>& \fBTNT::Region1D\fP< Array1D >::operator= (const \fBT\fP & t)\fC [inline]\fP"
+.PP
+Definition at line 196 of file region1d.h.
+.PP
+References TNT::Region1D< Array1D >::dim().
+.PP
+.nf
+        {
+            Subscript N=dim();
+            Subscript i;
+            Subscript istart = TNT_BASE_OFFSET;
+            Subscript iend = istart + N-1;
+
+            for (i=istart; i<= iend; i++)
+                (*this)(i) = t;
+
+            return *this;
+
+        }
+.fi
+.SS "template<class Array1D> \fBRegion1D\fP<Array1D>& \fBTNT::Region1D\fP< Array1D >::operator= (const Array1D & R)\fC [inline]\fP"
+.PP
+Definition at line 211 of file region1d.h.
+.PP
+References TNT::Region1D< Array1D >::dim().
+.PP
+.nf
+        {
+            // make sure both sides conform
+            Subscript N = dim();
+            assert(dim() == R.dim());
+
+            Subscript i;
+            Subscript istart = TNT_BASE_OFFSET;
+            Subscript iend = istart + N-1;
+
+            for (i=istart; i<=iend; i++)
+                (*this)(i) = R(i);
+
+            return *this;
+
+        }
+.fi
+.SH "Member Data Documentation"
+.PP 
+.SS "template<class Array1D> Array1D& \fBTNT::Region1D\fP< Array1D >::\fBA_\fP\fC [protected]\fP"
+.PP
+Definition at line 47 of file region1d.h.
+.PP
+Referenced by TNT::Region1D< Array1D >::array(), and TNT::Region1D< Array1D >::operator()().
+.SS "template<class Array1D> \fBSubscript\fP \fBTNT::Region1D\fP< Array1D >::\fBdim_\fP\fC [protected]\fP"
+.PP
+Definition at line 49 of file region1d.h.
+.PP
+Referenced by TNT::Region1D< Array1D >::dim(), and TNT::Region1D< Array1D >::Region1D().
+.SS "template<class Array1D> \fBSubscript\fP \fBTNT::Region1D\fP< Array1D >::\fBoffset_\fP\fC [protected]\fP"
+.PP
+Definition at line 48 of file region1d.h.
+.PP
+Referenced by TNT::Region1D< Array1D >::dim(), TNT::Region1D< Array1D >::offset(), TNT::Region1D< Array1D >::operator()(), and TNT::Region1D< Array1D >::Region1D().
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

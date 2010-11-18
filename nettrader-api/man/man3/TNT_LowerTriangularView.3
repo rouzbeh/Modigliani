@@ -1,0 +1,191 @@
+.TH "TNT::LowerTriangularView" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+TNT::LowerTriangularView \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <triang.h>\fP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "typedef MaTRiX::const_reference \fBconst_reference\fP"
+.br
+.ti -1c
+.RI "typedef const MaTRiX::element_type \fBelement_type\fP"
+.br
+.ti -1c
+.RI "typedef const MaTRiX::element_type \fBvalue_type\fP"
+.br
+.ti -1c
+.RI "typedef \fBelement_type\fP \fBT\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSubscript\fP \fBdim\fP (\fBSubscript\fP d) const "
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBlbound\fP () const "
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBnum_rows\fP () const "
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBnum_cols\fP () const "
+.br
+.ti -1c
+.RI "\fBLowerTriangularView\fP (MaTRiX &A)"
+.br
+.ti -1c
+.RI "\fBconst_reference\fP \fBget\fP (\fBSubscript\fP i, \fBSubscript\fP j) const "
+.br
+.ti -1c
+.RI "\fBconst_reference\fP \fBoperator()\fP (\fBSubscript\fP i, \fBSubscript\fP j) const "
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "const MaTRiX & \fBA_\fP"
+.br
+.ti -1c
+.RI "const MaTRiX::element_type \fBzero_\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.SS "template<class MaTRiX> class TNT::LowerTriangularView< MaTRiX >"
+
+.PP
+Definition at line 38 of file triang.h.
+.SH "Member Typedef Documentation"
+.PP 
+.SS "template<class MaTRiX> typedef MaTRiX::const_reference \fBTNT::LowerTriangularView\fP< MaTRiX >::\fBconst_reference\fP"
+.PP
+Definition at line 49 of file triang.h.
+.SS "template<class MaTRiX> typedef const MaTRiX::element_type \fBTNT::LowerTriangularView\fP< MaTRiX >::\fBelement_type\fP"
+.PP
+Definition at line 50 of file triang.h.
+.SS "template<class MaTRiX> typedef \fBelement_type\fP \fBTNT::LowerTriangularView\fP< MaTRiX >::\fBT\fP"
+.PP
+Definition at line 52 of file triang.h.
+.SS "template<class MaTRiX> typedef const MaTRiX::element_type \fBTNT::LowerTriangularView\fP< MaTRiX >::\fBvalue_type\fP"
+.PP
+Definition at line 51 of file triang.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "template<class MaTRiX> \fBTNT::LowerTriangularView\fP< MaTRiX >::\fBLowerTriangularView\fP (MaTRiX & A)\fC [inline]\fP"
+.PP
+Definition at line 62 of file triang.h.
+.PP
+.nf
+: A_(A),  zero_(0) {}
+.fi
+.SH "Member Function Documentation"
+.PP 
+.SS "template<class MaTRiX> \fBSubscript\fP \fBTNT::LowerTriangularView\fP< MaTRiX >::dim (\fBSubscript\fP d) const\fC [inline]\fP"
+.PP
+Definition at line 54 of file triang.h.
+.PP
+References TNT::LowerTriangularView< MaTRiX >::A_.
+.PP
+.nf
+{  return A_.dim(d); }
+.fi
+.SS "template<class MaTRiX> \fBconst_reference\fP \fBTNT::LowerTriangularView\fP< MaTRiX >::get (\fBSubscript\fP i, \fBSubscript\fP j) const\fC [inline]\fP"
+.PP
+Definition at line 65 of file triang.h.
+.PP
+References TNT::LowerTriangularView< MaTRiX >::A_, TNT::LowerTriangularView< MaTRiX >::lbound(), and TNT::LowerTriangularView< MaTRiX >::zero_.
+.PP
+.nf
+    { 
+#ifdef TNT_BOUNDS_CHECK
+        assert(lbound()<=i);
+        assert(i<=A_.num_rows() + lbound() - 1);
+        assert(lbound()<=j);
+        assert(j<=A_.num_cols() + lbound() - 1);
+#endif
+        if (i<j) 
+            return zero_;
+        else
+            return A_(i,j);
+    }
+.fi
+.SS "template<class MaTRiX> \fBSubscript\fP \fBTNT::LowerTriangularView\fP< MaTRiX >::lbound () const\fC [inline]\fP"
+.PP
+Definition at line 55 of file triang.h.
+.PP
+References TNT::LowerTriangularView< MaTRiX >::A_.
+.PP
+Referenced by TNT::LowerTriangularView< MaTRiX >::get(), TNT::matmult(), and TNT::LowerTriangularView< MaTRiX >::operator()().
+.PP
+.nf
+{ return A_.lbound(); }
+.fi
+.SS "template<class MaTRiX> \fBSubscript\fP \fBTNT::LowerTriangularView\fP< MaTRiX >::num_cols () const\fC [inline]\fP"
+.PP
+Definition at line 57 of file triang.h.
+.PP
+References TNT::LowerTriangularView< MaTRiX >::A_.
+.PP
+Referenced by TNT::matmult().
+.PP
+.nf
+{ return A_.num_cols(); }
+.fi
+.SS "template<class MaTRiX> \fBSubscript\fP \fBTNT::LowerTriangularView\fP< MaTRiX >::num_rows () const\fC [inline]\fP"
+.PP
+Definition at line 56 of file triang.h.
+.PP
+References TNT::LowerTriangularView< MaTRiX >::A_.
+.PP
+Referenced by TNT::matmult().
+.PP
+.nf
+{ return A_.num_rows(); }
+.fi
+.SS "template<class MaTRiX> \fBconst_reference\fP \fBTNT::LowerTriangularView\fP< MaTRiX >::operator() (\fBSubscript\fP i, \fBSubscript\fP j) const\fC [inline]\fP"
+.PP
+Definition at line 80 of file triang.h.
+.PP
+References TNT::LowerTriangularView< MaTRiX >::A_, TNT::LowerTriangularView< MaTRiX >::lbound(), and TNT::LowerTriangularView< MaTRiX >::zero_.
+.PP
+.nf
+    {
+#ifdef TNT_BOUNDS_CHECK
+        assert(lbound()<=i);
+        assert(i<=A_.num_rows() + lbound() - 1);
+        assert(lbound()<=j);
+        assert(j<=A_.num_cols() + lbound() - 1);
+#endif
+        if (i<j) 
+            return zero_;
+        else
+            return A_(i,j);
+    }
+.fi
+.SH "Member Data Documentation"
+.PP 
+.SS "template<class MaTRiX> const MaTRiX& \fBTNT::LowerTriangularView\fP< MaTRiX >::\fBA_\fP\fC [protected]\fP"
+.PP
+Definition at line 43 of file triang.h.
+.PP
+Referenced by TNT::LowerTriangularView< MaTRiX >::dim(), TNT::LowerTriangularView< MaTRiX >::get(), TNT::LowerTriangularView< MaTRiX >::lbound(), TNT::LowerTriangularView< MaTRiX >::num_cols(), TNT::LowerTriangularView< MaTRiX >::num_rows(), and TNT::LowerTriangularView< MaTRiX >::operator()().
+.SS "template<class MaTRiX> const MaTRiX::element_type \fBTNT::LowerTriangularView\fP< MaTRiX >::\fBzero_\fP\fC [protected]\fP"
+.PP
+Definition at line 44 of file triang.h.
+.PP
+Referenced by TNT::LowerTriangularView< MaTRiX >::get(), and TNT::LowerTriangularView< MaTRiX >::operator()().
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

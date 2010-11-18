@@ -1,0 +1,58 @@
+.TH "vec.h" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+vec.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'tnt/subscript.h'\fP
+.br
+\fC#include <cstdlib>\fP
+.br
+\fC#include <cassert>\fP
+.br
+\fC#include <iostream>\fP
+.br
+\fC#include <strstream>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBTNT::Vector< T >\fP"
+.br
+.in -1c
+.SS "Namespaces"
+
+.in +1c
+.ti -1c
+.RI "namespace \fBTNT\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "template<class T > std::ostream & \fBTNT::operator<<\fP (std::ostream &s, const Vector< T > &A)"
+.br
+.ti -1c
+.RI "template<class T > std::istream & \fBTNT::operator>>\fP (std::istream &s, Vector< T > &A)"
+.br
+.ti -1c
+.RI "template<class T > Vector< T > \fBTNT::operator+\fP (const Vector< T > &A, const Vector< T > &B)"
+.br
+.ti -1c
+.RI "template<class T > Vector< T > \fBTNT::operator-\fP (const Vector< T > &A, const Vector< T > &B)"
+.br
+.ti -1c
+.RI "template<class T > Vector< T > \fBTNT::operator*\fP (const Vector< T > &A, const Vector< T > &B)"
+.br
+.ti -1c
+.RI "template<class T > T \fBTNT::dot_prod\fP (const Vector< T > &A, const Vector< T > &B)"
+.br
+.in -1c
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

@@ -1,0 +1,344 @@
+\subsection{NT\_\-image\_\-o Class Reference}
+\label{class_n_t__image__o}\index{NT\_\-image\_\-o@{NT\_\-image\_\-o}}
+
+
+\hyperlink{class_n_t__image__o}{NT\_\-image\_\-o} class.  
+
+
+
+
+{\ttfamily \#include $<$nt\_\-image\_\-obj.h$>$}
+
+
+
+Inheritance diagram for NT\_\-image\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=132pt]{class_n_t__image__o__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for NT\_\-image\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=120pt]{class_n_t__image__o__coll__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_t__image__o_a196ce9d04d3fe69ea860e04c227ce18f}{NT\_\-image\_\-o} (\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} \hyperlink{class_n_t__image__o_af1a2f06cb8db6d36520e72df08c133d0}{width}=128, \hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} \hyperlink{class_n_t__image__o_a025b7e7250470e53dbf69ba10c013284}{height}=64, \hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} \hyperlink{class_n_t__image__o_ae4d50a45ce73f956ba47f493ecadb611}{colorDepth}=16, \hyperlink{nt__codes_8h_ad1bb9d54b61901f8e764e6cf0694e52f}{NTimageDataFormat} \hyperlink{class_n_t__image__o_ab497908a0ca93b8a0ab6dc927fa7679c}{dataFormat}=NT\_\-RGBA)
+\item 
+\hyperlink{class_n_t__image__o_acf5fb298d9584acacb2a7dfec05c67b9}{NT\_\-image\_\-o} (const \hyperlink{class_n_t__image__o}{NT\_\-image\_\-o} \&original)
+\item 
+const \hyperlink{class_n_t__image__o}{NT\_\-image\_\-o} \& \hyperlink{class_n_t__image__o_a04e364c74e50e8b421a0da0a4f91a436}{operator=} (const \hyperlink{class_n_t__image__o}{NT\_\-image\_\-o} \&right)
+\item 
+virtual \hyperlink{class_n_t__image__o_a6db4fc0dbf1e2aaad0596f24ceb1902f}{$\sim$NT\_\-image\_\-o} ()
+\item 
+\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} \hyperlink{class_n_t__image__o_a926d1636ce507d000599421b422f545d}{\_\-width} ()
+\item 
+\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} \hyperlink{class_n_t__image__o_a0763a5d4918ea851683361db0d5e33c2}{\_\-height} ()
+\item 
+\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} \hyperlink{class_n_t__image__o_aaa93d86f2d829c240b7d3243d759a871}{\_\-colorDepth} ()
+\item 
+\hyperlink{nt__codes_8h_ad1bb9d54b61901f8e764e6cf0694e52f}{NTimageDataFormat} \hyperlink{class_n_t__image__o_a37101193bb09eb9c4114c126b15369f9}{\_\-dataFormat} ()
+\item 
+\hyperlink{nt__types_8h_ab9564ee8f091e809d21b8451c6683c53}{NTreturn} \hyperlink{class_n_t__image__o_ac31c030f1fef1c9b0ceaef0dddf22993}{Load} (string filename, \hyperlink{nt__codes_8h_a231ce3e06dce0c0308bfa7c58c1bbcb6}{NTimageFileType} fileType=NT\_\-AUTO)
+\item 
+\hyperlink{nt__types_8h_ab9564ee8f091e809d21b8451c6683c53}{NTreturn} \hyperlink{class_n_t__image__o_a36cecb0baa10c1ae9efd9b5c0e27e798}{Save} (string filename, \hyperlink{nt__codes_8h_a231ce3e06dce0c0308bfa7c58c1bbcb6}{NTimageFileType} fileType=NT\_\-AUTO) const 
+\item 
+const valarray$<$ \hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} $>$ $\ast$ \hyperlink{class_n_t__image__o_a68e16323f8b0dcb08100f75672bc61d8}{GetImageArray} () const 
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t__image__o_a440ba9d220e7a28e7e130dbc050f8de6}{\_\-imageVecR} (\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} elementIndex) const 
+\item 
+\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} \hyperlink{class_n_t__image__o_a2ba1d8c36ea300d3fd7a0a99deaad599}{\_\-imageVecI} (\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} elementIndex) const 
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} \hyperlink{class_n_t__image__o_af1a2f06cb8db6d36520e72df08c133d0}{width}
+\item 
+\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} \hyperlink{class_n_t__image__o_a025b7e7250470e53dbf69ba10c013284}{height}
+\item 
+\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} \hyperlink{class_n_t__image__o_ae4d50a45ce73f956ba47f493ecadb611}{colorDepth}
+\item 
+\hyperlink{nt__codes_8h_ad1bb9d54b61901f8e764e6cf0694e52f}{NTimageDataFormat} \hyperlink{class_n_t__image__o_ab497908a0ca93b8a0ab6dc927fa7679c}{dataFormat}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\begin{Desc}
+\item[\hyperlink{bug__bug000101}{Bug}]unknown \end{Desc}
+\begin{DoxyWarning}{Warning}
+unknown 
+\end{DoxyWarning}
+
+
+Definition at line 59 of file nt\_\-image\_\-obj.h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{NT\_\-image\_\-o@{NT\_\-image\_\-o}!NT\_\-image\_\-o@{NT\_\-image\_\-o}}
+\index{NT\_\-image\_\-o@{NT\_\-image\_\-o}!NT_image_o@{NT\_\-image\_\-o}}
+\paragraph[{NT\_\-image\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-image\_\-o::NT\_\-image\_\-o (
+\begin{DoxyParamCaption}
+\item[{{\bf NTsize}}]{ width = {\ttfamily 128}, }
+\item[{{\bf NTsize}}]{ height = {\ttfamily 64}, }
+\item[{{\bf NTsize}}]{ colorDepth = {\ttfamily 16}, }
+\item[{{\bf NTimageDataFormat}}]{ dataFormat = {\ttfamily NT\_\-RGBA}}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__image__o_a196ce9d04d3fe69ea860e04c227ce18f}
+\index{NT\_\-image\_\-o@{NT\_\-image\_\-o}!NT\_\-image\_\-o@{NT\_\-image\_\-o}}
+\index{NT\_\-image\_\-o@{NT\_\-image\_\-o}!NT_image_o@{NT\_\-image\_\-o}}
+\paragraph[{NT\_\-image\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-image\_\-o::NT\_\-image\_\-o (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT\_\-image\_\-o} \&}]{ original}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__image__o_acf5fb298d9584acacb2a7dfec05c67b9}
+\index{NT\_\-image\_\-o@{NT\_\-image\_\-o}!$\sim$NT\_\-image\_\-o@{$\sim$NT\_\-image\_\-o}}
+\index{$\sim$NT\_\-image\_\-o@{$\sim$NT\_\-image\_\-o}!NT_image_o@{NT\_\-image\_\-o}}
+\paragraph[{$\sim$NT\_\-image\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}virtual NT\_\-image\_\-o::$\sim$NT\_\-image\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t__image__o_a6db4fc0dbf1e2aaad0596f24ceb1902f}
+
+
+\subsubsection{Member Function Documentation}
+\index{NT\_\-image\_\-o@{NT\_\-image\_\-o}!\_\-colorDepth@{\_\-colorDepth}}
+\index{\_\-colorDepth@{\_\-colorDepth}!NT_image_o@{NT\_\-image\_\-o}}
+\paragraph[{\_\-colorDepth}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTsize} NT\_\-image\_\-o::\_\-colorDepth (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__image__o_aaa93d86f2d829c240b7d3243d759a871}
+
+
+Definition at line 69 of file nt\_\-image\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ return 24;}
+\end{DoxyCode}
+
+
+\index{NT\_\-image\_\-o@{NT\_\-image\_\-o}!\_\-dataFormat@{\_\-dataFormat}}
+\index{\_\-dataFormat@{\_\-dataFormat}!NT_image_o@{NT\_\-image\_\-o}}
+\paragraph[{\_\-dataFormat}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTimageDataFormat} NT\_\-image\_\-o::\_\-dataFormat (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__image__o_a37101193bb09eb9c4114c126b15369f9}
+
+
+Definition at line 70 of file nt\_\-image\_\-obj.h.
+
+
+
+References dataFormat.
+
+
+
+
+\begin{DoxyCode}
+{ return dataFormat;}
+\end{DoxyCode}
+
+
+\index{NT\_\-image\_\-o@{NT\_\-image\_\-o}!\_\-height@{\_\-height}}
+\index{\_\-height@{\_\-height}!NT_image_o@{NT\_\-image\_\-o}}
+\paragraph[{\_\-height}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTsize} NT\_\-image\_\-o::\_\-height (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__image__o_a0763a5d4918ea851683361db0d5e33c2}
+
+
+Definition at line 68 of file nt\_\-image\_\-obj.h.
+
+
+
+References height.
+
+
+
+
+\begin{DoxyCode}
+{ return height;}
+\end{DoxyCode}
+
+
+\index{NT\_\-image\_\-o@{NT\_\-image\_\-o}!\_\-imageVecI@{\_\-imageVecI}}
+\index{\_\-imageVecI@{\_\-imageVecI}!NT_image_o@{NT\_\-image\_\-o}}
+\paragraph[{\_\-imageVecI}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTsize} NT\_\-image\_\-o::\_\-imageVecI (
+\begin{DoxyParamCaption}
+\item[{{\bf NTsize}}]{ elementIndex}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline, protected\mbox{]}}}\hfill\label{class_n_t__image__o_a2ba1d8c36ea300d3fd7a0a99deaad599}
+
+
+Definition at line 80 of file nt\_\-image\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ return imageVec[elementIndex]; }
+\end{DoxyCode}
+
+
+\index{NT\_\-image\_\-o@{NT\_\-image\_\-o}!\_\-imageVecR@{\_\-imageVecR}}
+\index{\_\-imageVecR@{\_\-imageVecR}!NT_image_o@{NT\_\-image\_\-o}}
+\paragraph[{\_\-imageVecR}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NT\_\-image\_\-o::\_\-imageVecR (
+\begin{DoxyParamCaption}
+\item[{{\bf NTsize}}]{ elementIndex}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline, protected\mbox{]}}}\hfill\label{class_n_t__image__o_a440ba9d220e7a28e7e130dbc050f8de6}
+
+
+Definition at line 79 of file nt\_\-image\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ return imageVec[elementIndex]/255.0; }
+\end{DoxyCode}
+
+
+\index{NT\_\-image\_\-o@{NT\_\-image\_\-o}!\_\-width@{\_\-width}}
+\index{\_\-width@{\_\-width}!NT_image_o@{NT\_\-image\_\-o}}
+\paragraph[{\_\-width}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTsize} NT\_\-image\_\-o::\_\-width (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__image__o_a926d1636ce507d000599421b422f545d}
+
+
+Definition at line 67 of file nt\_\-image\_\-obj.h.
+
+
+
+References width.
+
+
+
+
+\begin{DoxyCode}
+{ return width;}
+\end{DoxyCode}
+
+
+\index{NT\_\-image\_\-o@{NT\_\-image\_\-o}!GetImageArray@{GetImageArray}}
+\index{GetImageArray@{GetImageArray}!NT_image_o@{NT\_\-image\_\-o}}
+\paragraph[{GetImageArray}]{\setlength{\rightskip}{0pt plus 5cm}const valarray$<${\bf NTsize}$>$$\ast$ NT\_\-image\_\-o::GetImageArray (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__image__o_a68e16323f8b0dcb08100f75672bc61d8}
+
+
+Definition at line 74 of file nt\_\-image\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{return &imageVec;}
+\end{DoxyCode}
+
+
+\index{NT\_\-image\_\-o@{NT\_\-image\_\-o}!Load@{Load}}
+\index{Load@{Load}!NT_image_o@{NT\_\-image\_\-o}}
+\paragraph[{Load}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreturn} NT\_\-image\_\-o::Load (
+\begin{DoxyParamCaption}
+\item[{string}]{ filename, }
+\item[{{\bf NTimageFileType}}]{ fileType = {\ttfamily NT\_\-AUTO}}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__image__o_ac31c030f1fef1c9b0ceaef0dddf22993}
+\index{NT\_\-image\_\-o@{NT\_\-image\_\-o}!operator=@{operator=}}
+\index{operator=@{operator=}!NT_image_o@{NT\_\-image\_\-o}}
+\paragraph[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf NT\_\-image\_\-o}\& NT\_\-image\_\-o::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT\_\-image\_\-o} \&}]{ right}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__image__o_a04e364c74e50e8b421a0da0a4f91a436}
+\index{NT\_\-image\_\-o@{NT\_\-image\_\-o}!Save@{Save}}
+\index{Save@{Save}!NT_image_o@{NT\_\-image\_\-o}}
+\paragraph[{Save}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreturn} NT\_\-image\_\-o::Save (
+\begin{DoxyParamCaption}
+\item[{string}]{ filename, }
+\item[{{\bf NTimageFileType}}]{ fileType = {\ttfamily NT\_\-AUTO}}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__image__o_a36cecb0baa10c1ae9efd9b5c0e27e798}
+
+
+Definition at line 73 of file nt\_\-image\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{};
+\end{DoxyCode}
+
+
+
+
+\subsubsection{Member Data Documentation}
+\index{NT\_\-image\_\-o@{NT\_\-image\_\-o}!colorDepth@{colorDepth}}
+\index{colorDepth@{colorDepth}!NT_image_o@{NT\_\-image\_\-o}}
+\paragraph[{colorDepth}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTsize} {\bf NT\_\-image\_\-o::colorDepth}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_n_t__image__o_ae4d50a45ce73f956ba47f493ecadb611}
+
+
+Definition at line 84 of file nt\_\-image\_\-obj.h.
+
+\index{NT\_\-image\_\-o@{NT\_\-image\_\-o}!dataFormat@{dataFormat}}
+\index{dataFormat@{dataFormat}!NT_image_o@{NT\_\-image\_\-o}}
+\paragraph[{dataFormat}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTimageDataFormat} {\bf NT\_\-image\_\-o::dataFormat}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_n_t__image__o_ab497908a0ca93b8a0ab6dc927fa7679c}
+
+
+Definition at line 85 of file nt\_\-image\_\-obj.h.
+
+
+
+Referenced by \_\-dataFormat().
+
+\index{NT\_\-image\_\-o@{NT\_\-image\_\-o}!height@{height}}
+\index{height@{height}!NT_image_o@{NT\_\-image\_\-o}}
+\paragraph[{height}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTsize} {\bf NT\_\-image\_\-o::height}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_n_t__image__o_a025b7e7250470e53dbf69ba10c013284}
+
+
+Definition at line 83 of file nt\_\-image\_\-obj.h.
+
+
+
+Referenced by \_\-height().
+
+\index{NT\_\-image\_\-o@{NT\_\-image\_\-o}!width@{width}}
+\index{width@{width}!NT_image_o@{NT\_\-image\_\-o}}
+\paragraph[{width}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTsize} {\bf NT\_\-image\_\-o::width}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_n_t__image__o_af1a2f06cb8db6d36520e72df08c133d0}
+
+
+Definition at line 82 of file nt\_\-image\_\-obj.h.
+
+
+
+Referenced by \_\-width().
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nt__image__obj_8h}{nt\_\-image\_\-obj.h}\end{DoxyCompactItemize}

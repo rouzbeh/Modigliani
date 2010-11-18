@@ -1,0 +1,285 @@
+\subsection{NT\_\-multidim\_\-histogram\_\-o Class Reference}
+\label{class_n_t__multidim__histogram__o}\index{NT\_\-multidim\_\-histogram\_\-o@{NT\_\-multidim\_\-histogram\_\-o}}
+
+
+\hyperlink{class_n_t__multidim__histogram__o}{NT\_\-multidim\_\-histogram\_\-o} class.  
+
+
+
+
+{\ttfamily \#include $<$nt\_\-multidim\_\-histogram\_\-obj.h$>$}
+
+
+
+Inheritance diagram for NT\_\-multidim\_\-histogram\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=186pt]{class_n_t__multidim__histogram__o__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for NT\_\-multidim\_\-histogram\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=291pt]{class_n_t__multidim__histogram__o__coll__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_t__multidim__histogram__o_a38dbea9a342e4f5928ee7a9bbffddd2d}{NT\_\-multidim\_\-histogram\_\-o} (\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} low, \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} high, \hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} binsPerDim, \hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} dims)
+\item 
+\hyperlink{class_n_t__multidim__histogram__o_a64f1792574837cf0c60d18d25f64659d}{NT\_\-multidim\_\-histogram\_\-o} (const \hyperlink{class_n_t__multidim__histogram__o}{NT\_\-multidim\_\-histogram\_\-o} \&original)
+\item 
+const \hyperlink{class_n_t__multidim__histogram__o}{NT\_\-multidim\_\-histogram\_\-o} \& \hyperlink{class_n_t__multidim__histogram__o_aed53e86f8ec085971e73c97156a01038}{operator=} (const \hyperlink{class_n_t__multidim__histogram__o}{NT\_\-multidim\_\-histogram\_\-o} \&right)
+\item 
+virtual \hyperlink{class_n_t__multidim__histogram__o_aa6b59af5c10cb03b88e7422c2b546a03}{$\sim$NT\_\-multidim\_\-histogram\_\-o} ()
+\item 
+\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} \hyperlink{class_n_t__multidim__histogram__o_a4e799a71f77125700c32a731b6778465}{BinValue} (const vector$<$ \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} $>$ \&valueVec)
+\begin{DoxyCompactList}\small\item\em Enter data into histogram with data \$ \mbox{[}min,max\mbox{]} \$. \item\end{DoxyCompactList}\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t__multidim__histogram__o_a776b8ed135863ea9b19635f913a19991}{ShannonEntropy} () const 
+\begin{DoxyCompactList}\small\item\em No descriptions. \item\end{DoxyCompactList}\item 
+void \hyperlink{class_n_t__multidim__histogram__o_ad6bf72ceb582a6f8c3ca413145370072}{Reset} ()
+\begin{DoxyCompactList}\small\item\em Set histogram to initial values. \item\end{DoxyCompactList}\item 
+\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} \hyperlink{class_n_t__multidim__histogram__o_a27c831a3449d64c90400ed8c71b8b158}{\_\-numBinned} () const 
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t__multidim__histogram__o_a171d631de76b4fc128691fc05b779471}{\_\-min} () const 
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t__multidim__histogram__o_a5d854b22e355d0ac1bb7f1fa2994ee35}{\_\-max} () const 
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t__multidim__histogram__o_ad47975cfa7738aa53530dc10e7f16e12}{\_\-range} () const 
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t__multidim__histogram__o_ab72cd9a59bb4b4f931aa6069e067d19f}{\_\-numBinPerDim} () const 
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t__multidim__histogram__o_a1bad7a6f2a5d67e334d0a95184202a96}{\_\-dim} () const 
+\item 
+vector$<$ \hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} $>$ \hyperlink{class_n_t__multidim__histogram__o_a50cd84c0f96d38cc4f70cce186cad626}{\_\-outsideBinVec} () const 
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_t__multidim__array__o}{NT\_\-multidim\_\-array\_\-o}$<$ \hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} $>$ \hyperlink{class_n_t__multidim__histogram__o_aa327294367e604b49652940c36b3bce6}{oCube}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\begin{Desc}
+\item[\hyperlink{bug__bug000106}{Bug}]unknown \end{Desc}
+\begin{DoxyWarning}{Warning}
+unknown 
+\end{DoxyWarning}
+
+
+Definition at line 50 of file nt\_\-multidim\_\-histogram\_\-obj.h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{NT\_\-multidim\_\-histogram\_\-o@{NT\_\-multidim\_\-histogram\_\-o}!NT\_\-multidim\_\-histogram\_\-o@{NT\_\-multidim\_\-histogram\_\-o}}
+\index{NT\_\-multidim\_\-histogram\_\-o@{NT\_\-multidim\_\-histogram\_\-o}!NT_multidim_histogram_o@{NT\_\-multidim\_\-histogram\_\-o}}
+\paragraph[{NT\_\-multidim\_\-histogram\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-multidim\_\-histogram\_\-o::NT\_\-multidim\_\-histogram\_\-o (
+\begin{DoxyParamCaption}
+\item[{{\bf NTreal}}]{ low, }
+\item[{{\bf NTreal}}]{ high, }
+\item[{{\bf NTsize}}]{ binsPerDim, }
+\item[{{\bf NTsize}}]{ dims}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__multidim__histogram__o_a38dbea9a342e4f5928ee7a9bbffddd2d}
+\index{NT\_\-multidim\_\-histogram\_\-o@{NT\_\-multidim\_\-histogram\_\-o}!NT\_\-multidim\_\-histogram\_\-o@{NT\_\-multidim\_\-histogram\_\-o}}
+\index{NT\_\-multidim\_\-histogram\_\-o@{NT\_\-multidim\_\-histogram\_\-o}!NT_multidim_histogram_o@{NT\_\-multidim\_\-histogram\_\-o}}
+\paragraph[{NT\_\-multidim\_\-histogram\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-multidim\_\-histogram\_\-o::NT\_\-multidim\_\-histogram\_\-o (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT\_\-multidim\_\-histogram\_\-o} \&}]{ original}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__multidim__histogram__o_a64f1792574837cf0c60d18d25f64659d}
+\index{NT\_\-multidim\_\-histogram\_\-o@{NT\_\-multidim\_\-histogram\_\-o}!$\sim$NT\_\-multidim\_\-histogram\_\-o@{$\sim$NT\_\-multidim\_\-histogram\_\-o}}
+\index{$\sim$NT\_\-multidim\_\-histogram\_\-o@{$\sim$NT\_\-multidim\_\-histogram\_\-o}!NT_multidim_histogram_o@{NT\_\-multidim\_\-histogram\_\-o}}
+\paragraph[{$\sim$NT\_\-multidim\_\-histogram\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}virtual NT\_\-multidim\_\-histogram\_\-o::$\sim$NT\_\-multidim\_\-histogram\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t__multidim__histogram__o_aa6b59af5c10cb03b88e7422c2b546a03}
+
+
+\subsubsection{Member Function Documentation}
+\index{NT\_\-multidim\_\-histogram\_\-o@{NT\_\-multidim\_\-histogram\_\-o}!\_\-dim@{\_\-dim}}
+\index{\_\-dim@{\_\-dim}!NT_multidim_histogram_o@{NT\_\-multidim\_\-histogram\_\-o}}
+\paragraph[{\_\-dim}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NT\_\-multidim\_\-histogram\_\-o::\_\-dim (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__multidim__histogram__o_a1bad7a6f2a5d67e334d0a95184202a96}
+
+
+Definition at line 62 of file nt\_\-multidim\_\-histogram\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ return numBinned; }
+\end{DoxyCode}
+
+
+\index{NT\_\-multidim\_\-histogram\_\-o@{NT\_\-multidim\_\-histogram\_\-o}!\_\-max@{\_\-max}}
+\index{\_\-max@{\_\-max}!NT_multidim_histogram_o@{NT\_\-multidim\_\-histogram\_\-o}}
+\paragraph[{\_\-max}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NT\_\-multidim\_\-histogram\_\-o::\_\-max (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__multidim__histogram__o_a5d854b22e355d0ac1bb7f1fa2994ee35}
+
+
+Definition at line 59 of file nt\_\-multidim\_\-histogram\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ return numBinned; }
+\end{DoxyCode}
+
+
+\index{NT\_\-multidim\_\-histogram\_\-o@{NT\_\-multidim\_\-histogram\_\-o}!\_\-min@{\_\-min}}
+\index{\_\-min@{\_\-min}!NT_multidim_histogram_o@{NT\_\-multidim\_\-histogram\_\-o}}
+\paragraph[{\_\-min}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NT\_\-multidim\_\-histogram\_\-o::\_\-min (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__multidim__histogram__o_a171d631de76b4fc128691fc05b779471}
+
+
+Definition at line 58 of file nt\_\-multidim\_\-histogram\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ return numBinned; }
+\end{DoxyCode}
+
+
+\index{NT\_\-multidim\_\-histogram\_\-o@{NT\_\-multidim\_\-histogram\_\-o}!\_\-numBinned@{\_\-numBinned}}
+\index{\_\-numBinned@{\_\-numBinned}!NT_multidim_histogram_o@{NT\_\-multidim\_\-histogram\_\-o}}
+\paragraph[{\_\-numBinned}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTsize} NT\_\-multidim\_\-histogram\_\-o::\_\-numBinned (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__multidim__histogram__o_a27c831a3449d64c90400ed8c71b8b158}
+
+
+Definition at line 57 of file nt\_\-multidim\_\-histogram\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ return numBinned; }
+\end{DoxyCode}
+
+
+\index{NT\_\-multidim\_\-histogram\_\-o@{NT\_\-multidim\_\-histogram\_\-o}!\_\-numBinPerDim@{\_\-numBinPerDim}}
+\index{\_\-numBinPerDim@{\_\-numBinPerDim}!NT_multidim_histogram_o@{NT\_\-multidim\_\-histogram\_\-o}}
+\paragraph[{\_\-numBinPerDim}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NT\_\-multidim\_\-histogram\_\-o::\_\-numBinPerDim (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__multidim__histogram__o_ab72cd9a59bb4b4f931aa6069e067d19f}
+
+
+Definition at line 61 of file nt\_\-multidim\_\-histogram\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ return numBinned; }
+\end{DoxyCode}
+
+
+\index{NT\_\-multidim\_\-histogram\_\-o@{NT\_\-multidim\_\-histogram\_\-o}!\_\-outsideBinVec@{\_\-outsideBinVec}}
+\index{\_\-outsideBinVec@{\_\-outsideBinVec}!NT_multidim_histogram_o@{NT\_\-multidim\_\-histogram\_\-o}}
+\paragraph[{\_\-outsideBinVec}]{\setlength{\rightskip}{0pt plus 5cm}vector$<${\bf NTsize}$>$ NT\_\-multidim\_\-histogram\_\-o::\_\-outsideBinVec (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__multidim__histogram__o_a50cd84c0f96d38cc4f70cce186cad626}
+
+
+Definition at line 63 of file nt\_\-multidim\_\-histogram\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ return numBinned; }
+\end{DoxyCode}
+
+
+\index{NT\_\-multidim\_\-histogram\_\-o@{NT\_\-multidim\_\-histogram\_\-o}!\_\-range@{\_\-range}}
+\index{\_\-range@{\_\-range}!NT_multidim_histogram_o@{NT\_\-multidim\_\-histogram\_\-o}}
+\paragraph[{\_\-range}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NT\_\-multidim\_\-histogram\_\-o::\_\-range (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__multidim__histogram__o_ad47975cfa7738aa53530dc10e7f16e12}
+
+
+Definition at line 60 of file nt\_\-multidim\_\-histogram\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ return numBinned; }
+\end{DoxyCode}
+
+
+\index{NT\_\-multidim\_\-histogram\_\-o@{NT\_\-multidim\_\-histogram\_\-o}!BinValue@{BinValue}}
+\index{BinValue@{BinValue}!NT_multidim_histogram_o@{NT\_\-multidim\_\-histogram\_\-o}}
+\paragraph[{BinValue}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTsize} NT\_\-multidim\_\-histogram\_\-o::BinValue (
+\begin{DoxyParamCaption}
+\item[{const vector$<$ {\bf NTreal} $>$ \&}]{ valueVec}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__multidim__histogram__o_a4e799a71f77125700c32a731b6778465}
+\index{NT\_\-multidim\_\-histogram\_\-o@{NT\_\-multidim\_\-histogram\_\-o}!operator=@{operator=}}
+\index{operator=@{operator=}!NT_multidim_histogram_o@{NT\_\-multidim\_\-histogram\_\-o}}
+\paragraph[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf NT\_\-multidim\_\-histogram\_\-o}\& NT\_\-multidim\_\-histogram\_\-o::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT\_\-multidim\_\-histogram\_\-o} \&}]{ right}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__multidim__histogram__o_aed53e86f8ec085971e73c97156a01038}
+\index{NT\_\-multidim\_\-histogram\_\-o@{NT\_\-multidim\_\-histogram\_\-o}!Reset@{Reset}}
+\index{Reset@{Reset}!NT_multidim_histogram_o@{NT\_\-multidim\_\-histogram\_\-o}}
+\paragraph[{Reset}]{\setlength{\rightskip}{0pt plus 5cm}void NT\_\-multidim\_\-histogram\_\-o::Reset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__multidim__histogram__o_ad6bf72ceb582a6f8c3ca413145370072}
+\index{NT\_\-multidim\_\-histogram\_\-o@{NT\_\-multidim\_\-histogram\_\-o}!ShannonEntropy@{ShannonEntropy}}
+\index{ShannonEntropy@{ShannonEntropy}!NT_multidim_histogram_o@{NT\_\-multidim\_\-histogram\_\-o}}
+\paragraph[{ShannonEntropy}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NT\_\-multidim\_\-histogram\_\-o::ShannonEntropy (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hfill\label{class_n_t__multidim__histogram__o_a776b8ed135863ea9b19635f913a19991}
+
+
+\subsubsection{Member Data Documentation}
+\index{NT\_\-multidim\_\-histogram\_\-o@{NT\_\-multidim\_\-histogram\_\-o}!oCube@{oCube}}
+\index{oCube@{oCube}!NT_multidim_histogram_o@{NT\_\-multidim\_\-histogram\_\-o}}
+\paragraph[{oCube}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NT\_\-multidim\_\-array\_\-o}$<${\bf NTsize}$>$ {\bf NT\_\-multidim\_\-histogram\_\-o::oCube}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_n_t__multidim__histogram__o_aa327294367e604b49652940c36b3bce6}
+
+
+Definition at line 67 of file nt\_\-multidim\_\-histogram\_\-obj.h.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nt__multidim__histogram__obj_8h}{nt\_\-multidim\_\-histogram\_\-obj.h}\end{DoxyCompactItemize}

@@ -1,0 +1,431 @@
+.TH "TNT::Vector_Adaptor" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+TNT::Vector_Adaptor \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <vecadaptor.h>\fP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "typedef BBVec::value_type \fBT\fP"
+.br
+.ti -1c
+.RI "typedef \fBT\fP \fBvalue_type\fP"
+.br
+.ti -1c
+.RI "typedef \fBT\fP \fBelement_type\fP"
+.br
+.ti -1c
+.RI "typedef \fBT\fP * \fBpointer\fP"
+.br
+.ti -1c
+.RI "typedef \fBT\fP * \fBiterator\fP"
+.br
+.ti -1c
+.RI "typedef \fBT\fP & \fBreference\fP"
+.br
+.ti -1c
+.RI "typedef const \fBT\fP * \fBconst_iterator\fP"
+.br
+.ti -1c
+.RI "typedef const \fBT\fP & \fBconst_reference\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSubscript\fP \fBlbound\fP () const "
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBsize\fP () const "
+.br
+.ti -1c
+.RI "BBVec & \fBgetVector\fP ()"
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBdim\fP () const "
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBdim\fP (\fBSubscript\fP i)"
+.br
+.ti -1c
+.RI "\fBVector_Adaptor\fP ()"
+.br
+.ti -1c
+.RI "\fBVector_Adaptor\fP (const \fBVector_Adaptor\fP< BBVec > &A)"
+.br
+.ti -1c
+.RI "\fBVector_Adaptor\fP (\fBSubscript\fP N, char *s)"
+.br
+.ti -1c
+.RI "\fBVector_Adaptor\fP (\fBSubscript\fP N, const \fBT\fP &value=\fBT\fP())"
+.br
+.ti -1c
+.RI "\fBVector_Adaptor\fP (\fBSubscript\fP N, const \fBT\fP *values)"
+.br
+.ti -1c
+.RI "\fBVector_Adaptor\fP (const BBVec &A)"
+.br
+.ti -1c
+.RI "\fBVector_Adaptor\fP< BBVec > & \fBfree\fP ()"
+.br
+.ti -1c
+.RI "\fBVector_Adaptor\fP< BBVec > & \fBoperator=\fP (const \fBVector_Adaptor\fP< BBVec > &A)"
+.br
+.ti -1c
+.RI "\fBVector_Adaptor\fP< BBVec > & \fBnewsize\fP (\fBSubscript\fP N)"
+.br
+.ti -1c
+.RI "\fBVector_Adaptor\fP< BBVec > & \fBoperator=\fP (const \fBT\fP &a)"
+.br
+.ti -1c
+.RI "\fBVector_Adaptor\fP< BBVec > & \fBresize\fP (\fBSubscript\fP N)"
+.br
+.ti -1c
+.RI "\fBreference\fP \fBoperator()\fP (\fBSubscript\fP i)"
+.br
+.ti -1c
+.RI "\fBconst_reference\fP \fBoperator()\fP (\fBSubscript\fP i) const "
+.br
+.ti -1c
+.RI "\fBreference\fP \fBoperator[]\fP (\fBSubscript\fP i)"
+.br
+.ti -1c
+.RI "\fBconst_reference\fP \fBoperator[]\fP (\fBSubscript\fP i) const "
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "BBVec \fBv_\fP"
+.br
+.ti -1c
+.RI "\fBT\fP * \fBvm1_\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.SS "template<class BBVec> class TNT::Vector_Adaptor< BBVec >"
+
+.PP
+Definition at line 60 of file vecadaptor.h.
+.SH "Member Typedef Documentation"
+.PP 
+.SS "template<class BBVec> typedef const \fBT\fP* \fBTNT::Vector_Adaptor\fP< BBVec >::\fBconst_iterator\fP"
+.PP
+Definition at line 70 of file vecadaptor.h.
+.SS "template<class BBVec> typedef const \fBT\fP& \fBTNT::Vector_Adaptor\fP< BBVec >::\fBconst_reference\fP"
+.PP
+Definition at line 71 of file vecadaptor.h.
+.SS "template<class BBVec> typedef \fBT\fP \fBTNT::Vector_Adaptor\fP< BBVec >::\fBelement_type\fP"
+.PP
+Definition at line 66 of file vecadaptor.h.
+.SS "template<class BBVec> typedef \fBT\fP* \fBTNT::Vector_Adaptor\fP< BBVec >::\fBiterator\fP"
+.PP
+Definition at line 68 of file vecadaptor.h.
+.SS "template<class BBVec> typedef \fBT\fP* \fBTNT::Vector_Adaptor\fP< BBVec >::\fBpointer\fP"
+.PP
+Definition at line 67 of file vecadaptor.h.
+.SS "template<class BBVec> typedef \fBT\fP& \fBTNT::Vector_Adaptor\fP< BBVec >::\fBreference\fP"
+.PP
+Definition at line 69 of file vecadaptor.h.
+.SS "template<class BBVec> typedef BBVec::value_type \fBTNT::Vector_Adaptor\fP< BBVec >::\fBT\fP"
+.PP
+Definition at line 64 of file vecadaptor.h.
+.SS "template<class BBVec> typedef \fBT\fP \fBTNT::Vector_Adaptor\fP< BBVec >::\fBvalue_type\fP"
+.PP
+Definition at line 65 of file vecadaptor.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "template<class BBVec> \fBTNT::Vector_Adaptor\fP< BBVec >::\fBVector_Adaptor\fP ()\fC [inline]\fP"
+.PP
+Definition at line 108 of file vecadaptor.h.
+.PP
+.nf
+: v_() {};
+.fi
+.SS "template<class BBVec> \fBTNT::Vector_Adaptor\fP< BBVec >::\fBVector_Adaptor\fP (const \fBVector_Adaptor\fP< BBVec > & A)\fC [inline]\fP"
+.PP
+Definition at line 109 of file vecadaptor.h.
+.PP
+References TNT::Vector_Adaptor< BBVec >::v_, and TNT::Vector_Adaptor< BBVec >::vm1_.
+.PP
+.nf
+                                                   : v_(A.v_) 
+    { 
+        vm1_ = ( v_.size() > 0 ? &(v_[0]) -1 : NULL); 
+
+    } 
+.fi
+.SS "template<class BBVec> \fBTNT::Vector_Adaptor\fP< BBVec >::\fBVector_Adaptor\fP (\fBSubscript\fP N, char * s)\fC [inline]\fP"
+.PP
+Definition at line 115 of file vecadaptor.h.
+.PP
+References TNT::Vector_Adaptor< BBVec >::v_, and TNT::Vector_Adaptor< BBVec >::vm1_.
+.PP
+.nf
+                                                   : v_(N) 
+    {
+        istrstream ins(s);
+        for (Subscript i=0; i<N; i++)
+            ins >> v_[i] ;
+
+        vm1_ = ( v_.size() > 0 ? &(v_[0]) -1 : NULL); 
+    }; 
+.fi
+.SS "template<class BBVec> \fBTNT::Vector_Adaptor\fP< BBVec >::\fBVector_Adaptor\fP (\fBSubscript\fP N, const \fBT\fP & value = \fC\fBT\fP()\fP)\fC [inline]\fP"
+.PP
+Definition at line 124 of file vecadaptor.h.
+.PP
+References TNT::Vector_Adaptor< BBVec >::v_, and TNT::Vector_Adaptor< BBVec >::vm1_.
+.PP
+.nf
+                                                      : v_(N)
+    {
+        for (Subscript i=0; i<N; i++)
+             v_[i]  = value;
+        
+        vm1_ = ( v_.size() > 0 ? &(v_[0]) -1 : NULL); 
+    }
+.fi
+.SS "template<class BBVec> \fBTNT::Vector_Adaptor\fP< BBVec >::\fBVector_Adaptor\fP (\fBSubscript\fP N, const \fBT\fP * values)\fC [inline]\fP"
+.PP
+Definition at line 132 of file vecadaptor.h.
+.PP
+References TNT::Vector_Adaptor< BBVec >::v_, and TNT::Vector_Adaptor< BBVec >::vm1_.
+.PP
+.nf
+                                                 : v_(N)
+    {
+        for (Subscript i=0; i<N; i++)
+             v_[i]  = values[i];
+        vm1_ = ( v_.size() > 0 ? &(v_[0]) -1 : NULL); 
+    } 
+.fi
+.SS "template<class BBVec> \fBTNT::Vector_Adaptor\fP< BBVec >::\fBVector_Adaptor\fP (const BBVec & A)\fC [inline]\fP"
+.PP
+Definition at line 138 of file vecadaptor.h.
+.PP
+References TNT::Vector_Adaptor< BBVec >::v_, and TNT::Vector_Adaptor< BBVec >::vm1_.
+.PP
+.nf
+                                    : v_(A) 
+    {
+        vm1_ = ( v_.size() > 0 ? &(v_[0]) -1 : NULL); 
+    }
+.fi
+.SH "Member Function Documentation"
+.PP 
+.SS "template<class BBVec> \fBSubscript\fP \fBTNT::Vector_Adaptor\fP< BBVec >::dim () const\fC [inline]\fP"
+.PP
+Definition at line 100 of file vecadaptor.h.
+.PP
+References TNT::Vector_Adaptor< BBVec >::v_.
+.PP
+Referenced by TNT::Vector_Adaptor< BBVec >::operator()(), and TNT::Vector_Adaptor< BBVec >::operator[]().
+.PP
+.nf
+{ return v_.size(); }
+.fi
+.SS "template<class BBVec> \fBSubscript\fP \fBTNT::Vector_Adaptor\fP< BBVec >::dim (\fBSubscript\fP i)\fC [inline]\fP"
+.PP
+Definition at line 101 of file vecadaptor.h.
+.PP
+References TNT_BASE_OFFSET, and TNT::Vector_Adaptor< BBVec >::v_.
+.PP
+.nf
+    {
+#ifdef TNT_BOUNDS_CHECK
+        assert(i==TNT_BASE_OFFSET);
+#endif
+        return (i==TNT_BASE_OFFSET ? v_.size() : 0 );
+    }
+.fi
+.SS "template<class BBVec> \fBVector_Adaptor\fP<BBVec>& \fBTNT::Vector_Adaptor\fP< BBVec >::free ()\fC [inline]\fP"
+.PP
+Definition at line 148 of file vecadaptor.h.
+.PP
+.nf
+    {
+        return *this = Vector_Adaptor<BBVec>(0);
+    }
+.fi
+.SS "template<class BBVec> BBVec& \fBTNT::Vector_Adaptor\fP< BBVec >::getVector ()\fC [inline]\fP"
+.PP
+Definition at line 99 of file vecadaptor.h.
+.PP
+References TNT::Vector_Adaptor< BBVec >::v_.
+.PP
+.nf
+{ return v_; }
+.fi
+.SS "template<class BBVec> \fBSubscript\fP \fBTNT::Vector_Adaptor\fP< BBVec >::lbound () const\fC [inline]\fP"
+.PP
+Definition at line 73 of file vecadaptor.h.
+.PP
+.nf
+{ return 1; }
+.fi
+.SS "template<class BBVec> \fBVector_Adaptor\fP<BBVec>& \fBTNT::Vector_Adaptor\fP< BBVec >::newsize (\fBSubscript\fP N)\fC [inline]\fP"
+.PP
+Definition at line 160 of file vecadaptor.h.
+.PP
+.nf
+    {
+        // NOTE: this is not as efficient as it could be
+        // but to retain compatiblity with STL interface
+        // we cannot assume underlying implementation
+        // has a newsize() function.
+
+        return *this = Vector_Adaptor<BBVec>(N);
+
+    }
+.fi
+.SS "template<class BBVec> \fBreference\fP \fBTNT::Vector_Adaptor\fP< BBVec >::operator() (\fBSubscript\fP i)\fC [inline]\fP"
+.PP
+Definition at line 198 of file vecadaptor.h.
+.PP
+References TNT::Vector_Adaptor< BBVec >::dim(), and TNT::Vector_Adaptor< BBVec >::vm1_.
+.PP
+.nf
+    { 
+#ifdef TNT_BOUNDS_CHECK
+        assert(1<=i);
+        assert(i<=dim());
+#endif
+        return vm1_[i]; 
+    }
+.fi
+.SS "template<class BBVec> \fBconst_reference\fP \fBTNT::Vector_Adaptor\fP< BBVec >::operator() (\fBSubscript\fP i) const\fC [inline]\fP"
+.PP
+Definition at line 207 of file vecadaptor.h.
+.PP
+References TNT::Vector_Adaptor< BBVec >::dim(), and TNT::Vector_Adaptor< BBVec >::vm1_.
+.PP
+.nf
+    { 
+#ifdef TNT_BOUNDS_CHECK
+        assert(1<=i);
+        assert(i<=dim());
+#endif
+        return vm1_[i]; 
+    }
+.fi
+.SS "template<class BBVec> \fBVector_Adaptor\fP<BBVec>& \fBTNT::Vector_Adaptor\fP< BBVec >::operator= (const \fBT\fP & a)\fC [inline]\fP"
+.PP
+Definition at line 171 of file vecadaptor.h.
+.PP
+References TNT::Vector_Adaptor< BBVec >::v_.
+.PP
+.nf
+    {
+        Subscript i;
+        Subscript N = v_.size();    
+        for (i=0; i<N; i++)
+            v_[i] = a;
+
+        return *this;
+    }
+.fi
+.SS "template<class BBVec> \fBVector_Adaptor\fP<BBVec>& \fBTNT::Vector_Adaptor\fP< BBVec >::operator= (const \fBVector_Adaptor\fP< BBVec > & A)\fC [inline]\fP"
+.PP
+Definition at line 153 of file vecadaptor.h.
+.PP
+References TNT::Vector_Adaptor< BBVec >::v_, and TNT::Vector_Adaptor< BBVec >::vm1_.
+.PP
+.nf
+    { 
+        v_ = A.v_ ; 
+        vm1_ = ( v_.size() > 0 ? &(v_[0]) -1 : NULL); 
+        return *this;
+    }
+.fi
+.SS "template<class BBVec> \fBreference\fP \fBTNT::Vector_Adaptor\fP< BBVec >::operator[] (\fBSubscript\fP i)\fC [inline]\fP"
+.PP
+Definition at line 216 of file vecadaptor.h.
+.PP
+References TNT::Vector_Adaptor< BBVec >::dim(), and TNT::Vector_Adaptor< BBVec >::v_.
+.PP
+.nf
+    { 
+#ifdef TNT_BOUNDS_CHECK
+        assert(0<=i);
+        assert(i<dim());
+#endif
+        return v_[i]; 
+    }
+.fi
+.SS "template<class BBVec> \fBconst_reference\fP \fBTNT::Vector_Adaptor\fP< BBVec >::operator[] (\fBSubscript\fP i) const\fC [inline]\fP"
+.PP
+Definition at line 225 of file vecadaptor.h.
+.PP
+References TNT::Vector_Adaptor< BBVec >::dim(), and TNT::Vector_Adaptor< BBVec >::v_.
+.PP
+.nf
+    { 
+#ifdef TNT_BOUNDS_CHECK
+        assert(0<=i);
+        assert(i<dim());
+#endif
+        return v_[i]; 
+    }
+.fi
+.SS "template<class BBVec> \fBVector_Adaptor\fP<BBVec>& \fBTNT::Vector_Adaptor\fP< BBVec >::resize (\fBSubscript\fP N)\fC [inline]\fP"
+.PP
+Definition at line 181 of file vecadaptor.h.
+.PP
+References TNT::Vector_Adaptor< BBVec >::size(), and TNT::Vector_Adaptor< BBVec >::v_.
+.PP
+Referenced by TNT::operator>>().
+.PP
+.nf
+    { 
+        if (N == size()) return *this;
+
+        Vector_Adaptor<BBVec> tmp(N);
+        Subscript n =  (N < size() ? N : size());  // min(N, size());
+        Subscript i;
+
+        for (i=0; i<n; i++)
+            tmp[i] = v_[i];
+            
+
+        return (*this = tmp);
+
+    }
+.fi
+.SS "template<class BBVec> \fBSubscript\fP \fBTNT::Vector_Adaptor\fP< BBVec >::size () const\fC [inline]\fP"
+.PP
+Definition at line 81 of file vecadaptor.h.
+.PP
+References TNT::Vector_Adaptor< BBVec >::v_.
+.PP
+Referenced by TNT::Vector_Adaptor< BBVec >::resize().
+.PP
+.nf
+{ return v_.size(); }
+.fi
+.SH "Member Data Documentation"
+.PP 
+.SS "template<class BBVec> BBVec \fBTNT::Vector_Adaptor\fP< BBVec >::\fBv_\fP\fC [protected]\fP"
+.PP
+Definition at line 76 of file vecadaptor.h.
+.PP
+Referenced by TNT::Vector_Adaptor< BBVec >::dim(), TNT::Vector_Adaptor< BBVec >::getVector(), TNT::Vector_Adaptor< BBVec >::operator=(), TNT::Vector_Adaptor< BBVec >::operator[](), TNT::Vector_Adaptor< BBVec >::resize(), TNT::Vector_Adaptor< BBVec >::size(), and TNT::Vector_Adaptor< BBVec >::Vector_Adaptor().
+.SS "template<class BBVec> \fBT\fP* \fBTNT::Vector_Adaptor\fP< BBVec >::\fBvm1_\fP\fC [protected]\fP"
+.PP
+Definition at line 77 of file vecadaptor.h.
+.PP
+Referenced by TNT::Vector_Adaptor< BBVec >::operator()(), TNT::Vector_Adaptor< BBVec >::operator=(), and TNT::Vector_Adaptor< BBVec >::Vector_Adaptor().
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.
