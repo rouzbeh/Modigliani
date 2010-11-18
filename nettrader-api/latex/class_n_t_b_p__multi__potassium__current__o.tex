@@ -1,0 +1,219 @@
+\subsection{NTBP\_\-multi\_\-potassium\_\-current\_\-o Class Reference}
+\label{class_n_t_b_p__multi__potassium__current__o}\index{NTBP\_\-multi\_\-potassium\_\-current\_\-o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}}
+
+
+\hyperlink{class_n_t_b_p__multi__potassium__current__o}{NTBP\_\-multi\_\-potassium\_\-current\_\-o} class.  
+
+
+
+
+{\ttfamily \#include $<$ntbp\_\-multi\_\-potassium\_\-current\_\-obj.h$>$}
+
+
+
+Inheritance diagram for NTBP\_\-multi\_\-potassium\_\-current\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{class_n_t_b_p__multi__potassium__current__o__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for NTBP\_\-multi\_\-potassium\_\-current\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_n_t_b_p__multi__potassium__current__o__coll__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_t_b_p__multi__potassium__current__o_a867c59273fc817ab6720f1e9cd76d680}{NTBP\_\-multi\_\-potassium\_\-current\_\-o} (\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} area, enum \hyperlink{ntbp__object__obj_8h_aeeceaef81d00b84a44823ba078e4fcd3}{NTBPdelayedPotassiumRectifierType} newType, \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t_b_p__multi__current__o_a82138baaa276b09c13038ca1fd6f08a7}{density}=0)
+\item 
+\hyperlink{class_n_t_b_p__multi__potassium__current__o_ae10e9d441a0fb954274cc4b296813e40}{NTBP\_\-multi\_\-potassium\_\-current\_\-o} (const \hyperlink{class_n_t_b_p__multi__potassium__current__o}{NTBP\_\-multi\_\-potassium\_\-current\_\-o} \&original)
+\item 
+const \hyperlink{class_n_t_b_p__multi__potassium__current__o}{NTBP\_\-multi\_\-potassium\_\-current\_\-o} \& \hyperlink{class_n_t_b_p__multi__potassium__current__o_a80fe0f17388646dd58471b833453cba5}{operator=} (const \hyperlink{class_n_t_b_p__multi__potassium__current__o}{NTBP\_\-multi\_\-potassium\_\-current\_\-o} \&right)
+\item 
+virtual \hyperlink{class_n_t_b_p__multi__potassium__current__o_a9080fcf89494656ebd035d1f76cf8588}{$\sim$NTBP\_\-multi\_\-potassium\_\-current\_\-o} ()
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t_b_p__multi__potassium__current__o_a31c52bf7c339e5411bb0efbc57faee98}{ComputeRateSum} () const 
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t_b_p__multi__potassium__current__o_ab9b2a9a39c00cde50c5d5417105a6236}{OpenChannels} () const 
+\begin{DoxyCompactList}\small\item\em Number of open ionic channels. \item\end{DoxyCompactList}\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t_b_p__multi__potassium__current__o_ac959106a593bd671bd061b433670fa42}{ComputeConductance} ()
+\begin{DoxyCompactList}\small\item\em compute and return conductance in mSiemens \item\end{DoxyCompactList}\item 
+void \hyperlink{class_n_t_b_p__multi__potassium__current__o_aae36eb3690c08120afe0e5121faafdaf}{ComputeRateConstants} (\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} voltage)
+\begin{DoxyCompactList}\small\item\em compute the rate constants ( in ms$^\wedge$-\/1 ) \item\end{DoxyCompactList}\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t_b_p__multi__potassium__current__o_ad06edc2140798e4b67dcf07210bb4cd3}{ComputeChannelStateTimeConstant} () const 
+\begin{DoxyCompactList}\small\item\em in kHz \item\end{DoxyCompactList}\item 
+\hyperlink{nt__types_8h_ab9564ee8f091e809d21b8451c6683c53}{NTreturn} \hyperlink{class_n_t_b_p__multi__potassium__current__o_a9c6a84403518b0bff4d857300a2147ac}{StepCurrent} ()
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t_b_p__multi__potassium__current__o_ad10c777be8746d576d352e905f302785}{AlphaN} (\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} voltage)
+\begin{DoxyCompactList}\small\item\em rate constant in ms$^\wedge$-\/1 \item\end{DoxyCompactList}\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t_b_p__multi__potassium__current__o_a8f6c6506928be03a432439f52ee248ec}{BetaN} (\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} voltage)
+\item 
+void \hyperlink{class_n_t_b_p__multi__potassium__current__o_a6cef7cba690c6c5e61ab3802f2a8990f}{ShowParam} () const 
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+
+
+Definition at line 57 of file ntbp\_\-multi\_\-potassium\_\-current\_\-obj.h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{NTBP\_\-multi\_\-potassium\_\-current\_\-o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}!NTBP\_\-multi\_\-potassium\_\-current\_\-o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}}
+\index{NTBP\_\-multi\_\-potassium\_\-current\_\-o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}!NTBP_multi_potassium_current_o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}}
+\paragraph[{NTBP\_\-multi\_\-potassium\_\-current\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NTBP\_\-multi\_\-potassium\_\-current\_\-o::NTBP\_\-multi\_\-potassium\_\-current\_\-o (
+\begin{DoxyParamCaption}
+\item[{{\bf NTreal}}]{ area, }
+\item[{enum {\bf NTBPdelayedPotassiumRectifierType}}]{ newType, }
+\item[{{\bf NTreal}}]{ density = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t_b_p__multi__potassium__current__o_a867c59273fc817ab6720f1e9cd76d680}
+\index{NTBP\_\-multi\_\-potassium\_\-current\_\-o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}!NTBP\_\-multi\_\-potassium\_\-current\_\-o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}}
+\index{NTBP\_\-multi\_\-potassium\_\-current\_\-o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}!NTBP_multi_potassium_current_o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}}
+\paragraph[{NTBP\_\-multi\_\-potassium\_\-current\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NTBP\_\-multi\_\-potassium\_\-current\_\-o::NTBP\_\-multi\_\-potassium\_\-current\_\-o (
+\begin{DoxyParamCaption}
+\item[{const {\bf NTBP\_\-multi\_\-potassium\_\-current\_\-o} \&}]{ original}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t_b_p__multi__potassium__current__o_ae10e9d441a0fb954274cc4b296813e40}
+\index{NTBP\_\-multi\_\-potassium\_\-current\_\-o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}!$\sim$NTBP\_\-multi\_\-potassium\_\-current\_\-o@{$\sim$NTBP\_\-multi\_\-potassium\_\-current\_\-o}}
+\index{$\sim$NTBP\_\-multi\_\-potassium\_\-current\_\-o@{$\sim$NTBP\_\-multi\_\-potassium\_\-current\_\-o}!NTBP_multi_potassium_current_o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}}
+\paragraph[{$\sim$NTBP\_\-multi\_\-potassium\_\-current\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}virtual NTBP\_\-multi\_\-potassium\_\-current\_\-o::$\sim$NTBP\_\-multi\_\-potassium\_\-current\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t_b_p__multi__potassium__current__o_a9080fcf89494656ebd035d1f76cf8588}
+
+
+\subsubsection{Member Function Documentation}
+\index{NTBP\_\-multi\_\-potassium\_\-current\_\-o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}!AlphaN@{AlphaN}}
+\index{AlphaN@{AlphaN}!NTBP_multi_potassium_current_o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}}
+\paragraph[{AlphaN}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NTBP\_\-multi\_\-potassium\_\-current\_\-o::AlphaN (
+\begin{DoxyParamCaption}
+\item[{{\bf NTreal}}]{ voltage}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t_b_p__multi__potassium__current__o_ad10c777be8746d576d352e905f302785}
+
+
+Definition at line 76 of file ntbp\_\-multi\_\-potassium\_\-current\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ return (10.0 - voltage)/(100.0 * ( exp( 1.0 - voltage/10.0 ) - 1.0) ); }
+\end{DoxyCode}
+
+
+\index{NTBP\_\-multi\_\-potassium\_\-current\_\-o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}!BetaN@{BetaN}}
+\index{BetaN@{BetaN}!NTBP_multi_potassium_current_o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}}
+\paragraph[{BetaN}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NTBP\_\-multi\_\-potassium\_\-current\_\-o::BetaN (
+\begin{DoxyParamCaption}
+\item[{{\bf NTreal}}]{ voltage}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t_b_p__multi__potassium__current__o_a8f6c6506928be03a432439f52ee248ec}
+
+
+Definition at line 77 of file ntbp\_\-multi\_\-potassium\_\-current\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ return 0.125 * exp(-voltage / 80.0); }
+\end{DoxyCode}
+
+
+\index{NTBP\_\-multi\_\-potassium\_\-current\_\-o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}!ComputeChannelStateTimeConstant@{ComputeChannelStateTimeConstant}}
+\index{ComputeChannelStateTimeConstant@{ComputeChannelStateTimeConstant}!NTBP_multi_potassium_current_o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}}
+\paragraph[{ComputeChannelStateTimeConstant}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NTBP\_\-multi\_\-potassium\_\-current\_\-o::ComputeChannelStateTimeConstant (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t_b_p__multi__potassium__current__o_ad06edc2140798e4b67dcf07210bb4cd3}
+
+
+Reimplemented from \hyperlink{class_n_t_b_p__membrane__current__o_a87397e9f3c441eda7ac55c6aabdb57d8}{NTBP\_\-membrane\_\-current\_\-o}.
+
+\index{NTBP\_\-multi\_\-potassium\_\-current\_\-o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}!ComputeConductance@{ComputeConductance}}
+\index{ComputeConductance@{ComputeConductance}!NTBP_multi_potassium_current_o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}}
+\paragraph[{ComputeConductance}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NTBP\_\-multi\_\-potassium\_\-current\_\-o::ComputeConductance (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t_b_p__multi__potassium__current__o_ac959106a593bd671bd061b433670fa42}
+
+
+Implements \hyperlink{class_n_t_b_p__membrane__current__o_a7462cc87d283cb6663aac47a29b06a96}{NTBP\_\-membrane\_\-current\_\-o}.
+
+\index{NTBP\_\-multi\_\-potassium\_\-current\_\-o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}!ComputeRateConstants@{ComputeRateConstants}}
+\index{ComputeRateConstants@{ComputeRateConstants}!NTBP_multi_potassium_current_o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}}
+\paragraph[{ComputeRateConstants}]{\setlength{\rightskip}{0pt plus 5cm}void NTBP\_\-multi\_\-potassium\_\-current\_\-o::ComputeRateConstants (
+\begin{DoxyParamCaption}
+\item[{{\bf NTreal}}]{ vM}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t_b_p__multi__potassium__current__o_aae36eb3690c08120afe0e5121faafdaf}
+
+
+Implements \hyperlink{class_n_t_b_p__membrane__current__o_ab77d9401846785c6c11cc0640a6b5c87}{NTBP\_\-membrane\_\-current\_\-o}.
+
+\index{NTBP\_\-multi\_\-potassium\_\-current\_\-o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}!ComputeRateSum@{ComputeRateSum}}
+\index{ComputeRateSum@{ComputeRateSum}!NTBP_multi_potassium_current_o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}}
+\paragraph[{ComputeRateSum}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NTBP\_\-multi\_\-potassium\_\-current\_\-o::ComputeRateSum (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hfill\label{class_n_t_b_p__multi__potassium__current__o_a31c52bf7c339e5411bb0efbc57faee98}
+\index{NTBP\_\-multi\_\-potassium\_\-current\_\-o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}!OpenChannels@{OpenChannels}}
+\index{OpenChannels@{OpenChannels}!NTBP_multi_potassium_current_o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}}
+\paragraph[{OpenChannels}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NTBP\_\-multi\_\-potassium\_\-current\_\-o::OpenChannels (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t_b_p__multi__potassium__current__o_ab9b2a9a39c00cde50c5d5417105a6236}
+
+
+Reimplemented from \hyperlink{class_n_t_b_p__membrane__current__o_abfe8fc2cdb225affa855c909fe38f5c9}{NTBP\_\-membrane\_\-current\_\-o}.
+
+\index{NTBP\_\-multi\_\-potassium\_\-current\_\-o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}!operator=@{operator=}}
+\index{operator=@{operator=}!NTBP_multi_potassium_current_o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}}
+\paragraph[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf NTBP\_\-multi\_\-potassium\_\-current\_\-o}\& NTBP\_\-multi\_\-potassium\_\-current\_\-o::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf NTBP\_\-multi\_\-potassium\_\-current\_\-o} \&}]{ right}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t_b_p__multi__potassium__current__o_a80fe0f17388646dd58471b833453cba5}
+\index{NTBP\_\-multi\_\-potassium\_\-current\_\-o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}!ShowParam@{ShowParam}}
+\index{ShowParam@{ShowParam}!NTBP_multi_potassium_current_o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}}
+\paragraph[{ShowParam}]{\setlength{\rightskip}{0pt plus 5cm}void NTBP\_\-multi\_\-potassium\_\-current\_\-o::ShowParam (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t_b_p__multi__potassium__current__o_a6cef7cba690c6c5e61ab3802f2a8990f}
+
+
+Reimplemented from \hyperlink{class_n_t_b_p__membrane__current__o_a9bcf3d6786c4467dec1c90378d908869}{NTBP\_\-membrane\_\-current\_\-o}.
+
+\index{NTBP\_\-multi\_\-potassium\_\-current\_\-o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}!StepCurrent@{StepCurrent}}
+\index{StepCurrent@{StepCurrent}!NTBP_multi_potassium_current_o@{NTBP\_\-multi\_\-potassium\_\-current\_\-o}}
+\paragraph[{StepCurrent}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreturn} NTBP\_\-multi\_\-potassium\_\-current\_\-o::StepCurrent (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t_b_p__multi__potassium__current__o_a9c6a84403518b0bff4d857300a2147ac}
+
+
+Implements \hyperlink{class_n_t_b_p__membrane__current__o_a423b482d830c9c70098502114477c057}{NTBP\_\-membrane\_\-current\_\-o}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{ntbp__multi__potassium__current__obj_8h}{ntbp\_\-multi\_\-potassium\_\-current\_\-obj.h}\end{DoxyCompactItemize}

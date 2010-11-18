@@ -1,0 +1,34 @@
+\subsection{transv.h File Reference}
+\label{transv_8h}\index{transv.h@{transv.h}}
+{\ttfamily \#include $<$iostream$>$}\par
+{\ttfamily \#include $<$cassert$>$}\par
+{\ttfamily \#include \char`\"{}tnt/vec.h\char`\"{}}\par
+Include dependency graph for transv.h:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{transv_8h__incl}
+\end{center}
+\end{figure}
+\subsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_t_n_t_1_1_transpose___view}{TNT::Transpose\_\-View$<$ Array2D $>$}
+\end{DoxyCompactItemize}
+\subsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \hyperlink{namespace_t_n_t}{TNT}
+\end{DoxyCompactItemize}
+\subsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Matrix $>$ }\\Transpose\_\-View$<$ Matrix $>$ \hyperlink{namespace_t_n_t_a5325ff6dafd079320dad52475593f687}{TNT::Transpose\_\-view} (const Matrix \&A)
+\item 
+{\footnotesize template$<$class Matrix , class T $>$ }\\Vector$<$ T $>$ \hyperlink{namespace_t_n_t_a5e35a0a5d4507d7dc274fa0399252000}{TNT::matmult} (const Transpose\_\-View$<$ Matrix $>$ \&A, const Vector$<$ T $>$ \&B)
+\item 
+{\footnotesize template$<$class Matrix , class T $>$ }\\Vector$<$ T $>$ \hyperlink{namespace_t_n_t_aa6782c3fa7e3a339434cc420242f11b1}{TNT::operator$\ast$} (const Transpose\_\-View$<$ Matrix $>$ \&A, const Vector$<$ T $>$ \&B)
+\item 
+{\footnotesize template$<$class Matrix $>$ }\\std::ostream \& \hyperlink{namespace_t_n_t_a6034dfdd9bbc03b3a635ee630ed7d73e}{TNT::operator$<$$<$} (std::ostream \&s, const Transpose\_\-View$<$ Matrix $>$ \&A)
+\end{DoxyCompactItemize}

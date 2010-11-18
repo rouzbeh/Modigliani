@@ -1,0 +1,115 @@
+\subsection{NT\_\-o Class Reference}
+\label{class_n_t__o}\index{NT\_\-o@{NT\_\-o}}
+
+
+Master class for all NT objects.  
+
+
+
+
+{\ttfamily \#include $<$nt\_\-obj.h$>$}
+
+
+
+Inheritance diagram for NT\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=600pt]{class_n_t__o__inherit__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_t__o_a2e4087929eaf708b019b23efd6cd0381}{NT\_\-o} ()
+\item 
+\hyperlink{class_n_t__o_abf85ce077443de2b1a6f62dfaf455c9f}{NT\_\-o} (const \hyperlink{class_n_t__o}{NT\_\-o} \&)
+\item 
+virtual \hyperlink{class_n_t__o_ad614f526e71056fdfa688428fb01567c}{$\sim$NT\_\-o} ()
+\item 
+\hyperlink{nt__types_8h_a66974263168dc9ddcc3a275844dc632f}{NTlong} \hyperlink{class_n_t__o_aad7df979665b941b9c8528b7afc2f33e}{\_\-runnId} () const 
+\item 
+\hyperlink{nt__types_8h_a66974263168dc9ddcc3a275844dc632f}{NTlong} \hyperlink{class_n_t__o_a81e72b2ddff2e56258b4cce7af06069f}{\_\-uniqId} () const 
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+It provides object accounting, and a unique identifier (uniqId) for each object. The unique id might become ambigous when uniqId gets greater LONG\_\-MAX. However, the initialisation of each NT object with this class might help in synchronisation of a threaded version. 
+
+Definition at line 79 of file nt\_\-obj.h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{NT\_\-o@{NT\_\-o}!NT\_\-o@{NT\_\-o}}
+\index{NT\_\-o@{NT\_\-o}!NT_o@{NT\_\-o}}
+\paragraph[{NT\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-o::NT\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__o_a2e4087929eaf708b019b23efd6cd0381}
+\index{NT\_\-o@{NT\_\-o}!NT\_\-o@{NT\_\-o}}
+\index{NT\_\-o@{NT\_\-o}!NT_o@{NT\_\-o}}
+\paragraph[{NT\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-o::NT\_\-o (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT\_\-o} \&}]{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__o_abf85ce077443de2b1a6f62dfaf455c9f}
+\index{NT\_\-o@{NT\_\-o}!$\sim$NT\_\-o@{$\sim$NT\_\-o}}
+\index{$\sim$NT\_\-o@{$\sim$NT\_\-o}!NT_o@{NT\_\-o}}
+\paragraph[{$\sim$NT\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}virtual NT\_\-o::$\sim$NT\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t__o_ad614f526e71056fdfa688428fb01567c}
+
+
+\subsubsection{Member Function Documentation}
+\index{NT\_\-o@{NT\_\-o}!\_\-runnId@{\_\-runnId}}
+\index{\_\-runnId@{\_\-runnId}!NT_o@{NT\_\-o}}
+\paragraph[{\_\-runnId}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTlong} NT\_\-o::\_\-runnId (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__o_aad7df979665b941b9c8528b7afc2f33e}
+
+
+Definition at line 106 of file nt\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{
+  return runnId;
+}
+\end{DoxyCode}
+
+
+\index{NT\_\-o@{NT\_\-o}!\_\-uniqId@{\_\-uniqId}}
+\index{\_\-uniqId@{\_\-uniqId}!NT_o@{NT\_\-o}}
+\paragraph[{\_\-uniqId}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTlong} NT\_\-o::\_\-uniqId (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__o_a81e72b2ddff2e56258b4cce7af06069f}
+
+
+Definition at line 119 of file nt\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{
+  return uniqId;
+}
+\end{DoxyCode}
+
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nt__obj_8h}{nt\_\-obj.h}\end{DoxyCompactItemize}

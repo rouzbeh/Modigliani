@@ -1,0 +1,301 @@
+\subsection{NT3D\_\-color\_\-o Class Reference}
+\label{class_n_t3_d__color__o}\index{NT3D\_\-color\_\-o@{NT3D\_\-color\_\-o}}
+
+
+THe \hyperlink{class_n_t3_d__color__o}{NT3D\_\-color\_\-o} class handles the abstract color concept.  
+
+
+
+
+{\ttfamily \#include $<$nt3d\_\-color\_\-obj.h$>$}
+
+
+
+Inheritance diagram for NT3D\_\-color\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=126pt]{class_n_t3_d__color__o__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for NT3D\_\-color\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=126pt]{class_n_t3_d__color__o__coll__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_t3_d__color__o_a59e3a0c0633df3114a0beda2054972ef}{NT3D\_\-color\_\-o} ()
+\item 
+\hyperlink{class_n_t3_d__color__o_a8b53802855908e8ebc4cdfc04082e3c5}{NT3D\_\-color\_\-o} (GLfloat newR, GLfloat newG, GLfloat newB, GLfloat newAlpha)
+\item 
+\hyperlink{class_n_t3_d__color__o_ac460c8eca498cf8c52fee51f64a25fbb}{NT3D\_\-color\_\-o} (const valarray$<$ GLfloat $>$ \&newColorRGBA)
+\item 
+\hyperlink{class_n_t3_d__color__o_ad766301bba9fab28502463d615d8f02d}{NT3D\_\-color\_\-o} (const \hyperlink{class_n_t3_d__color__o}{NT3D\_\-color\_\-o} \&original)
+\item 
+const \hyperlink{class_n_t3_d__color__o}{NT3D\_\-color\_\-o} \& \hyperlink{class_n_t3_d__color__o_a6f2bfd2b6f50804151df046c0c2aa611}{operator=} (const \hyperlink{class_n_t3_d__color__o}{NT3D\_\-color\_\-o} \&right)
+\item 
+\hyperlink{class_n_t3_d__color__o_a10dccf5f4bff4a7ac8dd48dc46b9f5b2}{$\sim$NT3D\_\-color\_\-o} ()
+\item 
+virtual void \hyperlink{class_n_t3_d__color__o_a4dec5640206c3ac38669363b6a1fbd39}{Paint} () const 
+\item 
+void \hyperlink{class_n_t3_d__color__o_a48c5c1e162255c0b100046e98f0d18be}{SetColor} (GLfloat newR, GLfloat newG, GLfloat newB, GLfloat newAlpha)
+\item 
+void \hyperlink{class_n_t3_d__color__o_a7d0554f84d167986700d102f1c0ef047}{SetColor} (const GLfloat newColor\mbox{[}$\,$\mbox{]})
+\item 
+void \hyperlink{class_n_t3_d__color__o_aeb5da422cfc1e027a0c5840af7b846c4}{SetColor} (const \hyperlink{class_n_t3_d__color__o}{NT3D\_\-color\_\-o} \&newColor)
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t3_d__color__o_a37f03e462272144e01357a7ef6a40bcf}{\_\-R} ()
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t3_d__color__o_aae214e50e8d1b730599370f668334f52}{\_\-G} ()
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t3_d__color__o_add822bfe43272e52cb755b6245f2d07b}{\_\-B} ()
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t3_d__color__o_af69a051b04ddb77b0d65c7d943e2ba33}{\_\-Alpha} ()
+\item 
+\hyperlink{class_n_t3_d__color__o}{NT3D\_\-color\_\-o} \hyperlink{class_n_t3_d__color__o_adab35ed08697df0d42b4153d479d781f}{operator+} (const \hyperlink{class_n_t3_d__color__o}{NT3D\_\-color\_\-o} \&right) const 
+\item 
+\hyperlink{class_n_t3_d__color__o}{NT3D\_\-color\_\-o} \hyperlink{class_n_t3_d__color__o_a45635f59e98827c8f01e0cb58b899910}{operator-\/} (const \hyperlink{class_n_t3_d__color__o}{NT3D\_\-color\_\-o} \&right) const 
+\item 
+\hyperlink{class_n_t3_d__color__o}{NT3D\_\-color\_\-o} \hyperlink{class_n_t3_d__color__o_a93a84e84d7d3102198282ca2883c1e8c}{operator$\ast$} (\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} alpha) const 
+\item 
+const GLfloat $\ast$ \hyperlink{class_n_t3_d__color__o_abefbef4adf46862a6deb9c40888024d6}{\_\-colorPtr} ()
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\begin{DoxyWarning}{Warning}
+Once its derived classes are called in the drawing tree they affected ALL subsequent drawing (Modifies OpenGL state). 
+\end{DoxyWarning}
+\begin{Desc}
+\item[\hyperlink{bug__bug000011}{Bug}]unknown \end{Desc}
+
+
+Definition at line 81 of file nt3d\_\-color\_\-obj.h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{NT3D\_\-color\_\-o@{NT3D\_\-color\_\-o}!NT3D\_\-color\_\-o@{NT3D\_\-color\_\-o}}
+\index{NT3D\_\-color\_\-o@{NT3D\_\-color\_\-o}!NT3D_color_o@{NT3D\_\-color\_\-o}}
+\paragraph[{NT3D\_\-color\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT3D\_\-color\_\-o::NT3D\_\-color\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__color__o_a59e3a0c0633df3114a0beda2054972ef}
+\index{NT3D\_\-color\_\-o@{NT3D\_\-color\_\-o}!NT3D\_\-color\_\-o@{NT3D\_\-color\_\-o}}
+\index{NT3D\_\-color\_\-o@{NT3D\_\-color\_\-o}!NT3D_color_o@{NT3D\_\-color\_\-o}}
+\paragraph[{NT3D\_\-color\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT3D\_\-color\_\-o::NT3D\_\-color\_\-o (
+\begin{DoxyParamCaption}
+\item[{GLfloat}]{ newR, }
+\item[{GLfloat}]{ newG, }
+\item[{GLfloat}]{ newB, }
+\item[{GLfloat}]{ newAlpha}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__color__o_a8b53802855908e8ebc4cdfc04082e3c5}
+\index{NT3D\_\-color\_\-o@{NT3D\_\-color\_\-o}!NT3D\_\-color\_\-o@{NT3D\_\-color\_\-o}}
+\index{NT3D\_\-color\_\-o@{NT3D\_\-color\_\-o}!NT3D_color_o@{NT3D\_\-color\_\-o}}
+\paragraph[{NT3D\_\-color\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT3D\_\-color\_\-o::NT3D\_\-color\_\-o (
+\begin{DoxyParamCaption}
+\item[{const valarray$<$ GLfloat $>$ \&}]{ newColorRGBA}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__color__o_ac460c8eca498cf8c52fee51f64a25fbb}
+\index{NT3D\_\-color\_\-o@{NT3D\_\-color\_\-o}!NT3D\_\-color\_\-o@{NT3D\_\-color\_\-o}}
+\index{NT3D\_\-color\_\-o@{NT3D\_\-color\_\-o}!NT3D_color_o@{NT3D\_\-color\_\-o}}
+\paragraph[{NT3D\_\-color\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT3D\_\-color\_\-o::NT3D\_\-color\_\-o (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT3D\_\-color\_\-o} \&}]{ original}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__color__o_ad766301bba9fab28502463d615d8f02d}
+\index{NT3D\_\-color\_\-o@{NT3D\_\-color\_\-o}!$\sim$NT3D\_\-color\_\-o@{$\sim$NT3D\_\-color\_\-o}}
+\index{$\sim$NT3D\_\-color\_\-o@{$\sim$NT3D\_\-color\_\-o}!NT3D_color_o@{NT3D\_\-color\_\-o}}
+\paragraph[{$\sim$NT3D\_\-color\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT3D\_\-color\_\-o::$\sim$NT3D\_\-color\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__color__o_a10dccf5f4bff4a7ac8dd48dc46b9f5b2}
+
+
+\subsubsection{Member Function Documentation}
+\index{NT3D\_\-color\_\-o@{NT3D\_\-color\_\-o}!\_\-Alpha@{\_\-Alpha}}
+\index{\_\-Alpha@{\_\-Alpha}!NT3D_color_o@{NT3D\_\-color\_\-o}}
+\paragraph[{\_\-Alpha}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NT3D\_\-color\_\-o::\_\-Alpha (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t3_d__color__o_af69a051b04ddb77b0d65c7d943e2ba33}
+
+
+Definition at line 98 of file nt3d\_\-color\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ return colorRGBA[3];}
+\end{DoxyCode}
+
+
+\index{NT3D\_\-color\_\-o@{NT3D\_\-color\_\-o}!\_\-B@{\_\-B}}
+\index{\_\-B@{\_\-B}!NT3D_color_o@{NT3D\_\-color\_\-o}}
+\paragraph[{\_\-B}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NT3D\_\-color\_\-o::\_\-B (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t3_d__color__o_add822bfe43272e52cb755b6245f2d07b}
+
+
+Definition at line 97 of file nt3d\_\-color\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ return colorRGBA[2];}
+\end{DoxyCode}
+
+
+\index{NT3D\_\-color\_\-o@{NT3D\_\-color\_\-o}!\_\-colorPtr@{\_\-colorPtr}}
+\index{\_\-colorPtr@{\_\-colorPtr}!NT3D_color_o@{NT3D\_\-color\_\-o}}
+\paragraph[{\_\-colorPtr}]{\setlength{\rightskip}{0pt plus 5cm}const GLfloat$\ast$ NT3D\_\-color\_\-o::\_\-colorPtr (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t3_d__color__o_abefbef4adf46862a6deb9c40888024d6}
+
+
+Definition at line 103 of file nt3d\_\-color\_\-obj.h.
+
+
+
+Referenced by NT3D\_\-light\_\-o::IlluminateAmbient(), NT3D\_\-light\_\-o::IlluminateDiffuse(), and NT3D\_\-light\_\-o::IlluminateSpecular().
+
+
+
+
+\begin{DoxyCode}
+{Update(); return (const GLfloat*) colorPtr;}
+\end{DoxyCode}
+
+
+\index{NT3D\_\-color\_\-o@{NT3D\_\-color\_\-o}!\_\-G@{\_\-G}}
+\index{\_\-G@{\_\-G}!NT3D_color_o@{NT3D\_\-color\_\-o}}
+\paragraph[{\_\-G}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NT3D\_\-color\_\-o::\_\-G (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t3_d__color__o_aae214e50e8d1b730599370f668334f52}
+
+
+Definition at line 96 of file nt3d\_\-color\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ return colorRGBA[1];}
+\end{DoxyCode}
+
+
+\index{NT3D\_\-color\_\-o@{NT3D\_\-color\_\-o}!\_\-R@{\_\-R}}
+\index{\_\-R@{\_\-R}!NT3D_color_o@{NT3D\_\-color\_\-o}}
+\paragraph[{\_\-R}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NT3D\_\-color\_\-o::\_\-R (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t3_d__color__o_a37f03e462272144e01357a7ef6a40bcf}
+
+
+Definition at line 95 of file nt3d\_\-color\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ return colorRGBA[0];}
+\end{DoxyCode}
+
+
+\index{NT3D\_\-color\_\-o@{NT3D\_\-color\_\-o}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!NT3D_color_o@{NT3D\_\-color\_\-o}}
+\paragraph[{operator$\ast$}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NT3D\_\-color\_\-o} NT3D\_\-color\_\-o::operator$\ast$ (
+\begin{DoxyParamCaption}
+\item[{{\bf NTreal}}]{ alpha}
+\end{DoxyParamCaption}
+) const}\hfill\label{class_n_t3_d__color__o_a93a84e84d7d3102198282ca2883c1e8c}
+\index{NT3D\_\-color\_\-o@{NT3D\_\-color\_\-o}!operator+@{operator+}}
+\index{operator+@{operator+}!NT3D_color_o@{NT3D\_\-color\_\-o}}
+\paragraph[{operator+}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NT3D\_\-color\_\-o} NT3D\_\-color\_\-o::operator+ (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT3D\_\-color\_\-o} \&}]{ right}
+\end{DoxyParamCaption}
+) const}\hfill\label{class_n_t3_d__color__o_adab35ed08697df0d42b4153d479d781f}
+\index{NT3D\_\-color\_\-o@{NT3D\_\-color\_\-o}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!NT3D_color_o@{NT3D\_\-color\_\-o}}
+\paragraph[{operator-\/}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NT3D\_\-color\_\-o} NT3D\_\-color\_\-o::operator-\/ (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT3D\_\-color\_\-o} \&}]{ right}
+\end{DoxyParamCaption}
+) const}\hfill\label{class_n_t3_d__color__o_a45635f59e98827c8f01e0cb58b899910}
+\index{NT3D\_\-color\_\-o@{NT3D\_\-color\_\-o}!operator=@{operator=}}
+\index{operator=@{operator=}!NT3D_color_o@{NT3D\_\-color\_\-o}}
+\paragraph[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf NT3D\_\-color\_\-o}\& NT3D\_\-color\_\-o::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT3D\_\-color\_\-o} \&}]{ right}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__color__o_a6f2bfd2b6f50804151df046c0c2aa611}
+\index{NT3D\_\-color\_\-o@{NT3D\_\-color\_\-o}!Paint@{Paint}}
+\index{Paint@{Paint}!NT3D_color_o@{NT3D\_\-color\_\-o}}
+\paragraph[{Paint}]{\setlength{\rightskip}{0pt plus 5cm}virtual void NT3D\_\-color\_\-o::Paint (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}\hfill\label{class_n_t3_d__color__o_a4dec5640206c3ac38669363b6a1fbd39}
+
+
+Definition at line 91 of file nt3d\_\-color\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ glColor4fv(colorPtr);}
+\end{DoxyCode}
+
+
+\index{NT3D\_\-color\_\-o@{NT3D\_\-color\_\-o}!SetColor@{SetColor}}
+\index{SetColor@{SetColor}!NT3D_color_o@{NT3D\_\-color\_\-o}}
+\paragraph[{SetColor}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-color\_\-o::SetColor (
+\begin{DoxyParamCaption}
+\item[{const GLfloat}]{ newColor\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__color__o_a7d0554f84d167986700d102f1c0ef047}
+\index{NT3D\_\-color\_\-o@{NT3D\_\-color\_\-o}!SetColor@{SetColor}}
+\index{SetColor@{SetColor}!NT3D_color_o@{NT3D\_\-color\_\-o}}
+\paragraph[{SetColor}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-color\_\-o::SetColor (
+\begin{DoxyParamCaption}
+\item[{GLfloat}]{ newR, }
+\item[{GLfloat}]{ newG, }
+\item[{GLfloat}]{ newB, }
+\item[{GLfloat}]{ newAlpha}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__color__o_a48c5c1e162255c0b100046e98f0d18be}
+\index{NT3D\_\-color\_\-o@{NT3D\_\-color\_\-o}!SetColor@{SetColor}}
+\index{SetColor@{SetColor}!NT3D_color_o@{NT3D\_\-color\_\-o}}
+\paragraph[{SetColor}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-color\_\-o::SetColor (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT3D\_\-color\_\-o} \&}]{ newColor}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__color__o_aeb5da422cfc1e027a0c5840af7b846c4}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nt3d__color__obj_8h}{nt3d\_\-color\_\-obj.h}\end{DoxyCompactItemize}

@@ -1,0 +1,49 @@
+.TH "dmatrix.h" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+dmatrix.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <iostream>\fP
+.br
+\fC#include <stdlib>\fP
+.br
+\fC#include <iomanip>\fP
+.br
+\fC#include <string.h>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBDMatrix\fP"
+.br
+.RI "\fI\fBdmatrix.h\fP Header-File for a Double-Matrix-Class Released 14.7.1997 , afaisal@techfak.uni-bielefeld.de \fP"
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "istream & \fBoperator>>\fP (istream &is, \fBDMatrix\fP &m)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "istream& operator>> (istream & is, \fBDMatrix\fP & m)"
+.PP
+Definition at line 319 of file dmatrix.h.
+.PP
+.nf
+{
+  for (int i = 1; i <= m.row; i++)
+    for (int j = 1; j <= m.col; j++)
+      is >> m(i,j);
+  return is;
+}
+.fi
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

@@ -1,0 +1,129 @@
+.TH "NTBP_object_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NTBP_object_o \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ntbp_object_obj.h>\fP
+.PP
+Inherits \fBNT_o\fP.
+.PP
+Inherited by \fBNTBP_ion_channels_o\fP, \fBNTBP_membrane_compartment_o\fP, \fBNTBP_membrane_current_o\fP, and \fBNTBP_membrane_o\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNTBP_object_o\fP ()"
+.br
+.ti -1c
+.RI "\fBNTBP_object_o\fP (const \fBNTBP_object_o\fP &original)"
+.br
+.ti -1c
+.RI "const \fBNTBP_object_o\fP & \fBoperator=\fP (const \fBNTBP_object_o\fP &right)"
+.br
+.ti -1c
+.RI "virtual \fB~NTBP_object_o\fP ()"
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fB_timeStep\fP () const "
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fBUpdateTimeStep\fP (\fBNTreal\fP newSuggestedTimeStep)"
+.br
+.RI "\fIupdate of explicitly time dependent variables using a deltaT = timeStep, NO update of dependent variables \fP"
+.ti -1c
+.RI "virtual \fBNTreturn\fP \fBStep\fP ()"
+.br
+.ti -1c
+.RI "\fBNTreturn\fP \fBStepNTBP\fP ()"
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fB_timeStep\fP ()"
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fB_baseTimeStep\fP ()"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Definition at line 81 of file ntbp_object_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "NTBP_object_o::NTBP_object_o ()"
+.SS "NTBP_object_o::NTBP_object_o (const \fBNTBP_object_o\fP & original)"
+.SS "virtual NTBP_object_o::~NTBP_object_o ()\fC [virtual]\fP"
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBNTreal\fP NTBP_object_o::_baseTimeStep ()\fC [inline]\fP"
+.PP
+Definition at line 101 of file ntbp_object_obj.h.
+.PP
+.nf
+{ return baseTimeStep;}
+.fi
+.SS "\fBNTreal\fP NTBP_object_o::_timeStep ()\fC [inline]\fP"
+.PP
+Definition at line 100 of file ntbp_object_obj.h.
+.PP
+.nf
+{ return timeStep;}
+.fi
+.SS "\fBNTreal\fP NTBP_object_o::_timeStep () const\fC [inline]\fP"
+.PP
+Definition at line 89 of file ntbp_object_obj.h.
+.PP
+.nf
+{ return timeStep; }
+.fi
+.SS "const \fBNTBP_object_o\fP& NTBP_object_o::operator= (const \fBNTBP_object_o\fP & right)"
+.SS "virtual \fBNTreturn\fP NTBP_object_o::Step ()\fC [inline, virtual]\fP"
+.PP
+Reimplemented in \fBNTBP_membrane_compartment_sequence_o\fP, \fBNTBP_membrane_patch_o\fP, \fBNTBP_patlak_sodium_ion_channels_o\fP, \fBNTBP_potassium_ion_channels_o\fP, and \fBNTBP_sodium_ion_channels_o\fP.
+.PP
+Definition at line 98 of file ntbp_object_obj.h.
+.PP
+.nf
+{ cerr << 'NTBP_object_o:Step() - Warning : Non-overriden base method () called by derived class.' << endl; return NT_NOT_IMPLEMENTED; }
+.fi
+.SS "\fBNTreturn\fP NTBP_object_o::StepNTBP ()\fC [inline]\fP"
+.PP
+Definition at line 99 of file ntbp_object_obj.h.
+.PP
+.nf
+{ timeStep = suggestedTimeStep; return NT_SUCCESS;}
+.fi
+.SS "\fBNTreal\fP NTBP_object_o::UpdateTimeStep (\fBNTreal\fP newSuggestedTimeStep)\fC [inline]\fP"\fBParameters:\fP
+.RS 4
+\fInone\fP 
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+none 
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+indirectly time dependent variables NOT updated 
+.RE
+.PP
+\fBBug\fP
+.RS 4
+unknown 
+.RE
+.PP
+
+.PP
+Definition at line 97 of file ntbp_object_obj.h.
+.PP
+.nf
+{ /* if (suggestedTimeStep > newSuggestedTimeStep) */ suggestedTimeStep = newSuggestedTimeStep; return newSuggestedTimeStep; }
+.fi
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

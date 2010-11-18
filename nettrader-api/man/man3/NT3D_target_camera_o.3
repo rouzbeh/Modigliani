@@ -1,0 +1,67 @@
+.TH "NT3D_target_camera_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NT3D_target_camera_o \- 
+.PP
+\fBNT3D_target_camera_o\fP class Provides an abstraction of a positionable camera which looks at a fixed target specified in camera coordinates.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <nt3d_target_camera_obj.h>\fP
+.PP
+Inherits \fBNT3D_camera_o\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNT3D_target_camera_o\fP (const \fBNT_vector3_o\fP &oNewPosition=NT_OriginVec3(), const \fBNT_vector3_o\fP &oNewTarget=NT_UnitXVec3())"
+.br
+.ti -1c
+.RI "\fBNT3D_target_camera_o\fP (const \fBNT3D_target_camera_o\fP &original)"
+.br
+.ti -1c
+.RI "const \fBNT3D_target_camera_o\fP & \fBoperator=\fP (const \fBNT3D_target_camera_o\fP &right)"
+.br
+.ti -1c
+.RI "\fB~NT3D_target_camera_o\fP ()"
+.br
+.ti -1c
+.RI "void \fBDraw\fP ()"
+.br
+.RI "\fIset the camera position, i.e. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+The camera can be translated in space whith the view always pointing at the target coordinates. 
+.PP
+\fBBug\fP
+.RS 4
+unknown 
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+Rotation of this camera has no effect 
+.RE
+.PP
+
+.PP
+Definition at line 68 of file nt3d_target_camera_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "NT3D_target_camera_o::NT3D_target_camera_o (const \fBNT_vector3_o\fP & oNewPosition = \fCNT_OriginVec3()\fP, const \fBNT_vector3_o\fP & oNewTarget = \fCNT_UnitXVec3()\fP)"
+.SS "NT3D_target_camera_o::NT3D_target_camera_o (const \fBNT3D_target_camera_o\fP & original)"
+.SS "NT3D_target_camera_o::~NT3D_target_camera_o ()"
+.SH "Member Function Documentation"
+.PP 
+.SS "void NT3D_target_camera_o::Draw ()\fC [virtual]\fP"set the projection and viewing transformation, The method is virtual such that derived classes can overwrite it 
+.PP
+Reimplemented from \fBNT3D_camera_o\fP.
+.SS "const \fBNT3D_target_camera_o\fP& NT3D_target_camera_o::operator= (const \fBNT3D_target_camera_o\fP & right)"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

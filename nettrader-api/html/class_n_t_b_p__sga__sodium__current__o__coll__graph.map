@@ -1,0 +1,11 @@
+<map id="G" name="G">
+<area shape="rect" id="node2" href="$class_n_t_b_p__channels__current__o.html" title="NTBP_channels_current_o class Base class for stochastic channel simulations of individual channels..." alt="" coords="135,373,321,403"/>
+<area shape="rect" id="node4" href="$class_n_t_b_p__membrane__current__o.html" title="NTBP_membrane_current_o class Represents the current accross a membrane, with its generalisable prope..." alt="" coords="5,277,208,307"/>
+<area shape="rect" id="node6" href="$class_n_t_b_p__object__o.html" title="NTBP_object_o" alt="" coords="48,181,165,211"/>
+<area shape="rect" id="node17" href="$class_n_t_b_p__ion__channels__o.html" title="NTBP_ion_channels_o class." alt="" coords="232,277,392,307"/>
+<area shape="rect" id="node8" href="$class_n_t__o.html" title="Master class for all NT objects." alt="" coords="137,5,191,35"/>
+<area shape="rect" id="node12" href="$class_n_t__rnd__dist__o.html" title="NT_rnd_dist_o is a parent object to individual random distribution objects." alt="" coords="217,101,329,131"/>
+<area shape="rect" id="node10" href="$class_n_t__uniform__rnd__dist__o.html" title="NT_uniform_rnd_dist_o returns values out of a uniform random distribution objects." alt="" coords="189,181,357,211"/>
+<area shape="rect" id="node21" href="$class_n_t__binomial__rnd__dist__o.html" title="NT_binomial_rnd_dist_o class." alt="" coords="381,181,555,211"/>
+<area shape="rect" id="node15" href="$class_m_t_rand.html" title="file nt_mersenne_twiser_external_obj.h &#45; uniform random number class 1:1 copy from MersenneTwister..." alt="" coords="237,5,309,35"/>
+</map>

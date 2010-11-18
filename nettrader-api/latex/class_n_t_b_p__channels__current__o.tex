@@ -1,0 +1,304 @@
+\subsection{NTBP\_\-channels\_\-current\_\-o Class Reference}
+\label{class_n_t_b_p__channels__current__o}\index{NTBP\_\-channels\_\-current\_\-o@{NTBP\_\-channels\_\-current\_\-o}}
+
+
+\hyperlink{class_n_t_b_p__channels__current__o}{NTBP\_\-channels\_\-current\_\-o} class Base class for stochastic channel simulations of individual channels.  
+
+
+
+
+{\ttfamily \#include $<$ntbp\_\-channels\_\-current\_\-obj.h$>$}
+
+
+
+Inheritance diagram for NTBP\_\-channels\_\-current\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_n_t_b_p__channels__current__o__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for NTBP\_\-channels\_\-current\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_n_t_b_p__channels__current__o__coll__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_t_b_p__channels__current__o_a2686cc84f08591900f708031acb7f1d2}{NTBP\_\-channels\_\-current\_\-o} (\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} reversalPotential, \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t_b_p__channels__current__o_a8f486ec47e3aeef298a33b735758aa9f}{density}, \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t_b_p__channels__current__o_af88f0d6c8df84ab148c87484f39ee2b7}{area}, \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t_b_p__channels__current__o_a9e93074869bcaabf578ca447196cccbb}{conductivity})
+\item 
+\hyperlink{class_n_t_b_p__channels__current__o_a05f9faf05996530089b8f363591ea744}{NTBP\_\-channels\_\-current\_\-o} (const \hyperlink{class_n_t_b_p__channels__current__o}{NTBP\_\-channels\_\-current\_\-o} \&original)
+\item 
+const \hyperlink{class_n_t_b_p__channels__current__o}{NTBP\_\-channels\_\-current\_\-o} \& \hyperlink{class_n_t_b_p__channels__current__o_ad76d582cb06acaa396711d686461601f}{operator=} (const \hyperlink{class_n_t_b_p__channels__current__o}{NTBP\_\-channels\_\-current\_\-o} \&right)
+\item 
+virtual \hyperlink{class_n_t_b_p__channels__current__o_ae12328d76e8b20245d5ee54364a66b84}{$\sim$NTBP\_\-channels\_\-current\_\-o} ()
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t_b_p__channels__current__o_a583c77a1b897c0dcddd07fbd045bd5ef}{\_\-density} () const 
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t_b_p__channels__current__o_ab5b6c789ecbf96751486e5110a42116e}{\_\-area} () const 
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t_b_p__channels__current__o_acb485c679b6ebef58ffabd93a9625bd6}{\_\-conductivity} () const 
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t_b_p__channels__current__o_a4b34642d321867d2ad58f40c50316dec}{\_\-maxConductivity} () const 
+\item 
+bool \hyperlink{class_n_t_b_p__channels__current__o_ac72c5e59eed9c5b4fe9ab9efc74ae576}{ComputeGillespieStep} ()
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t_b_p__channels__current__o_a472142e3b4eaba30d098010345861ca1}{ComputeConductance} ()
+\begin{DoxyCompactList}\small\item\em compute and return conductance in mSiemens \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_t_b_p__ion__channels__o}{NTBP\_\-ion\_\-channels\_\-o} $\ast$ \hyperlink{class_n_t_b_p__channels__current__o_a7adaf14a8cc866ae997da8414b864b00}{channelsPtr}
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t_b_p__channels__current__o_a8f486ec47e3aeef298a33b735758aa9f}{density}
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t_b_p__channels__current__o_af88f0d6c8df84ab148c87484f39ee2b7}{area}
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t_b_p__channels__current__o_a9e93074869bcaabf578ca447196cccbb}{conductivity}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\begin{Desc}
+\item[\hyperlink{bug__bug000053}{Bug}]unknown \end{Desc}
+\begin{DoxyWarning}{Warning}
+unknown 
+\end{DoxyWarning}
+
+
+Definition at line 52 of file ntbp\_\-channels\_\-current\_\-obj.h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{NTBP\_\-channels\_\-current\_\-o@{NTBP\_\-channels\_\-current\_\-o}!NTBP\_\-channels\_\-current\_\-o@{NTBP\_\-channels\_\-current\_\-o}}
+\index{NTBP\_\-channels\_\-current\_\-o@{NTBP\_\-channels\_\-current\_\-o}!NTBP_channels_current_o@{NTBP\_\-channels\_\-current\_\-o}}
+\paragraph[{NTBP\_\-channels\_\-current\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NTBP\_\-channels\_\-current\_\-o::NTBP\_\-channels\_\-current\_\-o (
+\begin{DoxyParamCaption}
+\item[{{\bf NTreal}}]{ reversalPotential, }
+\item[{{\bf NTreal}}]{ density, }
+\item[{{\bf NTreal}}]{ area, }
+\item[{{\bf NTreal}}]{ conductivity}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t_b_p__channels__current__o_a2686cc84f08591900f708031acb7f1d2}
+\index{NTBP\_\-channels\_\-current\_\-o@{NTBP\_\-channels\_\-current\_\-o}!NTBP\_\-channels\_\-current\_\-o@{NTBP\_\-channels\_\-current\_\-o}}
+\index{NTBP\_\-channels\_\-current\_\-o@{NTBP\_\-channels\_\-current\_\-o}!NTBP_channels_current_o@{NTBP\_\-channels\_\-current\_\-o}}
+\paragraph[{NTBP\_\-channels\_\-current\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NTBP\_\-channels\_\-current\_\-o::NTBP\_\-channels\_\-current\_\-o (
+\begin{DoxyParamCaption}
+\item[{const {\bf NTBP\_\-channels\_\-current\_\-o} \&}]{ original}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t_b_p__channels__current__o_a05f9faf05996530089b8f363591ea744}
+\index{NTBP\_\-channels\_\-current\_\-o@{NTBP\_\-channels\_\-current\_\-o}!$\sim$NTBP\_\-channels\_\-current\_\-o@{$\sim$NTBP\_\-channels\_\-current\_\-o}}
+\index{$\sim$NTBP\_\-channels\_\-current\_\-o@{$\sim$NTBP\_\-channels\_\-current\_\-o}!NTBP_channels_current_o@{NTBP\_\-channels\_\-current\_\-o}}
+\paragraph[{$\sim$NTBP\_\-channels\_\-current\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}virtual NTBP\_\-channels\_\-current\_\-o::$\sim$NTBP\_\-channels\_\-current\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t_b_p__channels__current__o_ae12328d76e8b20245d5ee54364a66b84}
+
+
+\subsubsection{Member Function Documentation}
+\index{NTBP\_\-channels\_\-current\_\-o@{NTBP\_\-channels\_\-current\_\-o}!\_\-area@{\_\-area}}
+\index{\_\-area@{\_\-area}!NTBP_channels_current_o@{NTBP\_\-channels\_\-current\_\-o}}
+\paragraph[{\_\-area}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NTBP\_\-channels\_\-current\_\-o::\_\-area (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t_b_p__channels__current__o_ab5b6c789ecbf96751486e5110a42116e}
+
+
+Definition at line 60 of file ntbp\_\-channels\_\-current\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ return density;}
+\end{DoxyCode}
+
+
+\index{NTBP\_\-channels\_\-current\_\-o@{NTBP\_\-channels\_\-current\_\-o}!\_\-conductivity@{\_\-conductivity}}
+\index{\_\-conductivity@{\_\-conductivity}!NTBP_channels_current_o@{NTBP\_\-channels\_\-current\_\-o}}
+\paragraph[{\_\-conductivity}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NTBP\_\-channels\_\-current\_\-o::\_\-conductivity (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t_b_p__channels__current__o_acb485c679b6ebef58ffabd93a9625bd6}
+
+
+Definition at line 62 of file ntbp\_\-channels\_\-current\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ return density;}
+\end{DoxyCode}
+
+
+\index{NTBP\_\-channels\_\-current\_\-o@{NTBP\_\-channels\_\-current\_\-o}!\_\-density@{\_\-density}}
+\index{\_\-density@{\_\-density}!NTBP_channels_current_o@{NTBP\_\-channels\_\-current\_\-o}}
+\paragraph[{\_\-density}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NTBP\_\-channels\_\-current\_\-o::\_\-density (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t_b_p__channels__current__o_a583c77a1b897c0dcddd07fbd045bd5ef}
+
+
+Definition at line 59 of file ntbp\_\-channels\_\-current\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ return density;}
+\end{DoxyCode}
+
+
+\index{NTBP\_\-channels\_\-current\_\-o@{NTBP\_\-channels\_\-current\_\-o}!\_\-maxConductivity@{\_\-maxConductivity}}
+\index{\_\-maxConductivity@{\_\-maxConductivity}!NTBP_channels_current_o@{NTBP\_\-channels\_\-current\_\-o}}
+\paragraph[{\_\-maxConductivity}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NTBP\_\-channels\_\-current\_\-o::\_\-maxConductivity (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}\hfill\label{class_n_t_b_p__channels__current__o_a4b34642d321867d2ad58f40c50316dec}
+
+
+Implements \hyperlink{class_n_t_b_p__membrane__current__o_ac6d13af9946a4714da459cb6cd4ff915}{NTBP\_\-membrane\_\-current\_\-o}.
+
+
+
+Definition at line 64 of file ntbp\_\-channels\_\-current\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ return density;}
+\end{DoxyCode}
+
+
+\index{NTBP\_\-channels\_\-current\_\-o@{NTBP\_\-channels\_\-current\_\-o}!ComputeConductance@{ComputeConductance}}
+\index{ComputeConductance@{ComputeConductance}!NTBP_channels_current_o@{NTBP\_\-channels\_\-current\_\-o}}
+\paragraph[{ComputeConductance}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NTBP\_\-channels\_\-current\_\-o::ComputeConductance (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}\hfill\label{class_n_t_b_p__channels__current__o_a472142e3b4eaba30d098010345861ca1}
+
+
+Implements \hyperlink{class_n_t_b_p__membrane__current__o_a7462cc87d283cb6663aac47a29b06a96}{NTBP\_\-membrane\_\-current\_\-o}.
+
+
+
+Reimplemented in \hyperlink{class_n_t_b_p__delayed__potassium__rectifier__current__o_a3cabb7013d0a6243efd4906b1e462759}{NTBP\_\-delayed\_\-potassium\_\-rectifier\_\-current\_\-o}.
+
+
+
+Definition at line 67 of file ntbp\_\-channels\_\-current\_\-obj.h.
+
+
+
+References area.
+
+
+
+
+\begin{DoxyCode}
+{ return area; }
+\end{DoxyCode}
+
+
+\index{NTBP\_\-channels\_\-current\_\-o@{NTBP\_\-channels\_\-current\_\-o}!ComputeGillespieStep@{ComputeGillespieStep}}
+\index{ComputeGillespieStep@{ComputeGillespieStep}!NTBP_channels_current_o@{NTBP\_\-channels\_\-current\_\-o}}
+\paragraph[{ComputeGillespieStep}]{\setlength{\rightskip}{0pt plus 5cm}bool NTBP\_\-channels\_\-current\_\-o::ComputeGillespieStep (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}\hfill\label{class_n_t_b_p__channels__current__o_ac72c5e59eed9c5b4fe9ab9efc74ae576}
+
+
+Reimplemented from \hyperlink{class_n_t_b_p__membrane__current__o_a3f794ba9d58f59a2187f8a771a2532af}{NTBP\_\-membrane\_\-current\_\-o}.
+
+
+
+Definition at line 66 of file ntbp\_\-channels\_\-current\_\-obj.h.
+
+
+
+References density.
+
+
+
+
+\begin{DoxyCode}
+{ return density;}
+\end{DoxyCode}
+
+
+\index{NTBP\_\-channels\_\-current\_\-o@{NTBP\_\-channels\_\-current\_\-o}!operator=@{operator=}}
+\index{operator=@{operator=}!NTBP_channels_current_o@{NTBP\_\-channels\_\-current\_\-o}}
+\paragraph[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf NTBP\_\-channels\_\-current\_\-o}\& NTBP\_\-channels\_\-current\_\-o::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf NTBP\_\-channels\_\-current\_\-o} \&}]{ right}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t_b_p__channels__current__o_ad76d582cb06acaa396711d686461601f}
+
+
+\subsubsection{Member Data Documentation}
+\index{NTBP\_\-channels\_\-current\_\-o@{NTBP\_\-channels\_\-current\_\-o}!area@{area}}
+\index{area@{area}!NTBP_channels_current_o@{NTBP\_\-channels\_\-current\_\-o}}
+\paragraph[{area}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} {\bf NTBP\_\-channels\_\-current\_\-o::area}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_n_t_b_p__channels__current__o_af88f0d6c8df84ab148c87484f39ee2b7}
+
+
+Definition at line 74 of file ntbp\_\-channels\_\-current\_\-obj.h.
+
+
+
+Referenced by ComputeConductance().
+
+\index{NTBP\_\-channels\_\-current\_\-o@{NTBP\_\-channels\_\-current\_\-o}!channelsPtr@{channelsPtr}}
+\index{channelsPtr@{channelsPtr}!NTBP_channels_current_o@{NTBP\_\-channels\_\-current\_\-o}}
+\paragraph[{channelsPtr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTBP\_\-ion\_\-channels\_\-o}$\ast$ {\bf NTBP\_\-channels\_\-current\_\-o::channelsPtr}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_n_t_b_p__channels__current__o_a7adaf14a8cc866ae997da8414b864b00}
+
+
+Definition at line 72 of file ntbp\_\-channels\_\-current\_\-obj.h.
+
+
+
+Referenced by NTBP\_\-delayed\_\-potassium\_\-rectifier\_\-current\_\-o::ComputeConductance(), NTBP\_\-sga\_\-sodium\_\-current\_\-o::Show(), and NTBP\_\-sga\_\-sodium\_\-current\_\-o::ShowChannelStatePopulation().
+
+\index{NTBP\_\-channels\_\-current\_\-o@{NTBP\_\-channels\_\-current\_\-o}!conductivity@{conductivity}}
+\index{conductivity@{conductivity}!NTBP_channels_current_o@{NTBP\_\-channels\_\-current\_\-o}}
+\paragraph[{conductivity}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} {\bf NTBP\_\-channels\_\-current\_\-o::conductivity}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_n_t_b_p__channels__current__o_a9e93074869bcaabf578ca447196cccbb}
+
+
+Definition at line 75 of file ntbp\_\-channels\_\-current\_\-obj.h.
+
+
+
+Referenced by NTBP\_\-delayed\_\-potassium\_\-rectifier\_\-current\_\-o::ComputeConductance().
+
+\index{NTBP\_\-channels\_\-current\_\-o@{NTBP\_\-channels\_\-current\_\-o}!density@{density}}
+\index{density@{density}!NTBP_channels_current_o@{NTBP\_\-channels\_\-current\_\-o}}
+\paragraph[{density}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} {\bf NTBP\_\-channels\_\-current\_\-o::density}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_n_t_b_p__channels__current__o_a8f486ec47e3aeef298a33b735758aa9f}
+
+
+Definition at line 73 of file ntbp\_\-channels\_\-current\_\-obj.h.
+
+
+
+Referenced by ComputeGillespieStep().
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{ntbp__channels__current__obj_8h}{ntbp\_\-channels\_\-current\_\-obj.h}\end{DoxyCompactItemize}

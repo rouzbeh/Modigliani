@@ -1,0 +1,180 @@
+\subsection{NT\_\-gaussian\_\-rnd\_\-dist\_\-o Class Reference}
+\label{class_n_t__gaussian__rnd__dist__o}\index{NT\_\-gaussian\_\-rnd\_\-dist\_\-o@{NT\_\-gaussian\_\-rnd\_\-dist\_\-o}}
+
+
+\hyperlink{class_n_t__gaussian__rnd__dist__o}{NT\_\-gaussian\_\-rnd\_\-dist\_\-o} returns values out of a gaussian random distribution objects based upon inidividual paramters for each subspace Idea : The usage idea is to call the object which returns a NTreal or \hyperlink{class_n_t__vector__o}{NT\_\-vector\_\-o} containing random values out of its specific distribution \mbox{[}a,b\mbox{]}.  
+
+
+
+
+{\ttfamily \#include $<$nt\_\-gaussian\_\-rnd\_\-dist\_\-obj.h$>$}
+
+
+
+Inheritance diagram for NT\_\-gaussian\_\-rnd\_\-dist\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=176pt]{class_n_t__gaussian__rnd__dist__o__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for NT\_\-gaussian\_\-rnd\_\-dist\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=176pt]{class_n_t__gaussian__rnd__dist__o__coll__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_t__gaussian__rnd__dist__o_abd0a8bde6e73e7cd68c82fd059d1e1ae}{NT\_\-gaussian\_\-rnd\_\-dist\_\-o} ()
+\item 
+\hyperlink{class_n_t__gaussian__rnd__dist__o_a1b9b3aac242228e1318f256cd95653f2}{NT\_\-gaussian\_\-rnd\_\-dist\_\-o} (\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} newMean, \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} newStdDev)
+\item 
+\hyperlink{class_n_t__gaussian__rnd__dist__o_ab6c3beec6162cf19f0516951746e9127}{NT\_\-gaussian\_\-rnd\_\-dist\_\-o} (const \hyperlink{class_n_t__gaussian__rnd__dist__o}{NT\_\-gaussian\_\-rnd\_\-dist\_\-o} \&)
+\item 
+virtual \hyperlink{class_n_t__gaussian__rnd__dist__o_a7735dd9c6f0bb0ec8bed32fe13d420b6}{$\sim$NT\_\-gaussian\_\-rnd\_\-dist\_\-o} ()
+\item 
+\hyperlink{class_n_t__gaussian__rnd__dist__o_ab14f2d1be8e1fb1682c25d99e3104ede}{operator NTreal} () const 
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t__gaussian__rnd__dist__o_ac3e5cb21eeedf835ce4bb23f05bbcc55}{RndVal} () const 
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t__gaussian__rnd__dist__o_a30481ca951c240da4ea14ef7aab956a8}{\_\-stddevi} () const 
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+float \hyperlink{class_n_t__gaussian__rnd__dist__o_accb215ca698eeab1f1f1823f34972424}{gaussian01} () const 
+\end{DoxyCompactItemize}
+\subsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+ostream \& \hyperlink{class_n_t__gaussian__rnd__dist__o_a4b3f9071c8d0e4f2904197e32f2e703c}{operator$<$$<$} (ostream \&os, const \hyperlink{class_n_t__gaussian__rnd__dist__o}{NT\_\-gaussian\_\-rnd\_\-dist\_\-o} \&self)
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+
+
+Definition at line 93 of file nt\_\-gaussian\_\-rnd\_\-dist\_\-obj.h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{NT\_\-gaussian\_\-rnd\_\-dist\_\-o@{NT\_\-gaussian\_\-rnd\_\-dist\_\-o}!NT\_\-gaussian\_\-rnd\_\-dist\_\-o@{NT\_\-gaussian\_\-rnd\_\-dist\_\-o}}
+\index{NT\_\-gaussian\_\-rnd\_\-dist\_\-o@{NT\_\-gaussian\_\-rnd\_\-dist\_\-o}!NT_gaussian_rnd_dist_o@{NT\_\-gaussian\_\-rnd\_\-dist\_\-o}}
+\paragraph[{NT\_\-gaussian\_\-rnd\_\-dist\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-gaussian\_\-rnd\_\-dist\_\-o::NT\_\-gaussian\_\-rnd\_\-dist\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__gaussian__rnd__dist__o_abd0a8bde6e73e7cd68c82fd059d1e1ae}
+\index{NT\_\-gaussian\_\-rnd\_\-dist\_\-o@{NT\_\-gaussian\_\-rnd\_\-dist\_\-o}!NT\_\-gaussian\_\-rnd\_\-dist\_\-o@{NT\_\-gaussian\_\-rnd\_\-dist\_\-o}}
+\index{NT\_\-gaussian\_\-rnd\_\-dist\_\-o@{NT\_\-gaussian\_\-rnd\_\-dist\_\-o}!NT_gaussian_rnd_dist_o@{NT\_\-gaussian\_\-rnd\_\-dist\_\-o}}
+\paragraph[{NT\_\-gaussian\_\-rnd\_\-dist\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-gaussian\_\-rnd\_\-dist\_\-o::NT\_\-gaussian\_\-rnd\_\-dist\_\-o (
+\begin{DoxyParamCaption}
+\item[{{\bf NTreal}}]{ newMean, }
+\item[{{\bf NTreal}}]{ newStdDev}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__gaussian__rnd__dist__o_a1b9b3aac242228e1318f256cd95653f2}
+\index{NT\_\-gaussian\_\-rnd\_\-dist\_\-o@{NT\_\-gaussian\_\-rnd\_\-dist\_\-o}!NT\_\-gaussian\_\-rnd\_\-dist\_\-o@{NT\_\-gaussian\_\-rnd\_\-dist\_\-o}}
+\index{NT\_\-gaussian\_\-rnd\_\-dist\_\-o@{NT\_\-gaussian\_\-rnd\_\-dist\_\-o}!NT_gaussian_rnd_dist_o@{NT\_\-gaussian\_\-rnd\_\-dist\_\-o}}
+\paragraph[{NT\_\-gaussian\_\-rnd\_\-dist\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-gaussian\_\-rnd\_\-dist\_\-o::NT\_\-gaussian\_\-rnd\_\-dist\_\-o (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT\_\-gaussian\_\-rnd\_\-dist\_\-o} \&}]{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__gaussian__rnd__dist__o_ab6c3beec6162cf19f0516951746e9127}
+\index{NT\_\-gaussian\_\-rnd\_\-dist\_\-o@{NT\_\-gaussian\_\-rnd\_\-dist\_\-o}!$\sim$NT\_\-gaussian\_\-rnd\_\-dist\_\-o@{$\sim$NT\_\-gaussian\_\-rnd\_\-dist\_\-o}}
+\index{$\sim$NT\_\-gaussian\_\-rnd\_\-dist\_\-o@{$\sim$NT\_\-gaussian\_\-rnd\_\-dist\_\-o}!NT_gaussian_rnd_dist_o@{NT\_\-gaussian\_\-rnd\_\-dist\_\-o}}
+\paragraph[{$\sim$NT\_\-gaussian\_\-rnd\_\-dist\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}virtual NT\_\-gaussian\_\-rnd\_\-dist\_\-o::$\sim$NT\_\-gaussian\_\-rnd\_\-dist\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t__gaussian__rnd__dist__o_a7735dd9c6f0bb0ec8bed32fe13d420b6}
+
+
+\subsubsection{Member Function Documentation}
+\index{NT\_\-gaussian\_\-rnd\_\-dist\_\-o@{NT\_\-gaussian\_\-rnd\_\-dist\_\-o}!\_\-stddevi@{\_\-stddevi}}
+\index{\_\-stddevi@{\_\-stddevi}!NT_gaussian_rnd_dist_o@{NT\_\-gaussian\_\-rnd\_\-dist\_\-o}}
+\paragraph[{\_\-stddevi}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NT\_\-gaussian\_\-rnd\_\-dist\_\-o::\_\-stddevi (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__gaussian__rnd__dist__o_a30481ca951c240da4ea14ef7aab956a8}
+
+
+Definition at line 101 of file nt\_\-gaussian\_\-rnd\_\-dist\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ return stddevi; };            
+\end{DoxyCode}
+
+
+\index{NT\_\-gaussian\_\-rnd\_\-dist\_\-o@{NT\_\-gaussian\_\-rnd\_\-dist\_\-o}!gaussian01@{gaussian01}}
+\index{gaussian01@{gaussian01}!NT_gaussian_rnd_dist_o@{NT\_\-gaussian\_\-rnd\_\-dist\_\-o}}
+\paragraph[{gaussian01}]{\setlength{\rightskip}{0pt plus 5cm}float NT\_\-gaussian\_\-rnd\_\-dist\_\-o::gaussian01 (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_n_t__gaussian__rnd__dist__o_accb215ca698eeab1f1f1823f34972424}
+\index{NT\_\-gaussian\_\-rnd\_\-dist\_\-o@{NT\_\-gaussian\_\-rnd\_\-dist\_\-o}!operator NTreal@{operator NTreal}}
+\index{operator NTreal@{operator NTreal}!NT_gaussian_rnd_dist_o@{NT\_\-gaussian\_\-rnd\_\-dist\_\-o}}
+\paragraph[{operator NTreal}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-gaussian\_\-rnd\_\-dist\_\-o::operator {\bf NTreal} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__gaussian__rnd__dist__o_ab14f2d1be8e1fb1682c25d99e3104ede}
+
+
+Definition at line 99 of file nt\_\-gaussian\_\-rnd\_\-dist\_\-obj.h.
+
+
+
+References RndVal().
+
+
+
+
+\begin{DoxyCode}
+{return RndVal();}
+\end{DoxyCode}
+
+
+\index{NT\_\-gaussian\_\-rnd\_\-dist\_\-o@{NT\_\-gaussian\_\-rnd\_\-dist\_\-o}!RndVal@{RndVal}}
+\index{RndVal@{RndVal}!NT_gaussian_rnd_dist_o@{NT\_\-gaussian\_\-rnd\_\-dist\_\-o}}
+\paragraph[{RndVal}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NT\_\-gaussian\_\-rnd\_\-dist\_\-o::RndVal (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t__gaussian__rnd__dist__o_ac3e5cb21eeedf835ce4bb23f05bbcc55}
+
+
+Implements \hyperlink{class_n_t__rnd__dist__o_a46234bbd8bd9e2ce5ae0fa7c2065531c}{NT\_\-rnd\_\-dist\_\-o}.
+
+
+
+Referenced by operator NTreal().
+
+
+
+\subsubsection{Friends And Related Function Documentation}
+\index{NT\_\-gaussian\_\-rnd\_\-dist\_\-o@{NT\_\-gaussian\_\-rnd\_\-dist\_\-o}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!NT_gaussian_rnd_dist_o@{NT\_\-gaussian\_\-rnd\_\-dist\_\-o}}
+\paragraph[{operator$<$$<$}]{\setlength{\rightskip}{0pt plus 5cm}ostream\& operator$<$$<$ (
+\begin{DoxyParamCaption}
+\item[{ostream \&}]{ os, }
+\item[{const {\bf NT\_\-gaussian\_\-rnd\_\-dist\_\-o} \&}]{ self}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}friend\mbox{]}}}\hfill\label{class_n_t__gaussian__rnd__dist__o_a4b3f9071c8d0e4f2904197e32f2e703c}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nt__gaussian__rnd__dist__obj_8h}{nt\_\-gaussian\_\-rnd\_\-dist\_\-obj.h}\end{DoxyCompactItemize}

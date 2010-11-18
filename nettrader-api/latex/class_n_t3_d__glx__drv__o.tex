@@ -1,0 +1,270 @@
+\subsection{NT3D\_\-glx\_\-drv\_\-o Class Reference}
+\label{class_n_t3_d__glx__drv__o}\index{NT3D\_\-glx\_\-drv\_\-o@{NT3D\_\-glx\_\-drv\_\-o}}
+
+
+\hyperlink{class_n_t3_d__glx__drv__o}{NT3D\_\-glx\_\-drv\_\-o} class Driver class to provide drawing window for OpenGL under X11 through the GLX extensions (No GLX support required by X server if Mesa is used!).  
+
+
+
+
+{\ttfamily \#include $<$nt3d\_\-glx\_\-drv\_\-obj.h$>$}
+
+
+
+Inheritance diagram for NT3D\_\-glx\_\-drv\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=136pt]{class_n_t3_d__glx__drv__o__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for NT3D\_\-glx\_\-drv\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=162pt]{class_n_t3_d__glx__drv__o__coll__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_t3_d__glx__drv__o_a90e777f965d159d2629b535e65ca2a00}{NT3D\_\-glx\_\-drv\_\-o} (\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} windowWidth=200, \hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} windowHeight=200, bool useCommonContext=false)
+\item 
+\hyperlink{class_n_t3_d__glx__drv__o_afc27ef8361319bb1e2d623abba904e59}{NT3D\_\-glx\_\-drv\_\-o} (const \hyperlink{class_n_t3_d__glx__drv__o}{NT3D\_\-glx\_\-drv\_\-o} \&original)
+\item 
+const \hyperlink{class_n_t3_d__glx__drv__o}{NT3D\_\-glx\_\-drv\_\-o} \& \hyperlink{class_n_t3_d__glx__drv__o_a53e11a33c02df921481a84d398283dfb}{operator=} (const \hyperlink{class_n_t3_d__glx__drv__o}{NT3D\_\-glx\_\-drv\_\-o} \&right)
+\item 
+virtual \hyperlink{class_n_t3_d__glx__drv__o_a43c4d578de808f9bcffc03e6f72c73f4}{$\sim$NT3D\_\-glx\_\-drv\_\-o} ()
+\item 
+\hyperlink{nt__types_8h_ab9564ee8f091e809d21b8451c6683c53}{NTreturn} \hyperlink{class_n_t3_d__glx__drv__o_a70d67b7924d7c1e2af16105c4c5ff5b2}{Open} (\hyperlink{class_n_t3_d__vp__spec__o}{NT3D\_\-vp\_\-spec\_\-o} newWinSpec)
+\item 
+\hyperlink{nt__types_8h_ab9564ee8f091e809d21b8451c6683c53}{NTreturn} \hyperlink{class_n_t3_d__glx__drv__o_a228daddc76b95b376922140edf212e56}{Close} ()
+\item 
+void \hyperlink{class_n_t3_d__glx__drv__o_a87a4df668792c821049de5cb08e6a506}{MakeCurrent} ()
+\begin{DoxyCompactList}\small\item\em makes the window associated with this object the current rendering context \item\end{DoxyCompactList}\item 
+void \hyperlink{class_n_t3_d__glx__drv__o_a8ebd5989b6e692f218feab78a40f1bbe}{SwapBuffer} ()
+\begin{DoxyCompactList}\small\item\em call instead of glXSwapBuffers \item\end{DoxyCompactList}\item 
+\hyperlink{nt__types_8h_ab9564ee8f091e809d21b8451c6683c53}{NTreturn} \hyperlink{class_n_t3_d__glx__drv__o_a1de11d5056f58196f42a555bf36cc70f}{Resize} (\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} width, \hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} height)
+\item 
+\hyperlink{nt__types_8h_ab9564ee8f091e809d21b8451c6683c53}{NTreturn} \hyperlink{class_n_t3_d__glx__drv__o_a539eff709d877c6553d1487f97acf86e}{SetWindowTitle} (string newTitle)
+\item 
+\hyperlink{class_n_t3_d__bitmap__o}{NT3D\_\-bitmap\_\-o} \hyperlink{class_n_t3_d__glx__drv__o_a10e149c94f3063ab5536bd0f4724a692}{View2Bitmap} ()
+\begin{DoxyCompactList}\small\item\em Make sure that the method is called directly after a Draw() to the VP, as neither a \hyperlink{class_n_t3_d__glx__drv__o_a87a4df668792c821049de5cb08e6a506}{MakeCurrent()} nor a Draw() is executed by this method. \item\end{DoxyCompactList}\item 
+\hyperlink{class_n_t3_d__bitmap__o}{NT3D\_\-bitmap\_\-o} $\ast$ \hyperlink{class_n_t3_d__glx__drv__o_ac77add5595df936c23417c191ed41431}{View2BitmapPtr} (\hyperlink{class_n_t3_d__bitmap__o}{NT3D\_\-bitmap\_\-o} $\ast$bmpPtr)
+\item 
+\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} \hyperlink{class_n_t3_d__glx__drv__o_a654a7d3407326315d7267df1f82af8ef}{\_\-width} ()
+\item 
+\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} \hyperlink{class_n_t3_d__glx__drv__o_a020a9283b49cb9de0dc7ed27875ae40f}{\_\-height} ()
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\begin{Desc}
+\item[\hyperlink{bug__bug000016}{Bug}]unknown \end{Desc}
+\begin{DoxyWarning}{Warning}
+When both common and individual contexts are to be used on, make sure that the first VP to open is a common context. Otherwise later opened common VP might miss their propoer drawing object init. 
+\end{DoxyWarning}
+
+
+Definition at line 111 of file nt3d\_\-glx\_\-drv\_\-obj.h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{NT3D\_\-glx\_\-drv\_\-o@{NT3D\_\-glx\_\-drv\_\-o}!NT3D\_\-glx\_\-drv\_\-o@{NT3D\_\-glx\_\-drv\_\-o}}
+\index{NT3D\_\-glx\_\-drv\_\-o@{NT3D\_\-glx\_\-drv\_\-o}!NT3D_glx_drv_o@{NT3D\_\-glx\_\-drv\_\-o}}
+\paragraph[{NT3D\_\-glx\_\-drv\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT3D\_\-glx\_\-drv\_\-o::NT3D\_\-glx\_\-drv\_\-o (
+\begin{DoxyParamCaption}
+\item[{{\bf NTsize}}]{ windowWidth = {\ttfamily 200}, }
+\item[{{\bf NTsize}}]{ windowHeight = {\ttfamily 200}, }
+\item[{bool}]{ useCommonContext = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__glx__drv__o_a90e777f965d159d2629b535e65ca2a00}
+\index{NT3D\_\-glx\_\-drv\_\-o@{NT3D\_\-glx\_\-drv\_\-o}!NT3D\_\-glx\_\-drv\_\-o@{NT3D\_\-glx\_\-drv\_\-o}}
+\index{NT3D\_\-glx\_\-drv\_\-o@{NT3D\_\-glx\_\-drv\_\-o}!NT3D_glx_drv_o@{NT3D\_\-glx\_\-drv\_\-o}}
+\paragraph[{NT3D\_\-glx\_\-drv\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT3D\_\-glx\_\-drv\_\-o::NT3D\_\-glx\_\-drv\_\-o (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT3D\_\-glx\_\-drv\_\-o} \&}]{ original}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__glx__drv__o_afc27ef8361319bb1e2d623abba904e59}
+\index{NT3D\_\-glx\_\-drv\_\-o@{NT3D\_\-glx\_\-drv\_\-o}!$\sim$NT3D\_\-glx\_\-drv\_\-o@{$\sim$NT3D\_\-glx\_\-drv\_\-o}}
+\index{$\sim$NT3D\_\-glx\_\-drv\_\-o@{$\sim$NT3D\_\-glx\_\-drv\_\-o}!NT3D_glx_drv_o@{NT3D\_\-glx\_\-drv\_\-o}}
+\paragraph[{$\sim$NT3D\_\-glx\_\-drv\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}virtual NT3D\_\-glx\_\-drv\_\-o::$\sim$NT3D\_\-glx\_\-drv\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t3_d__glx__drv__o_a43c4d578de808f9bcffc03e6f72c73f4}
+
+
+\subsubsection{Member Function Documentation}
+\index{NT3D\_\-glx\_\-drv\_\-o@{NT3D\_\-glx\_\-drv\_\-o}!\_\-height@{\_\-height}}
+\index{\_\-height@{\_\-height}!NT3D_glx_drv_o@{NT3D\_\-glx\_\-drv\_\-o}}
+\paragraph[{\_\-height}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTsize} NT3D\_\-glx\_\-drv\_\-o::\_\-height (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}\hfill\label{class_n_t3_d__glx__drv__o_a020a9283b49cb9de0dc7ed27875ae40f}
+
+
+Reimplemented from \hyperlink{class_n_t3_d__drv__vp__o_af12c1ecca94476537e10c59d69834921}{NT3D\_\-drv\_\-vp\_\-o}.
+
+
+
+Definition at line 115 of file nt3d\_\-glx\_\-drv\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ /*cerr << "NT3D_glx_drv_o : "<<_uniqId() <<"MC"<<endl;*/
+\end{DoxyCode}
+
+
+\index{NT3D\_\-glx\_\-drv\_\-o@{NT3D\_\-glx\_\-drv\_\-o}!\_\-width@{\_\-width}}
+\index{\_\-width@{\_\-width}!NT3D_glx_drv_o@{NT3D\_\-glx\_\-drv\_\-o}}
+\paragraph[{\_\-width}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTsize} NT3D\_\-glx\_\-drv\_\-o::\_\-width (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}\hfill\label{class_n_t3_d__glx__drv__o_a654a7d3407326315d7267df1f82af8ef}
+
+
+Reimplemented from \hyperlink{class_n_t3_d__drv__vp__o_a22e83e42a3c0646a99d7cdc4273353fb}{NT3D\_\-drv\_\-vp\_\-o}.
+
+
+
+Definition at line 114 of file nt3d\_\-glx\_\-drv\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ /*cerr << "NT3D_glx_drv_o : "<<_uniqId() <<"MC"<<endl;*/
+\end{DoxyCode}
+
+
+\index{NT3D\_\-glx\_\-drv\_\-o@{NT3D\_\-glx\_\-drv\_\-o}!Close@{Close}}
+\index{Close@{Close}!NT3D_glx_drv_o@{NT3D\_\-glx\_\-drv\_\-o}}
+\paragraph[{Close}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreturn} NT3D\_\-glx\_\-drv\_\-o::Close (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t3_d__glx__drv__o_a228daddc76b95b376922140edf212e56}
+
+
+Reimplemented from \hyperlink{class_n_t3_d__drv__vp__o_a79a3f04b6896f0891c39a1a2904622ce}{NT3D\_\-drv\_\-vp\_\-o}.
+
+\index{NT3D\_\-glx\_\-drv\_\-o@{NT3D\_\-glx\_\-drv\_\-o}!MakeCurrent@{MakeCurrent}}
+\index{MakeCurrent@{MakeCurrent}!NT3D_glx_drv_o@{NT3D\_\-glx\_\-drv\_\-o}}
+\paragraph[{MakeCurrent}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-glx\_\-drv\_\-o::MakeCurrent (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}\hfill\label{class_n_t3_d__glx__drv__o_a87a4df668792c821049de5cb08e6a506}
+
+
+Implements \hyperlink{class_n_t3_d__vp__o_aedc795540953e702cc443560e04c4148}{NT3D\_\-vp\_\-o}.
+
+
+
+Definition at line 99 of file nt3d\_\-glx\_\-drv\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+                     : public NT3D_drv_vp_o {
+\end{DoxyCode}
+
+
+\index{NT3D\_\-glx\_\-drv\_\-o@{NT3D\_\-glx\_\-drv\_\-o}!Open@{Open}}
+\index{Open@{Open}!NT3D_glx_drv_o@{NT3D\_\-glx\_\-drv\_\-o}}
+\paragraph[{Open}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreturn} NT3D\_\-glx\_\-drv\_\-o::Open (
+\begin{DoxyParamCaption}
+\item[{{\bf NT3D\_\-vp\_\-spec\_\-o}}]{ newWinSpec}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t3_d__glx__drv__o_a70d67b7924d7c1e2af16105c4c5ff5b2}
+
+
+Reimplemented from \hyperlink{class_n_t3_d__drv__vp__o_aeb95f8a9906df2c9a09f26a2472eed1e}{NT3D\_\-drv\_\-vp\_\-o}.
+
+\index{NT3D\_\-glx\_\-drv\_\-o@{NT3D\_\-glx\_\-drv\_\-o}!operator=@{operator=}}
+\index{operator=@{operator=}!NT3D_glx_drv_o@{NT3D\_\-glx\_\-drv\_\-o}}
+\paragraph[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf NT3D\_\-glx\_\-drv\_\-o}\& NT3D\_\-glx\_\-drv\_\-o::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT3D\_\-glx\_\-drv\_\-o} \&}]{ right}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__glx__drv__o_a53e11a33c02df921481a84d398283dfb}
+\index{NT3D\_\-glx\_\-drv\_\-o@{NT3D\_\-glx\_\-drv\_\-o}!Resize@{Resize}}
+\index{Resize@{Resize}!NT3D_glx_drv_o@{NT3D\_\-glx\_\-drv\_\-o}}
+\paragraph[{Resize}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreturn} NT3D\_\-glx\_\-drv\_\-o::Resize (
+\begin{DoxyParamCaption}
+\item[{{\bf NTsize}}]{ width, }
+\item[{{\bf NTsize}}]{ height}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t3_d__glx__drv__o_a1de11d5056f58196f42a555bf36cc70f}
+
+
+Reimplemented from \hyperlink{class_n_t3_d__drv__vp__o_a244f59437173a5bec29068348a795bda}{NT3D\_\-drv\_\-vp\_\-o}.
+
+\index{NT3D\_\-glx\_\-drv\_\-o@{NT3D\_\-glx\_\-drv\_\-o}!SetWindowTitle@{SetWindowTitle}}
+\index{SetWindowTitle@{SetWindowTitle}!NT3D_glx_drv_o@{NT3D\_\-glx\_\-drv\_\-o}}
+\paragraph[{SetWindowTitle}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreturn} NT3D\_\-glx\_\-drv\_\-o::SetWindowTitle (
+\begin{DoxyParamCaption}
+\item[{string}]{ newTitle}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__glx__drv__o_a539eff709d877c6553d1487f97acf86e}
+\index{NT3D\_\-glx\_\-drv\_\-o@{NT3D\_\-glx\_\-drv\_\-o}!SwapBuffer@{SwapBuffer}}
+\index{SwapBuffer@{SwapBuffer}!NT3D_glx_drv_o@{NT3D\_\-glx\_\-drv\_\-o}}
+\paragraph[{SwapBuffer}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-glx\_\-drv\_\-o::SwapBuffer (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}\hfill\label{class_n_t3_d__glx__drv__o_a8ebd5989b6e692f218feab78a40f1bbe}
+
+
+Reimplemented from \hyperlink{class_n_t3_d__vp__o_a2d7dc967be0443bfa0fba033a7477d78}{NT3D\_\-vp\_\-o}.
+
+
+
+Definition at line 104 of file nt3d\_\-glx\_\-drv\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+                     : public NT3D_drv_vp_o {
+\end{DoxyCode}
+
+
+\index{NT3D\_\-glx\_\-drv\_\-o@{NT3D\_\-glx\_\-drv\_\-o}!View2Bitmap@{View2Bitmap}}
+\index{View2Bitmap@{View2Bitmap}!NT3D_glx_drv_o@{NT3D\_\-glx\_\-drv\_\-o}}
+\paragraph[{View2Bitmap}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NT3D\_\-bitmap\_\-o} NT3D\_\-glx\_\-drv\_\-o::View2Bitmap (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t3_d__glx__drv__o_a10e149c94f3063ab5536bd0f4724a692}
+
+
+Reimplemented from \hyperlink{class_n_t3_d__drv__vp__o_a9e23b41139b05a0f05c97f284263981b}{NT3D\_\-drv\_\-vp\_\-o}.
+
+\index{NT3D\_\-glx\_\-drv\_\-o@{NT3D\_\-glx\_\-drv\_\-o}!View2BitmapPtr@{View2BitmapPtr}}
+\index{View2BitmapPtr@{View2BitmapPtr}!NT3D_glx_drv_o@{NT3D\_\-glx\_\-drv\_\-o}}
+\paragraph[{View2BitmapPtr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NT3D\_\-bitmap\_\-o}$\ast$ NT3D\_\-glx\_\-drv\_\-o::View2BitmapPtr (
+\begin{DoxyParamCaption}
+\item[{{\bf NT3D\_\-bitmap\_\-o} $\ast$}]{ bmpPtr}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t3_d__glx__drv__o_ac77add5595df936c23417c191ed41431}
+
+
+Reimplemented from \hyperlink{class_n_t3_d__drv__vp__o_a72ef9339925cf05076ccf3aae5d29d79}{NT3D\_\-drv\_\-vp\_\-o}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nt3d__glx__drv__obj_8h}{nt3d\_\-glx\_\-drv\_\-obj.h}\end{DoxyCompactItemize}

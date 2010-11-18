@@ -1,0 +1,171 @@
+.TH "NTBP_channels_current_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NTBP_channels_current_o \- 
+.PP
+\fBNTBP_channels_current_o\fP class Base class for stochastic channel simulations of individual channels.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ntbp_channels_current_obj.h>\fP
+.PP
+Inherits \fBNTBP_membrane_current_o\fP.
+.PP
+Inherited by \fBNTBP_delayed_potassium_rectifier_current_o\fP, and \fBNTBP_sga_sodium_current_o\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNTBP_channels_current_o\fP (\fBNTreal\fP reversalPotential, \fBNTreal\fP \fBdensity\fP, \fBNTreal\fP \fBarea\fP, \fBNTreal\fP \fBconductivity\fP)"
+.br
+.ti -1c
+.RI "\fBNTBP_channels_current_o\fP (const \fBNTBP_channels_current_o\fP &original)"
+.br
+.ti -1c
+.RI "const \fBNTBP_channels_current_o\fP & \fBoperator=\fP (const \fBNTBP_channels_current_o\fP &right)"
+.br
+.ti -1c
+.RI "virtual \fB~NTBP_channels_current_o\fP ()"
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fB_density\fP () const "
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fB_area\fP () const "
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fB_conductivity\fP () const "
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fB_maxConductivity\fP () const "
+.br
+.ti -1c
+.RI "bool \fBComputeGillespieStep\fP ()"
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fBComputeConductance\fP ()"
+.br
+.RI "\fIcompute and return conductance in mSiemens \fP"
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBNTBP_ion_channels_o\fP * \fBchannelsPtr\fP"
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fBdensity\fP"
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fBarea\fP"
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fBconductivity\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBBug\fP
+.RS 4
+unknown 
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+unknown 
+.RE
+.PP
+
+.PP
+Definition at line 52 of file ntbp_channels_current_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "NTBP_channels_current_o::NTBP_channels_current_o (\fBNTreal\fP reversalPotential, \fBNTreal\fP density, \fBNTreal\fP area, \fBNTreal\fP conductivity)"
+.SS "NTBP_channels_current_o::NTBP_channels_current_o (const \fBNTBP_channels_current_o\fP & original)"
+.SS "virtual NTBP_channels_current_o::~NTBP_channels_current_o ()\fC [virtual]\fP"
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBNTreal\fP NTBP_channels_current_o::_area () const\fC [inline]\fP"
+.PP
+Definition at line 60 of file ntbp_channels_current_obj.h.
+.PP
+.nf
+{ return density;}
+.fi
+.SS "\fBNTreal\fP NTBP_channels_current_o::_conductivity () const\fC [inline]\fP"
+.PP
+Definition at line 62 of file ntbp_channels_current_obj.h.
+.PP
+.nf
+{ return density;}
+.fi
+.SS "\fBNTreal\fP NTBP_channels_current_o::_density () const\fC [inline]\fP"
+.PP
+Definition at line 59 of file ntbp_channels_current_obj.h.
+.PP
+.nf
+{ return density;}
+.fi
+.SS "\fBNTreal\fP NTBP_channels_current_o::_maxConductivity () const\fC [inline, virtual]\fP"
+.PP
+Implements \fBNTBP_membrane_current_o\fP.
+.PP
+Definition at line 64 of file ntbp_channels_current_obj.h.
+.PP
+.nf
+{ return density;}
+.fi
+.SS "\fBNTreal\fP NTBP_channels_current_o::ComputeConductance ()\fC [inline, virtual]\fP"
+.PP
+Implements \fBNTBP_membrane_current_o\fP.
+.PP
+Reimplemented in \fBNTBP_delayed_potassium_rectifier_current_o\fP.
+.PP
+Definition at line 67 of file ntbp_channels_current_obj.h.
+.PP
+References area.
+.PP
+.nf
+{ return area; }
+.fi
+.SS "bool NTBP_channels_current_o::ComputeGillespieStep ()\fC [inline, virtual]\fP"
+.PP
+Reimplemented from \fBNTBP_membrane_current_o\fP.
+.PP
+Definition at line 66 of file ntbp_channels_current_obj.h.
+.PP
+References density.
+.PP
+.nf
+{ return density;}
+.fi
+.SS "const \fBNTBP_channels_current_o\fP& NTBP_channels_current_o::operator= (const \fBNTBP_channels_current_o\fP & right)"
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBNTreal\fP \fBNTBP_channels_current_o::area\fP\fC [protected]\fP"
+.PP
+Definition at line 74 of file ntbp_channels_current_obj.h.
+.PP
+Referenced by ComputeConductance().
+.SS "\fBNTBP_ion_channels_o\fP* \fBNTBP_channels_current_o::channelsPtr\fP\fC [protected]\fP"
+.PP
+Definition at line 72 of file ntbp_channels_current_obj.h.
+.PP
+Referenced by NTBP_delayed_potassium_rectifier_current_o::ComputeConductance(), NTBP_sga_sodium_current_o::Show(), and NTBP_sga_sodium_current_o::ShowChannelStatePopulation().
+.SS "\fBNTreal\fP \fBNTBP_channels_current_o::conductivity\fP\fC [protected]\fP"
+.PP
+Definition at line 75 of file ntbp_channels_current_obj.h.
+.PP
+Referenced by NTBP_delayed_potassium_rectifier_current_o::ComputeConductance().
+.SS "\fBNTreal\fP \fBNTBP_channels_current_o::density\fP\fC [protected]\fP"
+.PP
+Definition at line 73 of file ntbp_channels_current_obj.h.
+.PP
+Referenced by ComputeGillespieStep().
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

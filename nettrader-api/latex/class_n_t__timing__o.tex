@@ -1,0 +1,214 @@
+\subsection{NT\_\-timing\_\-o Class Reference}
+\label{class_n_t__timing__o}\index{NT\_\-timing\_\-o@{NT\_\-timing\_\-o}}
+
+
+\hyperlink{class_n_t__timing__o}{NT\_\-timing\_\-o} a stopwatch like measurement object: void \hyperlink{class_n_t__timing__o_a6f77c3f09d24a4f1351e794d1126142c}{start()} : start timing double \hyperlink{class_n_t__timing__o_aa7b5eb7558cf7afab67dab8aefbbd7ed}{stop()} : stop timing void \hyperlink{class_n_t__timing__o_af7e187132a8caa8c6316ca6f5631e437}{reset()} : set elapsed time to 0.0 double \hyperlink{class_n_t__timing__o_a94c4c21db46fc1972380ec3c9c94f514}{read()} : read elapsed time (in seconds).  
+
+
+
+
+{\ttfamily \#include $<$nt\_\-timing\_\-obj.h$>$}
+
+
+
+Inheritance diagram for NT\_\-timing\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=120pt]{class_n_t__timing__o__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for NT\_\-timing\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=120pt]{class_n_t__timing__o__coll__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_t__timing__o_a030e4c84d5bc2ae83464298ff4c90447}{NT\_\-timing\_\-o} ()
+\item 
+void \hyperlink{class_n_t__timing__o_af7e187132a8caa8c6316ca6f5631e437}{reset} ()
+\item 
+void \hyperlink{class_n_t__timing__o_a6f77c3f09d24a4f1351e794d1126142c}{start} ()
+\item 
+\hyperlink{nt__types_8h_a83a0562e7df446bc32e2d8de1675e721}{NTdouble} \hyperlink{class_n_t__timing__o_aa7b5eb7558cf7afab67dab8aefbbd7ed}{stop} ()
+\item 
+\hyperlink{nt__types_8h_a83a0562e7df446bc32e2d8de1675e721}{NTdouble} \hyperlink{class_n_t__timing__o_a94c4c21db46fc1972380ec3c9c94f514}{read} ()
+\item 
+\hyperlink{nt__types_8h_a83a0562e7df446bc32e2d8de1675e721}{NTdouble} \hyperlink{class_n_t__timing__o_a731006e5e25229225d4507f2ecad288a}{seconds} ()
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+
+
+Definition at line 73 of file nt\_\-timing\_\-obj.h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{NT\_\-timing\_\-o@{NT\_\-timing\_\-o}!NT\_\-timing\_\-o@{NT\_\-timing\_\-o}}
+\index{NT\_\-timing\_\-o@{NT\_\-timing\_\-o}!NT_timing_o@{NT\_\-timing\_\-o}}
+\paragraph[{NT\_\-timing\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-timing\_\-o::NT\_\-timing\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__timing__o_a030e4c84d5bc2ae83464298ff4c90447}
+
+
+Definition at line 80 of file nt\_\-timing\_\-obj.h.
+
+
+
+References reset().
+
+
+
+
+\begin{DoxyCode}
+{ reset(); secs_per_tick = 1.0 / CLOCKS_PER_SEC;}
+\end{DoxyCode}
+
+
+
+
+\subsubsection{Member Function Documentation}
+\index{NT\_\-timing\_\-o@{NT\_\-timing\_\-o}!read@{read}}
+\index{read@{read}!NT_timing_o@{NT\_\-timing\_\-o}}
+\paragraph[{read}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTdouble} NT\_\-timing\_\-o::read (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__timing__o_a94c4c21db46fc1972380ec3c9c94f514}
+
+
+Definition at line 90 of file nt\_\-timing\_\-obj.h.
+
+
+
+References seconds().
+
+
+
+
+\begin{DoxyCode}
+                          {  if (isRunning) 
+                            {
+                                total+= seconds() - last_time;
+                                last_time = seconds();
+                            }
+                           return total;
+                        }       
+\end{DoxyCode}
+
+
+\index{NT\_\-timing\_\-o@{NT\_\-timing\_\-o}!reset@{reset}}
+\index{reset@{reset}!NT_timing_o@{NT\_\-timing\_\-o}}
+\paragraph[{reset}]{\setlength{\rightskip}{0pt plus 5cm}void NT\_\-timing\_\-o::reset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__timing__o_af7e187132a8caa8c6316ca6f5631e437}
+
+
+Definition at line 81 of file nt\_\-timing\_\-obj.h.
+
+
+
+Referenced by NT\_\-timing\_\-o().
+
+
+
+
+\begin{DoxyCode}
+{ isRunning = false; last_time = 0.0; total=0.0; }
+\end{DoxyCode}
+
+
+\index{NT\_\-timing\_\-o@{NT\_\-timing\_\-o}!seconds@{seconds}}
+\index{seconds@{seconds}!NT_timing_o@{NT\_\-timing\_\-o}}
+\paragraph[{seconds}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTdouble} NT\_\-timing\_\-o::seconds (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__timing__o_a731006e5e25229225d4507f2ecad288a}
+
+
+Definition at line 97 of file nt\_\-timing\_\-obj.h.
+
+
+
+Referenced by read(), start(), and stop().
+
+
+
+
+\begin{DoxyCode}
+{ return ( (NTdouble) clock() ) * secs_per_tick;}                 
+\end{DoxyCode}
+
+
+\index{NT\_\-timing\_\-o@{NT\_\-timing\_\-o}!start@{start}}
+\index{start@{start}!NT_timing_o@{NT\_\-timing\_\-o}}
+\paragraph[{start}]{\setlength{\rightskip}{0pt plus 5cm}void NT\_\-timing\_\-o::start (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__timing__o_a6f77c3f09d24a4f1351e794d1126142c}
+
+
+Definition at line 82 of file nt\_\-timing\_\-obj.h.
+
+
+
+References seconds().
+
+
+
+
+\begin{DoxyCode}
+{ if (!isRunning) { last_time = seconds(); isRunning = true;}}
+\end{DoxyCode}
+
+
+\index{NT\_\-timing\_\-o@{NT\_\-timing\_\-o}!stop@{stop}}
+\index{stop@{stop}!NT_timing_o@{NT\_\-timing\_\-o}}
+\paragraph[{stop}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTdouble} NT\_\-timing\_\-o::stop (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__timing__o_aa7b5eb7558cf7afab67dab8aefbbd7ed}
+
+
+Definition at line 83 of file nt\_\-timing\_\-obj.h.
+
+
+
+References seconds().
+
+
+
+
+\begin{DoxyCode}
+                         { if (isRunning) 
+                            {
+                                total += seconds() - last_time; 
+                                isRunning = false;
+                             }
+                          return total; 
+                        }
+\end{DoxyCode}
+
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nt__timing__obj_8h}{nt\_\-timing\_\-obj.h}\end{DoxyCompactItemize}

@@ -1,0 +1,6 @@
+<map id="G" name="G">
+<area shape="rect" id="node2" href="$class_n_t_b_p__multi__current__o.html" title="NTBP_multi_current_o class Base class for stochastic channel simulations of individual channels..." alt="" coords="55,237,217,267"/>
+<area shape="rect" id="node4" href="$class_n_t_b_p__membrane__current__o.html" title="NTBP_membrane_current_o class Represents the current accross a membrane, with its generalisable prope..." alt="" coords="35,160,237,189"/>
+<area shape="rect" id="node6" href="$class_n_t_b_p__object__o.html" title="NTBP_object_o" alt="" coords="77,83,195,112"/>
+<area shape="rect" id="node8" href="$class_n_t__o.html" title="Master class for all NT objects." alt="" coords="109,5,163,35"/>
+</map>

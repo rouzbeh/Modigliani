@@ -1,0 +1,1037 @@
+\subsection{MTRand Class Reference}
+\label{class_m_t_rand}\index{MTRand@{MTRand}}
+
+
+file nt\_\-mersenne\_\-twiser\_\-external\_\-obj.h -\/ uniform random number class 1:1 copy from MersenneTwister.h Mersenne Twister random number generator -\/-\/ a C++ class \hyperlink{class_m_t_rand}{MTRand} Based on code by Makoto Matsumoto, Takuji Nishimura, and Shawn Cokus Richard J.  
+
+
+
+
+{\ttfamily \#include $<$nt\_\-mersenne\_\-twister\_\-external\_\-obj.h$>$}
+
+\subsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \hyperlink{class_m_t_rand_ab8fea37d16b55e1a0fe06149e325f1b6a60f472facea8fabd42765cd91273db7b}{N} =  624
+ \}
+\item 
+enum \{ \hyperlink{class_m_t_rand_a7d9f4f1783a4e45f7834dd5174dfc2a1a3899803ea0d4da3018d311ed4902d9cc}{SAVE} =  N + 1
+ \}
+\item 
+typedef unsigned long \hyperlink{class_m_t_rand_a45478edf9e24dcd2a5164bac3889d6a2}{uint32}
+\end{DoxyCompactItemize}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_m_t_rand_ab4f392e44228a583b7b1a3f036fb2fd0}{MTRand} (const \hyperlink{class_m_t_rand_a45478edf9e24dcd2a5164bac3889d6a2}{uint32} \&oneSeed)
+\item 
+\hyperlink{class_m_t_rand_a22fbca78adae1fb4ff1cb103d85498f4}{MTRand} (\hyperlink{class_m_t_rand_a45478edf9e24dcd2a5164bac3889d6a2}{uint32} $\ast$const bigSeed)
+\item 
+\hyperlink{class_m_t_rand_a265dc65546e26073c0d5f8787b045a1d}{MTRand} ()
+\item 
+double \hyperlink{class_m_t_rand_a76d129a2d850c24ff4a0613f299cf3a5}{rand} ()
+\item 
+double \hyperlink{class_m_t_rand_a7a47382fb7b19ae1f330691735dc800b}{rand} (const double \&n)
+\item 
+double \hyperlink{class_m_t_rand_afd05e468983b3a3d66ce0f403bd666af}{randExc} ()
+\item 
+double \hyperlink{class_m_t_rand_a2955abdb96e6cab97e50ac755d48dad1}{randExc} (const double \&n)
+\item 
+double \hyperlink{class_m_t_rand_a4d3a475aa72fe6d1a6d7d9e16d6a732e}{randDblExc} ()
+\item 
+double \hyperlink{class_m_t_rand_a587c90f52c35fa2bf05d34791dd5457e}{randDblExc} (const double \&n)
+\item 
+\hyperlink{class_m_t_rand_a45478edf9e24dcd2a5164bac3889d6a2}{uint32} \hyperlink{class_m_t_rand_ad1008efd4fe0e8aae30459c2c58cfe35}{randInt} ()
+\item 
+\hyperlink{class_m_t_rand_a45478edf9e24dcd2a5164bac3889d6a2}{uint32} \hyperlink{class_m_t_rand_a18ea21f615df06c9359c34d2eba6f252}{randInt} (const \hyperlink{class_m_t_rand_a45478edf9e24dcd2a5164bac3889d6a2}{uint32} \&n)
+\item 
+double \hyperlink{class_m_t_rand_abbb87a08d622d58fdee0eea4cb5471a0}{operator()} ()
+\item 
+void \hyperlink{class_m_t_rand_af79328bada053f0a75ec6575c56029b4}{seed} (\hyperlink{class_m_t_rand_a45478edf9e24dcd2a5164bac3889d6a2}{uint32} oneSeed)
+\item 
+void \hyperlink{class_m_t_rand_a38fd3ace842ddcbdaa534fb925442ecc}{seed} (\hyperlink{class_m_t_rand_a45478edf9e24dcd2a5164bac3889d6a2}{uint32} $\ast$const bigSeed)
+\item 
+void \hyperlink{class_m_t_rand_ad88ea3363d55bafb62826bbd130279c2}{seed} ()
+\item 
+void \hyperlink{class_m_t_rand_ad60e0f3f5c90baab75b74f9a2ccae871}{save} (\hyperlink{class_m_t_rand_a45478edf9e24dcd2a5164bac3889d6a2}{uint32} $\ast$saveArray) const 
+\item 
+void \hyperlink{class_m_t_rand_a8302e9a8cd16d8dfc536a85bf2f68be0}{load} (\hyperlink{class_m_t_rand_a45478edf9e24dcd2a5164bac3889d6a2}{uint32} $\ast$const loadArray)
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \{ \hyperlink{class_m_t_rand_a10c3437be98225f5b0beee1ed8c033c8a133070000b798889cd75535ea0d5bb71}{M} =  397
+ \}
+\item 
+enum \{ \hyperlink{class_m_t_rand_a60fd88469207f761aef84c3fc57c04a3a96b50a7ca844c42f49fc8aaeedebdc2a}{MAGIC} =  0x9908b0dfU
+ \}
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_m_t_rand_a1d5fcb69d83f4d2fd653883c8352f86c}{reload} ()
+\item 
+\hyperlink{class_m_t_rand_a45478edf9e24dcd2a5164bac3889d6a2}{uint32} \hyperlink{class_m_t_rand_a0f44969adf5a2991ad73b8bc4608c5c7}{hiBit} (const \hyperlink{class_m_t_rand_a45478edf9e24dcd2a5164bac3889d6a2}{uint32} \&u) const 
+\item 
+\hyperlink{class_m_t_rand_a45478edf9e24dcd2a5164bac3889d6a2}{uint32} \hyperlink{class_m_t_rand_a440ff2c31889aa6dde5babbe862a9e14}{loBit} (const \hyperlink{class_m_t_rand_a45478edf9e24dcd2a5164bac3889d6a2}{uint32} \&u) const 
+\item 
+\hyperlink{class_m_t_rand_a45478edf9e24dcd2a5164bac3889d6a2}{uint32} \hyperlink{class_m_t_rand_a9032b296e470bed53280a452e55203b7}{loBits} (const \hyperlink{class_m_t_rand_a45478edf9e24dcd2a5164bac3889d6a2}{uint32} \&u) const 
+\item 
+\hyperlink{class_m_t_rand_a45478edf9e24dcd2a5164bac3889d6a2}{uint32} \hyperlink{class_m_t_rand_ae7eb1282079e30b0a4a526cb86f8c2a2}{mixBits} (const \hyperlink{class_m_t_rand_a45478edf9e24dcd2a5164bac3889d6a2}{uint32} \&u, const \hyperlink{class_m_t_rand_a45478edf9e24dcd2a5164bac3889d6a2}{uint32} \&v) const 
+\item 
+\hyperlink{class_m_t_rand_a45478edf9e24dcd2a5164bac3889d6a2}{uint32} \hyperlink{class_m_t_rand_af1219020248cb80b772d64e2b6151a9c}{twist} (const \hyperlink{class_m_t_rand_a45478edf9e24dcd2a5164bac3889d6a2}{uint32} \&m, const \hyperlink{class_m_t_rand_a45478edf9e24dcd2a5164bac3889d6a2}{uint32} \&s0, const \hyperlink{class_m_t_rand_a45478edf9e24dcd2a5164bac3889d6a2}{uint32} \&s1) const 
+\end{DoxyCompactItemize}
+\subsubsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_m_t_rand_a45478edf9e24dcd2a5164bac3889d6a2}{uint32} \hyperlink{class_m_t_rand_a486885d03f38c844315d002e6312fa23}{hash} (time\_\-t t, clock\_\-t c)
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_m_t_rand_a45478edf9e24dcd2a5164bac3889d6a2}{uint32} \hyperlink{class_m_t_rand_a2c87f537429bf0b0f6a452c22b9eebba}{state} \mbox{[}N\mbox{]}
+\item 
+\hyperlink{class_m_t_rand_a45478edf9e24dcd2a5164bac3889d6a2}{uint32} $\ast$ \hyperlink{class_m_t_rand_a2b80858137c88fe69d4d2bdc665bcf93}{pNext}
+\item 
+int \hyperlink{class_m_t_rand_a98eabf568c88f121e44f487397f32495}{left}
+\end{DoxyCompactItemize}
+\subsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+std::ostream \& \hyperlink{class_m_t_rand_a059061d50a1e54ee3067d4e1dbdd7c64}{operator$<$$<$} (std::ostream \&os, const \hyperlink{class_m_t_rand}{MTRand} \&mtrand)
+\item 
+std::istream \& \hyperlink{class_m_t_rand_a45b02a702835a3be42171c5c2dc79b2d}{operator$>$$>$} (std::istream \&is, \hyperlink{class_m_t_rand}{MTRand} \&mtrand)
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+Wagner v0.7 12 July 2001 \href{mailto:rjwagner@writeme.com}{\tt rjwagner@writeme.com} The Mersenne Twister is an algorithm for generating random numbers. It was designed with consideration of the flaws in various other generators. The period, 2$^\wedge$19937-\/1, and the order of equidistribution, 623 dimensions, are far greater. The generator is also fast; it avoids multiplication and division, and it benefits from caches and pipelines. For more information see the inventors' web page at \href{http://www.math.keio.ac.jp/~matumoto/emt.html}{\tt http://www.math.keio.ac.jp/$\sim$matumoto/emt.html}
+
+IMPORTANT: CHECK ON UPDATES FOR THE C++ CODE (AS INITIALISATION WEAKNESS WAS DISCOVERED, 22.2.2002 AAF)
+
+Reference M. Matsumoto and T. Nishimura, \char`\"{}Mersenne Twister: A 623-\/Dimensionally
+ Equidistributed Uniform Pseudo-\/Random Number Generator\char`\"{}, ACM Transactions on Modeling and Computer Simulation, Vol. 8, No. 1, January 1998, pp 3-\/30.
+
+Copyright (C) 2001 Richard J. Wagner
+
+This library is free software; you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation; either version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License along with this library; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-\/1307 USA
+
+The original code included the following notice:
+
+Copyright (C) 1997, 1999 Makoto Matsumoto and Takuji Nishimura. When you use this, send an email to: \href{mailto:matumoto@math.keio.ac.jp}{\tt matumoto@math.keio.ac.jp} with an appropriate reference to your work.
+
+It would be nice to CC: \href{mailto:rjwagner@writeme.com}{\tt rjwagner@writeme.com} and \href{mailto:Cokus@math.washington.edu}{\tt Cokus@math.washington.edu} when you write. 
+
+Definition at line 58 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+\subsubsection{Member Typedef Documentation}
+\index{MTRand@{MTRand}!uint32@{uint32}}
+\index{uint32@{uint32}!MTRand@{MTRand}}
+\paragraph[{uint32}]{\setlength{\rightskip}{0pt plus 5cm}typedef unsigned long {\bf MTRand::uint32}}\hfill\label{class_m_t_rand_a45478edf9e24dcd2a5164bac3889d6a2}
+
+
+Definition at line 61 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+\subsubsection{Member Enumeration Documentation}
+\paragraph[{"@0}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}\hfill\label{class_m_t_rand_ab8fea37d16b55e1a0fe06149e325f1b6}
+\begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{N@{N}!MTRand@{MTRand}}\index{MTRand@{MTRand}!N@{N}}\item[{\em 
+N\label{class_m_t_rand_ab8fea37d16b55e1a0fe06149e325f1b6a60f472facea8fabd42765cd91273db7b}
+}]\end{description}
+\end{Desc}
+
+
+
+Definition at line 62 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ N = 624 };              // length of state vector
+\end{DoxyCode}
+
+
+\paragraph[{"@1}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum}\hfill\label{class_m_t_rand_a7d9f4f1783a4e45f7834dd5174dfc2a1}
+\begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{SAVE@{SAVE}!MTRand@{MTRand}}\index{MTRand@{MTRand}!SAVE@{SAVE}}\item[{\em 
+SAVE\label{class_m_t_rand_a7d9f4f1783a4e45f7834dd5174dfc2a1a3899803ea0d4da3018d311ed4902d9cc}
+}]\end{description}
+\end{Desc}
+
+
+
+Definition at line 63 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ SAVE = N + 1 };         // length of array for save()
+\end{DoxyCode}
+
+
+\paragraph[{"@2}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_m_t_rand_a10c3437be98225f5b0beee1ed8c033c8}
+\begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{M@{M}!MTRand@{MTRand}}\index{MTRand@{MTRand}!M@{M}}\item[{\em 
+M\label{class_m_t_rand_a10c3437be98225f5b0beee1ed8c033c8a133070000b798889cd75535ea0d5bb71}
+}]\end{description}
+\end{Desc}
+
+
+
+Definition at line 66 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ M = 397 };              // period parameter
+\end{DoxyCode}
+
+
+\paragraph[{"@3}]{\setlength{\rightskip}{0pt plus 5cm}anonymous enum\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_m_t_rand_a60fd88469207f761aef84c3fc57c04a3}
+\begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{MAGIC@{MAGIC}!MTRand@{MTRand}}\index{MTRand@{MTRand}!MAGIC@{MAGIC}}\item[{\em 
+MAGIC\label{class_m_t_rand_a60fd88469207f761aef84c3fc57c04a3a96b50a7ca844c42f49fc8aaeedebdc2a}
+}]\end{description}
+\end{Desc}
+
+
+
+Definition at line 67 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ MAGIC = 0x9908b0dfU };  // magic constant
+\end{DoxyCode}
+
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{MTRand@{MTRand}!MTRand@{MTRand}}
+\index{MTRand@{MTRand}!MTRand@{MTRand}}
+\paragraph[{MTRand}]{\setlength{\rightskip}{0pt plus 5cm}MTRand::MTRand (
+\begin{DoxyParamCaption}
+\item[{const {\bf uint32} \&}]{ oneSeed}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_m_t_rand_ab4f392e44228a583b7b1a3f036fb2fd0}
+
+
+Definition at line 118 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+References seed().
+
+
+
+
+\begin{DoxyCode}
+    { seed(oneSeed); }
+\end{DoxyCode}
+
+
+\index{MTRand@{MTRand}!MTRand@{MTRand}}
+\index{MTRand@{MTRand}!MTRand@{MTRand}}
+\paragraph[{MTRand}]{\setlength{\rightskip}{0pt plus 5cm}MTRand::MTRand (
+\begin{DoxyParamCaption}
+\item[{{\bf uint32} $\ast$const }]{ bigSeed}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_m_t_rand_a22fbca78adae1fb4ff1cb103d85498f4}
+
+
+Definition at line 121 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+References seed().
+
+
+
+
+\begin{DoxyCode}
+    { seed(bigSeed); }
+\end{DoxyCode}
+
+
+\index{MTRand@{MTRand}!MTRand@{MTRand}}
+\index{MTRand@{MTRand}!MTRand@{MTRand}}
+\paragraph[{MTRand}]{\setlength{\rightskip}{0pt plus 5cm}MTRand::MTRand (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_m_t_rand_a265dc65546e26073c0d5f8787b045a1d}
+
+
+Definition at line 124 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+References seed().
+
+
+
+
+\begin{DoxyCode}
+    { seed(); }
+\end{DoxyCode}
+
+
+
+
+\subsubsection{Member Function Documentation}
+\index{MTRand@{MTRand}!hash@{hash}}
+\index{hash@{hash}!MTRand@{MTRand}}
+\paragraph[{hash}]{\setlength{\rightskip}{0pt plus 5cm}{\bf MTRand::uint32} MTRand::hash (
+\begin{DoxyParamCaption}
+\item[{time\_\-t}]{ t, }
+\item[{clock\_\-t}]{ c}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, static, protected\mbox{]}}}\hfill\label{class_m_t_rand_a486885d03f38c844315d002e6312fa23}
+
+
+Definition at line 254 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+Referenced by seed().
+
+
+
+
+\begin{DoxyCode}
+{
+    // Get a uint32 from t and c
+    // Better than uint32(x) in case x is floating point in [0,1]
+    // Based on code by Lawrence Kirby (fred@genesis.demon.co.uk)
+
+    static uint32 differ = 0;  // guarantee time-based seeds will change
+
+    uint32 h1 = 0;
+    unsigned char *p = (unsigned char *) &t;
+    for( size_t i = 0; i < sizeof(t); ++i )
+    {
+        h1 *= UCHAR_MAX + 2U;
+        h1 += p[i];
+    }
+    uint32 h2 = 0;
+    p = (unsigned char *) &c;
+    for( size_t j = 0; j < sizeof(c); ++j )
+    {
+        h2 *= UCHAR_MAX + 2U;
+        h2 += p[j];
+    }
+    return ( h1 + differ++ ) ^ h2;
+}
+\end{DoxyCode}
+
+
+\index{MTRand@{MTRand}!hiBit@{hiBit}}
+\index{hiBit@{hiBit}!MTRand@{MTRand}}
+\paragraph[{hiBit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32} MTRand::hiBit (
+\begin{DoxyParamCaption}
+\item[{const {\bf uint32} \&}]{ u}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline, protected\mbox{]}}}\hfill\label{class_m_t_rand_a0f44969adf5a2991ad73b8bc4608c5c7}
+
+
+Definition at line 107 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+Referenced by mixBits().
+
+
+
+
+\begin{DoxyCode}
+{ return u & 0x80000000U; }
+\end{DoxyCode}
+
+
+\index{MTRand@{MTRand}!load@{load}}
+\index{load@{load}!MTRand@{MTRand}}
+\paragraph[{load}]{\setlength{\rightskip}{0pt plus 5cm}void MTRand::load (
+\begin{DoxyParamCaption}
+\item[{{\bf uint32} $\ast$const }]{ loadArray}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_m_t_rand_a8302e9a8cd16d8dfc536a85bf2f68be0}
+
+
+Definition at line 290 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+References left, N, pNext, and state.
+
+
+
+
+\begin{DoxyCode}
+{
+    register uint32 *s = state;
+    register uint32 *la = loadArray;
+    register int i = N;
+    for( ; i--; *s++ = *la++ ) {}
+    left = *la;
+    pNext = &state[N-left];
+}
+\end{DoxyCode}
+
+
+\index{MTRand@{MTRand}!loBit@{loBit}}
+\index{loBit@{loBit}!MTRand@{MTRand}}
+\paragraph[{loBit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32} MTRand::loBit (
+\begin{DoxyParamCaption}
+\item[{const {\bf uint32} \&}]{ u}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline, protected\mbox{]}}}\hfill\label{class_m_t_rand_a440ff2c31889aa6dde5babbe862a9e14}
+
+
+Definition at line 108 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+Referenced by twist().
+
+
+
+
+\begin{DoxyCode}
+{ return u & 0x00000001U; }
+\end{DoxyCode}
+
+
+\index{MTRand@{MTRand}!loBits@{loBits}}
+\index{loBits@{loBits}!MTRand@{MTRand}}
+\paragraph[{loBits}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32} MTRand::loBits (
+\begin{DoxyParamCaption}
+\item[{const {\bf uint32} \&}]{ u}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline, protected\mbox{]}}}\hfill\label{class_m_t_rand_a9032b296e470bed53280a452e55203b7}
+
+
+Definition at line 109 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+Referenced by mixBits().
+
+
+
+
+\begin{DoxyCode}
+{ return u & 0x7fffffffU; }
+\end{DoxyCode}
+
+
+\index{MTRand@{MTRand}!mixBits@{mixBits}}
+\index{mixBits@{mixBits}!MTRand@{MTRand}}
+\paragraph[{mixBits}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32} MTRand::mixBits (
+\begin{DoxyParamCaption}
+\item[{const {\bf uint32} \&}]{ u, }
+\item[{const {\bf uint32} \&}]{ v}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline, protected\mbox{]}}}\hfill\label{class_m_t_rand_ae7eb1282079e30b0a4a526cb86f8c2a2}
+
+
+Definition at line 110 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+References hiBit(), and loBits().
+
+
+
+Referenced by twist().
+
+
+
+
+\begin{DoxyCode}
+        { return hiBit(u) | loBits(v); }
+\end{DoxyCode}
+
+
+\index{MTRand@{MTRand}!operator()@{operator()}}
+\index{operator()@{operator()}!MTRand@{MTRand}}
+\paragraph[{operator()}]{\setlength{\rightskip}{0pt plus 5cm}double MTRand::operator() (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_m_t_rand_abbb87a08d622d58fdee0eea4cb5471a0}
+
+
+Definition at line 92 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+References rand().
+
+
+
+
+\begin{DoxyCode}
+{ return rand(); }  // same as rand()
+\end{DoxyCode}
+
+
+\index{MTRand@{MTRand}!rand@{rand}}
+\index{rand@{rand}!MTRand@{MTRand}}
+\paragraph[{rand}]{\setlength{\rightskip}{0pt plus 5cm}double MTRand::rand (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_m_t_rand_a76d129a2d850c24ff4a0613f299cf3a5}
+
+
+Definition at line 127 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+References randInt().
+
+
+
+Referenced by operator()(), rand(), and NT\_\-rnd\_\-dist\_\-o::uniformMT().
+
+
+
+
+\begin{DoxyCode}
+    { return double(randInt()) * 2.3283064370807974e-10; }
+\end{DoxyCode}
+
+
+\index{MTRand@{MTRand}!rand@{rand}}
+\index{rand@{rand}!MTRand@{MTRand}}
+\paragraph[{rand}]{\setlength{\rightskip}{0pt plus 5cm}double MTRand::rand (
+\begin{DoxyParamCaption}
+\item[{const double \&}]{ n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_m_t_rand_a7a47382fb7b19ae1f330691735dc800b}
+
+
+Definition at line 130 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+References rand().
+
+
+
+
+\begin{DoxyCode}
+    { return rand() * n; }
+\end{DoxyCode}
+
+
+\index{MTRand@{MTRand}!randDblExc@{randDblExc}}
+\index{randDblExc@{randDblExc}!MTRand@{MTRand}}
+\paragraph[{randDblExc}]{\setlength{\rightskip}{0pt plus 5cm}double MTRand::randDblExc (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_m_t_rand_a4d3a475aa72fe6d1a6d7d9e16d6a732e}
+
+
+Definition at line 139 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+References randInt().
+
+
+
+Referenced by randDblExc().
+
+
+
+
+\begin{DoxyCode}
+    { return double( 1.0 + randInt() ) * 2.3283064359965952e-10; }
+\end{DoxyCode}
+
+
+\index{MTRand@{MTRand}!randDblExc@{randDblExc}}
+\index{randDblExc@{randDblExc}!MTRand@{MTRand}}
+\paragraph[{randDblExc}]{\setlength{\rightskip}{0pt plus 5cm}double MTRand::randDblExc (
+\begin{DoxyParamCaption}
+\item[{const double \&}]{ n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_m_t_rand_a587c90f52c35fa2bf05d34791dd5457e}
+
+
+Definition at line 142 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+References randDblExc().
+
+
+
+
+\begin{DoxyCode}
+    { return randDblExc() * n; }
+\end{DoxyCode}
+
+
+\index{MTRand@{MTRand}!randExc@{randExc}}
+\index{randExc@{randExc}!MTRand@{MTRand}}
+\paragraph[{randExc}]{\setlength{\rightskip}{0pt plus 5cm}double MTRand::randExc (
+\begin{DoxyParamCaption}
+\item[{const double \&}]{ n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_m_t_rand_a2955abdb96e6cab97e50ac755d48dad1}
+
+
+Definition at line 136 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+References randExc().
+
+
+
+
+\begin{DoxyCode}
+    { return randExc() * n; }
+\end{DoxyCode}
+
+
+\index{MTRand@{MTRand}!randExc@{randExc}}
+\index{randExc@{randExc}!MTRand@{MTRand}}
+\paragraph[{randExc}]{\setlength{\rightskip}{0pt plus 5cm}double MTRand::randExc (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_m_t_rand_afd05e468983b3a3d66ce0f403bd666af}
+
+
+Definition at line 133 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+References randInt().
+
+
+
+Referenced by randExc().
+
+
+
+
+\begin{DoxyCode}
+    { return double(randInt()) * 2.3283064365386963e-10; }
+\end{DoxyCode}
+
+
+\index{MTRand@{MTRand}!randInt@{randInt}}
+\index{randInt@{randInt}!MTRand@{MTRand}}
+\paragraph[{randInt}]{\setlength{\rightskip}{0pt plus 5cm}{\bf MTRand::uint32} MTRand::randInt (
+\begin{DoxyParamCaption}
+\item[{const {\bf uint32} \&}]{ n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_m_t_rand_a18ea21f615df06c9359c34d2eba6f252}
+
+
+Definition at line 159 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+References randInt().
+
+
+
+
+\begin{DoxyCode}
+{
+    // Find which bits are used in n
+    uint32 used = ~0;
+    for( uint32 m = n; m; used <<= 1, m >>= 1 ) {}
+    used = ~used;
+    
+    // Draw numbers until one is found in [0,n]
+    uint32 i;
+    do
+        i = randInt() & used;  // toss unused bits to shorten search
+    while( i > n );
+    return i;
+}
+\end{DoxyCode}
+
+
+\index{MTRand@{MTRand}!randInt@{randInt}}
+\index{randInt@{randInt}!MTRand@{MTRand}}
+\paragraph[{randInt}]{\setlength{\rightskip}{0pt plus 5cm}{\bf MTRand::uint32} MTRand::randInt (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_m_t_rand_ad1008efd4fe0e8aae30459c2c58cfe35}
+
+
+Definition at line 145 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+References left, pNext, and reload().
+
+
+
+Referenced by rand(), randDblExc(), randExc(), and randInt().
+
+
+
+
+\begin{DoxyCode}
+{
+    if( left == 0 ) reload();
+    --left;
+        
+    register uint32 s1;
+    s1 = *pNext++;
+    s1 ^= (s1 >> 11);
+    s1 ^= (s1 <<  7) & 0x9d2c5680U;
+    s1 ^= (s1 << 15) & 0xefc60000U;
+    return ( s1 ^ (s1 >> 18) );
+}
+\end{DoxyCode}
+
+
+\index{MTRand@{MTRand}!reload@{reload}}
+\index{reload@{reload}!MTRand@{MTRand}}
+\paragraph[{reload}]{\setlength{\rightskip}{0pt plus 5cm}void MTRand::reload (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, protected\mbox{]}}}\hfill\label{class_m_t_rand_a1d5fcb69d83f4d2fd653883c8352f86c}
+
+
+Definition at line 238 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+References left, M, N, pNext, state, and twist().
+
+
+
+Referenced by randInt(), and seed().
+
+
+
+
+\begin{DoxyCode}
+{
+    // Generate N new values in state
+    // Made clearer and faster by Matthew Bellew (matthew.bellew@home.com)
+    register uint32 *p = state;
+    register int i;
+    for( i = N - M; i--; ++p )
+        *p = twist( p[M], p[0], p[1] );
+    for( i = M; --i; ++p )
+        *p = twist( p[M-N], p[0], p[1] );
+    *p = twist( p[M-N], p[0], state[0] );
+
+    left = N, pNext = state;
+}
+\end{DoxyCode}
+
+
+\index{MTRand@{MTRand}!save@{save}}
+\index{save@{save}!MTRand@{MTRand}}
+\paragraph[{save}]{\setlength{\rightskip}{0pt plus 5cm}void MTRand::save (
+\begin{DoxyParamCaption}
+\item[{{\bf uint32} $\ast$}]{ saveArray}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_m_t_rand_ad60e0f3f5c90baab75b74f9a2ccae871}
+
+
+Definition at line 280 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+References left, and state.
+
+
+
+
+\begin{DoxyCode}
+{
+    register uint32 *sa = saveArray;
+    register const uint32 *s = state;
+    register int i = N;
+    for( ; i--; *sa++ = *s++ ) {}
+    *sa = left;
+}
+\end{DoxyCode}
+
+
+\index{MTRand@{MTRand}!seed@{seed}}
+\index{seed@{seed}!MTRand@{MTRand}}
+\paragraph[{seed}]{\setlength{\rightskip}{0pt plus 5cm}void MTRand::seed (
+\begin{DoxyParamCaption}
+\item[{{\bf uint32}}]{ oneSeed}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_m_t_rand_af79328bada053f0a75ec6575c56029b4}
+
+
+Definition at line 175 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+References N, reload(), and state.
+
+
+
+
+\begin{DoxyCode}
+{
+    // Seed the generator with a simple uint32
+    register uint32 *s;
+    register int i;
+    for( i = N, s = state;
+         i--;
+         *s    = oneSeed & 0xffff0000,
+         *s++ |= ( (oneSeed *= 69069U)++ & 0xffff0000 ) >> 16,
+         (oneSeed *= 69069U)++ ) {}  // hard to read, but fast
+    reload();
+}
+\end{DoxyCode}
+
+
+\index{MTRand@{MTRand}!seed@{seed}}
+\index{seed@{seed}!MTRand@{MTRand}}
+\paragraph[{seed}]{\setlength{\rightskip}{0pt plus 5cm}void MTRand::seed (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_m_t_rand_ad88ea3363d55bafb62826bbd130279c2}
+
+
+Definition at line 205 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+References hash(), reload(), and state.
+
+
+
+Referenced by MTRand().
+
+
+
+
+\begin{DoxyCode}
+{
+    // Seed the generator with an array from /dev/urandom if available
+    // Otherwise use a hash of time() and clock() values
+    
+    // First try getting an array from /dev/urandom
+    FILE* urandom = fopen( "/dev/urandom", "rb" );
+    if( urandom )
+    {
+        register uint32 *s = state;
+        register int i = N;
+        register bool success = true;
+        while( success && i-- )
+        {
+            success = fread( s, sizeof(uint32), 1, urandom );
+            *s++ &= 0xffffffff;  // filter in case uint32 > 32 bits
+        }
+        fclose(urandom);
+        if( success )
+        {
+            // There is a 1 in 2^19937 chance that a working urandom gave
+            // 19937 consecutive zeroes and will make the generator fail
+            // Ignore that case and continue with initialization
+            reload();
+            return;
+        }
+    }
+    
+    // Was not successful, so use time() and clock() instead
+    seed( hash( time(NULL), clock() ) );
+}
+\end{DoxyCode}
+
+
+\index{MTRand@{MTRand}!seed@{seed}}
+\index{seed@{seed}!MTRand@{MTRand}}
+\paragraph[{seed}]{\setlength{\rightskip}{0pt plus 5cm}void MTRand::seed (
+\begin{DoxyParamCaption}
+\item[{{\bf uint32} $\ast$const }]{ bigSeed}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_m_t_rand_a38fd3ace842ddcbdaa534fb925442ecc}
+
+
+Definition at line 189 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+References reload(), and state.
+
+
+
+
+\begin{DoxyCode}
+{
+    // Seed the generator with an array of 624 uint32's
+    // There are 2^19937-1 possible initial states.  This function allows
+    // any one of those to be chosen by providing 19937 bits.  The lower
+    // 31 bits of the first element, bigSeed[0], are discarded.  Any bits
+    // above the lower 32 in each element are also discarded.  Theoretically,
+    // the rest of the array can contain any values except all zeroes.
+    // Just call seed() if you want to get array from /dev/urandom
+    register uint32 *s = state, *b = bigSeed;
+    register int i = N;
+    for( ; i--; *s++ = *b++ & 0xffffffff ) {}
+    reload();
+}
+\end{DoxyCode}
+
+
+\index{MTRand@{MTRand}!twist@{twist}}
+\index{twist@{twist}!MTRand@{MTRand}}
+\paragraph[{twist}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32} MTRand::twist (
+\begin{DoxyParamCaption}
+\item[{const {\bf uint32} \&}]{ m, }
+\item[{const {\bf uint32} \&}]{ s0, }
+\item[{const {\bf uint32} \&}]{ s1}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline, protected\mbox{]}}}\hfill\label{class_m_t_rand_af1219020248cb80b772d64e2b6151a9c}
+
+
+Definition at line 112 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+References loBit(), MAGIC, and mixBits().
+
+
+
+Referenced by reload().
+
+
+
+
+\begin{DoxyCode}
+        { return m ^ (mixBits(s0,s1)>>1) ^ (loBit(s1) ? MAGIC : 0U); }
+\end{DoxyCode}
+
+
+
+
+\subsubsection{Friends And Related Function Documentation}
+\index{MTRand@{MTRand}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!MTRand@{MTRand}}
+\paragraph[{operator$<$$<$}]{\setlength{\rightskip}{0pt plus 5cm}std::ostream\& operator$<$$<$ (
+\begin{DoxyParamCaption}
+\item[{std::ostream \&}]{ os, }
+\item[{const {\bf MTRand} \&}]{ mtrand}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}friend\mbox{]}}}\hfill\label{class_m_t_rand_a059061d50a1e54ee3067d4e1dbdd7c64}
+
+
+Definition at line 301 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{
+    register const MTRand::uint32 *s = mtrand.state;
+    register int i = mtrand.N;
+    for( ; i--; os << *s++ << "\t" ) {}
+    return os << mtrand.left;
+}
+\end{DoxyCode}
+
+
+\index{MTRand@{MTRand}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!MTRand@{MTRand}}
+\paragraph[{operator$>$$>$}]{\setlength{\rightskip}{0pt plus 5cm}std::istream\& operator$>$$>$ (
+\begin{DoxyParamCaption}
+\item[{std::istream \&}]{ is, }
+\item[{{\bf MTRand} \&}]{ mtrand}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}friend\mbox{]}}}\hfill\label{class_m_t_rand_a45b02a702835a3be42171c5c2dc79b2d}
+
+
+Definition at line 310 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{
+    register MTRand::uint32 *s = mtrand.state;
+    register int i = mtrand.N;
+    for( ; i--; is >> *s++ ) {}
+    is >> mtrand.left;
+    mtrand.pNext = &mtrand.state[mtrand.N-mtrand.left];
+    return is;
+}
+\end{DoxyCode}
+
+
+
+
+\subsubsection{Member Data Documentation}
+\index{MTRand@{MTRand}!left@{left}}
+\index{left@{left}!MTRand@{MTRand}}
+\paragraph[{left}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf MTRand::left}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_m_t_rand_a98eabf568c88f121e44f487397f32495}
+
+
+Definition at line 71 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+Referenced by load(), operator$<$$<$(), operator$>$$>$(), randInt(), reload(), and save().
+
+\index{MTRand@{MTRand}!pNext@{pNext}}
+\index{pNext@{pNext}!MTRand@{MTRand}}
+\paragraph[{pNext}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32}$\ast$ {\bf MTRand::pNext}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_m_t_rand_a2b80858137c88fe69d4d2bdc665bcf93}
+
+
+Definition at line 70 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+Referenced by load(), operator$>$$>$(), randInt(), and reload().
+
+\index{MTRand@{MTRand}!state@{state}}
+\index{state@{state}!MTRand@{MTRand}}
+\paragraph[{state}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32} {\bf MTRand::state}\mbox{[}N\mbox{]}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_m_t_rand_a2c87f537429bf0b0f6a452c22b9eebba}
+
+
+Definition at line 69 of file nt\_\-mersenne\_\-twister\_\-external\_\-obj.h.
+
+
+
+Referenced by load(), operator$<$$<$(), operator$>$$>$(), reload(), save(), and seed().
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nt__mersenne__twister__external__obj_8h}{nt\_\-mersenne\_\-twister\_\-external\_\-obj.h}\end{DoxyCompactItemize}

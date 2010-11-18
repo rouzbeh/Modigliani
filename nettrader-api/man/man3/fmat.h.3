@@ -1,0 +1,78 @@
+.TH "fmat.h" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+fmat.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'tnt/subscript.h'\fP
+.br
+\fC#include 'tnt/vec.h'\fP
+.br
+\fC#include <cstdlib>\fP
+.br
+\fC#include <cassert>\fP
+.br
+\fC#include <iostream>\fP
+.br
+\fC#include <strstream>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBTNT::Fortran_Matrix< T >\fP"
+.br
+.in -1c
+.SS "Namespaces"
+
+.in +1c
+.ti -1c
+.RI "namespace \fBTNT\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "template<class T > std::ostream & \fBTNT::operator<<\fP (std::ostream &s, const Fortran_Matrix< T > &A)"
+.br
+.ti -1c
+.RI "template<class T > std::istream & \fBTNT::operator>>\fP (std::istream &s, Fortran_Matrix< T > &A)"
+.br
+.ti -1c
+.RI "template<class T > Fortran_Matrix< T > \fBTNT::operator+\fP (const Fortran_Matrix< T > &A, const Fortran_Matrix< T > &B)"
+.br
+.ti -1c
+.RI "template<class T > Fortran_Matrix< T > \fBTNT::operator-\fP (const Fortran_Matrix< T > &A, const Fortran_Matrix< T > &B)"
+.br
+.ti -1c
+.RI "template<class T > Fortran_Matrix< T > \fBTNT::mult_element\fP (const Fortran_Matrix< T > &A, const Fortran_Matrix< T > &B)"
+.br
+.ti -1c
+.RI "template<class T > Fortran_Matrix< T > \fBTNT::transpose\fP (const Fortran_Matrix< T > &A)"
+.br
+.ti -1c
+.RI "template<class T > Fortran_Matrix< T > \fBTNT::matmult\fP (const Fortran_Matrix< T > &A, const Fortran_Matrix< T > &B)"
+.br
+.ti -1c
+.RI "template<class T > Fortran_Matrix< T > \fBTNT::operator*\fP (const Fortran_Matrix< T > &A, const Fortran_Matrix< T > &B)"
+.br
+.ti -1c
+.RI "template<class T > int \fBTNT::matmult\fP (Fortran_Matrix< T > &C, const Fortran_Matrix< T > &A, const Fortran_Matrix< T > &B)"
+.br
+.ti -1c
+.RI "template<class T > Vector< T > \fBTNT::matmult\fP (const Fortran_Matrix< T > &A, const Vector< T > &x)"
+.br
+.ti -1c
+.RI "template<class T > Vector< T > \fBTNT::operator*\fP (const Fortran_Matrix< T > &A, const Vector< T > &x)"
+.br
+.ti -1c
+.RI "template<class T > Fortran_Matrix< T > \fBTNT::operator*\fP (const Fortran_Matrix< T > &A, const T &x)"
+.br
+.in -1c
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

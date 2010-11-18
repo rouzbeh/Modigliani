@@ -1,0 +1,179 @@
+.TH "NTBP_patlak_sodium_multi_current_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NTBP_patlak_sodium_multi_current_o \- 
+.PP
+\fBNTBP_patlak_sodium_multi_current_o\fP class.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ntbp_patlak_sodium_multi_current_obj.h>\fP
+.PP
+Inherits \fBNTBP_multi_current_o\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNTBP_patlak_sodium_multi_current_o\fP (\fBNTreal\fP area, \fBNTreal\fP \fBdensity\fP=60, \fBNTreal\fP channelConductave=2.0e-8)"
+.br
+.ti -1c
+.RI "\fBNTBP_patlak_sodium_multi_current_o\fP (const \fBNTBP_patlak_sodium_multi_current_o\fP &original)"
+.br
+.ti -1c
+.RI "const \fBNTBP_patlak_sodium_multi_current_o\fP & \fBoperator=\fP (const \fBNTBP_patlak_sodium_multi_current_o\fP &right)"
+.br
+.ti -1c
+.RI "virtual \fB~NTBP_patlak_sodium_multi_current_o\fP ()"
+.br
+.ti -1c
+.RI "\fBNTreturn\fP \fBStepCurrent\fP ()"
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fBOpenChannels\fP () const "
+.br
+.RI "\fINumber of open ionic channels. \fP"
+.ti -1c
+.RI "\fBNTreal\fP \fBClosedChannels\fP () const "
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fBComputeConductance\fP ()"
+.br
+.RI "\fIcompute and return conductance in mSiemens \fP"
+.ti -1c
+.RI "void \fBComputeRateConstants\fP (\fBNTreal\fP vM)"
+.br
+.RI "\fIcompute the rate constants ( in ms^-1 ) \fP"
+.ti -1c
+.RI "void \fBShowChannelStatePopulation\fP ()"
+.br
+.ti -1c
+.RI "void \fBShow\fP ()"
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fBForwardRate\fP (\fBNTreal\fP vM, \fBNTreal\fP temp, \fBNTreal\fP z, \fBNTreal\fP d, \fBNTreal\fP w)"
+.br
+.RI "\fIin ms^-1 \fP"
+.ti -1c
+.RI "\fBNTreal\fP \fBBackwardRate\fP (\fBNTreal\fP vM, \fBNTreal\fP temp, \fBNTreal\fP z, \fBNTreal\fP d, \fBNTreal\fP w)"
+.br
+.RI "\fIin ms^-1 \fP"
+.ti -1c
+.RI "\fBNTreal\fP \fBDelta\fP (\fBNTreal\fP vM, \fBNTreal\fP temp, \fBNTreal\fP z, \fBNTreal\fP d, \fBNTreal\fP del, \fBNTreal\fP w)"
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fBGamma\fP (\fBNTreal\fP vM, \fBNTreal\fP temp, \fBNTreal\fP z, \fBNTreal\fP d, \fBNTreal\fP del, \fBNTreal\fP w)"
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fBKappa\fP (\fBNTreal\fP vM, \fBNTreal\fP temp, \fBNTreal\fP z, \fBNTreal\fP d, \fBNTreal\fP del, \fBNTreal\fP w)"
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fBLambda\fP (\fBNTreal\fP vM, \fBNTreal\fP temp, \fBNTreal\fP z, \fBNTreal\fP d, \fBNTreal\fP del, \fBNTreal\fP w)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBBug\fP
+.RS 4
+unknown 
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+unknown 
+.RE
+.PP
+
+.PP
+Definition at line 48 of file ntbp_patlak_sodium_multi_current_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "NTBP_patlak_sodium_multi_current_o::NTBP_patlak_sodium_multi_current_o (\fBNTreal\fP area, \fBNTreal\fP density = \fC60\fP, \fBNTreal\fP channelConductave = \fC2.0e-8\fP)"
+.SS "NTBP_patlak_sodium_multi_current_o::NTBP_patlak_sodium_multi_current_o (const \fBNTBP_patlak_sodium_multi_current_o\fP & original)"
+.SS "virtual NTBP_patlak_sodium_multi_current_o::~NTBP_patlak_sodium_multi_current_o ()\fC [virtual]\fP"
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBNTreal\fP NTBP_patlak_sodium_multi_current_o::BackwardRate (\fBNTreal\fP vM, \fBNTreal\fP temp, \fBNTreal\fP z, \fBNTreal\fP d, \fBNTreal\fP w)\fC [inline]\fP"
+.PP
+Definition at line 73 of file ntbp_patlak_sodium_multi_current_obj.h.
+.PP
+.nf
+{
+.fi
+.SS "\fBNTreal\fP NTBP_patlak_sodium_multi_current_o::ClosedChannels () const"
+.SS "\fBNTreal\fP NTBP_patlak_sodium_multi_current_o::ComputeConductance ()\fC [virtual]\fP"
+.PP
+Implements \fBNTBP_membrane_current_o\fP.
+.SS "void NTBP_patlak_sodium_multi_current_o::ComputeRateConstants (\fBNTreal\fP vM)\fC [virtual]\fP"
+.PP
+Implements \fBNTBP_membrane_current_o\fP.
+.SS "\fBNTreal\fP NTBP_patlak_sodium_multi_current_o::Delta (\fBNTreal\fP vM, \fBNTreal\fP temp, \fBNTreal\fP z, \fBNTreal\fP d, \fBNTreal\fP del, \fBNTreal\fP w)\fC [inline]\fP"
+.PP
+Definition at line 86 of file ntbp_patlak_sodium_multi_current_obj.h.
+.PP
+.nf
+{
+.fi
+.SS "\fBNTreal\fP NTBP_patlak_sodium_multi_current_o::ForwardRate (\fBNTreal\fP vM, \fBNTreal\fP temp, \fBNTreal\fP z, \fBNTreal\fP d, \fBNTreal\fP w)\fC [inline]\fP"
+.PP
+Definition at line 60 of file ntbp_patlak_sodium_multi_current_obj.h.
+.PP
+.nf
+                                  { channelsPtr->ShowStates(); }
+void Show() {  cout << 'alphaM=' << alphaM << '\tbetaM=' << betaM << '\topenRatio=' << ((double)channelsPtr->NumOpen())/channelsPtr->_numChannels()
+                   << '\talphaH=' << alphaH << '\tbetaH=' << betaH << '\tgamma='<< gamma << '\tdelta='<<delta<< '\t kci='<<kci << '\t kic='<<kic<< '\tkappa='<<kappa<<'\tlambda='<<lambda<<endl;}
+                
+NTreal ForwardRate(NTreal vM /* mV */,
+            NTreal temp /* Celsius */,
+            NTreal z /* elementary charge */,
+            NTreal d /* unit free */,
+            NTreal w /* units of kB*T */)
+.fi
+.SS "\fBNTreal\fP NTBP_patlak_sodium_multi_current_o::Gamma (\fBNTreal\fP vM, \fBNTreal\fP temp, \fBNTreal\fP z, \fBNTreal\fP d, \fBNTreal\fP del, \fBNTreal\fP w)\fC [inline]\fP"
+.PP
+Definition at line 100 of file ntbp_patlak_sodium_multi_current_obj.h.
+.PP
+.nf
+{  
+.fi
+.SS "\fBNTreal\fP NTBP_patlak_sodium_multi_current_o::Kappa (\fBNTreal\fP vM, \fBNTreal\fP temp, \fBNTreal\fP z, \fBNTreal\fP d, \fBNTreal\fP del, \fBNTreal\fP w)\fC [inline]\fP"
+.PP
+Definition at line 114 of file ntbp_patlak_sodium_multi_current_obj.h.
+.PP
+.nf
+{  
+.fi
+.SS "\fBNTreal\fP NTBP_patlak_sodium_multi_current_o::Lambda (\fBNTreal\fP vM, \fBNTreal\fP temp, \fBNTreal\fP z, \fBNTreal\fP d, \fBNTreal\fP del, \fBNTreal\fP w)\fC [inline]\fP"
+.PP
+Definition at line 128 of file ntbp_patlak_sodium_multi_current_obj.h.
+.PP
+.nf
+{ 
+.fi
+.SS "\fBNTreal\fP NTBP_patlak_sodium_multi_current_o::OpenChannels () const\fC [virtual]\fP"
+.PP
+Reimplemented from \fBNTBP_membrane_current_o\fP.
+.SS "const \fBNTBP_patlak_sodium_multi_current_o\fP& NTBP_patlak_sodium_multi_current_o::operator= (const \fBNTBP_patlak_sodium_multi_current_o\fP & right)"
+.SS "void NTBP_patlak_sodium_multi_current_o::Show ()\fC [inline]\fP"
+.PP
+Definition at line 56 of file ntbp_patlak_sodium_multi_current_obj.h.
+.PP
+.nf
+                                  { channelsPtr->ShowStates(); }
+.fi
+.SS "void NTBP_patlak_sodium_multi_current_o::ShowChannelStatePopulation ()\fC [inline]\fP"
+.PP
+Definition at line 55 of file ntbp_patlak_sodium_multi_current_obj.h.
+.PP
+.nf
+{ channelsPtr->ShowStates(); }
+.fi
+.SS "\fBNTreturn\fP NTBP_patlak_sodium_multi_current_o::StepCurrent ()\fC [virtual]\fP"
+.PP
+Implements \fBNTBP_membrane_current_o\fP.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

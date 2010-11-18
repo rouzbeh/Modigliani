@@ -1,0 +1,284 @@
+\subsection{NT3D\_\-surfaced\_\-object\_\-o Class Reference}
+\label{class_n_t3_d__surfaced__object__o}\index{NT3D\_\-surfaced\_\-object\_\-o@{NT3D\_\-surfaced\_\-object\_\-o}}
+
+
+\hyperlink{class_n_t3_d__surfaced__object__o}{NT3D\_\-surfaced\_\-object\_\-o} class.  
+
+
+
+
+{\ttfamily \#include $<$nt3d\_\-surfaced\_\-object\_\-obj.h$>$}
+
+
+
+Inheritance diagram for NT3D\_\-surfaced\_\-object\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_n_t3_d__surfaced__object__o__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for NT3D\_\-surfaced\_\-object\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_n_t3_d__surfaced__object__o__coll__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_t3_d__surfaced__object__o_ac2e552e5158173b5048c8ed19dc01e2c}{NT3D\_\-surfaced\_\-object\_\-o} ()
+\item 
+\hyperlink{class_n_t3_d__surfaced__object__o_a91d9bda65bc623a726cbcadd99676064}{NT3D\_\-surfaced\_\-object\_\-o} (const \hyperlink{class_n_t__vector3__o}{NT\_\-vector3\_\-o} \&oPosition)
+\item 
+\hyperlink{class_n_t3_d__surfaced__object__o_a51d98cf4cd56b56ef6ba3ce001919eb8}{NT3D\_\-surfaced\_\-object\_\-o} (const \hyperlink{class_n_t3_d__surfaced__object__o}{NT3D\_\-surfaced\_\-object\_\-o} \&original)
+\item 
+const \hyperlink{class_n_t3_d__surfaced__object__o}{NT3D\_\-surfaced\_\-object\_\-o} \& \hyperlink{class_n_t3_d__surfaced__object__o_ac61b79b248d9729a6cfe88b19b73ff78}{operator=} (const \hyperlink{class_n_t3_d__surfaced__object__o}{NT3D\_\-surfaced\_\-object\_\-o} \&right)
+\item 
+virtual \hyperlink{class_n_t3_d__surfaced__object__o_a8d8283b96cbdd0bb4431e937a39ff4fa}{$\sim$NT3D\_\-surfaced\_\-object\_\-o} ()
+\item 
+\hyperlink{nt__types_8h_ab9564ee8f091e809d21b8451c6683c53}{NTreturn} \hyperlink{class_n_t3_d__surfaced__object__o_a9dfb7870b2786526870f4769411ee20b}{SetTexture} (\hyperlink{class_n_t3_d__texture__o}{NT3D\_\-texture\_\-o} $\ast$newTexturePtr)
+\item 
+bool \hyperlink{class_n_t3_d__surfaced__object__o_a6c37962ce930b3650f466ed88ee2bbea}{\_\-textureSet} ()
+\item 
+bool \hyperlink{class_n_t3_d__surfaced__object__o_ad21eeaaa4e9cec6dfbf1f3588ea8ac36}{\_\-bUseTexture} ()
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_n_t3_d__surfaced__object__o_aa789d793770be2e94fbf525e148318c5}{DrawObj} ()
+\item 
+virtual void \hyperlink{class_n_t3_d__surfaced__object__o_a36d33a50784db0850a50cd925bab5cc9}{DrawSurfacedObj} ()
+\item 
+void \hyperlink{class_n_t3_d__surfaced__object__o_a79cb3d9bb3b4a9ecd4f833ebb074227a}{ControlObj} (\hyperlink{nt3d__object__obj_8h_ae59ecf13a3631bc4a9ea41f90de08351}{NT3Dcontroller} cntrl, \hyperlink{nt__types_8h_aee8aa0a9869e8b5c97c6c02217ff09cd}{NTint} value)
+\begin{DoxyCompactList}\small\item\em ControlObj is to overwritten by derived classes to handle controller calls. \item\end{DoxyCompactList}\item 
+virtual void \hyperlink{class_n_t3_d__surfaced__object__o_a8cab0d5795fb35a049cd0b388113e7c0}{ControlSurfacedObj} (\hyperlink{nt3d__object__obj_8h_ae59ecf13a3631bc4a9ea41f90de08351}{NT3Dcontroller} cntrl, \hyperlink{nt__types_8h_aee8aa0a9869e8b5c97c6c02217ff09cd}{NTint} value)
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_t3_d__material__o}{NT3D\_\-material\_\-o} \hyperlink{class_n_t3_d__surfaced__object__o_a48c223ebdc47fee300835b626adeee22}{oMaterial}
+\item 
+\hyperlink{class_n_t3_d__texture__o}{NT3D\_\-texture\_\-o} $\ast$ \hyperlink{class_n_t3_d__surfaced__object__o_adbdb2a7cc584844721c1bfc7b8acb3be}{oTexturePtr}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\begin{Desc}
+\item[\hyperlink{bug__bug000040}{Bug}]unknown \end{Desc}
+\begin{DoxyWarning}{Warning}
+unknown 
+\end{DoxyWarning}
+
+
+Definition at line 59 of file nt3d\_\-surfaced\_\-object\_\-obj.h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{NT3D\_\-surfaced\_\-object\_\-o@{NT3D\_\-surfaced\_\-object\_\-o}!NT3D\_\-surfaced\_\-object\_\-o@{NT3D\_\-surfaced\_\-object\_\-o}}
+\index{NT3D\_\-surfaced\_\-object\_\-o@{NT3D\_\-surfaced\_\-object\_\-o}!NT3D_surfaced_object_o@{NT3D\_\-surfaced\_\-object\_\-o}}
+\paragraph[{NT3D\_\-surfaced\_\-object\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT3D\_\-surfaced\_\-object\_\-o::NT3D\_\-surfaced\_\-object\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__surfaced__object__o_ac2e552e5158173b5048c8ed19dc01e2c}
+\index{NT3D\_\-surfaced\_\-object\_\-o@{NT3D\_\-surfaced\_\-object\_\-o}!NT3D\_\-surfaced\_\-object\_\-o@{NT3D\_\-surfaced\_\-object\_\-o}}
+\index{NT3D\_\-surfaced\_\-object\_\-o@{NT3D\_\-surfaced\_\-object\_\-o}!NT3D_surfaced_object_o@{NT3D\_\-surfaced\_\-object\_\-o}}
+\paragraph[{NT3D\_\-surfaced\_\-object\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT3D\_\-surfaced\_\-object\_\-o::NT3D\_\-surfaced\_\-object\_\-o (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT\_\-vector3\_\-o} \&}]{ oPosition}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__surfaced__object__o_a91d9bda65bc623a726cbcadd99676064}
+\index{NT3D\_\-surfaced\_\-object\_\-o@{NT3D\_\-surfaced\_\-object\_\-o}!NT3D\_\-surfaced\_\-object\_\-o@{NT3D\_\-surfaced\_\-object\_\-o}}
+\index{NT3D\_\-surfaced\_\-object\_\-o@{NT3D\_\-surfaced\_\-object\_\-o}!NT3D_surfaced_object_o@{NT3D\_\-surfaced\_\-object\_\-o}}
+\paragraph[{NT3D\_\-surfaced\_\-object\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT3D\_\-surfaced\_\-object\_\-o::NT3D\_\-surfaced\_\-object\_\-o (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT3D\_\-surfaced\_\-object\_\-o} \&}]{ original}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__surfaced__object__o_a51d98cf4cd56b56ef6ba3ce001919eb8}
+\index{NT3D\_\-surfaced\_\-object\_\-o@{NT3D\_\-surfaced\_\-object\_\-o}!$\sim$NT3D\_\-surfaced\_\-object\_\-o@{$\sim$NT3D\_\-surfaced\_\-object\_\-o}}
+\index{$\sim$NT3D\_\-surfaced\_\-object\_\-o@{$\sim$NT3D\_\-surfaced\_\-object\_\-o}!NT3D_surfaced_object_o@{NT3D\_\-surfaced\_\-object\_\-o}}
+\paragraph[{$\sim$NT3D\_\-surfaced\_\-object\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}virtual NT3D\_\-surfaced\_\-object\_\-o::$\sim$NT3D\_\-surfaced\_\-object\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t3_d__surfaced__object__o_a8d8283b96cbdd0bb4431e937a39ff4fa}
+
+
+\subsubsection{Member Function Documentation}
+\index{NT3D\_\-surfaced\_\-object\_\-o@{NT3D\_\-surfaced\_\-object\_\-o}!\_\-bUseTexture@{\_\-bUseTexture}}
+\index{\_\-bUseTexture@{\_\-bUseTexture}!NT3D_surfaced_object_o@{NT3D\_\-surfaced\_\-object\_\-o}}
+\paragraph[{\_\-bUseTexture}]{\setlength{\rightskip}{0pt plus 5cm}bool NT3D\_\-surfaced\_\-object\_\-o::\_\-bUseTexture (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t3_d__surfaced__object__o_ad21eeaaa4e9cec6dfbf1f3588ea8ac36}
+
+
+Definition at line 70 of file nt3d\_\-surfaced\_\-object\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{return bUseTexture;};
+\end{DoxyCode}
+
+
+\index{NT3D\_\-surfaced\_\-object\_\-o@{NT3D\_\-surfaced\_\-object\_\-o}!\_\-textureSet@{\_\-textureSet}}
+\index{\_\-textureSet@{\_\-textureSet}!NT3D_surfaced_object_o@{NT3D\_\-surfaced\_\-object\_\-o}}
+\paragraph[{\_\-textureSet}]{\setlength{\rightskip}{0pt plus 5cm}bool NT3D\_\-surfaced\_\-object\_\-o::\_\-textureSet (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t3_d__surfaced__object__o_a6c37962ce930b3650f466ed88ee2bbea}
+
+
+Definition at line 69 of file nt3d\_\-surfaced\_\-object\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{return textureSet;};
+\end{DoxyCode}
+
+
+\index{NT3D\_\-surfaced\_\-object\_\-o@{NT3D\_\-surfaced\_\-object\_\-o}!ControlObj@{ControlObj}}
+\index{ControlObj@{ControlObj}!NT3D_surfaced_object_o@{NT3D\_\-surfaced\_\-object\_\-o}}
+\paragraph[{ControlObj}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-surfaced\_\-object\_\-o::ControlObj (
+\begin{DoxyParamCaption}
+\item[{{\bf NT3Dcontroller}}]{ cntrl, }
+\item[{{\bf NTint}}]{ value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected, virtual\mbox{]}}}\hfill\label{class_n_t3_d__surfaced__object__o_a79cb3d9bb3b4a9ecd4f833ebb074227a}
+
+
+Reimplemented from \hyperlink{class_n_t3_d__hierarchic__object__o_a44e300863e04239cbfd92efe76862eb1}{NT3D\_\-hierarchic\_\-object\_\-o}.
+
+\index{NT3D\_\-surfaced\_\-object\_\-o@{NT3D\_\-surfaced\_\-object\_\-o}!ControlSurfacedObj@{ControlSurfacedObj}}
+\index{ControlSurfacedObj@{ControlSurfacedObj}!NT3D_surfaced_object_o@{NT3D\_\-surfaced\_\-object\_\-o}}
+\paragraph[{ControlSurfacedObj}]{\setlength{\rightskip}{0pt plus 5cm}virtual void NT3D\_\-surfaced\_\-object\_\-o::ControlSurfacedObj (
+\begin{DoxyParamCaption}
+\item[{{\bf NT3Dcontroller}}]{ cntrl, }
+\item[{{\bf NTint}}]{ value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, protected, virtual\mbox{]}}}\hfill\label{class_n_t3_d__surfaced__object__o_a8cab0d5795fb35a049cd0b388113e7c0}
+
+
+Reimplemented in \hyperlink{class_n_t3_d__solid__o_a4d528008fd20f2e4837982bf08a5b1ab}{NT3D\_\-solid\_\-o}.
+
+
+
+Definition at line 78 of file nt3d\_\-surfaced\_\-object\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{NT_CERR(1,"NT3D_surfaced_object_o::ControlSurfacedObj() - Error : This method no
+      t overridden by derived class");};
+\end{DoxyCode}
+
+
+\index{NT3D\_\-surfaced\_\-object\_\-o@{NT3D\_\-surfaced\_\-object\_\-o}!DrawObj@{DrawObj}}
+\index{DrawObj@{DrawObj}!NT3D_surfaced_object_o@{NT3D\_\-surfaced\_\-object\_\-o}}
+\paragraph[{DrawObj}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-surfaced\_\-object\_\-o::DrawObj (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, protected, virtual\mbox{]}}}\hfill\label{class_n_t3_d__surfaced__object__o_aa789d793770be2e94fbf525e148318c5}
+
+
+Reimplemented from \hyperlink{class_n_t3_d__hierarchic__object__o_a2e909a5c752d5560133bd1bdb32147ec}{NT3D\_\-hierarchic\_\-object\_\-o}.
+
+
+
+Definition at line 75 of file nt3d\_\-surfaced\_\-object\_\-obj.h.
+
+
+
+References DrawSurfacedObj().
+
+
+
+
+\begin{DoxyCode}
+{ DrawSurfacedObj(); }; 
+\end{DoxyCode}
+
+
+\index{NT3D\_\-surfaced\_\-object\_\-o@{NT3D\_\-surfaced\_\-object\_\-o}!DrawSurfacedObj@{DrawSurfacedObj}}
+\index{DrawSurfacedObj@{DrawSurfacedObj}!NT3D_surfaced_object_o@{NT3D\_\-surfaced\_\-object\_\-o}}
+\paragraph[{DrawSurfacedObj}]{\setlength{\rightskip}{0pt plus 5cm}virtual void NT3D\_\-surfaced\_\-object\_\-o::DrawSurfacedObj (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, protected, virtual\mbox{]}}}\hfill\label{class_n_t3_d__surfaced__object__o_a36d33a50784db0850a50cd925bab5cc9}
+
+
+Reimplemented in \hyperlink{class_n_t3_d__open__box__o_a00db506b8c23e654c9eba70d5399974d}{NT3D\_\-open\_\-box\_\-o}, and \hyperlink{class_n_t3_d__solid__o_ac0d1c364c4bd5100c9f529ee88f6c6ef}{NT3D\_\-solid\_\-o}.
+
+
+
+Definition at line 76 of file nt3d\_\-surfaced\_\-object\_\-obj.h.
+
+
+
+References NT\_\-CERR.
+
+
+
+Referenced by DrawObj().
+
+
+
+
+\begin{DoxyCode}
+{NT_CERR(1,"NT3D_surfaced_object_o::DrawSurfacedObj() - Error : This method not o
+      verridden by derived class");};
+\end{DoxyCode}
+
+
+\index{NT3D\_\-surfaced\_\-object\_\-o@{NT3D\_\-surfaced\_\-object\_\-o}!operator=@{operator=}}
+\index{operator=@{operator=}!NT3D_surfaced_object_o@{NT3D\_\-surfaced\_\-object\_\-o}}
+\paragraph[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf NT3D\_\-surfaced\_\-object\_\-o}\& NT3D\_\-surfaced\_\-object\_\-o::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT3D\_\-surfaced\_\-object\_\-o} \&}]{ right}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__surfaced__object__o_ac61b79b248d9729a6cfe88b19b73ff78}
+\index{NT3D\_\-surfaced\_\-object\_\-o@{NT3D\_\-surfaced\_\-object\_\-o}!SetTexture@{SetTexture}}
+\index{SetTexture@{SetTexture}!NT3D_surfaced_object_o@{NT3D\_\-surfaced\_\-object\_\-o}}
+\paragraph[{SetTexture}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreturn} NT3D\_\-surfaced\_\-object\_\-o::SetTexture (
+\begin{DoxyParamCaption}
+\item[{{\bf NT3D\_\-texture\_\-o} $\ast$}]{ newTexturePtr}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__surfaced__object__o_a9dfb7870b2786526870f4769411ee20b}
+
+
+\subsubsection{Member Data Documentation}
+\index{NT3D\_\-surfaced\_\-object\_\-o@{NT3D\_\-surfaced\_\-object\_\-o}!oMaterial@{oMaterial}}
+\index{oMaterial@{oMaterial}!NT3D_surfaced_object_o@{NT3D\_\-surfaced\_\-object\_\-o}}
+\paragraph[{oMaterial}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NT3D\_\-material\_\-o} {\bf NT3D\_\-surfaced\_\-object\_\-o::oMaterial}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_n_t3_d__surfaced__object__o_a48c223ebdc47fee300835b626adeee22}
+
+
+Definition at line 78 of file nt3d\_\-surfaced\_\-object\_\-obj.h.
+
+\index{NT3D\_\-surfaced\_\-object\_\-o@{NT3D\_\-surfaced\_\-object\_\-o}!oTexturePtr@{oTexturePtr}}
+\index{oTexturePtr@{oTexturePtr}!NT3D_surfaced_object_o@{NT3D\_\-surfaced\_\-object\_\-o}}
+\paragraph[{oTexturePtr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NT3D\_\-texture\_\-o}$\ast$ {\bf NT3D\_\-surfaced\_\-object\_\-o::oTexturePtr}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_n_t3_d__surfaced__object__o_adbdb2a7cc584844721c1bfc7b8acb3be}
+
+
+Definition at line 81 of file nt3d\_\-surfaced\_\-object\_\-obj.h.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nt3d__surfaced__object__obj_8h}{nt3d\_\-surfaced\_\-object\_\-obj.h}\end{DoxyCompactItemize}

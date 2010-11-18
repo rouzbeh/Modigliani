@@ -1,0 +1,74 @@
+.TH "NT_gui_drv_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NT_gui_drv_o \- 
+.PP
+\fBNT_gui_drv_o\fP class Generic (abstract) driver for window systems.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <nt_gui_drv_obj.h>\fP
+.PP
+Inherits \fBNT_o\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNT_gui_drv_o\fP ()"
+.br
+.ti -1c
+.RI "\fBNT_gui_drv_o\fP (const \fBNT_gui_drv_o\fP &original)"
+.br
+.ti -1c
+.RI "const \fBNT_gui_drv_o\fP & \fBoperator=\fP (const \fBNT_gui_drv_o\fP &right)"
+.br
+.ti -1c
+.RI "virtual \fB~NT_gui_drv_o\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBMakeCurrent\fP () const "
+.br
+.ti -1c
+.RI "virtual void \fBSwapBuffer\fP () const "
+.br
+.ti -1c
+.RI "virtual void \fBResize\fP (\fBNTsize\fP width, \fBNTsize\fP height)"
+.br
+.ti -1c
+.RI "virtual void \fBRedraw\fP ()"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBBug\fP
+.RS 4
+unknown 
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+unknown 
+.RE
+.PP
+
+.PP
+Definition at line 65 of file nt_gui_drv_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "NT_gui_drv_o::NT_gui_drv_o ()"
+.SS "NT_gui_drv_o::NT_gui_drv_o (const \fBNT_gui_drv_o\fP & original)"
+.SS "virtual NT_gui_drv_o::~NT_gui_drv_o ()\fC [virtual]\fP"
+.SH "Member Function Documentation"
+.PP 
+.SS "virtual void NT_gui_drv_o::MakeCurrent () const\fC [virtual]\fP"
+.SS "const \fBNT_gui_drv_o\fP& NT_gui_drv_o::operator= (const \fBNT_gui_drv_o\fP & right)"
+.SS "virtual void NT_gui_drv_o::Redraw ()\fC [virtual]\fP"
+.SS "virtual void NT_gui_drv_o::Resize (\fBNTsize\fP width, \fBNTsize\fP height)\fC [virtual]\fP"
+.SS "virtual void NT_gui_drv_o::SwapBuffer () const\fC [virtual]\fP"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

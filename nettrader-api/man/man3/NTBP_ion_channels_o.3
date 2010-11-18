@@ -1,0 +1,189 @@
+.TH "NTBP_ion_channels_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NTBP_ion_channels_o \- 
+.PP
+\fBNTBP_ion_channels_o\fP class.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ntbp_ion_channels_obj.h>\fP
+.PP
+Inherits \fBNTBP_object_o\fP.
+.PP
+Inherited by \fBNTBP_patlak_sodium_ion_channels_o\fP, \fBNTBP_potassium_ion_channels_o\fP, and \fBNTBP_sodium_ion_channels_o\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNTBP_ion_channels_o\fP (\fBNTsize\fP numNewChannels=1, \fBNTsize\fP numNewStates=1)"
+.br
+.ti -1c
+.RI "\fBNTBP_ion_channels_o\fP (const \fBNTBP_ion_channels_o\fP &original)"
+.br
+.ti -1c
+.RI "const \fBNTBP_ion_channels_o\fP & \fBoperator=\fP (const \fBNTBP_ion_channels_o\fP &right)"
+.br
+.ti -1c
+.RI "virtual \fB~NTBP_ion_channels_o\fP ()"
+.br
+.ti -1c
+.RI "\fBNTsize\fP \fB_numChannels\fP () const "
+.br
+.ti -1c
+.RI "\fBNTsize\fP \fB_numStates\fP () const "
+.br
+.ti -1c
+.RI "bool \fBGillespieStep\fP ()"
+.br
+.ti -1c
+.RI "virtual \fBNTreturn\fP \fBBinomialStep\fP ()"
+.br
+.ti -1c
+.RI "virtual bool \fBComputeGillespieStep\fP (\fBNTsize\fP channelStateId)"
+.br
+.ti -1c
+.RI "virtual void \fBShowStates\fP () const =0"
+.br
+.ti -1c
+.RI "virtual \fBNTsize\fP \fBNumOpen\fP () const =0"
+.br
+.ti -1c
+.RI "virtual \fBNTsize\fP \fBNumClosed\fP () const =0"
+.br
+.ti -1c
+.RI "virtual \fBNTreturn\fP \fBSteadyStateDistribution\fP ()=0"
+.br
+.ti -1c
+.RI "virtual \fBNTreal\fP \fBComputeChannelStateTimeConstant\fP () const =0"
+.br
+.RI "\fISum of escape rates from current state [1/s]. \fP"
+.ti -1c
+.RI "virtual \fBNTreturn\fP \fBUpdateStateProb\fP (vector< \fBNTreal\fP > rateConstVec)=0"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "vector< \fBNTreal\fP > \fBstatePersistenceProbVec\fP"
+.br
+.ti -1c
+.RI "vector< \fBNTsize\fP > \fBstateCounterVec\fP"
+.br
+.in -1c
+.SS "Static Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "static \fBNT_uniform_rnd_dist_o\fP \fBuniformRnd\fP"
+.br
+.ti -1c
+.RI "static \fBNT_binomial_rnd_dist_o\fP \fBbinomRnd\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBBug\fP
+.RS 4
+unknown 
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+unknown 
+.RE
+.PP
+
+.PP
+Definition at line 58 of file ntbp_ion_channels_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "NTBP_ion_channels_o::NTBP_ion_channels_o (\fBNTsize\fP numNewChannels = \fC1\fP, \fBNTsize\fP numNewStates = \fC1\fP)"
+.SS "NTBP_ion_channels_o::NTBP_ion_channels_o (const \fBNTBP_ion_channels_o\fP & original)"
+.SS "virtual NTBP_ion_channels_o::~NTBP_ion_channels_o ()\fC [virtual]\fP"
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBNTsize\fP NTBP_ion_channels_o::_numChannels () const\fC [inline]\fP"
+.PP
+Definition at line 66 of file ntbp_ion_channels_obj.h.
+.PP
+Referenced by NTBP_sodium_ion_channels_o::NumClosed(), NTBP_potassium_ion_channels_o::NumClosed(), NTBP_patlak_sodium_ion_channels_o::NumClosed(), NTBP_sga_sodium_current_o::Show(), NTBP_multi_sodium_current_o::Show(), and NTBP_hranvier_sodium_multi_current_o::Show().
+.PP
+.nf
+{ return numChannels;}
+.fi
+.SS "\fBNTsize\fP NTBP_ion_channels_o::_numStates () const\fC [inline]\fP"
+.PP
+Definition at line 67 of file ntbp_ion_channels_obj.h.
+.PP
+.nf
+{ return numStates;}
+.fi
+.SS "virtual \fBNTreturn\fP NTBP_ion_channels_o::BinomialStep ()\fC [inline, virtual]\fP"
+.PP
+Reimplemented in \fBNTBP_patlak_sodium_ion_channels_o\fP, \fBNTBP_potassium_ion_channels_o\fP, and \fBNTBP_sodium_ion_channels_o\fP.
+.PP
+Definition at line 69 of file ntbp_ion_channels_obj.h.
+.PP
+.nf
+{ cerr << 'NTBP_ion_channels_o::BinomialStep was not derived.' << endl; return NT_NOT_IMPLEMENTED;}
+.fi
+.SS "virtual \fBNTreal\fP NTBP_ion_channels_o::ComputeChannelStateTimeConstant () const\fC [pure virtual]\fP"
+.PP
+Implemented in \fBNTBP_patlak_sodium_ion_channels_o\fP, \fBNTBP_potassium_ion_channels_o\fP, and \fBNTBP_sodium_ion_channels_o\fP.
+.SS "virtual bool NTBP_ion_channels_o::ComputeGillespieStep (\fBNTsize\fP channelStateId)\fC [inline, virtual]\fP"
+.PP
+Reimplemented in \fBNTBP_potassium_ion_channels_o\fP, and \fBNTBP_sodium_ion_channels_o\fP.
+.PP
+Definition at line 70 of file ntbp_ion_channels_obj.h.
+.PP
+.nf
+{ cerr << 'NTBP_ion_channels::ComputeGillespieStep - Error : Should be overridden by derived class.' << endl; return false;}
+.fi
+.SS "bool NTBP_ion_channels_o::GillespieStep ()"
+.PP
+Referenced by NTBP_multi_current_o::ComputeGillespieStep().
+.SS "virtual \fBNTsize\fP NTBP_ion_channels_o::NumClosed () const\fC [pure virtual]\fP"
+.PP
+Implemented in \fBNTBP_patlak_sodium_ion_channels_o\fP, \fBNTBP_potassium_ion_channels_o\fP, and \fBNTBP_sodium_ion_channels_o\fP.
+.SS "virtual \fBNTsize\fP NTBP_ion_channels_o::NumOpen () const\fC [pure virtual]\fP"
+.PP
+Implemented in \fBNTBP_patlak_sodium_ion_channels_o\fP, \fBNTBP_potassium_ion_channels_o\fP, and \fBNTBP_sodium_ion_channels_o\fP.
+.PP
+Referenced by NTBP_delayed_potassium_rectifier_current_o::ComputeConductance(), NTBP_sga_sodium_current_o::Show(), NTBP_multi_sodium_current_o::Show(), and NTBP_hranvier_sodium_multi_current_o::Show().
+.SS "const \fBNTBP_ion_channels_o\fP& NTBP_ion_channels_o::operator= (const \fBNTBP_ion_channels_o\fP & right)"
+.SS "virtual void NTBP_ion_channels_o::ShowStates () const\fC [pure virtual]\fP"
+.PP
+Implemented in \fBNTBP_patlak_sodium_ion_channels_o\fP, \fBNTBP_potassium_ion_channels_o\fP, and \fBNTBP_sodium_ion_channels_o\fP.
+.PP
+Referenced by NTBP_sga_sodium_current_o::ShowChannelStatePopulation(), NTBP_multi_sodium_current_o::ShowChannelStatePopulation(), and NTBP_hranvier_sodium_multi_current_o::ShowChannelStatePopulation().
+.SS "virtual \fBNTreturn\fP NTBP_ion_channels_o::SteadyStateDistribution ()\fC [pure virtual]\fP"
+.PP
+Implemented in \fBNTBP_patlak_sodium_ion_channels_o\fP, \fBNTBP_potassium_ion_channels_o\fP, and \fBNTBP_sodium_ion_channels_o\fP.
+.SS "virtual \fBNTreturn\fP NTBP_ion_channels_o::UpdateStateProb (vector< \fBNTreal\fP > rateConstVec)\fC [pure virtual]\fP"
+.PP
+Implemented in \fBNTBP_patlak_sodium_ion_channels_o\fP, \fBNTBP_potassium_ion_channels_o\fP, and \fBNTBP_sodium_ion_channels_o\fP.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBNT_binomial_rnd_dist_o\fP \fBNTBP_ion_channels_o::binomRnd\fP\fC [static, protected]\fP"
+.PP
+Definition at line 86 of file ntbp_ion_channels_obj.h.
+.SS "vector< \fBNTsize\fP > \fBNTBP_ion_channels_o::stateCounterVec\fP\fC [protected]\fP"
+.PP
+Definition at line 84 of file ntbp_ion_channels_obj.h.
+.PP
+Referenced by NTBP_sodium_ion_channels_o::NumOpen(), NTBP_potassium_ion_channels_o::NumOpen(), and NTBP_patlak_sodium_ion_channels_o::NumOpen().
+.SS "vector< \fBNTreal\fP > \fBNTBP_ion_channels_o::statePersistenceProbVec\fP\fC [protected]\fP"
+.PP
+Definition at line 83 of file ntbp_ion_channels_obj.h.
+.SS "\fBNT_uniform_rnd_dist_o\fP \fBNTBP_ion_channels_o::uniformRnd\fP\fC [static, protected]\fP"
+.PP
+Definition at line 85 of file ntbp_ion_channels_obj.h.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

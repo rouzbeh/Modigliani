@@ -1,0 +1,503 @@
+.TH "TNT::Region2D" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+TNT::Region2D \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <region2d.h>\fP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "typedef Array2D::value_type \fBT\fP"
+.br
+.ti -1c
+.RI "typedef \fBSubscript\fP \fBsize_type\fP"
+.br
+.ti -1c
+.RI "typedef \fBT\fP \fBvalue_type\fP"
+.br
+.ti -1c
+.RI "typedef \fBT\fP \fBelement_type\fP"
+.br
+.ti -1c
+.RI "typedef \fBT\fP * \fBpointer\fP"
+.br
+.ti -1c
+.RI "typedef \fBT\fP * \fBiterator\fP"
+.br
+.ti -1c
+.RI "typedef \fBT\fP & \fBreference\fP"
+.br
+.ti -1c
+.RI "typedef const \fBT\fP * \fBconst_iterator\fP"
+.br
+.ti -1c
+.RI "typedef const \fBT\fP & \fBconst_reference\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "Array2D & \fBarray\fP ()"
+.br
+.ti -1c
+.RI "const Array2D & \fBarray\fP () const "
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBlbound\fP () const "
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBnum_rows\fP () const "
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBnum_cols\fP () const "
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBoffset\fP (\fBSubscript\fP i) const "
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBdim\fP (\fBSubscript\fP i) const "
+.br
+.ti -1c
+.RI "\fBRegion2D\fP (Array2D &A, \fBSubscript\fP i1, \fBSubscript\fP i2, \fBSubscript\fP j1, \fBSubscript\fP j2)"
+.br
+.ti -1c
+.RI "\fBRegion2D\fP (Array2D &A, const \fBIndex1D\fP &I, const \fBIndex1D\fP &J)"
+.br
+.ti -1c
+.RI "\fBRegion2D\fP (\fBRegion2D\fP< Array2D > &A, \fBSubscript\fP i1, \fBSubscript\fP i2, \fBSubscript\fP j1, \fBSubscript\fP j2)"
+.br
+.ti -1c
+.RI "\fBRegion2D\fP< Array2D > \fBoperator()\fP (\fBSubscript\fP i1, \fBSubscript\fP i2, \fBSubscript\fP j1, \fBSubscript\fP j2)"
+.br
+.ti -1c
+.RI "\fBRegion2D\fP< Array2D > \fBoperator()\fP (const \fBIndex1D\fP &I, const \fBIndex1D\fP &J)"
+.br
+.ti -1c
+.RI "\fBT\fP & \fBoperator()\fP (\fBSubscript\fP i, \fBSubscript\fP j)"
+.br
+.ti -1c
+.RI "const \fBT\fP & \fBoperator()\fP (\fBSubscript\fP i, \fBSubscript\fP j) const "
+.br
+.ti -1c
+.RI "\fBRegion2D\fP< Array2D > & \fBoperator=\fP (const \fBRegion2D\fP< Array2D > &R)"
+.br
+.ti -1c
+.RI "\fBRegion2D\fP< Array2D > & \fBoperator=\fP (const \fBconst_Region2D\fP< Array2D > &R)"
+.br
+.ti -1c
+.RI "\fBRegion2D\fP< Array2D > & \fBoperator=\fP (const Array2D &R)"
+.br
+.ti -1c
+.RI "\fBRegion2D\fP< Array2D > & \fBoperator=\fP (const \fBT\fP &scalar)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "Array2D & \fBA_\fP"
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBoffset_\fP [2]"
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBdim_\fP [2]"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.SS "template<class Array2D> class TNT::Region2D< Array2D >"
+
+.PP
+Definition at line 42 of file region2d.h.
+.SH "Member Typedef Documentation"
+.PP 
+.SS "template<class Array2D> typedef const \fBT\fP* \fBTNT::Region2D\fP< Array2D >::\fBconst_iterator\fP"
+.PP
+Definition at line 58 of file region2d.h.
+.SS "template<class Array2D> typedef const \fBT\fP& \fBTNT::Region2D\fP< Array2D >::\fBconst_reference\fP"
+.PP
+Definition at line 59 of file region2d.h.
+.SS "template<class Array2D> typedef \fBT\fP \fBTNT::Region2D\fP< Array2D >::\fBelement_type\fP"
+.PP
+Definition at line 54 of file region2d.h.
+.SS "template<class Array2D> typedef \fBT\fP* \fBTNT::Region2D\fP< Array2D >::\fBiterator\fP"
+.PP
+Definition at line 56 of file region2d.h.
+.SS "template<class Array2D> typedef \fBT\fP* \fBTNT::Region2D\fP< Array2D >::\fBpointer\fP"
+.PP
+Definition at line 55 of file region2d.h.
+.SS "template<class Array2D> typedef \fBT\fP& \fBTNT::Region2D\fP< Array2D >::\fBreference\fP"
+.PP
+Definition at line 57 of file region2d.h.
+.SS "template<class Array2D> typedef \fBSubscript\fP \fBTNT::Region2D\fP< Array2D >::\fBsize_type\fP"
+.PP
+Definition at line 52 of file region2d.h.
+.SS "template<class Array2D> typedef Array2D::value_type \fBTNT::Region2D\fP< Array2D >::\fBT\fP"
+.PP
+Definition at line 51 of file region2d.h.
+.SS "template<class Array2D> typedef \fBT\fP \fBTNT::Region2D\fP< Array2D >::\fBvalue_type\fP"
+.PP
+Definition at line 53 of file region2d.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "template<class Array2D> \fBTNT::Region2D\fP< Array2D >::\fBRegion2D\fP (Array2D & A, \fBSubscript\fP i1, \fBSubscript\fP i2, \fBSubscript\fP j1, \fBSubscript\fP j2)\fC [inline]\fP"
+.PP
+Definition at line 86 of file region2d.h.
+.PP
+References TNT::Region2D< Array2D >::dim_, and TNT::Region2D< Array2D >::offset_.
+.PP
+.nf
+                              : A_(A)
+        {
+#ifdef TNT_BOUNDS_CHECK
+            assert( i1 <= i2 );
+            assert( j1 <= j2);
+            assert( A.lbound() <= i1);
+            assert( i2<= A.dim(A.lbound()) + A.lbound()-1);
+            assert( A.lbound() <= j1);
+            assert( j2<= A.dim(A.lbound()+1) + A.lbound()-1 );
+#endif
+
+
+            offset_[0] = i1-A.lbound();
+            offset_[1] = j1-A.lbound();
+            dim_[0] = i2-i1+1;
+            dim_[1] = j2-j1+1;
+        }
+.fi
+.SS "template<class Array2D> \fBTNT::Region2D\fP< Array2D >::\fBRegion2D\fP (Array2D & A, const \fBIndex1D\fP & I, const \fBIndex1D\fP & J)\fC [inline]\fP"
+.PP
+Definition at line 105 of file region2d.h.
+.PP
+References TNT::Region2D< Array2D >::dim_, TNT::Index1D::lbound(), TNT::Region2D< Array2D >::offset_, and TNT::Index1D::ubound().
+.PP
+.nf
+                                                                 : A_(A)
+        {
+#ifdef TNT_BOUNDS_CHECK
+            assert( I.lbound() <= I.ubound() );
+            assert( J.lbound() <= J.ubound() );
+            assert( A.lbound() <= I.lbound());
+            assert( I.ubound()<= A.dim(A.lbound()) + A.lbound()-1);
+            assert( A.lbound() <= J.lbound());
+            assert( J.ubound() <= A.dim(A.lbound()+1) + A.lbound()-1 );
+#endif
+
+            offset_[0] = I.lbound()-A.lbound();
+            offset_[1] = J.lbound()-A.lbound();
+            dim_[0] = I.ubound() - I.lbound() + 1;
+            dim_[1] = J.ubound() - J.lbound() + 1;
+        }
+.fi
+.SS "template<class Array2D> \fBTNT::Region2D\fP< Array2D >::\fBRegion2D\fP (\fBRegion2D\fP< Array2D > & A, \fBSubscript\fP i1, \fBSubscript\fP i2, \fBSubscript\fP j1, \fBSubscript\fP j2)\fC [inline]\fP"
+.PP
+Definition at line 122 of file region2d.h.
+.PP
+References TNT::Region2D< Array2D >::dim(), TNT::Region2D< Array2D >::dim_, TNT::Region2D< Array2D >::lbound(), and TNT::Region2D< Array2D >::offset_.
+.PP
+.nf
+                                        : A_(A.A_)
+        {
+#ifdef TNT_BOUNDS_CHECK
+            assert( i1 <= i2 );
+            assert( j1 <= j2);
+            assert( A.lbound() <= i1);
+            assert( i2<= A.dim(A.lbound()) + A.lbound()-1);
+            assert( A.lbound() <= j1);
+            assert( j2<= A.dim(A.lbound()+1) + A.lbound()-1 );
+#endif
+            offset_[0] = (i1 - A.lbound()) + A.offset_[0];
+            offset_[1] = (j1 - A.lbound()) + A.offset_[1];
+            dim_[0] = i2-i1 + 1;
+            dim_[1] = j2-j1+1;
+        }
+.fi
+.SH "Member Function Documentation"
+.PP 
+.SS "template<class Array2D> Array2D& \fBTNT::Region2D\fP< Array2D >::array ()\fC [inline]\fP"
+.PP
+Definition at line 61 of file region2d.h.
+.PP
+References TNT::Region2D< Array2D >::A_.
+.PP
+.nf
+{ return A_; }
+.fi
+.SS "template<class Array2D> const Array2D& \fBTNT::Region2D\fP< Array2D >::array () const\fC [inline]\fP"
+.PP
+Definition at line 62 of file region2d.h.
+.PP
+References TNT::Region2D< Array2D >::A_.
+.PP
+.nf
+{ return A_; }
+.fi
+.SS "template<class Array2D> \fBSubscript\fP \fBTNT::Region2D\fP< Array2D >::dim (\fBSubscript\fP i) const\fC [inline]\fP"
+.PP
+Definition at line 75 of file region2d.h.
+.PP
+References TNT::Region2D< Array2D >::A_, and TNT::Region2D< Array2D >::dim_.
+.PP
+Referenced by TNT::Region2D< Array2D >::Region2D().
+.PP
+.nf
+        {
+#ifdef TNT_BOUNDS_CHECK
+            assert( A_.lbound() <= i);
+            assert( i<= dim_[0] + A_.lbound()-1);
+#endif
+            return dim_[i-A_.lbound()];
+        }
+.fi
+.SS "template<class Array2D> \fBSubscript\fP \fBTNT::Region2D\fP< Array2D >::lbound () const\fC [inline]\fP"
+.PP
+Definition at line 63 of file region2d.h.
+.PP
+References TNT::Region2D< Array2D >::A_.
+.PP
+Referenced by TNT::Region2D< Array2D >::operator=(), and TNT::Region2D< Array2D >::Region2D().
+.PP
+.nf
+{ return A_.lbound(); }
+.fi
+.SS "template<class Array2D> \fBSubscript\fP \fBTNT::Region2D\fP< Array2D >::num_cols () const\fC [inline]\fP"
+.PP
+Definition at line 65 of file region2d.h.
+.PP
+References TNT::Region2D< Array2D >::dim_.
+.PP
+Referenced by TNT::Region2D< Array2D >::operator=().
+.PP
+.nf
+{ return dim_[1]; }
+.fi
+.SS "template<class Array2D> \fBSubscript\fP \fBTNT::Region2D\fP< Array2D >::num_rows () const\fC [inline]\fP"
+.PP
+Definition at line 64 of file region2d.h.
+.PP
+References TNT::Region2D< Array2D >::dim_.
+.PP
+Referenced by TNT::Region2D< Array2D >::operator=().
+.PP
+.nf
+{ return dim_[0]; }
+.fi
+.SS "template<class Array2D> \fBSubscript\fP \fBTNT::Region2D\fP< Array2D >::offset (\fBSubscript\fP i) const\fC [inline]\fP"
+.PP
+Definition at line 66 of file region2d.h.
+.PP
+References TNT::Region2D< Array2D >::A_, TNT::Region2D< Array2D >::dim_, and TNT::Region2D< Array2D >::offset_.
+.PP
+.nf
+        {
+#ifdef TNT_BOUNDS_CHECK
+            assert( A_.lbound() <= i);
+            assert( i<= dim_[0] + A_.lbound()-1);
+#endif
+            return offset_[i-A_.lbound()];
+        }
+.fi
+.SS "template<class Array2D> \fBRegion2D\fP<Array2D> \fBTNT::Region2D\fP< Array2D >::operator() (const \fBIndex1D\fP & I, const \fBIndex1D\fP & J)\fC [inline]\fP"
+.PP
+Definition at line 156 of file region2d.h.
+.PP
+References TNT::Region2D< Array2D >::A_, TNT::Region2D< Array2D >::dim_, TNT::Index1D::lbound(), TNT::Region2D< Array2D >::offset_, and TNT::Index1D::ubound().
+.PP
+.nf
+        {
+#ifdef TNT_BOUNDS_CHECK
+            assert( I.lbound() <= I.ubound() );
+            assert( J.lbound() <= J.ubound() );
+            assert( A_.lbound() <= I.lbound());
+            assert( I.ubound()<= dim_[0] + A_.lbound()-1);
+            assert( A_.lbound() <= J.lbound());
+            assert( J.ubound() <= dim_[1] + A_.lbound()-1 );
+#endif
+
+            return Region2D<Array2D>(A_, I.lbound()+offset_[0],
+                offset_[0] + I.ubound(), offset_[1]+J.lbound(),
+                offset_[1] + J.ubound());
+        }
+.fi
+.SS "template<class Array2D> const \fBT\fP& \fBTNT::Region2D\fP< Array2D >::operator() (\fBSubscript\fP i, \fBSubscript\fP j) const\fC [inline]\fP"
+.PP
+Definition at line 184 of file region2d.h.
+.PP
+References TNT::Region2D< Array2D >::A_, TNT::Region2D< Array2D >::dim_, and TNT::Region2D< Array2D >::offset_.
+.PP
+.nf
+        {
+#ifdef TNT_BOUNDS_CHECK
+            assert( A_.lbound() <= i);
+            assert( i<= dim_[0] + A_.lbound()-1);
+            assert( A_.lbound() <= j);
+            assert( j<= dim_[1] + A_.lbound()-1 );
+#endif
+            return A_(i+offset_[0], j+offset_[1]);
+        }
+.fi
+.SS "template<class Array2D> \fBRegion2D\fP<Array2D> \fBTNT::Region2D\fP< Array2D >::operator() (\fBSubscript\fP i1, \fBSubscript\fP i2, \fBSubscript\fP j1, \fBSubscript\fP j2)\fC [inline]\fP"
+.PP
+Definition at line 139 of file region2d.h.
+.PP
+References TNT::Region2D< Array2D >::A_, TNT::Region2D< Array2D >::dim_, and TNT::Region2D< Array2D >::offset_.
+.PP
+.nf
+        {
+#ifdef TNT_BOUNDS_CHECK
+            assert( i1 <= i2 );
+            assert( j1 <= j2);
+            assert( A_.lbound() <= i1);
+            assert( i2<= dim_[0] + A_.lbound()-1);
+            assert( A_.lbound() <= j1);
+            assert( j2<= dim_[1] + A_.lbound()-1 );
+#endif
+            return Region2D<Array2D>(A_, 
+                    i1+offset_[0], offset_[0] + i2, 
+                    j1+offset_[1], offset_[1] + j2);
+        }
+.fi
+.SS "template<class Array2D> \fBT\fP& \fBTNT::Region2D\fP< Array2D >::operator() (\fBSubscript\fP i, \fBSubscript\fP j)\fC [inline]\fP"
+.PP
+Definition at line 173 of file region2d.h.
+.PP
+References TNT::Region2D< Array2D >::A_, TNT::Region2D< Array2D >::dim_, and TNT::Region2D< Array2D >::offset_.
+.PP
+.nf
+        {
+#ifdef TNT_BOUNDS_CHECK
+            assert( A_.lbound() <= i);
+            assert( i<= dim_[0] + A_.lbound()-1);
+            assert( A_.lbound() <= j);
+            assert( j<= dim_[1] + A_.lbound()-1 );
+#endif
+            return A_(i+offset_[0], j+offset_[1]);
+        }
+.fi
+.SS "template<class Array2D> \fBRegion2D\fP<Array2D>& \fBTNT::Region2D\fP< Array2D >::operator= (const Array2D & R)\fC [inline]\fP"
+.PP
+Definition at line 236 of file region2d.h.
+.PP
+References TNT::Region2D< Array2D >::num_cols(), and TNT::Region2D< Array2D >::num_rows().
+.PP
+.nf
+        {
+            Subscript M = num_rows(); 
+            Subscript N = num_cols();
+
+            // make sure both sides conform
+            assert(M == R.num_rows());
+            assert(N == R.num_cols());
+
+
+            Subscript start = R.lbound();
+            Subscript Mend =  start + M - 1;
+            Subscript Nend =  start + N - 1;
+            for (Subscript i=start; i<=Mend; i++)
+              for (Subscript j=start; j<=Nend; j++)
+                (*this)(i,j) = R(i,j);
+
+            return *this;
+        }
+.fi
+.SS "template<class Array2D> \fBRegion2D\fP<Array2D>& \fBTNT::Region2D\fP< Array2D >::operator= (const \fBRegion2D\fP< Array2D > & R)\fC [inline]\fP"
+.PP
+Definition at line 196 of file region2d.h.
+.PP
+References TNT::Region2D< Array2D >::lbound(), TNT::Region2D< Array2D >::num_cols(), and TNT::Region2D< Array2D >::num_rows().
+.PP
+.nf
+        {
+            Subscript M = num_rows(); 
+            Subscript N = num_cols();
+
+            // make sure both sides conform
+            assert(M == R.num_rows());
+            assert(N == R.num_cols());
+
+
+            Subscript start = R.lbound();
+            Subscript Mend =  start + M - 1;
+            Subscript Nend =  start + N - 1;
+            for (Subscript i=start; i<=Mend; i++)
+              for (Subscript j=start; j<=Nend; j++)
+                (*this)(i,j) = R(i,j);
+
+            return *this;
+        }
+.fi
+.SS "template<class Array2D> \fBRegion2D\fP<Array2D>& \fBTNT::Region2D\fP< Array2D >::operator= (const \fBT\fP & scalar)\fC [inline]\fP"
+.PP
+Definition at line 256 of file region2d.h.
+.PP
+References TNT::Region2D< Array2D >::lbound(), TNT::Region2D< Array2D >::num_cols(), and TNT::Region2D< Array2D >::num_rows().
+.PP
+.nf
+        {
+            Subscript start = lbound();
+            Subscript Mend = lbound() + num_rows() - 1;
+            Subscript Nend = lbound() + num_cols() - 1;
+
+
+            for (Subscript i=start; i<=Mend; i++)
+              for (Subscript j=start; j<=Nend; j++)
+                (*this)(i,j) = scalar;
+
+            return *this;
+        }
+.fi
+.SS "template<class Array2D> \fBRegion2D\fP<Array2D>& \fBTNT::Region2D\fP< Array2D >::operator= (const \fBconst_Region2D\fP< Array2D > & R)\fC [inline]\fP"
+.PP
+Definition at line 216 of file region2d.h.
+.PP
+References TNT::const_Region2D< Array2D >::lbound(), TNT::const_Region2D< Array2D >::num_cols(), TNT::Region2D< Array2D >::num_cols(), TNT::const_Region2D< Array2D >::num_rows(), and TNT::Region2D< Array2D >::num_rows().
+.PP
+.nf
+        {
+            Subscript M = num_rows(); 
+            Subscript N = num_cols();
+
+            // make sure both sides conform
+            assert(M == R.num_rows());
+            assert(N == R.num_cols());
+
+
+            Subscript start = R.lbound();
+            Subscript Mend =  start + M - 1;
+            Subscript Nend =  start + N - 1;
+            for (Subscript i=start; i<=Mend; i++)
+              for (Subscript j=start; j<=Nend; j++)
+                (*this)(i,j) = R(i,j);
+
+            return *this;
+        }
+.fi
+.SH "Member Data Documentation"
+.PP 
+.SS "template<class Array2D> Array2D& \fBTNT::Region2D\fP< Array2D >::\fBA_\fP\fC [protected]\fP"
+.PP
+Definition at line 46 of file region2d.h.
+.PP
+Referenced by TNT::Region2D< Array2D >::array(), TNT::Region2D< Array2D >::dim(), TNT::Region2D< Array2D >::lbound(), TNT::Region2D< Array2D >::offset(), and TNT::Region2D< Array2D >::operator()().
+.SS "template<class Array2D> \fBSubscript\fP \fBTNT::Region2D\fP< Array2D >::\fBdim_\fP[2]\fC [protected]\fP"
+.PP
+Definition at line 48 of file region2d.h.
+.PP
+Referenced by TNT::Region2D< Array2D >::dim(), TNT::Region2D< Array2D >::num_cols(), TNT::Region2D< Array2D >::num_rows(), TNT::Region2D< Array2D >::offset(), TNT::Region2D< Array2D >::operator()(), and TNT::Region2D< Array2D >::Region2D().
+.SS "template<class Array2D> \fBSubscript\fP \fBTNT::Region2D\fP< Array2D >::\fBoffset_\fP[2]\fC [protected]\fP"
+.PP
+Definition at line 47 of file region2d.h.
+.PP
+Referenced by TNT::Region2D< Array2D >::offset(), TNT::Region2D< Array2D >::operator()(), and TNT::Region2D< Array2D >::Region2D().
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

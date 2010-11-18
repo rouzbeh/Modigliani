@@ -1,0 +1,220 @@
+\subsection{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o Class Reference}
+\label{class_n_t_b_p__colbert__axonal__potassium__multi__current__o}\index{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}}
+
+
+\hyperlink{class_n_t_b_p__colbert__axonal__potassium__multi__current__o}{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o} class.  
+
+
+
+
+{\ttfamily \#include $<$ntbp\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-obj.h$>$}
+
+
+
+Inheritance diagram for NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{class_n_t_b_p__colbert__axonal__potassium__multi__current__o__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_n_t_b_p__colbert__axonal__potassium__multi__current__o__coll__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_t_b_p__colbert__axonal__potassium__multi__current__o_a7ac652297165eef2a699d506df53fe9e}{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o} (\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} area, \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t_b_p__multi__current__o_a82138baaa276b09c13038ca1fd6f08a7}{density}=8, \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} channelConductance=2.0e-\/8, NTreal newVBase=-\/64.5)
+\item 
+\hyperlink{class_n_t_b_p__colbert__axonal__potassium__multi__current__o_afaf5d036c07f588fb7dbe53f5d38a768}{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o} (const \hyperlink{class_n_t_b_p__colbert__axonal__potassium__multi__current__o}{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o} \&original)
+\item 
+const \hyperlink{class_n_t_b_p__colbert__axonal__potassium__multi__current__o}{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o} \& \hyperlink{class_n_t_b_p__colbert__axonal__potassium__multi__current__o_a7ad7baf8cf14ed76be814a60aeb0c640}{operator=} (const \hyperlink{class_n_t_b_p__colbert__axonal__potassium__multi__current__o}{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o} \&right)
+\item 
+virtual \hyperlink{class_n_t_b_p__colbert__axonal__potassium__multi__current__o_a57040c72f4790fb590d586167db43ad7}{$\sim$NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o} ()
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t_b_p__colbert__axonal__potassium__multi__current__o_a391e3787c6ad9b049203f05961b3a434}{ComputeRateSum} () const 
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t_b_p__colbert__axonal__potassium__multi__current__o_a77ec4b054732b32aff4554dc73f307c7}{OpenChannels} () const 
+\begin{DoxyCompactList}\small\item\em Number of open ionic channels. \item\end{DoxyCompactList}\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t_b_p__colbert__axonal__potassium__multi__current__o_a1a18f430a42d81b913c8f6ff109e3569}{ComputeConductance} ()
+\begin{DoxyCompactList}\small\item\em compute and return conductance in mSiemens \item\end{DoxyCompactList}\item 
+void \hyperlink{class_n_t_b_p__colbert__axonal__potassium__multi__current__o_a6e78ab914f437a41a2877f2a84af79a4}{ComputeRateConstants} (\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} voltage)
+\begin{DoxyCompactList}\small\item\em compute the rate constants ( in ms$^\wedge$-\/1 ) \item\end{DoxyCompactList}\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t_b_p__colbert__axonal__potassium__multi__current__o_acc1a5378e52c5514f9f1e6ea0897045f}{ComputeChannelStateTimeConstant} () const 
+\begin{DoxyCompactList}\small\item\em in kHz \item\end{DoxyCompactList}\item 
+\hyperlink{nt__types_8h_ab9564ee8f091e809d21b8451c6683c53}{NTreturn} \hyperlink{class_n_t_b_p__colbert__axonal__potassium__multi__current__o_a9e4aa2ec2fb7d75973ebf42f29409cf9}{StepCurrent} ()
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t_b_p__colbert__axonal__potassium__multi__current__o_a0f85a5b49bdc8fc24d3f4f59aceb3d52}{AlphaN} (\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} vM)
+\begin{DoxyCompactList}\small\item\em rate constant in ms$^\wedge$-\/1 \item\end{DoxyCompactList}\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t_b_p__colbert__axonal__potassium__multi__current__o_af19d27f4eebee3a4bbbe3b2f4987b431}{BetaN} (\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} vM)
+\item 
+void \hyperlink{class_n_t_b_p__colbert__axonal__potassium__multi__current__o_ad35a2ec5f61c77428d94dbb5e00f92c6}{ShowParam} () const 
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+
+
+Definition at line 88 of file ntbp\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-obj.h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}!NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}}
+\index{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}!NTBP_colbert_axonal_potassium_multi_current_o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}}
+\paragraph[{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o::NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o (
+\begin{DoxyParamCaption}
+\item[{{\bf NTreal}}]{ area, }
+\item[{{\bf NTreal}}]{ density = {\ttfamily 8}, }
+\item[{{\bf NTreal}}]{ channelConductance = {\ttfamily 2.0e-\/8}, }
+\item[{{\bf NTreal}}]{ newVBase = {\ttfamily -\/64.5}}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t_b_p__colbert__axonal__potassium__multi__current__o_a7ac652297165eef2a699d506df53fe9e}
+\index{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}!NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}}
+\index{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}!NTBP_colbert_axonal_potassium_multi_current_o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}}
+\paragraph[{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o::NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o (
+\begin{DoxyParamCaption}
+\item[{const {\bf NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o} \&}]{ original}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t_b_p__colbert__axonal__potassium__multi__current__o_afaf5d036c07f588fb7dbe53f5d38a768}
+\index{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}!$\sim$NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o@{$\sim$NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}}
+\index{$\sim$NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o@{$\sim$NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}!NTBP_colbert_axonal_potassium_multi_current_o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}}
+\paragraph[{$\sim$NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}virtual NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o::$\sim$NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t_b_p__colbert__axonal__potassium__multi__current__o_a57040c72f4790fb590d586167db43ad7}
+
+
+\subsubsection{Member Function Documentation}
+\index{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}!AlphaN@{AlphaN}}
+\index{AlphaN@{AlphaN}!NTBP_colbert_axonal_potassium_multi_current_o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}}
+\paragraph[{AlphaN}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o::AlphaN (
+\begin{DoxyParamCaption}
+\item[{{\bf NTreal}}]{ vM}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t_b_p__colbert__axonal__potassium__multi__current__o_a0f85a5b49bdc8fc24d3f4f59aceb3d52}
+
+
+Definition at line 77 of file ntbp\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+: public NTBP_multi_current_o {
+\end{DoxyCode}
+
+
+\index{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}!BetaN@{BetaN}}
+\index{BetaN@{BetaN}!NTBP_colbert_axonal_potassium_multi_current_o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}}
+\paragraph[{BetaN}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o::BetaN (
+\begin{DoxyParamCaption}
+\item[{{\bf NTreal}}]{ vM}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t_b_p__colbert__axonal__potassium__multi__current__o_af19d27f4eebee3a4bbbe3b2f4987b431}
+
+
+Definition at line 78 of file ntbp\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+: public NTBP_multi_current_o {
+\end{DoxyCode}
+
+
+\index{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}!ComputeChannelStateTimeConstant@{ComputeChannelStateTimeConstant}}
+\index{ComputeChannelStateTimeConstant@{ComputeChannelStateTimeConstant}!NTBP_colbert_axonal_potassium_multi_current_o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}}
+\paragraph[{ComputeChannelStateTimeConstant}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o::ComputeChannelStateTimeConstant (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t_b_p__colbert__axonal__potassium__multi__current__o_acc1a5378e52c5514f9f1e6ea0897045f}
+
+
+Reimplemented from \hyperlink{class_n_t_b_p__membrane__current__o_a87397e9f3c441eda7ac55c6aabdb57d8}{NTBP\_\-membrane\_\-current\_\-o}.
+
+\index{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}!ComputeConductance@{ComputeConductance}}
+\index{ComputeConductance@{ComputeConductance}!NTBP_colbert_axonal_potassium_multi_current_o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}}
+\paragraph[{ComputeConductance}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o::ComputeConductance (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t_b_p__colbert__axonal__potassium__multi__current__o_a1a18f430a42d81b913c8f6ff109e3569}
+
+
+Implements \hyperlink{class_n_t_b_p__membrane__current__o_a7462cc87d283cb6663aac47a29b06a96}{NTBP\_\-membrane\_\-current\_\-o}.
+
+\index{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}!ComputeRateConstants@{ComputeRateConstants}}
+\index{ComputeRateConstants@{ComputeRateConstants}!NTBP_colbert_axonal_potassium_multi_current_o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}}
+\paragraph[{ComputeRateConstants}]{\setlength{\rightskip}{0pt plus 5cm}void NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o::ComputeRateConstants (
+\begin{DoxyParamCaption}
+\item[{{\bf NTreal}}]{ vM}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t_b_p__colbert__axonal__potassium__multi__current__o_a6e78ab914f437a41a2877f2a84af79a4}
+
+
+Implements \hyperlink{class_n_t_b_p__membrane__current__o_ab77d9401846785c6c11cc0640a6b5c87}{NTBP\_\-membrane\_\-current\_\-o}.
+
+\index{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}!ComputeRateSum@{ComputeRateSum}}
+\index{ComputeRateSum@{ComputeRateSum}!NTBP_colbert_axonal_potassium_multi_current_o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}}
+\paragraph[{ComputeRateSum}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o::ComputeRateSum (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hfill\label{class_n_t_b_p__colbert__axonal__potassium__multi__current__o_a391e3787c6ad9b049203f05961b3a434}
+\index{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}!OpenChannels@{OpenChannels}}
+\index{OpenChannels@{OpenChannels}!NTBP_colbert_axonal_potassium_multi_current_o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}}
+\paragraph[{OpenChannels}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o::OpenChannels (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t_b_p__colbert__axonal__potassium__multi__current__o_a77ec4b054732b32aff4554dc73f307c7}
+
+
+Reimplemented from \hyperlink{class_n_t_b_p__membrane__current__o_abfe8fc2cdb225affa855c909fe38f5c9}{NTBP\_\-membrane\_\-current\_\-o}.
+
+\index{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}!operator=@{operator=}}
+\index{operator=@{operator=}!NTBP_colbert_axonal_potassium_multi_current_o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}}
+\paragraph[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}\& NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o} \&}]{ right}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t_b_p__colbert__axonal__potassium__multi__current__o_a7ad7baf8cf14ed76be814a60aeb0c640}
+\index{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}!ShowParam@{ShowParam}}
+\index{ShowParam@{ShowParam}!NTBP_colbert_axonal_potassium_multi_current_o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}}
+\paragraph[{ShowParam}]{\setlength{\rightskip}{0pt plus 5cm}void NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o::ShowParam (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t_b_p__colbert__axonal__potassium__multi__current__o_ad35a2ec5f61c77428d94dbb5e00f92c6}
+
+
+Reimplemented from \hyperlink{class_n_t_b_p__membrane__current__o_a9bcf3d6786c4467dec1c90378d908869}{NTBP\_\-membrane\_\-current\_\-o}.
+
+\index{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}!StepCurrent@{StepCurrent}}
+\index{StepCurrent@{StepCurrent}!NTBP_colbert_axonal_potassium_multi_current_o@{NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o}}
+\paragraph[{StepCurrent}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreturn} NTBP\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-o::StepCurrent (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t_b_p__colbert__axonal__potassium__multi__current__o_a9e4aa2ec2fb7d75973ebf42f29409cf9}
+
+
+Implements \hyperlink{class_n_t_b_p__membrane__current__o_a423b482d830c9c70098502114477c057}{NTBP\_\-membrane\_\-current\_\-o}.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{ntbp__colbert__axonal__potassium__multi__current__obj_8h}{ntbp\_\-colbert\_\-axonal\_\-potassium\_\-multi\_\-current\_\-obj.h}\end{DoxyCompactItemize}

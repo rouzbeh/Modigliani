@@ -1,0 +1,515 @@
+\subsection{DMatrix Class Reference}
+\label{class_d_matrix}\index{DMatrix@{DMatrix}}
+
+
+\hyperlink{dmatrix_8h}{dmatrix.h} Header-\/File for a Double-\/Matrix-\/Class Released 14.7.1997 , \href{mailto:afaisal@techfak.uni-bielefeld.de}{\tt afaisal@techfak.uni-\/bielefeld.de}  
+
+
+
+
+{\ttfamily \#include $<$dmatrix.h$>$}
+
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_d_matrix_ae4b5fb249b94e29a5fae797dbfb1297d}{DMatrix} (int, int)
+\item 
+\hyperlink{class_d_matrix_a07d7f66c3f2271df927c6c724616ff5b}{DMatrix} (int)
+\begin{DoxyCompactList}\small\item\em init Matrix \item\end{DoxyCompactList}\item 
+\hyperlink{class_d_matrix_a56605fe6d6d0243d874a7650171d3ba0}{DMatrix} (\hyperlink{class_d_matrix}{DMatrix} \&)
+\begin{DoxyCompactList}\small\item\em init Vector \item\end{DoxyCompactList}\item 
+\hyperlink{class_d_matrix_a06129166d2e2166192f1f35841d1c0e5}{$\sim$DMatrix} ()
+\begin{DoxyCompactList}\small\item\em duplicate from existent \hyperlink{class_d_matrix}{DMatrix} object \item\end{DoxyCompactList}\item 
+\hyperlink{class_d_matrix}{DMatrix} \hyperlink{class_d_matrix_ac6395616b3ff717a6740b5fc57f00e75}{operator+} (\hyperlink{class_d_matrix}{DMatrix} \&)
+\begin{DoxyCompactList}\small\item\em addition C = A+B \item\end{DoxyCompactList}\item 
+\hyperlink{class_d_matrix}{DMatrix} \hyperlink{class_d_matrix_af497924ed5376d2fb34e68489c87a736}{operator-\/} (\hyperlink{class_d_matrix}{DMatrix} \&)
+\begin{DoxyCompactList}\small\item\em subtraction C = A-\/B \item\end{DoxyCompactList}\item 
+\hyperlink{class_d_matrix}{DMatrix} \hyperlink{class_d_matrix_a8d2eb6c1c37c0b533cc0a9b21ce7ab5f}{operator$\ast$} (\hyperlink{class_d_matrix}{DMatrix} \&)
+\begin{DoxyCompactList}\small\item\em multiplication A = A$\ast$B \item\end{DoxyCompactList}\item 
+\hyperlink{class_d_matrix}{DMatrix} \hyperlink{class_d_matrix_a87f798d3de8150f7478a26b7f4147043}{operator$\ast$} (double)
+\begin{DoxyCompactList}\small\item\em Scaling, factor multiplication (from the RIGHT). \item\end{DoxyCompactList}\item 
+\hyperlink{class_d_matrix}{DMatrix} \& \hyperlink{class_d_matrix_a859b08bd3afa3ca1df8fd52cc4fedd6d}{operator=} (\hyperlink{class_d_matrix}{DMatrix} \&)
+\begin{DoxyCompactList}\small\item\em equalizing :) A=B \item\end{DoxyCompactList}\item 
+double \& \hyperlink{class_d_matrix_ae8a380fd2229f2e6c2cfc238288ba868}{operator()} (int, int)
+\begin{DoxyCompactList}\small\item\em Access matrix components. \item\end{DoxyCompactList}\item 
+double \& \hyperlink{class_d_matrix_ac1f256d07f2fc00a73270ead2cc4624f}{operator()} (int)
+\begin{DoxyCompactList}\small\item\em Access vector components. \item\end{DoxyCompactList}\item 
+void \hyperlink{class_d_matrix_a493ae196473346ae6fe2780a9f8b1d39}{Print} ()
+\item 
+double \hyperlink{class_d_matrix_ae3e47544abbfe44094a4c3706f69f648}{Sum} ()
+\item 
+double \hyperlink{class_d_matrix_a43a6380b57486a5e187f1ddf7a5a8d51}{QuadSum} ()
+\item 
+\hyperlink{class_d_matrix}{DMatrix} \hyperlink{class_d_matrix_a5e84a5c4a0418c87f77392606c9eff5d}{operator$\sim$} ()
+\begin{DoxyCompactList}\small\item\em compute inverse with Gauss-\/elimination including Pivotizing \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+istream \& \hyperlink{class_d_matrix_a7377f0ac35e8e2adc28578a11d95e03c}{operator$>$$>$} (istream \&, \hyperlink{class_d_matrix}{DMatrix} \&)
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+Genuine double matrix class IMPORTANT : INDICES in Matrix START with (1,1) and end with (row,col) ! NOTE : DESTRUCTIVE methods used! Be carefull because currently methods and operators might modify the ($\ast$this) object and some generate a new one 
+
+Definition at line 101 of file dmatrix.h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{DMatrix@{DMatrix}!DMatrix@{DMatrix}}
+\index{DMatrix@{DMatrix}!DMatrix@{DMatrix}}
+\paragraph[{DMatrix}]{\setlength{\rightskip}{0pt plus 5cm}DMatrix::DMatrix (
+\begin{DoxyParamCaption}
+\item[{int}]{ r, }
+\item[{int}]{ c}
+\end{DoxyParamCaption}
+)}\hfill\label{class_d_matrix_ae4b5fb249b94e29a5fae797dbfb1297d}
+
+
+Definition at line 131 of file dmatrix.h.
+
+
+
+
+\begin{DoxyCode}
+{
+elements = new double[r*c+1];
+memset(elements,' ',(r*c+1)*sizeof(double));
+row = r; col = c;
+}
+\end{DoxyCode}
+
+
+\index{DMatrix@{DMatrix}!DMatrix@{DMatrix}}
+\index{DMatrix@{DMatrix}!DMatrix@{DMatrix}}
+\paragraph[{DMatrix}]{\setlength{\rightskip}{0pt plus 5cm}DMatrix::DMatrix (
+\begin{DoxyParamCaption}
+\item[{int}]{ r}
+\end{DoxyParamCaption}
+)}\hfill\label{class_d_matrix_a07d7f66c3f2271df927c6c724616ff5b}
+
+
+Definition at line 138 of file dmatrix.h.
+
+
+
+
+\begin{DoxyCode}
+{
+  elements = new double[r+1];
+  memset(elements,' ',(r+1)*sizeof(double));
+  row = r;col = 1;
+}
+\end{DoxyCode}
+
+
+\index{DMatrix@{DMatrix}!DMatrix@{DMatrix}}
+\index{DMatrix@{DMatrix}!DMatrix@{DMatrix}}
+\paragraph[{DMatrix}]{\setlength{\rightskip}{0pt plus 5cm}DMatrix::DMatrix (
+\begin{DoxyParamCaption}
+\item[{{\bf DMatrix} \&}]{ copy}
+\end{DoxyParamCaption}
+)}\hfill\label{class_d_matrix_a56605fe6d6d0243d874a7650171d3ba0}
+
+
+Definition at line 145 of file dmatrix.h.
+
+
+
+
+\begin{DoxyCode}
+{
+  row = copy.row;
+  col = copy.col;
+  elements = new double[row*col+1];
+  memcpy(elements,copy.elements,(row*col+1)*sizeof(double));
+}
+\end{DoxyCode}
+
+
+\index{DMatrix@{DMatrix}!$\sim$DMatrix@{$\sim$DMatrix}}
+\index{$\sim$DMatrix@{$\sim$DMatrix}!DMatrix@{DMatrix}}
+\paragraph[{$\sim$DMatrix}]{\setlength{\rightskip}{0pt plus 5cm}DMatrix::$\sim$DMatrix (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_d_matrix_a06129166d2e2166192f1f35841d1c0e5}
+
+
+Definition at line 112 of file dmatrix.h.
+
+
+
+
+\begin{DoxyCode}
+{ delete elements;}
+\end{DoxyCode}
+
+
+
+
+\subsubsection{Member Function Documentation}
+\index{DMatrix@{DMatrix}!operator()@{operator()}}
+\index{operator()@{operator()}!DMatrix@{DMatrix}}
+\paragraph[{operator()}]{\setlength{\rightskip}{0pt plus 5cm}double \& DMatrix::operator() (
+\begin{DoxyParamCaption}
+\item[{int}]{ r, }
+\item[{int}]{ c}
+\end{DoxyParamCaption}
+)}\hfill\label{class_d_matrix_ae8a380fd2229f2e6c2cfc238288ba868}
+
+
+Definition at line 214 of file dmatrix.h.
+
+
+
+
+\begin{DoxyCode}
+{
+return elements[(r-1)*col+c];
+}
+\end{DoxyCode}
+
+
+\index{DMatrix@{DMatrix}!operator()@{operator()}}
+\index{operator()@{operator()}!DMatrix@{DMatrix}}
+\paragraph[{operator()}]{\setlength{\rightskip}{0pt plus 5cm}double \& DMatrix::operator() (
+\begin{DoxyParamCaption}
+\item[{int}]{ r}
+\end{DoxyParamCaption}
+)}\hfill\label{class_d_matrix_ac1f256d07f2fc00a73270ead2cc4624f}
+
+
+Definition at line 221 of file dmatrix.h.
+
+
+
+
+\begin{DoxyCode}
+{
+return elements[r];
+}
+\end{DoxyCode}
+
+
+\index{DMatrix@{DMatrix}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!DMatrix@{DMatrix}}
+\paragraph[{operator$\ast$}]{\setlength{\rightskip}{0pt plus 5cm}{\bf DMatrix} DMatrix::operator$\ast$ (
+\begin{DoxyParamCaption}
+\item[{double}]{ factor}
+\end{DoxyParamCaption}
+)}\hfill\label{class_d_matrix_a87f798d3de8150f7478a26b7f4147043}
+
+
+Definition at line 187 of file dmatrix.h.
+
+
+
+
+\begin{DoxyCode}
+{
+  for (int i = 1; i <= row; i++)
+  {
+    for (int j = 1; j <= col; j++)
+    {
+      (*this)(i,j) =  (*this)(i,j) * factor;
+    }
+  }
+  return *this;
+}
+\end{DoxyCode}
+
+
+\index{DMatrix@{DMatrix}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!DMatrix@{DMatrix}}
+\paragraph[{operator$\ast$}]{\setlength{\rightskip}{0pt plus 5cm}{\bf DMatrix} DMatrix::operator$\ast$ (
+\begin{DoxyParamCaption}
+\item[{{\bf DMatrix} \&}]{ right}
+\end{DoxyParamCaption}
+)}\hfill\label{class_d_matrix_a8d2eb6c1c37c0b533cc0a9b21ce7ab5f}
+
+
+Definition at line 171 of file dmatrix.h.
+
+
+
+
+\begin{DoxyCode}
+{
+  DMatrix prod(row,right.col);
+  for (int i = 1; i <= row; i++)
+  {
+    for (int j = 1; j <= right.col; j++)
+    {
+      prod(i,j) = 0;
+      for (int k = 1; k <= col; k++)
+    prod(i,j) = prod(i,j) + (*this)(i,k)*right(k,j);
+    }
+  }
+  return prod;
+}
+\end{DoxyCode}
+
+
+\index{DMatrix@{DMatrix}!operator+@{operator+}}
+\index{operator+@{operator+}!DMatrix@{DMatrix}}
+\paragraph[{operator+}]{\setlength{\rightskip}{0pt plus 5cm}{\bf DMatrix} DMatrix::operator+ (
+\begin{DoxyParamCaption}
+\item[{{\bf DMatrix} \&}]{ right}
+\end{DoxyParamCaption}
+)}\hfill\label{class_d_matrix_ac6395616b3ff717a6740b5fc57f00e75}
+
+
+Definition at line 153 of file dmatrix.h.
+
+
+
+
+\begin{DoxyCode}
+{
+  DMatrix left(*this);
+  for (int i = 1; i <= row*col; i++)
+    left.elements[i] = left.elements[i] + right.elements[i];
+  return left;
+}
+\end{DoxyCode}
+
+
+\index{DMatrix@{DMatrix}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!DMatrix@{DMatrix}}
+\paragraph[{operator-\/}]{\setlength{\rightskip}{0pt plus 5cm}{\bf DMatrix} DMatrix::operator-\/ (
+\begin{DoxyParamCaption}
+\item[{{\bf DMatrix} \&}]{ right}
+\end{DoxyParamCaption}
+)}\hfill\label{class_d_matrix_af497924ed5376d2fb34e68489c87a736}
+
+
+Definition at line 161 of file dmatrix.h.
+
+
+
+
+\begin{DoxyCode}
+{
+  DMatrix left(*this);
+  for (int i = 1; i <= row*col; i++)
+  {
+    left.elements[i] = left.elements[i] - right.elements[i];
+  }
+  return left;
+}
+\end{DoxyCode}
+
+
+\index{DMatrix@{DMatrix}!operator=@{operator=}}
+\index{operator=@{operator=}!DMatrix@{DMatrix}}
+\paragraph[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}{\bf DMatrix} \& DMatrix::operator= (
+\begin{DoxyParamCaption}
+\item[{{\bf DMatrix} \&}]{ right}
+\end{DoxyParamCaption}
+)}\hfill\label{class_d_matrix_a859b08bd3afa3ca1df8fd52cc4fedd6d}
+
+
+Definition at line 200 of file dmatrix.h.
+
+
+
+
+\begin{DoxyCode}
+{
+  if (this == &right) return *this;
+  else
+    {
+      delete elements;
+      elements = new double[row*col+1];
+      memcpy(elements,right.elements,(row*col+1)*sizeof(double));
+      return *this;
+    }
+}
+\end{DoxyCode}
+
+
+\index{DMatrix@{DMatrix}!operator$\sim$@{operator$\sim$}}
+\index{operator$\sim$@{operator$\sim$}!DMatrix@{DMatrix}}
+\paragraph[{operator$\sim$}]{\setlength{\rightskip}{0pt plus 5cm}{\bf DMatrix} DMatrix::operator$\sim$ (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_d_matrix_a5e84a5c4a0418c87f77392606c9eff5d}
+
+
+Definition at line 262 of file dmatrix.h.
+
+
+
+
+\begin{DoxyCode}
+{
+  int i, j, k, n;
+  int pivrow, tarrow;
+  double pivelt, tarelt;
+  n = row; // Zahl d.Gleich.
+  DMatrix aug(n,2*col);
+  DMatrix inverse(n,col);
+  for (i = 1; i <= n; i++)
+    for (j = 1; j <= col; j++)
+      aug(i,j) = (*this)(i,j);
+  for (i = 1; i <= n; i++)
+    for (j = n+1; j <= aug.col; j++)
+      if (i == j-n) aug(i,j) = 1; // Einheitsmatrix
+  for (pivrow = 1; pivrow <= n; pivrow++)
+  {
+    pivelt = aug(pivrow,pivrow);
+    if (pivelt == 0)
+    {
+      k = pivrow + 1;   // Pivotsuche
+      while (pivelt == 0 && k <= n)
+      {
+    pivelt = aug(k,pivrow);
+    k++;
+      }
+      if (pivelt == 0)
+      { cerr << "dmatrix : ERROR - Inversion attempted, but matrix is singular!";
+       exit(1); }
+    }
+    else
+    {k--;
+    DMatrix dum(2*col);
+    for (i = 1; i <= 2*col; i++)
+      dum(i) = aug(pivrow,i);
+    for (i = 1; i <= 2*col; i++)
+      aug(pivrow,i) = aug(k,i);
+    for (i = 1; i <= 2*col; i++)
+      aug(k,i) = dum(i);
+    }
+  }
+
+  for (j = 1; j <= 2*col; j++)
+    aug(pivrow,j) = aug(pivrow,j)/pivelt;
+  for (tarrow = 1; tarrow <= n; tarrow++)
+    if (tarrow != pivrow)
+    {
+      tarelt = aug(tarrow,pivrow);
+      for (j = 1; j<= 2*col; j++)
+    aug(tarrow,j) = aug(tarrow,j) - aug(pivrow,j)*tarelt;
+    }
+  for (i = 1; i <= n; i++)
+    for (j = n+1; j <= aug.col; j++)
+      inverse(i,j-n) = aug(i,j);
+  return inverse;
+}
+\end{DoxyCode}
+
+
+\index{DMatrix@{DMatrix}!Print@{Print}}
+\index{Print@{Print}!DMatrix@{DMatrix}}
+\paragraph[{Print}]{\setlength{\rightskip}{0pt plus 5cm}void DMatrix::Print (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_d_matrix_a493ae196473346ae6fe2780a9f8b1d39}
+
+
+Definition at line 228 of file dmatrix.h.
+
+
+
+
+\begin{DoxyCode}
+{
+  cout.setf(ios::fixed);
+  cout << setprecision(4);
+  for (int i = 1; i <= row; i++)
+  {
+    for (int j = 1; j <= col; j++)
+      cout << setw(8) << (*this)(i,j);
+    cout << endl;
+  }
+}
+\end{DoxyCode}
+
+
+\index{DMatrix@{DMatrix}!QuadSum@{QuadSum}}
+\index{QuadSum@{QuadSum}!DMatrix@{DMatrix}}
+\paragraph[{QuadSum}]{\setlength{\rightskip}{0pt plus 5cm}double DMatrix::QuadSum (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_d_matrix_a43a6380b57486a5e187f1ddf7a5a8d51}
+
+
+Definition at line 251 of file dmatrix.h.
+
+
+
+
+\begin{DoxyCode}
+{
+  double temp = 0.0;
+  for (int i = 1; i <= row; i++)
+    for (int j = 1; j <= col; j++)
+      temp += (*this)(i,j)*(*this)(i,j);
+  return temp;
+}
+\end{DoxyCode}
+
+
+\index{DMatrix@{DMatrix}!Sum@{Sum}}
+\index{Sum@{Sum}!DMatrix@{DMatrix}}
+\paragraph[{Sum}]{\setlength{\rightskip}{0pt plus 5cm}double DMatrix::Sum (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_d_matrix_ae3e47544abbfe44094a4c3706f69f648}
+
+
+Definition at line 242 of file dmatrix.h.
+
+
+
+
+\begin{DoxyCode}
+{
+  double temp = 0.0;
+  for (int i = 1; i <= row; i++)
+    for (int j = 1; j <= col; j++)
+      temp += (*this)(i,j);
+  return temp;
+}
+\end{DoxyCode}
+
+
+
+
+\subsubsection{Friends And Related Function Documentation}
+\index{DMatrix@{DMatrix}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!DMatrix@{DMatrix}}
+\paragraph[{operator$>$$>$}]{\setlength{\rightskip}{0pt plus 5cm}istream\& operator$>$$>$ (
+\begin{DoxyParamCaption}
+\item[{istream \&}]{ is, }
+\item[{{\bf DMatrix} \&}]{ m}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}friend\mbox{]}}}\hfill\label{class_d_matrix_a7377f0ac35e8e2adc28578a11d95e03c}
+
+
+Definition at line 319 of file dmatrix.h.
+
+
+
+
+\begin{DoxyCode}
+{
+  for (int i = 1; i <= m.row; i++)
+    for (int j = 1; j <= m.col; j++)
+      is >> m(i,j);
+  return is;
+}
+\end{DoxyCode}
+
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{dmatrix_8h}{dmatrix.h}\end{DoxyCompactItemize}

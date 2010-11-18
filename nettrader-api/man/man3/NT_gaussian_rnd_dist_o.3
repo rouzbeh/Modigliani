@@ -1,0 +1,94 @@
+.TH "NT_gaussian_rnd_dist_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NT_gaussian_rnd_dist_o \- 
+.PP
+\fBNT_gaussian_rnd_dist_o\fP returns values out of a gaussian random distribution objects based upon inidividual paramters for each subspace Idea : The usage idea is to call the object which returns a NTreal or \fBNT_vector_o\fP containing random values out of its specific distribution [a,b].  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <nt_gaussian_rnd_dist_obj.h>\fP
+.PP
+Inherits \fBNT_rnd_dist_o\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNT_gaussian_rnd_dist_o\fP ()"
+.br
+.ti -1c
+.RI "\fBNT_gaussian_rnd_dist_o\fP (\fBNTreal\fP newMean, \fBNTreal\fP newStdDev)"
+.br
+.ti -1c
+.RI "\fBNT_gaussian_rnd_dist_o\fP (const \fBNT_gaussian_rnd_dist_o\fP &)"
+.br
+.ti -1c
+.RI "virtual \fB~NT_gaussian_rnd_dist_o\fP ()"
+.br
+.ti -1c
+.RI "\fBoperator NTreal\fP () const "
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fBRndVal\fP () const "
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fB_stddevi\fP () const "
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "float \fBgaussian01\fP () const "
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "ostream & \fBoperator<<\fP (ostream &os, const \fBNT_gaussian_rnd_dist_o\fP &self)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Definition at line 93 of file nt_gaussian_rnd_dist_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "NT_gaussian_rnd_dist_o::NT_gaussian_rnd_dist_o ()"
+.SS "NT_gaussian_rnd_dist_o::NT_gaussian_rnd_dist_o (\fBNTreal\fP newMean, \fBNTreal\fP newStdDev)"
+.SS "NT_gaussian_rnd_dist_o::NT_gaussian_rnd_dist_o (const \fBNT_gaussian_rnd_dist_o\fP &)"
+.SS "virtual NT_gaussian_rnd_dist_o::~NT_gaussian_rnd_dist_o ()\fC [virtual]\fP"
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBNTreal\fP NT_gaussian_rnd_dist_o::_stddevi () const\fC [inline]\fP"
+.PP
+Definition at line 101 of file nt_gaussian_rnd_dist_obj.h.
+.PP
+.nf
+{ return stddevi; };           
+.fi
+.SS "float NT_gaussian_rnd_dist_o::gaussian01 () const\fC [protected]\fP"
+.SS "NT_gaussian_rnd_dist_o::operator \fBNTreal\fP () const\fC [inline]\fP"
+.PP
+Definition at line 99 of file nt_gaussian_rnd_dist_obj.h.
+.PP
+References RndVal().
+.PP
+.nf
+{return RndVal();}
+.fi
+.SS "\fBNTreal\fP NT_gaussian_rnd_dist_o::RndVal () const\fC [virtual]\fP"
+.PP
+Implements \fBNT_rnd_dist_o\fP.
+.PP
+Referenced by operator NTreal().
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "ostream& operator<< (ostream & os, const \fBNT_gaussian_rnd_dist_o\fP & self)\fC [friend]\fP"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

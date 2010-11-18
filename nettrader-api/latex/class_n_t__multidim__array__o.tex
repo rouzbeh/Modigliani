@@ -1,0 +1,358 @@
+\subsection{NT\_\-multidim\_\-array\_\-o$<$ T $>$ Class Template Reference}
+\label{class_n_t__multidim__array__o}\index{NT\_\-multidim\_\-array\_\-o@{NT\_\-multidim\_\-array\_\-o}}
+
+
+\hyperlink{class_n_t__multidim__array__o}{NT\_\-multidim\_\-array\_\-o} class Implements a regular -\/ multidimensional, i.e.  
+
+
+
+
+{\ttfamily \#include $<$nt\_\-multidim\_\-array\_\-obj.h$>$}
+
+
+
+Inheritance diagram for NT\_\-multidim\_\-array\_\-o$<$ T $>$:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{class_n_t__multidim__array__o__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for NT\_\-multidim\_\-array\_\-o$<$ T $>$:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=190pt]{class_n_t__multidim__array__o__coll__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_t__multidim__array__o_a058d87333623bbf101197ed32db161bf}{NT\_\-multidim\_\-array\_\-o} (\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} d, \hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} n)
+\item 
+\hyperlink{class_n_t__multidim__array__o_adbfea9cd5508a25de543354eb4cec23d}{NT\_\-multidim\_\-array\_\-o} (const \hyperlink{class_n_t__multidim__array__o}{NT\_\-multidim\_\-array\_\-o} \&original)
+\begin{DoxyCompactList}\small\item\em copy constructor currently not to be implemented. \item\end{DoxyCompactList}\item 
+const \hyperlink{class_n_t__multidim__array__o}{NT\_\-multidim\_\-array\_\-o} \& \hyperlink{class_n_t__multidim__array__o_a28b5f16cdcfa5ccd903d7545323f5e25}{operator=} (const \hyperlink{class_n_t__multidim__array__o}{NT\_\-multidim\_\-array\_\-o} \&right)
+\begin{DoxyCompactList}\small\item\em assignment operator currently not to be implemented. \item\end{DoxyCompactList}\item 
+virtual \hyperlink{class_n_t__multidim__array__o_a82cf4b03234e148057992090f88537ab}{$\sim$NT\_\-multidim\_\-array\_\-o} ()
+\item 
+T \& \hyperlink{class_n_t__multidim__array__o_aad72f694acd4a09e66639151c3a1a15d}{Elem} (const vector$<$ \hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} $>$ \&coordinateVec)
+\begin{DoxyCompactList}\small\item\em access element at given coordinate position \item\end{DoxyCompactList}\item 
+const T \& \hyperlink{class_n_t__multidim__array__o_a08efe38b58fdd2581fbf7d473708799c}{ElemByIndex} (\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} index) const 
+\begin{DoxyCompactList}\small\item\em access a element with a \char`\"{}meaningless\char`\"{} index \item\end{DoxyCompactList}\item 
+void \hyperlink{class_n_t__multidim__array__o_a8ad94fadac5018aba8b8eba4441cc13d}{SetAll} (const T \&val)
+\item 
+T \& \hyperlink{class_n_t__multidim__array__o_a35d9a77f43dac7eb45f2cd8a9a1ad93f}{Elem} (\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} index1...)
+\begin{DoxyCompactList}\small\item\em access element at given coordinate position \item\end{DoxyCompactList}\item 
+\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} \hyperlink{class_n_t__multidim__array__o_a1e219095d10c464722f082bfc82d6e87}{TotalNumElem} () const 
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\subsubsection*{template$<$class T$>$ class NT\_\-multidim\_\-array\_\-o$<$ T $>$}
+
+a \char`\"{}dim\char`\"{}-\/diemsional hypercube with \char`\"{}num\char`\"{} elements per dimension. \begin{Desc}
+\item[\hyperlink{bug__bug000102}{Bug}]unknown \end{Desc}
+\begin{DoxyWarning}{Warning}
+unknown 
+\end{DoxyWarning}
+
+
+Definition at line 66 of file nt\_\-multidim\_\-array\_\-obj.h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{NT\_\-multidim\_\-array\_\-o@{NT\_\-multidim\_\-array\_\-o}!NT\_\-multidim\_\-array\_\-o@{NT\_\-multidim\_\-array\_\-o}}
+\index{NT\_\-multidim\_\-array\_\-o@{NT\_\-multidim\_\-array\_\-o}!NT_multidim_array_o@{NT\_\-multidim\_\-array\_\-o}}
+\paragraph[{NT\_\-multidim\_\-array\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf NT\_\-multidim\_\-array\_\-o}$<$ T $>$::{\bf NT\_\-multidim\_\-array\_\-o} (
+\begin{DoxyParamCaption}
+\item[{{\bf NTsize}}]{ d, }
+\item[{{\bf NTsize}}]{ n}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__multidim__array__o_a058d87333623bbf101197ed32db161bf}
+
+
+Definition at line 69 of file nt\_\-multidim\_\-array\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{
+    NT_ASSERT(d > 0);
+    dim = d;
+    NT_ASSERT(n > 0);
+    num = n;
+    // implementation range checking
+    /* 2DO not working as numeric_limits not implemented in gcc 2.95
+    NTreal numElem = pow(n,d);
+    NTreal maxIndexRange = numeric_limits<NTsize>::max();
+    if (numElem >= maxIndexRange) {
+        cerr <<
+        "NT_multidim_array_o::NT_multidim_array_o - Error : array will contain to
+       many elements"
+        << numElem << " for supported implementation range "    
+        << maxIndexRange << " ("<< numeric_limits<NTsize>.max()
+        << "). Undefined behaviour may result." << endl;
+    }
+    */
+    // cache setup
+    powerSeriesCacheVec.resize(dim+1);
+    // = {1,num,num^2,...,num^dim}
+    powerSeriesCacheVec[0] = 1;
+    for (NTsize ll = 1; ll < dim+1; ll++){
+        powerSeriesCacheVec[ll] = num * powerSeriesCacheVec[ll-1];
+        cerr <<powerSeriesCacheVec[ll] << endl;
+    }
+    // memory allocation
+    try {
+        dataVec.resize(powerSeriesCacheVec[dim]);
+    }   
+    catch (bad_alloc) {
+        cerr << "NT_multidim_array_o::NT_multidim_array_o - Error : Memory exhaus
+      ted by allocation of multidimensional array."
+        << ">" << powerSeriesCacheVec[dim] * sizeof(T) << " bytes of memory are n
+      ecessary for this object."
+        << endl;        
+    }
+}
+\end{DoxyCode}
+
+
+\index{NT\_\-multidim\_\-array\_\-o@{NT\_\-multidim\_\-array\_\-o}!NT\_\-multidim\_\-array\_\-o@{NT\_\-multidim\_\-array\_\-o}}
+\index{NT\_\-multidim\_\-array\_\-o@{NT\_\-multidim\_\-array\_\-o}!NT_multidim_array_o@{NT\_\-multidim\_\-array\_\-o}}
+\paragraph[{NT\_\-multidim\_\-array\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf NT\_\-multidim\_\-array\_\-o}$<$ T $>$::{\bf NT\_\-multidim\_\-array\_\-o} (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT\_\-multidim\_\-array\_\-o}$<$ T $>$ \&}]{ original}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__multidim__array__o_adbfea9cd5508a25de543354eb4cec23d}
+
+
+Definition at line 108 of file nt\_\-multidim\_\-array\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{
+ cerr <<"NT_multidim_array_o::(const NT_multidim_array_o) - Error : Not implement
+      ed. Not to be supported ?" << endl;
+}
+\end{DoxyCode}
+
+
+\index{NT\_\-multidim\_\-array\_\-o@{NT\_\-multidim\_\-array\_\-o}!$\sim$NT\_\-multidim\_\-array\_\-o@{$\sim$NT\_\-multidim\_\-array\_\-o}}
+\index{$\sim$NT\_\-multidim\_\-array\_\-o@{$\sim$NT\_\-multidim\_\-array\_\-o}!NT_multidim_array_o@{NT\_\-multidim\_\-array\_\-o}}
+\paragraph[{$\sim$NT\_\-multidim\_\-array\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ virtual {\bf NT\_\-multidim\_\-array\_\-o}$<$ T $>$::$\sim${\bf NT\_\-multidim\_\-array\_\-o} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, virtual\mbox{]}}}\hfill\label{class_n_t__multidim__array__o_a82cf4b03234e148057992090f88537ab}
+
+
+Definition at line 123 of file nt\_\-multidim\_\-array\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{
+}
+\end{DoxyCode}
+
+
+
+
+\subsubsection{Member Function Documentation}
+\index{NT\_\-multidim\_\-array\_\-o@{NT\_\-multidim\_\-array\_\-o}!Elem@{Elem}}
+\index{Elem@{Elem}!NT_multidim_array_o@{NT\_\-multidim\_\-array\_\-o}}
+\paragraph[{Elem}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ T\& {\bf NT\_\-multidim\_\-array\_\-o}$<$ T $>$::Elem (
+\begin{DoxyParamCaption}
+\item[{const vector$<$ {\bf NTsize} $>$ \&}]{ coordinateVec}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__multidim__array__o_aad72f694acd4a09e66639151c3a1a15d}
+
+\begin{DoxyParams}{Parameters}
+\item[{\em none}]\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+no range checking done on the coordinates 
+\end{DoxyWarning}
+\begin{Desc}
+\item[\hyperlink{bug__bug000103}{Bug}]unknown \end{Desc}
+
+
+Definition at line 135 of file nt\_\-multidim\_\-array\_\-obj.h.
+
+
+
+Referenced by NT\_\-multidim\_\-array\_\-o$<$ NTsize $>$::Elem().
+
+
+
+
+\begin{DoxyCode}
+{
+    NTsize hash = Hash(coordinateVec);
+    NT_ASSERT (dataVec.size() >= hash);
+    return dataVec[ hash ];
+}
+\end{DoxyCode}
+
+
+\index{NT\_\-multidim\_\-array\_\-o@{NT\_\-multidim\_\-array\_\-o}!Elem@{Elem}}
+\index{Elem@{Elem}!NT_multidim_array_o@{NT\_\-multidim\_\-array\_\-o}}
+\paragraph[{Elem}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ T\& {\bf NT\_\-multidim\_\-array\_\-o}$<$ T $>$::Elem (
+\begin{DoxyParamCaption}
+\item[{{\bf NTsize}}]{ index1...}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__multidim__array__o_a35d9a77f43dac7eb45f2cd8a9a1ad93f}
+
+\begin{DoxyParams}{Parameters}
+\item[{\em none}]\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+no range checking done on the coordinates 
+\end{DoxyWarning}
+\begin{Desc}
+\item[\hyperlink{bug__bug000105}{Bug}]unknown \end{Desc}
+
+
+Definition at line 176 of file nt\_\-multidim\_\-array\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{
+    vector <NTsize> coorVec(dim);
+    va_list args;
+    va_start(args,index1);
+    for (NTsize ld=0; ld < dim; ld++){
+        coorVec[ld] = va_arg(args, NTsize);
+    }
+    va_end(args);
+    return Elem(coorVec);
+}
+\end{DoxyCode}
+
+
+\index{NT\_\-multidim\_\-array\_\-o@{NT\_\-multidim\_\-array\_\-o}!ElemByIndex@{ElemByIndex}}
+\index{ElemByIndex@{ElemByIndex}!NT_multidim_array_o@{NT\_\-multidim\_\-array\_\-o}}
+\paragraph[{ElemByIndex}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ const T\& {\bf NT\_\-multidim\_\-array\_\-o}$<$ T $>$::ElemByIndex (
+\begin{DoxyParamCaption}
+\item[{{\bf NTsize}}]{ index}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__multidim__array__o_a08efe38b58fdd2581fbf7d473708799c}
+
+\begin{DoxyParams}{Parameters}
+\item[{\em An}]index that is guaranteed to touch all elements but has no assigned meaning as to the position of element in relation to others. However index \$ \mbox{[}0,num$^\wedge$dim\mbox{]}\$ is guaranteed and will touch all elements ones. \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+\begin{DoxyWarning}{Warning}
+Arbitrary index, no information inferable from the index, might change anytime (only range remains guaranteed). 
+\end{DoxyWarning}
+\begin{Desc}
+\item[\hyperlink{bug__bug000104}{Bug}]unknown \end{Desc}
+
+
+Definition at line 154 of file nt\_\-multidim\_\-array\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{
+    NT_ASSERT( (index >= 0) && (index < TotalNumElem()) );
+    return dataVec[index];
+}
+\end{DoxyCode}
+
+
+\index{NT\_\-multidim\_\-array\_\-o@{NT\_\-multidim\_\-array\_\-o}!operator=@{operator=}}
+\index{operator=@{operator=}!NT_multidim_array_o@{NT\_\-multidim\_\-array\_\-o}}
+\paragraph[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ const {\bf NT\_\-multidim\_\-array\_\-o}\& {\bf NT\_\-multidim\_\-array\_\-o}$<$ T $>$::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT\_\-multidim\_\-array\_\-o}$<$ T $>$ \&}]{ right}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__multidim__array__o_a28b5f16cdcfa5ccd903d7545323f5e25}
+
+
+Definition at line 115 of file nt\_\-multidim\_\-array\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{
+ if (this == &right) return *this; // Gracefully handle self assignment
+ cerr <<"NT_multidim_array_o::operator= - Error : Not implemented. Not to be supp
+      orted ?" << endl;
+ return *this;
+}
+\end{DoxyCode}
+
+
+\index{NT\_\-multidim\_\-array\_\-o@{NT\_\-multidim\_\-array\_\-o}!SetAll@{SetAll}}
+\index{SetAll@{SetAll}!NT_multidim_array_o@{NT\_\-multidim\_\-array\_\-o}}
+\paragraph[{SetAll}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ void {\bf NT\_\-multidim\_\-array\_\-o}$<$ T $>$::SetAll (
+\begin{DoxyParamCaption}
+\item[{const T \&}]{ val}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__multidim__array__o_a8ad94fadac5018aba8b8eba4441cc13d}
+
+
+Definition at line 162 of file nt\_\-multidim\_\-array\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{
+    for (NTsize ll = 0; ll < TotalNumElem(); ll++){
+        dataVec[ll] = val;
+    }
+}
+\end{DoxyCode}
+
+
+\index{NT\_\-multidim\_\-array\_\-o@{NT\_\-multidim\_\-array\_\-o}!TotalNumElem@{TotalNumElem}}
+\index{TotalNumElem@{TotalNumElem}!NT_multidim_array_o@{NT\_\-multidim\_\-array\_\-o}}
+\paragraph[{TotalNumElem}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf NTsize} {\bf NT\_\-multidim\_\-array\_\-o}$<$ T $>$::TotalNumElem (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__multidim__array__o_a1e219095d10c464722f082bfc82d6e87}
+
+
+Definition at line 190 of file nt\_\-multidim\_\-array\_\-obj.h.
+
+
+
+Referenced by NT\_\-multidim\_\-array\_\-o$<$ NTsize $>$::ElemByIndex(), and NT\_\-multidim\_\-array\_\-o$<$ NTsize $>$::SetAll().
+
+
+
+
+\begin{DoxyCode}
+{
+    return powerSeriesCacheVec[dim];
+}
+\end{DoxyCode}
+
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nt__multidim__array__obj_8h}{nt\_\-multidim\_\-array\_\-obj.h}\end{DoxyCompactItemize}

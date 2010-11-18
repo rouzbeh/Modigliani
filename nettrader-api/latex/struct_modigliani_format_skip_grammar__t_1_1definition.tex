@@ -1,0 +1,92 @@
+\subsection{ModiglianiFormatSkipGrammar\_\-t::definition$<$ ScannerT $>$ Struct Template Reference}
+\label{struct_modigliani_format_skip_grammar__t_1_1definition}\index{ModiglianiFormatSkipGrammar\_\-t::definition@{ModiglianiFormatSkipGrammar\_\-t::definition}}
+
+
+{\ttfamily \#include $<$modigliani\_\-model\_\-format\_\-grammar\_\-t.h$>$}
+
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{struct_modigliani_format_skip_grammar__t_1_1definition_a18c8dcf915be15f8b449cf669ae073e4}{definition} (\hyperlink{struct_modigliani_format_skip_grammar__t}{ModiglianiFormatSkipGrammar\_\-t} const \&)
+\item 
+rule$<$ ScannerT $>$ const \& \hyperlink{struct_modigliani_format_skip_grammar__t_1_1definition_a4070e3db492c516db54a41b0b35adbdb}{start} () const 
+\end{DoxyCompactItemize}
+\subsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+rule$<$ ScannerT $>$ \hyperlink{struct_modigliani_format_skip_grammar__t_1_1definition_a905c59a2501ed57862160b13cbfd53cd}{skip}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\subsubsection*{template$<$typename ScannerT$>$ struct ModiglianiFormatSkipGrammar\_\-t::definition$<$ ScannerT $>$}
+
+
+
+Definition at line 131 of file modigliani\_\-model\_\-format\_\-grammar\_\-t.h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{ModiglianiFormatSkipGrammar\_\-t::definition@{ModiglianiFormatSkipGrammar\_\-t::definition}!definition@{definition}}
+\index{definition@{definition}!ModiglianiFormatSkipGrammar_t::definition@{ModiglianiFormatSkipGrammar\_\-t::definition}}
+\paragraph[{definition}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename ScannerT $>$ {\bf ModiglianiFormatSkipGrammar\_\-t::definition}$<$ ScannerT $>$::{\bf definition} (
+\begin{DoxyParamCaption}
+\item[{{\bf ModiglianiFormatSkipGrammar\_\-t} const \&}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{struct_modigliani_format_skip_grammar__t_1_1definition_a18c8dcf915be15f8b449cf669ae073e4}
+
+
+Definition at line 133 of file modigliani\_\-model\_\-format\_\-grammar\_\-t.h.
+
+
+
+
+\begin{DoxyCode}
+        {
+            skip =            "//" >> *(anychar_p - '\n') >> '\n'     // C++ comm
+      ent
+                            | "/*" >> *(anychar_p - "*/") >> "*/";     // C comme
+      nt
+
+                }
+\end{DoxyCode}
+
+
+
+
+\subsubsection{Member Function Documentation}
+\index{ModiglianiFormatSkipGrammar\_\-t::definition@{ModiglianiFormatSkipGrammar\_\-t::definition}!start@{start}}
+\index{start@{start}!ModiglianiFormatSkipGrammar_t::definition@{ModiglianiFormatSkipGrammar\_\-t::definition}}
+\paragraph[{start}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename ScannerT $>$ rule$<$ScannerT$>$ const\& {\bf ModiglianiFormatSkipGrammar\_\-t::definition}$<$ ScannerT $>$::start (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{struct_modigliani_format_skip_grammar__t_1_1definition_a4070e3db492c516db54a41b0b35adbdb}
+
+
+Definition at line 142 of file modigliani\_\-model\_\-format\_\-grammar\_\-t.h.
+
+
+
+
+\begin{DoxyCode}
+{ return skip; }
+\end{DoxyCode}
+
+
+
+
+\subsubsection{Member Data Documentation}
+\index{ModiglianiFormatSkipGrammar\_\-t::definition@{ModiglianiFormatSkipGrammar\_\-t::definition}!skip@{skip}}
+\index{skip@{skip}!ModiglianiFormatSkipGrammar_t::definition@{ModiglianiFormatSkipGrammar\_\-t::definition}}
+\paragraph[{skip}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename ScannerT $>$ rule$<$ScannerT$>$ {\bf ModiglianiFormatSkipGrammar\_\-t::definition}$<$ ScannerT $>$::{\bf skip}}\hfill\label{struct_modigliani_format_skip_grammar__t_1_1definition_a905c59a2501ed57862160b13cbfd53cd}
+
+
+Definition at line 139 of file modigliani\_\-model\_\-format\_\-grammar\_\-t.h.
+
+
+
+The documentation for this struct was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{modigliani__model__format__grammar__t_8h}{modigliani\_\-model\_\-format\_\-grammar\_\-t.h}\end{DoxyCompactItemize}

@@ -1,0 +1,82 @@
+.TH "NT3D_line_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NT3D_line_o \- 
+.PP
+\fBNT3D_line_o\fP class Line representation between to arbitraty positions in space.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <nt3d_line_obj.h>\fP
+.PP
+Inherits \fBNT3D_hierarchic_object_o\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNT3D_line_o\fP ()"
+.br
+.ti -1c
+.RI "\fBNT3D_line_o\fP (\fBNT_vector3_o\fP newStartPnt, \fBNT_vector3_o\fP newEndPnt)"
+.br
+.ti -1c
+.RI "\fBNT3D_line_o\fP (const \fBNT3D_line_o\fP &original)"
+.br
+.ti -1c
+.RI "const \fBNT3D_line_o\fP & \fBoperator=\fP (const \fBNT3D_line_o\fP &right)"
+.br
+.ti -1c
+.RI "\fB~NT3D_line_o\fP ()"
+.br
+.ti -1c
+.RI "void \fBDrawObj\fP ()"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBNT3D_material_o\fP \fBoMaterial\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+The object uses a glBegin(GL_LINES) glEnd call to draw the line the line in three dimension. 
+.PP
+\fBWarning:\fP
+.RS 4
+unknown 
+.RE
+.PP
+\fBBug\fP
+.RS 4
+unknown 
+.RE
+.PP
+
+.PP
+Definition at line 89 of file nt3d_line_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "NT3D_line_o::NT3D_line_o ()"
+.SS "NT3D_line_o::NT3D_line_o (\fBNT_vector3_o\fP newStartPnt, \fBNT_vector3_o\fP newEndPnt)"
+.SS "NT3D_line_o::NT3D_line_o (const \fBNT3D_line_o\fP & original)"
+.SS "NT3D_line_o::~NT3D_line_o ()"
+.SH "Member Function Documentation"
+.PP 
+.SS "void NT3D_line_o::DrawObj ()\fC [virtual]\fP"
+.PP
+Reimplemented from \fBNT3D_hierarchic_object_o\fP.
+.SS "const \fBNT3D_line_o\fP& NT3D_line_o::operator= (const \fBNT3D_line_o\fP & right)"
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBNT3D_material_o\fP \fBNT3D_line_o::oMaterial\fP"
+.PP
+Definition at line 100 of file nt3d_line_obj.h.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

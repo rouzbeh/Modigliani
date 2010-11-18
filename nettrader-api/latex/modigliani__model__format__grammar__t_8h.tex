@@ -1,0 +1,374 @@
+\subsection{modigliani\_\-model\_\-format\_\-grammar\_\-t.h File Reference}
+\label{modigliani__model__format__grammar__t_8h}\index{modigliani\_\-model\_\-format\_\-grammar\_\-t.h@{modigliani\_\-model\_\-format\_\-grammar\_\-t.h}}
+{\ttfamily \#include $<$boost/spirit/core.hpp$>$}\par
+{\ttfamily \#include $<$boost/spirit/utility.hpp$>$}\par
+{\ttfamily \#include $<$boost/spirit/symbols.hpp$>$}\par
+{\ttfamily \#include $<$iostream$>$}\par
+{\ttfamily \#include $<$fstream$>$}\par
+{\ttfamily \#include $<$vector$>$}\par
+{\ttfamily \#include $<$string$>$}\par
+{\ttfamily \#include $<$stack$>$}\par
+{\ttfamily \#include $<$cmath$>$}\par
+{\ttfamily \#include $<$cstdlib$>$}\par
+{\ttfamily \#include $<$algorithm$>$}\par
+{\ttfamily \#include \char`\"{}ntbp\_\-membrane\_\-compartment\_\-sequence\_\-obj.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}ntbp\_\-sga\_\-cylindrical\_\-compartment\_\-obj.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}ntbp\_\-custom\_\-cylindrical\_\-compartment\_\-obj.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}nt\_\-error\_\-obj.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}nt\_\-vector\_\-obj.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}nt\_\-histogram\_\-obj.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}nt\_\-sequential\_\-statistics\_\-obj.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}tnt/tnt.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}tnt/cmat.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}nt\_\-uniform\_\-rnd\_\-dist\_\-obj.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}nt\_\-binomial\_\-rnd\_\-dist\_\-obj.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}nt\_\-gaussian\_\-rnd\_\-dist\_\-obj.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}nt3d\_\-plot2d\_\-vec\_\-vp\_\-obj.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}nt3d\_\-glx\_\-drv\_\-obj.h\char`\"{}}\par
+Include dependency graph for modigliani\_\-model\_\-format\_\-grammar\_\-t.h:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{modigliani__model__format__grammar__t_8h__incl}
+\end{center}
+\end{figure}
+\subsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{struct_modigliani_format_skip_grammar__t}{ModiglianiFormatSkipGrammar\_\-t}
+\item 
+struct \hyperlink{struct_modigliani_format_skip_grammar__t_1_1definition}{ModiglianiFormatSkipGrammar\_\-t::definition$<$ ScannerT $>$}
+\item 
+struct \hyperlink{struct_modigliani_model_format_grammar__t}{ModiglianiModelFormatGrammar\_\-t}
+\item 
+struct \hyperlink{struct_modigliani_model_format_grammar__t_1_1definition}{ModiglianiModelFormatGrammar\_\-t::definition$<$ ScannerT $>$}
+\end{DoxyCompactItemize}
+\subsubsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{modigliani__model__format__grammar__t_8h_a5e5010df31ed177ba095311f3d28ee26}{BOOST\_\-SPIRIT\_\-DEBUG}
+\end{DoxyCompactItemize}
+\subsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{modigliani__model__format__grammar__t_8h_acb8572a24390b754dbd88ed10704af6a}{BeginMakeMembraneCompartmentSequence} ()
+\item 
+void \hyperlink{modigliani__model__format__grammar__t_8h_abfa56e933ef87f5bb52954f3e5aafe9c}{EndMakeMembraneCompartmentSequence} ()
+\item 
+void \hyperlink{modigliani__model__format__grammar__t_8h_ae9aa28e4cf834b1f1e2d4cd79b57a367}{BeginMakeCylindricalMembraneCompartment} ()
+\item 
+void \hyperlink{modigliani__model__format__grammar__t_8h_a3c80a46c69a68f781f7649e669eaf31f}{EndMakeCylindricalMembraneCompartment} ()
+\item 
+void \hyperlink{modigliani__model__format__grammar__t_8h_a9904b3a9f540e12941a5309a9b9eeb70}{BeginMakeSphericalMembraneCompartment} ()
+\item 
+void \hyperlink{modigliani__model__format__grammar__t_8h_a53e35fffe0793aea56659becdacc5eda}{EndMakeSphericalMembraneCompartment} ()
+\item 
+void \hyperlink{modigliani__model__format__grammar__t_8h_ac129161418dd239501c092acd3f2ba1b}{BeginMakeIonChannel} (\hyperlink{nt__types_8h_ab5cab5f78fdd2211c340cbe527a4afd7}{NTid} channelTypeNa)
+\item 
+void \hyperlink{modigliani__model__format__grammar__t_8h_aeed9ddcbf7cbe6f8a7d0dc3a223ecd93}{EndMakeIonChannel} ()
+\item 
+{\footnotesize template$<$typename GrammarT $>$ }\\void \hyperlink{modigliani__model__format__grammar__t_8h_a5bf233b63b1319c722c5284ffdae9103}{parse} (GrammarT const \&g, char const $\ast$filename)
+\end{DoxyCompactItemize}
+\subsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+stack$<$ void $\ast$ $>$ \hyperlink{modigliani__model__format__grammar__t_8h_a42bdd986e317ddaa5b9501bcd24803dd}{modigliani\_\-core\_\-stack}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Define Documentation}
+\index{modigliani\_\-model\_\-format\_\-grammar\_\-t.h@{modigliani\_\-model\_\-format\_\-grammar\_\-t.h}!BOOST\_\-SPIRIT\_\-DEBUG@{BOOST\_\-SPIRIT\_\-DEBUG}}
+\index{BOOST\_\-SPIRIT\_\-DEBUG@{BOOST\_\-SPIRIT\_\-DEBUG}!modigliani_model_format_grammar_t.h@{modigliani\_\-model\_\-format\_\-grammar\_\-t.h}}
+\paragraph[{BOOST\_\-SPIRIT\_\-DEBUG}]{\setlength{\rightskip}{0pt plus 5cm}\#define BOOST\_\-SPIRIT\_\-DEBUG}\hfill\label{modigliani__model__format__grammar__t_8h_a5e5010df31ed177ba095311f3d28ee26}
+
+
+Definition at line 21 of file modigliani\_\-model\_\-format\_\-grammar\_\-t.h.
+
+
+
+\subsubsection{Function Documentation}
+\index{modigliani\_\-model\_\-format\_\-grammar\_\-t.h@{modigliani\_\-model\_\-format\_\-grammar\_\-t.h}!BeginMakeCylindricalMembraneCompartment@{BeginMakeCylindricalMembraneCompartment}}
+\index{BeginMakeCylindricalMembraneCompartment@{BeginMakeCylindricalMembraneCompartment}!modigliani_model_format_grammar_t.h@{modigliani\_\-model\_\-format\_\-grammar\_\-t.h}}
+\paragraph[{BeginMakeCylindricalMembraneCompartment}]{\setlength{\rightskip}{0pt plus 5cm}void BeginMakeCylindricalMembraneCompartment (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{modigliani__model__format__grammar__t_8h_ae9aa28e4cf834b1f1e2d4cd79b57a367}
+
+
+Definition at line 75 of file modigliani\_\-model\_\-format\_\-grammar\_\-t.h.
+
+
+
+References modigliani\_\-core\_\-stack.
+
+
+
+
+\begin{DoxyCode}
+{
+    NTBP_custom_cylindrical_compartment_o *tmpPtr =  new 
+      NTBP_custom_cylindrical_compartment_o;
+        modigliani_core_stack.push(tmpPtr);
+}
+\end{DoxyCode}
+
+
+\index{modigliani\_\-model\_\-format\_\-grammar\_\-t.h@{modigliani\_\-model\_\-format\_\-grammar\_\-t.h}!BeginMakeIonChannel@{BeginMakeIonChannel}}
+\index{BeginMakeIonChannel@{BeginMakeIonChannel}!modigliani_model_format_grammar_t.h@{modigliani\_\-model\_\-format\_\-grammar\_\-t.h}}
+\paragraph[{BeginMakeIonChannel}]{\setlength{\rightskip}{0pt plus 5cm}void BeginMakeIonChannel (
+\begin{DoxyParamCaption}
+\item[{{\bf NTid}}]{ channelTypeNa}
+\end{DoxyParamCaption}
+)}\hfill\label{modigliani__model__format__grammar__t_8h_ac129161418dd239501c092acd3f2ba1b}
+
+
+Definition at line 105 of file modigliani\_\-model\_\-format\_\-grammar\_\-t.h.
+
+
+
+References modigliani\_\-core\_\-stack, and NT\_\-PARAM\_\-OUT\_\-OF\_\-RANGE.
+
+
+
+
+\begin{DoxyCode}
+{
+      NTBP_membrane_current_o *tmpNaPtr;
+        switch (channelTypeNa) {
+                case 1:
+                      /* Stochastic active ion-channel currents */
+                            tmpNaPtr =
+                    new NTBP_multi_sodium_current_o (static_cast<NTBP_membrane_co
+      mpartment_o*>(modigliani_core_stack.top())->_area(),
+                        60, 20e-9   /* mSiemens per channel */
+                            break;
+                default: cerr <<"Somasimulator-v1 - Error  : Invalid Na channel t
+      ype specified. Exiting."; exit(NT_PARAM_OUT_OF_RANGE); break;
+        }
+        modigliani_core_stack.push(tmpNaPtr);
+}
+\end{DoxyCode}
+
+
+\index{modigliani\_\-model\_\-format\_\-grammar\_\-t.h@{modigliani\_\-model\_\-format\_\-grammar\_\-t.h}!BeginMakeMembraneCompartmentSequence@{BeginMakeMembraneCompartmentSequence}}
+\index{BeginMakeMembraneCompartmentSequence@{BeginMakeMembraneCompartmentSequence}!modigliani_model_format_grammar_t.h@{modigliani\_\-model\_\-format\_\-grammar\_\-t.h}}
+\paragraph[{BeginMakeMembraneCompartmentSequence}]{\setlength{\rightskip}{0pt plus 5cm}void BeginMakeMembraneCompartmentSequence (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{modigliani__model__format__grammar__t_8h_acb8572a24390b754dbd88ed10704af6a}
+
+
+Definition at line 64 of file modigliani\_\-model\_\-format\_\-grammar\_\-t.h.
+
+
+
+References modigliani\_\-core\_\-stack.
+
+
+
+
+\begin{DoxyCode}
+{
+        NTBP_membrane_compartment_sequence_o* tmpPtr =  new  
+      NTBP_membrane_compartment_sequence_o;
+        modigliani_core_stack.push(tmpPtr);
+}
+\end{DoxyCode}
+
+
+\index{modigliani\_\-model\_\-format\_\-grammar\_\-t.h@{modigliani\_\-model\_\-format\_\-grammar\_\-t.h}!BeginMakeSphericalMembraneCompartment@{BeginMakeSphericalMembraneCompartment}}
+\index{BeginMakeSphericalMembraneCompartment@{BeginMakeSphericalMembraneCompartment}!modigliani_model_format_grammar_t.h@{modigliani\_\-model\_\-format\_\-grammar\_\-t.h}}
+\paragraph[{BeginMakeSphericalMembraneCompartment}]{\setlength{\rightskip}{0pt plus 5cm}void BeginMakeSphericalMembraneCompartment (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{modigliani__model__format__grammar__t_8h_a9904b3a9f540e12941a5309a9b9eeb70}
+
+
+Definition at line 88 of file modigliani\_\-model\_\-format\_\-grammar\_\-t.h.
+
+
+
+
+\begin{DoxyCode}
+{
+        cerr << "modigliani_core::MakeSphericalMembraneCompartment - Error : Not 
+      implemented." << endl;
+        exit(1);
+}
+\end{DoxyCode}
+
+
+\index{modigliani\_\-model\_\-format\_\-grammar\_\-t.h@{modigliani\_\-model\_\-format\_\-grammar\_\-t.h}!EndMakeCylindricalMembraneCompartment@{EndMakeCylindricalMembraneCompartment}}
+\index{EndMakeCylindricalMembraneCompartment@{EndMakeCylindricalMembraneCompartment}!modigliani_model_format_grammar_t.h@{modigliani\_\-model\_\-format\_\-grammar\_\-t.h}}
+\paragraph[{EndMakeCylindricalMembraneCompartment}]{\setlength{\rightskip}{0pt plus 5cm}void EndMakeCylindricalMembraneCompartment (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{modigliani__model__format__grammar__t_8h_a3c80a46c69a68f781f7649e669eaf31f}
+
+
+Definition at line 81 of file modigliani\_\-model\_\-format\_\-grammar\_\-t.h.
+
+
+
+References modigliani\_\-core\_\-stack.
+
+
+
+
+\begin{DoxyCode}
+{
+        NTBP_custom_cylindrical_compartment_o *tmpPtr   = static_cast(
+      NTBP_custom_cylindrical_compartment_o*) modigliani_core_stack.pop();
+        static_cast<NTBP_membrane_compartment_sequence_o*>(modigliani_core_stack.
+      top())->PushBak(tmpPtr);
+}
+\end{DoxyCode}
+
+
+\index{modigliani\_\-model\_\-format\_\-grammar\_\-t.h@{modigliani\_\-model\_\-format\_\-grammar\_\-t.h}!EndMakeIonChannel@{EndMakeIonChannel}}
+\index{EndMakeIonChannel@{EndMakeIonChannel}!modigliani_model_format_grammar_t.h@{modigliani\_\-model\_\-format\_\-grammar\_\-t.h}}
+\paragraph[{EndMakeIonChannel}]{\setlength{\rightskip}{0pt plus 5cm}void EndMakeIonChannel (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{modigliani__model__format__grammar__t_8h_aeed9ddcbf7cbe6f8a7d0dc3a223ecd93}
+
+
+Definition at line 120 of file modigliani\_\-model\_\-format\_\-grammar\_\-t.h.
+
+
+
+References modigliani\_\-core\_\-stack, and NTBP\_\-IONIC.
+
+
+
+
+\begin{DoxyCode}
+{
+        NTBP_membrane_current_o *tmpPtr = static_cast<NTBP_membrane_current_o*>(
+      modigliani_core_stack.pop());
+        static_cast<NTBP_membrane_compartment_o*>(modigliani_core_stack.top())->A
+      ttachCurrent (tmpNaPtr, NTBP_IONIC);
+}
+\end{DoxyCode}
+
+
+\index{modigliani\_\-model\_\-format\_\-grammar\_\-t.h@{modigliani\_\-model\_\-format\_\-grammar\_\-t.h}!EndMakeMembraneCompartmentSequence@{EndMakeMembraneCompartmentSequence}}
+\index{EndMakeMembraneCompartmentSequence@{EndMakeMembraneCompartmentSequence}!modigliani_model_format_grammar_t.h@{modigliani\_\-model\_\-format\_\-grammar\_\-t.h}}
+\paragraph[{EndMakeMembraneCompartmentSequence}]{\setlength{\rightskip}{0pt plus 5cm}void EndMakeMembraneCompartmentSequence (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{modigliani__model__format__grammar__t_8h_abfa56e933ef87f5bb52954f3e5aafe9c}
+
+
+Definition at line 70 of file modigliani\_\-model\_\-format\_\-grammar\_\-t.h.
+
+
+
+
+\begin{DoxyCode}
+{
+}
+\end{DoxyCode}
+
+
+\index{modigliani\_\-model\_\-format\_\-grammar\_\-t.h@{modigliani\_\-model\_\-format\_\-grammar\_\-t.h}!EndMakeSphericalMembraneCompartment@{EndMakeSphericalMembraneCompartment}}
+\index{EndMakeSphericalMembraneCompartment@{EndMakeSphericalMembraneCompartment}!modigliani_model_format_grammar_t.h@{modigliani\_\-model\_\-format\_\-grammar\_\-t.h}}
+\paragraph[{EndMakeSphericalMembraneCompartment}]{\setlength{\rightskip}{0pt plus 5cm}void EndMakeSphericalMembraneCompartment (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{modigliani__model__format__grammar__t_8h_a53e35fffe0793aea56659becdacc5eda}
+
+
+Definition at line 93 of file modigliani\_\-model\_\-format\_\-grammar\_\-t.h.
+
+
+
+
+\begin{DoxyCode}
+{
+        cerr << "modigliani_core::MakeSphericalMembraneCompartment - Error : Not 
+      implemented." << endl;
+        exit(1);
+}
+\end{DoxyCode}
+
+
+\index{modigliani\_\-model\_\-format\_\-grammar\_\-t.h@{modigliani\_\-model\_\-format\_\-grammar\_\-t.h}!parse@{parse}}
+\index{parse@{parse}!modigliani_model_format_grammar_t.h@{modigliani\_\-model\_\-format\_\-grammar\_\-t.h}}
+\paragraph[{parse}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename GrammarT $>$ void parse (
+\begin{DoxyParamCaption}
+\item[{GrammarT const \&}]{ g, }
+\item[{char const $\ast$}]{ filename}
+\end{DoxyParamCaption}
+)}\hfill\label{modigliani__model__format__grammar__t_8h_a5bf233b63b1319c722c5284ffdae9103}
+
+
+Definition at line 285 of file modigliani\_\-model\_\-format\_\-grammar\_\-t.h.
+
+
+
+
+\begin{DoxyCode}
+{
+    ifstream in(filename);
+
+    if (!in)
+    {
+        cerr << "Could not open input file: " << filename << endl;
+        return;
+    }
+
+    in.unsetf(ios::skipws); //  Turn of white space skipping on the stream
+
+    vector<char> vec;
+    std::copy(
+        istream_iterator<char>(in),
+        istream_iterator<char>(),
+        std::back_inserter(vec));
+
+    vector<char>::const_iterator start = vec.begin();
+    vector<char>::const_iterator end = vec.end();
+
+        ModiglianiFormatSkipGrammar_t skip;
+
+    parse_info<vector<char>::const_iterator> result =
+        parse(start, end, g, skip);
+
+    if (result.full)
+        cerr << filename << " Parses OK" << endl;
+    else {
+        cerr << filename << " Fails Parsing" << endl;
+        for (int i = 0; i < 50; i++)
+        {
+            if (result.stop == end)
+                break;
+            cerr << *result.stop++;
+        }
+        cerr << endl;
+    }
+}
+\end{DoxyCode}
+
+
+
+
+\subsubsection{Variable Documentation}
+\index{modigliani\_\-model\_\-format\_\-grammar\_\-t.h@{modigliani\_\-model\_\-format\_\-grammar\_\-t.h}!modigliani\_\-core\_\-stack@{modigliani\_\-core\_\-stack}}
+\index{modigliani\_\-core\_\-stack@{modigliani\_\-core\_\-stack}!modigliani_model_format_grammar_t.h@{modigliani\_\-model\_\-format\_\-grammar\_\-t.h}}
+\paragraph[{modigliani\_\-core\_\-stack}]{\setlength{\rightskip}{0pt plus 5cm}stack$<$void$\ast$$>$ {\bf modigliani\_\-core\_\-stack}}\hfill\label{modigliani__model__format__grammar__t_8h_a42bdd986e317ddaa5b9501bcd24803dd}
+
+
+Definition at line 61 of file modigliani\_\-model\_\-format\_\-grammar\_\-t.h.
+
+
+
+Referenced by BeginMakeCylindricalMembraneCompartment(), BeginMakeIonChannel(), BeginMakeMembraneCompartmentSequence(), EndMakeCylindricalMembraneCompartment(), and EndMakeIonChannel().
+

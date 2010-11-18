@@ -1,0 +1,84 @@
+.TH "TNT::Index1D" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+TNT::Index1D \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <index.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSubscript\fP \fBlbound\fP () const "
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBubound\fP () const "
+.br
+.ti -1c
+.RI "\fBIndex1D\fP (const \fBIndex1D\fP &D)"
+.br
+.ti -1c
+.RI "\fBIndex1D\fP (\fBSubscript\fP i1, \fBSubscript\fP i2)"
+.br
+.ti -1c
+.RI "\fBIndex1D\fP & \fBoperator=\fP (const \fBIndex1D\fP &D)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Definition at line 36 of file index.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "TNT::Index1D::Index1D (const \fBIndex1D\fP & D)\fC [inline]\fP"
+.PP
+Definition at line 46 of file index.h.
+.PP
+.nf
+: lbound_(D.lbound_), ubound_(D.ubound_) {}
+.fi
+.SS "TNT::Index1D::Index1D (\fBSubscript\fP i1, \fBSubscript\fP i2)\fC [inline]\fP"
+.PP
+Definition at line 47 of file index.h.
+.PP
+.nf
+: lbound_(i1), ubound_(i2) {}
+.fi
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBSubscript\fP TNT::Index1D::lbound () const\fC [inline]\fP"
+.PP
+Definition at line 43 of file index.h.
+.PP
+Referenced by TNT::const_Region1D< Array1D >::const_Region1D(), TNT::const_Region2D< Array2D >::const_Region2D(), TNT::const_Region2D< Array2D >::operator()(), TNT::Region2D< Array2D >::operator()(), TNT::const_Region1D< Array1D >::operator()(), TNT::Region1D< Array1D >::operator()(), TNT::operator+(), TNT::operator-(), TNT::Region1D< Array1D >::Region1D(), and TNT::Region2D< Array2D >::Region2D().
+.PP
+.nf
+{ return lbound_; }
+.fi
+.SS "\fBIndex1D\fP& TNT::Index1D::operator= (const \fBIndex1D\fP & D)\fC [inline]\fP"
+.PP
+Definition at line 49 of file index.h.
+.PP
+.nf
+    {
+        lbound_ = D.lbound_;
+        ubound_ = D.ubound_;
+        return *this;
+    }
+.fi
+.SS "\fBSubscript\fP TNT::Index1D::ubound () const\fC [inline]\fP"
+.PP
+Definition at line 44 of file index.h.
+.PP
+Referenced by TNT::const_Region1D< Array1D >::const_Region1D(), TNT::const_Region2D< Array2D >::const_Region2D(), TNT::const_Region2D< Array2D >::operator()(), TNT::Region2D< Array2D >::operator()(), TNT::const_Region1D< Array1D >::operator()(), TNT::Region1D< Array1D >::operator()(), TNT::operator+(), TNT::operator-(), TNT::Region1D< Array1D >::Region1D(), and TNT::Region2D< Array2D >::Region2D().
+.PP
+.nf
+{ return ubound_; }
+.fi
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

@@ -1,0 +1,135 @@
+.TH "NTBP_sodium_ion_channels_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NTBP_sodium_ion_channels_o \- 
+.PP
+\fBNTBP_sodium_ion_channels_o\fP class 8 state Hodgkin-Huxley based model of Sodium conducting ion channels.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ntbp_sodium_ion_channels_obj.h>\fP
+.PP
+Inherits \fBNTBP_ion_channels_o\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNTBP_sodium_ion_channels_o\fP (\fBNTsize\fP numNewChannels=1)"
+.br
+.ti -1c
+.RI "\fBNTBP_sodium_ion_channels_o\fP (const \fBNTBP_sodium_ion_channels_o\fP &original)"
+.br
+.ti -1c
+.RI "const \fBNTBP_sodium_ion_channels_o\fP & \fBoperator=\fP (const \fBNTBP_sodium_ion_channels_o\fP &right)"
+.br
+.ti -1c
+.RI "virtual \fB~NTBP_sodium_ion_channels_o\fP ()"
+.br
+.ti -1c
+.RI "\fBNTreturn\fP \fBStep\fP ()"
+.br
+.ti -1c
+.RI "void \fBShowStates\fP () const "
+.br
+.ti -1c
+.RI "\fBNTsize\fP \fBNumOpen\fP () const "
+.br
+.ti -1c
+.RI "\fBNTsize\fP \fBNumClosed\fP () const "
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fBComputeChannelStateTimeConstant\fP () const "
+.br
+.RI "\fISum of escape rates from current state [1/s]. \fP"
+.ti -1c
+.RI "\fBNTreturn\fP \fBUpdateStateProb\fP (vector< \fBNTreal\fP > rateConstVec)"
+.br
+.ti -1c
+.RI "bool \fBComputeGillespieStep\fP (\fBNTsize\fP stateId)"
+.br
+.ti -1c
+.RI "\fBNTreturn\fP \fBSteadyStateDistribution\fP ()"
+.br
+.RI "\fIset the steady state distribution of channel states for current rate constants, DIRTY HACK \fP"
+.ti -1c
+.RI "\fBNTreturn\fP \fBBinomialStep\fP ()"
+.br
+.RI "\fINo descriptions. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+The open state has stateIndex 4. 
+.PP
+\fBBug\fP
+.RS 4
+unknown 
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+1.  has to be take on stateCounterVec (as it is 9 dimensional (loop index!)) 2. alpha and beta RATE CONSTANTS name TRANSITION probability variables ! 
+.RE
+.PP
+
+.PP
+Definition at line 60 of file ntbp_sodium_ion_channels_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "NTBP_sodium_ion_channels_o::NTBP_sodium_ion_channels_o (\fBNTsize\fP numNewChannels = \fC1\fP)"
+.SS "NTBP_sodium_ion_channels_o::NTBP_sodium_ion_channels_o (const \fBNTBP_sodium_ion_channels_o\fP & original)"
+.SS "virtual NTBP_sodium_ion_channels_o::~NTBP_sodium_ion_channels_o ()\fC [virtual]\fP"
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBNTreturn\fP NTBP_sodium_ion_channels_o::BinomialStep ()\fC [virtual]\fP"
+.PP
+Reimplemented from \fBNTBP_ion_channels_o\fP.
+.SS "\fBNTreal\fP NTBP_sodium_ion_channels_o::ComputeChannelStateTimeConstant () const\fC [virtual]\fP"
+.PP
+Implements \fBNTBP_ion_channels_o\fP.
+.SS "bool NTBP_sodium_ion_channels_o::ComputeGillespieStep (\fBNTsize\fP stateId)\fC [virtual]\fP"
+.PP
+Reimplemented from \fBNTBP_ion_channels_o\fP.
+.SS "\fBNTsize\fP NTBP_sodium_ion_channels_o::NumClosed () const\fC [inline, virtual]\fP"
+.PP
+Implements \fBNTBP_ion_channels_o\fP.
+.PP
+Definition at line 71 of file ntbp_sodium_ion_channels_obj.h.
+.PP
+References NTBP_ion_channels_o::_numChannels(), and NumOpen().
+.PP
+.nf
+{ return _numChannels() - NumOpen();}
+.fi
+.SS "\fBNTsize\fP NTBP_sodium_ion_channels_o::NumOpen () const\fC [inline, virtual]\fP"
+.PP
+Implements \fBNTBP_ion_channels_o\fP.
+.PP
+Definition at line 70 of file ntbp_sodium_ion_channels_obj.h.
+.PP
+References NTBP_ion_channels_o::stateCounterVec.
+.PP
+Referenced by NumClosed().
+.PP
+.nf
+{ return stateCounterVec[4];}// because 0 is num total channels
+.fi
+.SS "const \fBNTBP_sodium_ion_channels_o\fP& NTBP_sodium_ion_channels_o::operator= (const \fBNTBP_sodium_ion_channels_o\fP & right)"
+.SS "void NTBP_sodium_ion_channels_o::ShowStates () const\fC [virtual]\fP"
+.PP
+Implements \fBNTBP_ion_channels_o\fP.
+.SS "\fBNTreturn\fP NTBP_sodium_ion_channels_o::SteadyStateDistribution ()\fC [virtual]\fP"
+.PP
+Implements \fBNTBP_ion_channels_o\fP.
+.SS "\fBNTreturn\fP NTBP_sodium_ion_channels_o::Step ()\fC [virtual]\fP"
+.PP
+Reimplemented from \fBNTBP_object_o\fP.
+.SS "\fBNTreturn\fP NTBP_sodium_ion_channels_o::UpdateStateProb (vector< \fBNTreal\fP > rateConstVec)\fC [virtual]\fP"
+.PP
+Implements \fBNTBP_ion_channels_o\fP.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

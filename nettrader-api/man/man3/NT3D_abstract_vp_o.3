@@ -1,0 +1,206 @@
+.TH "NT3D_abstract_vp_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NT3D_abstract_vp_o \- 
+.PP
+\fBNT3D_abstract_vp_o\fP class The abstract viewport class houses the driver independent part of the visualisation routines.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <nt3d_abstract_vp_obj.h>\fP
+.PP
+Inherits \fBNT3D_vp_o\fP.
+.PP
+Inherited by \fBNT3D_bitmap_vp_o\fP, \fBNT3D_camera_vp_o\fP, \fBNT3D_plot_vp_o\fP, \fBNT3D_universal_vp_o\fP, and \fBNT3D_universe_vp_o\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNT3D_abstract_vp_o\fP ()"
+.br
+.ti -1c
+.RI "\fBNT3D_abstract_vp_o\fP (const \fBNT3D_abstract_vp_o\fP &original)"
+.br
+.ti -1c
+.RI "const \fBNT3D_abstract_vp_o\fP & \fBoperator=\fP (const \fBNT3D_abstract_vp_o\fP &right)"
+.br
+.ti -1c
+.RI "\fB~NT3D_abstract_vp_o\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBDraw\fP ()=0"
+.br
+.ti -1c
+.RI "void \fBInit\fP ()"
+.br
+.RI "\fIThese methods call child and drv implementations. \fP"
+.ti -1c
+.RI "\fBNTreturn\fP \fBResize\fP (\fBNTsize\fP newWidth, \fBNTsize\fP newHeight)"
+.br
+.ti -1c
+.RI "void \fBRedraw\fP ()"
+.br
+.ti -1c
+.RI "void \fBMakeCurrent\fP ()"
+.br
+.ti -1c
+.RI "void \fBSwapBuffer\fP ()"
+.br
+.ti -1c
+.RI "\fBNT3D_bitmap_o\fP \fBView2Bitmap\fP ()"
+.br
+.ti -1c
+.RI "\fBNT3D_bitmap_o\fP * \fBView2BitmapPtr\fP (\fBNT3D_bitmap_o\fP *bmpPtr)"
+.br
+.ti -1c
+.RI "\fBNTsize\fP \fB_width\fP ()"
+.br
+.ti -1c
+.RI "\fBNTsize\fP \fB_height\fP ()"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBInitChild\fP ()=0"
+.br
+.ti -1c
+.RI "virtual \fBNTreturn\fP \fBResizeChild\fP (\fBNTsize\fP width, \fBNTsize\fP height)=0"
+.br
+.ti -1c
+.RI "virtual void \fBRedrawChild\fP ()=0"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+It is connected/registered with a viewport driver class NT3D_driver_vp_o childs. It uses the infrastructure provided by a driver class via the \fBNT3D_vp_o\fP interface. 
+.PP
+\fBBug\fP
+.RS 4
+unknown 
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+do not override \fBMakeCurrent()\fP and \fBSwapBuffer()\fP 
+.RE
+.PP
+
+.PP
+Definition at line 80 of file nt3d_abstract_vp_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "NT3D_abstract_vp_o::NT3D_abstract_vp_o ()"
+.SS "NT3D_abstract_vp_o::NT3D_abstract_vp_o (const \fBNT3D_abstract_vp_o\fP & original)"
+.SS "NT3D_abstract_vp_o::~NT3D_abstract_vp_o ()"
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBNTsize\fP NT3D_abstract_vp_o::_height ()\fC [inline, virtual]\fP"
+.PP
+Implements \fBNT3D_vp_o\fP.
+.PP
+Definition at line 88 of file nt3d_abstract_vp_obj.h.
+.PP
+References NT3D_vp_o::Init(), InitChild(), and NT3D_vp_o::pVP.
+.PP
+.nf
+{InitChild();pVP->Init();}
+.fi
+.SS "\fBNTsize\fP NT3D_abstract_vp_o::_width ()\fC [inline, virtual]\fP"
+.PP
+Implements \fBNT3D_vp_o\fP.
+.PP
+Definition at line 87 of file nt3d_abstract_vp_obj.h.
+.PP
+.nf
+{InitChild();pVP->Init();}
+.fi
+.SS "virtual void NT3D_abstract_vp_o::Draw ()\fC [pure virtual]\fP"
+.PP
+Implements \fBNT3D_o\fP.
+.PP
+Implemented in \fBNT3D_bitmap_vp_o\fP, \fBNT3D_camera_vp_o\fP, \fBNT3D_plot2d_vp_o\fP, \fBNT3D_universal_vp_o\fP, and \fBNT3D_universe_vp_o\fP.
+.SS "void NT3D_abstract_vp_o::Init ()\fC [inline, virtual]\fP"
+.PP
+Implements \fBNT3D_vp_o\fP.
+.PP
+Definition at line 79 of file nt3d_abstract_vp_obj.h.
+.PP
+.nf
+: public NT3D_vp_o {
+.fi
+.SS "virtual void NT3D_abstract_vp_o::InitChild ()\fC [protected, pure virtual]\fP"
+.PP
+Implemented in \fBNT3D_bitmap_vp_o\fP, \fBNT3D_camera_vp_o\fP, \fBNT3D_plot2d_vp_o\fP, and \fBNT3D_spheric_camera_o\fP.
+.PP
+Referenced by _height().
+.SS "void NT3D_abstract_vp_o::MakeCurrent ()\fC [inline, virtual]\fP"
+.PP
+Implements \fBNT3D_vp_o\fP.
+.PP
+Definition at line 83 of file nt3d_abstract_vp_obj.h.
+.PP
+.nf
+{InitChild();pVP->Init();}
+.fi
+.SS "const \fBNT3D_abstract_vp_o\fP& NT3D_abstract_vp_o::operator= (const \fBNT3D_abstract_vp_o\fP & right)"
+.SS "void NT3D_abstract_vp_o::Redraw ()\fC [inline, virtual]\fP"
+.PP
+Implements \fBNT3D_vp_o\fP.
+.PP
+Definition at line 81 of file nt3d_abstract_vp_obj.h.
+.PP
+.nf
+:
+.fi
+.SS "virtual void NT3D_abstract_vp_o::RedrawChild ()\fC [protected, pure virtual]\fP"
+.PP
+Implemented in \fBNT3D_bitmap_vp_o\fP, \fBNT3D_camera_vp_o\fP, \fBNT3D_plot2d_vp_o\fP, and \fBNT3D_spheric_camera_o\fP.
+.SS "\fBNTreturn\fP NT3D_abstract_vp_o::Resize (\fBNTsize\fP newWidth, \fBNTsize\fP newHeight)\fC [inline, virtual]\fP"
+.PP
+Implements \fBNT3D_vp_o\fP.
+.PP
+Definition at line 80 of file nt3d_abstract_vp_obj.h.
+.PP
+.nf
+: public NT3D_vp_o {
+.fi
+.SS "virtual \fBNTreturn\fP NT3D_abstract_vp_o::ResizeChild (\fBNTsize\fP width, \fBNTsize\fP height)\fC [protected, pure virtual]\fP"
+.PP
+Implemented in \fBNT3D_bitmap_vp_o\fP, \fBNT3D_camera_vp_o\fP, \fBNT3D_plot2d_vp_o\fP, and \fBNT3D_spheric_camera_o\fP.
+.SS "void NT3D_abstract_vp_o::SwapBuffer ()\fC [inline, virtual]\fP"
+.PP
+Reimplemented from \fBNT3D_vp_o\fP.
+.PP
+Definition at line 84 of file nt3d_abstract_vp_obj.h.
+.PP
+.nf
+{InitChild();pVP->Init();}
+.fi
+.SS "\fBNT3D_bitmap_o\fP NT3D_abstract_vp_o::View2Bitmap ()\fC [inline, virtual]\fP"
+.PP
+Implements \fBNT3D_vp_o\fP.
+.PP
+Definition at line 85 of file nt3d_abstract_vp_obj.h.
+.PP
+.nf
+{InitChild();pVP->Init();}
+.fi
+.SS "\fBNT3D_bitmap_o\fP* NT3D_abstract_vp_o::View2BitmapPtr (\fBNT3D_bitmap_o\fP * bmpPtr)\fC [inline, virtual]\fP"
+.PP
+Implements \fBNT3D_vp_o\fP.
+.PP
+Definition at line 86 of file nt3d_abstract_vp_obj.h.
+.PP
+.nf
+{InitChild();pVP->Init();}
+.fi
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

@@ -1,0 +1,494 @@
+\subsection{TNT::Fortran\_\-Sparse\_\-Vector$<$ T $>$ Class Template Reference}
+\label{class_t_n_t_1_1_fortran___sparse___vector}\index{TNT::Fortran\_\-Sparse\_\-Vector@{TNT::Fortran\_\-Sparse\_\-Vector}}
+
+
+{\ttfamily \#include $<$fspvec.h$>$}
+
+
+
+Collaboration diagram for TNT::Fortran\_\-Sparse\_\-Vector$<$ T $>$:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{class_t_n_t_1_1_fortran___sparse___vector__coll__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+typedef \hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} \hyperlink{class_t_n_t_1_1_fortran___sparse___vector_afd4ab025a14d99715f114fa610d851f3}{size\_\-type}
+\item 
+typedef T \hyperlink{class_t_n_t_1_1_fortran___sparse___vector_ada789673672935f4e2b5a3f21d4d0c6d}{value\_\-type}
+\item 
+typedef T \hyperlink{class_t_n_t_1_1_fortran___sparse___vector_ac62daa559e30981515643d0b35ff9c16}{element\_\-type}
+\item 
+typedef T $\ast$ \hyperlink{class_t_n_t_1_1_fortran___sparse___vector_a2f899a23b5f4a573eaea47d97fcbf48b}{pointer}
+\item 
+typedef T $\ast$ \hyperlink{class_t_n_t_1_1_fortran___sparse___vector_a6ef1e42eef916625b75b1f4d77542059}{iterator}
+\item 
+typedef T \& \hyperlink{class_t_n_t_1_1_fortran___sparse___vector_a4b6fe1d395c3b4c853ff15420cf7fa99}{reference}
+\item 
+typedef const T $\ast$ \hyperlink{class_t_n_t_1_1_fortran___sparse___vector_abc6533e965e4f1c9a0706ef9dde351a9}{const\_\-iterator}
+\item 
+typedef const T \& \hyperlink{class_t_n_t_1_1_fortran___sparse___vector_aa734079fe78b7727c780491b0a1a8b3c}{const\_\-reference}
+\end{DoxyCompactItemize}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} \hyperlink{class_t_n_t_1_1_fortran___sparse___vector_ac6c6ef1c582260166500a02130745f4b}{lbound} () const 
+\item 
+\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} \hyperlink{class_t_n_t_1_1_fortran___sparse___vector_a6ca81f799f2cdac768e09c18e7e51b42}{dim} () const 
+\item 
+\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} \hyperlink{class_t_n_t_1_1_fortran___sparse___vector_a07889124ca96d46efab58427480711ba}{num\_\-nonzeros} () const 
+\item 
+T \& \hyperlink{class_t_n_t_1_1_fortran___sparse___vector_a014d00672aff06aa5bbcd81589f1869b}{val} (\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} i)
+\item 
+const T \& \hyperlink{class_t_n_t_1_1_fortran___sparse___vector_a17c5ece8ffc7368a3f80200b656f15d0}{val} (\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} i) const 
+\item 
+\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} \& \hyperlink{class_t_n_t_1_1_fortran___sparse___vector_ab4a7ebc8d692ea70f41cb653bdfd892f}{index} (\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} i)
+\item 
+const \hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} \& \hyperlink{class_t_n_t_1_1_fortran___sparse___vector_a0a1c9d043ca900497130710c7b1dfeb5}{index} (\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} i) const 
+\item 
+\hyperlink{class_t_n_t_1_1_fortran___sparse___vector_ab0f8a19e122c89f231721a4a9db94ee2}{Fortran\_\-Sparse\_\-Vector} ()
+\item 
+\hyperlink{class_t_n_t_1_1_fortran___sparse___vector_a3bc60c6985eef951a68bb2bcc79deca9}{Fortran\_\-Sparse\_\-Vector} (\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} N, \hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} nz)
+\item 
+\hyperlink{class_t_n_t_1_1_fortran___sparse___vector_a2850c0f27a65647feacf21a0a3461ab5}{Fortran\_\-Sparse\_\-Vector} (\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} N, \hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} nz, const T $\ast$values, const \hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} $\ast$indices)
+\item 
+\hyperlink{class_t_n_t_1_1_fortran___sparse___vector_a1b6685f3b7f51607925586644719f693}{Fortran\_\-Sparse\_\-Vector} (const \hyperlink{class_t_n_t_1_1_fortran___sparse___vector}{Fortran\_\-Sparse\_\-Vector}$<$ T $>$ \&S)
+\item 
+\hyperlink{class_t_n_t_1_1_fortran___sparse___vector_a4d9ebef702dca1cac77930868044c7ba}{Fortran\_\-Sparse\_\-Vector} (\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} N, \hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} nz, char $\ast$v, char $\ast$ind)
+\item 
+\hyperlink{class_t_n_t_1_1_fortran___sparse___vector}{Fortran\_\-Sparse\_\-Vector}$<$ T $>$ \& \hyperlink{class_t_n_t_1_1_fortran___sparse___vector_adb3cb1fbea76729eadf206509d29069a}{newsize} (\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} N, \hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} nz)
+\item 
+\hyperlink{class_t_n_t_1_1_fortran___sparse___vector}{Fortran\_\-Sparse\_\-Vector}$<$ T $>$ \& \hyperlink{class_t_n_t_1_1_fortran___sparse___vector_a1ee7cfb614263b11d23524d411904fe0}{operator=} (const \hyperlink{class_t_n_t_1_1_fortran___sparse___vector}{Fortran\_\-Sparse\_\-Vector}$<$ T $>$ \&A)
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_t_n_t_1_1_vector}{Vector}$<$ T $>$ \hyperlink{class_t_n_t_1_1_fortran___sparse___vector_a7b3fc0cdf3104147267ed1d7b5177234}{val\_\-}
+\item 
+\hyperlink{class_t_n_t_1_1_vector}{Vector}$<$ \hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} $>$ \hyperlink{class_t_n_t_1_1_fortran___sparse___vector_a586e6e20ad6a08b4aa6c77eb1c0becb6}{index\_\-}
+\item 
+\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} \hyperlink{class_t_n_t_1_1_fortran___sparse___vector_a3d2b44cb2a162d2dac3c53cfb97d1494}{dim\_\-}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\subsubsection*{template$<$class T$>$ class TNT::Fortran\_\-Sparse\_\-Vector$<$ T $>$}
+
+
+
+Definition at line 45 of file fspvec.h.
+
+
+
+\subsubsection{Member Typedef Documentation}
+\index{TNT::Fortran\_\-Sparse\_\-Vector@{TNT::Fortran\_\-Sparse\_\-Vector}!const\_\-iterator@{const\_\-iterator}}
+\index{const\_\-iterator@{const\_\-iterator}!TNT::Fortran_Sparse_Vector@{TNT::Fortran\_\-Sparse\_\-Vector}}
+\paragraph[{const\_\-iterator}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ typedef const T$\ast$ {\bf TNT::Fortran\_\-Sparse\_\-Vector}$<$ T $>$::{\bf const\_\-iterator}}\hfill\label{class_t_n_t_1_1_fortran___sparse___vector_abc6533e965e4f1c9a0706ef9dde351a9}
+
+
+Definition at line 57 of file fspvec.h.
+
+\index{TNT::Fortran\_\-Sparse\_\-Vector@{TNT::Fortran\_\-Sparse\_\-Vector}!const\_\-reference@{const\_\-reference}}
+\index{const\_\-reference@{const\_\-reference}!TNT::Fortran_Sparse_Vector@{TNT::Fortran\_\-Sparse\_\-Vector}}
+\paragraph[{const\_\-reference}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ typedef const T\& {\bf TNT::Fortran\_\-Sparse\_\-Vector}$<$ T $>$::{\bf const\_\-reference}}\hfill\label{class_t_n_t_1_1_fortran___sparse___vector_aa734079fe78b7727c780491b0a1a8b3c}
+
+
+Definition at line 58 of file fspvec.h.
+
+\index{TNT::Fortran\_\-Sparse\_\-Vector@{TNT::Fortran\_\-Sparse\_\-Vector}!element\_\-type@{element\_\-type}}
+\index{element\_\-type@{element\_\-type}!TNT::Fortran_Sparse_Vector@{TNT::Fortran\_\-Sparse\_\-Vector}}
+\paragraph[{element\_\-type}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ typedef T {\bf TNT::Fortran\_\-Sparse\_\-Vector}$<$ T $>$::{\bf element\_\-type}}\hfill\label{class_t_n_t_1_1_fortran___sparse___vector_ac62daa559e30981515643d0b35ff9c16}
+
+
+Definition at line 53 of file fspvec.h.
+
+\index{TNT::Fortran\_\-Sparse\_\-Vector@{TNT::Fortran\_\-Sparse\_\-Vector}!iterator@{iterator}}
+\index{iterator@{iterator}!TNT::Fortran_Sparse_Vector@{TNT::Fortran\_\-Sparse\_\-Vector}}
+\paragraph[{iterator}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ typedef T$\ast$ {\bf TNT::Fortran\_\-Sparse\_\-Vector}$<$ T $>$::{\bf iterator}}\hfill\label{class_t_n_t_1_1_fortran___sparse___vector_a6ef1e42eef916625b75b1f4d77542059}
+
+
+Definition at line 55 of file fspvec.h.
+
+\index{TNT::Fortran\_\-Sparse\_\-Vector@{TNT::Fortran\_\-Sparse\_\-Vector}!pointer@{pointer}}
+\index{pointer@{pointer}!TNT::Fortran_Sparse_Vector@{TNT::Fortran\_\-Sparse\_\-Vector}}
+\paragraph[{pointer}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ typedef T$\ast$ {\bf TNT::Fortran\_\-Sparse\_\-Vector}$<$ T $>$::{\bf pointer}}\hfill\label{class_t_n_t_1_1_fortran___sparse___vector_a2f899a23b5f4a573eaea47d97fcbf48b}
+
+
+Definition at line 54 of file fspvec.h.
+
+\index{TNT::Fortran\_\-Sparse\_\-Vector@{TNT::Fortran\_\-Sparse\_\-Vector}!reference@{reference}}
+\index{reference@{reference}!TNT::Fortran_Sparse_Vector@{TNT::Fortran\_\-Sparse\_\-Vector}}
+\paragraph[{reference}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ typedef T\& {\bf TNT::Fortran\_\-Sparse\_\-Vector}$<$ T $>$::{\bf reference}}\hfill\label{class_t_n_t_1_1_fortran___sparse___vector_a4b6fe1d395c3b4c853ff15420cf7fa99}
+
+
+Definition at line 56 of file fspvec.h.
+
+\index{TNT::Fortran\_\-Sparse\_\-Vector@{TNT::Fortran\_\-Sparse\_\-Vector}!size\_\-type@{size\_\-type}}
+\index{size\_\-type@{size\_\-type}!TNT::Fortran_Sparse_Vector@{TNT::Fortran\_\-Sparse\_\-Vector}}
+\paragraph[{size\_\-type}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ typedef {\bf Subscript} {\bf TNT::Fortran\_\-Sparse\_\-Vector}$<$ T $>$::{\bf size\_\-type}}\hfill\label{class_t_n_t_1_1_fortran___sparse___vector_afd4ab025a14d99715f114fa610d851f3}
+
+
+Definition at line 51 of file fspvec.h.
+
+\index{TNT::Fortran\_\-Sparse\_\-Vector@{TNT::Fortran\_\-Sparse\_\-Vector}!value\_\-type@{value\_\-type}}
+\index{value\_\-type@{value\_\-type}!TNT::Fortran_Sparse_Vector@{TNT::Fortran\_\-Sparse\_\-Vector}}
+\paragraph[{value\_\-type}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ typedef T {\bf TNT::Fortran\_\-Sparse\_\-Vector}$<$ T $>$::{\bf value\_\-type}}\hfill\label{class_t_n_t_1_1_fortran___sparse___vector_ada789673672935f4e2b5a3f21d4d0c6d}
+
+
+Definition at line 52 of file fspvec.h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{TNT::Fortran\_\-Sparse\_\-Vector@{TNT::Fortran\_\-Sparse\_\-Vector}!Fortran\_\-Sparse\_\-Vector@{Fortran\_\-Sparse\_\-Vector}}
+\index{Fortran\_\-Sparse\_\-Vector@{Fortran\_\-Sparse\_\-Vector}!TNT::Fortran_Sparse_Vector@{TNT::Fortran\_\-Sparse\_\-Vector}}
+\paragraph[{Fortran\_\-Sparse\_\-Vector}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf TNT::Fortran\_\-Sparse\_\-Vector}$<$ T $>$::{\bf Fortran\_\-Sparse\_\-Vector} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_fortran___sparse___vector_ab0f8a19e122c89f231721a4a9db94ee2}
+
+
+Definition at line 85 of file fspvec.h.
+
+
+
+
+\begin{DoxyCode}
+: val_(), index_(), dim_(0)  {};
+\end{DoxyCode}
+
+
+\index{TNT::Fortran\_\-Sparse\_\-Vector@{TNT::Fortran\_\-Sparse\_\-Vector}!Fortran\_\-Sparse\_\-Vector@{Fortran\_\-Sparse\_\-Vector}}
+\index{Fortran\_\-Sparse\_\-Vector@{Fortran\_\-Sparse\_\-Vector}!TNT::Fortran_Sparse_Vector@{TNT::Fortran\_\-Sparse\_\-Vector}}
+\paragraph[{Fortran\_\-Sparse\_\-Vector}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf TNT::Fortran\_\-Sparse\_\-Vector}$<$ T $>$::{\bf Fortran\_\-Sparse\_\-Vector} (
+\begin{DoxyParamCaption}
+\item[{{\bf Subscript}}]{ N, }
+\item[{{\bf Subscript}}]{ nz}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_fortran___sparse___vector_a3bc60c6985eef951a68bb2bcc79deca9}
+
+
+Definition at line 86 of file fspvec.h.
+
+
+
+
+\begin{DoxyCode}
+                                                     : val_(nz), 
+            index_(nz), dim_(N)  {};
+\end{DoxyCode}
+
+
+\index{TNT::Fortran\_\-Sparse\_\-Vector@{TNT::Fortran\_\-Sparse\_\-Vector}!Fortran\_\-Sparse\_\-Vector@{Fortran\_\-Sparse\_\-Vector}}
+\index{Fortran\_\-Sparse\_\-Vector@{Fortran\_\-Sparse\_\-Vector}!TNT::Fortran_Sparse_Vector@{TNT::Fortran\_\-Sparse\_\-Vector}}
+\paragraph[{Fortran\_\-Sparse\_\-Vector}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf TNT::Fortran\_\-Sparse\_\-Vector}$<$ T $>$::{\bf Fortran\_\-Sparse\_\-Vector} (
+\begin{DoxyParamCaption}
+\item[{{\bf Subscript}}]{ N, }
+\item[{{\bf Subscript}}]{ nz, }
+\item[{const T $\ast$}]{ values, }
+\item[{const {\bf Subscript} $\ast$}]{ indices}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_fortran___sparse___vector_a2850c0f27a65647feacf21a0a3461ab5}
+
+
+Definition at line 88 of file fspvec.h.
+
+
+
+
+\begin{DoxyCode}
+                                 : val_(nz, values), index_(nz, indices),
+            dim_(N) {}
+\end{DoxyCode}
+
+
+\index{TNT::Fortran\_\-Sparse\_\-Vector@{TNT::Fortran\_\-Sparse\_\-Vector}!Fortran\_\-Sparse\_\-Vector@{Fortran\_\-Sparse\_\-Vector}}
+\index{Fortran\_\-Sparse\_\-Vector@{Fortran\_\-Sparse\_\-Vector}!TNT::Fortran_Sparse_Vector@{TNT::Fortran\_\-Sparse\_\-Vector}}
+\paragraph[{Fortran\_\-Sparse\_\-Vector}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf TNT::Fortran\_\-Sparse\_\-Vector}$<$ T $>$::{\bf Fortran\_\-Sparse\_\-Vector} (
+\begin{DoxyParamCaption}
+\item[{const {\bf Fortran\_\-Sparse\_\-Vector}$<$ T $>$ \&}]{ S}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_fortran___sparse___vector_a1b6685f3b7f51607925586644719f693}
+
+
+Definition at line 92 of file fspvec.h.
+
+
+
+
+\begin{DoxyCode}
+                                                            : 
+        val_(S.val_), index_(S.index_), dim_(S.dim_) {}
+\end{DoxyCode}
+
+
+\index{TNT::Fortran\_\-Sparse\_\-Vector@{TNT::Fortran\_\-Sparse\_\-Vector}!Fortran\_\-Sparse\_\-Vector@{Fortran\_\-Sparse\_\-Vector}}
+\index{Fortran\_\-Sparse\_\-Vector@{Fortran\_\-Sparse\_\-Vector}!TNT::Fortran_Sparse_Vector@{TNT::Fortran\_\-Sparse\_\-Vector}}
+\paragraph[{Fortran\_\-Sparse\_\-Vector}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf TNT::Fortran\_\-Sparse\_\-Vector}$<$ T $>$::{\bf Fortran\_\-Sparse\_\-Vector} (
+\begin{DoxyParamCaption}
+\item[{{\bf Subscript}}]{ N, }
+\item[{{\bf Subscript}}]{ nz, }
+\item[{char $\ast$}]{ v, }
+\item[{char $\ast$}]{ ind}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_fortran___sparse___vector_a4d9ebef702dca1cac77930868044c7ba}
+
+
+Definition at line 99 of file fspvec.h.
+
+
+
+
+\begin{DoxyCode}
+                   : val_(nz, v), index_(nz, ind), dim_(N) {}
+\end{DoxyCode}
+
+
+
+
+\subsubsection{Member Function Documentation}
+\index{TNT::Fortran\_\-Sparse\_\-Vector@{TNT::Fortran\_\-Sparse\_\-Vector}!dim@{dim}}
+\index{dim@{dim}!TNT::Fortran_Sparse_Vector@{TNT::Fortran\_\-Sparse\_\-Vector}}
+\paragraph[{dim}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf Subscript} {\bf TNT::Fortran\_\-Sparse\_\-Vector}$<$ T $>$::dim (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_fortran___sparse___vector_a6ca81f799f2cdac768e09c18e7e51b42}
+
+
+Definition at line 72 of file fspvec.h.
+
+
+
+
+\begin{DoxyCode}
+{ return dim_; }
+\end{DoxyCode}
+
+
+\index{TNT::Fortran\_\-Sparse\_\-Vector@{TNT::Fortran\_\-Sparse\_\-Vector}!index@{index}}
+\index{index@{index}!TNT::Fortran_Sparse_Vector@{TNT::Fortran\_\-Sparse\_\-Vector}}
+\paragraph[{index}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf Subscript}\& {\bf TNT::Fortran\_\-Sparse\_\-Vector}$<$ T $>$::index (
+\begin{DoxyParamCaption}
+\item[{{\bf Subscript}}]{ i}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_fortran___sparse___vector_ab4a7ebc8d692ea70f41cb653bdfd892f}
+
+
+Definition at line 80 of file fspvec.h.
+
+
+
+Referenced by TNT::operator$>$$>$().
+
+
+
+
+\begin{DoxyCode}
+{ return index_(i); }
+\end{DoxyCode}
+
+
+\index{TNT::Fortran\_\-Sparse\_\-Vector@{TNT::Fortran\_\-Sparse\_\-Vector}!index@{index}}
+\index{index@{index}!TNT::Fortran_Sparse_Vector@{TNT::Fortran\_\-Sparse\_\-Vector}}
+\paragraph[{index}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ const {\bf Subscript}\& {\bf TNT::Fortran\_\-Sparse\_\-Vector}$<$ T $>$::index (
+\begin{DoxyParamCaption}
+\item[{{\bf Subscript}}]{ i}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_fortran___sparse___vector_a0a1c9d043ca900497130710c7b1dfeb5}
+
+
+Definition at line 81 of file fspvec.h.
+
+
+
+
+\begin{DoxyCode}
+{ return index_(i); }
+\end{DoxyCode}
+
+
+\index{TNT::Fortran\_\-Sparse\_\-Vector@{TNT::Fortran\_\-Sparse\_\-Vector}!lbound@{lbound}}
+\index{lbound@{lbound}!TNT::Fortran_Sparse_Vector@{TNT::Fortran\_\-Sparse\_\-Vector}}
+\paragraph[{lbound}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf Subscript} {\bf TNT::Fortran\_\-Sparse\_\-Vector}$<$ T $>$::lbound (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_fortran___sparse___vector_ac6c6ef1c582260166500a02130745f4b}
+
+
+Definition at line 60 of file fspvec.h.
+
+
+
+
+\begin{DoxyCode}
+{ return 1;}
+\end{DoxyCode}
+
+
+\index{TNT::Fortran\_\-Sparse\_\-Vector@{TNT::Fortran\_\-Sparse\_\-Vector}!newsize@{newsize}}
+\index{newsize@{newsize}!TNT::Fortran_Sparse_Vector@{TNT::Fortran\_\-Sparse\_\-Vector}}
+\paragraph[{newsize}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf Fortran\_\-Sparse\_\-Vector}$<$T$>$\& {\bf TNT::Fortran\_\-Sparse\_\-Vector}$<$ T $>$::newsize (
+\begin{DoxyParamCaption}
+\item[{{\bf Subscript}}]{ N, }
+\item[{{\bf Subscript}}]{ nz}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_fortran___sparse___vector_adb3cb1fbea76729eadf206509d29069a}
+
+
+Definition at line 104 of file fspvec.h.
+
+
+
+Referenced by TNT::operator$>$$>$().
+
+
+
+
+\begin{DoxyCode}
+    {
+        val_.newsize(nz);
+        index_.newsize(nz);
+        dim_ = N;
+        return *this;
+    }
+\end{DoxyCode}
+
+
+\index{TNT::Fortran\_\-Sparse\_\-Vector@{TNT::Fortran\_\-Sparse\_\-Vector}!num\_\-nonzeros@{num\_\-nonzeros}}
+\index{num\_\-nonzeros@{num\_\-nonzeros}!TNT::Fortran_Sparse_Vector@{TNT::Fortran\_\-Sparse\_\-Vector}}
+\paragraph[{num\_\-nonzeros}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf Subscript} {\bf TNT::Fortran\_\-Sparse\_\-Vector}$<$ T $>$::num\_\-nonzeros (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_fortran___sparse___vector_a07889124ca96d46efab58427480711ba}
+
+
+Definition at line 73 of file fspvec.h.
+
+
+
+
+\begin{DoxyCode}
+{ return val_.dim(); }
+\end{DoxyCode}
+
+
+\index{TNT::Fortran\_\-Sparse\_\-Vector@{TNT::Fortran\_\-Sparse\_\-Vector}!operator=@{operator=}}
+\index{operator=@{operator=}!TNT::Fortran_Sparse_Vector@{TNT::Fortran\_\-Sparse\_\-Vector}}
+\paragraph[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf Fortran\_\-Sparse\_\-Vector}$<$T$>$\& {\bf TNT::Fortran\_\-Sparse\_\-Vector}$<$ T $>$::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf Fortran\_\-Sparse\_\-Vector}$<$ T $>$ \&}]{ A}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_fortran___sparse___vector_a1ee7cfb614263b11d23524d411904fe0}
+
+
+Definition at line 112 of file fspvec.h.
+
+
+
+References TNT::Fortran\_\-Sparse\_\-Vector$<$ T $>$::dim\_\-, TNT::Fortran\_\-Sparse\_\-Vector$<$ T $>$::index\_\-, and TNT::Fortran\_\-Sparse\_\-Vector$<$ T $>$::val\_\-.
+
+
+
+
+\begin{DoxyCode}
+    {
+        val_ = A.val_;
+        index_ = A.index_;
+        dim_ = A.dim_;
+
+        return *this;
+    }
+\end{DoxyCode}
+
+
+\index{TNT::Fortran\_\-Sparse\_\-Vector@{TNT::Fortran\_\-Sparse\_\-Vector}!val@{val}}
+\index{val@{val}!TNT::Fortran_Sparse_Vector@{TNT::Fortran\_\-Sparse\_\-Vector}}
+\paragraph[{val}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ const T\& {\bf TNT::Fortran\_\-Sparse\_\-Vector}$<$ T $>$::val (
+\begin{DoxyParamCaption}
+\item[{{\bf Subscript}}]{ i}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_fortran___sparse___vector_a17c5ece8ffc7368a3f80200b656f15d0}
+
+
+Definition at line 78 of file fspvec.h.
+
+
+
+
+\begin{DoxyCode}
+{ return val_(i); }
+\end{DoxyCode}
+
+
+\index{TNT::Fortran\_\-Sparse\_\-Vector@{TNT::Fortran\_\-Sparse\_\-Vector}!val@{val}}
+\index{val@{val}!TNT::Fortran_Sparse_Vector@{TNT::Fortran\_\-Sparse\_\-Vector}}
+\paragraph[{val}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ T\& {\bf TNT::Fortran\_\-Sparse\_\-Vector}$<$ T $>$::val (
+\begin{DoxyParamCaption}
+\item[{{\bf Subscript}}]{ i}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_fortran___sparse___vector_a014d00672aff06aa5bbcd81589f1869b}
+
+
+Definition at line 77 of file fspvec.h.
+
+
+
+Referenced by TNT::operator$>$$>$().
+
+
+
+
+\begin{DoxyCode}
+{ return val_(i); }
+\end{DoxyCode}
+
+
+
+
+\subsubsection{Member Data Documentation}
+\index{TNT::Fortran\_\-Sparse\_\-Vector@{TNT::Fortran\_\-Sparse\_\-Vector}!dim\_\-@{dim\_\-}}
+\index{dim\_\-@{dim\_\-}!TNT::Fortran_Sparse_Vector@{TNT::Fortran\_\-Sparse\_\-Vector}}
+\paragraph[{dim\_\-}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf Subscript} {\bf TNT::Fortran\_\-Sparse\_\-Vector}$<$ T $>$::{\bf dim\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_t_n_t_1_1_fortran___sparse___vector_a3d2b44cb2a162d2dac3c53cfb97d1494}
+
+
+Definition at line 65 of file fspvec.h.
+
+
+
+Referenced by TNT::Fortran\_\-Sparse\_\-Vector$<$ T $>$::operator=().
+
+\index{TNT::Fortran\_\-Sparse\_\-Vector@{TNT::Fortran\_\-Sparse\_\-Vector}!index\_\-@{index\_\-}}
+\index{index\_\-@{index\_\-}!TNT::Fortran_Sparse_Vector@{TNT::Fortran\_\-Sparse\_\-Vector}}
+\paragraph[{index\_\-}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf Vector}$<${\bf Subscript}$>$ {\bf TNT::Fortran\_\-Sparse\_\-Vector}$<$ T $>$::{\bf index\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_t_n_t_1_1_fortran___sparse___vector_a586e6e20ad6a08b4aa6c77eb1c0becb6}
+
+
+Definition at line 64 of file fspvec.h.
+
+
+
+Referenced by TNT::Fortran\_\-Sparse\_\-Vector$<$ T $>$::operator=().
+
+\index{TNT::Fortran\_\-Sparse\_\-Vector@{TNT::Fortran\_\-Sparse\_\-Vector}!val\_\-@{val\_\-}}
+\index{val\_\-@{val\_\-}!TNT::Fortran_Sparse_Vector@{TNT::Fortran\_\-Sparse\_\-Vector}}
+\paragraph[{val\_\-}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf Vector}$<$T$>$ {\bf TNT::Fortran\_\-Sparse\_\-Vector}$<$ T $>$::{\bf val\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_t_n_t_1_1_fortran___sparse___vector_a7b3fc0cdf3104147267ed1d7b5177234}
+
+
+Definition at line 63 of file fspvec.h.
+
+
+
+Referenced by TNT::Fortran\_\-Sparse\_\-Vector$<$ T $>$::operator=().
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{fspvec_8h}{fspvec.h}\end{DoxyCompactItemize}

@@ -1,0 +1,239 @@
+\subsection{NT3D\_\-texture\_\-o Class Reference}
+\label{class_n_t3_d__texture__o}\index{NT3D\_\-texture\_\-o@{NT3D\_\-texture\_\-o}}
+
+
+\hyperlink{class_n_t3_d__texture__o}{NT3D\_\-texture\_\-o} class This base class provides data independent facilities to manipulate and administrate textures.  
+
+
+
+
+{\ttfamily \#include $<$nt3d\_\-texture\_\-obj.h$>$}
+
+
+
+Inheritance diagram for NT3D\_\-texture\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_n_t3_d__texture__o__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for NT3D\_\-texture\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=138pt]{class_n_t3_d__texture__o__coll__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_t3_d__texture__o_a56c373079bb05fc42034ab90409f71d6}{NT3D\_\-texture\_\-o} (\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} newTextureWidth=64, \hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} newTextureHeight=64, \hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} newDim=2, bool newMakeTextureCoord=false)
+\item 
+\hyperlink{class_n_t3_d__texture__o_ae72a5cd72284cb6ff1f490c7130e2718}{NT3D\_\-texture\_\-o} (const \hyperlink{class_n_t3_d__texture__o}{NT3D\_\-texture\_\-o} \&original)
+\item 
+const \hyperlink{class_n_t3_d__texture__o}{NT3D\_\-texture\_\-o} \& \hyperlink{class_n_t3_d__texture__o_adef3808610d21bfeb6faea976a8f5d70}{operator=} (const \hyperlink{class_n_t3_d__texture__o}{NT3D\_\-texture\_\-o} \&right)
+\item 
+\hyperlink{class_n_t3_d__texture__o_a573940396e33c6a7c9d50d316e713e52}{$\sim$NT3D\_\-texture\_\-o} ()
+\item 
+void \hyperlink{class_n_t3_d__texture__o_a7d74c7d3fd43620cf1315292c6b30561}{Paint} ()
+\begin{DoxyCompactList}\small\item\em After \hyperlink{class_n_t3_d__texture__o_a7d74c7d3fd43620cf1315292c6b30561}{Paint()} texture coordinates should be specified in the control flow. \item\end{DoxyCompactList}\item 
+void \hyperlink{class_n_t3_d__texture__o_aec31080f0bde868b529bce81170effad}{Painted} ()
+\begin{DoxyCompactList}\small\item\em to be called after to be textured objects were drawn \item\end{DoxyCompactList}\item 
+void \hyperlink{class_n_t3_d__texture__o_a201e79f18dab82398148df480f0f79c4}{TextureCoord} (bool bSwitch)
+\begin{DoxyCompactList}\small\item\em Switches texture coord generation on and off in the pipeline. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \hyperlink{nt__types_8h_ab9564ee8f091e809d21b8451c6683c53}{NTreturn} \hyperlink{class_n_t3_d__texture__o_a7929daf1a35917781c16cff5747ba964}{AssignTexture} ()
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+GLfloat $\ast$ \hyperlink{class_n_t3_d__texture__o_abbb78294ccb0650a5bd085c1d60d0759}{textureImagePtr}
+\item 
+GLuint \hyperlink{class_n_t3_d__texture__o_a0f326374cfd136461bba56b639832b0f}{textureId}
+\item 
+\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} \hyperlink{class_n_t3_d__texture__o_acb9b5da794cfd769b64ced6ecd57d5ee}{textureWidth}
+\item 
+\hyperlink{nt__types_8h_a06c124f2e4469769b58230253ce0560b}{NTsize} \hyperlink{class_n_t3_d__texture__o_a5c97eb2b83dbd8d9634bce95c61c4cb3}{textureHeight}
+\item 
+GLenum \hyperlink{class_n_t3_d__texture__o_a38d33eace7385397fd293170738ba6f6}{dim}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+The texture is bound to the object through the CreateTexture() call in the \hyperlink{class_n_t3_d__texture__o}{NT3D\_\-texture\_\-o} constructor.
+
+General drawing usage in a derived \hyperlink{class_n_t3_d__object__o}{NT3D\_\-object\_\-o} class is: \hyperlink{class_n_t3_d__texture__o_a7d74c7d3fd43620cf1315292c6b30561}{Paint()} -\/$>$ DrawXYZ() -\/$>$ \hyperlink{class_n_t3_d__texture__o_aec31080f0bde868b529bce81170effad}{Painted()}
+
+\begin{Desc}
+\item[\hyperlink{bug__bug000042}{Bug}]unknown \end{Desc}
+\begin{DoxyWarning}{Warning}
+dim is 2 by default in this base class 
+\end{DoxyWarning}
+
+
+Definition at line 107 of file nt3d\_\-texture\_\-obj.h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{NT3D\_\-texture\_\-o@{NT3D\_\-texture\_\-o}!NT3D\_\-texture\_\-o@{NT3D\_\-texture\_\-o}}
+\index{NT3D\_\-texture\_\-o@{NT3D\_\-texture\_\-o}!NT3D_texture_o@{NT3D\_\-texture\_\-o}}
+\paragraph[{NT3D\_\-texture\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT3D\_\-texture\_\-o::NT3D\_\-texture\_\-o (
+\begin{DoxyParamCaption}
+\item[{{\bf NTsize}}]{ newTextureWidth = {\ttfamily 64}, }
+\item[{{\bf NTsize}}]{ newTextureHeight = {\ttfamily 64}, }
+\item[{{\bf NTsize}}]{ newDim = {\ttfamily 2}, }
+\item[{bool}]{ newMakeTextureCoord = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__texture__o_a56c373079bb05fc42034ab90409f71d6}
+\index{NT3D\_\-texture\_\-o@{NT3D\_\-texture\_\-o}!NT3D\_\-texture\_\-o@{NT3D\_\-texture\_\-o}}
+\index{NT3D\_\-texture\_\-o@{NT3D\_\-texture\_\-o}!NT3D_texture_o@{NT3D\_\-texture\_\-o}}
+\paragraph[{NT3D\_\-texture\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT3D\_\-texture\_\-o::NT3D\_\-texture\_\-o (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT3D\_\-texture\_\-o} \&}]{ original}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__texture__o_ae72a5cd72284cb6ff1f490c7130e2718}
+\index{NT3D\_\-texture\_\-o@{NT3D\_\-texture\_\-o}!$\sim$NT3D\_\-texture\_\-o@{$\sim$NT3D\_\-texture\_\-o}}
+\index{$\sim$NT3D\_\-texture\_\-o@{$\sim$NT3D\_\-texture\_\-o}!NT3D_texture_o@{NT3D\_\-texture\_\-o}}
+\paragraph[{$\sim$NT3D\_\-texture\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT3D\_\-texture\_\-o::$\sim$NT3D\_\-texture\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__texture__o_a573940396e33c6a7c9d50d316e713e52}
+
+
+\subsubsection{Member Function Documentation}
+\index{NT3D\_\-texture\_\-o@{NT3D\_\-texture\_\-o}!AssignTexture@{AssignTexture}}
+\index{AssignTexture@{AssignTexture}!NT3D_texture_o@{NT3D\_\-texture\_\-o}}
+\paragraph[{AssignTexture}]{\setlength{\rightskip}{0pt plus 5cm}virtual {\bf NTreturn} NT3D\_\-texture\_\-o::AssignTexture (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, protected, virtual\mbox{]}}}\hfill\label{class_n_t3_d__texture__o_a7929daf1a35917781c16cff5747ba964}
+
+
+Reimplemented in \hyperlink{class_n_t3_d__file__texture__o_a8171d64069586b2daa0f8ede8859ffb4}{NT3D\_\-file\_\-texture\_\-o}, \hyperlink{class_n_t3_d__moonmap__texture__o_a557531effda8f67ccbdbfbf2c5638106}{NT3D\_\-moonmap\_\-texture\_\-o}, \hyperlink{class_n_t3_d__pixel__texture__o_ab9ec73dbdadef9b90fbcf4efb8bca445}{NT3D\_\-pixel\_\-texture\_\-o}, and \hyperlink{class_n_t3_d__worldmap__texture__o_ac8d7dc1c884f0c45e525d87c04f14189}{NT3D\_\-worldmap\_\-texture\_\-o}.
+
+
+
+Definition at line 129 of file nt3d\_\-texture\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ NT_CERR(1,"NT3D_texture_o::AssignTexture - Error : Not overridden in derived cl
+      ass."); return NT_FAIL;};
+\end{DoxyCode}
+
+
+\index{NT3D\_\-texture\_\-o@{NT3D\_\-texture\_\-o}!operator=@{operator=}}
+\index{operator=@{operator=}!NT3D_texture_o@{NT3D\_\-texture\_\-o}}
+\paragraph[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf NT3D\_\-texture\_\-o}\& NT3D\_\-texture\_\-o::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT3D\_\-texture\_\-o} \&}]{ right}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__texture__o_adef3808610d21bfeb6faea976a8f5d70}
+\index{NT3D\_\-texture\_\-o@{NT3D\_\-texture\_\-o}!Paint@{Paint}}
+\index{Paint@{Paint}!NT3D_texture_o@{NT3D\_\-texture\_\-o}}
+\paragraph[{Paint}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-texture\_\-o::Paint (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__texture__o_a7d74c7d3fd43620cf1315292c6b30561}
+\index{NT3D\_\-texture\_\-o@{NT3D\_\-texture\_\-o}!Painted@{Painted}}
+\index{Painted@{Painted}!NT3D_texture_o@{NT3D\_\-texture\_\-o}}
+\paragraph[{Painted}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-texture\_\-o::Painted (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t3_d__texture__o_aec31080f0bde868b529bce81170effad}
+
+
+Definition at line 122 of file nt3d\_\-texture\_\-obj.h.
+
+
+
+References dim.
+
+
+
+
+\begin{DoxyCode}
+{ glDisable(dim); };
+\end{DoxyCode}
+
+
+\index{NT3D\_\-texture\_\-o@{NT3D\_\-texture\_\-o}!TextureCoord@{TextureCoord}}
+\index{TextureCoord@{TextureCoord}!NT3D_texture_o@{NT3D\_\-texture\_\-o}}
+\paragraph[{TextureCoord}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-texture\_\-o::TextureCoord (
+\begin{DoxyParamCaption}
+\item[{bool}]{ bSwitch}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t3_d__texture__o_a201e79f18dab82398148df480f0f79c4}
+
+
+Definition at line 124 of file nt3d\_\-texture\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ makeTextureCoord = bSwitch;}
+\end{DoxyCode}
+
+
+
+
+\subsubsection{Member Data Documentation}
+\index{NT3D\_\-texture\_\-o@{NT3D\_\-texture\_\-o}!dim@{dim}}
+\index{dim@{dim}!NT3D_texture_o@{NT3D\_\-texture\_\-o}}
+\paragraph[{dim}]{\setlength{\rightskip}{0pt plus 5cm}GLenum {\bf NT3D\_\-texture\_\-o::dim}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_n_t3_d__texture__o_a38d33eace7385397fd293170738ba6f6}
+
+
+Definition at line 135 of file nt3d\_\-texture\_\-obj.h.
+
+
+
+Referenced by Painted().
+
+\index{NT3D\_\-texture\_\-o@{NT3D\_\-texture\_\-o}!textureHeight@{textureHeight}}
+\index{textureHeight@{textureHeight}!NT3D_texture_o@{NT3D\_\-texture\_\-o}}
+\paragraph[{textureHeight}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTsize} {\bf NT3D\_\-texture\_\-o::textureHeight}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_n_t3_d__texture__o_a5c97eb2b83dbd8d9634bce95c61c4cb3}
+
+
+Definition at line 134 of file nt3d\_\-texture\_\-obj.h.
+
+\index{NT3D\_\-texture\_\-o@{NT3D\_\-texture\_\-o}!textureId@{textureId}}
+\index{textureId@{textureId}!NT3D_texture_o@{NT3D\_\-texture\_\-o}}
+\paragraph[{textureId}]{\setlength{\rightskip}{0pt plus 5cm}GLuint {\bf NT3D\_\-texture\_\-o::textureId}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_n_t3_d__texture__o_a0f326374cfd136461bba56b639832b0f}
+
+
+Definition at line 132 of file nt3d\_\-texture\_\-obj.h.
+
+\index{NT3D\_\-texture\_\-o@{NT3D\_\-texture\_\-o}!textureImagePtr@{textureImagePtr}}
+\index{textureImagePtr@{textureImagePtr}!NT3D_texture_o@{NT3D\_\-texture\_\-o}}
+\paragraph[{textureImagePtr}]{\setlength{\rightskip}{0pt plus 5cm}GLfloat$\ast$ {\bf NT3D\_\-texture\_\-o::textureImagePtr}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_n_t3_d__texture__o_abbb78294ccb0650a5bd085c1d60d0759}
+
+
+Definition at line 129 of file nt3d\_\-texture\_\-obj.h.
+
+\index{NT3D\_\-texture\_\-o@{NT3D\_\-texture\_\-o}!textureWidth@{textureWidth}}
+\index{textureWidth@{textureWidth}!NT3D_texture_o@{NT3D\_\-texture\_\-o}}
+\paragraph[{textureWidth}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTsize} {\bf NT3D\_\-texture\_\-o::textureWidth}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_n_t3_d__texture__o_acb9b5da794cfd769b64ced6ecd57d5ee}
+
+
+Definition at line 133 of file nt3d\_\-texture\_\-obj.h.
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nt3d__texture__obj_8h}{nt3d\_\-texture\_\-obj.h}\end{DoxyCompactItemize}

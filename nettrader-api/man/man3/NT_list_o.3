@@ -1,0 +1,304 @@
+.TH "NT_list_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NT_list_o \- 
+.PP
+PURPOSE: A linked list.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <nt_list_obj.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNT_list_o\fP ()"
+.br
+.ti -1c
+.RI "void \fBinsert_head\fP (T n)"
+.br
+.RI "\fIPURPOSE: insert before the head of the list RECEIVES: n - the value to insert. \fP"
+.ti -1c
+.RI "void \fBinsert_tail\fP (T n)"
+.br
+.RI "\fIPURPOSE: insert after the tail of the list RECEIVES: n - the value to insert. \fP"
+.ti -1c
+.RI "void \fBinsert\fP (T n)"
+.br
+.RI "\fIPURPOSE: insert before the iterator position RECEIVES: n - the value to insert. \fP"
+.ti -1c
+.RI "T \fBremove\fP ()"
+.br
+.RI "\fIPURPOSE: remove the element under the cursor RETURNS: the removed element. \fP"
+.ti -1c
+.RI "T & \fBcurrent\fP ()"
+.br
+.RI "\fIRETURNS: the value stored at the iterator position. \fP"
+.ti -1c
+.RI "void \fBnext\fP ()"
+.br
+.RI "\fIPURPOSE: move the iterator to the next position. \fP"
+.ti -1c
+.RI "void \fBreset\fP ()"
+.br
+.RI "\fIPURPOSE: reset the iterator. \fP"
+.ti -1c
+.RI "void \fBempty\fP ()"
+.br
+.ti -1c
+.RI "const T & \fBcurrent\fP () const "
+.br
+.RI "\fIRETURNS: the value stored at the iterator position. \fP"
+.ti -1c
+.RI "\fBNTbool\fP \fBat_end\fP () const "
+.br
+.ti -1c
+.RI "const T & \fBhead\fP () const "
+.br
+.RI "\fIRETURNS: the value stored at the head of the list. \fP"
+.ti -1c
+.RI "const T & \fBtail\fP () const "
+.br
+.RI "\fIRETURNS: the value stored at the tail of the list. \fP"
+.ti -1c
+.RI "int \fBlength\fP () const "
+.br
+.RI "\fIRETURNS: the number of elements in the list. \fP"
+.ti -1c
+.RI "\fBNT_list_o\fP (const \fBNT_list_o\fP< T > &)"
+.br
+.ti -1c
+.RI "const \fBNT_list_o\fP< T > & \fBoperator=\fP (const \fBNT_list_o\fP< T > &)"
+.br
+.ti -1c
+.RI "\fB~NT_list_o\fP ()"
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "class \fBNT_iterator_list_o< T >\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.SS "template<class T> class NT_list_o< T >"
+
+.PP
+Definition at line 105 of file nt_list_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "template<class T > \fBNT_list_o\fP< T >::\fBNT_list_o\fP ()"
+.PP
+Definition at line 192 of file nt_list_obj.h.
+.PP
+.nf
+                                          :
+   _head(0),
+   _tail(0),
+   _pre(0),
+   _len(0)
+{}
+.fi
+.SS "template<class T > \fBNT_list_o\fP< T >::\fBNT_list_o\fP (const \fBNT_list_o\fP< T > & b)"
+.PP
+Definition at line 207 of file nt_list_obj.h.
+.PP
+.nf
+{  copy(b);
+}
+.fi
+.SS "template<class T > \fBNT_list_o\fP< T >::~\fBNT_list_o\fP ()"
+.PP
+Definition at line 201 of file nt_list_obj.h.
+.PP
+.nf
+{  free();
+}
+.fi
+.SH "Member Function Documentation"
+.PP 
+.SS "template<class T > \fBNTbool\fP \fBNT_list_o\fP< T >::at_end () const"
+.PP
+Definition at line 275 of file nt_list_obj.h.
+.PP
+.nf
+{  return cursor() == 0;/* NOT NT_FALSE :) */
+}
+.fi
+.SS "template<class T > T & \fBNT_list_o\fP< T >::current ()"
+.PP
+Definition at line 293 of file nt_list_obj.h.
+.PP
+References NT_link_list_o< T >::_info, and NT_ASSERT_PRECOND.
+.PP
+.nf
+{  NT_link_list_o<T>* cur = cursor();
+   NT_ASSERT_PRECOND(cur);
+   return cur->_info;
+}
+.fi
+.SS "template<class T > const T & \fBNT_list_o\fP< T >::current () const"
+.PP
+Definition at line 303 of file nt_list_obj.h.
+.PP
+References NT_link_list_o< T >::_info.
+.PP
+.nf
+{  NT_link_list_o<T>* cur = cursor();
+   return cur ? cur->_info : NT_link_list_o<T>::defval();
+}
+.fi
+.SS "template<class T > void \fBNT_list_o\fP< T >::empty ()"
+.PP
+Definition at line 255 of file nt_list_obj.h.
+.PP
+.nf
+{  free();
+   _head = 0;
+   _tail = 0;
+   _pre = 0;
+   _len = 0;
+}
+.fi
+.SS "template<class T > const T & \fBNT_list_o\fP< T >::head () const"
+.PP
+Definition at line 312 of file nt_list_obj.h.
+.PP
+.nf
+{  return _head ? _head->_info : NT_link_list_o<T>::defval();
+}
+.fi
+.SS "template<class T > void \fBNT_list_o\fP< T >::insert (T n)"
+.PP
+Definition at line 329 of file nt_list_obj.h.
+.PP
+References NT_ASSERT_MEM.
+.PP
+.nf
+{  NT_link_list_o<T>* p = new NT_link_list_o<T>(n, cursor());
+   NT_ASSERT_MEM(p);
+
+   if (_pre)
+   {  _pre->_next = p;
+      if (_pre == _tail) _tail = p;
+   }
+   else
+   {  if (_head == 0) _tail = p;
+      _head = p;
+   }
+
+   _pre = p;
+   _len++;
+};
+.fi
+.SS "template<class T > void \fBNT_list_o\fP< T >::insert_head (T n)"
+.PP
+Definition at line 351 of file nt_list_obj.h.
+.PP
+References NT_ASSERT_MEM.
+.PP
+.nf
+{  NT_link_list_o<T>* p = new NT_link_list_o<T>(n, _head);
+   NT_ASSERT_MEM(p);
+   _head = p;
+   _len++;
+}
+.fi
+.SS "template<class T > void \fBNT_list_o\fP< T >::insert_tail (T n)"
+.PP
+Definition at line 363 of file nt_list_obj.h.
+.PP
+References NT_ASSERT_MEM.
+.PP
+.nf
+{  NT_link_list_o<T>* p = new NT_link_list_o<T>(n, 0);
+   NT_ASSERT_MEM(p);
+   if (_head == 0) _head = _tail = p;
+   else
+   {  _tail->_next = p;
+      _tail = p;
+   }
+   _len++;
+}
+.fi
+.SS "template<class T > int \fBNT_list_o\fP< T >::length () const"
+.PP
+Definition at line 397 of file nt_list_obj.h.
+.PP
+.nf
+{  return _len;
+}
+.fi
+.SS "template<class T > void \fBNT_list_o\fP< T >::next ()"
+.PP
+Definition at line 283 of file nt_list_obj.h.
+.PP
+.nf
+{  if (!_pre) _pre = _head;
+   else if (_pre->_next) _pre = _pre->_next;
+   // do not advance past the tail of the list
+}
+.fi
+.SS "template<class T > const \fBNT_list_o\fP< T > & \fBNT_list_o\fP< T >::operator= (const \fBNT_list_o\fP< T > & b)"
+.PP
+Definition at line 213 of file nt_list_obj.h.
+.PP
+.nf
+{  if (this != &b)
+   {  free();
+      copy(b);
+   }
+   return *this;
+}
+.fi
+.SS "template<class T > T \fBNT_list_o\fP< T >::remove ()"
+.PP
+Definition at line 379 of file nt_list_obj.h.
+.PP
+References NT_link_list_o< T >::_info, and NT_link_list_o< T >::_next.
+.PP
+.nf
+{  NT_link_list_o<T>* cur = cursor();
+   if (!cur) return NT_link_list_o<T>::defval();
+   if (_tail == cur) _tail = _pre;
+   if (_pre)
+      _pre->_next = cur->_next;
+   else
+      _head = cur->_next;
+   T r = cur->_info;
+   delete cur;
+   _len--;
+   return r;
+}
+.fi
+.SS "template<class T > void \fBNT_list_o\fP< T >::reset ()"
+.PP
+Definition at line 267 of file nt_list_obj.h.
+.PP
+.nf
+{  _pre = 0;
+}
+.fi
+.SS "template<class T > const T & \fBNT_list_o\fP< T >::tail () const"
+.PP
+Definition at line 320 of file nt_list_obj.h.
+.PP
+.nf
+{  return _tail ? _tail->_info : NT_link_list_o<T>::defval();
+}
+.fi
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "template<class T> friend class \fBNT_iterator_list_o\fP< T >\fC [friend]\fP"
+.PP
+Definition at line 140 of file nt_list_obj.h.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

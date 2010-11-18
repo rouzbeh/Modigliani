@@ -1,0 +1,978 @@
+\subsection{TNT::Matrix$<$ T $>$ Class Template Reference}
+\label{class_t_n_t_1_1_matrix}\index{TNT::Matrix@{TNT::Matrix}}
+
+
+{\ttfamily \#include $<$cmat.h$>$}
+
+
+
+Inheritance diagram for TNT::Matrix$<$ T $>$:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{class_t_n_t_1_1_matrix__inherit__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+typedef \hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} \hyperlink{class_t_n_t_1_1_matrix_a42f57fd19de0ba2edce3734f41431727}{size\_\-type}
+\item 
+typedef T \hyperlink{class_t_n_t_1_1_matrix_a869b1a3e56a38bdaeb0b4f698b08e3c5}{value\_\-type}
+\item 
+typedef T \hyperlink{class_t_n_t_1_1_matrix_a8ecf0a648bbfaf636fd78c21b35a0a4d}{element\_\-type}
+\item 
+typedef T $\ast$ \hyperlink{class_t_n_t_1_1_matrix_aa7db7adc5513f7d8bf067965b97d7c42}{pointer}
+\item 
+typedef T $\ast$ \hyperlink{class_t_n_t_1_1_matrix_a8233a1d03d4cfeab1d7cfec560cd2f0c}{iterator}
+\item 
+typedef T \& \hyperlink{class_t_n_t_1_1_matrix_a129951783800dd85d3dcc1f6dd2062f9}{reference}
+\item 
+typedef const T $\ast$ \hyperlink{class_t_n_t_1_1_matrix_a39334142ce0b5ee917e7b222a6b5637b}{const\_\-iterator}
+\item 
+typedef const T \& \hyperlink{class_t_n_t_1_1_matrix_a6d3ceefbf1675aad4acadac4f78ed04b}{const\_\-reference}
+\end{DoxyCompactItemize}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} \hyperlink{class_t_n_t_1_1_matrix_abc5f4f03814ac773f393711881e65536}{lbound} () const 
+\item 
+\hyperlink{class_t_n_t_1_1_matrix_a38cbed657ebe06ea5767fcb593aa2bbf}{operator T $\ast$$\ast$} ()
+\item 
+\hyperlink{class_t_n_t_1_1_matrix_aba9b50ec4591ab67cc759e858429f368}{operator T $\ast$$\ast$} () const 
+\item 
+\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} \hyperlink{class_t_n_t_1_1_matrix_aef58599b7a9dc39061b94007a3f71c00}{size} () const 
+\item 
+\hyperlink{class_t_n_t_1_1_matrix_a38e705abbbd5155756241db959bae662}{Matrix} ()
+\item 
+\hyperlink{class_t_n_t_1_1_matrix_aa6cd1bfe3ede4545d0e6693a443b50f1}{Matrix} (const \hyperlink{class_t_n_t_1_1_matrix}{Matrix}$<$ T $>$ \&A)
+\item 
+\hyperlink{class_t_n_t_1_1_matrix_ae79fec5ae7648b9971523bcc123af764}{Matrix} (\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} M, \hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} N, const T \&value=T())
+\item 
+\hyperlink{class_t_n_t_1_1_matrix_ac66034c440243c8ff299c0c0774ad82d}{Matrix} (\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} M, \hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} N, const T $\ast$v)
+\item 
+\hyperlink{class_t_n_t_1_1_matrix_a4f19bfddcd8e952d7709d3d4b969bd44}{Matrix} (\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} M, \hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} N, const char $\ast$s)
+\item 
+\hyperlink{class_t_n_t_1_1_matrix_ac3cd6db0fe4b5aecd460c99b8a456aae}{$\sim$Matrix} ()
+\item 
+\hyperlink{class_t_n_t_1_1_matrix}{Matrix}$<$ T $>$ \& \hyperlink{class_t_n_t_1_1_matrix_a2fa0b7e3924a7a51d2973b93b698aa05}{newsize} (\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} M, \hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} N)
+\item 
+\hyperlink{class_t_n_t_1_1_matrix}{Matrix}$<$ T $>$ \& \hyperlink{class_t_n_t_1_1_matrix_aa038201ce3cfc209613055d82052299a}{operator=} (const \hyperlink{class_t_n_t_1_1_matrix}{Matrix}$<$ T $>$ \&A)
+\item 
+\hyperlink{class_t_n_t_1_1_matrix}{Matrix}$<$ T $>$ \& \hyperlink{class_t_n_t_1_1_matrix_af09aba37e69f4c7479952bcade58db4d}{operator=} (const T \&scalar)
+\item 
+\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} \hyperlink{class_t_n_t_1_1_matrix_a2779a7465883a5e400d90b6ba7bb9a79}{dim} (\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} d) const 
+\item 
+\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} \hyperlink{class_t_n_t_1_1_matrix_a2dbef1a0ca7dfe8cf11a7411e37bbdc7}{num\_\-rows} () const 
+\item 
+\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} \hyperlink{class_t_n_t_1_1_matrix_af10dfd1ec356fa99acde8f765cb9d247}{num\_\-cols} () const 
+\item 
+T $\ast$ \hyperlink{class_t_n_t_1_1_matrix_acc34b4e329cdb08e7cd2ee6cd4aa0aac}{operator\mbox{[}$\,$\mbox{]}} (\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} i)
+\item 
+const T $\ast$ \hyperlink{class_t_n_t_1_1_matrix_aa331865f1b1bff56c14f9a9b03c3f06a}{operator\mbox{[}$\,$\mbox{]}} (\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} i) const 
+\item 
+\hyperlink{class_t_n_t_1_1_matrix_a129951783800dd85d3dcc1f6dd2062f9}{reference} \hyperlink{class_t_n_t_1_1_matrix_a68a3f310698807a973801db39bcc739d}{operator()} (\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} i)
+\item 
+\hyperlink{class_t_n_t_1_1_matrix_a6d3ceefbf1675aad4acadac4f78ed04b}{const\_\-reference} \hyperlink{class_t_n_t_1_1_matrix_a12abffc9de83f44ed07aaa53d87252ae}{operator()} (\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} i) const 
+\item 
+\hyperlink{class_t_n_t_1_1_matrix_a129951783800dd85d3dcc1f6dd2062f9}{reference} \hyperlink{class_t_n_t_1_1_matrix_a47404159b33c55161f4eb8e974c1592c}{operator()} (\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} i, \hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} j)
+\item 
+\hyperlink{class_t_n_t_1_1_matrix_a6d3ceefbf1675aad4acadac4f78ed04b}{const\_\-reference} \hyperlink{class_t_n_t_1_1_matrix_ada75a1fb62b3251a572b2d19edb0a620}{operator()} (\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} i, \hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} j) const 
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_t_n_t_1_1_matrix_abc963d455626c3f0a170b2df8d40c39a}{initialize} (\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} M, \hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} N)
+\item 
+void \hyperlink{class_t_n_t_1_1_matrix_ab14f23495e591b50b73574e154a178a7}{copy} (const T $\ast$v)
+\item 
+void \hyperlink{class_t_n_t_1_1_matrix_a9bafeab51d069cf4bf310540e0a05df6}{set} (const T \&val)
+\item 
+void \hyperlink{class_t_n_t_1_1_matrix_a44f6121414c93eb548b0bd82a03e7ecc}{destroy} ()
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} \hyperlink{class_t_n_t_1_1_matrix_a72e92c4629de6a79ac12a1039f461b6f}{m\_\-}
+\item 
+\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} \hyperlink{class_t_n_t_1_1_matrix_ab7dc73d05542cc97be2280a50ac1374c}{n\_\-}
+\item 
+\hyperlink{namespace_t_n_t_af22e3f1460e145c04ce4e7d701e4c1c1}{Subscript} \hyperlink{class_t_n_t_1_1_matrix_a1211bb821e4b22be124e16b1123f769c}{mn\_\-}
+\item 
+T $\ast$ \hyperlink{class_t_n_t_1_1_matrix_a6a7ca17d4336b010fbde3036bbe54093}{v\_\-}
+\item 
+T $\ast$$\ast$ \hyperlink{class_t_n_t_1_1_matrix_a9b970ee02290aa814d67ca6e8a4ebc60}{row\_\-}
+\item 
+T $\ast$ \hyperlink{class_t_n_t_1_1_matrix_a7bee192ea8a850399382ff79c9d176bf}{vm1\_\-}
+\item 
+T $\ast$$\ast$ \hyperlink{class_t_n_t_1_1_matrix_a099ebf68bd8eb98cda5844ca99dbf614}{rowm1\_\-}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\subsubsection*{template$<$class T$>$ class TNT::Matrix$<$ T $>$}
+
+
+
+Definition at line 46 of file cmat.h.
+
+
+
+\subsubsection{Member Typedef Documentation}
+\index{TNT::Matrix@{TNT::Matrix}!const\_\-iterator@{const\_\-iterator}}
+\index{const\_\-iterator@{const\_\-iterator}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{const\_\-iterator}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ typedef const T$\ast$ {\bf TNT::Matrix}$<$ T $>$::{\bf const\_\-iterator}}\hfill\label{class_t_n_t_1_1_matrix_a39334142ce0b5ee917e7b222a6b5637b}
+
+
+Definition at line 56 of file cmat.h.
+
+\index{TNT::Matrix@{TNT::Matrix}!const\_\-reference@{const\_\-reference}}
+\index{const\_\-reference@{const\_\-reference}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{const\_\-reference}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ typedef const T\& {\bf TNT::Matrix}$<$ T $>$::{\bf const\_\-reference}}\hfill\label{class_t_n_t_1_1_matrix_a6d3ceefbf1675aad4acadac4f78ed04b}
+
+
+Definition at line 57 of file cmat.h.
+
+\index{TNT::Matrix@{TNT::Matrix}!element\_\-type@{element\_\-type}}
+\index{element\_\-type@{element\_\-type}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{element\_\-type}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ typedef T {\bf TNT::Matrix}$<$ T $>$::{\bf element\_\-type}}\hfill\label{class_t_n_t_1_1_matrix_a8ecf0a648bbfaf636fd78c21b35a0a4d}
+
+
+Definition at line 52 of file cmat.h.
+
+\index{TNT::Matrix@{TNT::Matrix}!iterator@{iterator}}
+\index{iterator@{iterator}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{iterator}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ typedef T$\ast$ {\bf TNT::Matrix}$<$ T $>$::{\bf iterator}}\hfill\label{class_t_n_t_1_1_matrix_a8233a1d03d4cfeab1d7cfec560cd2f0c}
+
+
+Definition at line 54 of file cmat.h.
+
+\index{TNT::Matrix@{TNT::Matrix}!pointer@{pointer}}
+\index{pointer@{pointer}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{pointer}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ typedef T$\ast$ {\bf TNT::Matrix}$<$ T $>$::{\bf pointer}}\hfill\label{class_t_n_t_1_1_matrix_aa7db7adc5513f7d8bf067965b97d7c42}
+
+
+Definition at line 53 of file cmat.h.
+
+\index{TNT::Matrix@{TNT::Matrix}!reference@{reference}}
+\index{reference@{reference}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{reference}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ typedef T\& {\bf TNT::Matrix}$<$ T $>$::{\bf reference}}\hfill\label{class_t_n_t_1_1_matrix_a129951783800dd85d3dcc1f6dd2062f9}
+
+
+Definition at line 55 of file cmat.h.
+
+\index{TNT::Matrix@{TNT::Matrix}!size\_\-type@{size\_\-type}}
+\index{size\_\-type@{size\_\-type}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{size\_\-type}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ typedef {\bf Subscript} {\bf TNT::Matrix}$<$ T $>$::{\bf size\_\-type}}\hfill\label{class_t_n_t_1_1_matrix_a42f57fd19de0ba2edce3734f41431727}
+
+
+Definition at line 50 of file cmat.h.
+
+\index{TNT::Matrix@{TNT::Matrix}!value\_\-type@{value\_\-type}}
+\index{value\_\-type@{value\_\-type}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{value\_\-type}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ typedef T {\bf TNT::Matrix}$<$ T $>$::{\bf value\_\-type}}\hfill\label{class_t_n_t_1_1_matrix_a869b1a3e56a38bdaeb0b4f698b08e3c5}
+
+
+Definition at line 51 of file cmat.h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{TNT::Matrix@{TNT::Matrix}!Matrix@{Matrix}}
+\index{Matrix@{Matrix}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{Matrix}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf TNT::Matrix}$<$ T $>$::{\bf Matrix} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_a38e705abbbd5155756241db959bae662}
+
+
+Definition at line 172 of file cmat.h.
+
+
+
+
+\begin{DoxyCode}
+: m_(0), n_(0), mn_(0), v_(0), row_(0), vm1_(0), rowm1_(0) {};
+\end{DoxyCode}
+
+
+\index{TNT::Matrix@{TNT::Matrix}!Matrix@{Matrix}}
+\index{Matrix@{Matrix}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{Matrix}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf TNT::Matrix}$<$ T $>$::{\bf Matrix} (
+\begin{DoxyParamCaption}
+\item[{const {\bf Matrix}$<$ T $>$ \&}]{ A}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_aa6cd1bfe3ede4545d0e6693a443b50f1}
+
+
+Definition at line 174 of file cmat.h.
+
+
+
+
+\begin{DoxyCode}
+    {
+        initialize(A.m_, A.n_);
+        copy(A.v_);
+    }
+\end{DoxyCode}
+
+
+\index{TNT::Matrix@{TNT::Matrix}!Matrix@{Matrix}}
+\index{Matrix@{Matrix}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{Matrix}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf TNT::Matrix}$<$ T $>$::{\bf Matrix} (
+\begin{DoxyParamCaption}
+\item[{{\bf Subscript}}]{ M, }
+\item[{{\bf Subscript}}]{ N, }
+\item[{const T \&}]{ value = {\ttfamily T()}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_ae79fec5ae7648b9971523bcc123af764}
+
+
+Definition at line 180 of file cmat.h.
+
+
+
+
+\begin{DoxyCode}
+    {
+        initialize(M,N);
+        set(value);
+    }
+\end{DoxyCode}
+
+
+\index{TNT::Matrix@{TNT::Matrix}!Matrix@{Matrix}}
+\index{Matrix@{Matrix}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{Matrix}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf TNT::Matrix}$<$ T $>$::{\bf Matrix} (
+\begin{DoxyParamCaption}
+\item[{{\bf Subscript}}]{ M, }
+\item[{{\bf Subscript}}]{ N, }
+\item[{const T $\ast$}]{ v}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_ac66034c440243c8ff299c0c0774ad82d}
+
+
+Definition at line 186 of file cmat.h.
+
+
+
+
+\begin{DoxyCode}
+    {
+        initialize(M,N);
+        copy(v);
+    }
+\end{DoxyCode}
+
+
+\index{TNT::Matrix@{TNT::Matrix}!Matrix@{Matrix}}
+\index{Matrix@{Matrix}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{Matrix}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf TNT::Matrix}$<$ T $>$::{\bf Matrix} (
+\begin{DoxyParamCaption}
+\item[{{\bf Subscript}}]{ M, }
+\item[{{\bf Subscript}}]{ N, }
+\item[{const char $\ast$}]{ s}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_a4f19bfddcd8e952d7709d3d4b969bd44}
+
+
+Definition at line 192 of file cmat.h.
+
+
+
+
+\begin{DoxyCode}
+    {
+        initialize(M,N);
+        std::istrstream ins(s);
+
+        Subscript i, j;
+
+        for (i=0; i<M; i++)
+            for (j=0; j<N; j++)
+                ins >> row_[i][j];
+    }
+\end{DoxyCode}
+
+
+\index{TNT::Matrix@{TNT::Matrix}!$\sim$Matrix@{$\sim$Matrix}}
+\index{$\sim$Matrix@{$\sim$Matrix}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{$\sim$Matrix}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf TNT::Matrix}$<$ T $>$::$\sim${\bf Matrix} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_ac3cd6db0fe4b5aecd460c99b8a456aae}
+
+
+Definition at line 206 of file cmat.h.
+
+
+
+
+\begin{DoxyCode}
+    {
+        destroy();
+    }
+\end{DoxyCode}
+
+
+
+
+\subsubsection{Member Function Documentation}
+\index{TNT::Matrix@{TNT::Matrix}!copy@{copy}}
+\index{copy@{copy}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{copy}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ void {\bf TNT::Matrix}$<$ T $>$::copy (
+\begin{DoxyParamCaption}
+\item[{const T $\ast$}]{ v}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, protected\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_ab14f23495e591b50b73574e154a178a7}
+
+
+Definition at line 97 of file cmat.h.
+
+
+
+Referenced by TNT::Matrix$<$ NTreal $>$::Matrix(), and TNT::Matrix$<$ NTreal $>$::operator=().
+
+
+
+
+\begin{DoxyCode}
+    {
+        Subscript N = m_ * n_;
+        Subscript i;
+    #ifdef TNT_UNROLL_LOOPS
+        Subscript Nmod4 = N & 3;
+        Subscript N4 = N - Nmod4;
+
+        for (i=0; i<N4; i+=4)
+        {
+            v_[i] = v[i];
+            v_[i+1] = v[i+1];
+            v_[i+2] = v[i+2];
+            v_[i+3] = v[i+3];
+        }
+
+        for (i=N4; i< N; i++)
+            v_[i] = v[i];
+    #else
+        for (i=0; i< N; i++)
+            v_[i] = v[i];
+    #endif      
+
+    }
+\end{DoxyCode}
+
+
+\index{TNT::Matrix@{TNT::Matrix}!destroy@{destroy}}
+\index{destroy@{destroy}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{destroy}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ void {\bf TNT::Matrix}$<$ T $>$::destroy (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, protected\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_a44f6121414c93eb548b0bd82a03e7ecc}
+
+
+Definition at line 147 of file cmat.h.
+
+
+
+Referenced by TNT::Matrix$<$ NTreal $>$::newsize(), TNT::Matrix$<$ NTreal $>$::operator=(), and TNT::Matrix$<$ NTreal $>$::$\sim$Matrix().
+
+
+
+
+\begin{DoxyCode}
+    {     
+        /* do nothing, if no memory has been previously allocated */
+        if (v_ == NULL) return ;
+
+        /* if we are here, then matrix was previously allocated */
+        if (v_ != NULL) delete [] (v_);     
+        if (row_ != NULL) delete [] (row_);
+
+        /* return rowm1_ back to original value */
+        rowm1_ ++;
+        if (rowm1_ != NULL ) delete [] (rowm1_);
+    }
+\end{DoxyCode}
+
+
+\index{TNT::Matrix@{TNT::Matrix}!dim@{dim}}
+\index{dim@{dim}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{dim}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf Subscript} {\bf TNT::Matrix}$<$ T $>$::dim (
+\begin{DoxyParamCaption}
+\item[{{\bf Subscript}}]{ d}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_a2779a7465883a5e400d90b6ba7bb9a79}
+
+
+Definition at line 255 of file cmat.h.
+
+
+
+
+\begin{DoxyCode}
+    {
+#ifdef TNT_BOUNDS_CHECK
+       assert( d >= 1);
+        assert( d <= 2);
+#endif
+        return (d==1) ? m_ : ((d==2) ? n_ : 0); 
+    }
+\end{DoxyCode}
+
+
+\index{TNT::Matrix@{TNT::Matrix}!initialize@{initialize}}
+\index{initialize@{initialize}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{initialize}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ void {\bf TNT::Matrix}$<$ T $>$::initialize (
+\begin{DoxyParamCaption}
+\item[{{\bf Subscript}}]{ M, }
+\item[{{\bf Subscript}}]{ N}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, protected\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_abc963d455626c3f0a170b2df8d40c39a}
+
+
+Definition at line 70 of file cmat.h.
+
+
+
+Referenced by TNT::Matrix$<$ NTreal $>$::Matrix(), TNT::Matrix$<$ NTreal $>$::newsize(), and TNT::Matrix$<$ NTreal $>$::operator=().
+
+
+
+
+\begin{DoxyCode}
+    {
+        mn_ = M*N;
+        m_ = M;
+        n_ = N;
+
+        v_ = new T[mn_]; 
+        row_ = new T*[M];
+        rowm1_ = new T*[M];
+
+        assert(v_  != NULL);
+        assert(row_  != NULL);
+        assert(rowm1_ != NULL);
+
+        T* p = v_;              
+        vm1_ = v_ - 1;
+        for (Subscript i=0; i<M; i++)
+        {
+            row_[i] = p;
+            rowm1_[i] = p-1;
+            p += N ;
+            
+        }
+
+        rowm1_ -- ;     // compensate for 1-based offset
+    }
+\end{DoxyCode}
+
+
+\index{TNT::Matrix@{TNT::Matrix}!lbound@{lbound}}
+\index{lbound@{lbound}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{lbound}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf Subscript} {\bf TNT::Matrix}$<$ T $>$::lbound (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_abc5f4f03814ac773f393711881e65536}
+
+
+Definition at line 58 of file cmat.h.
+
+
+
+
+\begin{DoxyCode}
+{ return 1;}
+\end{DoxyCode}
+
+
+\index{TNT::Matrix@{TNT::Matrix}!newsize@{newsize}}
+\index{newsize@{newsize}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{newsize}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf Matrix}$<$T$>$\& {\bf TNT::Matrix}$<$ T $>$::newsize (
+\begin{DoxyParamCaption}
+\item[{{\bf Subscript}}]{ M, }
+\item[{{\bf Subscript}}]{ N}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_a2fa0b7e3924a7a51d2973b93b698aa05}
+
+
+Definition at line 214 of file cmat.h.
+
+
+
+Referenced by TNT::matmult(), and TNT::operator$>$$>$().
+
+
+
+
+\begin{DoxyCode}
+    {
+        if (num_rows() == M && num_cols() == N)
+            return *this;
+
+        destroy();
+        initialize(M,N);
+        
+        return *this;
+    }
+\end{DoxyCode}
+
+
+\index{TNT::Matrix@{TNT::Matrix}!num\_\-cols@{num\_\-cols}}
+\index{num\_\-cols@{num\_\-cols}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{num\_\-cols}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf Subscript} {\bf TNT::Matrix}$<$ T $>$::num\_\-cols (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_af10dfd1ec356fa99acde8f765cb9d247}
+
+
+Definition at line 265 of file cmat.h.
+
+
+
+Referenced by TNT::matmult(), TNT::mult\_\-element(), TNT::Matrix$<$ NTreal $>$::newsize(), NodeDistanceMatrixConditioning(), TNT::operator+(), TNT::operator-\/(), TNT::operator$>$$>$(), and TNT::transpose().
+
+
+
+
+\begin{DoxyCode}
+{ return n_; }
+\end{DoxyCode}
+
+
+\index{TNT::Matrix@{TNT::Matrix}!num\_\-rows@{num\_\-rows}}
+\index{num\_\-rows@{num\_\-rows}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{num\_\-rows}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf Subscript} {\bf TNT::Matrix}$<$ T $>$::num\_\-rows (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_a2dbef1a0ca7dfe8cf11a7411e37bbdc7}
+
+
+Definition at line 264 of file cmat.h.
+
+
+
+Referenced by TNT::matmult(), TNT::mult\_\-element(), TNT::Matrix$<$ NTreal $>$::newsize(), NodeDistanceMatrixConditioning(), TNT::operator+(), TNT::operator-\/(), TNT::operator$>$$>$(), and TNT::transpose().
+
+
+
+
+\begin{DoxyCode}
+{ return m_; }
+\end{DoxyCode}
+
+
+\index{TNT::Matrix@{TNT::Matrix}!operator T $\ast$$\ast$@{operator T $\ast$$\ast$}}
+\index{operator T $\ast$$\ast$@{operator T $\ast$$\ast$}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{operator T $\ast$$\ast$}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf TNT::Matrix}$<$ T $>$::operator T $\ast$$\ast$ (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_a38cbed657ebe06ea5767fcb593aa2bbf}
+
+
+Definition at line 164 of file cmat.h.
+
+
+
+References TNT::Matrix$<$ T $>$::row\_\-.
+
+
+
+
+\begin{DoxyCode}
+{ return  row_; }
+\end{DoxyCode}
+
+
+\index{TNT::Matrix@{TNT::Matrix}!operator T $\ast$$\ast$@{operator T $\ast$$\ast$}}
+\index{operator T $\ast$$\ast$@{operator T $\ast$$\ast$}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{operator T $\ast$$\ast$}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf TNT::Matrix}$<$ T $>$::operator T $\ast$$\ast$ (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_aba9b50ec4591ab67cc759e858429f368}
+
+
+Definition at line 165 of file cmat.h.
+
+
+
+References TNT::Matrix$<$ T $>$::row\_\-.
+
+
+
+
+\begin{DoxyCode}
+{ return row_; }
+\end{DoxyCode}
+
+
+\index{TNT::Matrix@{TNT::Matrix}!operator()@{operator()}}
+\index{operator()@{operator()}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{operator()}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf reference} {\bf TNT::Matrix}$<$ T $>$::operator() (
+\begin{DoxyParamCaption}
+\item[{{\bf Subscript}}]{ i}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_a68a3f310698807a973801db39bcc739d}
+
+
+Definition at line 288 of file cmat.h.
+
+
+
+
+\begin{DoxyCode}
+    { 
+#ifdef TNT_BOUNDS_CHECK
+        assert(1<=i);
+        assert(i <= mn_) ;
+#endif
+        return vm1_[i]; 
+    }
+\end{DoxyCode}
+
+
+\index{TNT::Matrix@{TNT::Matrix}!operator()@{operator()}}
+\index{operator()@{operator()}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{operator()}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf const\_\-reference} {\bf TNT::Matrix}$<$ T $>$::operator() (
+\begin{DoxyParamCaption}
+\item[{{\bf Subscript}}]{ i}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_a12abffc9de83f44ed07aaa53d87252ae}
+
+
+Definition at line 297 of file cmat.h.
+
+
+
+
+\begin{DoxyCode}
+    { 
+#ifdef TNT_BOUNDS_CHECK
+        assert(1<=i);
+        assert(i <= mn_) ;
+#endif
+        return vm1_[i]; 
+    }
+\end{DoxyCode}
+
+
+\index{TNT::Matrix@{TNT::Matrix}!operator()@{operator()}}
+\index{operator()@{operator()}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{operator()}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf const\_\-reference} {\bf TNT::Matrix}$<$ T $>$::operator() (
+\begin{DoxyParamCaption}
+\item[{{\bf Subscript}}]{ i, }
+\item[{{\bf Subscript}}]{ j}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_ada75a1fb62b3251a572b2d19edb0a620}
+
+
+Definition at line 321 of file cmat.h.
+
+
+
+
+\begin{DoxyCode}
+    {
+#ifdef TNT_BOUNDS_CHECK
+        assert(1<=i);
+        assert(i <= m_) ;
+        assert(1<=j);
+        assert(j <= n_);
+#endif
+        return rowm1_[i][j]; 
+    }
+\end{DoxyCode}
+
+
+\index{TNT::Matrix@{TNT::Matrix}!operator()@{operator()}}
+\index{operator()@{operator()}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{operator()}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf reference} {\bf TNT::Matrix}$<$ T $>$::operator() (
+\begin{DoxyParamCaption}
+\item[{{\bf Subscript}}]{ i, }
+\item[{{\bf Subscript}}]{ j}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_a47404159b33c55161f4eb8e974c1592c}
+
+
+Definition at line 308 of file cmat.h.
+
+
+
+
+\begin{DoxyCode}
+    { 
+#ifdef TNT_BOUNDS_CHECK
+        assert(1<=i);
+        assert(i <= m_) ;
+        assert(1<=j);
+        assert(j <= n_);
+#endif
+        return  rowm1_[i][j]; 
+    }
+\end{DoxyCode}
+
+
+\index{TNT::Matrix@{TNT::Matrix}!operator=@{operator=}}
+\index{operator=@{operator=}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf Matrix}$<$T$>$\& {\bf TNT::Matrix}$<$ T $>$::operator= (
+\begin{DoxyParamCaption}
+\item[{const T \&}]{ scalar}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_af09aba37e69f4c7479952bcade58db4d}
+
+
+Definition at line 248 of file cmat.h.
+
+
+
+
+\begin{DoxyCode}
+    { 
+        set(scalar); 
+        return *this;
+    }
+\end{DoxyCode}
+
+
+\index{TNT::Matrix@{TNT::Matrix}!operator=@{operator=}}
+\index{operator=@{operator=}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf Matrix}$<$T$>$\& {\bf TNT::Matrix}$<$ T $>$::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf Matrix}$<$ T $>$ \&}]{ A}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_aa038201ce3cfc209613055d82052299a}
+
+
+Definition at line 230 of file cmat.h.
+
+
+
+
+\begin{DoxyCode}
+    {
+        if (v_ == A.v_)
+            return *this;
+
+        if (m_ == A.m_  && n_ == A.n_)      // no need to re-alloc
+            copy(A.v_);
+
+        else
+        {
+            destroy();
+            initialize(A.m_, A.n_);
+            copy(A.v_);
+        }
+
+        return *this;
+    }
+\end{DoxyCode}
+
+
+\index{TNT::Matrix@{TNT::Matrix}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{operator[]}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ const T$\ast$ {\bf TNT::Matrix}$<$ T $>$::operator\mbox{[}$\,$\mbox{]} (
+\begin{DoxyParamCaption}
+\item[{{\bf Subscript}}]{ i}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_aa331865f1b1bff56c14f9a9b03c3f06a}
+
+
+Definition at line 279 of file cmat.h.
+
+
+
+
+\begin{DoxyCode}
+    {
+#ifdef TNT_BOUNDS_CHECK
+        assert(0<=i);
+        assert(i < m_) ;
+#endif
+        return row_[i];
+    }
+\end{DoxyCode}
+
+
+\index{TNT::Matrix@{TNT::Matrix}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{operator[]}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ T$\ast$ {\bf TNT::Matrix}$<$ T $>$::operator\mbox{[}$\,$\mbox{]} (
+\begin{DoxyParamCaption}
+\item[{{\bf Subscript}}]{ i}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_acc34b4e329cdb08e7cd2ee6cd4aa0aac}
+
+
+Definition at line 270 of file cmat.h.
+
+
+
+
+\begin{DoxyCode}
+    {
+#ifdef TNT_BOUNDS_CHECK
+        assert(0<=i);
+        assert(i < m_) ;
+#endif
+        return row_[i];
+    }
+\end{DoxyCode}
+
+
+\index{TNT::Matrix@{TNT::Matrix}!set@{set}}
+\index{set@{set}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{set}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ void {\bf TNT::Matrix}$<$ T $>$::set (
+\begin{DoxyParamCaption}
+\item[{const T \&}]{ val}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, protected\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_a9bafeab51d069cf4bf310540e0a05df6}
+
+
+Definition at line 122 of file cmat.h.
+
+
+
+
+\begin{DoxyCode}
+    {
+        Subscript N = m_ * n_;
+        Subscript i;
+    #ifdef TNT_UNROLL_LOOPS
+        Subscript Nmod4 = N & 3;
+        Subscript N4 = N - Nmod4;
+
+        for (i=0; i<N4; i+=4)
+        {
+            v_[i] = val;
+            v_[i+1] = val;
+            v_[i+2] = val;
+            v_[i+3] = val; 
+        }
+        for (i=N4; i< N; i++)
+            v_[i] = val;
+    #else
+        for (i=0; i< N; i++)
+            v_[i] = val;          
+    #endif      
+    }
+\end{DoxyCode}
+
+
+\index{TNT::Matrix@{TNT::Matrix}!size@{size}}
+\index{size@{size}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{size}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf Subscript} {\bf TNT::Matrix}$<$ T $>$::size (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_aef58599b7a9dc39061b94007a3f71c00}
+
+
+Definition at line 168 of file cmat.h.
+
+
+
+Referenced by NodeDistanceMatrixConditioning().
+
+
+
+
+\begin{DoxyCode}
+{ return mn_; }
+\end{DoxyCode}
+
+
+
+
+\subsubsection{Member Data Documentation}
+\index{TNT::Matrix@{TNT::Matrix}!m\_\-@{m\_\-}}
+\index{m\_\-@{m\_\-}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{m\_\-}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf Subscript} {\bf TNT::Matrix}$<$ T $>$::{\bf m\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_a72e92c4629de6a79ac12a1039f461b6f}
+
+
+Definition at line 60 of file cmat.h.
+
+
+
+Referenced by TNT::Matrix$<$ NTreal $>$::copy(), TNT::Matrix$<$ NTreal $>$::dim(), TNT::Matrix$<$ NTreal $>$::initialize(), TNT::Matrix$<$ NTreal $>$::Matrix(), TNT::Matrix$<$ NTreal $>$::num\_\-rows(), TNT::Matrix$<$ NTreal $>$::operator()(), TNT::Matrix$<$ NTreal $>$::operator=(), TNT::Matrix$<$ NTreal $>$::operator\mbox{[}$\,$\mbox{]}(), and TNT::Matrix$<$ NTreal $>$::set().
+
+\index{TNT::Matrix@{TNT::Matrix}!mn\_\-@{mn\_\-}}
+\index{mn\_\-@{mn\_\-}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{mn\_\-}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf Subscript} {\bf TNT::Matrix}$<$ T $>$::{\bf mn\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_a1211bb821e4b22be124e16b1123f769c}
+
+
+Definition at line 62 of file cmat.h.
+
+
+
+Referenced by TNT::Matrix$<$ NTreal $>$::initialize(), TNT::Matrix$<$ NTreal $>$::operator()(), and TNT::Matrix$<$ NTreal $>$::size().
+
+\index{TNT::Matrix@{TNT::Matrix}!n\_\-@{n\_\-}}
+\index{n\_\-@{n\_\-}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{n\_\-}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ {\bf Subscript} {\bf TNT::Matrix}$<$ T $>$::{\bf n\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_ab7dc73d05542cc97be2280a50ac1374c}
+
+
+Definition at line 61 of file cmat.h.
+
+
+
+Referenced by TNT::Matrix$<$ NTreal $>$::copy(), TNT::Matrix$<$ NTreal $>$::dim(), TNT::Matrix$<$ NTreal $>$::initialize(), TNT::Matrix$<$ NTreal $>$::Matrix(), TNT::Matrix$<$ NTreal $>$::num\_\-cols(), TNT::Matrix$<$ NTreal $>$::operator()(), TNT::Matrix$<$ NTreal $>$::operator=(), and TNT::Matrix$<$ NTreal $>$::set().
+
+\index{TNT::Matrix@{TNT::Matrix}!row\_\-@{row\_\-}}
+\index{row\_\-@{row\_\-}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{row\_\-}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ T$\ast$$\ast$ {\bf TNT::Matrix}$<$ T $>$::{\bf row\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_a9b970ee02290aa814d67ca6e8a4ebc60}
+
+
+Definition at line 64 of file cmat.h.
+
+
+
+Referenced by TNT::Matrix$<$ NTreal $>$::destroy(), TNT::Matrix$<$ NTreal $>$::initialize(), TNT::Matrix$<$ NTreal $>$::Matrix(), TNT::Matrix$<$ T $>$::operator T $\ast$$\ast$(), and TNT::Matrix$<$ NTreal $>$::operator\mbox{[}$\,$\mbox{]}().
+
+\index{TNT::Matrix@{TNT::Matrix}!rowm1\_\-@{rowm1\_\-}}
+\index{rowm1\_\-@{rowm1\_\-}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{rowm1\_\-}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ T$\ast$$\ast$ {\bf TNT::Matrix}$<$ T $>$::{\bf rowm1\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_a099ebf68bd8eb98cda5844ca99dbf614}
+
+
+Definition at line 66 of file cmat.h.
+
+
+
+Referenced by TNT::Matrix$<$ NTreal $>$::destroy(), TNT::Matrix$<$ NTreal $>$::initialize(), and TNT::Matrix$<$ NTreal $>$::operator()().
+
+\index{TNT::Matrix@{TNT::Matrix}!v\_\-@{v\_\-}}
+\index{v\_\-@{v\_\-}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{v\_\-}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ T$\ast$ {\bf TNT::Matrix}$<$ T $>$::{\bf v\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_a6a7ca17d4336b010fbde3036bbe54093}
+
+
+Definition at line 63 of file cmat.h.
+
+
+
+Referenced by TNT::Matrix$<$ NTreal $>$::copy(), TNT::Matrix$<$ NTreal $>$::destroy(), TNT::Matrix$<$ NTreal $>$::initialize(), TNT::Matrix$<$ NTreal $>$::Matrix(), TNT::Matrix$<$ NTreal $>$::operator=(), and TNT::Matrix$<$ NTreal $>$::set().
+
+\index{TNT::Matrix@{TNT::Matrix}!vm1\_\-@{vm1\_\-}}
+\index{vm1\_\-@{vm1\_\-}!TNT::Matrix@{TNT::Matrix}}
+\paragraph[{vm1\_\-}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T$>$ T$\ast$ {\bf TNT::Matrix}$<$ T $>$::{\bf vm1\_\-}\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_t_n_t_1_1_matrix_a7bee192ea8a850399382ff79c9d176bf}
+
+
+Definition at line 65 of file cmat.h.
+
+
+
+Referenced by TNT::Matrix$<$ NTreal $>$::initialize(), and TNT::Matrix$<$ NTreal $>$::operator()().
+
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{cmat_8h}{cmat.h}\end{DoxyCompactItemize}

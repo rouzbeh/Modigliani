@@ -1,0 +1,164 @@
+.TH "NT3D_light_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NT3D_light_o \- 
+.PP
+\fBNT3D_light_o\fP class Light setup and manipulation (based OpenGL light implementation).  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <nt3d_light_obj.h>\fP
+.PP
+Inherits \fBNT_o\fP.
+.PP
+Inherited by \fBNT3D_ambient_light_o\fP, and \fBNT3D_lamp_o\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNT3D_light_o\fP ()"
+.br
+.ti -1c
+.RI "\fBNT3D_light_o\fP (const \fBNT3D_light_o\fP &original)"
+.br
+.ti -1c
+.RI "const \fBNT3D_light_o\fP & \fBoperator=\fP (const \fBNT3D_light_o\fP &right)"
+.br
+.ti -1c
+.RI "virtual \fB~NT3D_light_o\fP ()"
+.br
+.ti -1c
+.RI "void \fBIlluminate\fP ()"
+.br
+.RI "\fIDo not override in derived classes use DrawLight() instead Do ONLY use calls to \fBIlluminate()\fP from outside this hierarchy. \fP"
+.ti -1c
+.RI "void \fBOn\fP ()"
+.br
+.ti -1c
+.RI "void \fBOff\fP ()"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBNT3D_color_o\fP \fBcolorAmbient\fP"
+.br
+.ti -1c
+.RI "\fBNT3D_color_o\fP \fBcolorDiffuse\fP"
+.br
+.ti -1c
+.RI "\fBNT3D_color_o\fP \fBcolorSpecular\fP"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "virtual void \fBIlluminateLight\fP ()=0"
+.br
+.RI "\fIDerive to implement lights. \fP"
+.ti -1c
+.RI "void \fBIlluminateAmbient\fP ()"
+.br
+.ti -1c
+.RI "void \fBIlluminateDiffuse\fP ()"
+.br
+.ti -1c
+.RI "void \fBIlluminateSpecular\fP ()"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBNTid\fP \fBlightId\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBBug\fP
+.RS 4
+unknown 
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+unknown 
+.RE
+.PP
+
+.PP
+Definition at line 72 of file nt3d_light_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "NT3D_light_o::NT3D_light_o ()"
+.SS "NT3D_light_o::NT3D_light_o (const \fBNT3D_light_o\fP & original)"
+.SS "virtual NT3D_light_o::~NT3D_light_o ()\fC [virtual]\fP"
+.SH "Member Function Documentation"
+.PP 
+.SS "void NT3D_light_o::Illuminate ()"
+.PP
+Referenced by NT3D_lamp_o::DrawObj().
+.SS "void NT3D_light_o::IlluminateAmbient ()\fC [inline, protected]\fP"
+.PP
+Definition at line 93 of file nt3d_light_obj.h.
+.PP
+References NT3D_color_o::_colorPtr(), colorAmbient, and lightId.
+.PP
+.nf
+{ glLightfv( (GLenum) lightId, GL_AMBIENT,  colorAmbient._colorPtr());}
+.fi
+.SS "void NT3D_light_o::IlluminateDiffuse ()\fC [inline, protected]\fP"
+.PP
+Definition at line 94 of file nt3d_light_obj.h.
+.PP
+References NT3D_color_o::_colorPtr(), colorDiffuse, and lightId.
+.PP
+.nf
+{ glLightfv( (GLenum) lightId, GL_DIFFUSE,  colorDiffuse._colorPtr());}
+.fi
+.SS "virtual void NT3D_light_o::IlluminateLight ()\fC [protected, pure virtual]\fP"
+.PP
+Implemented in \fBNT3D_ambient_light_o\fP.
+.SS "void NT3D_light_o::IlluminateSpecular ()\fC [inline, protected]\fP"
+.PP
+Definition at line 95 of file nt3d_light_obj.h.
+.PP
+References NT3D_color_o::_colorPtr(), colorSpecular, and lightId.
+.PP
+.nf
+{ glLightfv( (GLenum) lightId, GL_SPECULAR, colorSpecular._colorPtr());}
+.fi
+.SS "void NT3D_light_o::Off ()"
+.SS "void NT3D_light_o::On ()"
+.SS "const \fBNT3D_light_o\fP& NT3D_light_o::operator= (const \fBNT3D_light_o\fP & right)"
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBNT3D_color_o\fP \fBNT3D_light_o::colorAmbient\fP"
+.PP
+Definition at line 86 of file nt3d_light_obj.h.
+.PP
+Referenced by IlluminateAmbient().
+.SS "\fBNT3D_color_o\fP \fBNT3D_light_o::colorDiffuse\fP"
+.PP
+Definition at line 87 of file nt3d_light_obj.h.
+.PP
+Referenced by IlluminateDiffuse().
+.SS "\fBNT3D_color_o\fP \fBNT3D_light_o::colorSpecular\fP"
+.PP
+Definition at line 88 of file nt3d_light_obj.h.
+.PP
+Referenced by IlluminateSpecular().
+.SS "\fBNTid\fP \fBNT3D_light_o::lightId\fP\fC [protected]\fP"
+.PP
+Definition at line 99 of file nt3d_light_obj.h.
+.PP
+Referenced by IlluminateAmbient(), IlluminateDiffuse(), and IlluminateSpecular().
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

@@ -1,0 +1,520 @@
+.TH "TNT::Vector" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+TNT::Vector \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <vec.h>\fP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "typedef \fBSubscript\fP \fBsize_type\fP"
+.br
+.ti -1c
+.RI "typedef T \fBvalue_type\fP"
+.br
+.ti -1c
+.RI "typedef T \fBelement_type\fP"
+.br
+.ti -1c
+.RI "typedef T * \fBpointer\fP"
+.br
+.ti -1c
+.RI "typedef T * \fBiterator\fP"
+.br
+.ti -1c
+.RI "typedef T & \fBreference\fP"
+.br
+.ti -1c
+.RI "typedef const T * \fBconst_iterator\fP"
+.br
+.ti -1c
+.RI "typedef const T & \fBconst_reference\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSubscript\fP \fBlbound\fP () const "
+.br
+.ti -1c
+.RI "\fBiterator\fP \fBbegin\fP ()"
+.br
+.ti -1c
+.RI "\fBiterator\fP \fBend\fP ()"
+.br
+.ti -1c
+.RI "const \fBiterator\fP \fBbegin\fP () const "
+.br
+.ti -1c
+.RI "const \fBiterator\fP \fBend\fP () const "
+.br
+.ti -1c
+.RI "\fB~Vector\fP ()"
+.br
+.ti -1c
+.RI "\fBVector\fP ()"
+.br
+.ti -1c
+.RI "\fBVector\fP (const \fBVector\fP< T > &A)"
+.br
+.ti -1c
+.RI "\fBVector\fP (\fBSubscript\fP N, const T &value=T())"
+.br
+.ti -1c
+.RI "\fBVector\fP (\fBSubscript\fP N, const T *v)"
+.br
+.ti -1c
+.RI "\fBVector\fP (\fBSubscript\fP N, char *s)"
+.br
+.ti -1c
+.RI "\fBVector\fP< T > & \fBnewsize\fP (\fBSubscript\fP N)"
+.br
+.ti -1c
+.RI "\fBVector\fP< T > & \fBoperator=\fP (const \fBVector\fP< T > &A)"
+.br
+.ti -1c
+.RI "\fBVector\fP< T > & \fBoperator=\fP (const T &scalar)"
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBdim\fP () const "
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBsize\fP () const "
+.br
+.ti -1c
+.RI "\fBreference\fP \fBoperator()\fP (\fBSubscript\fP i)"
+.br
+.ti -1c
+.RI "\fBconst_reference\fP \fBoperator()\fP (\fBSubscript\fP i) const "
+.br
+.ti -1c
+.RI "\fBreference\fP \fBoperator[]\fP (\fBSubscript\fP i)"
+.br
+.ti -1c
+.RI "\fBconst_reference\fP \fBoperator[]\fP (\fBSubscript\fP i) const "
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBinitialize\fP (\fBSubscript\fP N)"
+.br
+.ti -1c
+.RI "void \fBcopy\fP (const T *v)"
+.br
+.ti -1c
+.RI "void \fBset\fP (const T &val)"
+.br
+.ti -1c
+.RI "void \fBdestroy\fP ()"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "T * \fBv_\fP"
+.br
+.ti -1c
+.RI "T * \fBvm1_\fP"
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBn_\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.SS "template<class T> class TNT::Vector< T >"
+
+.PP
+Definition at line 41 of file vec.h.
+.SH "Member Typedef Documentation"
+.PP 
+.SS "template<class T> typedef const T* \fBTNT::Vector\fP< T >::\fBconst_iterator\fP"
+.PP
+Definition at line 53 of file vec.h.
+.SS "template<class T> typedef const T& \fBTNT::Vector\fP< T >::\fBconst_reference\fP"
+.PP
+Definition at line 54 of file vec.h.
+.SS "template<class T> typedef T \fBTNT::Vector\fP< T >::\fBelement_type\fP"
+.PP
+Definition at line 49 of file vec.h.
+.SS "template<class T> typedef T* \fBTNT::Vector\fP< T >::\fBiterator\fP"
+.PP
+Definition at line 51 of file vec.h.
+.SS "template<class T> typedef T* \fBTNT::Vector\fP< T >::\fBpointer\fP"
+.PP
+Definition at line 50 of file vec.h.
+.SS "template<class T> typedef T& \fBTNT::Vector\fP< T >::\fBreference\fP"
+.PP
+Definition at line 52 of file vec.h.
+.SS "template<class T> typedef \fBSubscript\fP \fBTNT::Vector\fP< T >::\fBsize_type\fP"
+.PP
+Definition at line 47 of file vec.h.
+.SS "template<class T> typedef T \fBTNT::Vector\fP< T >::\fBvalue_type\fP"
+.PP
+Definition at line 48 of file vec.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "template<class T> \fBTNT::Vector\fP< T >::~\fBVector\fP ()\fC [inline]\fP"
+.PP
+Definition at line 157 of file vec.h.
+.PP
+.nf
+    {
+        destroy();
+    }
+.fi
+.SS "template<class T> \fBTNT::Vector\fP< T >::\fBVector\fP ()\fC [inline]\fP"
+.PP
+Definition at line 164 of file vec.h.
+.PP
+.nf
+: v_(0), vm1_(0), n_(0)  {};
+.fi
+.SS "template<class T> \fBTNT::Vector\fP< T >::\fBVector\fP (const \fBVector\fP< T > & A)\fC [inline]\fP"
+.PP
+Definition at line 166 of file vec.h.
+.PP
+.nf
+                               : v_(0), vm1_(0), n_(0)
+    {
+        initialize(A.n_);
+        copy(A.v_);
+    }
+.fi
+.SS "template<class T> \fBTNT::Vector\fP< T >::\fBVector\fP (\fBSubscript\fP N, const T & value = \fCT()\fP)\fC [inline]\fP"
+.PP
+Definition at line 172 of file vec.h.
+.PP
+.nf
+                                              :  v_(0), vm1_(0), n_(0)
+    {
+        initialize(N);
+        set(value);
+    }
+.fi
+.SS "template<class T> \fBTNT::Vector\fP< T >::\fBVector\fP (\fBSubscript\fP N, const T * v)\fC [inline]\fP"
+.PP
+Definition at line 178 of file vec.h.
+.PP
+.nf
+                                    :  v_(0), vm1_(0), n_(0)
+    {
+        initialize(N);
+        copy(v);
+    }
+.fi
+.SS "template<class T> \fBTNT::Vector\fP< T >::\fBVector\fP (\fBSubscript\fP N, char * s)\fC [inline]\fP"
+.PP
+Definition at line 184 of file vec.h.
+.PP
+.nf
+                                 :  v_(0), vm1_(0), n_(0)
+    {
+        initialize(N);
+        std::istrstream ins(s);
+
+        Subscript i;
+
+        for (i=0; i<N; i++)
+                ins >> v_[i];
+    }
+.fi
+.SH "Member Function Documentation"
+.PP 
+.SS "template<class T> \fBiterator\fP \fBTNT::Vector\fP< T >::begin ()\fC [inline]\fP"
+.PP
+Definition at line 150 of file vec.h.
+.PP
+Referenced by Upper_symmetric_eigenvalue_solve().
+.PP
+.nf
+{ return v_;}
+.fi
+.SS "template<class T> const \fBiterator\fP \fBTNT::Vector\fP< T >::begin () const\fC [inline]\fP"
+.PP
+Definition at line 152 of file vec.h.
+.PP
+.nf
+{ return v_;}
+.fi
+.SS "template<class T> void \fBTNT::Vector\fP< T >::copy (const T * v)\fC [inline, protected]\fP"
+.PP
+Definition at line 78 of file vec.h.
+.PP
+Referenced by TNT::Vector< Subscript >::operator=(), and TNT::Vector< Subscript >::Vector().
+.PP
+.nf
+    {
+        Subscript N = n_;
+        Subscript i;
+
+#ifdef TNT_UNROLL_LOOPS
+        Subscript Nmod4 = N & 3;
+        Subscript N4 = N - Nmod4;
+
+        for (i=0; i<N4; i+=4)
+        {
+            v_[i] = v[i];
+            v_[i+1] = v[i+1];
+            v_[i+2] = v[i+2];
+            v_[i+3] = v[i+3];
+        }
+
+        for (i=N4; i< N; i++)
+            v_[i] = v[i];
+#else
+
+        for (i=0; i< N; i++)
+            v_[i] = v[i];
+#endif      
+    }
+.fi
+.SS "template<class T> void \fBTNT::Vector\fP< T >::destroy ()\fC [inline, protected]\fP"
+.PP
+Definition at line 133 of file vec.h.
+.PP
+Referenced by TNT::Vector< Subscript >::newsize(), TNT::Vector< Subscript >::operator=(), and TNT::Vector< Subscript >::~Vector().
+.PP
+.nf
+    {     
+        /* do nothing, if no memory has been previously allocated */
+        if (v_ == NULL) return ;
+
+        /* if we are here, then matrix was previously allocated */
+        delete [] (v_);     
+
+        v_ = NULL;
+        vm1_ = NULL;
+    }
+.fi
+.SS "template<class T> \fBSubscript\fP \fBTNT::Vector\fP< T >::dim () const\fC [inline]\fP"
+.PP
+Definition at line 235 of file vec.h.
+.PP
+Referenced by TNT::dot_prod(), TNT::matmult(), TNT::operator*(), TNT::operator+(), TNT::operator-(), TNT::QR_solve(), and TNT::R_solve().
+.PP
+.nf
+    {
+        return  n_; 
+    }
+.fi
+.SS "template<class T> const \fBiterator\fP \fBTNT::Vector\fP< T >::end () const\fC [inline]\fP"
+.PP
+Definition at line 153 of file vec.h.
+.PP
+.nf
+{ return v_ + n_; }
+.fi
+.SS "template<class T> \fBiterator\fP \fBTNT::Vector\fP< T >::end ()\fC [inline]\fP"
+.PP
+Definition at line 151 of file vec.h.
+.PP
+.nf
+{ return v_ + n_; }
+.fi
+.SS "template<class T> void \fBTNT::Vector\fP< T >::initialize (\fBSubscript\fP N)\fC [inline, protected]\fP"
+.PP
+Definition at line 66 of file vec.h.
+.PP
+Referenced by TNT::Vector< Subscript >::newsize(), TNT::Vector< Subscript >::operator=(), and TNT::Vector< Subscript >::Vector().
+.PP
+.nf
+    {
+        // adjust pointers so that they are 1-offset:
+        // v_[] is the internal contiguous array, it is still 0-offset
+        //
+        assert(v_ == NULL);
+        v_ = new T[N];
+        assert(v_  != NULL);
+        vm1_ = v_-1;
+        n_ = N;
+    }
+.fi
+.SS "template<class T> \fBSubscript\fP \fBTNT::Vector\fP< T >::lbound () const\fC [inline]\fP"
+.PP
+Definition at line 56 of file vec.h.
+.PP
+Referenced by TNT::QR_factor(), TNT::QR_solve(), and TNT::R_solve().
+.PP
+.nf
+{ return 1;}
+.fi
+.SS "template<class T> \fBVector\fP<T>& \fBTNT::Vector\fP< T >::newsize (\fBSubscript\fP N)\fC [inline]\fP"
+.PP
+Definition at line 198 of file vec.h.
+.PP
+Referenced by eigenvalue_solve(), TNT::operator>>(), and TNT::QR_factor().
+.PP
+.nf
+    {
+        if (n_ == N) return *this;
+
+        destroy();
+        initialize(N);
+
+        return *this;
+    }
+.fi
+.SS "template<class T> \fBconst_reference\fP \fBTNT::Vector\fP< T >::operator() (\fBSubscript\fP i) const\fC [inline]\fP"
+.PP
+Definition at line 255 of file vec.h.
+.PP
+.nf
+    {
+#ifdef TNT_BOUNDS_CHECK
+        assert(1<=i);
+        assert(i <= n_) ;
+#endif
+        return vm1_[i]; 
+    }
+.fi
+.SS "template<class T> \fBreference\fP \fBTNT::Vector\fP< T >::operator() (\fBSubscript\fP i)\fC [inline]\fP"
+.PP
+Definition at line 246 of file vec.h.
+.PP
+.nf
+    { 
+#ifdef TNT_BOUNDS_CHECK
+        assert(1<=i);
+        assert(i <= n_) ;
+#endif
+        return vm1_[i]; 
+    }
+.fi
+.SS "template<class T> \fBVector\fP<T>& \fBTNT::Vector\fP< T >::operator= (const \fBVector\fP< T > & A)\fC [inline]\fP"
+.PP
+Definition at line 211 of file vec.h.
+.PP
+.nf
+    {
+        if (v_ == A.v_)
+            return *this;
+
+        if (n_ == A.n_)         // no need to re-alloc
+            copy(A.v_);
+
+        else
+        {
+            destroy();
+            initialize(A.n_);
+            copy(A.v_);
+        }
+
+        return *this;
+    }
+.fi
+.SS "template<class T> \fBVector\fP<T>& \fBTNT::Vector\fP< T >::operator= (const T & scalar)\fC [inline]\fP"
+.PP
+Definition at line 229 of file vec.h.
+.PP
+.nf
+    { 
+        set(scalar);  
+        return *this;
+    }
+.fi
+.SS "template<class T> \fBreference\fP \fBTNT::Vector\fP< T >::operator[] (\fBSubscript\fP i)\fC [inline]\fP"
+.PP
+Definition at line 264 of file vec.h.
+.PP
+.nf
+    { 
+#ifdef TNT_BOUNDS_CHECK
+        assert(0<=i);
+        assert(i < n_) ;
+#endif
+        return v_[i]; 
+    }
+.fi
+.SS "template<class T> \fBconst_reference\fP \fBTNT::Vector\fP< T >::operator[] (\fBSubscript\fP i) const\fC [inline]\fP"
+.PP
+Definition at line 273 of file vec.h.
+.PP
+.nf
+    {
+#ifdef TNT_BOUNDS_CHECK
+        assert(0<=i);
+
+
+
+
+
+
+        assert(i < n_) ;
+#endif
+        return v_[i]; 
+    }
+.fi
+.SS "template<class T> void \fBTNT::Vector\fP< T >::set (const T & val)\fC [inline, protected]\fP"
+.PP
+Definition at line 104 of file vec.h.
+.PP
+.nf
+    {
+        Subscript N = n_;
+        Subscript i;
+
+#ifdef TNT_UNROLL_LOOPS
+        Subscript Nmod4 = N & 3;
+        Subscript N4 = N - Nmod4;
+
+        for (i=0; i<N4; i+=4)
+        {
+            v_[i] = val;
+            v_[i+1] = val;
+            v_[i+2] = val;
+            v_[i+3] = val; 
+        }
+
+        for (i=N4; i< N; i++)
+            v_[i] = val;
+#else
+
+        for (i=0; i< N; i++)
+            v_[i] = val;
+        
+#endif      
+    }
+.fi
+.SS "template<class T> \fBSubscript\fP \fBTNT::Vector\fP< T >::size () const\fC [inline]\fP"
+.PP
+Definition at line 240 of file vec.h.
+.PP
+Referenced by TNT::operator>>(), and TNT::QR_factor().
+.PP
+.nf
+    {
+        return  n_; 
+    }
+.fi
+.SH "Member Data Documentation"
+.PP 
+.SS "template<class T> \fBSubscript\fP \fBTNT::Vector\fP< T >::\fBn_\fP\fC [protected]\fP"
+.PP
+Definition at line 61 of file vec.h.
+.PP
+Referenced by TNT::Vector< Subscript >::copy(), TNT::Vector< Subscript >::dim(), TNT::Vector< Subscript >::end(), TNT::Vector< Subscript >::initialize(), TNT::Vector< Subscript >::newsize(), TNT::Vector< Subscript >::operator()(), TNT::Vector< Subscript >::operator=(), TNT::Vector< Subscript >::operator[](), TNT::Vector< Subscript >::set(), TNT::Vector< Subscript >::size(), and TNT::Vector< Subscript >::Vector().
+.SS "template<class T> T* \fBTNT::Vector\fP< T >::\fBv_\fP\fC [protected]\fP"
+.PP
+Definition at line 59 of file vec.h.
+.PP
+Referenced by TNT::Vector< Subscript >::begin(), TNT::Vector< Subscript >::copy(), TNT::Vector< Subscript >::destroy(), TNT::Vector< Subscript >::end(), TNT::Vector< Subscript >::initialize(), TNT::Vector< Subscript >::operator=(), TNT::Vector< Subscript >::operator[](), TNT::Vector< Subscript >::set(), and TNT::Vector< Subscript >::Vector().
+.SS "template<class T> T* \fBTNT::Vector\fP< T >::\fBvm1_\fP\fC [protected]\fP"
+.PP
+Definition at line 60 of file vec.h.
+.PP
+Referenced by TNT::Vector< Subscript >::destroy(), TNT::Vector< Subscript >::initialize(), and TNT::Vector< Subscript >::operator()().
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

@@ -1,0 +1,187 @@
+\subsection{ntg\_\-graph\_\-obj.h File Reference}
+\label{ntg__graph__obj_8h}\index{ntg\_\-graph\_\-obj.h@{ntg\_\-graph\_\-obj.h}}
+
+
+
+\begin{DoxyItemize}
+\item \hyperlink{class_n_t_g__graph__o}{NTG\_\-graph\_\-o} class header by Ahmed Aldo Faisal \copyright created 30.9.2000 
+\end{DoxyItemize} 
+
+
+{\ttfamily \#include \char`\"{}nt\_\-main.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}nt\_\-types.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}nt\_\-obj.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}nt\_\-id\_\-management\_\-obj.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}ntg\_\-node\_\-obj.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}ntg\_\-edge\_\-obj.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}nt\_\-uniform\_\-rnd\_\-dist\_\-obj.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}nt\_\-sequential\_\-statistics\_\-obj.h\char`\"{}}\par
+{\ttfamily \#include $<$vector$>$}\par
+{\ttfamily \#include $<$algorithm$>$}\par
+{\ttfamily \#include \char`\"{}tnt/tnt.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}tnt/cmat.h\char`\"{}}\par
+{\ttfamily \#include $<$string$>$}\par
+Include dependency graph for ntg\_\-graph\_\-obj.h:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{ntg__graph__obj_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=358pt]{ntg__graph__obj_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_n_t_g__vertex__o}{NTG\_\-vertex\_\-o}
+\item 
+class \hyperlink{class_n_t_g__graph__o}{NTG\_\-graph\_\-o}
+\end{DoxyCompactItemize}
+\subsubsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{ntg__graph__obj_8h_a07e4172ed3953fb590c6ab6944ed7449}{NTG\_\-MAX\_\-NODES\_\-IN\_\-GRAPH}~100000
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_n_t_g__graph__o}{NTG\_\-graph\_\-o} class Concepts: the \hyperlink{class_n_t_g__graph__o}{NTG\_\-graph\_\-o} mimics the mathematical definition of a graph it is composed by a set E (here a $<$vector$>$) of \hyperlink{class_n_t_g__edge__o}{NTG\_\-edge\_\-o} objects and of vertices (here a $<$vector$>$) V. \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef vector$<$ \hyperlink{class_n_t_g__vertex__o}{NTG\_\-vertex\_\-o} $>$ \hyperlink{ntg__graph__obj_8h_a340769ac683177868657a3a581341038}{NTG\_\-NodeContainer}
+\item 
+typedef vector$<$ \hyperlink{class_n_t_g__edge__o}{NTG\_\-edge\_\-o} $>$ \hyperlink{ntg__graph__obj_8h_a8b20c3ac567fe3422004ba5a14def650}{NTG\_\-EdgeContainer}
+\item 
+typedef vector$<$ \hyperlink{nt__types_8h_ab5cab5f78fdd2211c340cbe527a4afd7}{NTid} $>$ \hyperlink{ntg__graph__obj_8h_a589ab3be7065e1ceabfbecb775d71349}{NTG\_\-NodeIdList}
+\item 
+typedef \hyperlink{class_t_n_t_1_1_matrix}{Matrix}$<$ \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} $>$ \hyperlink{ntg__graph__obj_8h_ae7f051968e740ba1cbb6259282637dc5}{NTG\_\-PositiveCostMatrix}
+\item 
+typedef \hyperlink{class_t_n_t_1_1_matrix}{Matrix}$<$ bool $>$ \hyperlink{ntg__graph__obj_8h_a83971ea41a2abf96cc68fdc39bd92988}{NTG\_\-AdjacencyMatrix}
+\item 
+typedef \hyperlink{class_t_n_t_1_1_matrix}{Matrix}$<$ \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} $>$ \hyperlink{ntg__graph__obj_8h_a4d7cda245cf404eab8192f330fb14c8a}{NTG\_\-NodeDistanceMatrix}
+\end{DoxyCompactItemize}
+\subsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class T $>$ }\\\hyperlink{class_t_n_t_1_1_matrix}{NTG\_\-NodeDistanceMatrix} \hyperlink{ntg__graph__obj_8h_a0e8335ce2b5666d8e7f1b544451a6a42}{NodeDistanceMatrixConditioning} (const \hyperlink{class_t_n_t_1_1_matrix}{Matrix}$<$ T $>$ \&aMtr)
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+
+
+Definition in file \hyperlink{ntg__graph__obj_8h_source}{ntg\_\-graph\_\-obj.h}.
+
+
+
+\subsubsection{Define Documentation}
+\index{ntg\_\-graph\_\-obj.h@{ntg\_\-graph\_\-obj.h}!NTG\_\-MAX\_\-NODES\_\-IN\_\-GRAPH@{NTG\_\-MAX\_\-NODES\_\-IN\_\-GRAPH}}
+\index{NTG\_\-MAX\_\-NODES\_\-IN\_\-GRAPH@{NTG\_\-MAX\_\-NODES\_\-IN\_\-GRAPH}!ntg_graph_obj.h@{ntg\_\-graph\_\-obj.h}}
+\paragraph[{NTG\_\-MAX\_\-NODES\_\-IN\_\-GRAPH}]{\setlength{\rightskip}{0pt plus 5cm}\#define NTG\_\-MAX\_\-NODES\_\-IN\_\-GRAPH~100000}\hfill\label{ntg__graph__obj_8h_a07e4172ed3953fb590c6ab6944ed7449}
+A vertex is a pair ($<$pair$>$) composed of a vertex id and a \hyperlink{class_n_t_g__node__o}{NTG\_\-node\_\-o} which can be derived by the user according to needs. Similar edges can be derived using an \hyperlink{class_n_t_g__edge__o}{NTG\_\-edge\_\-o} object.
+
+\begin{Desc}
+\item[\hyperlink{bug__bug000085}{Bug}]unknown \end{Desc}
+\begin{DoxyWarning}{Warning}
+For digraphs: Adjacency and Connectivity matrices use A\mbox{[}i\mbox{]}\mbox{[}j\mbox{]} to denote the connection from node i to node j. This does not correspond to standard dynamical system notation. 
+\end{DoxyWarning}
+
+
+Definition at line 85 of file ntg\_\-graph\_\-obj.h.
+
+
+
+\subsubsection{Typedef Documentation}
+\index{ntg\_\-graph\_\-obj.h@{ntg\_\-graph\_\-obj.h}!NTG\_\-AdjacencyMatrix@{NTG\_\-AdjacencyMatrix}}
+\index{NTG\_\-AdjacencyMatrix@{NTG\_\-AdjacencyMatrix}!ntg_graph_obj.h@{ntg\_\-graph\_\-obj.h}}
+\paragraph[{NTG\_\-AdjacencyMatrix}]{\setlength{\rightskip}{0pt plus 5cm}typedef {\bf Matrix}$<$ bool $>$ {\bf NTG\_\-AdjacencyMatrix}}\hfill\label{ntg__graph__obj_8h_a83971ea41a2abf96cc68fdc39bd92988}
+
+
+Definition at line 110 of file ntg\_\-graph\_\-obj.h.
+
+\index{ntg\_\-graph\_\-obj.h@{ntg\_\-graph\_\-obj.h}!NTG\_\-EdgeContainer@{NTG\_\-EdgeContainer}}
+\index{NTG\_\-EdgeContainer@{NTG\_\-EdgeContainer}!ntg_graph_obj.h@{ntg\_\-graph\_\-obj.h}}
+\paragraph[{NTG\_\-EdgeContainer}]{\setlength{\rightskip}{0pt plus 5cm}typedef vector$<$ {\bf NTG\_\-edge\_\-o} $>$ {\bf NTG\_\-EdgeContainer}}\hfill\label{ntg__graph__obj_8h_a8b20c3ac567fe3422004ba5a14def650}
+
+
+Definition at line 107 of file ntg\_\-graph\_\-obj.h.
+
+\index{ntg\_\-graph\_\-obj.h@{ntg\_\-graph\_\-obj.h}!NTG\_\-NodeContainer@{NTG\_\-NodeContainer}}
+\index{NTG\_\-NodeContainer@{NTG\_\-NodeContainer}!ntg_graph_obj.h@{ntg\_\-graph\_\-obj.h}}
+\paragraph[{NTG\_\-NodeContainer}]{\setlength{\rightskip}{0pt plus 5cm}typedef vector$<$ {\bf NTG\_\-vertex\_\-o} $>$ {\bf NTG\_\-NodeContainer}}\hfill\label{ntg__graph__obj_8h_a340769ac683177868657a3a581341038}
+
+
+Definition at line 106 of file ntg\_\-graph\_\-obj.h.
+
+\index{ntg\_\-graph\_\-obj.h@{ntg\_\-graph\_\-obj.h}!NTG\_\-NodeDistanceMatrix@{NTG\_\-NodeDistanceMatrix}}
+\index{NTG\_\-NodeDistanceMatrix@{NTG\_\-NodeDistanceMatrix}!ntg_graph_obj.h@{ntg\_\-graph\_\-obj.h}}
+\paragraph[{NTG\_\-NodeDistanceMatrix}]{\setlength{\rightskip}{0pt plus 5cm}typedef {\bf Matrix}$<$ {\bf NTreal} $>$ {\bf NTG\_\-NodeDistanceMatrix}}\hfill\label{ntg__graph__obj_8h_a4d7cda245cf404eab8192f330fb14c8a}
+
+
+Definition at line 111 of file ntg\_\-graph\_\-obj.h.
+
+\index{ntg\_\-graph\_\-obj.h@{ntg\_\-graph\_\-obj.h}!NTG\_\-NodeIdList@{NTG\_\-NodeIdList}}
+\index{NTG\_\-NodeIdList@{NTG\_\-NodeIdList}!ntg_graph_obj.h@{ntg\_\-graph\_\-obj.h}}
+\paragraph[{NTG\_\-NodeIdList}]{\setlength{\rightskip}{0pt plus 5cm}typedef vector$<$ {\bf NTid} $>$ {\bf NTG\_\-NodeIdList}}\hfill\label{ntg__graph__obj_8h_a589ab3be7065e1ceabfbecb775d71349}
+
+
+Definition at line 108 of file ntg\_\-graph\_\-obj.h.
+
+\index{ntg\_\-graph\_\-obj.h@{ntg\_\-graph\_\-obj.h}!NTG\_\-PositiveCostMatrix@{NTG\_\-PositiveCostMatrix}}
+\index{NTG\_\-PositiveCostMatrix@{NTG\_\-PositiveCostMatrix}!ntg_graph_obj.h@{ntg\_\-graph\_\-obj.h}}
+\paragraph[{NTG\_\-PositiveCostMatrix}]{\setlength{\rightskip}{0pt plus 5cm}typedef {\bf Matrix}$<$ {\bf NTreal} $>$ {\bf NTG\_\-PositiveCostMatrix}}\hfill\label{ntg__graph__obj_8h_ae7f051968e740ba1cbb6259282637dc5}
+
+
+Definition at line 109 of file ntg\_\-graph\_\-obj.h.
+
+
+
+\subsubsection{Function Documentation}
+\index{ntg\_\-graph\_\-obj.h@{ntg\_\-graph\_\-obj.h}!NodeDistanceMatrixConditioning@{NodeDistanceMatrixConditioning}}
+\index{NodeDistanceMatrixConditioning@{NodeDistanceMatrixConditioning}!ntg_graph_obj.h@{ntg\_\-graph\_\-obj.h}}
+\paragraph[{NodeDistanceMatrixConditioning}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class T $>$ {\bf NTG\_\-NodeDistanceMatrix} NodeDistanceMatrixConditioning (
+\begin{DoxyParamCaption}
+\item[{const {\bf Matrix}$<$ T $>$ \&}]{ aMtr}
+\end{DoxyParamCaption}
+)}\hfill\label{ntg__graph__obj_8h_a0e8335ce2b5666d8e7f1b544451a6a42}
+
+
+Definition at line 114 of file ntg\_\-graph\_\-obj.h.
+
+
+
+References NT\_\-ASSERT, TNT::Matrix$<$ T $>$::num\_\-cols(), TNT::Matrix$<$ T $>$::num\_\-rows(), and TNT::Matrix$<$ T $>$::size().
+
+
+
+
+\begin{DoxyCode}
+{
+    NTG_NodeDistanceMatrix dMtr(aMtr.num_rows(),aMtr.num_cols());   
+    NT_ASSERT( aMtr.size() == dMtr.size() );
+    for (NTsize lr=0; lr < (NTsize)aMtr.num_rows(); lr++){
+        for (NTsize lc=0; lc < (NTsize)aMtr.num_cols(); lc++) {
+            if (lr == lc) dMtr[lr][lc] = 0;
+            else {
+                T tmpVal = aMtr[lr][lc]; 
+                if ( 0 ==  tmpVal) dMtr[lr][lc] = 1/0.0; /* set value to infinity
+       (NAN), this is correct code ! */ 
+                else
+                if ( (NTreal)tmpVal < 0) {
+                    cerr << "NodeDistanceMatrixPrecondition - Warning : Negative 
+      values in matrix encountered. Using absolute values." << endl; 
+                    dMtr[lr][lc] = -tmpVal;
+                } else dMtr[lr][lc] = tmpVal;
+            }
+        }   
+    }
+    
+    return dMtr;
+}
+\end{DoxyCode}
+
+

@@ -1,0 +1,65 @@
+.TH "ModiglianiFormatSkipGrammar_t::definition" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ModiglianiFormatSkipGrammar_t::definition \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <modigliani_model_format_grammar_t.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBdefinition\fP (\fBModiglianiFormatSkipGrammar_t\fP const &)"
+.br
+.ti -1c
+.RI "rule< ScannerT > const & \fBstart\fP () const "
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "rule< ScannerT > \fBskip\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.SS "template<typename ScannerT> struct ModiglianiFormatSkipGrammar_t::definition< ScannerT >"
+
+.PP
+Definition at line 131 of file modigliani_model_format_grammar_t.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "template<typename ScannerT > \fBModiglianiFormatSkipGrammar_t::definition\fP< ScannerT >::\fBdefinition\fP (\fBModiglianiFormatSkipGrammar_t\fP const &)\fC [inline]\fP"
+.PP
+Definition at line 133 of file modigliani_model_format_grammar_t.h.
+.PP
+.nf
+        {
+            skip =            '//' >> *(anychar_p - '\n') >> '\n'     // C++ comment
+                            | '/*' >> *(anychar_p - '*/') >> '*/';     // C comment
+
+                }
+.fi
+.SH "Member Function Documentation"
+.PP 
+.SS "template<typename ScannerT > rule<ScannerT> const& \fBModiglianiFormatSkipGrammar_t::definition\fP< ScannerT >::start () const\fC [inline]\fP"
+.PP
+Definition at line 142 of file modigliani_model_format_grammar_t.h.
+.PP
+.nf
+{ return skip; }
+.fi
+.SH "Member Data Documentation"
+.PP 
+.SS "template<typename ScannerT > rule<ScannerT> \fBModiglianiFormatSkipGrammar_t::definition\fP< ScannerT >::\fBskip\fP"
+.PP
+Definition at line 139 of file modigliani_model_format_grammar_t.h.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

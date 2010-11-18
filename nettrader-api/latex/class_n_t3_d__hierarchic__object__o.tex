@@ -1,0 +1,294 @@
+\subsection{NT3D\_\-hierarchic\_\-object\_\-o Class Reference}
+\label{class_n_t3_d__hierarchic__object__o}\index{NT3D\_\-hierarchic\_\-object\_\-o@{NT3D\_\-hierarchic\_\-object\_\-o}}
+
+
+NetTrader 3D object visualisation superclass.  
+
+
+
+
+{\ttfamily \#include $<$nt3d\_\-hierarchic\_\-object\_\-obj.h$>$}
+
+
+
+Inheritance diagram for NT3D\_\-hierarchic\_\-object\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{class_n_t3_d__hierarchic__object__o__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for NT3D\_\-hierarchic\_\-object\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=239pt]{class_n_t3_d__hierarchic__object__o__coll__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_t3_d__hierarchic__object__o_a5c8604bec5dd9592cd806a3fd3b5047b}{NT3D\_\-hierarchic\_\-object\_\-o} ()
+\item 
+\hyperlink{class_n_t3_d__hierarchic__object__o_a04714c33dda282a59e63693a36274f9a}{NT3D\_\-hierarchic\_\-object\_\-o} (const \hyperlink{class_n_t__vector3__o}{NT\_\-vector3\_\-o} \&oNewPosition)
+\item 
+\hyperlink{class_n_t3_d__hierarchic__object__o_a0ab55db17079e2de7f0881e37e20b753}{NT3D\_\-hierarchic\_\-object\_\-o} (const \hyperlink{class_n_t3_d__hierarchic__object__o}{NT3D\_\-hierarchic\_\-object\_\-o} \&original)
+\item 
+\hyperlink{class_n_t3_d__hierarchic__object__o_a01af84ea4913ff392a153b9e7c32b0f8}{$\sim$NT3D\_\-hierarchic\_\-object\_\-o} ()
+\begin{DoxyCompactList}\small\item\em 2DO: Destroy or not destroy parent child objects ? \item\end{DoxyCompactList}\item 
+void \hyperlink{class_n_t3_d__hierarchic__object__o_afc8ed0ce09d81e63a875da4dfc9200a2}{Draw} ()
+\begin{DoxyCompactList}\small\item\em The \hyperlink{class_n_t3_d__hierarchic__object__o_afc8ed0ce09d81e63a875da4dfc9200a2}{Draw()} method is the invocation method to use for users. \item\end{DoxyCompactList}\item 
+\hyperlink{nt__types_8h_ac503559f358539d91155f135ee7a365d}{NTuint} \hyperlink{class_n_t3_d__hierarchic__object__o_a48677e2fd058029e1dc80e8cef8b4358}{AddChild} (\hyperlink{class_n_t3_d__hierarchic__object__o}{NT3D\_\-hierarchic\_\-object\_\-o} $\ast$pNewChild)
+\begin{DoxyCompactList}\small\item\em Draws the unrotated and untranslated object. \item\end{DoxyCompactList}\item 
+\hyperlink{nt__types_8h_ab9564ee8f091e809d21b8451c6683c53}{NTreturn} \hyperlink{class_n_t3_d__hierarchic__object__o_a2aa5df6fc0bb2581fb6b20956e914857}{RemoveChild} (\hyperlink{class_n_t3_d__hierarchic__object__o}{NT3D\_\-hierarchic\_\-object\_\-o} $\ast$pOldChild)
+\item 
+\hyperlink{nt__types_8h_ab9564ee8f091e809d21b8451c6683c53}{NTreturn} \hyperlink{class_n_t3_d__hierarchic__object__o_a5449c5c85951c427fbe2aca0b9d48bb4}{RemoveChild} (\hyperlink{nt__types_8h_ac503559f358539d91155f135ee7a365d}{NTuint} OldChild)
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{class_n_t3_d__hierarchic__object__o_a2e909a5c752d5560133bd1bdb32147ec}{DrawObj} ()
+\item 
+\hyperlink{nt__types_8h_ab9564ee8f091e809d21b8451c6683c53}{NTreturn} \hyperlink{class_n_t3_d__hierarchic__object__o_aa72fc7f69da123e3cf433a0b847816f8}{NT3DObjectCheck} () const 
+\item 
+void \hyperlink{class_n_t3_d__hierarchic__object__o_ad29aae36b4d227c00e0e5c3de2c82a6c}{ControlImpl} (\hyperlink{nt3d__object__obj_8h_ae59ecf13a3631bc4a9ea41f90de08351}{NT3Dcontroller} cntrl, \hyperlink{nt__types_8h_aee8aa0a9869e8b5c97c6c02217ff09cd}{NTint} value)
+\begin{DoxyCompactList}\small\item\em ControlImpl overwrites the \hyperlink{class_n_t3_d__object__o}{NT3D\_\-object\_\-o} controllers, and are not to be overwritten themselves by derived classes, derived classes implement/overwrite ControlObj. \item\end{DoxyCompactList}\item 
+void \hyperlink{class_n_t3_d__hierarchic__object__o_a8334ae0cd34cb8696223ab8aad3d6455}{ControlImpl} (\hyperlink{nt3d__object__obj_8h_ae59ecf13a3631bc4a9ea41f90de08351}{NT3Dcontroller} cntrl, \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} value)
+\item 
+void \hyperlink{class_n_t3_d__hierarchic__object__o_a7e4f5dd57aefbf5da38d11a4d7e24bed}{ControlImpl} (\hyperlink{nt3d__object__obj_8h_ae59ecf13a3631bc4a9ea41f90de08351}{NT3Dcontroller} cntrl, \hyperlink{class_n_t__vector__o}{NT\_\-vector\_\-o} value)
+\item 
+virtual void \hyperlink{class_n_t3_d__hierarchic__object__o_a44e300863e04239cbfd92efe76862eb1}{ControlObj} (\hyperlink{nt3d__object__obj_8h_ae59ecf13a3631bc4a9ea41f90de08351}{NT3Dcontroller} cntrl, \hyperlink{nt__types_8h_aee8aa0a9869e8b5c97c6c02217ff09cd}{NTint} value)
+\begin{DoxyCompactList}\small\item\em ControlObj is to overwritten by derived classes to handle controller calls. \item\end{DoxyCompactList}\item 
+virtual void \hyperlink{class_n_t3_d__hierarchic__object__o_a7ba64aea4674da8cd6abff48e51596fe}{ControlObj} (\hyperlink{nt3d__object__obj_8h_ae59ecf13a3631bc4a9ea41f90de08351}{NT3Dcontroller} cntrl, \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} value)
+\item 
+virtual void \hyperlink{class_n_t3_d__hierarchic__object__o_af5ef3139f819bb89d919f65218035cde}{ControlObj} (\hyperlink{nt3d__object__obj_8h_ae59ecf13a3631bc4a9ea41f90de08351}{NT3Dcontroller} cntrl, \hyperlink{class_n_t__vector__o}{NT\_\-vector\_\-o} value)
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+The \char`\"{}main axis\char`\"{} of an object in space, should be constructed along the X-\/Axis, as methods will assume this. 
+
+Definition at line 55 of file nt3d\_\-hierarchic\_\-object\_\-obj.h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{NT3D\_\-hierarchic\_\-object\_\-o@{NT3D\_\-hierarchic\_\-object\_\-o}!NT3D\_\-hierarchic\_\-object\_\-o@{NT3D\_\-hierarchic\_\-object\_\-o}}
+\index{NT3D\_\-hierarchic\_\-object\_\-o@{NT3D\_\-hierarchic\_\-object\_\-o}!NT3D_hierarchic_object_o@{NT3D\_\-hierarchic\_\-object\_\-o}}
+\paragraph[{NT3D\_\-hierarchic\_\-object\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT3D\_\-hierarchic\_\-object\_\-o::NT3D\_\-hierarchic\_\-object\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__hierarchic__object__o_a5c8604bec5dd9592cd806a3fd3b5047b}
+\index{NT3D\_\-hierarchic\_\-object\_\-o@{NT3D\_\-hierarchic\_\-object\_\-o}!NT3D\_\-hierarchic\_\-object\_\-o@{NT3D\_\-hierarchic\_\-object\_\-o}}
+\index{NT3D\_\-hierarchic\_\-object\_\-o@{NT3D\_\-hierarchic\_\-object\_\-o}!NT3D_hierarchic_object_o@{NT3D\_\-hierarchic\_\-object\_\-o}}
+\paragraph[{NT3D\_\-hierarchic\_\-object\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT3D\_\-hierarchic\_\-object\_\-o::NT3D\_\-hierarchic\_\-object\_\-o (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT\_\-vector3\_\-o} \&}]{ oNewPosition}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__hierarchic__object__o_a04714c33dda282a59e63693a36274f9a}
+\index{NT3D\_\-hierarchic\_\-object\_\-o@{NT3D\_\-hierarchic\_\-object\_\-o}!NT3D\_\-hierarchic\_\-object\_\-o@{NT3D\_\-hierarchic\_\-object\_\-o}}
+\index{NT3D\_\-hierarchic\_\-object\_\-o@{NT3D\_\-hierarchic\_\-object\_\-o}!NT3D_hierarchic_object_o@{NT3D\_\-hierarchic\_\-object\_\-o}}
+\paragraph[{NT3D\_\-hierarchic\_\-object\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT3D\_\-hierarchic\_\-object\_\-o::NT3D\_\-hierarchic\_\-object\_\-o (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT3D\_\-hierarchic\_\-object\_\-o} \&}]{ original}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__hierarchic__object__o_a0ab55db17079e2de7f0881e37e20b753}
+\index{NT3D\_\-hierarchic\_\-object\_\-o@{NT3D\_\-hierarchic\_\-object\_\-o}!$\sim$NT3D\_\-hierarchic\_\-object\_\-o@{$\sim$NT3D\_\-hierarchic\_\-object\_\-o}}
+\index{$\sim$NT3D\_\-hierarchic\_\-object\_\-o@{$\sim$NT3D\_\-hierarchic\_\-object\_\-o}!NT3D_hierarchic_object_o@{NT3D\_\-hierarchic\_\-object\_\-o}}
+\paragraph[{$\sim$NT3D\_\-hierarchic\_\-object\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT3D\_\-hierarchic\_\-object\_\-o::$\sim$NT3D\_\-hierarchic\_\-object\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__hierarchic__object__o_a01af84ea4913ff392a153b9e7c32b0f8}
+
+
+\subsubsection{Member Function Documentation}
+\index{NT3D\_\-hierarchic\_\-object\_\-o@{NT3D\_\-hierarchic\_\-object\_\-o}!AddChild@{AddChild}}
+\index{AddChild@{AddChild}!NT3D_hierarchic_object_o@{NT3D\_\-hierarchic\_\-object\_\-o}}
+\paragraph[{AddChild}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTuint} NT3D\_\-hierarchic\_\-object\_\-o::AddChild (
+\begin{DoxyParamCaption}
+\item[{{\bf NT3D\_\-hierarchic\_\-object\_\-o} $\ast$}]{ pNewChild}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__hierarchic__object__o_a48677e2fd058029e1dc80e8cef8b4358}
+\hyperlink{class_n_t3_d__hierarchic__object__o_a2e909a5c752d5560133bd1bdb32147ec}{DrawObj()} is method should be overridden by derived classes to implement to pure unrotated untranslated object. \begin{DoxyWarning}{Warning}
+Note, it has to be declard virtual here, such that upon invocation via \hyperlink{class_n_t3_d__hierarchic__object__o_afc8ed0ce09d81e63a875da4dfc9200a2}{Draw()} the child method is exectuded and not the parent method ! 
+\end{DoxyWarning}
+\index{NT3D\_\-hierarchic\_\-object\_\-o@{NT3D\_\-hierarchic\_\-object\_\-o}!ControlImpl@{ControlImpl}}
+\index{ControlImpl@{ControlImpl}!NT3D_hierarchic_object_o@{NT3D\_\-hierarchic\_\-object\_\-o}}
+\paragraph[{ControlImpl}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-hierarchic\_\-object\_\-o::ControlImpl (
+\begin{DoxyParamCaption}
+\item[{{\bf NT3Dcontroller}}]{ cntrl, }
+\item[{{\bf NTreal}}]{ value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected, virtual\mbox{]}}}\hfill\label{class_n_t3_d__hierarchic__object__o_a8334ae0cd34cb8696223ab8aad3d6455}
+
+
+Implements \hyperlink{class_n_t3_d__object__o_a115c0ad284e4b2033ad73a0210355453}{NT3D\_\-object\_\-o}.
+
+\index{NT3D\_\-hierarchic\_\-object\_\-o@{NT3D\_\-hierarchic\_\-object\_\-o}!ControlImpl@{ControlImpl}}
+\index{ControlImpl@{ControlImpl}!NT3D_hierarchic_object_o@{NT3D\_\-hierarchic\_\-object\_\-o}}
+\paragraph[{ControlImpl}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-hierarchic\_\-object\_\-o::ControlImpl (
+\begin{DoxyParamCaption}
+\item[{{\bf NT3Dcontroller}}]{ cntrl, }
+\item[{{\bf NT\_\-vector\_\-o}}]{ value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected, virtual\mbox{]}}}\hfill\label{class_n_t3_d__hierarchic__object__o_a7e4f5dd57aefbf5da38d11a4d7e24bed}
+
+
+Implements \hyperlink{class_n_t3_d__object__o_a9e31e38714993ecf9a547c332e6a1a1c}{NT3D\_\-object\_\-o}.
+
+\index{NT3D\_\-hierarchic\_\-object\_\-o@{NT3D\_\-hierarchic\_\-object\_\-o}!ControlImpl@{ControlImpl}}
+\index{ControlImpl@{ControlImpl}!NT3D_hierarchic_object_o@{NT3D\_\-hierarchic\_\-object\_\-o}}
+\paragraph[{ControlImpl}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-hierarchic\_\-object\_\-o::ControlImpl (
+\begin{DoxyParamCaption}
+\item[{{\bf NT3Dcontroller}}]{ cntrl, }
+\item[{{\bf NTint}}]{ value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected, virtual\mbox{]}}}\hfill\label{class_n_t3_d__hierarchic__object__o_ad29aae36b4d227c00e0e5c3de2c82a6c}
+
+
+Implements \hyperlink{class_n_t3_d__object__o_a996d4d2d5d9565b45c1bc83da42ed9cb}{NT3D\_\-object\_\-o}.
+
+\index{NT3D\_\-hierarchic\_\-object\_\-o@{NT3D\_\-hierarchic\_\-object\_\-o}!ControlObj@{ControlObj}}
+\index{ControlObj@{ControlObj}!NT3D_hierarchic_object_o@{NT3D\_\-hierarchic\_\-object\_\-o}}
+\paragraph[{ControlObj}]{\setlength{\rightskip}{0pt plus 5cm}virtual void NT3D\_\-hierarchic\_\-object\_\-o::ControlObj (
+\begin{DoxyParamCaption}
+\item[{{\bf NT3Dcontroller}}]{ cntrl, }
+\item[{{\bf NTreal}}]{ value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, protected, virtual\mbox{]}}}\hfill\label{class_n_t3_d__hierarchic__object__o_a7ba64aea4674da8cd6abff48e51596fe}
+
+
+Reimplemented in \hyperlink{class_n_t3_d__composite__o_af447188a4abc0e429465d942a517bf5a}{NT3D\_\-composite\_\-o}.
+
+
+
+Definition at line 95 of file nt3d\_\-hierarchic\_\-object\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{}; 
+\end{DoxyCode}
+
+
+\index{NT3D\_\-hierarchic\_\-object\_\-o@{NT3D\_\-hierarchic\_\-object\_\-o}!ControlObj@{ControlObj}}
+\index{ControlObj@{ControlObj}!NT3D_hierarchic_object_o@{NT3D\_\-hierarchic\_\-object\_\-o}}
+\paragraph[{ControlObj}]{\setlength{\rightskip}{0pt plus 5cm}virtual void NT3D\_\-hierarchic\_\-object\_\-o::ControlObj (
+\begin{DoxyParamCaption}
+\item[{{\bf NT3Dcontroller}}]{ cntrl, }
+\item[{{\bf NTint}}]{ value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, protected, virtual\mbox{]}}}\hfill\label{class_n_t3_d__hierarchic__object__o_a44e300863e04239cbfd92efe76862eb1}
+
+
+Reimplemented in \hyperlink{class_n_t3_d__composite__o_ad82370b40330d4b96128da96bf4d98b1}{NT3D\_\-composite\_\-o}, and \hyperlink{class_n_t3_d__surfaced__object__o_a79cb3d9bb3b4a9ecd4f833ebb074227a}{NT3D\_\-surfaced\_\-object\_\-o}.
+
+
+
+Definition at line 94 of file nt3d\_\-hierarchic\_\-object\_\-obj.h.
+
+
+
+References NT\_\-CERR.
+
+
+
+
+\begin{DoxyCode}
+{NT_CERR(3,"NT3D_hierarchic_objet_o::ControlObj(...,NTint) - Warning : Not overri
+      dden be derived object.");};
+\end{DoxyCode}
+
+
+\index{NT3D\_\-hierarchic\_\-object\_\-o@{NT3D\_\-hierarchic\_\-object\_\-o}!ControlObj@{ControlObj}}
+\index{ControlObj@{ControlObj}!NT3D_hierarchic_object_o@{NT3D\_\-hierarchic\_\-object\_\-o}}
+\paragraph[{ControlObj}]{\setlength{\rightskip}{0pt plus 5cm}virtual void NT3D\_\-hierarchic\_\-object\_\-o::ControlObj (
+\begin{DoxyParamCaption}
+\item[{{\bf NT3Dcontroller}}]{ cntrl, }
+\item[{{\bf NT\_\-vector\_\-o}}]{ value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, protected, virtual\mbox{]}}}\hfill\label{class_n_t3_d__hierarchic__object__o_af5ef3139f819bb89d919f65218035cde}
+
+
+Reimplemented in \hyperlink{class_n_t3_d__composite__o_a45158da53a1f8a372b84150e96ae7f79}{NT3D\_\-composite\_\-o}.
+
+
+
+Definition at line 96 of file nt3d\_\-hierarchic\_\-object\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{};
+\end{DoxyCode}
+
+
+\index{NT3D\_\-hierarchic\_\-object\_\-o@{NT3D\_\-hierarchic\_\-object\_\-o}!Draw@{Draw}}
+\index{Draw@{Draw}!NT3D_hierarchic_object_o@{NT3D\_\-hierarchic\_\-object\_\-o}}
+\paragraph[{Draw}]{\setlength{\rightskip}{0pt plus 5cm}void NT3D\_\-hierarchic\_\-object\_\-o::Draw (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}virtual\mbox{]}}}\hfill\label{class_n_t3_d__hierarchic__object__o_afc8ed0ce09d81e63a875da4dfc9200a2}
+It handles the drawing of the object, its correct positioning and the drawing of the child objects. However, it should not be overridden! 
+
+Implements \hyperlink{class_n_t3_d__object__o_a908a81acc160ffb0de24bab5de55b3c0}{NT3D\_\-object\_\-o}.
+
+\index{NT3D\_\-hierarchic\_\-object\_\-o@{NT3D\_\-hierarchic\_\-object\_\-o}!DrawObj@{DrawObj}}
+\index{DrawObj@{DrawObj}!NT3D_hierarchic_object_o@{NT3D\_\-hierarchic\_\-object\_\-o}}
+\paragraph[{DrawObj}]{\setlength{\rightskip}{0pt plus 5cm}virtual void NT3D\_\-hierarchic\_\-object\_\-o::DrawObj (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline, protected, virtual\mbox{]}}}\hfill\label{class_n_t3_d__hierarchic__object__o_a2e909a5c752d5560133bd1bdb32147ec}
+
+
+Reimplemented in \hyperlink{class_n_t3_d__composite__o_aa8cc1fbcff92f38f7ca21727e93e0886}{NT3D\_\-composite\_\-o}, \hyperlink{class_n_t3_d__lamp__o_a7e051f01f52474d59db1684d1d07f64a}{NT3D\_\-lamp\_\-o}, \hyperlink{class_n_t3_d__line__o_a0f4a60ac16c5de030db6df7eac534b80}{NT3D\_\-line\_\-o}, \hyperlink{class_n_t3_d__stub__o_a94d7d572875e38cea98b6fd07c335efe}{NT3D\_\-stub\_\-o}, and \hyperlink{class_n_t3_d__surfaced__object__o_aa789d793770be2e94fbf525e148318c5}{NT3D\_\-surfaced\_\-object\_\-o}.
+
+
+
+Definition at line 83 of file nt3d\_\-hierarchic\_\-object\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{cerr <<"NT3D_hierarchic_object_o::DrawObj() - Error : This method should be over
+      riden by derived classes"<<endl;};
+\end{DoxyCode}
+
+
+\index{NT3D\_\-hierarchic\_\-object\_\-o@{NT3D\_\-hierarchic\_\-object\_\-o}!NT3DObjectCheck@{NT3DObjectCheck}}
+\index{NT3DObjectCheck@{NT3DObjectCheck}!NT3D_hierarchic_object_o@{NT3D\_\-hierarchic\_\-object\_\-o}}
+\paragraph[{NT3DObjectCheck}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreturn} NT3D\_\-hierarchic\_\-object\_\-o::NT3DObjectCheck (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}\hfill\label{class_n_t3_d__hierarchic__object__o_aa72fc7f69da123e3cf433a0b847816f8}
+\index{NT3D\_\-hierarchic\_\-object\_\-o@{NT3D\_\-hierarchic\_\-object\_\-o}!RemoveChild@{RemoveChild}}
+\index{RemoveChild@{RemoveChild}!NT3D_hierarchic_object_o@{NT3D\_\-hierarchic\_\-object\_\-o}}
+\paragraph[{RemoveChild}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreturn} NT3D\_\-hierarchic\_\-object\_\-o::RemoveChild (
+\begin{DoxyParamCaption}
+\item[{{\bf NT3D\_\-hierarchic\_\-object\_\-o} $\ast$}]{ pOldChild}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__hierarchic__object__o_a2aa5df6fc0bb2581fb6b20956e914857}
+\index{NT3D\_\-hierarchic\_\-object\_\-o@{NT3D\_\-hierarchic\_\-object\_\-o}!RemoveChild@{RemoveChild}}
+\index{RemoveChild@{RemoveChild}!NT3D_hierarchic_object_o@{NT3D\_\-hierarchic\_\-object\_\-o}}
+\paragraph[{RemoveChild}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreturn} NT3D\_\-hierarchic\_\-object\_\-o::RemoveChild (
+\begin{DoxyParamCaption}
+\item[{{\bf NTuint}}]{ OldChild}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t3_d__hierarchic__object__o_a5449c5c85951c427fbe2aca0b9d48bb4}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nt3d__hierarchic__object__obj_8h}{nt3d\_\-hierarchic\_\-object\_\-obj.h}\end{DoxyCompactItemize}

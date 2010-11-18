@@ -1,0 +1,177 @@
+.TH "NT3D_plot2d_vp_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NT3D_plot2d_vp_o \- 
+.PP
+\fBNT3D_plot2d_vp_o\fP class.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <nt3d_plot2d_vp_obj.h>\fP
+.PP
+Inherits \fBNT3D_plot_vp_o\fP.
+.PP
+Inherited by \fBNT3D_plot2d_scatter_vp_o\fP, and \fBNT3D_plot2d_vec_vp_o\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNT3D_plot2d_vp_o\fP ()"
+.br
+.ti -1c
+.RI "\fBNT3D_plot2d_vp_o\fP (const \fBNT3D_plot2d_vp_o\fP &original)"
+.br
+.ti -1c
+.RI "const \fBNT3D_plot2d_vp_o\fP & \fBoperator=\fP (const \fBNT3D_plot2d_vp_o\fP &right)"
+.br
+.ti -1c
+.RI "virtual \fB~NT3D_plot2d_vp_o\fP ()"
+.br
+.ti -1c
+.RI "void \fBDraw\fP ()"
+.br
+.ti -1c
+.RI "void \fBAutoRange\fP (bool decision)"
+.br
+.ti -1c
+.RI "\fBNTreturn\fP \fBSetXRange\fP (\fBNTreal\fP min, \fBNTreal\fP max)"
+.br
+.ti -1c
+.RI "\fBNTreturn\fP \fBSetYRange\fP (\fBNTreal\fP min, \fBNTreal\fP max)"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBInitChild\fP ()"
+.br
+.ti -1c
+.RI "\fBNTreturn\fP \fBResizeChild\fP (\fBNTsize\fP x, \fBNTsize\fP y)"
+.br
+.ti -1c
+.RI "void \fBRedrawChild\fP ()"
+.br
+.ti -1c
+.RI "virtual void \fBDrawData\fP ()=0"
+.br
+.ti -1c
+.RI "void \fBNewXData\fP (\fBNTreal\fP x)"
+.br
+.ti -1c
+.RI "void \fBNewYData\fP (\fBNTreal\fP y)"
+.br
+.ti -1c
+.RI "void \fBDrawCoordinateSystem\fP ()"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+\fBBug\fP
+.RS 4
+unknown 
+.RE
+.PP
+\fBWarning:\fP
+.RS 4
+unknown 
+.RE
+.PP
+
+.PP
+Definition at line 51 of file nt3d_plot2d_vp_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "NT3D_plot2d_vp_o::NT3D_plot2d_vp_o ()"
+.SS "NT3D_plot2d_vp_o::NT3D_plot2d_vp_o (const \fBNT3D_plot2d_vp_o\fP & original)"
+.SS "virtual NT3D_plot2d_vp_o::~NT3D_plot2d_vp_o ()\fC [virtual]\fP"
+.SH "Member Function Documentation"
+.PP 
+.SS "void NT3D_plot2d_vp_o::AutoRange (bool decision)\fC [inline]\fP"
+.PP
+Definition at line 60 of file nt3d_plot2d_vp_obj.h.
+.PP
+.nf
+{ autoRange = decision; }
+.fi
+.SS "void NT3D_plot2d_vp_o::Draw ()\fC [virtual]\fP"
+.PP
+Implements \fBNT3D_abstract_vp_o\fP.
+.SS "void NT3D_plot2d_vp_o::DrawCoordinateSystem ()\fC [protected]\fP"
+.PP
+Referenced by RedrawChild().
+.SS "virtual void NT3D_plot2d_vp_o::DrawData ()\fC [protected, pure virtual]\fP"
+.PP
+Implemented in \fBNT3D_plot2d_vec_vp_o\fP.
+.PP
+Referenced by RedrawChild().
+.SS "void NT3D_plot2d_vp_o::InitChild ()\fC [inline, protected, virtual]\fP"
+.PP
+Implements \fBNT3D_abstract_vp_o\fP.
+.PP
+Definition at line 66 of file nt3d_plot2d_vp_obj.h.
+.PP
+.nf
+{};
+.fi
+.SS "void NT3D_plot2d_vp_o::NewXData (\fBNTreal\fP x)\fC [inline, protected]\fP"
+.PP
+Definition at line 70 of file nt3d_plot2d_vp_obj.h.
+.PP
+.nf
+{ if (x < dataXMin) dataXMin = x; else if (x > dataXMax) dataXMax = x; }
+.fi
+.SS "void NT3D_plot2d_vp_o::NewYData (\fBNTreal\fP y)\fC [inline, protected]\fP"
+.PP
+Definition at line 71 of file nt3d_plot2d_vp_obj.h.
+.PP
+.nf
+{ if (y < dataYMin) dataYMin = y; else if (y > dataYMax) dataYMax = y; }
+.fi
+.SS "const \fBNT3D_plot2d_vp_o\fP& NT3D_plot2d_vp_o::operator= (const \fBNT3D_plot2d_vp_o\fP & right)"
+.SS "void NT3D_plot2d_vp_o::RedrawChild ()\fC [inline, protected, virtual]\fP"
+.PP
+Implements \fBNT3D_abstract_vp_o\fP.
+.PP
+Definition at line 68 of file nt3d_plot2d_vp_obj.h.
+.PP
+References DrawCoordinateSystem(), and DrawData().
+.PP
+.nf
+{ DrawCoordinateSystem(); DrawData();}
+.fi
+.SS "\fBNTreturn\fP NT3D_plot2d_vp_o::ResizeChild (\fBNTsize\fP x, \fBNTsize\fP y)\fC [inline, protected, virtual]\fP"
+.PP
+Implements \fBNT3D_abstract_vp_o\fP.
+.PP
+Definition at line 67 of file nt3d_plot2d_vp_obj.h.
+.PP
+.nf
+{return NT_SUCCESS;}
+.fi
+.SS "\fBNTreturn\fP NT3D_plot2d_vp_o::SetXRange (\fBNTreal\fP min, \fBNTreal\fP max)\fC [inline]\fP"
+.PP
+Definition at line 61 of file nt3d_plot2d_vp_obj.h.
+.PP
+References NT_ASSERT.
+.PP
+.nf
+{ NT_ASSERT( min < max); xMin = min; xMax = max; return NT_SUCCESS;}
+.fi
+.SS "\fBNTreturn\fP NT3D_plot2d_vp_o::SetYRange (\fBNTreal\fP min, \fBNTreal\fP max)\fC [inline]\fP"
+.PP
+Definition at line 62 of file nt3d_plot2d_vp_obj.h.
+.PP
+References NT_ASSERT.
+.PP
+.nf
+{ NT_ASSERT( min < max); yMin = min; yMax = max; return NT_SUCCESS;}
+.fi
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

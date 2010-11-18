@@ -1,0 +1,275 @@
+.TH "TNT::Fortran_Sparse_Vector" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+TNT::Fortran_Sparse_Vector \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <fspvec.h>\fP
+.SS "Public Types"
+
+.in +1c
+.ti -1c
+.RI "typedef \fBSubscript\fP \fBsize_type\fP"
+.br
+.ti -1c
+.RI "typedef T \fBvalue_type\fP"
+.br
+.ti -1c
+.RI "typedef T \fBelement_type\fP"
+.br
+.ti -1c
+.RI "typedef T * \fBpointer\fP"
+.br
+.ti -1c
+.RI "typedef T * \fBiterator\fP"
+.br
+.ti -1c
+.RI "typedef T & \fBreference\fP"
+.br
+.ti -1c
+.RI "typedef const T * \fBconst_iterator\fP"
+.br
+.ti -1c
+.RI "typedef const T & \fBconst_reference\fP"
+.br
+.in -1c
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSubscript\fP \fBlbound\fP () const "
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBdim\fP () const "
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBnum_nonzeros\fP () const "
+.br
+.ti -1c
+.RI "T & \fBval\fP (\fBSubscript\fP i)"
+.br
+.ti -1c
+.RI "const T & \fBval\fP (\fBSubscript\fP i) const "
+.br
+.ti -1c
+.RI "\fBSubscript\fP & \fBindex\fP (\fBSubscript\fP i)"
+.br
+.ti -1c
+.RI "const \fBSubscript\fP & \fBindex\fP (\fBSubscript\fP i) const "
+.br
+.ti -1c
+.RI "\fBFortran_Sparse_Vector\fP ()"
+.br
+.ti -1c
+.RI "\fBFortran_Sparse_Vector\fP (\fBSubscript\fP N, \fBSubscript\fP nz)"
+.br
+.ti -1c
+.RI "\fBFortran_Sparse_Vector\fP (\fBSubscript\fP N, \fBSubscript\fP nz, const T *values, const \fBSubscript\fP *indices)"
+.br
+.ti -1c
+.RI "\fBFortran_Sparse_Vector\fP (const \fBFortran_Sparse_Vector\fP< T > &S)"
+.br
+.ti -1c
+.RI "\fBFortran_Sparse_Vector\fP (\fBSubscript\fP N, \fBSubscript\fP nz, char *v, char *ind)"
+.br
+.ti -1c
+.RI "\fBFortran_Sparse_Vector\fP< T > & \fBnewsize\fP (\fBSubscript\fP N, \fBSubscript\fP nz)"
+.br
+.ti -1c
+.RI "\fBFortran_Sparse_Vector\fP< T > & \fBoperator=\fP (const \fBFortran_Sparse_Vector\fP< T > &A)"
+.br
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBVector\fP< T > \fBval_\fP"
+.br
+.ti -1c
+.RI "\fBVector\fP< \fBSubscript\fP > \fBindex_\fP"
+.br
+.ti -1c
+.RI "\fBSubscript\fP \fBdim_\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.SS "template<class T> class TNT::Fortran_Sparse_Vector< T >"
+
+.PP
+Definition at line 45 of file fspvec.h.
+.SH "Member Typedef Documentation"
+.PP 
+.SS "template<class T> typedef const T* \fBTNT::Fortran_Sparse_Vector\fP< T >::\fBconst_iterator\fP"
+.PP
+Definition at line 57 of file fspvec.h.
+.SS "template<class T> typedef const T& \fBTNT::Fortran_Sparse_Vector\fP< T >::\fBconst_reference\fP"
+.PP
+Definition at line 58 of file fspvec.h.
+.SS "template<class T> typedef T \fBTNT::Fortran_Sparse_Vector\fP< T >::\fBelement_type\fP"
+.PP
+Definition at line 53 of file fspvec.h.
+.SS "template<class T> typedef T* \fBTNT::Fortran_Sparse_Vector\fP< T >::\fBiterator\fP"
+.PP
+Definition at line 55 of file fspvec.h.
+.SS "template<class T> typedef T* \fBTNT::Fortran_Sparse_Vector\fP< T >::\fBpointer\fP"
+.PP
+Definition at line 54 of file fspvec.h.
+.SS "template<class T> typedef T& \fBTNT::Fortran_Sparse_Vector\fP< T >::\fBreference\fP"
+.PP
+Definition at line 56 of file fspvec.h.
+.SS "template<class T> typedef \fBSubscript\fP \fBTNT::Fortran_Sparse_Vector\fP< T >::\fBsize_type\fP"
+.PP
+Definition at line 51 of file fspvec.h.
+.SS "template<class T> typedef T \fBTNT::Fortran_Sparse_Vector\fP< T >::\fBvalue_type\fP"
+.PP
+Definition at line 52 of file fspvec.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "template<class T> \fBTNT::Fortran_Sparse_Vector\fP< T >::\fBFortran_Sparse_Vector\fP ()\fC [inline]\fP"
+.PP
+Definition at line 85 of file fspvec.h.
+.PP
+.nf
+: val_(), index_(), dim_(0)  {};
+.fi
+.SS "template<class T> \fBTNT::Fortran_Sparse_Vector\fP< T >::\fBFortran_Sparse_Vector\fP (\fBSubscript\fP N, \fBSubscript\fP nz)\fC [inline]\fP"
+.PP
+Definition at line 86 of file fspvec.h.
+.PP
+.nf
+                                                     : val_(nz), 
+            index_(nz), dim_(N)  {};
+.fi
+.SS "template<class T> \fBTNT::Fortran_Sparse_Vector\fP< T >::\fBFortran_Sparse_Vector\fP (\fBSubscript\fP N, \fBSubscript\fP nz, const T * values, const \fBSubscript\fP * indices)\fC [inline]\fP"
+.PP
+Definition at line 88 of file fspvec.h.
+.PP
+.nf
+                                 : val_(nz, values), index_(nz, indices),
+            dim_(N) {}
+.fi
+.SS "template<class T> \fBTNT::Fortran_Sparse_Vector\fP< T >::\fBFortran_Sparse_Vector\fP (const \fBFortran_Sparse_Vector\fP< T > & S)\fC [inline]\fP"
+.PP
+Definition at line 92 of file fspvec.h.
+.PP
+.nf
+                                                            : 
+        val_(S.val_), index_(S.index_), dim_(S.dim_) {}
+.fi
+.SS "template<class T> \fBTNT::Fortran_Sparse_Vector\fP< T >::\fBFortran_Sparse_Vector\fP (\fBSubscript\fP N, \fBSubscript\fP nz, char * v, char * ind)\fC [inline]\fP"
+.PP
+Definition at line 99 of file fspvec.h.
+.PP
+.nf
+                   : val_(nz, v), index_(nz, ind), dim_(N) {}
+.fi
+.SH "Member Function Documentation"
+.PP 
+.SS "template<class T> \fBSubscript\fP \fBTNT::Fortran_Sparse_Vector\fP< T >::dim () const\fC [inline]\fP"
+.PP
+Definition at line 72 of file fspvec.h.
+.PP
+.nf
+{ return dim_; }
+.fi
+.SS "template<class T> \fBSubscript\fP& \fBTNT::Fortran_Sparse_Vector\fP< T >::index (\fBSubscript\fP i)\fC [inline]\fP"
+.PP
+Definition at line 80 of file fspvec.h.
+.PP
+Referenced by TNT::operator>>().
+.PP
+.nf
+{ return index_(i); }
+.fi
+.SS "template<class T> const \fBSubscript\fP& \fBTNT::Fortran_Sparse_Vector\fP< T >::index (\fBSubscript\fP i) const\fC [inline]\fP"
+.PP
+Definition at line 81 of file fspvec.h.
+.PP
+.nf
+{ return index_(i); }
+.fi
+.SS "template<class T> \fBSubscript\fP \fBTNT::Fortran_Sparse_Vector\fP< T >::lbound () const\fC [inline]\fP"
+.PP
+Definition at line 60 of file fspvec.h.
+.PP
+.nf
+{ return 1;}
+.fi
+.SS "template<class T> \fBFortran_Sparse_Vector\fP<T>& \fBTNT::Fortran_Sparse_Vector\fP< T >::newsize (\fBSubscript\fP N, \fBSubscript\fP nz)\fC [inline]\fP"
+.PP
+Definition at line 104 of file fspvec.h.
+.PP
+Referenced by TNT::operator>>().
+.PP
+.nf
+    {
+        val_.newsize(nz);
+        index_.newsize(nz);
+        dim_ = N;
+        return *this;
+    }
+.fi
+.SS "template<class T> \fBSubscript\fP \fBTNT::Fortran_Sparse_Vector\fP< T >::num_nonzeros () const\fC [inline]\fP"
+.PP
+Definition at line 73 of file fspvec.h.
+.PP
+.nf
+{ return val_.dim(); }
+.fi
+.SS "template<class T> \fBFortran_Sparse_Vector\fP<T>& \fBTNT::Fortran_Sparse_Vector\fP< T >::operator= (const \fBFortran_Sparse_Vector\fP< T > & A)\fC [inline]\fP"
+.PP
+Definition at line 112 of file fspvec.h.
+.PP
+References TNT::Fortran_Sparse_Vector< T >::dim_, TNT::Fortran_Sparse_Vector< T >::index_, and TNT::Fortran_Sparse_Vector< T >::val_.
+.PP
+.nf
+    {
+        val_ = A.val_;
+        index_ = A.index_;
+        dim_ = A.dim_;
+
+        return *this;
+    }
+.fi
+.SS "template<class T> const T& \fBTNT::Fortran_Sparse_Vector\fP< T >::val (\fBSubscript\fP i) const\fC [inline]\fP"
+.PP
+Definition at line 78 of file fspvec.h.
+.PP
+.nf
+{ return val_(i); }
+.fi
+.SS "template<class T> T& \fBTNT::Fortran_Sparse_Vector\fP< T >::val (\fBSubscript\fP i)\fC [inline]\fP"
+.PP
+Definition at line 77 of file fspvec.h.
+.PP
+Referenced by TNT::operator>>().
+.PP
+.nf
+{ return val_(i); }
+.fi
+.SH "Member Data Documentation"
+.PP 
+.SS "template<class T> \fBSubscript\fP \fBTNT::Fortran_Sparse_Vector\fP< T >::\fBdim_\fP\fC [protected]\fP"
+.PP
+Definition at line 65 of file fspvec.h.
+.PP
+Referenced by TNT::Fortran_Sparse_Vector< T >::operator=().
+.SS "template<class T> \fBVector\fP<\fBSubscript\fP> \fBTNT::Fortran_Sparse_Vector\fP< T >::\fBindex_\fP\fC [protected]\fP"
+.PP
+Definition at line 64 of file fspvec.h.
+.PP
+Referenced by TNT::Fortran_Sparse_Vector< T >::operator=().
+.SS "template<class T> \fBVector\fP<T> \fBTNT::Fortran_Sparse_Vector\fP< T >::\fBval_\fP\fC [protected]\fP"
+.PP
+Definition at line 63 of file fspvec.h.
+.PP
+Referenced by TNT::Fortran_Sparse_Vector< T >::operator=().
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

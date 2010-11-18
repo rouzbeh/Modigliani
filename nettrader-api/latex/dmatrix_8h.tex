@@ -1,0 +1,52 @@
+\subsection{dmatrix.h File Reference}
+\label{dmatrix_8h}\index{dmatrix.h@{dmatrix.h}}
+{\ttfamily \#include $<$iostream$>$}\par
+{\ttfamily \#include $<$stdlib$>$}\par
+{\ttfamily \#include $<$iomanip$>$}\par
+{\ttfamily \#include $<$string.h$>$}\par
+Include dependency graph for dmatrix.h:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{dmatrix_8h__incl}
+\end{center}
+\end{figure}
+\subsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_d_matrix}{DMatrix}
+\begin{DoxyCompactList}\small\item\em \hyperlink{dmatrix_8h}{dmatrix.h} Header-\/File for a Double-\/Matrix-\/Class Released 14.7.1997 , \href{mailto:afaisal@techfak.uni-bielefeld.de}{\tt afaisal@techfak.uni-\/bielefeld.de} \item\end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+istream \& \hyperlink{dmatrix_8h_afdc618dcd381f473b5f67a1ed80d784e}{operator$>$$>$} (istream \&is, \hyperlink{class_d_matrix}{DMatrix} \&m)
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Function Documentation}
+\index{dmatrix.h@{dmatrix.h}!operator$>$$>$@{operator$>$$>$}}
+\index{operator$>$$>$@{operator$>$$>$}!dmatrix.h@{dmatrix.h}}
+\paragraph[{operator$>$$>$}]{\setlength{\rightskip}{0pt plus 5cm}istream\& operator$>$$>$ (
+\begin{DoxyParamCaption}
+\item[{istream \&}]{ is, }
+\item[{{\bf DMatrix} \&}]{ m}
+\end{DoxyParamCaption}
+)}\hfill\label{dmatrix_8h_afdc618dcd381f473b5f67a1ed80d784e}
+
+
+Definition at line 319 of file dmatrix.h.
+
+
+
+
+\begin{DoxyCode}
+{
+  for (int i = 1; i <= m.row; i++)
+    for (int j = 1; j <= m.col; j++)
+      is >> m(i,j);
+  return is;
+}
+\end{DoxyCode}
+
+

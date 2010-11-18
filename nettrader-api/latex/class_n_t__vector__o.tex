@@ -1,0 +1,404 @@
+\subsection{NT\_\-vector\_\-o Class Reference}
+\label{class_n_t__vector__o}\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}}
+
+
+A n-\/dimensional real vector class with visualization capabilities.  
+
+
+
+
+{\ttfamily \#include $<$nt\_\-vector\_\-obj.h$>$}
+
+
+
+Inheritance diagram for NT\_\-vector\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=120pt]{class_n_t__vector__o__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for NT\_\-vector\_\-o:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=120pt]{class_n_t__vector__o__coll__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_n_t__vector__o_a8576404457d0fe0ba22b047893836244}{NT\_\-vector\_\-o} ()
+\item 
+\hyperlink{class_n_t__vector__o_a0c0c9014b78ff96e664a79ef4c1ce7f0}{NT\_\-vector\_\-o} (\hyperlink{nt__types_8h_ac503559f358539d91155f135ee7a365d}{NTuint} dim)
+\item 
+\hyperlink{class_n_t__vector__o_a95abae74e7c0155816f42280c9439c2f}{NT\_\-vector\_\-o} (\hyperlink{nt__types_8h_ac503559f358539d91155f135ee7a365d}{NTuint} dim, \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} $\ast$elemVec)
+\item 
+\hyperlink{class_n_t__vector__o_a1531292bf8a0f29eaac7f1f820b7590f}{NT\_\-vector\_\-o} (\hyperlink{nt__types_8h_ac503559f358539d91155f135ee7a365d}{NTuint} dim, float $\ast$elemVec)
+\item 
+\hyperlink{class_n_t__vector__o_adff668296f0af3134c01ea89256029ab}{NT\_\-vector\_\-o} (\hyperlink{class_n_t__vector3__o}{NT\_\-vector3\_\-o} newVector3)
+\item 
+\hyperlink{class_n_t__vector__o_a3ec6f04a6339ab7d8864bc1c2d95e662}{NT\_\-vector\_\-o} (\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} a, \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} b)
+\item 
+\hyperlink{class_n_t__vector__o_a911b51a25a6293ff03823267e70b7ce1}{NT\_\-vector\_\-o} (\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} a, \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} b, \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} c)
+\item 
+\hyperlink{class_n_t__vector__o_aaca0d2ebc2504fb51fe3d3be02b085a1}{NT\_\-vector\_\-o} (\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} a, \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} b, \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} c, \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} d)
+\item 
+\hyperlink{class_n_t__vector__o_a5dfbcfeb05cb7ba06bcdd65c144c8102}{NT\_\-vector\_\-o} (const \hyperlink{class_n_t__vector__o}{NT\_\-vector\_\-o} \&)
+\item 
+\hyperlink{class_n_t__vector__o}{NT\_\-vector\_\-o} \& \hyperlink{class_n_t__vector__o_a1d802efe2a365a4652609740adceb690}{operator=} (\hyperlink{class_n_t__vector__o}{NT\_\-vector\_\-o} const \&)
+\item 
+\hyperlink{class_n_t__vector__o_a9e52f406166d7084a7a84ce581846f3f}{$\sim$NT\_\-vector\_\-o} ()
+\item 
+\hyperlink{class_n_t__vector__o}{NT\_\-vector\_\-o} \hyperlink{class_n_t__vector__o_a6a74004b224958ba4730829f39d0f0d2}{operator+} (const \hyperlink{class_n_t__vector__o}{NT\_\-vector\_\-o} \&) const 
+\begin{DoxyCompactList}\small\item\em addition C = A+B \item\end{DoxyCompactList}\item 
+\hyperlink{class_n_t__vector__o}{NT\_\-vector\_\-o} \hyperlink{class_n_t__vector__o_a50218c8299a11c754795964c020eb782}{operator-\/} (const \hyperlink{class_n_t__vector__o}{NT\_\-vector\_\-o} \&) const 
+\begin{DoxyCompactList}\small\item\em subtraction C = A-\/B \item\end{DoxyCompactList}\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t__vector__o_a6cb212b1f483e22e9e6f7234056ac696}{operator$\ast$} (const \hyperlink{class_n_t__vector__o}{NT\_\-vector\_\-o} \&) const 
+\begin{DoxyCompactList}\small\item\em scalar product r = A$\ast$B \item\end{DoxyCompactList}\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t__vector__o_a599c160cdd2c4f4580dfce88caf2dca6}{Dot} (const \hyperlink{class_n_t__vector__o}{NT\_\-vector\_\-o} right) const 
+\begin{DoxyCompactList}\small\item\em scalar (dot) product r = A$\ast$B \item\end{DoxyCompactList}\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t__vector__o_a3950e9e2b13888af781cbd6ff0f3d62b}{CosAng} (const \hyperlink{class_n_t__vector__o}{NT\_\-vector\_\-o} right)
+\begin{DoxyCompactList}\small\item\em cosine of the angle between two \hyperlink{class_n_t__vector__o}{NT\_\-vector\_\-o} \item\end{DoxyCompactList}\item 
+\hyperlink{class_n_t__vector__o}{NT\_\-vector\_\-o} \hyperlink{class_n_t__vector__o_a8ad5180e3926fcf6b47d19e9b6039b90}{operator$\ast$} (\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal}) const 
+\begin{DoxyCompactList}\small\item\em Scaling, factor multiplication (from the RIGHT) C = A$\ast$alpha. \item\end{DoxyCompactList}\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \& \hyperlink{class_n_t__vector__o_ae63b40e0e876f347c81f71ef18e2025c}{operator()} (\hyperlink{nt__types_8h_aee8aa0a9869e8b5c97c6c02217ff09cd}{NTint} component) const 
+\begin{DoxyCompactList}\small\item\em Access vector components 1..dimension slower and safer. \item\end{DoxyCompactList}\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \& \hyperlink{class_n_t__vector__o_a07954f5d0be145a28d3aa3b7715edfea}{operator\mbox{[}$\,$\mbox{]}} (\hyperlink{nt__types_8h_aee8aa0a9869e8b5c97c6c02217ff09cd}{NTint} component) const 
+\begin{DoxyCompactList}\small\item\em Access vector components 0..(dimension-\/1) fast and no range checking. \item\end{DoxyCompactList}\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t__vector__o_a5806e914ac946e85732e2c9dbf7c5a9c}{operator$^\wedge$} (\hyperlink{class_n_t__vector__o}{NT\_\-vector\_\-o} b)
+\item 
+\hyperlink{class_n_t__vector__o_a49c73dda13baef8457dca04edc54f14c}{operator NT\_\-vector3\_\-o} () const 
+\item 
+\hyperlink{class_n_t__vector__o}{NT\_\-vector\_\-o} \hyperlink{class_n_t__vector__o_ae3f529b5a21fbb413d59b6484a12a419}{BaseVectorAngle} () const 
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t__vector__o_a52fdac4cc8f6aed6b81b2da288565c0a}{Length} () const 
+\item 
+\hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} \hyperlink{class_n_t__vector__o_a508181d204c242d685a475160f035340}{LenSqr} () const 
+\item 
+\hyperlink{nt__types_8h_ac503559f358539d91155f135ee7a365d}{NTuint} \hyperlink{class_n_t__vector__o_a4dd8870c6854bd42b0f2a8e7b99a77ef}{\_\-dim} () const 
+\item 
+\hyperlink{nt__types_8h_ac503559f358539d91155f135ee7a365d}{NTuint} \hyperlink{class_n_t__vector__o_a97b1a99f924992500c54fc7daaef9f28}{\_\-dimension} () const 
+\item 
+const \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} $\ast$ \hyperlink{class_n_t__vector__o_a94623a8218cd1beac3cb5780e1b47d91}{\_\-elem} () const 
+\item 
+void \hyperlink{class_n_t__vector__o_a2fcbc3729823d14524ef580cae9045c7}{set\_\-elem} (const \hyperlink{nt__types_8h_a814a97893e9deb1eedcc7604529ba80d}{NTreal} $\ast$elemVec)
+\end{DoxyCompactItemize}
+\subsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+ostream \& \hyperlink{class_n_t__vector__o_ac6ba102d6a5919b05d3bfdda42462560}{operator$<$$<$} (ostream \&os, const \hyperlink{class_n_t__vector__o}{NT\_\-vector\_\-o} \&self)
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+
+
+Definition at line 120 of file nt\_\-vector\_\-obj.h.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!NT\_\-vector\_\-o@{NT\_\-vector\_\-o}}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!NT_vector_o@{NT\_\-vector\_\-o}}
+\paragraph[{NT\_\-vector\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-vector\_\-o::NT\_\-vector\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__vector__o_a8576404457d0fe0ba22b047893836244}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!NT\_\-vector\_\-o@{NT\_\-vector\_\-o}}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!NT_vector_o@{NT\_\-vector\_\-o}}
+\paragraph[{NT\_\-vector\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-vector\_\-o::NT\_\-vector\_\-o (
+\begin{DoxyParamCaption}
+\item[{{\bf NTuint}}]{ dim}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__vector__o_a0c0c9014b78ff96e664a79ef4c1ce7f0}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!NT\_\-vector\_\-o@{NT\_\-vector\_\-o}}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!NT_vector_o@{NT\_\-vector\_\-o}}
+\paragraph[{NT\_\-vector\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-vector\_\-o::NT\_\-vector\_\-o (
+\begin{DoxyParamCaption}
+\item[{{\bf NTuint}}]{ dim, }
+\item[{{\bf NTreal} $\ast$}]{ elemVec}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__vector__o_a95abae74e7c0155816f42280c9439c2f}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!NT\_\-vector\_\-o@{NT\_\-vector\_\-o}}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!NT_vector_o@{NT\_\-vector\_\-o}}
+\paragraph[{NT\_\-vector\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-vector\_\-o::NT\_\-vector\_\-o (
+\begin{DoxyParamCaption}
+\item[{{\bf NTuint}}]{ dim, }
+\item[{float $\ast$}]{ elemVec}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__vector__o_a1531292bf8a0f29eaac7f1f820b7590f}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!NT\_\-vector\_\-o@{NT\_\-vector\_\-o}}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!NT_vector_o@{NT\_\-vector\_\-o}}
+\paragraph[{NT\_\-vector\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-vector\_\-o::NT\_\-vector\_\-o (
+\begin{DoxyParamCaption}
+\item[{{\bf NT\_\-vector3\_\-o}}]{ newVector3}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__vector__o_adff668296f0af3134c01ea89256029ab}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!NT\_\-vector\_\-o@{NT\_\-vector\_\-o}}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!NT_vector_o@{NT\_\-vector\_\-o}}
+\paragraph[{NT\_\-vector\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-vector\_\-o::NT\_\-vector\_\-o (
+\begin{DoxyParamCaption}
+\item[{{\bf NTreal}}]{ a, }
+\item[{{\bf NTreal}}]{ b}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__vector__o_a3ec6f04a6339ab7d8864bc1c2d95e662}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!NT\_\-vector\_\-o@{NT\_\-vector\_\-o}}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!NT_vector_o@{NT\_\-vector\_\-o}}
+\paragraph[{NT\_\-vector\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-vector\_\-o::NT\_\-vector\_\-o (
+\begin{DoxyParamCaption}
+\item[{{\bf NTreal}}]{ a, }
+\item[{{\bf NTreal}}]{ b, }
+\item[{{\bf NTreal}}]{ c}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__vector__o_a911b51a25a6293ff03823267e70b7ce1}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!NT\_\-vector\_\-o@{NT\_\-vector\_\-o}}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!NT_vector_o@{NT\_\-vector\_\-o}}
+\paragraph[{NT\_\-vector\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-vector\_\-o::NT\_\-vector\_\-o (
+\begin{DoxyParamCaption}
+\item[{{\bf NTreal}}]{ a, }
+\item[{{\bf NTreal}}]{ b, }
+\item[{{\bf NTreal}}]{ c, }
+\item[{{\bf NTreal}}]{ d}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__vector__o_aaca0d2ebc2504fb51fe3d3be02b085a1}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!NT\_\-vector\_\-o@{NT\_\-vector\_\-o}}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!NT_vector_o@{NT\_\-vector\_\-o}}
+\paragraph[{NT\_\-vector\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-vector\_\-o::NT\_\-vector\_\-o (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT\_\-vector\_\-o} \&}]{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__vector__o_a5dfbcfeb05cb7ba06bcdd65c144c8102}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!$\sim$NT\_\-vector\_\-o@{$\sim$NT\_\-vector\_\-o}}
+\index{$\sim$NT\_\-vector\_\-o@{$\sim$NT\_\-vector\_\-o}!NT_vector_o@{NT\_\-vector\_\-o}}
+\paragraph[{$\sim$NT\_\-vector\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-vector\_\-o::$\sim$NT\_\-vector\_\-o (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__vector__o_a9e52f406166d7084a7a84ce581846f3f}
+
+
+\subsubsection{Member Function Documentation}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!\_\-dim@{\_\-dim}}
+\index{\_\-dim@{\_\-dim}!NT_vector_o@{NT\_\-vector\_\-o}}
+\paragraph[{\_\-dim}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTuint} NT\_\-vector\_\-o::\_\-dim (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__vector__o_a4dd8870c6854bd42b0f2a8e7b99a77ef}
+
+
+Definition at line 162 of file nt\_\-vector\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ return dimension;}
+\end{DoxyCode}
+
+
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!\_\-dimension@{\_\-dimension}}
+\index{\_\-dimension@{\_\-dimension}!NT_vector_o@{NT\_\-vector\_\-o}}
+\paragraph[{\_\-dimension}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTuint} NT\_\-vector\_\-o::\_\-dimension (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__vector__o_a97b1a99f924992500c54fc7daaef9f28}
+
+
+Definition at line 164 of file nt\_\-vector\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+{ return dimension;  };
+\end{DoxyCode}
+
+
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!\_\-elem@{\_\-elem}}
+\index{\_\-elem@{\_\-elem}!NT_vector_o@{NT\_\-vector\_\-o}}
+\paragraph[{\_\-elem}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf NTreal}$\ast$ NT\_\-vector\_\-o::\_\-elem (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hfill\label{class_n_t__vector__o_a94623a8218cd1beac3cb5780e1b47d91}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!BaseVectorAngle@{BaseVectorAngle}}
+\index{BaseVectorAngle@{BaseVectorAngle}!NT_vector_o@{NT\_\-vector\_\-o}}
+\paragraph[{BaseVectorAngle}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NT\_\-vector\_\-o} NT\_\-vector\_\-o::BaseVectorAngle (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hfill\label{class_n_t__vector__o_ae3f529b5a21fbb413d59b6484a12a419}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!CosAng@{CosAng}}
+\index{CosAng@{CosAng}!NT_vector_o@{NT\_\-vector\_\-o}}
+\paragraph[{CosAng}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NT\_\-vector\_\-o::CosAng (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT\_\-vector\_\-o}}]{ right}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__vector__o_a3950e9e2b13888af781cbd6ff0f3d62b}
+
+
+Definition at line 147 of file nt\_\-vector\_\-obj.h.
+
+
+
+References Length().
+
+
+
+
+\begin{DoxyCode}
+  { return (*this)*(right) / (Length() * right.Length()); }
+\end{DoxyCode}
+
+
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!Dot@{Dot}}
+\index{Dot@{Dot}!NT_vector_o@{NT\_\-vector\_\-o}}
+\paragraph[{Dot}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NT\_\-vector\_\-o::Dot (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT\_\-vector\_\-o}}]{ right}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__vector__o_a599c160cdd2c4f4580dfce88caf2dca6}
+
+
+Definition at line 144 of file nt\_\-vector\_\-obj.h.
+
+
+
+
+\begin{DoxyCode}
+  { return (*this)*(right);}   
+\end{DoxyCode}
+
+
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!Length@{Length}}
+\index{Length@{Length}!NT_vector_o@{NT\_\-vector\_\-o}}
+\paragraph[{Length}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NT\_\-vector\_\-o::Length (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily  \mbox{[}inline\mbox{]}}}\hfill\label{class_n_t__vector__o_a52fdac4cc8f6aed6b81b2da288565c0a}
+
+
+Definition at line 160 of file nt\_\-vector\_\-obj.h.
+
+
+
+References LenSqr().
+
+
+
+Referenced by CosAng().
+
+
+
+
+\begin{DoxyCode}
+{return sqrt(LenSqr()); };
+\end{DoxyCode}
+
+
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!LenSqr@{LenSqr}}
+\index{LenSqr@{LenSqr}!NT_vector_o@{NT\_\-vector\_\-o}}
+\paragraph[{LenSqr}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NT\_\-vector\_\-o::LenSqr (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hfill\label{class_n_t__vector__o_a508181d204c242d685a475160f035340}
+
+
+Referenced by Length().
+
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!operator NT\_\-vector3\_\-o@{operator NT\_\-vector3\_\-o}}
+\index{operator NT\_\-vector3\_\-o@{operator NT\_\-vector3\_\-o}!NT_vector_o@{NT\_\-vector\_\-o}}
+\paragraph[{operator NT\_\-vector3\_\-o}]{\setlength{\rightskip}{0pt plus 5cm}NT\_\-vector\_\-o::operator {\bf NT\_\-vector3\_\-o} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\hfill\label{class_n_t__vector__o_a49c73dda13baef8457dca04edc54f14c}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!operator()@{operator()}}
+\index{operator()@{operator()}!NT_vector_o@{NT\_\-vector\_\-o}}
+\paragraph[{operator()}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal}\& NT\_\-vector\_\-o::operator() (
+\begin{DoxyParamCaption}
+\item[{{\bf NTint}}]{ component}
+\end{DoxyParamCaption}
+) const}\hfill\label{class_n_t__vector__o_ae63b40e0e876f347c81f71ef18e2025c}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!NT_vector_o@{NT\_\-vector\_\-o}}
+\paragraph[{operator$\ast$}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NT\_\-vector\_\-o::operator$\ast$ (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT\_\-vector\_\-o} \&}]{}
+\end{DoxyParamCaption}
+) const}\hfill\label{class_n_t__vector__o_a6cb212b1f483e22e9e6f7234056ac696}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!NT_vector_o@{NT\_\-vector\_\-o}}
+\paragraph[{operator$\ast$}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NT\_\-vector\_\-o} NT\_\-vector\_\-o::operator$\ast$ (
+\begin{DoxyParamCaption}
+\item[{{\bf NTreal}}]{}
+\end{DoxyParamCaption}
+) const}\hfill\label{class_n_t__vector__o_a8ad5180e3926fcf6b47d19e9b6039b90}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!operator+@{operator+}}
+\index{operator+@{operator+}!NT_vector_o@{NT\_\-vector\_\-o}}
+\paragraph[{operator+}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NT\_\-vector\_\-o} NT\_\-vector\_\-o::operator+ (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT\_\-vector\_\-o} \&}]{}
+\end{DoxyParamCaption}
+) const}\hfill\label{class_n_t__vector__o_a6a74004b224958ba4730829f39d0f0d2}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!operator-\/@{operator-\/}}
+\index{operator-\/@{operator-\/}!NT_vector_o@{NT\_\-vector\_\-o}}
+\paragraph[{operator-\/}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NT\_\-vector\_\-o} NT\_\-vector\_\-o::operator-\/ (
+\begin{DoxyParamCaption}
+\item[{const {\bf NT\_\-vector\_\-o} \&}]{}
+\end{DoxyParamCaption}
+) const}\hfill\label{class_n_t__vector__o_a50218c8299a11c754795964c020eb782}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!operator=@{operator=}}
+\index{operator=@{operator=}!NT_vector_o@{NT\_\-vector\_\-o}}
+\paragraph[{operator=}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NT\_\-vector\_\-o}\& NT\_\-vector\_\-o::operator= (
+\begin{DoxyParamCaption}
+\item[{{\bf NT\_\-vector\_\-o} const \&}]{}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__vector__o_a1d802efe2a365a4652609740adceb690}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!NT_vector_o@{NT\_\-vector\_\-o}}
+\paragraph[{operator[]}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal}\& NT\_\-vector\_\-o::operator\mbox{[}$\,$\mbox{]} (
+\begin{DoxyParamCaption}
+\item[{{\bf NTint}}]{ component}
+\end{DoxyParamCaption}
+) const}\hfill\label{class_n_t__vector__o_a07954f5d0be145a28d3aa3b7715edfea}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!operator$^\wedge$@{operator$^\wedge$}}
+\index{operator$^\wedge$@{operator$^\wedge$}!NT_vector_o@{NT\_\-vector\_\-o}}
+\paragraph[{operator$^\wedge$}]{\setlength{\rightskip}{0pt plus 5cm}{\bf NTreal} NT\_\-vector\_\-o::operator$^\wedge$ (
+\begin{DoxyParamCaption}
+\item[{{\bf NT\_\-vector\_\-o}}]{ b}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__vector__o_a5806e914ac946e85732e2c9dbf7c5a9c}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!set\_\-elem@{set\_\-elem}}
+\index{set\_\-elem@{set\_\-elem}!NT_vector_o@{NT\_\-vector\_\-o}}
+\paragraph[{set\_\-elem}]{\setlength{\rightskip}{0pt plus 5cm}void NT\_\-vector\_\-o::set\_\-elem (
+\begin{DoxyParamCaption}
+\item[{const {\bf NTreal} $\ast$}]{ elemVec}
+\end{DoxyParamCaption}
+)}\hfill\label{class_n_t__vector__o_a2fcbc3729823d14524ef580cae9045c7}
+
+
+\subsubsection{Friends And Related Function Documentation}
+\index{NT\_\-vector\_\-o@{NT\_\-vector\_\-o}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!NT_vector_o@{NT\_\-vector\_\-o}}
+\paragraph[{operator$<$$<$}]{\setlength{\rightskip}{0pt plus 5cm}ostream\& operator$<$$<$ (
+\begin{DoxyParamCaption}
+\item[{ostream \&}]{ os, }
+\item[{const {\bf NT\_\-vector\_\-o} \&}]{ self}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}friend\mbox{]}}}\hfill\label{class_n_t__vector__o_ac6ba102d6a5919b05d3bfdda42462560}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{nt__vector__obj_8h}{nt\_\-vector\_\-obj.h}\end{DoxyCompactItemize}

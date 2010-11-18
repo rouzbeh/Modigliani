@@ -1,0 +1,99 @@
+.TH "NT_iterator_list_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NT_iterator_list_o \- 
+.PP
+REMARKS: 1.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <nt_list_obj.h>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNT_iterator_list_o\fP (const \fBNT_list_o\fP< T > &)"
+.br
+.RI "\fI------------------------------------------------------------------------- \fP"
+.ti -1c
+.RI "void \fBnext\fP ()"
+.br
+.RI "\fIPURPOSE: move the iterator to the next position. \fP"
+.ti -1c
+.RI "void \fBreset\fP ()"
+.br
+.RI "\fIPURPOSE: reset the iterator. \fP"
+.ti -1c
+.RI "const T & \fBcurrent\fP () const "
+.br
+.RI "\fIRETURNS: the value stored at the iterator position. \fP"
+.ti -1c
+.RI "\fBNTbool\fP \fBat_end\fP () const "
+.br
+.RI "\fIRETURNS: TRUE iff the iterator is at the end of the list. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.SS "template<class T> class NT_iterator_list_o< T >"
+This iterator is for inspection of a list only. You can only modify a list through its own cursor 2. Modification of a list invalidates all iterators attached to it. 
+.PP
+Definition at line 151 of file nt_list_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "template<class T > \fBNT_iterator_list_o\fP< T >::\fBNT_iterator_list_o\fP (const \fBNT_list_o\fP< T > & l)"RECEIVES: l - the list to iterate over 
+.PP
+Definition at line 405 of file nt_list_obj.h.
+.PP
+.nf
+:  _list(l),
+   _pre(0)
+{}
+.fi
+.SH "Member Function Documentation"
+.PP 
+.SS "template<class T > \fBNTbool\fP \fBNT_iterator_list_o\fP< T >::at_end () const"
+.PP
+Definition at line 422 of file nt_list_obj.h.
+.PP
+.nf
+{  return cursor() == 0;
+}
+.fi
+.SS "template<class T > const T & \fBNT_iterator_list_o\fP< T >::current () const"
+.PP
+Definition at line 440 of file nt_list_obj.h.
+.PP
+References NT_link_list_o< T >::_info.
+.PP
+.nf
+{  NT_link_list_o<T>* cur = cursor();
+   return cur ? cur->_info : NT_link_list_o<T>::defval();
+}
+.fi
+.SS "template<class T > void \fBNT_iterator_list_o\fP< T >::next ()"
+.PP
+Definition at line 430 of file nt_list_obj.h.
+.PP
+.nf
+{  if (!_pre) _pre = _list._head;
+   else if (_pre->_next) _pre = _pre->_next;
+   // do not advance past the tail of the list
+}
+.fi
+.SS "template<class T > void \fBNT_iterator_list_o\fP< T >::reset ()"
+.PP
+Definition at line 414 of file nt_list_obj.h.
+.PP
+.nf
+{  _pre = 0;
+}
+.fi
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.

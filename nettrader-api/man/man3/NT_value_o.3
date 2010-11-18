@@ -1,0 +1,119 @@
+.TH "NT_value_o" 3 "Wed Nov 17 2010" "Version 0.5" "NetTrader" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+NT_value_o \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <nt_value_obj.h>\fP
+.PP
+Inherits \fBNT_o\fP.
+.PP
+Inherited by \fBNT_currency_o\fP, and \fBNT_stock_value_o\fP.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNT_value_o\fP ()"
+.br
+.ti -1c
+.RI "\fBNT_value_o\fP (\fBNTid\fP typeId, \fBNT_string\fP name, \fBNTnum\fP amount, \fBNTreal\fP value)"
+.br
+.ti -1c
+.RI "virtual \fB~NT_value_o\fP ()"
+.br
+.in -1c
+.SS "Protected Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBNTnum\fP \fB_amount\fP () const "
+.br
+.ti -1c
+.RI "\fBNTid\fP \fB_id\fP () const "
+.br
+.ti -1c
+.RI "string \fB_name\fP () const "
+.br
+.ti -1c
+.RI "\fBNTreal\fP \fB_value\fP () const "
+.br
+.ti -1c
+.RI "void \fBset_amount\fP (\fBNTnum\fP newAmount)"
+.br
+.ti -1c
+.RI "void \fBset_id\fP (\fBNTid\fP newId)"
+.br
+.ti -1c
+.RI "void \fBset_name\fP (string newName)"
+.br
+.ti -1c
+.RI "void \fBset_value\fP (\fBNTreal\fP newValue)"
+.br
+.in -1c
+.SS "Friends"
+
+.in +1c
+.ti -1c
+.RI "ostream & \fBoperator<<\fP (ostream &os, const \fBNT_value_o\fP &self)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Definition at line 91 of file nt_value_obj.h.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "NT_value_o::NT_value_o ()"
+.SS "NT_value_o::NT_value_o (\fBNTid\fP typeId, \fBNT_string\fP name, \fBNTnum\fP amount, \fBNTreal\fP value)"
+.SS "virtual NT_value_o::~NT_value_o ()\fC [virtual]\fP"
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBNTnum\fP NT_value_o::_amount () const\fC [inline, protected]\fP"
+.PP
+Definition at line 125 of file nt_value_obj.h.
+.PP
+.nf
+{
+  return amount;
+}
+.fi
+.SS "\fBNTnum\fP NT_value_o::_id () const\fC [inline, protected]\fP"
+.PP
+Definition at line 138 of file nt_value_obj.h.
+.PP
+.nf
+{
+  return id;
+}
+.fi
+.SS "string NT_value_o::_name () const\fC [inline, protected]\fP"
+.PP
+Definition at line 151 of file nt_value_obj.h.
+.PP
+.nf
+{
+  return name;
+}
+.fi
+.SS "\fBNTreal\fP NT_value_o::_value () const\fC [inline, protected]\fP"
+.PP
+Definition at line 166 of file nt_value_obj.h.
+.PP
+.nf
+{
+  return value;
+}
+.fi
+.SS "void NT_value_o::set_amount (\fBNTnum\fP newAmount)\fC [protected]\fP"
+.SS "void NT_value_o::set_id (\fBNTid\fP newId)\fC [protected]\fP"
+.SS "void NT_value_o::set_name (string newName)\fC [protected]\fP"
+.SS "void NT_value_o::set_value (\fBNTreal\fP newValue)\fC [protected]\fP"
+.SH "Friends And Related Function Documentation"
+.PP 
+.SS "ostream& operator<< (ostream & os, const \fBNT_value_o\fP & self)\fC [friend]\fP"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for NetTrader from the source code.
