@@ -1,9 +1,9 @@
-/**\file nt3d_rectangle_obj.cpp - NT3D_rectangle_o class implementation
- * by Ahmed Aldo Faisal &copy; created 19.5.2000
+/**\file nt3d_rectangle_obj.cpp - NT3D_rectangle_o class implementation 
+ * by Ahmed Aldo Faisal &copy; created 19.5.2000  
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
  * Version:  0.5
- * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
+ * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -18,11 +18,14 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */
+ */ 
+  
 
-
-/* $Id: nt3d_rectangle_obj.cpp,v 1.1 2001/06/29 13:16:55 face Exp $
+/* $Id: nt3d_rectangle_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $ 
 * $Log: nt3d_rectangle_obj.cpp,v $
+* Revision 1.1.1.1  2004/12/16 01:38:36  face
+* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+*
 * Revision 1.1  2001/06/29 13:16:55  face
 * *** empty log message ***
 *
@@ -37,35 +40,35 @@
 *
 
 */
-#include "nt3d_rectangle_obj.h"
+#include "nt3d_rectangle_obj.h" 
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NT3D_rectangle_o */
 NT3D_rectangle_o::NT3D_rectangle_o(NTreal newWidth, NTreal newHeight, NTsize newSteps)
-        :
-        NT3D_surfaced_object_o(),
-        width(newWidth),
-        height(newHeight),
-        steps(newSteps)
+:
+NT3D_surfaced_object_o(),
+width(newWidth),
+height(newHeight),
+steps(newSteps)
 {
-    NT_ASSERT ( width > 0.0 );
-    NT_ASSERT ( height > 0.0 );
-    NT_ASSERT ( steps > 0);
+	NT_ASSERT ( width > 0.0 );
+	NT_ASSERT ( height > 0.0 );
+	NT_ASSERT ( steps > 0);
 }
 
 
-/* ***      COPY AND ASSIGNMENT	***/
+/* ***      COPY AND ASSIGNMENT	***/ 
 NT3D_rectangle_o::NT3D_rectangle_o(const NT3D_rectangle_o & original)
 {
-// add assignment code here
+ // add assignment code here
 }
 
-const NT3D_rectangle_o&
+const NT3D_rectangle_o&  
 NT3D_rectangle_o::operator= (const NT3D_rectangle_o & right)
 {
-    if (this == &right) return *this; // Gracefully handle self assignment
-// add assignment code here
-    return *this;
+ if (this == &right) return *this; // Gracefully handle self assignment
+ // add assignment code here
+  return *this;
 }
 
 /* ***      DESTRUCTOR		***/
@@ -73,8 +76,8 @@ NT3D_rectangle_o::~NT3D_rectangle_o()
 {
 }
 
-/* ***  PUBLIC                                    ***   */
-/** @short
+/* ***  PUBLIC                                    ***   */  
+/** @short       
     @param      none
     @return     none
    \warning    unknown
@@ -83,66 +86,66 @@ NT3D_rectangle_o::~NT3D_rectangle_o()
 void
 NT3D_rectangle_o::DrawSurfacedObj()
 {
-    oMaterial.Paint();
+	oMaterial.Paint();
     if (true == _bUseTexture() ) oTexturePtr->Paint();
-    else oTexturePtr->Painted();
+	else oTexturePtr->Painted();
 
-    NTreal dx = width/steps;
-    NTreal dy = height/steps;
-    NTreal x = 0;
-    NTreal y = 0;
-
-
-    /*	glRectf(0,0,width, height); */
-
-    NTsize lly;
-    NTsize llx;
-    for (lly = 0; lly < steps; lly++) {
-        y = lly * dy;
-        glBegin(GL_QUAD_STRIP);
-        for (llx = 0; llx < steps+1; llx++) {
-            x = llx * dx;
-            glTexCoord2f(x,y);
-            glVertex3f(  x,y,0);
-
-            glTexCoord2d(x,y+dy);
-            glVertex3f(  x,y+dy,0);
-        }
-        glTexCoord2f(x+dx,y);
-        glVertex3f(  x+dx,y,0);
-
-        glTexCoord2f(x+dx,y+dy);
-        glVertex3f(  x+dx,y+dy,0);
-        glEnd();
-    }
+	NTreal dx = width/steps;
+	NTreal dy = height/steps;
+	NTreal x = 0;
+	NTreal y = 0;
 
 
-    /* This is an attempt to set global text coords for the entire rect.
-     * instead of using each subrect ... however it fails 2DO check it again */
-    /*
-    NTsize lly;
-    NTsize llx;
+	/*	glRectf(0,0,width, height); */
+	
+	NTsize lly;
+	NTsize llx;
     for (lly = 0; lly < steps; lly++) {
     	y = lly * dy;
-    	glBegin(GL_QUAD_STRIP);
+    	glBegin(GL_QUAD_STRIP);		
     	for (llx = 0; llx < steps+1; llx++) {
-      		x = llx * dx;
-    		if ((llx == 0) && (lly == 0)) glTexCoord2f(0,0);
+  			x = llx * dx; 
+    		glTexCoord2f(x,y); 
+     		glVertex3f(  x,y,0);
+
+     		glTexCoord2d(x,y+dy);
+      	  	glVertex3f(  x,y+dy,0);
+		}
+		glTexCoord2f(x+dx,y);
+		glVertex3f(  x+dx,y,0);
+		
+		glTexCoord2f(x+dx,y+dy);
+      	glVertex3f(  x+dx,y+dy,0);
+		glEnd();
+	}
+	
+
+	/* This is an attempt to set global text coords for the entire rect.
+	 * instead of using each subrect ... however it fails 2DO check it again */
+	/* 
+	NTsize lly;
+	NTsize llx;
+    for (lly = 0; lly < steps; lly++) {
+    	y = lly * dy;
+    	glBegin(GL_QUAD_STRIP);		
+    	for (llx = 0; llx < steps+1; llx++) {
+  			x = llx * dx; 
+    		if ((llx == 0) && (lly == 0)) glTexCoord2f(0,0); 
      		glVertex3f(x,y,0);
      		if ((llx == 0) && (lly == steps -1)) glTexCoord2d(0,1);
       		glVertex3f(x,y+dy,0);
-    	}
+		}
 
-    	if ((llx == steps) && (lly == 0)) glTexCoord2f(1,0);
-    	glVertex3f(x+dx,y,0);
-    	if ((llx == steps) && (lly == steps-1)) glTexCoord2f(1,1);
-        glVertex3f(x+dx,y+dy,0);
+		if ((llx == steps) && (lly == 0)) glTexCoord2f(1,0);
+		glVertex3f(x+dx,y,0);
+		if ((llx == steps) && (lly == steps-1)) glTexCoord2f(1,1);
+	    glVertex3f(x+dx,y+dy,0);
 
-    	glEnd();
-    }
+		glEnd();
+	}
     */
-
-    if (true == _bUseTexture() ) oTexturePtr->Painted();
+    
+	if (true == _bUseTexture() ) oTexturePtr->Painted();
 }
 
 /* ***  PROTECTED                         ***   */

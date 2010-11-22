@@ -1,9 +1,9 @@
-/**\file ntbp_custom_cylindrical_compartment_obj.cpp - NTBP_custom_cylindrical_compartment_o class implementation
- * by Ahmed Aldo Faisal &copy; created 26.3.2001
+/**\file ntbp_custom_cylindrical_compartment_obj.cpp - NTBP_custom_cylindrical_compartment_o class implementation 
+ * by Ahmed Aldo Faisal &copy; created 26.3.2001  
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
  * Version:  0.5
- * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
+ * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -18,42 +18,45 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */
+ */ 
+  
 
-
-/* $Id: ntbp_custom_cylindrical_compartment_obj.cpp,v 1.1 2001/10/03 14:37:52 face Exp $
+/* $Id: ntbp_custom_cylindrical_compartment_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $ 
  * $Log: ntbp_custom_cylindrical_compartment_obj.cpp,v $
+ * Revision 1.1.1.1  2004/12/16 01:38:36  face
+ * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+ *
  * Revision 1.1  2001/10/03 14:37:52  face
  * *** empty log message ***
  *
  */
 
-#include "ntbp_custom_cylindrical_compartment_obj.h"
+#include "ntbp_custom_cylindrical_compartment_obj.h" 
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NTBP_custom_cylindrical_compartment_o */
 NTBP_custom_cylindrical_compartment_o::NTBP_custom_cylindrical_compartment_o(NTreal newLength, NTreal newDiameter, NTreal newCm, NTreal newRa)
-        :
-        NTBP_cylindrical_compartment_o(newLength, newDiameter)
+:
+NTBP_cylindrical_compartment_o(newLength, newDiameter)
 {
-    Set_cM(newCm);
-    Set_rA(newRa);
+	Set_cM(newCm);
+	Set_rA(newRa);
 }
 
-/* ***      COPY AND ASSIGNMENT	***/
+/* ***      COPY AND ASSIGNMENT	***/ 
 NTBP_custom_cylindrical_compartment_o::NTBP_custom_cylindrical_compartment_o(const NTBP_custom_cylindrical_compartment_o & original)
-        :
-        NTBP_cylindrical_compartment_o(original._length(), original._diameter())
+:
+NTBP_cylindrical_compartment_o(original._length(), original._diameter())
 {
-// add assignment code here
+ // add assignment code here
 }
 
-const NTBP_custom_cylindrical_compartment_o&
+const NTBP_custom_cylindrical_compartment_o&  
 NTBP_custom_cylindrical_compartment_o::operator= (const NTBP_custom_cylindrical_compartment_o & right)
 {
-    if (this == &right) return *this; // Gracefully handle self assignment
-// add assignment code here
-    return *this;
+ if (this == &right) return *this; // Gracefully handle self assignment
+ // add assignment code here
+  return *this;
 }
 
 /* ***      DESTRUCTOR		***/
@@ -61,8 +64,8 @@ NTBP_custom_cylindrical_compartment_o::~NTBP_custom_cylindrical_compartment_o()
 {
 }
 
-/* ***  PUBLIC                                    ***   */
-/** @short
+/* ***  PUBLIC                                    ***   */  
+/** @short       
     @param      none
     @return     none
    \warning    unknown
@@ -73,7 +76,7 @@ NTBP_custom_cylindrical_compartment_o::() const
 {
 }
  */
-
+ 
 /* ***  PROTECTED                         ***   */
 /* ***  PRIVATE                           ***   */
 

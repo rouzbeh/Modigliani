@@ -1,9 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node2" href="$class_n_t3_d__abstract__vp__o.html" title="NT3D_abstract_vp_o class The abstract viewport class houses the driver independent part of the visual..." alt="" coords="5,283,160,312"/>
-<area shape="rect" id="node4" href="$class_n_t3_d__vp__o.html" title="NT3D_vp_o class Superclass that unifys a common interface for abstract viewport implementations and t..." alt="" coords="25,200,119,229"/>
-<area shape="rect" id="node6" href="$class_n_t3_d__o.html" title="NT3D_o class The superclass for the NT3D graphic visualisation classes." alt="" coords="139,85,211,115"/>
-<area shape="rect" id="node13" href="$class_n_t3_d__object__o.html" title="NT3D object class." alt="" coords="192,200,309,229"/>
-<area shape="rect" id="node8" href="$class_n_t__o.html" title="Master class for all NT objects." alt="" coords="215,5,268,35"/>
-<area shape="rect" id="node16" href="$class_n_t__vector3__o.html" title="NT_vector3_o" alt="" coords="235,85,344,115"/>
-<area shape="rect" id="node11" href="$class_n_t3_d__camera__o.html" title="NT3D_camera_o class The class provides a freely movable imaginary camera in a three dimensional unive..." alt="" coords="187,283,315,312"/>
-</map>

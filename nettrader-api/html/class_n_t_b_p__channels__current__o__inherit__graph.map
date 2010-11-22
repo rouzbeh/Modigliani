@@ -1,7 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node9" href="$class_n_t_b_p__delayed__potassium__rectifier__current__o.html" title="NTBP_delayed_potassium_rectifier_current_o class." alt="" coords="5,315,315,344"/>
-<area shape="rect" id="node11" href="$class_n_t_b_p__sga__sodium__current__o.html" title="NTBP_sga_sodium_current_o class Channel density 330/muM^2 Single channel conductivity 4 pS Temperatur..." alt="" coords="339,315,547,344"/>
-<area shape="rect" id="node2" href="$class_n_t_b_p__membrane__current__o.html" title="NTBP_membrane_current_o class Represents the current accross a membrane, with its generalisable prope..." alt="" coords="200,160,403,189"/>
-<area shape="rect" id="node4" href="$class_n_t_b_p__object__o.html" title="NTBP_object_o" alt="" coords="243,83,360,112"/>
-<area shape="rect" id="node6" href="$class_n_t__o.html" title="Master class for all NT objects." alt="" coords="275,5,328,35"/>
-</map>

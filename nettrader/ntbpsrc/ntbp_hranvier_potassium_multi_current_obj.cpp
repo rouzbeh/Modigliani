@@ -21,8 +21,11 @@
  */
 
 
-/* $Id: ntbp_hranvier_potassium_multi_current_obj.cpp,v 1.1 2003/01/30 17:13:42 face Exp $
+/* $Id: ntbp_hranvier_potassium_multi_current_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
 * $Log: ntbp_hranvier_potassium_multi_current_obj.cpp,v $
+* Revision 1.1.1.1  2004/12/16 01:38:36  face
+* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+*
 * Revision 1.1  2003/01/30 17:13:42  face
 * *** empty log message ***
 *
@@ -50,60 +53,60 @@ NTreal NTBP_hranvier_potassium_multi_current_o::betaNvec[15000];
 /* ***      CONSTRUCTORS	***/
 /** Create a NTBP_hranvier_potassium_multi_current_o */
 NTBP_hranvier_potassium_multi_current_o::NTBP_hranvier_potassium_multi_current_o(
-    NTreal newArea,
-    NTreal newDensity,
-    NTreal newChannelConductance,
-    NTreal newVBase
-)
-        :
-        NTBP_multi_current_o( 0.0 /* mV */,newDensity , newArea, newChannelConductance, newVBase)
-{
-    NT_ASSERT (newArea >= 0);
-    NT_ASSERT (newDensity >= 0);
-    NT_ASSERT (newChannelConductance >= 0);
-
-    baseTemp=20.0; // C
-
-
-    NTreal vTmp;
-    if (false == initTableLookUp) {
-        for (NTsize ll=0; ll < 15000; ll++) {
-            vTmp = ((float)ll)/100.0 - 20.0 + 0.005/* otherwise we hit undefined points of alpha and beta function */;
-            alphaNvec[ll]= AlphaN(vTmp);
-            betaNvec[ll]= BetaN(vTmp);
-        }
-        initTableLookUp = true;
-    }
-    ComputeRateConstants(0);
-    n = alphaN/(alphaN + betaN);
-
-    noiseN = 0.0;
-    UpdateNumChannels();
-    channelsPtr = new NTBP_potassium_ion_channels_o( _numChannels() );
-    channelsPtr->SteadyStateDistribution();
+			NTreal newArea,
+			NTreal newDensity,
+			NTreal newChannelConductance,
+			NTreal newVBase
+			)
+:
+NTBP_multi_current_o( 0.0 /* mV */,newDensity , newArea, newChannelConductance, newVBase)
+{								
+	NT_ASSERT (newArea >= 0);
+	NT_ASSERT (newDensity >= 0);
+	NT_ASSERT (newChannelConductance >= 0);
+	
+	baseTemp=20.0; // C
+	
+	
+	NTreal vTmp;
+	if (false == initTableLookUp) {
+		for (NTsize ll=0; ll < 15000; ll++){
+			vTmp = ((float)ll)/100.0 - 20.0 + 0.005/* otherwise we hit undefined points of alpha and beta function */;
+			alphaNvec[ll]= AlphaN(vTmp);
+			betaNvec[ll]= BetaN(vTmp);
+		}
+		initTableLookUp = true;
+	}
+	ComputeRateConstants(0);
+	n = alphaN/(alphaN + betaN);
+	
+	noiseN = 0.0;
+	UpdateNumChannels();
+	channelsPtr = new NTBP_potassium_ion_channels_o( _numChannels() );		
+	channelsPtr->SteadyStateDistribution();
 }
 
 /* ***      COPY AND ASSIGNMENT	***/
 NTBP_hranvier_potassium_multi_current_o::NTBP_hranvier_potassium_multi_current_o(const NTBP_hranvier_potassium_multi_current_o & original)
-        :
-        NTBP_multi_current_o(original._reversalPotential(), original._density(), original._area(), original._conductivity())
+:
+NTBP_multi_current_o(original._reversalPotential(), original._density(), original._area(), original._conductivity())
 {
-// add assignment code here
-    channelsPtr = new NTBP_potassium_ion_channels_o( original._numChannels() );
+ // add assignment code here
+	channelsPtr = new NTBP_potassium_ion_channels_o( original._numChannels() );
 }
 
 const NTBP_hranvier_potassium_multi_current_o&
 NTBP_hranvier_potassium_multi_current_o::operator= (const NTBP_hranvier_potassium_multi_current_o & right)
 {
-    if (this == &right) return *this; // Gracefully handle self assignment
-    channelsPtr = new NTBP_potassium_ion_channels_o( right._numChannels() );
-    return *this;
+ if (this == &right) return *this; // Gracefully handle self assignment
+	channelsPtr = new NTBP_potassium_ion_channels_o( right._numChannels() );
+  return *this;
 }
 
 /* ***      DESTRUCTOR		***/
 NTBP_hranvier_potassium_multi_current_o::~NTBP_hranvier_potassium_multi_current_o()
 {
-    delete channelsPtr;
+	delete channelsPtr;
 }
 
 /* ***  PUBLIC                                    ***   */
@@ -117,17 +120,17 @@ NTBP_hranvier_potassium_multi_current_o::~NTBP_hranvier_potassium_multi_current_
 inline void
 NTBP_hranvier_potassium_multi_current_o::ComputeRateConstants(NTreal vM)
 {
-    NTreal q10Factor = NTBP_TemperatureRateRelation(_temperature(), baseTemp /* C */, 3.0);
-
-    NTsize index = 0;
-    if ( (vM < -20.0) || ( vM > 130.0 ) ) {
-        alphaN =  q10Factor * AlphaN(vM);
-        betaN =  q10Factor * BetaN(vM);
-    } else {
-        index = (NTsize) floor((vM+20.0)*100.0);
-        alphaN =  q10Factor * alphaNvec[index];
-        betaN =  q10Factor * betaNvec[index];
-    }
+	NTreal q10Factor = NTBP_TemperatureRateRelation(_temperature(), baseTemp /* C */, 3.0);
+	
+	NTsize index = 0;
+	if ( (vM < -20.0) || ( vM > 130.0 ) ) {
+		alphaN =  q10Factor * AlphaN(vM);
+		betaN =  q10Factor * BetaN(vM);
+	} else {
+		index = (NTsize) floor((vM+20.0)*100.0);
+		alphaN =  q10Factor * alphaNvec[index];
+		betaN =  q10Factor * betaNvec[index];
+	}
 }
 
 /* ***  PROTECTED                         ***   */
@@ -137,8 +140,8 @@ NTBP_hranvier_potassium_multi_current_o::SetDensityChild(NTreal channelDensity)/
 // 2DO improve : copy the state Besetzungszustaende
 	density = channelDensity;
 	delete	channelsPtr;
-	channelsPtr = new NTBP_potassium_ion_channels_o( density*area );
-	return NT_SUCCESS;
+	channelsPtr = new NTBP_potassium_ion_channels_o( density*area );		
+	return NT_SUCCESS;	
 }
 */
 
@@ -146,119 +149,114 @@ NTBP_hranvier_potassium_multi_current_o::SetDensityChild(NTreal channelDensity)/
 inline NTreal
 NTBP_hranvier_potassium_multi_current_o::ComputeChannelStateTimeConstant() const
 {
-    return channelsPtr->ComputeChannelStateTimeConstant();
+	return channelsPtr->ComputeChannelStateTimeConstant();
 }
 
 /** No descriptions */
 inline NTreal
 NTBP_hranvier_potassium_multi_current_o::OpenChannels() const
 {
-    switch (_simulationMode()) {
-    case NTBP_BINOMIALPOPULATION:
-    case NTBP_GILLESPIE:
-    case NTBP_SINGLECHANNEL:
-        return channelsPtr->NumOpen();
-        break;
-    case NTBP_LANGEVIN:
-    case NTBP_DETERMINISTIC:
-        return n*n*n*n*NumChannels();
-    default:
-        cerr << "NTBP_hranvier_potassium_multi_current_o::OpenChannels - ERROR : Unsupported simulation mode for OpenChannels()." << endl;
-        return 0;
-    }
+	switch(_simulationMode()) {
+		case NTBP_BINOMIALPOPULATION:
+		case NTBP_GILLESPIE:
+		case NTBP_SINGLECHANNEL:
+				return channelsPtr->NumOpen();
+				break;
+		case NTBP_LANGEVIN:
+		case NTBP_DETERMINISTIC:
+				return n*n*n*n*NumChannels();
+		default:
+				cerr << "NTBP_hranvier_potassium_multi_current_o::OpenChannels - ERROR : Unsupported simulation mode for OpenChannels()." << endl;
+				return 0;			}	
 }
 
 
 inline NTreal
 NTBP_hranvier_potassium_multi_current_o::ComputeConductance()
 {
-    switch (_simulationMode()) {
-    case NTBP_GILLESPIE:
-    case NTBP_SINGLECHANNEL:
-    case NTBP_BINOMIALPOPULATION:
-        return Set_conductance( channelsPtr->NumOpen() * conductivity);
-        break;
-    case NTBP_LANGEVIN:
-    case NTBP_DETERMINISTIC:
-        return Set_conductance(_maxConductivity() /* mS/cm^2 */ * n*n*n*n * _area() /* muMeter^2 */ * 1.0e-8 /* cm^2/muMeter^2 */);
-        break;
-    case NTBP_NOISYMEAN:
-    {
-        cerr <<"NOISYMEAN: NOT IMPLEMENTED PROPERLY" << endl;
-        NTreal mean = n*n*n*n;
-        NTreal numAddOpening = n*n*n*(1-n)* alphaN/_timeStep();
-        NTreal numAddClosing = n*n*n*n * 4.0 * betaN/_timeStep();
+	switch(_simulationMode()) {
+		case NTBP_GILLESPIE:
+		case NTBP_SINGLECHANNEL:
+		case NTBP_BINOMIALPOPULATION:
+				return Set_conductance( channelsPtr->NumOpen() * conductivity);
+				break;
+		case NTBP_LANGEVIN:
+		case NTBP_DETERMINISTIC:
+				return Set_conductance(_maxConductivity() /* mS/cm^2 */ * n*n*n*n * _area() /* muMeter^2 */ * 1.0e-8 /* cm^2/muMeter^2 */);	
+				break;
+		case NTBP_NOISYMEAN:
+				{
+					cerr <<"NOISYMEAN: NOT IMPLEMENTED PROPERLY" << endl;
+					NTreal mean = n*n*n*n;
+					NTreal numAddOpening = n*n*n*(1-n)* alphaN/_timeStep();
+					NTreal numAddClosing = n*n*n*n * 4.0 * betaN/_timeStep();
 //					mean = uniformRnd.RndVal()
-        return Set_conductance(_maxConductivity() /* mS/cm^2 */ *  mean * _area() /* muMeter^2 */ * 1.0e-8 /* cm^2/muMeter^2 */);
-    }
-    default:
-        cerr << "NTBP_hranvier_potassium_multi_current_o::ComputeConductance - ERROR : Unsupported simulation mode for ComputeConductance." << endl;
-        return 0;
-    }
+					return Set_conductance(_maxConductivity() /* mS/cm^2 */ *  mean * _area() /* muMeter^2 */ * 1.0e-8 /* cm^2/muMeter^2 */);					
+				}
+		default:
+				cerr << "NTBP_hranvier_potassium_multi_current_o::ComputeConductance - ERROR : Unsupported simulation mode for ComputeConductance." << endl;
+				return 0;
+	}
 }
 
 
 inline NTreturn NTBP_hranvier_potassium_multi_current_o::StepCurrent()
 {
-    vector < NTreal > vec(2);
-    vec[0] = alphaN;
-    vec[1] = betaN;
+	vector < NTreal > vec(2);
+	vec[0] = alphaN;
+	vec[1] = betaN;
+	
+	NTsize counter = 0;
+	NTreal tmpN = 0;
 
-    NTsize counter = 0;
-    NTreal tmpN = 0;
-
-    switch (_simulationMode()) {
-    case NTBP_BINOMIALPOPULATION:
-        NT_ASSERT(	(channelsPtr)->UpdateStateProb(vec) == NT_SUCCESS );
-        return (channelsPtr->BinomialStep());
-        break;
-    case NTBP_GILLESPIE:
-        return (channelsPtr)->UpdateStateProb(vec);
-        break;
-    case NTBP_SINGLECHANNEL:
-        NT_ASSERT(	(channelsPtr)->UpdateStateProb(vec) == NT_SUCCESS );
-        return (channelsPtr->Step());
-        break;
-    case NTBP_LANGEVIN:
-        counter = 0;
-        n += _timeStep() * ((1.0 - n) * alphaN - n * betaN);
-        NT_ASSERT(n>=0 &&  n<= 1);
-        do {
-            counter++;
-            tmpN = _timeStep()*normalRnd.RndVal()
-                   * sqrt(
-                       (alphaN* (1-n) + betaN * n)
-                       /  _numChannels() );
-            if (counter > 1 && counter <= 1024)	cerr << "Kn=" <<counter << endl;
-            else if (counter > 1024) {
-                noiseN = 0;
-                tmpN = 0;
-                break;
-            }
-        } while ((_timeStep()*(tmpN + noiseN) + n >= 1) || (_timeStep()*(tmpN + noiseN) + n <= 0));
-        noiseN += tmpN;
-        n += _timeStep()*noiseN;
-        return NT_SUCCESS;
-        break;
-    case NTBP_NOISYMEAN:
-    case NTBP_DETERMINISTIC:
-        n += _timeStep() * ((1.0 - n) * alphaN - n * betaN);
-        NT_ASSERT(n>=0 &&  n<= 1);
-        return NT_SUCCESS;
-        break;
-    default:
-        cerr << "NTBP_hranvier_potassium_multi_current_o::StepCurrent - ERROR : Unsupported simulation mode." << endl;
-        return NT_PARAM_UNSUPPORTED;
-    }
+	switch(_simulationMode()) {
+		case NTBP_BINOMIALPOPULATION:
+					NT_ASSERT(	(channelsPtr)->UpdateStateProb(vec) == NT_SUCCESS );
+					return (channelsPtr->BinomialStep());			
+				break;
+		case NTBP_GILLESPIE:
+					return (channelsPtr)->UpdateStateProb(vec);
+				break;
+		case NTBP_SINGLECHANNEL:
+					NT_ASSERT(	(channelsPtr)->UpdateStateProb(vec) == NT_SUCCESS );
+					return (channelsPtr->Step());			
+				break;
+		case NTBP_LANGEVIN:
+					counter = 0;
+					n += _timeStep() * ((1.0 - n) * alphaN - n * betaN);
+					NT_ASSERT(n>=0 &&  n<= 1);			
+					do {
+						counter++;
+						tmpN = _timeStep()*normalRnd.RndVal()
+						* sqrt(
+							(alphaN* (1-n) + betaN * n)
+							/  _numChannels() );
+					if (counter > 1 && counter <= 1024)	cerr << "Kn=" <<counter << endl;
+					else if (counter > 1024) {noiseN = 0; tmpN = 0; break;}
+					} while ((_timeStep()*(tmpN + noiseN) + n >= 1) || (_timeStep()*(tmpN + noiseN) + n <= 0));					
+					noiseN += tmpN;
+					n += _timeStep()*noiseN;
+					return NT_SUCCESS;							
+				break;
+		case NTBP_NOISYMEAN:
+		case NTBP_DETERMINISTIC:
+					n += _timeStep() * ((1.0 - n) * alphaN - n * betaN);
+					NT_ASSERT(n>=0 &&  n<= 1);			
+					return NT_SUCCESS;
+				break;
+		default:
+				cerr << "NTBP_hranvier_potassium_multi_current_o::StepCurrent - ERROR : Unsupported simulation mode." << endl;
+				return NT_PARAM_UNSUPPORTED;
+	}
 }
 
 
 void NTBP_hranvier_potassium_multi_current_o::ShowParam() const
 {
-    cout << "K channel parameters:" << endl;
-    cout << "Single channel conductivity [nA]" << _conductivity() << endl;
-    cout << "Channel density [1/muMeter^2]" << _area() << endl;
-    cout << "MaxConductivity (all channels open) mSiemens/cm^2" << _maxConductivity() << endl;
+ 	cout << "K channel parameters:" << endl;
+	cout << "Single channel conductivity [nA]" << _conductivity() << endl;
+	cout << "Channel density [1/muMeter^2]" << _area() << endl;
+	cout << "MaxConductivity (all channels open) mSiemens/cm^2" << _maxConductivity() << endl;
 }
 
 /* ***  PRIVATE                           ***   */

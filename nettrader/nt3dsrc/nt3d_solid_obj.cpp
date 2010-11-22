@@ -1,9 +1,9 @@
 /** \file nt3d_solid_obj.cpp - NT3D solid class implementation
- * by Ahmed Aldo Faisal &copy; created 15.10.1998
+ * by Ahmed Aldo Faisal &copy; created 15.10.1998  
  */
-/* NetTrader - finance management, analysis and simulation system
- * Version:   0.2
- * Copyright (C) 1998 Ahmed Aldo Faisal
+/* NetTrader - finance management, analysis and simulation system 
+ * Version:   0.2						 
+ * Copyright (C) 1998 Ahmed Aldo Faisal 
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -21,8 +21,11 @@
  */
 
 
-/* $Id: nt3d_solid_obj.cpp,v 1.1 2001/06/29 13:16:55 face Exp $
+/* $Id: nt3d_solid_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
  * $Log: nt3d_solid_obj.cpp,v $
+ * Revision 1.1.1.1  2004/12/16 01:38:36  face
+ * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+ *
  * Revision 1.1  2001/06/29 13:16:55  face
  * *** empty log message ***
  *
@@ -125,12 +128,12 @@
 
 /* 	CONSTRUCTORS 		*/
 NT3D_solid_o::NT3D_solid_o(const NT_vector3_o & oNewPosition)
-        :
-        NT3D_surfaced_object_o(oNewPosition),
-        oScaling(1.0, 1.0, 1.0)
+:
+NT3D_surfaced_object_o(oNewPosition),
+oScaling(1.0, 1.0, 1.0)
 {
-    NT_CERR(9,"NT3D_solid_o::NT3D_solid_o()");
-    InitQuadric();
+  NT_CERR(9,"NT3D_solid_o::NT3D_solid_o()");
+  InitQuadric();
 }
 
 
@@ -141,33 +144,33 @@ NT3D_solid_o::NT3D_solid_o(const NT_vector3_o & oNewPosition)
 but instead a new quadric object is initialized.  All necessary
 information should be stored inside the ellipsoid object such that the
 state of that object can be reconstructed by copying the corresponding
-object data.
+object data.  
 Note: The texturePointer is not copied BUT instead a new is generated based on the original.*/
 NT3D_solid_o::NT3D_solid_o(const NT3D_solid_o & original)
 {
-    pQuadObj = gluNewQuadric();
-    drawStyle = original.drawStyle;
-    slices = original.slices;
-    stacks = original.stacks;
+  pQuadObj = gluNewQuadric();
+  drawStyle = original.drawStyle;
+  slices = original.slices;
+  stacks = original.stacks;  
 }
 
 /** The copy constructor does NOT actually copy the quadric object,
 but instead a new quadric object is initialized.  All necessary
 information should be stored inside the ellipsoid object such that the
 state of that object can be reconstructed by copying the corresponding
-object data.
+object data. 
 Note: The texturePointer is not copied BUT instead a new is generated based on the original. */
-const NT3D_solid_o&
+const NT3D_solid_o&  
 NT3D_solid_o::operator= (const NT3D_solid_o & right)
 {
-    if (this == &right) return *this; // Gracefully handle self assignment
-    //free(pQuadObj);
-    pQuadObj = gluNewQuadric();
-    drawStyle = right.drawStyle;
-    slices = right.slices;
-    stacks = right.stacks;
-
-    return *this;
+  if (this == &right) return *this; // Gracefully handle self assignment
+  //free(pQuadObj);
+  pQuadObj = gluNewQuadric();
+  drawStyle = right.drawStyle;
+  slices = right.slices;
+  stacks = right.stacks;
+  
+  return *this;
 }
 
 
@@ -175,41 +178,41 @@ NT3D_solid_o::operator= (const NT3D_solid_o & right)
 /** Everything (also the oTexturePtr) is cleaned up */
 NT3D_solid_o::~NT3D_solid_o()
 {
-    // cerr <<"NT3D_solid_o::~NT3D_solid_o() - Warning : gluQuadric not deleted." << endl;
-    gluDeleteQuadric(pQuadObj);
+	// cerr <<"NT3D_solid_o::~NT3D_solid_o() - Warning : gluQuadric not deleted." << endl;
+	gluDeleteQuadric(pQuadObj);
 }
 
 
-/*   	PUBLIC                	*/
+/*   	PUBLIC                	*/  
 
-void
+void 
 NT3D_solid_o::Scale(  NT_vector3_o oDeltaScaling )
 {
-    oScaling = oScaling + oDeltaScaling;
+	oScaling = oScaling + oDeltaScaling;
 }
 
 void
 NT3D_solid_o::ScaleX ( NTreal deltaSclX)
 {
-    oScaling[0] += deltaSclX;
+	oScaling[0] += deltaSclX;
 }
 
 void
 NT3D_solid_o::ScaleY ( NTreal deltaSclY)
 {
-    oScaling[1] += deltaSclY;
+	oScaling[1] += deltaSclY;
 }
 
 void
 NT3D_solid_o::ScaleZ ( NTreal deltaSclZ)
 {
-    oScaling[2] += deltaSclZ;
+	oScaling[2] += deltaSclZ;
 }
 
 void
 NT3D_solid_o::ScaleXYZ ( NTreal deltaSclXYZ)
 {
-    oScaling = oScaling * deltaSclXYZ;
+	oScaling = oScaling * deltaSclXYZ;
 }
 
 
@@ -228,16 +231,16 @@ NT3D_solid_o::ScaleXYZ ( NTreal deltaSclXYZ)
 void
 NT3D_solid_o::InitQuadric()
 {
-    slices = 16;
-    stacks = 8;
-    pQuadObj = gluNewQuadric();
-    drawStyle = GLU_FILL;
+  slices = 16;
+  stacks = 8;
+  pQuadObj = gluNewQuadric();
+  drawStyle = GLU_FILL;
 }
 
 /** @short 	Capsuled draw method to include color and material drawing
 	Do not override in derived classes,
 	Use DrawSolidObj instead!
-
+	
     @param 	none
     @return 	none
     \warning 	unknown
@@ -246,38 +249,38 @@ NT3D_solid_o::InitQuadric()
 void
 NT3D_solid_o::DrawSurfacedObj()
 {
-    oMaterial.Paint();
-
+	oMaterial.Paint();
+	
     if (true == _bUseTexture() ) {
-        NT_CERR(11, "NT3D_solid_o::DrawSurfacedObj() - with use of textures called.");
-        oTexturePtr->Paint();
-        gluQuadricNormals(pQuadObj, GL_SMOOTH);
-        gluQuadricTexture(pQuadObj, GL_TRUE);
-    } else  oTexturePtr->Painted();
+		NT_CERR(11, "NT3D_solid_o::DrawSurfacedObj() - with use of textures called.");
+    	oTexturePtr->Paint();
+    	gluQuadricNormals(pQuadObj, GL_SMOOTH);
+    	gluQuadricTexture(pQuadObj, GL_TRUE);
+    } else  oTexturePtr->Painted(); 
 
-    DrawSolidObj();
+  	DrawSolidObj();
 
-    if (true == _bUseTexture() ) oTexturePtr->Painted();
+  	if (true == _bUseTexture() ) oTexturePtr->Painted();
 }
 
-
-void
+ 
+void 
 NT3D_solid_o::ControlSurfacedObj(NT3Dcontroller cntrl , NTint value)
 {
-    switch	(cntrl) {
-    case NT3D_DrawStyle:
-        drawStyle = value;
-        gluQuadricDrawStyle( pQuadObj,
-                             (GLenum) drawStyle );
-        break;
-    case NT3D_Slices:
-        slices = value;
-        break;
-    case NT3D_Stacks:
-        stacks = value;
-        break;
-    default:
-        break;
-    }
-}
+	switch	(cntrl){
+	case NT3D_DrawStyle:	
+		drawStyle = value;
+    	gluQuadricDrawStyle( pQuadObj,
+         	                 (GLenum) drawStyle );
+		break;
+	case NT3D_Slices: 
+		slices = value;
+	 	break;
+	case NT3D_Stacks: 
+		stacks = value;
+		break;
+	default:
+		break;
+	}
+}	
 

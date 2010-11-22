@@ -1,9 +1,9 @@
-/** \file nt3d_cylinder_obj.h - NT_cylinder_o class declaration
- * by Ahmed Aldo Faisal &copy; created  15.10.1998
+/** \file nt3d_cylinder_obj.h - NT_cylinder_o class declaration 
+ * by Ahmed Aldo Faisal &copy; created  15.10.1998  
  */
-/* NetTrader - finance management, analysis and simulation system
- * Version:  0.2
- * Copyright (C) 1998 Ahmed Aldo Faisal
+/* NetTrader - finance management, analysis and simulation system 
+ * Version:  0.2 						  
+ * Copyright (C) 1998 Ahmed Aldo Faisal 			  
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -21,8 +21,11 @@
  */
 
 
-/* $Id: nt3d_cylinder_obj.h,v 1.1 2001/06/29 13:16:55 face Exp $
+/* $Id: nt3d_cylinder_obj.h,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
  * $Log: nt3d_cylinder_obj.h,v $
+ * Revision 1.1.1.1  2004/12/16 01:38:36  face
+ * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+ *
  * Revision 1.1  2001/06/29 13:16:55  face
  * *** empty log message ***
  *
@@ -74,33 +77,33 @@
 #include <GL/glu.h>
 
 /** @short NT3D_cylinder_o class
-  Draws a cylinder with its height pointed towards Z-Axis
+  Draws a cylinder with its height pointed towards Z-Axis 
 \bug unknown
-\warning unknown
+\warning unknown 
  */
 class NT3D_cylinder_o : public NT3D_solid_o {
 public:
-    NT3D_cylinder_o();
-    NT3D_cylinder_o(NT_vector3_o oNewPosition);
-    NT3D_cylinder_o(NT_vector3_o oBaseCenter, NTreal newHeight, NTreal newRadius);
-    NT3D_cylinder_o(const NT3D_cylinder_o & original);
-    const NT3D_cylinder_o & operator= (const NT3D_cylinder_o & right);
-    ~NT3D_cylinder_o();
-    /*   Methods                */
-    void DrawSolidObj() const;
-    /*   Data                   */
+  NT3D_cylinder_o();
+  NT3D_cylinder_o(NT_vector3_o oNewPosition);
+  NT3D_cylinder_o(NT_vector3_o oBaseCenter, NTreal newHeight, NTreal newRadius);
+  NT3D_cylinder_o(const NT3D_cylinder_o & original);
+  const NT3D_cylinder_o & operator= (const NT3D_cylinder_o & right);
+  ~NT3D_cylinder_o();
+  /*   Methods                */  
+  void DrawSolidObj() const;
+  /*   Data                   */  
 protected:
-    /*   Methods                */
-    /*   Data                   */
+  /*   Methods                */  
+  /*   Data                   */  
 private:
-    /*   Methods                */
-    void Init(NTreal radius);
-    /*   Data                   */
-    NTreal topRadius;
-    NTreal baseRadius;
-    NTreal height;
-    NTbool bHaveTopClosed;
-    NTbool bHaveBaseClosed;
+  /*   Methods                */  
+  void Init(NTreal radius);
+  /*   Data                   */
+  NTreal topRadius;
+  NTreal baseRadius;
+  NTreal height;
+  NTbool bHaveTopClosed;
+  NTbool bHaveBaseClosed;
 };
 
 

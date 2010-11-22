@@ -21,8 +21,11 @@
  */
 
 
-/* $Id: ntbp_colbert_axonal_sodium_multi_current_obj.h,v 1.3 2003/04/08 15:13:36 face Exp $
+/* $Id: ntbp_colbert_axonal_sodium_multi_current_obj.h,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
 * $Log: ntbp_colbert_axonal_sodium_multi_current_obj.h,v $
+* Revision 1.1.1.1  2004/12/16 01:38:36  face
+* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+*
 * Revision 1.3  2003/04/08 15:13:36  face
 * *** empty log message ***
 *
@@ -63,78 +66,62 @@ Nature Neurosci., Vol. 5, No. 6., p.533-538
 */
 class NTBP_colbert_axonal_sodium_multi_current_o : public NTBP_multi_current_o {
 public:
-    /***   Constructors, Copy/Assignment and Destructor  ***/
-    NTBP_colbert_axonal_sodium_multi_current_o(NTreal area /* in muMeter^2 */,
-            NTreal density = 55 /* in num/muMeter^2 */,
-            NTreal channelConductance = 14.8e-9, /* in mSiemens per channel = 14.8 at 24 C (Colbert & Johnston (1996))*/
-            NTreal vBase = -63/* in mV */
-                                              );
-    NTBP_colbert_axonal_sodium_multi_current_o(const NTBP_colbert_axonal_sodium_multi_current_o & original);
-    const NTBP_colbert_axonal_sodium_multi_current_o & operator= (const NTBP_colbert_axonal_sodium_multi_current_o & right);
-    virtual ~NTBP_colbert_axonal_sodium_multi_current_o();
-    /* ***  Methods              ***/
-    /** in 1/ms or kHz */
-    NTreal ComputeChannelStateTimeConstant() const;
-    NTreturn StepCurrent();
-    NTreal OpenChannels() const;
-    NTreal ComputeConductance();
-    void ComputeRateConstants(NTreal vM /* in mV */);
-    void ShowChannelStatePopulation() {
-        channelsPtr->ShowStates();
-    }
-    void Show() {
-        cout << " alphaM= " << alphaM << "\t betaM= " << betaM << "\t openRatio= " << ((double)channelsPtr->NumOpen())/channelsPtr->_numChannels()
-             << "\t alphaH= " << alphaH << "\t betaH= " << betaH << "\t openNum= " << channelsPtr->NumOpen();
-    }
-    /** Rate constants based on measurment data (Fig.2), not on model data */
-    NTreal AlphaM(NTreal vM /* in mV */) {
-        vM += _vBase();
-        return 0.182*(vM+46.5)/(1.0-exp((-vM-46.5)/6.0));
-    }
-    /** Rate constants based on measurment data (Fig.2), not on model data */
-    NTreal BetaM(NTreal vM /* in mV */) {
-        vM += _vBase();
-        return 0.124*(-vM-46.5)/(1.0-exp((vM+46.5)/6.0));
-    }
-    /** Rate constants based on measurment data (Fig.2), not on model data */
-    NTreal AlphaH(NTreal vM /* in mV */) {
-        vM += _vBase();
-        return -0.015*(vM+69.0)/(1.0-exp((vM+69.0)/6.0));
-    }
-    /** Rate constants based on measurment data (Fig.2), not on model data */
-    NTreal BetaH(NTreal vM /* in mV */) {
-        vM += _vBase();
-        return -0.015*(-vM-69.0)/(1.0-exp((-vM-69.0)/6.0));
-    }
-    /**  */
-    void ShowParam() const;
-    /* ***  Data                 ***/
+/***   Constructors, Copy/Assignment and Destructor  ***/
+NTBP_colbert_axonal_sodium_multi_current_o(NTreal area /* in muMeter^2 */,
+																		 NTreal density = 55 /* in num/muMeter^2 */,
+																		 NTreal channelConductance = 14.8e-9, /* in mSiemens per channel = 14.8 at 24 C (Colbert & Johnston (1996))*/
+																		 NTreal vBase = -63/* in mV */
+  																	 );
+NTBP_colbert_axonal_sodium_multi_current_o(const NTBP_colbert_axonal_sodium_multi_current_o & original);
+const NTBP_colbert_axonal_sodium_multi_current_o & operator= (const NTBP_colbert_axonal_sodium_multi_current_o & right);
+virtual ~NTBP_colbert_axonal_sodium_multi_current_o();
+/* ***  Methods              ***/
+/** in 1/ms or kHz */
+NTreal ComputeChannelStateTimeConstant() const;
+NTreturn StepCurrent();
+NTreal OpenChannels() const;
+NTreal ComputeConductance();
+void ComputeRateConstants(NTreal vM /* in mV */);
+void ShowChannelStatePopulation() { channelsPtr->ShowStates(); }
+void Show() {  cout << " alphaM= " << alphaM << "\t betaM= " << betaM << "\t openRatio= " << ((double)channelsPtr->NumOpen())/channelsPtr->_numChannels()
+				   << "\t alphaH= " << alphaH << "\t betaH= " << betaH << "\t openNum= " << channelsPtr->NumOpen();}
+/** Rate constants based on measurment data (Fig.2), not on model data */
+NTreal AlphaM(NTreal vM /* in mV */) { 	 vM += _vBase(); return 0.182*(vM+46.5)/(1.0-exp((-vM-46.5)/6.0));}
+/** Rate constants based on measurment data (Fig.2), not on model data */
+NTreal BetaM(NTreal vM /* in mV */) { 	vM += _vBase(); return 0.124*(-vM-46.5)/(1.0-exp((vM+46.5)/6.0));}
+/** Rate constants based on measurment data (Fig.2), not on model data */
+NTreal AlphaH(NTreal vM /* in mV */) { 	vM += _vBase(); return -0.015*(vM+69.0)/(1.0-exp((vM+69.0)/6.0));}
+/** Rate constants based on measurment data (Fig.2), not on model data */
+NTreal BetaH(NTreal vM /* in mV */) { 	vM += _vBase(); return -0.015*(-vM-69.0)/(1.0-exp((-vM-69.0)/6.0));}
+  /**  */
+void ShowParam() const;
+/* ***  Data                 ***/
 protected:
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
+/* ***  Methods              ***/
+/* ***  Data                 ***/
 private:
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
-    static NT_gaussian_rnd_dist_o normalRnd; // notice, sometimes a linker error is produced, which can be removed by adding a NT_gaussian_..._o object at the beginning of the main() code.
+/* ***  Methods              ***/
+/* ***  Data                 ***/
+static NT_gaussian_rnd_dist_o normalRnd; // notice, sometimes a linker error is produced, which can be removed by adding a NT_gaussian_..._o object at the beginning of the main() code.
 
-    static bool initTableLookUp;
+static bool initTableLookUp;
 
-    NTreal baseTemp; // C
-    NTreal alphaM;
-    NTreal betaM;
-    NTreal m;
-    NTreal noiseM;
-    static NTreal alphaMvec[15000];
-    static NTreal betaMvec[15000];
-    NTreal q10m;
+NTreal baseTemp; // C
+NTreal alphaM;
+NTreal betaM;
+NTreal m;
+NTreal noiseM;
+static NTreal alphaMvec[15000];
+static NTreal betaMvec[15000];
+NTreal q10m;
 
-    NTreal alphaH;
-    NTreal betaH;
-    NTreal h;
-    NTreal noiseH;
-    static NTreal alphaHvec[15000];
-    static NTreal betaHvec[15000];
-    NTreal q10h;
+NTreal alphaH;
+NTreal betaH;
+NTreal h;
+NTreal noiseH;
+static NTreal alphaHvec[15000];
+static NTreal betaHvec[15000];
+NTreal q10h;
 };
 
 

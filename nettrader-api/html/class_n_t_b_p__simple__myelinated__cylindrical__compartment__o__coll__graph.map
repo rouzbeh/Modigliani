@@ -1,6 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node2" href="$class_n_t_b_p__cylindrical__compartment__o.html" title="NTBP_cylindrical_compartment_o class." alt="" coords="69,237,304,267"/>
-<area shape="rect" id="node4" href="$class_n_t_b_p__membrane__compartment__o.html" title="NTBP_membrane_compartment_o class acts as a &quot;container + glue&quot; for the various membrane_cur..." alt="" coords="65,160,308,189"/>
-<area shape="rect" id="node6" href="$class_n_t_b_p__object__o.html" title="NTBP_object_o" alt="" coords="128,83,245,112"/>
-<area shape="rect" id="node8" href="$class_n_t__o.html" title="Master class for all NT objects." alt="" coords="160,5,213,35"/>
-</map>

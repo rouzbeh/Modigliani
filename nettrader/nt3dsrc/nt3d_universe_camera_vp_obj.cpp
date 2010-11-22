@@ -1,9 +1,9 @@
-/**\file nt3d_universe_camera_vp_obj.cpp - NT3D_universe_camera_vp_o class implementation
- * by Ahmed Aldo Faisal &copy; created 19.7.1999
+/**\file nt3d_universe_camera_vp_obj.cpp - NT3D_universe_camera_vp_o class implementation 
+ * by Ahmed Aldo Faisal &copy; created 19.7.1999  
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
  * Version:  0.4
- * Copyright (C) 1998,199 Ahmed Aldo Faisal
+ * Copyright (C) 1998,199 Ahmed Aldo Faisal    
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -18,11 +18,14 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */
+ */ 
+  
 
-
-/* $Id: nt3d_universe_camera_vp_obj.cpp,v 1.2 2003/06/23 10:06:51 face Exp $
+/* $Id: nt3d_universe_camera_vp_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $ 
 * $Log: nt3d_universe_camera_vp_obj.cpp,v $
+* Revision 1.1.1.1  2004/12/16 01:38:36  face
+* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+*
 * Revision 1.2  2003/06/23 10:06:51  face
 * Upgraded to gcc-3.3 compilability
 *
@@ -47,47 +50,47 @@
 
 */
 
-#include "nt3d_universe_camera_vp_obj.h"
+#include "nt3d_universe_camera_vp_obj.h" 
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NT3D_universe_camera_vp_o */
 NT3D_universe_camera_vp_o::NT3D_universe_camera_vp_o()
-        :
-        NT3D_camera_vp_o()
+:
+NT3D_camera_vp_o()
 {
-    haveUniverse = false;
+	haveUniverse = false;
 }
 
 NT3D_universe_camera_vp_o::NT3D_universe_camera_vp_o(NT3D_universe_o * pNewUniverse)
-        :
-        NT3D_camera_vp_o()
+:
+NT3D_camera_vp_o()
 {
-    pUniverse = pNewUniverse;
-    haveUniverse = true;
+	pUniverse = pNewUniverse;
+	haveUniverse = true;
 }
 
 NT3D_universe_camera_vp_o::NT3D_universe_camera_vp_o(NT3D_camera_o * pNewCamera)
-        :
-        NT3D_camera_vp_o(pNewCamera)
+:
+NT3D_camera_vp_o(pNewCamera)
 {
-    haveUniverse = false;
+	haveUniverse = false;
 }
 
 
-/* ***      COPY AND ASSIGNMENT	***/
+/* ***      COPY AND ASSIGNMENT	***/ 
 NT3D_universe_camera_vp_o::NT3D_universe_camera_vp_o(const NT3D_universe_camera_vp_o & original)
 {
-    // take care of camera and universe pointers and their deletability and new creation!
-    NT_CERR(1,"NT3D_universe_camera_vp_o::NT3D_universe_camera_vp_o(const ...) - Error, copy constructor not implemented .");
+	// take care of camera and universe pointers and their deletability and new creation!
+	NT_CERR(1,"NT3D_universe_camera_vp_o::NT3D_universe_camera_vp_o(const ...) - Error, copy constructor not implemented .");
 }
 
-const NT3D_universe_camera_vp_o&
+const NT3D_universe_camera_vp_o&  
 NT3D_universe_camera_vp_o::operator= (const NT3D_universe_camera_vp_o & right)
 {
-    if (this == &right) return *this; // Gracefully handle self assignment
-// add assignment code here
-    NT_CERR(1,"NT3D_universe_camera_vp_o::operator= - Error : operator= not implemented .");
-    return *this;
+ if (this == &right) return *this; // Gracefully handle self assignment
+ // add assignment code here
+ NT_CERR(1,"NT3D_universe_camera_vp_o::operator= - Error : operator= not implemented .");
+  return *this;
 }
 
 /* ***      DESTRUCTOR		***/
@@ -95,41 +98,41 @@ NT3D_universe_camera_vp_o::~NT3D_universe_camera_vp_o()
 {
 }
 
-/* ***  PUBLIC                                    ***   */
-/** @short
+/* ***  PUBLIC                                    ***   */  
+/** @short       
     @param      none
     @return     none
    \warning    unknown
    \bug        unknown
  */
 inline void
-NT3D_universe_camera_vp_o::DrawScene()
+NT3D_universe_camera_vp_o::DrawScene() 
 {
-    if (false == haveUniverse) {
-        NT_CERR(3,"NT3D_universe_camera_vp_o::DrawScene - Warning : Universe was not added previously. Nothing drawn.");
-        return;
-    }
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_LIGHTING);
-    glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
-    glShadeModel (GL_SMOOTH);
-    pUniverse->Draw();
+	if (false == haveUniverse) {
+		NT_CERR(3,"NT3D_universe_camera_vp_o::DrawScene - Warning : Universe was not added previously. Nothing drawn.");
+		return;
+	} 
+	glEnable(GL_DEPTH_TEST);
+   	glEnable(GL_LIGHTING);
+   	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+	glShadeModel (GL_SMOOTH);
+	pUniverse->Draw();
 }
 
-/** @short
+/** @short       
     @param      none
     @return     none
    \warning    unknown
    \bug        unknown
  */
 NTreturn
-NT3D_universe_camera_vp_o::AddUniverse(NT3D_universe_o * pNewUniverse)
+NT3D_universe_camera_vp_o::AddUniverse(NT3D_universe_o * pNewUniverse) 
 {
-    if (NT_TRUE == haveUniverse)
-        NT_CERR(3,"NT3D_universe_camera_vp_o::AddUniverse - warning : new universe is overwriting old universe pointer.");
-    pUniverse = pNewUniverse;
-    haveUniverse = true;
-    return NT_SUCCESS;
+		if (NT_TRUE == haveUniverse)
+			NT_CERR(3,"NT3D_universe_camera_vp_o::AddUniverse - warning : new universe is overwriting old universe pointer.");
+		pUniverse = pNewUniverse;
+		haveUniverse = true;
+		return NT_SUCCESS;
 }
 
 

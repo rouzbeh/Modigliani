@@ -21,8 +21,11 @@
  */
 
 
-/* $Id: ntbp_hranvier_sodium_multi_current_obj.h,v 1.2 2003/01/30 17:13:42 face Exp $
+/* $Id: ntbp_hranvier_sodium_multi_current_obj.h,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
 * $Log: ntbp_hranvier_sodium_multi_current_obj.h,v $
+* Revision 1.1.1.1  2004/12/16 01:38:36  face
+* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+*
 * Revision 1.2  2003/01/30 17:13:42  face
 * *** empty log message ***
 *
@@ -63,74 +66,58 @@ J.Physiol. 430:283-292
 */
 class NTBP_hranvier_sodium_multi_current_o : public NTBP_multi_current_o {
 public:
-    /***   Constructors, Copy/Assignment and Destructor  ***/
-    NTBP_hranvier_sodium_multi_current_o(NTreal area /* in muMeter^2 */,
-                                         NTreal density = 110 /* in num/muMeter^2 */,
-                                         NTreal channelConductance = 1.3e-8, /* in mSiemens per channel = 13pS */
-                                         NTreal vBase = -84/* in mV */
-                                        );
-    NTBP_hranvier_sodium_multi_current_o(const NTBP_hranvier_sodium_multi_current_o & original);
-    const NTBP_hranvier_sodium_multi_current_o & operator= (const NTBP_hranvier_sodium_multi_current_o & right);
-    virtual ~NTBP_hranvier_sodium_multi_current_o();
-    /* ***  Methods              ***/
-    /** in 1/ms or kHz */
-    NTreal ComputeChannelStateTimeConstant() const;
-    NTreturn StepCurrent();
-    NTreal OpenChannels() const;
-    NTreal ComputeConductance();
-    void ComputeRateConstants(NTreal vM /* in mV */);
-    void ShowChannelStatePopulation() {
-        channelsPtr->ShowStates();
-    }
-    void Show() {
-        cout << " alphaM= " << alphaM << "\t betaM= " << betaM << "\t openRatio= " << ((double)channelsPtr->NumOpen())/channelsPtr->_numChannels()
-             << "\t alphaH= " << alphaH << "\t betaH= " << betaH << "\t openNum= " << channelsPtr->NumOpen();
-    }
-    NTreal AlphaM(NTreal vM /* in mV */) {
-        vM += _vBase();
-        return 1.86*(vM+18.4)/(1-exp((-18.4-vM)/10.3));
-    }
-    NTreal BetaM(NTreal vM /* in mV */) {
-        vM += _vBase();
-        return 0.0860*(-22.7-vM)/(1-exp((vM+22.7)/9.16));
-    }
-    NTreal AlphaH(NTreal vM /* in mV */) {
-        vM += _vBase();
-        return 0.0336*(-111.0-vM)/(1-exp((vM+111.0)/11.0));
-    }
-    NTreal BetaH(NTreal vM /* in mV */) {
-        vM += _vBase();
-        return 2.30/(1+exp((-28.8-vM)/13.4));
-    }
-    /**  */
-    void ShowParam() const;
-    /* ***  Data                 ***/
+/***   Constructors, Copy/Assignment and Destructor  ***/
+NTBP_hranvier_sodium_multi_current_o(NTreal area /* in muMeter^2 */,
+																		 NTreal density = 110 /* in num/muMeter^2 */,
+																		 NTreal channelConductance = 1.3e-8, /* in mSiemens per channel = 13pS */
+																		 NTreal vBase = -84/* in mV */
+  																	 );
+NTBP_hranvier_sodium_multi_current_o(const NTBP_hranvier_sodium_multi_current_o & original);
+const NTBP_hranvier_sodium_multi_current_o & operator= (const NTBP_hranvier_sodium_multi_current_o & right);
+virtual ~NTBP_hranvier_sodium_multi_current_o();
+/* ***  Methods              ***/
+/** in 1/ms or kHz */
+NTreal ComputeChannelStateTimeConstant() const;
+NTreturn StepCurrent();
+NTreal OpenChannels() const;
+NTreal ComputeConductance();
+void ComputeRateConstants(NTreal vM /* in mV */);
+void ShowChannelStatePopulation() { channelsPtr->ShowStates(); }
+void Show() {  cout << " alphaM= " << alphaM << "\t betaM= " << betaM << "\t openRatio= " << ((double)channelsPtr->NumOpen())/channelsPtr->_numChannels()
+				   << "\t alphaH= " << alphaH << "\t betaH= " << betaH << "\t openNum= " << channelsPtr->NumOpen();}
+NTreal AlphaM(NTreal vM /* in mV */) { 	 vM += _vBase(); return 1.86*(vM+18.4)/(1-exp((-18.4-vM)/10.3));}
+NTreal BetaM(NTreal vM /* in mV */) { 	vM += _vBase(); return 0.0860*(-22.7-vM)/(1-exp((vM+22.7)/9.16)); }
+NTreal AlphaH(NTreal vM /* in mV */) { 	vM += _vBase(); return 0.0336*(-111.0-vM)/(1-exp((vM+111.0)/11.0)); }
+NTreal BetaH(NTreal vM /* in mV */) { 	vM += _vBase(); return 2.30/(1+exp((-28.8-vM)/13.4)); }
+  /**  */
+void ShowParam() const;
+/* ***  Data                 ***/
 protected:
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
+/* ***  Methods              ***/
+/* ***  Data                 ***/
 private:
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
-    static NT_gaussian_rnd_dist_o normalRnd; // notice, sometimes a linker error is produced, which can be removed by adding a NT_gaussian_..._o object at the beginning of the main() code.
+/* ***  Methods              ***/
+/* ***  Data                 ***/
+static NT_gaussian_rnd_dist_o normalRnd; // notice, sometimes a linker error is produced, which can be removed by adding a NT_gaussian_..._o object at the beginning of the main() code.
 
-    static bool initTableLookUp;
+static bool initTableLookUp;
 
-    NTreal baseTemp; // C
-    NTreal alphaM;
-    NTreal betaM;
-    NTreal m;
-    NTreal noiseM;
-    static NTreal alphaMvec[15000];
-    static NTreal betaMvec[15000];
-    NTreal q10m;
+NTreal baseTemp; // C
+NTreal alphaM;
+NTreal betaM;
+NTreal m;
+NTreal noiseM;
+static NTreal alphaMvec[15000];
+static NTreal betaMvec[15000];
+NTreal q10m;
 
-    NTreal alphaH;
-    NTreal betaH;
-    NTreal h;
-    NTreal noiseH;
-    static NTreal alphaHvec[15000];
-    static NTreal betaHvec[15000];
-    NTreal q10h;
+NTreal alphaH;
+NTreal betaH;
+NTreal h;
+NTreal noiseH;
+static NTreal alphaHvec[15000];
+static NTreal betaHvec[15000];
+NTreal q10h;
 };
 
 

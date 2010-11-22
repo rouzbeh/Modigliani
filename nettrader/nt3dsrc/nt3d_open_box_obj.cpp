@@ -1,9 +1,9 @@
-/**\file nt3d_open_box_obj.cpp - NT3D_open_box_o class implementation
- * by Ahmed Aldo Faisal &copy; created 18.5.2000
+/**\file nt3d_open_box_obj.cpp - NT3D_open_box_o class implementation 
+ * by Ahmed Aldo Faisal &copy; created 18.5.2000  
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
  * Version:  0.5
- * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
+ * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -18,11 +18,14 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */
+ */ 
+  
 
-
-/* $Id: nt3d_open_box_obj.cpp,v 1.1 2001/06/29 13:16:55 face Exp $
+/* $Id: nt3d_open_box_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $ 
 * $Log: nt3d_open_box_obj.cpp,v $
+* Revision 1.1.1.1  2004/12/16 01:38:36  face
+* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+*
 * Revision 1.1  2001/06/29 13:16:55  face
 * *** empty log message ***
 *
@@ -40,35 +43,35 @@
 *
 
 */
-#include "nt3d_open_box_obj.h"
+#include "nt3d_open_box_obj.h" 
 
 #include "nt3d_rainbow_texture_obj.h"
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NT3D_open_box_o */
 NT3D_open_box_o::NT3D_open_box_o(NTreal newWidth, NTreal newDepth, NTreal newHeight)
-        :
-        NT3D_surfaced_object_o(),
-        oScaling(1,1,1),
-        width(newWidth),
-        depth(newDepth),
-        height(newHeight)
+:
+NT3D_surfaced_object_o(),
+oScaling(1,1,1),
+width(newWidth),
+depth(newDepth),
+height(newHeight)
 {
-    //SetTexture();
-
+	//SetTexture();
+	
 }
-/* ***      COPY AND ASSIGNMENT	***/
+/* ***      COPY AND ASSIGNMENT	***/ 
 NT3D_open_box_o::NT3D_open_box_o(const NT3D_open_box_o & original)
 {
-// add assignment code here
+ // add assignment code here
 }
 
-const NT3D_open_box_o&
+const NT3D_open_box_o&  
 NT3D_open_box_o::operator= (const NT3D_open_box_o & right)
 {
-    if (this == &right) return *this; // Gracefully handle self assignment
-// add assignment code here
-    return *this;
+ if (this == &right) return *this; // Gracefully handle self assignment
+ // add assignment code here
+   return *this;
 }
 
 /* ***      DESTRUCTOR		***/
@@ -76,63 +79,47 @@ NT3D_open_box_o::~NT3D_open_box_o()
 {
 }
 
-/* ***  PUBLIC                                    ***   */
-/** @short
+/* ***  PUBLIC                                    ***   */  
+/** @short       
     @param      none
     @return     none
    \warning    unknown
    \bug        unknown
  */
 void
-NT3D_open_box_o::DrawSurfacedObj()
+NT3D_open_box_o::DrawSurfacedObj() 
 {
-    static bool initDone = false;
-
-    NTreal x = depth/2 * oScaling.x;
-    NTreal y = height/2 * oScaling.y;
-    NTreal z = width/2 * oScaling.z;
-
-    oMaterial.Paint();
+	static bool initDone = false;
+	
+	NTreal x = depth/2 * oScaling.x;
+	NTreal y = height/2 * oScaling.y;
+	NTreal z = width/2 * oScaling.z;
+	
+	oMaterial.Paint();
     oTexturePtr->Paint();
     glBegin(GL_QUAD_STRIP);
-    glTexCoord2f(1.0,0.0);
-    glVertex3f(-x, -y, z);
-    glTexCoord2f(0.0,0.0);
-    glVertex3f(-x, -y, -z);
-    glTexCoord2f(1.0,1.0);
-    glVertex3f(-x, y, z);
-    glTexCoord2f(0.0,1.0);
-    glVertex3f(-x , y, -z);     // |    Open box - Viewed looking towards -Z Axis
+	glTexCoord2f(1.0,0.0); glVertex3f(-x, -y, z); 
+	glTexCoord2f(0.0,0.0); glVertex3f(-x, -y, -z);
+	glTexCoord2f(1.0,1.0); glVertex3f(-x, y, z); 
+	glTexCoord2f(0.0,1.0); glVertex3f(-x , y, -z);     // |    Open box - Viewed looking towards -Z Axis
 
-    glTexCoord2f(1.0,0.0);
-    glVertex3f(-x, y, z);
-    glTexCoord2f(0.0,0.0);
-    glVertex3f(-x , y, -z);     // |-
-    glTexCoord2f(1.0,1.0);
-    glVertex3f(x , y, z);
-    glTexCoord2f(0.0,1.0);
-    glVertex3f(x , y, -z);
+	glTexCoord2f(1.0,0.0); glVertex3f(-x, y, z); 
+	glTexCoord2f(0.0,0.0); glVertex3f(-x , y, -z);     // |-
+	glTexCoord2f(1.0,1.0); glVertex3f(x , y, z); 
+	glTexCoord2f(0.0,1.0); glVertex3f(x , y, -z);
 
-    glTexCoord2f(1.0,0.0);
-    glVertex3f(x , y, z);
-    glTexCoord2f(0.0,0.0);
-    glVertex3f(x , y, -z);
-    glTexCoord2f(1.0,1.0);
-    glVertex3f(x ,-y, z);
-    glTexCoord2f(0.0,1.0);
-    glVertex3f(x , -y,-z );	  // |-|
+	glTexCoord2f(1.0,0.0); glVertex3f(x , y, z); 
+	glTexCoord2f(0.0,0.0); glVertex3f(x , y, -z);	
+	glTexCoord2f(1.0,1.0); glVertex3f(x ,-y, z); 
+	glTexCoord2f(0.0,1.0); glVertex3f(x , -y,-z );	  // |-|
 
-    glTexCoord2f(1.0,0.0);
-    glVertex3f(x ,-y, z);
-    glTexCoord2f(0.0,0.0);
-    glVertex3f(x , -y,-z );
-    glTexCoord2f(1.0,1.0);
-    glVertex3f(-x, -y, z);
-    glTexCoord2f(0.0,1.0);
-    glVertex3f(-x, -y, -z);    //  |=|
-    glEnd();
+	glTexCoord2f(1.0,0.0); glVertex3f(x ,-y, z); 
+	glTexCoord2f(0.0,0.0); glVertex3f(x , -y,-z );
+	glTexCoord2f(1.0,1.0); glVertex3f(-x, -y, z); 
+	glTexCoord2f(0.0,1.0); glVertex3f(-x, -y, -z);    //  |=|
+	glEnd();
 
-    oTexturePtr->Painted();
+	oTexturePtr->Painted();
 }
 
 

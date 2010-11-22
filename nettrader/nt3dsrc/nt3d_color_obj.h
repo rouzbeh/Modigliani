@@ -1,9 +1,9 @@
-/** \file nt3d_color_obj.h - NT3D_color_o class declaration
- * by Ahmed Aldo Faisal &copy; created  15.10.1998
+/** \file nt3d_color_obj.h - NT3D_color_o class declaration 
+ * by Ahmed Aldo Faisal &copy; created  15.10.1998  
  */
-/* NetTrader - finance management, analysis and simulation system
- * Version:  0.2
- * Copyright (C) 1998 Ahmed Aldo Faisal
+/* NetTrader - finance management, analysis and simulation system 
+ * Version:  0.2 						  
+ * Copyright (C) 1998 Ahmed Aldo Faisal 			  
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -21,8 +21,11 @@
  */
 
 
-/* $Id: nt3d_color_obj.h,v 1.1 2001/06/29 13:16:55 face Exp $
+/* $Id: nt3d_color_obj.h,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
  * $Log: nt3d_color_obj.h,v $
+ * Revision 1.1.1.1  2004/12/16 01:38:36  face
+ * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+ *
  * Revision 1.1  2001/06/29 13:16:55  face
  * *** empty log message ***
  *
@@ -73,58 +76,45 @@
 
 
 
-/** @short THe NT3D_color_o class handles the abstract color
-  concept.
+/** @short THe NT3D_color_o class handles the abstract color 
+  concept. 
   \warning Once its derived classes are called in the drawing
-  tree they affected ALL subsequent drawing (Modifies OpenGL state).
+  tree they affected ALL subsequent drawing (Modifies OpenGL state).  
   \bug unknown */
 class NT3D_color_o : public NT_o {
 public:
-    NT3D_color_o();
-    NT3D_color_o(GLfloat newR, GLfloat newG, GLfloat newB, GLfloat newAlpha);
-    NT3D_color_o(const valarray<GLfloat> & newColorRGBA);
-    //NT3D_color_o(const NT_vector_o & newColorRGBA);
-    NT3D_color_o(const NT3D_color_o & original);
-    const NT3D_color_o& operator= (const NT3D_color_o & right);
-    ~NT3D_color_o();
-    /*   Methods                */
-    virtual void Paint() const {
-        glColor4fv(colorPtr);
-    }
-    void SetColor( GLfloat newR, GLfloat newG, GLfloat newB, GLfloat newAlpha);
-    void SetColor( const GLfloat newColor[] );
-    void SetColor( const NT3D_color_o & newColor);
-    NTreal _R() {
-        return colorRGBA[0];
-    }
-    NTreal _G() {
-        return colorRGBA[1];
-    }
-    NTreal _B() {
-        return colorRGBA[2];
-    }
-    NTreal _Alpha() {
-        return colorRGBA[3];
-    }
-    NT3D_color_o operator+(const NT3D_color_o &right) const;
-    NT3D_color_o operator-(const NT3D_color_o &right) const;
-    NT3D_color_o operator*(NTreal alpha) const;
-    /* return the pointer to the color Cache (for OpenGL draws) */
-    const GLfloat * _colorPtr() {
-        Update();
-        return (const GLfloat*) colorPtr;
-    }
-    /*   Data                   */
+  NT3D_color_o();
+  NT3D_color_o(GLfloat newR, GLfloat newG, GLfloat newB, GLfloat newAlpha);
+  NT3D_color_o(const valarray<GLfloat> & newColorRGBA);
+  //NT3D_color_o(const NT_vector_o & newColorRGBA);
+  NT3D_color_o(const NT3D_color_o & original);
+  const NT3D_color_o& operator= (const NT3D_color_o & right);
+  ~NT3D_color_o();
+  /*   Methods                */  
+  virtual void Paint() const { glColor4fv(colorPtr);}
+  void SetColor( GLfloat newR, GLfloat newG, GLfloat newB, GLfloat newAlpha);
+  void SetColor( const GLfloat newColor[] );
+  void SetColor( const NT3D_color_o & newColor);
+  NTreal _R(){ return colorRGBA[0];}
+  NTreal _G(){ return colorRGBA[1];}
+  NTreal _B(){ return colorRGBA[2];}
+  NTreal _Alpha(){ return colorRGBA[3];}
+  NT3D_color_o operator+(const NT3D_color_o &right) const;
+  NT3D_color_o operator-(const NT3D_color_o &right) const;
+  NT3D_color_o operator*(NTreal alpha) const;
+  /* return the pointer to the color Cache (for OpenGL draws) */
+  const GLfloat * _colorPtr() {Update(); return (const GLfloat*) colorPtr;}
+   /*   Data                   */  
 protected:
-    /*   Methods                */
-    /*   Data                   */
+  /*   Methods                */
+  /*   Data                   */
 private:
-    /*   Methods                */
-    void Update();
-    // 2DO implement range checking for input values
-    /*   Data                   */
-    valarray<GLfloat> colorRGBA;
-    GLfloat* colorPtr;
+  /*   Methods                */  
+  void Update();
+  // 2DO implement range checking for input values
+  /*   Data                   */
+  valarray<GLfloat> colorRGBA;
+  GLfloat* colorPtr;
 };
 
 extern NT3D_color_o& NT3D_alpha();

@@ -1,9 +1,9 @@
-/** \file nt_solid_obj.h - NT_solid_o class declaration
- * by Ahmed Aldo Faisal &copy; created  15.10.1998
+/** \file nt_solid_obj.h - NT_solid_o class declaration 
+ * by Ahmed Aldo Faisal &copy; created  15.10.1998  
  */
-/* NetTrader - finance management, analysis and simulation system
- * Version:  0.2
- * Copyright (C) 1998 Ahmed Aldo Faisal
+/* NetTrader - finance management, analysis and simulation system 
+ * Version:  0.2 						  
+ * Copyright (C) 1998 Ahmed Aldo Faisal 			  
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -21,8 +21,11 @@
  */
 
 
-/* $Id: nt3d_solid_obj.h,v 1.1 2001/06/29 13:16:55 face Exp $
+/* $Id: nt3d_solid_obj.h,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
  * $Log: nt3d_solid_obj.h,v $
+ * Revision 1.1.1.1  2004/12/16 01:38:36  face
+ * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+ *
  * Revision 1.1  2001/06/29 13:16:55  face
  * *** empty log message ***
  *
@@ -137,44 +140,40 @@
 /** @short NT3D_solid_o class
   ...
 \bug unknown
-\warning oTexturePtr is deleted by destructor
+\warning oTexturePtr is deleted by destructor 
  */
 class NT3D_solid_o : public NT3D_surfaced_object_o {
 public:
-    NT3D_solid_o(const NT_vector3_o & oNewPosition = NT_OriginVec3());
-    NT3D_solid_o(const NT3D_solid_o & original);
-    const NT3D_solid_o & operator= (const NT3D_solid_o & right);
-    ~NT3D_solid_o();
-    /*   Methods                */
-    void Scale( NT_vector3_o oDeltaScaling );
-    void ScaleX ( NTreal deltaSclX);
-    void ScaleY ( NTreal deltaSclY);
-    void ScaleZ ( NTreal deltaSclZ);
-    void ScaleXYZ ( NTreal deltaSclXYZ );
-    void ScaleUnit() {
-        oScaling = NT_vector3_o(1.0,1.0,1.0);
-    }
-
-    /*   Data                   */
-protected:
-    /*   Methods                */
-    void DrawSurfacedObj();
-    virtual void DrawSolidObj() const {
-        NT_CERR(1,"NT3D_solid_o::DrawSolidObj() - Error : This method should be overridden by a derived class.");
-    };
-    void ControlSurfacedObj(NT3Dcontroller cntrl , NTint value);
-    /*   Data                   */
-    /** pointer to the incomplete type of an GLUquadicObj */
-    GLUquadricObj * pQuadObj;
-    GLint slices;
-    GLint stacks;
-    NT_vector3_o oScaling;
-    NTint drawStyle;
-private:
-    /*   Methods                */
-    void InitQuadric();
-
-    /*   Data                   */
+  NT3D_solid_o(const NT_vector3_o & oNewPosition = NT_OriginVec3());
+  NT3D_solid_o(const NT3D_solid_o & original);
+  const NT3D_solid_o & operator= (const NT3D_solid_o & right);
+  ~NT3D_solid_o();
+  /*   Methods                */  
+  void Scale( NT_vector3_o oDeltaScaling );
+  void ScaleX ( NTreal deltaSclX);
+  void ScaleY ( NTreal deltaSclY);
+  void ScaleZ ( NTreal deltaSclZ);
+  void ScaleXYZ ( NTreal deltaSclXYZ );
+  void ScaleUnit(){ oScaling = NT_vector3_o(1.0,1.0,1.0);}
+  
+  /*   Data                   */  
+  protected:
+  /*   Methods                */  
+  void DrawSurfacedObj();
+  virtual void DrawSolidObj() const {NT_CERR(1,"NT3D_solid_o::DrawSolidObj() - Error : This method should be overridden by a derived class.");};
+  void ControlSurfacedObj(NT3Dcontroller cntrl , NTint value);
+  /*   Data                   */  
+  /** pointer to the incomplete type of an GLUquadicObj */
+  GLUquadricObj * pQuadObj;
+  GLint slices;
+  GLint stacks;
+  NT_vector3_o oScaling;
+  NTint drawStyle;
+  private:
+  /*   Methods                */  
+  void InitQuadric();
+ 
+  /*   Data                   */
 };
 
 

@@ -1,9 +1,9 @@
-/**\file nt3d_camera_obj.cpp - NT3D_camera_o class implementation
- * by Ahmed Aldo Faisal &copy; created 22.4.1999
+/**\file nt3d_camera_obj.cpp - NT3D_camera_o class implementation 
+ * by Ahmed Aldo Faisal &copy; created 22.4.1999  
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
  * Version:  0.3
- * Copyright (C) 1998,199 Ahmed Aldo Faisal
+ * Copyright (C) 1998,199 Ahmed Aldo Faisal                            
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -18,11 +18,14 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */
+ */ 
 
 
-/* $Id: nt3d_camera_obj.cpp,v 1.1 2001/06/29 13:16:55 face Exp $
+/* $Id: nt3d_camera_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
  * $Log: nt3d_camera_obj.cpp,v $
+ * Revision 1.1.1.1  2004/12/16 01:38:36  face
+ * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+ *
  * Revision 1.1  2001/06/29 13:16:55  face
  * *** empty log message ***
  *
@@ -84,27 +87,27 @@
 /* ***      CONSTRUCTORS	***/
 /**  */
 NT3D_camera_o::NT3D_camera_o(const NT_vector3_o & oNewPosition)
-        :
-        NT3D_object_o(oNewPosition),
-        oUp(0,1,0)
+: 
+NT3D_object_o(oNewPosition),
+oUp(0,1,0)
 {
-    oTarget = NT_UnitXVec3() + oNewPosition;
-    cameraChanged = true;
-    aspectRatio = 1.0;
-    fov = 45.0;
+	oTarget = NT_UnitXVec3() + oNewPosition;
+	cameraChanged = true;
+	aspectRatio = 1.0;
+	fov = 45.0;
 }
 
 
-/** 2DO TARGET unused, rotation used instead !*/
+/** 2DO TARGET unused, rotation used instead !*/ 
 NT3D_camera_o::NT3D_camera_o(const NT_vector3_o & oNewPosition, const NT_vector3_o & oNewTarget)
-        :
-        NT3D_object_o(oNewPosition),
-        oUp(0,1,0)
+: 
+NT3D_object_o(oNewPosition),
+oUp(0,1,0)
 {
-    oTarget = oNewTarget;
-    cameraChanged = true;
-    aspectRatio = 1.0;
-    fov = 45.0;
+	oTarget = oNewTarget;
+	cameraChanged = true;
+	aspectRatio = 1.0;
+	fov = 45.0;
 }
 
 
@@ -112,15 +115,15 @@ NT3D_camera_o::NT3D_camera_o(const NT_vector3_o & oNewPosition, const NT_vector3
 /* ***      COPY AND ASSIGNMENT	***/
 NT3D_camera_o::NT3D_camera_o(const NT3D_camera_o & original)
 {
-    cameraChanged = true;
+  cameraChanged = true;
 }
 
 const NT3D_camera_o& NT3D_camera_o::operator= (const NT3D_camera_o & right)
-{
-    if (this == &right) return *this;
-    // Gracefully handle self assignmentadd assignment code here
-    cameraChanged = true;
-    return *this;
+{ 
+	if (this == &right) return *this; 
+	// Gracefully handle self assignmentadd assignment code here 
+	cameraChanged = true; 
+	return *this; 
 }
 
 
@@ -129,8 +132,8 @@ NT3D_camera_o::~NT3D_camera_o()
 {
 }
 
-/* ***  PUBLIC                                    ***   */
-/** @short
+/* ***  PUBLIC                                    ***   */  
+/** @short       
     @param      none
     @return     none
     \warning    UPDATE CODE ALSO IN NT3D_camera_target_o
@@ -139,26 +142,26 @@ NT3D_camera_o::~NT3D_camera_o()
 inline void
 NT3D_camera_o::Draw()
 {
-    cameraChanged = true; /* as long as rotations are not intercepted
+	cameraChanged = true; /* as long as rotations are not intercepted
 	for change test the speedup checking is disabled */
-    if (true == cameraChanged) {
-        glMatrixMode( GL_PROJECTION );
-        glLoadIdentity();
-        gluPerspective(fov, aspectRatio, 0.1, 1000.0);
-        glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity();
-        // Note: With special combinations of angle and Unit Vectors
-        // used below (e.g. UnitMinusZVec3 and y_rot = 270 deg )
-        // the other rotation components may canceled of,
-        // either a different rotation angle combination should
-        // be used
-        oTarget = NT_UnitXVec3().XYZrotation ( oRotation ) + oTranslation;
-        gluLookAt(oTranslation[0],oTranslation[1],oTranslation[2],
-                  oTarget[0], oTarget[1], oTarget[2],
-                  oUp[0],oUp[1],oUp[2]);
-        //glPushMatrix();//? where does this come from
-        cameraChanged = false;
-    }
+	if (true == cameraChanged){
+	glMatrixMode( GL_PROJECTION );
+	glLoadIdentity();
+	gluPerspective(fov, aspectRatio, 0.1, 1000.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	// Note: With special combinations of angle and Unit Vectors
+	// used below (e.g. UnitMinusZVec3 and y_rot = 270 deg )
+	// the other rotation components may canceled of,
+	// either a different rotation angle combination should 
+	// be used
+	oTarget = NT_UnitXVec3().XYZrotation ( oRotation ) + oTranslation;
+	gluLookAt(oTranslation[0],oTranslation[1],oTranslation[2],
+    	      oTarget[0], oTarget[1], oTarget[2],
+        	  oUp[0],oUp[1],oUp[2]);
+	//glPushMatrix();//? where does this come from    
+	cameraChanged = false;
+	}
 }
 
 /* ***  PROTECTED                         ***   */

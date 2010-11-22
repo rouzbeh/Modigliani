@@ -274,7 +274,9 @@ EXTRA_DIST = nt3d_abstract_vp_obj.cpp nt3d_abstract_vp_obj.h \
 	nt3d_universe_spheric_camera_obj.h nt3d_universe_vp_obj.cpp \
 	nt3d_universe_vp_obj.h nt3d_vp_obj.cpp nt3d_vp_obj.h \
 	nt3d_vp_spec_obj.cpp nt3d_vp_spec_obj.h \
-	nt3d_worldmap_texture_obj.cpp nt3d_worldmap_texture_obj.h
+	nt3d_worldmap_texture_obj.cpp nt3d_worldmap_texture_obj.h \
+	nt3d_plot2d_vec_vp_obj.cpp nt3d_plot2d_vec_vp_obj.h \
+	nt3d_vp_obj.cpp nt3d_vp_obj.h
 
 ####### kdevelop will overwrite this part!!! (end)############
 

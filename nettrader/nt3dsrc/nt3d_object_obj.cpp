@@ -1,5 +1,5 @@
 /* nt3d_object_obj.cpp - NT 3D supcerclass implementation
- * by Ahmed A. Faisal, 5. 12. 1998(c)
+ * by Ahmed A. Faisal, 5. 12. 1998(c) 
 *
  * NetTrader - finance management, analysis and simulation system
  * Version:  0.1
@@ -21,8 +21,11 @@
  */
 
 
-/* $Id: nt3d_object_obj.cpp,v 1.1 2001/06/29 13:16:55 face Exp $
+/* $Id: nt3d_object_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
  * $Log: nt3d_object_obj.cpp,v $
+ * Revision 1.1.1.1  2004/12/16 01:38:36  face
+ * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+ *
  * Revision 1.1  2001/06/29 13:16:55  face
  * *** empty log message ***
  *
@@ -89,32 +92,32 @@
 
 /** Sets a unrotated 3D object in the origin */
 NT3D_object_o::NT3D_object_o()
-        :
-        NT3D_o(),
-        oTranslation(0.0,0.0,0.0),
-        oRotation(0.0,0.0,0.0)
-{
-}
+:
+  NT3D_o(),
+  oTranslation(0.0,0.0,0.0),
+  oRotation(0.0,0.0,0.0)
+ {
+ }
 
 NT3D_object_o::NT3D_object_o(const NT_vector3_o & oNewTranslation)
-        :
-        oTranslation(oNewTranslation),
-        oRotation(0.0,0.0,0.0)
-{
-}
+ :
+ oTranslation(oNewTranslation),
+ oRotation(0.0,0.0,0.0)
+ {
+ }
 
 /** The entire children tree is copied (recreated!) but no parent is
 set, otherwise the parent of the original object has to be informed of
 a new child which is generally not desired.  */
 NT3D_object_o::NT3D_object_o(const NT3D_object_o & original)
-        :
-        NT3D_o()
-{
-    oTranslation = original.oTranslation;
-    oRotation = original.oRotation;
+:
+NT3D_o()
+{ 
+  oTranslation = original.oTranslation;
+  oRotation = original.oRotation;
 }
 
-
+ 
 NT3D_object_o::~NT3D_object_o()
 {
 }
@@ -123,65 +126,65 @@ NT3D_object_o::~NT3D_object_o()
 
 
 
-void
+void 
 NT3D_object_o::Rotate(  const NT_vector3_o & oDeltaRotation )
 {
-    oRotation = oRotation + oDeltaRotation;
+oRotation = oRotation + oDeltaRotation;
 }
 
 void
 NT3D_object_o::RotateX ( NTreal deltaRotX)
 {
-    oRotation.x += deltaRotX;
+oRotation.x += deltaRotX;
 }
 
 void
 NT3D_object_o::RotateY ( NTreal deltaRotY)
 {
-    oRotation[1] += deltaRotY;
+oRotation[1] += deltaRotY;
 }
 
 void
 NT3D_object_o::RotateZ ( NTreal deltaRotZ)
 {
-    oRotation[2] += deltaRotZ;
+oRotation[2] += deltaRotZ;
 }
 
 void
 NT3D_object_o::RotateXYZ ( const NTreal deltaRot[3] )
 {
-    oRotation.set_elem(deltaRot);
+oRotation.set_elem(deltaRot);
 }
 
 
 void
 NT3D_object_o::Translate( const NT_vector3_o & oDeltaTranslation )
 {
-    oTranslation = oTranslation + oDeltaTranslation;
+oTranslation = oTranslation + oDeltaTranslation;
 }
 
-void
+void 
 NT3D_object_o::TranslateX ( NTreal deltaTraX)
 {
-    oTranslation.x += deltaTraX;
+oTranslation.x += deltaTraX;
 }
 
-void
+void 
 NT3D_object_o::TranslateY ( NTreal deltaTraY)
 {
-    oTranslation.y += deltaTraY;
+oTranslation.y += deltaTraY;
 }
 
-void
+void 
 NT3D_object_o::TranslateZ ( NTreal deltaTraZ)
 {
-    oTranslation.z += deltaTraZ;
+oTranslation.z += deltaTraZ;
 }
 
-void
+void 
 NT3D_object_o::TranslateXYZ ( const NTreal deltaTra[3] )
 {
-    oTranslation.set_elem(deltaTra);
+oTranslation.set_elem(deltaTra);
 }
 
 

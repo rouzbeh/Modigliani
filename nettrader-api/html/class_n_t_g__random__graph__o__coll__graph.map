@@ -1,8 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node2" href="$class_n_t_g__graph__o.html" title="NTG_graph_o" alt="" coords="168,304,275,333"/>
-<area shape="rect" id="node4" href="$class_n_t__o.html" title="Master class for all NT objects." alt="" coords="195,5,248,35"/>
-<area shape="rect" id="node8" href="$class_n_t__rnd__dist__o.html" title="NT_rnd_dist_o is a parent object to individual random distribution objects." alt="" coords="49,101,161,131"/>
-<area shape="rect" id="node13" href="$class_n_t__id__management__o.html" title="NT_id_management_o class Manage a contiguous list of IDs which might be used or freed at any time..." alt="" coords="139,155,304,184"/>
-<area shape="rect" id="node6" href="$class_n_t__uniform__rnd__dist__o.html" title="NT_uniform_rnd_dist_o returns values out of a uniform random distribution objects." alt="" coords="5,208,173,237"/>
-<area shape="rect" id="node11" href="$class_m_t_rand.html" title="file nt_mersenne_twiser_external_obj.h &#45; uniform random number class 1:1 copy from MersenneTwister..." alt="" coords="69,5,141,35"/>
-</map>

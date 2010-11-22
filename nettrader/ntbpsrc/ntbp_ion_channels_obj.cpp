@@ -1,9 +1,9 @@
-/**\file ntbp_ion_channels_obj.cpp - NTBP_ion_channels_o class implementation
- * by Ahmed Aldo Faisal &copy; created 15.3.2001
+/**\file ntbp_ion_channels_obj.cpp - NTBP_ion_channels_o class implementation 
+ * by Ahmed Aldo Faisal &copy; created 15.3.2001  
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
  * Version:  0.5
- * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
+ * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -18,11 +18,14 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */
+ */ 
+  
 
-
-/* $Id: ntbp_ion_channels_obj.cpp,v 1.2 2002/03/13 19:23:27 face Exp $
+/* $Id: ntbp_ion_channels_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $ 
 * $Log: ntbp_ion_channels_obj.cpp,v $
+* Revision 1.1.1.1  2004/12/16 01:38:36  face
+* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+*
 * Revision 1.2  2002/03/13 19:23:27  face
 * *** empty log message ***
 *
@@ -31,7 +34,7 @@
 *
 
 */
-#include "ntbp_ion_channels_obj.h"
+#include "ntbp_ion_channels_obj.h" 
 
 NT_uniform_rnd_dist_o NTBP_ion_channels_o::uniformRnd;
 NT_binomial_rnd_dist_o NTBP_ion_channels_o::binomRnd(0.0,1);
@@ -39,36 +42,36 @@ NT_binomial_rnd_dist_o NTBP_ion_channels_o::binomRnd(0.0,1);
 /* ***      CONSTRUCTORS	***/
 /** Create a NTBP_ion_channels_o */
 NTBP_ion_channels_o::NTBP_ion_channels_o(NTsize numNewChannels, NTsize numNewStates)
-        :
-        NTBP_object_o()
+:
+NTBP_object_o()
 {
-    NT_ASSERT(numNewChannels >= 0);
-    numChannels = numNewChannels;
-    NT_ASSERT(numNewStates >= 0);
-    numStates = numNewStates;
-    statePersistenceProbVec.resize( _numStates() );
-    stateCounterVec.resize( _numStates() + 1 ); // 0: total number of channels, 1..8 state"besetzung"
-    uniformRnd = NT_uniform_rnd_dist_o(0,1);
-    NTsize tmpNumChannels = _numChannels();
-    if (_numChannels() <= 1) {
-        cerr << "NTBP_ion_channels_o::NTBP_ion_channels_o - Warning : _numChannels() <= 1, setting numChannels to 1 in binomial population algorithm." << endl;
-        tmpNumChannels = 1;
-    }
-    binomRnd = NT_binomial_rnd_dist_o( 0.0, tmpNumChannels);
+	NT_ASSERT(numNewChannels >= 0);
+	numChannels = numNewChannels;
+	NT_ASSERT(numNewStates >= 0);
+	numStates = numNewStates;
+	statePersistenceProbVec.resize( _numStates() );
+	stateCounterVec.resize( _numStates() + 1 ); // 0: total number of channels, 1..8 state"besetzung"
+	uniformRnd = NT_uniform_rnd_dist_o(0,1);
+	NTsize tmpNumChannels = _numChannels();
+	if (_numChannels() <= 1) {
+		cerr << "NTBP_ion_channels_o::NTBP_ion_channels_o - Warning : _numChannels() <= 1, setting numChannels to 1 in binomial population algorithm." << endl;
+		tmpNumChannels = 1;
+	}
+	binomRnd = NT_binomial_rnd_dist_o( 0.0, tmpNumChannels);
 }
 
-/* ***      COPY AND ASSIGNMENT	***/
+/* ***      COPY AND ASSIGNMENT	***/ 
 NTBP_ion_channels_o::NTBP_ion_channels_o(const NTBP_ion_channels_o & original)
 {
-// add assignment code here
+ // add assignment code here
 }
 
-const NTBP_ion_channels_o&
+const NTBP_ion_channels_o&  
 NTBP_ion_channels_o::operator= (const NTBP_ion_channels_o & right)
 {
-    if (this == &right) return *this; // Gracefully handle self assignment
-// add assignment code here
-    return *this;
+ if (this == &right) return *this; // Gracefully handle self assignment
+ // add assignment code here
+  return *this;
 }
 
 /* ***      DESTRUCTOR		***/
@@ -76,28 +79,28 @@ NTBP_ion_channels_o::~NTBP_ion_channels_o()
 {
 }
 
-/* ***  PUBLIC                                    ***   */
+/* ***  PUBLIC                                    ***   */  
 
 /**  */
 bool NTBP_ion_channels_o::GillespieStep()
 {
-    cerr << "NTBP_ion_channels_o::GillespieStep()" << endl;
-    NT_uniform_rnd_dist_o rnd;
-    NTreal val = rnd.RndVal();
-
-    NTreal	channelTau = ComputeChannelStateTimeConstant();
-    cerr << "channelTau="<< channelTau << endl;
-
-    NTreal sum = 0.0;
-    for (NTsize ll = 0; ll < _numStates(); ll++) {
-        sum += statePersistenceProbVec[ll]*stateCounterVec[ll+1];
-        cerr << "p=" <<  sum/(channelTau) << " val=" << val << endl;
-        if (val < sum/channelTau) {
-            return ComputeGillespieStep(ll + 1);
-        }
-    }
-    cerr << "NTBP_ion_channels_o::GillespieStep - Error : Control flow should not have reach here. No channel transition done." << endl;
-    return NT_FAIL;
+	cerr << "NTBP_ion_channels_o::GillespieStep()" << endl;
+	NT_uniform_rnd_dist_o rnd;
+	NTreal val = rnd.RndVal();
+	
+	NTreal	channelTau = ComputeChannelStateTimeConstant();
+	cerr << "channelTau="<< channelTau << endl;
+		
+	NTreal sum = 0.0;		
+	for (NTsize ll = 0; ll < _numStates(); ll++) {
+				sum += statePersistenceProbVec[ll]*stateCounterVec[ll+1];
+				cerr << "p=" <<  sum/(channelTau) << " val=" << val << endl;
+				if (val < sum/channelTau){ 											
+					return ComputeGillespieStep(ll + 1);		
+				}
+	}
+	cerr << "NTBP_ion_channels_o::GillespieStep - Error : Control flow should not have reach here. No channel transition done." << endl;
+	return NT_FAIL;
 }
 
 

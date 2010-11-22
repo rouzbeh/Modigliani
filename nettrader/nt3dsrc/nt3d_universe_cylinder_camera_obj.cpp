@@ -1,9 +1,9 @@
-/**\file nt3d_universe_spheric_camera_obj.cpp - NT3D_universe_spheric_camera_o class implementation
- * by Ahmed Aldo Faisal &copy; created \date 8.7.2000
+/**\file nt3d_universe_spheric_camera_obj.cpp - NT3D_universe_spheric_camera_o class implementation 
+ * by Ahmed Aldo Faisal &copy; created \date 8.7.2000  
  *
  * \version Version:  0.5
  * \author Ahmed Aldo Faisal
- * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
+ * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -18,11 +18,14 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */
+ */ 
+  
 
-
-/* $Id: nt3d_universe_cylinder_camera_obj.cpp,v 1.1 2001/06/29 13:16:55 face Exp $
+/* $Id: nt3d_universe_cylinder_camera_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $ 
 * $Log: nt3d_universe_cylinder_camera_obj.cpp,v $
+* Revision 1.1.1.1  2004/12/16 01:38:36  face
+* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+*
 * Revision 1.1  2001/06/29 13:16:55  face
 * *** empty log message ***
 *
@@ -31,29 +34,29 @@
 *
 
 */
-#include "nt3d_universe_spheric_camera_obj.h"
+#include "nt3d_universe_spheric_camera_obj.h" 
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NT3D_universe_spheric_camera_o */
 NT3D_universe_spheric_camera_o::NT3D_universe_spheric_camera_o()
 {
-    lonSteps = 10;
-    latSteps = 10;
+	lonSteps = 10;
+	latSteps = 10;
 }
 
 
-/* ***      COPY AND ASSIGNMENT	***/
+/* ***      COPY AND ASSIGNMENT	***/ 
 NT3D_universe_spheric_camera_o::NT3D_universe_spheric_camera_o(const NT3D_universe_spheric_camera_o & original)
 {
-    NT_CERR(1,"NT3D_universe_spheric_camera_o::NT3D_universe_spheric_camera_o(...) - Error : Const contructor not implemented."); // add assignment code here
+ NT_CERR(1,"NT3D_universe_spheric_camera_o::NT3D_universe_spheric_camera_o(...) - Error : Const contructor not implemented."); // add assignment code here
 }
 
-const NT3D_universe_spheric_camera_o&
+const NT3D_universe_spheric_camera_o&  
 NT3D_universe_spheric_camera_o::operator= (const NT3D_universe_spheric_camera_o & right)
 {
-    if (this == &right) return *this; // Gracefully handle self assignment
-    NT_CERR(1,"NT3D_universe_spheric_camera_o::operator= - Error : Not implemented."); // add assignment code here
-    return *this;
+ if (this == &right) return *this; // Gracefully handle self assignment
+ NT_CERR(1,"NT3D_universe_spheric_camera_o::operator= - Error : Not implemented."); // add assignment code here
+  return *this;
 }
 
 /* ***      DESTRUCTOR		***/
@@ -62,7 +65,7 @@ NT3D_universe_spheric_camera_o::~NT3D_universe_spheric_camera_o()
 }
 
 /* ***  PUBLIC                                    ***   */
-/** @short
+/** @short       
     @param      none
     @return     none
    \warning    unknown
@@ -73,9 +76,9 @@ NT3D_universe_spheric_camera_o::Draw()
 	width = pVP_width();
 	height = pVP_height();
 
-
-
-
+	
+	
+	
 }
  */
 

@@ -21,8 +21,14 @@
  */
 
 
-/* $Id: ntbp_colbert_axonal_potassium_multi_current_obj.h,v 1.3 2003/04/08 15:13:36 face Exp $
+/* $Id: ntbp_colbert_axonal_potassium_multi_current_obj.h,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
 * $Log: ntbp_colbert_axonal_potassium_multi_current_obj.h,v $
+* Revision 1.1.1.1  2004/12/16 01:38:36  face
+* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+*
+* Revision 1.4  2003/08/24 10:43:01  face
+* *** empty log message ***
+*
 * Revision 1.3  2003/04/08 15:13:36  face
 * *** empty log message ***
 *
@@ -87,53 +93,47 @@ thus allows for stochastic modelling.
 // SINCE RESTING POTENTIAL IS NOT WELL ESTABLISHED
 class NTBP_colbert_axonal_potassium_multi_current_o : public NTBP_multi_current_o {
 public:
-    /***   Constructors, Copy/Assignment and Destructor  ***/
-    NTBP_colbert_axonal_potassium_multi_current_o(NTreal area /* in muMeter^2 */,
-            NTreal density = 8/* num/muMeter^2 */,
-            NTreal channelConductance = 2.0e-8, /* in mSiemens per channel = 13pS */
-            NTreal newVBase = -64.5 /*m mV */
-                                                 );
-    NTBP_colbert_axonal_potassium_multi_current_o(const NTBP_colbert_axonal_potassium_multi_current_o & original);
-    const NTBP_colbert_axonal_potassium_multi_current_o & operator= (const NTBP_colbert_axonal_potassium_multi_current_o & right);
-    virtual ~NTBP_colbert_axonal_potassium_multi_current_o();
-    /* ***  Methods              ***/
-    NTreal ComputeRateSum() const;
-    NTreal OpenChannels() const;
-    NTreal ComputeConductance();
-    void ComputeRateConstants(NTreal voltage);
-    /**  in kHz */
-    NTreal ComputeChannelStateTimeConstant() const;
-    /**  */
+/***   Constructors, Copy/Assignment and Destructor  ***/
+NTBP_colbert_axonal_potassium_multi_current_o(NTreal area /* in muMeter^2 */,
+																				NTreal density = 8/* num/muMeter^2 */,
+																				NTreal channelConductance = 2.0e-8, /* in mSiemens per channel = 13pS */
+																				NTreal newVBase = -64.5 /*m mV */
+  																	 		);
+NTBP_colbert_axonal_potassium_multi_current_o(const NTBP_colbert_axonal_potassium_multi_current_o & original);
+const NTBP_colbert_axonal_potassium_multi_current_o & operator= (const NTBP_colbert_axonal_potassium_multi_current_o & right);
+virtual ~NTBP_colbert_axonal_potassium_multi_current_o();
+/* ***  Methods              ***/
+NTreal ComputeRateSum() const;
+NTreal OpenChannels() const;
+NTreal ComputeConductance();
+void ComputeRateConstants(NTreal voltage);
+  /**  in kHz */
+NTreal ComputeChannelStateTimeConstant() const;
+  /**  */
 
-    NTreturn StepCurrent();
-    /** rate constant in ms^-1 */
-    NTreal AlphaN( NTreal vM /* in mV */ ) {
-        vM += _vBase();
-        return 0.555556/(1.0+exp((-30.0-vM)/13.0));
-    }
-    NTreal BetaN ( NTreal vM /* in mV */ ) {
-        vM += _vBase();
-        return 0.555556/(1.0+exp(( 30.0+vM)/13.0));
-    }
-    /**  */
-    void ShowParam() const;
-    /* ***  Data                 ***/
+NTreturn StepCurrent();
+/** rate constant in ms^-1 */
+NTreal AlphaN( NTreal vM /* in mV */ ) { vM += _vBase(); return 0.555556/(1.0+exp((-30.0-vM)/13.0));}
+NTreal BetaN ( NTreal vM /* in mV */ ) { vM += _vBase(); return 0.555556/(1.0+exp((+30.0+vM)/13.0));}
+  /**  */
+void ShowParam() const;
+/* ***  Data                 ***/
 protected:
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
+/* ***  Methods              ***/
+/* ***  Data                 ***/
 private:
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
-    NTBPdelayedPotassiumRectifierType type;
-    static NT_gaussian_rnd_dist_o normalRnd;
-    static bool initTableLookUp;
-    static NTreal alphaNvec [15000];
-    static NTreal betaNvec [15000];
-    NTreal alphaN;
-    NTreal betaN;
-    NTreal n;
-    NTreal noiseN;
-    NTreal baseTemp;
+/* ***  Methods              ***/
+/* ***  Data                 ***/
+NTBPdelayedPotassiumRectifierType type;
+static NT_gaussian_rnd_dist_o normalRnd;
+static bool initTableLookUp;
+static NTreal alphaNvec [15000];
+static NTreal betaNvec [15000];
+NTreal alphaN;
+NTreal betaN;
+NTreal n;
+NTreal noiseN;
+NTreal baseTemp;
 };
 #endif /* _ntbp_colbert_axonal_potassium_multi_current_obj_h_ */
 

@@ -60,7 +60,8 @@ bin_PROGRAMS = analyse_binary_data_for_isi_with_histogram$(EXEEXT) \
 	test_graph_distance_stats$(EXEEXT) \
 	test_membrane_currents$(EXEEXT) tunnel_flight_demo$(EXEEXT) \
 	WhiteNoise1.0e-8StHH$(EXEEXT) \
-	WhiteNoiseMultiCOmpartmentSImulationWithCompartmentVoltageHistogramming$(EXEEXT)
+	WhiteNoiseMultiCOmpartmentSImulationWithCompartmentVoltageHistogramming$(EXEEXT) \
+	myelinaxonsimulator-v1$(EXEEXT)
 subdir = nettrader/examples
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -109,7 +110,8 @@ am_libexamples_a_OBJECTS =  \
 	test_code.$(OBJEXT) test_graph_distance_stats.$(OBJEXT) \
 	test_membrane_currents.$(OBJEXT) tunnel_flight_demo.$(OBJEXT) \
 	WhiteNoise1.0e-8StHH.$(OBJEXT) \
-	WhiteNoiseMultiCOmpartmentSImulationWithCompartmentVoltageHistogramming.$(OBJEXT)
+	WhiteNoiseMultiCOmpartmentSImulationWithCompartmentVoltageHistogramming.$(OBJEXT) \
+	myelinaxonsimulator-v1.$(OBJEXT)
 libexamples_a_OBJECTS = $(am_libexamples_a_OBJECTS)
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
@@ -224,6 +226,11 @@ am_multi_compartment_neuron_OBJECTS =  \
 multi_compartment_neuron_OBJECTS =  \
 	$(am_multi_compartment_neuron_OBJECTS)
 multi_compartment_neuron_DEPENDENCIES = ../nt3dsrc/libnt3dsrc.a \
+	../ntgsrc/libntgsrc.a ../ntbpsrc/libntbpsrc.a \
+	../ntsrc/libntsrc.a
+am_myelinaxonsimulator_v1_OBJECTS = myelinaxonsimulator-v1.$(OBJEXT)
+myelinaxonsimulator_v1_OBJECTS = $(am_myelinaxonsimulator_v1_OBJECTS)
+myelinaxonsimulator_v1_DEPENDENCIES = ../nt3dsrc/libnt3dsrc.a \
 	../ntgsrc/libntgsrc.a ../ntbpsrc/libntbpsrc.a \
 	../ntsrc/libntsrc.a
 am_nt3d_drv_test_OBJECTS = nt3d_drv_test.$(OBJEXT)
@@ -353,7 +360,8 @@ SOURCES = $(libexamples_a_SOURCES) $(MembraneFluctuationsStHH_SOURCES) \
 	$(hranvier_sodium_channel_model_SOURCES) \
 	$(ion_channels_and_open_state_variance_SOURCES) \
 	$(merge_text_file_columns_SOURCES) \
-	$(multi_compartment_neuron_SOURCES) $(nt3d_drv_test_SOURCES) \
+	$(multi_compartment_neuron_SOURCES) \
+	$(myelinaxonsimulator_v1_SOURCES) $(nt3d_drv_test_SOURCES) \
 	$(nt3d_glx_test_SOURCES) \
 	$(ntg_grandom_graph_efficiency_study_SOURCES) \
 	$(ntg_ring_graph_test_SOURCES) $(ntg_test_SOURCES) \
@@ -386,7 +394,8 @@ DIST_SOURCES = $(libexamples_a_SOURCES) \
 	$(hranvier_sodium_channel_model_SOURCES) \
 	$(ion_channels_and_open_state_variance_SOURCES) \
 	$(merge_text_file_columns_SOURCES) \
-	$(multi_compartment_neuron_SOURCES) $(nt3d_drv_test_SOURCES) \
+	$(multi_compartment_neuron_SOURCES) \
+	$(myelinaxonsimulator_v1_SOURCES) $(nt3d_drv_test_SOURCES) \
 	$(nt3d_glx_test_SOURCES) \
 	$(ntg_grandom_graph_efficiency_study_SOURCES) \
 	$(ntg_ring_graph_test_SOURCES) $(ntg_test_SOURCES) \
@@ -532,7 +541,8 @@ libexamples_a_SOURCES =  \
 	stochastic_ion_channels.cpp template.cpp test_code.cpp \
 	test_graph_distance_stats.cpp test_membrane_currents.cpp \
 	tunnel_flight_demo.cpp WhiteNoise1.0e-8StHH.cpp \
-	WhiteNoiseMultiCOmpartmentSImulationWithCompartmentVoltageHistogramming.cpp
+	WhiteNoiseMultiCOmpartmentSImulationWithCompartmentVoltageHistogramming.cpp \
+	myelinaxonsimulator-v1.cpp
 basic_glx_demo_SOURCES = basic_glx_demo.cpp
 basic_glx_demo_LDADD = ../nt3dsrc/libnt3dsrc.a ../ntgsrc/libntgsrc.a ../ntbpsrc/libntbpsrc.a ../ntsrc/libntsrc.a -L/usr/X11R6/lib -lGL -L/usr/X11R6/lib -lGLU -lm -lXext -lX11
 planetary_demo_SOURCES = planetary_demo.cpp
@@ -571,6 +581,8 @@ saltatory_conduction_SOURCES = saltatory_conduction.cpp
 saltatory_conduction_LDADD = ../nt3dsrc/libnt3dsrc.a ../ntgsrc/libntgsrc.a ../ntbpsrc/libntbpsrc.a ../ntsrc/libntsrc.a -L/usr/X11R6/lib -lGL -L/usr/X11R6/lib -lGLU -lm -lXext -lX11
 WhiteNoiseMultiCOmpartmentSImulationWithCompartmentVoltageHistogramming_SOURCES = WhiteNoiseMultiCOmpartmentSImulationWithCompartmentVoltageHistogramming.cpp
 WhiteNoiseMultiCOmpartmentSImulationWithCompartmentVoltageHistogramming_LDADD = ../nt3dsrc/libnt3dsrc.a ../ntgsrc/libntgsrc.a ../ntbpsrc/libntbpsrc.a ../ntsrc/libntsrc.a -L/usr/X11R6/lib -lGL -L/usr/X11R6/lib -lGLU -lm -lXext -lX11
+myelinaxonsimulator_v1_SOURCES = myelinaxonsimulator-v1.cpp
+myelinaxonsimulator_v1_LDADD = ../nt3dsrc/libnt3dsrc.a ../ntgsrc/libntgsrc.a ../ntbpsrc/libntbpsrc.a ../ntsrc/libntsrc.a -L/usr/X11R6/lib -lGL -L/usr/X11R6/lib -lGLU -lm -lXext -lX11
 single_compartment_spiker_SOURCES = single_compartment_spiker.cpp
 single_compartment_spiker_LDADD = ../nt3dsrc/libnt3dsrc.a ../ntgsrc/libntgsrc.a ../ntbpsrc/libntbpsrc.a ../ntsrc/libntsrc.a -L/usr/X11R6/lib -lGL -L/usr/X11R6/lib -lGLU -lm -lXext -lX11
 spheric_flying_demo_SOURCES = spheric_flying_demo.cpp
@@ -750,6 +762,9 @@ merge_text_file_columns$(EXEEXT): $(merge_text_file_columns_OBJECTS) $(merge_tex
 multi_compartment_neuron$(EXEEXT): $(multi_compartment_neuron_OBJECTS) $(multi_compartment_neuron_DEPENDENCIES) 
 	@rm -f multi_compartment_neuron$(EXEEXT)
 	$(CXXLINK) $(multi_compartment_neuron_OBJECTS) $(multi_compartment_neuron_LDADD) $(LIBS)
+myelinaxonsimulator-v1$(EXEEXT): $(myelinaxonsimulator_v1_OBJECTS) $(myelinaxonsimulator_v1_DEPENDENCIES) 
+	@rm -f myelinaxonsimulator-v1$(EXEEXT)
+	$(CXXLINK) $(myelinaxonsimulator_v1_OBJECTS) $(myelinaxonsimulator_v1_LDADD) $(LIBS)
 nt3d_drv_test$(EXEEXT): $(nt3d_drv_test_OBJECTS) $(nt3d_drv_test_DEPENDENCIES) 
 	@rm -f nt3d_drv_test$(EXEEXT)
 	$(CXXLINK) $(nt3d_drv_test_OBJECTS) $(nt3d_drv_test_LDADD) $(LIBS)
@@ -837,6 +852,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/merge_text_file_columns.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/modigliani_core.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/multi_compartment_neuron.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/myelinaxonsimulator-v1.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/nt3d_drv_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/nt3d_glx_test.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntg_grandom_graph_efficiency_study.Po@am__quote@

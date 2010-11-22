@@ -21,8 +21,11 @@
  */
 
 
-/* $Id: ntbp_hranvier_potassium_multi_current_obj.h,v 1.1 2003/01/30 17:13:42 face Exp $
+/* $Id: ntbp_hranvier_potassium_multi_current_obj.h,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
 * $Log: ntbp_hranvier_potassium_multi_current_obj.h,v $
+* Revision 1.1.1.1  2004/12/16 01:38:36  face
+* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+*
 * Revision 1.1  2003/01/30 17:13:42  face
 * *** empty log message ***
 *
@@ -64,53 +67,47 @@ J.Physiol. 430:283-292
 
 class NTBP_hranvier_potassium_multi_current_o : public NTBP_multi_current_o {
 public:
-    /***   Constructors, Copy/Assignment and Destructor  ***/
-    NTBP_hranvier_potassium_multi_current_o(NTreal area /* in muMeter^2 */,
-                                            NTreal density /* num/muMeter^2 */,
-                                            NTreal channelConductance = 2.0e-8, /* in mSiemens per channel = 13pS */
-                                            NTreal newVBase = -84 /*m mV */
-                                           );
-    NTBP_hranvier_potassium_multi_current_o(const NTBP_hranvier_potassium_multi_current_o & original);
-    const NTBP_hranvier_potassium_multi_current_o & operator= (const NTBP_hranvier_potassium_multi_current_o & right);
-    virtual ~NTBP_hranvier_potassium_multi_current_o();
-    /* ***  Methods              ***/
-    NTreal ComputeRateSum() const;
-    NTreal OpenChannels() const;
-    NTreal ComputeConductance();
-    void ComputeRateConstants(NTreal voltage);
-    /**  in kHz */
-    NTreal ComputeChannelStateTimeConstant() const;
-    /**  */
+/***   Constructors, Copy/Assignment and Destructor  ***/
+NTBP_hranvier_potassium_multi_current_o(NTreal area /* in muMeter^2 */,
+																				NTreal density /* num/muMeter^2 */,
+																				NTreal channelConductance = 2.0e-8, /* in mSiemens per channel = 13pS */
+																				NTreal newVBase = -84 /*m mV */
+  																	 		);
+NTBP_hranvier_potassium_multi_current_o(const NTBP_hranvier_potassium_multi_current_o & original);
+const NTBP_hranvier_potassium_multi_current_o & operator= (const NTBP_hranvier_potassium_multi_current_o & right);
+virtual ~NTBP_hranvier_potassium_multi_current_o();
+/* ***  Methods              ***/
+NTreal ComputeRateSum() const;
+NTreal OpenChannels() const;
+NTreal ComputeConductance();
+void ComputeRateConstants(NTreal voltage);
+  /**  in kHz */
+NTreal ComputeChannelStateTimeConstant() const;
+  /**  */
 
-    NTreturn StepCurrent();
-    /** rate constant in ms^-1 */
-    NTreal AlphaN( NTreal vM /* in mV */ ) {
-        vM += _vBase();
-        return 0.00798*(vM+93.2)/(1-exp((-93.2-vM)/1.10));
-    }
-    NTreal BetaN ( NTreal vM /* in mV */ ) {
-        vM += _vBase();
-        return 0.0142*(-76.0-vM)/(1-exp((vM+76.0)/10.5));
-    }
-    /**  */
-    void ShowParam() const;
-    /* ***  Data                 ***/
+NTreturn StepCurrent();
+/** rate constant in ms^-1 */
+NTreal AlphaN( NTreal vM /* in mV */ ) { vM += _vBase(); return 0.00798*(vM+93.2)/(1-exp((-93.2-vM)/1.10));}
+NTreal BetaN ( NTreal vM /* in mV */ ) { vM += _vBase(); return 0.0142*(-76.0-vM)/(1-exp((vM+76.0)/10.5));}
+  /**  */
+void ShowParam() const;
+/* ***  Data                 ***/
 protected:
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
+/* ***  Methods              ***/
+/* ***  Data                 ***/
 private:
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
-    NTBPdelayedPotassiumRectifierType type;
-    static NT_gaussian_rnd_dist_o normalRnd;
-    static bool initTableLookUp;
-    static NTreal alphaNvec [15000];
-    static NTreal betaNvec [15000];
-    NTreal alphaN;
-    NTreal betaN;
-    NTreal n;
-    NTreal noiseN;
-    NTreal baseTemp;
+/* ***  Methods              ***/
+/* ***  Data                 ***/
+NTBPdelayedPotassiumRectifierType type;
+static NT_gaussian_rnd_dist_o normalRnd;
+static bool initTableLookUp;
+static NTreal alphaNvec [15000];
+static NTreal betaNvec [15000];
+NTreal alphaN;
+NTreal betaN;
+NTreal n;
+NTreal noiseN;
+NTreal baseTemp;
 };
 #endif /* _ntbp_hranvier_potassium_multi_current_obj_h_ */
 
