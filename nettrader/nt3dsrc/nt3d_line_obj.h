@@ -1,9 +1,9 @@
-/** \file nt3d_line_obj.h - NT3D_line_o class declaration
- * by Ahmed Aldo Faisal &copy; created  15.10.1998
+/** \file nt3d_line_obj.h - NT3D_line_o class declaration 
+ * by Ahmed Aldo Faisal &copy; created  15.10.1998  
  */
-/* NetTrader - finance management, analysis and simulation system
- * Version:  0.2
- * Copyright (C) 1998 Ahmed Aldo Faisal
+/* NetTrader - finance management, analysis and simulation system 
+ * Version:  0.2 						  
+ * Copyright (C) 1998 Ahmed Aldo Faisal 			  
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -21,8 +21,11 @@
  */
 
 
-/* $Id: nt3d_line_obj.h,v 1.1 2001/06/29 13:16:55 face Exp $
+/* $Id: nt3d_line_obj.h,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
  * $Log: nt3d_line_obj.h,v $
+ * Revision 1.1.1.1  2004/12/16 01:38:36  face
+ * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+ *
  * Revision 1.1  2001/06/29 13:16:55  face
  * *** empty log message ***
  *
@@ -83,32 +86,32 @@
 
   The object uses a glBegin(GL_LINES)  glEnd call to draw the line
   the line in three dimension.
-\warning unknown
+\warning unknown 
 \bug unknown
  */
-class NT3D_line_o : public NT3D_hierarchic_object_o
+class NT3D_line_o : public NT3D_hierarchic_object_o 
 {
 public:
-    NT3D_line_o();
-    NT3D_line_o(NT_vector3_o newStartPnt, NT_vector3_o newEndPnt);
-    NT3D_line_o(const NT3D_line_o & original);
-    const NT3D_line_o& operator= (const NT3D_line_o & right);
-    ~NT3D_line_o();
-    /*   Methods                */
-    void DrawObj();
-    /*   Data                   */
-    NT3D_material_o oMaterial;
-protected:
-    /*   Methods                */
-    /*   Data                   */
-private:
-    /*   Methods                */
-    void ControlObj(NT3Dcontroller cntrl , NTint value) {};
-    void ControlObj(NT3Dcontroller cntrl , NTreal value) {};
-    void ControlObj(NT3Dcontroller cntrl , NT_vector_o value) {};
-    /*   Data                   */
-    NT_vector3_o startPnt;
-    NT_vector3_o endPnt;
+  NT3D_line_o();
+  NT3D_line_o(NT_vector3_o newStartPnt, NT_vector3_o newEndPnt);
+  NT3D_line_o(const NT3D_line_o & original);
+  const NT3D_line_o& operator= (const NT3D_line_o & right);
+  ~NT3D_line_o();
+  /*   Methods                */  
+  void DrawObj();
+  /*   Data                   */  
+  NT3D_material_o oMaterial;
+  protected:
+  /*   Methods                */  
+  /*   Data                   */  
+  private:
+  /*   Methods                */  
+  void ControlObj(NT3Dcontroller cntrl , NTint value) {};
+  void ControlObj(NT3Dcontroller cntrl , NTreal value) {}; 
+  void ControlObj(NT3Dcontroller cntrl , NT_vector_o value){};
+  /*   Data                   */
+  NT_vector3_o startPnt;
+  NT_vector3_o endPnt;
 };
 
 

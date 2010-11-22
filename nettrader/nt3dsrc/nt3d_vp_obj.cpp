@@ -1,9 +1,9 @@
-/**\file nt3d_vp_obj.cpp - NT3D_vp_o class implementation
- * by Ahmed Aldo Faisal &copy; created 9.5.1999
+/**\file nt3d_vp_obj.cpp - NT3D_vp_o class implementation 
+ * by Ahmed Aldo Faisal &copy; created 9.5.1999  
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
  * Version:  0.3
- * Copyright (C) 1998,199 Ahmed Aldo Faisal
+ * Copyright (C) 1998,199 Ahmed Aldo Faisal                            
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -18,11 +18,14 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */
+ */ 
 
 
-/* $Id: nt3d_vp_obj.cpp,v 1.1 2001/06/29 13:16:55 face Exp $
+/* $Id: nt3d_vp_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
  * $Log: nt3d_vp_obj.cpp,v $
+ * Revision 1.1.1.1  2004/12/16 01:38:36  face
+ * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+ *
  * Revision 1.1  2001/06/29 13:16:55  face
  * *** empty log message ***
  *
@@ -53,7 +56,7 @@
 /** Create a NT3D_vp_o */
 NT3D_vp_o::NT3D_vp_o()
 {
-    bConnected = NT_FALSE;
+bConnected = NT_FALSE;
 }
 
 
@@ -62,7 +65,7 @@ NT3D_vp_o::NT3D_vp_o()
 {
 }
 
-const NT3D_vp_o&
+const NT3D_vp_o&  
 NT3D_vp_o::operator= (const NT3D_vp_o & right)
 {
   if (this == &right) return *this; // Gracefully handle self assignment
@@ -77,7 +80,7 @@ NT3D_vp_o::operator= (const NT3D_vp_o & right)
 }
 */
 
-/* ***  PUBLIC                                    ***   */
+/* ***  PUBLIC                                    ***   */  
 /** @short      Connect()
 	Shakehand protocol:
 		We are A. A wants to connect to B (both unconnected!).
@@ -86,7 +89,7 @@ NT3D_vp_o::operator= (const NT3D_vp_o & right)
 		B will go into state 0. and then 1. calling A.Connect(B).
 		A will go into state 3. (assuming to be already connected)
 		and identify identify the requesting object as B. (3).
-		Note: Nicely, this mechanism is safe even under concurrent
+		Note: Nicely, this mechanism is safe even under concurrent  
 		requests to connect by objects to A, as only the called object
 		B will be accepted (but not necessarily the other way round!).
 
@@ -98,32 +101,28 @@ NT3D_vp_o::operator= (const NT3D_vp_o & right)
 NTreturn
 NT3D_vp_o::Connect(NT3D_vp_o * pConnectingVP)
 {
-    /* 2DO thorugh checking of pConnectingVP */
+	/* 2DO thorugh checking of pConnectingVP */
 
-    if (bConnected == NT_FALSE) {
-        /*0*/
-        pVP=pConnectingVP;
-        bConnected = NT_TRUE; /* assume succes to attempt connection */
-        /*1*/
-        if (pVP->Connect(this) == NT_SUCCESS) { /* connect them with us */
-            /* might cause circular deadlock, therefore we assumed successful connection */
-            return NT_SUCCESS;
-            /*2*/
-        } else {
-            bConnected = NT_FALSE; /* if failed, reset assumption */
-            return NT_FAIL;
-        }
-    } else /* (bConnected == NT_TRUE) */ {
-        /*3*/
-        if  (pConnectingVP == pVP) /* if this is true they are ringing us back,
+	if (bConnected == NT_FALSE){
+		/*0*/
+		pVP=pConnectingVP;
+		bConnected = NT_TRUE; /* assume succes to attempt connection */
+		/*1*/if (pVP->Connect(this) == NT_SUCCESS){ /* connect them with us */
+			/* might cause circular deadlock, therefore we assumed successful connection */
+			return NT_SUCCESS;
+		/*2*/} else {
+			bConnected = NT_FALSE; /* if failed, reset assumption */
+			return NT_FAIL;
+		}
+	} else /* (bConnected == NT_TRUE) */{
+		/*3*/if  (pConnectingVP == pVP) /* if this is true they are ringing us back,
 			as their pointer must correspond to the one we called */
-            return NT_SUCCESS;
-        /*4*/
-        else return NT_FAIL; /* sombody tried to connect to a connected link*/
-    }
+		return NT_SUCCESS;
+		/*4*/else return NT_FAIL; /* sombody tried to connect to a connected link*/
+	}
 }
 
-/** @short      Disconnect()
+/** @short      Disconnect() 
     @param      none
     @return     none
     \warning    unknown
@@ -132,11 +131,11 @@ NT3D_vp_o::Connect(NT3D_vp_o * pConnectingVP)
 NTreturn
 NT3D_vp_o::Disconnect()
 {
-    if (NT_TRUE == bConnected) {
-        bConnected = NT_FALSE;
-        pVP->Disconnect();
-    } else {}
-    return NT_SUCCESS;
+	if (NT_TRUE == bConnected){
+	bConnected = NT_FALSE;
+	pVP->Disconnect();
+	}else {}
+	return NT_SUCCESS;
 }
 /* ***  PROTECTED                         ***   */
 /* ***  PRIVATE                           ***   */

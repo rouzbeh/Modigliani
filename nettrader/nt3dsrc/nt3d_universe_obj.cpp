@@ -1,9 +1,9 @@
-/**\file nt3d_universe_obj.cpp - NT3D_universe_o class implementation
- * by Ahmed Aldo Faisal &copy; created 19.7.1999
+/**\file nt3d_universe_obj.cpp - NT3D_universe_o class implementation 
+ * by Ahmed Aldo Faisal &copy; created 19.7.1999  
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
  * Version:  0.4
- * Copyright (C) 1998,199 Ahmed Aldo Faisal
+ * Copyright (C) 1998,199 Ahmed Aldo Faisal    
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -18,11 +18,14 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */
+ */ 
+  
 
-
-/* $Id: nt3d_universe_obj.cpp,v 1.1 2001/06/29 13:16:55 face Exp $
+/* $Id: nt3d_universe_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $ 
 * $Log: nt3d_universe_obj.cpp,v $
+* Revision 1.1.1.1  2004/12/16 01:38:36  face
+* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+*
 * Revision 1.1  2001/06/29 13:16:55  face
 * *** empty log message ***
 *
@@ -38,23 +41,23 @@
 *
 
 */
-#include "nt3d_universe_obj.h"
+#include "nt3d_universe_obj.h" 
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NT3D_universe_o */
-NT3D_universe_o::NT3D_universe_o() {
+NT3D_universe_o::NT3D_universe_o(){
 }
-/* ***      COPY AND ASSIGNMENT	***/
+/* ***      COPY AND ASSIGNMENT	***/ 
 NT3D_universe_o::NT3D_universe_o(const NT3D_universe_o & original)
 {
 }
 
-const NT3D_universe_o&
+const NT3D_universe_o&  
 NT3D_universe_o::operator= (const NT3D_universe_o & right)
 {
-    if (this == &right) return *this; // Gracefully handle self assignment
-// add assignment code here
-    return *this;
+ if (this == &right) return *this; // Gracefully handle self assignment
+ // add assignment code here
+  return *this;
 }
 
 /* ***      DESTRUCTOR		***/
@@ -62,8 +65,8 @@ NT3D_universe_o::~NT3D_universe_o()
 {
 }
 
-/* ***  PUBLIC                                    ***   */
-/** @short
+/* ***  PUBLIC                                    ***   */  
+/** @short       
     @param      none
     @return     none
    \warning    unknown
@@ -72,20 +75,20 @@ NT3D_universe_o::~NT3D_universe_o()
 void
 NT3D_universe_o::Draw()
 {
-    ambientLight.Illuminate();
-    universe.Draw();
+	ambientLight.Illuminate();
+	universe.Draw();
 }
 
-/** @short
+/** @short       
     @param      none
     @return     none
    \warning    unknown
    \bug        unknown
  */
 void
-NT3D_universe_o::AddChild( NT3D_hierarchic_object_o * pNewChild )
+NT3D_universe_o::AddChild( NT3D_hierarchic_object_o * pNewChild ) 
 {
-    universe.AddChild(pNewChild);
+	universe.AddChild(pNewChild);
 }
 
 /* ***  PROTECTED                         ***   */

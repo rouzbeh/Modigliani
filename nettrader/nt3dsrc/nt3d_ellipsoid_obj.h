@@ -1,5 +1,5 @@
-/* nt3d_ellipsoid_obj.h - NT3D declaration of ellipsoid
- * by Ahmed A. Faisal, 15. 10. 1998(c)
+/* nt3d_ellipsoid_obj.h - NT3D declaration of ellipsoid 
+ * by Ahmed A. Faisal, 15. 10. 1998(c) 
  *
  * NetTrader - finance management, analysis and simulation system
  * Version:  0.1
@@ -20,8 +20,11 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-/* $Id: nt3d_ellipsoid_obj.h,v 1.1 2001/06/29 13:16:55 face Exp $
+/* $Id: nt3d_ellipsoid_obj.h,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
  * $Log: nt3d_ellipsoid_obj.h,v $
+ * Revision 1.1.1.1  2004/12/16 01:38:36  face
+ * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+ *
  * Revision 1.1  2001/06/29 13:16:55  face
  * *** empty log message ***
  *
@@ -85,24 +88,24 @@
  */
 class NT3D_ellipsoid_o : public NT3D_solid_o {
 public:
-    NT3D_ellipsoid_o();
-    NT3D_ellipsoid_o(NT_vector3_o oNewPosition):
-            NT3D_solid_o(oNewPosition), oHalfAxis(1.0, 1.0, 1.0) {};
-    NT3D_ellipsoid_o(NT_vector3_o oNewPosition, NT_vector3_o oNewHalfAxis);
-    NT3D_ellipsoid_o(const NT3D_ellipsoid_o & original);
-    ~NT3D_ellipsoid_o();
-    /*   Methods                */
-    void DrawSolidObj() const;
-protected:
-    /*   Data                   */
-private:
-    /*   Methods                */
-    void ControlObj(NT3Dcontroller cntrl , NTint value) {};
-    void ControlObj(NT3Dcontroller cntrl , NTreal value) {};
-    void ControlObj(NT3Dcontroller cntrl , NT_vector_o value) {};
-    /*   Data                   */
-    NT_vector3_o oHalfAxis;
-
+  NT3D_ellipsoid_o();
+  NT3D_ellipsoid_o(NT_vector3_o oNewPosition):
+    NT3D_solid_o(oNewPosition), oHalfAxis(1.0, 1.0, 1.0){};
+  NT3D_ellipsoid_o(NT_vector3_o oNewPosition, NT_vector3_o oNewHalfAxis);
+  NT3D_ellipsoid_o(const NT3D_ellipsoid_o & original);
+  ~NT3D_ellipsoid_o();
+  /*   Methods                */  
+  void DrawSolidObj() const;
+  protected:
+  /*   Data                   */  
+  private:
+  /*   Methods                */  
+  void ControlObj(NT3Dcontroller cntrl , NTint value) {};
+  void ControlObj(NT3Dcontroller cntrl , NTreal value) {}; 
+  void ControlObj(NT3Dcontroller cntrl , NT_vector_o value){};
+  /*   Data                   */
+  NT_vector3_o oHalfAxis;
+  
 };
 
 

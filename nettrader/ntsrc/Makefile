@@ -62,7 +62,8 @@ am_libntsrc_a_OBJECTS = nt_2dim_histogram_obj.$(OBJEXT) \
 	nt_gaussian_vec_rnd_dist_obj.$(OBJEXT) \
 	nt_gaussian_rnd_dist_obj.$(OBJEXT) nt_file_obj.$(OBJEXT) \
 	nt_error_obj.$(OBJEXT) nt_date_obj.$(OBJEXT) \
-	nt_currency_obj.$(OBJEXT) nt_aux_math_func.$(OBJEXT)
+	nt_currency_obj.$(OBJEXT) nt_aux_math_func.$(OBJEXT) \
+	nt_config_file_parser_obj.$(OBJEXT) nt_str2real_obj.$(OBJEXT)
 libntsrc_a_OBJECTS = $(am_libntsrc_a_OBJECTS)
 DEFAULT_INCLUDES = -I. -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -182,7 +183,7 @@ top_srcdir = ../..
 
 ####### kdevelop will overwrite this part!!! (begin)##########
 noinst_LIBRARIES = libntsrc.a
-libntsrc_a_SOURCES = nt_2dim_histogram_obj.cpp nt_multidim_histogram_obj.cpp nt_binomial_rnd_dist_obj.cpp nt_vector_obj.cpp nt_vector3_obj.cpp nt_vec_rnd_dist_obj.cpp nt_value_obj.cpp nt_uniform_vec_rnd_dist_obj.cpp nt_uniform_rnd_dist_obj.cpp nt_stock_value_obj.cpp nt_sequential_statistics_obj.cpp nt_rnd_dist_obj.cpp nt_obj.cpp nt_list_obj.cpp nt_image_obj.cpp nt_id_management_obj.cpp nt_histogram_obj.cpp nt_gui_drv_obj.cpp nt_gaussian_vec_rnd_dist_obj.cpp nt_gaussian_rnd_dist_obj.cpp nt_file_obj.cpp nt_error_obj.cpp nt_date_obj.cpp nt_currency_obj.cpp nt_aux_math_func.cpp 
+libntsrc_a_SOURCES = nt_2dim_histogram_obj.cpp nt_multidim_histogram_obj.cpp nt_binomial_rnd_dist_obj.cpp nt_vector_obj.cpp nt_vector3_obj.cpp nt_vec_rnd_dist_obj.cpp nt_value_obj.cpp nt_uniform_vec_rnd_dist_obj.cpp nt_uniform_rnd_dist_obj.cpp nt_stock_value_obj.cpp nt_sequential_statistics_obj.cpp nt_rnd_dist_obj.cpp nt_obj.cpp nt_list_obj.cpp nt_image_obj.cpp nt_id_management_obj.cpp nt_histogram_obj.cpp nt_gui_drv_obj.cpp nt_gaussian_vec_rnd_dist_obj.cpp nt_gaussian_rnd_dist_obj.cpp nt_file_obj.cpp nt_error_obj.cpp nt_date_obj.cpp nt_currency_obj.cpp nt_aux_math_func.cpp nt_config_file_parser_obj.cpp nt_str2real_obj.cpp
 EXTRA_DIST = dmatrix.h nt_aux_math_func.cpp nt_aux_math_func.h \
 	nt_codes.h nt_currency_obj.cpp nt_currency_obj.h \
 	nt_date_obj.cpp nt_date_obj.h nt_error_obj.cpp nt_error_obj.h \
@@ -208,7 +209,9 @@ EXTRA_DIST = dmatrix.h nt_aux_math_func.cpp nt_aux_math_func.h \
 	nt_multidim_array_obj.h nt_multidim_histogram_obj.cpp \
 	nt_multidim_histogram_obj.h nt_ring_buffer_obj.h \
 	nt_2dim_histogram_obj.cpp nt_2dim_histogram_obj.h \
-	nt_mersenne_twister_external_obj.h nt_physical_constants.h
+	nt_mersenne_twister_external_obj.h nt_physical_constants.h \
+	nt_config_file_parser_obj.cpp nt_config_file_parser_obj.h \
+	nt_str2real_obj.cpp nt_str2real_obj.h
 
 ####### kdevelop will overwrite this part!!! (end)############
 # set the include path found by configure
@@ -264,6 +267,7 @@ distclean-compile:
 include ./$(DEPDIR)/nt_2dim_histogram_obj.Po
 include ./$(DEPDIR)/nt_aux_math_func.Po
 include ./$(DEPDIR)/nt_binomial_rnd_dist_obj.Po
+include ./$(DEPDIR)/nt_config_file_parser_obj.Po
 include ./$(DEPDIR)/nt_currency_obj.Po
 include ./$(DEPDIR)/nt_date_obj.Po
 include ./$(DEPDIR)/nt_error_obj.Po
@@ -280,6 +284,7 @@ include ./$(DEPDIR)/nt_obj.Po
 include ./$(DEPDIR)/nt_rnd_dist_obj.Po
 include ./$(DEPDIR)/nt_sequential_statistics_obj.Po
 include ./$(DEPDIR)/nt_stock_value_obj.Po
+include ./$(DEPDIR)/nt_str2real_obj.Po
 include ./$(DEPDIR)/nt_uniform_rnd_dist_obj.Po
 include ./$(DEPDIR)/nt_uniform_vec_rnd_dist_obj.Po
 include ./$(DEPDIR)/nt_value_obj.Po

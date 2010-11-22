@@ -21,8 +21,11 @@
  */
 
 
-/* $Id: ntbp_membrane_compartment_obj.cpp,v 1.6 2003/06/20 16:42:53 face Exp $
+/* $Id: ntbp_membrane_compartment_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
 * $Log: ntbp_membrane_compartment_obj.cpp,v $
+* Revision 1.1.1.1  2004/12/16 01:38:36  face
+* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+*
 * Revision 1.6  2003/06/20 16:42:53  face
 * *** empty log message ***
 *
@@ -46,31 +49,31 @@
 /** Create a NTBP_membrane_compartment_o */
 NTBP_membrane_compartment_o::NTBP_membrane_compartment_o(NTreal newArea /* in muMeter^2 */)
 {
-    NT_ASSERT( newArea > 0 );
-    area = newArea;
-
-    cM = 0;
-    rA = 0;
-    vM = 0;
-    iInj = 0;
-    temperature = 6.3; /* Celsius */
-
+	NT_ASSERT( newArea > 0 );
+	area = newArea;
+	
+	cM = 0;
+	rA = 0;
+	vM = 0;
+	iInj = 0;
+	temperature = 6.3; /* Celsius */
+	
 }
 
 /* ***      COPY AND ASSIGNMENT	***/
 NTBP_membrane_compartment_o::NTBP_membrane_compartment_o(const NTBP_membrane_compartment_o & original)
 {
-// should not be used
-    cerr << "NTBP_membrane_compartment_o::NTBP_membrane_compartment_o(const .. & original)= - ERROR : Not implemented." << endl;
+ // should not be used
+	cerr << "NTBP_membrane_compartment_o::NTBP_membrane_compartment_o(const .. & original)= - ERROR : Not implemented." << endl;
 }
 
 const NTBP_membrane_compartment_o&
 NTBP_membrane_compartment_o::operator= (const NTBP_membrane_compartment_o & right)
 {
-    if (this == &right) return *this; // Gracefully handle self assignment
-// should not be used
-    cerr << "NTBP_membrane_compartment_o::operator= - ERROR : Not implemented." << endl;
-    return *this;
+ if (this == &right) return *this; // Gracefully handle self assignment
+ // should not be used
+ cerr << "NTBP_membrane_compartment_o::operator= - ERROR : Not implemented." << endl;
+  return *this;
 }
 
 /* ***      DESTRUCTOR		***/
@@ -96,7 +99,7 @@ NTBP_membrane_compartment_o::~NTBP_membrane_compartment_o()
 								 e.g. LOOP
 								         NTBP_membrane_compartment_o c; [...]
 								         c.Step( c._vM() );	deltaVM = 1.0e-3 / sec /mSec / * CompartmentMembraneNetCurrent() / nA / /CompartmentMembraneCapacitance() / muF /;
-  											vM += deltaVM * _timeStep();
+  											vM += deltaVM * _timeStep();			
 							      END LOOP;
     @param      none
     @return     none
@@ -106,13 +109,13 @@ NTBP_membrane_compartment_o::~NTBP_membrane_compartment_o()
 NTreturn
 NTBP_membrane_compartment_o::Step(NTreal newVM)
 {
-    vM = newVM;
-
-    for (NTsize it = 0; it < currentVec.size(); it++) {
-        (currentVec[it])->Step(vM);
-    }
-
-    return NT_SUCCESS;
+	vM = newVM;
+	
+	for (NTsize it = 0; it < currentVec.size(); it++) {
+		(currentVec[it])->Step(vM);
+	}
+	
+	return NT_SUCCESS;
 }
 
 
@@ -125,12 +128,12 @@ NTBP_membrane_compartment_o::Step(NTreal newVM)
 NTreal
 NTBP_membrane_compartment_o::TotalConductance() const
 {
-    NTreal result = 0.0;
-    vector< NTBP_membrane_current_o * >::const_iterator it = currentVec.begin();
-    for (it = currentVec.begin(); it != currentVec.end(); it++) {
-        result += (*it)->_conductance();
-    }
-    return result;
+	NTreal result = 0.0;
+	vector< NTBP_membrane_current_o * >::const_iterator it = currentVec.begin();
+	for (it = currentVec.begin(); it != currentVec.end(); it++) {
+		result += (*it)->_conductance();
+	}
+	return result;
 }
 
 /** @short Conductance weighted with reversal potential
@@ -142,13 +145,13 @@ NTBP_membrane_compartment_o::TotalConductance() const
 NTreal
 NTBP_membrane_compartment_o::WeightedConductance() const
 {
-    NTreal result = 0.0;
-
-    vector< NTBP_membrane_current_o * >::const_iterator it = currentVec.begin();
-    for (it = currentVec.begin(); it != currentVec.end(); it++) {
-        result += ( (*it)->_conductance() ) * ( (*it)->_reversalPotential() );
-    }
-    return result;
+	NTreal result = 0.0;
+	
+	vector< NTBP_membrane_current_o * >::const_iterator it = currentVec.begin();
+	for (it = currentVec.begin(); it != currentVec.end(); it++) {
+		result += ( (*it)->_conductance() ) * ( (*it)->_reversalPotential() );
+	}
+	return result;
 }
 
 /** @short
@@ -160,28 +163,28 @@ NTBP_membrane_compartment_o::WeightedConductance() const
 NTreturn
 NTBP_membrane_compartment_o::AttachCurrent(NTBP_membrane_current_o * currentPtr, NTBPcurrentType type = NTBP_IONIC)
 {
-    currentPtr->Set_temperature(temperature);
-    switch (type) {
-    case NTBP_LEAK:
-        currentVec.push_back(currentPtr);
-        break;
-    case NTBP_IONIC:
-        currentVec.push_back(currentPtr);
-        break;
-    default:
-        cerr <<"NTBP_membrane_compartment_o::AttachCurrent - Error : Unsupported current type "<< type <<"specified." << endl;
-        return NT_PARAM_UNSUPPORTED;
-    }
-
-    return NT_SUCCESS;
+	currentPtr->Set_temperature(temperature);
+	switch (type){
+		case NTBP_LEAK:
+			currentVec.push_back(currentPtr);
+		break;
+		case NTBP_IONIC:
+			currentVec.push_back(currentPtr);
+			break;
+		default:
+			cerr <<"NTBP_membrane_compartment_o::AttachCurrent - Error : Unsupported current type "<< type <<"specified." << endl;
+			return NT_PARAM_UNSUPPORTED;
+	}
+		
+	return NT_SUCCESS;
 }
 
 NTreturn
 NTBP_membrane_compartment_o::InjectCurrent(NTreal current /* in nA */)
 {
 //	NT_ASSERT(current >=0 ); 2DO is this necessary
-    iInj = current;
-    return NT_SUCCESS;
+	iInj = current;
+	return NT_SUCCESS;	
 }
 
 /** The total membrane capacitance of the compartment
@@ -189,7 +192,7 @@ NTBP_membrane_compartment_o::InjectCurrent(NTreal current /* in nA */)
 */
 NTreal NTBP_membrane_compartment_o::CompartmentMembraneCapacitance() const
 {
-    return (cM /* muF/cm^2 */ * area /* muMeter^2 */ * 1.0e-8 /* cm^2/muMeter^2 */);
+	return (cM /* muF/cm^2 */ * area /* muMeter^2 */ * 1.0e-8 /* cm^2/muMeter^2 */);
 }
 
 /** The net flowing current through the membrane of the compartment
@@ -197,67 +200,67 @@ NTreal NTBP_membrane_compartment_o::CompartmentMembraneCapacitance() const
 */
 NTreal NTBP_membrane_compartment_o::CompartmentMembraneNetCurrent() const
 {
-    NTreal sumDeltaI = 0.0;
-    for (NTsize it = 0; it < currentVec.size(); it++) {
-        sumDeltaI -= (currentVec[it])->_current();	// i.e. ionic current is subtracted (modern  current convention)
-    }
-//	cerr << "\t Membrane capacitance [muF]"<< CompartmentMembraneCapacitance() << "\t Injected current [nA] "<< iInj <<  "\tionicCurrent="<<sumDeltaI << endl;
-    sumDeltaI += iInj; // the is  sign correct
-    return sumDeltaI;
+	NTreal sumDeltaI = 0.0;
+	for (NTsize it = 0; it < currentVec.size(); it++) {
+			sumDeltaI -= (currentVec[it])->_current();	// i.e. ionic current is subtracted (modern  current convention)
+	}
+//	cerr << "\t Membrane capacitance [muF]"<< CompartmentMembraneCapacitance() << "\t Injected current [nA] "<< iInj <<  "\tionicCurrent="<<sumDeltaI << endl;	
+	sumDeltaI += iInj; // the is  sign correct
+	return sumDeltaI;
 }
 
 /** Sum of escape rates from current state [1/kHz] */
 NTreal NTBP_membrane_compartment_o::CompartmentChannelStateTimeConstant() const
 {
-    cerr <<"NTBP_membrane_compartment_o::CompartmentChannelStateTimeConstant" << endl;
-    NTreal sum = 0;
-    vector< NTBP_membrane_current_o * >::const_iterator it = currentVec.begin();
-    for (it = currentVec.begin(); it != currentVec.end(); it++) {
-        (*it)->ComputeRateConstants(_vM());
-        sum += (*it)->ChannelStateTimeConstant();
-        cerr << "Compartment Time constant sum=" << sum << endl;
-    }
+  cerr <<"NTBP_membrane_compartment_o::CompartmentChannelStateTimeConstant" << endl;
+	NTreal sum = 0;
+	vector< NTBP_membrane_current_o * >::const_iterator it = currentVec.begin();
+	for (it = currentVec.begin(); it != currentVec.end(); it++) {
+			(*it)->ComputeRateConstants(_vM());
+			sum += (*it)->ChannelStateTimeConstant();
+			cerr << "Compartment Time constant sum=" << sum << endl;
+	}
 
 
-    return sum;
+	return sum;
 }
 
 
 bool NTBP_membrane_compartment_o::GillespieStep()
 {
-    cerr << "NTBP_membrane_compartment_o::GillespieStep()" << endl;
-    NT_uniform_rnd_dist_o rnd;
-    NTreal val = rnd.RndVal();
-    NTreal sum = 0.0;
-
-    // 2DO this might be actually called more then once in one total iteration time step
-    NTreal	compartmentTau = CompartmentChannelStateTimeConstant();
-
-    cerr << "COMPARTMENT -> compartmentTau=" << compartmentTau << endl;
-    vector< NTBP_membrane_current_o * >::iterator it = currentVec.begin();
-    for (it = currentVec.begin(); it != currentVec.end(); it++) {
-        sum += (*it)->ChannelStateTimeConstant();
-        cerr << "COMPARTMENT -> SUM=" << sum  << " VAL=" << val <<  endl;
-        if (val < sum/compartmentTau) {
-            return (*it)->GillespieStep();
-            break;
-        }
-    }
-    cerr <<"NTBP_membrane_compartment_o::GillespieStep - Error : Control flow should not reach here." << endl;
-    return NT_FAIL;
+	cerr << "NTBP_membrane_compartment_o::GillespieStep()" << endl;
+	NT_uniform_rnd_dist_o rnd;
+	NTreal val = rnd.RndVal();
+	NTreal sum = 0.0;		
+	
+  // 2DO this might be actually called more then once in one total iteration time step
+	NTreal	compartmentTau = CompartmentChannelStateTimeConstant();
+	
+	cerr << "COMPARTMENT -> compartmentTau=" << compartmentTau << endl;
+	vector< NTBP_membrane_current_o * >::iterator it = currentVec.begin();
+	for (it = currentVec.begin(); it != currentVec.end(); it++) {
+				sum += (*it)->ChannelStateTimeConstant();
+				cerr << "COMPARTMENT -> SUM=" << sum  << " VAL=" << val <<  endl;
+				if (val < sum/compartmentTau){
+					return (*it)->GillespieStep();
+					break;
+				}
+	}
+	cerr <<"NTBP_membrane_compartment_o::GillespieStep - Error : Control flow should not reach here." << endl;
+	return NT_FAIL;
 }
 
 void NTBP_membrane_compartment_o::ShowParam() const
 {
-    cout << "Compartment paramters:" << endl;
-    cout << "Specific membrane capacitance [muF/cm^2] " << _cM() << endl;
-    cout << "Axoplasmic resitance [Ohm cm] " << _rA() << endl;
-    cout << "Membrane surface area [muMeter^2] " << _area() << endl;
-    cout << "Compartment currents paramters:" << endl;
-    vector< NTBP_membrane_current_o * >::const_iterator it = currentVec.begin();
-    for (it = currentVec.begin(); it != currentVec.end(); it++) {
-        (*it)->ShowParam();
-    }
+	cout << "Compartment paramters:" << endl;
+	cout << "Specific membrane capacitance [muF/cm^2] " << _cM() << endl;
+	cout << "Axoplasmic resitance [Ohm cm] " << _rA() << endl;
+	cout << "Membrane surface area [muMeter^2] " << _area() << endl;
+	cout << "Compartment currents paramters:" << endl;
+	vector< NTBP_membrane_current_o * >::const_iterator it = currentVec.begin();
+	for (it = currentVec.begin(); it != currentVec.end(); it++) {
+		(*it)->ShowParam();	
+	}
 }
 
 

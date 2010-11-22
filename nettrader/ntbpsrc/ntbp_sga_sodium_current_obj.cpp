@@ -21,8 +21,11 @@
  */
 
 
-/* $Id: ntbp_sga_sodium_current_obj.cpp,v 1.2 2003/01/17 16:53:13 face Exp $
+/* $Id: ntbp_sga_sodium_current_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
 * $Log: ntbp_sga_sodium_current_obj.cpp,v $
+* Revision 1.1.1.1  2004/12/16 01:38:36  face
+* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+*
 * Revision 1.2  2003/01/17 16:53:13  face
 * *** empty log message ***
 *
@@ -36,36 +39,36 @@
 /* ***      CONSTRUCTORS	***/
 /** Create a NTBP_sga_sodium_current_o */
 NTBP_sga_sodium_current_o::NTBP_sga_sodium_current_o(NTreal newArea, NTreal newDensity)
-        :
-        NTBP_channels_current_o(115 /* in mV */,
-                                newDensity /* channels per mu^2 */,
-                                newArea /* in mu^2 */,
-                                4.0*10e-9 /* in mS per channel */
-                               )
+:
+NTBP_channels_current_o(115 /* in mV */,
+						newDensity /* channels per mu^2 */,
+						newArea /* in mu^2 */,
+						4.0*10e-9 /* in mS per channel */
+						)
 {
-    channelsPtr = new NTBP_sodium_ion_channels_o( density*area );
+	channelsPtr = new NTBP_sodium_ion_channels_o( density*area );
 }
 
 /* ***      COPY AND ASSIGNMENT	***/
 NTBP_sga_sodium_current_o::NTBP_sga_sodium_current_o(const NTBP_sga_sodium_current_o & original)
-        :
-        NTBP_channels_current_o(original._reversalPotential(), original.density, original.area, original.conductivity)
+:
+NTBP_channels_current_o(original._reversalPotential(), original.density, original.area, original.conductivity)
 {
-    channelsPtr = new NTBP_sodium_ion_channels_o(  density*area );
+	channelsPtr = new NTBP_sodium_ion_channels_o(  density*area );
 }
 
 const NTBP_sga_sodium_current_o&
 NTBP_sga_sodium_current_o::operator= (const NTBP_sga_sodium_current_o & right)
 {
-    if (this == &right) return *this; // Gracefully handle self assignment
-    channelsPtr = new NTBP_sodium_ion_channels_o( density*area   );
-    return *this;
+ if (this == &right) return *this; // Gracefully handle self assignment
+	channelsPtr = new NTBP_sodium_ion_channels_o( density*area   );
+  return *this;
 }
 
 /* ***      DESTRUCTOR		***/
 NTBP_sga_sodium_current_o::~NTBP_sga_sodium_current_o()
 {
-    delete channelsPtr;
+	delete channelsPtr;
 }
 
 /* ***  PUBLIC                                    ***   */
@@ -78,37 +81,37 @@ NTBP_sga_sodium_current_o::~NTBP_sga_sodium_current_o()
 NTreturn
 NTBP_sga_sodium_current_o::StepCurrent()
 {
-    vector < NTreal > vec(4);
-    vec[0] = alphaM;
-    vec[1] = betaM;
-    vec[2] = alphaH;
-    vec[3] = betaH;
-    NT_ASSERT (NT_SUCCESS == (channelsPtr)->UpdateStateProb(vec));
-    return (channelsPtr->Step());
-
+	vector < NTreal > vec(4);
+	vec[0] = alphaM;
+	vec[1] = betaM;
+  vec[2] = alphaH;
+	vec[3] = betaH;
+	NT_ASSERT (NT_SUCCESS == (channelsPtr)->UpdateStateProb(vec));
+	return (channelsPtr->Step());
+	
 }
 
 inline void
 NTBP_sga_sodium_current_o::ComputeRateConstants(NTreal vM /* in mV */)
 {
-    alphaM = (25.0 - vM) / (10.0 * (exp((25.0 - vM)/10.0) - 1));
-    betaM = 4.0 * exp( -vM / 18.0 );
+	alphaM = (25.0 - vM) / (10.0 * (exp((25.0 - vM)/10.0) - 1));
+	betaM = 4.0 * exp( -vM / 18.0 );
 
-    alphaH = 0.07 * exp( -vM / 20.0 );
-    betaH = 1.0/(exp(3.0 - vM/10.0) + 1);
+	alphaH = 0.07 * exp( -vM / 20.0 );
+	betaH = 1.0/(exp(3.0 - vM/10.0) + 1);
 }
 
 
 NTreal
 NTBP_sga_sodium_current_o::ComputeChannelStateTimeConstant() const
 {
-    /*	vector < NTreal > vec(4);
-    	vec[0] = alphaM;
-    	vec[1] = betaM;
-    	vec[2] = alphaH;
-    	vec[3] = betaH;
-    	(channelsPtr)->UpdateStateProb(vec); */
-    return channelsPtr->ComputeChannelStateTimeConstant();
+/*	vector < NTreal > vec(4);
+	vec[0] = alphaM;
+	vec[1] = betaM;
+	vec[2] = alphaH;
+	vec[3] = betaH;
+	(channelsPtr)->UpdateStateProb(vec); */
+	return channelsPtr->ComputeChannelStateTimeConstant();
 }
 
 

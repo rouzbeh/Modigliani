@@ -1,9 +1,9 @@
-/**\file nt3d_light_obj.cpp - NT3D_light_o class implementation
- * by Ahmed Aldo Faisal &copy; created 3.7.1999
+/**\file nt3d_light_obj.cpp - NT3D_light_o class implementation 
+ * by Ahmed Aldo Faisal &copy; created 3.7.1999  
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
  * Version:  0.4
- * Copyright (C) 1998,199 Ahmed Aldo Faisal
+ * Copyright (C) 1998,199 Ahmed Aldo Faisal                            
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -18,10 +18,13 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */
+ */ 
 
-/* $Id: nt3d_light_obj.cpp,v 1.2 2003/06/23 10:06:51 face Exp $
+/* $Id: nt3d_light_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $ 
 * $Log: nt3d_light_obj.cpp,v $
+* Revision 1.1.1.1  2004/12/16 01:38:36  face
+* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+*
 * Revision 1.2  2003/06/23 10:06:51  face
 * Upgraded to gcc-3.3 compilability
 *
@@ -71,7 +74,7 @@
 
 */
 
-#include "nt3d_light_obj.h"
+#include "nt3d_light_obj.h" 
 
 NT_id_management_o NT3D_light_o::idManager= NT_id_management_o(0,NT3D_MAX_LIGHTS - 1);
 
@@ -80,66 +83,66 @@ NT_id_management_o NT3D_light_o::idManager= NT_id_management_o(0,NT3D_MAX_LIGHTS
 /** Create a NT3D_light_o */
 NT3D_light_o::NT3D_light_o()
 {
-    cerr << "NT3D_light_o::NT3D_light_o()" << endl;
-    InitLights();
-    lightOn = NT_TRUE;
-    lightId = CreateLight();
+	cerr << "NT3D_light_o::NT3D_light_o()" << endl;
+	InitLights();
+	lightOn = NT_TRUE;
+	lightId = CreateLight();
 }
 
 
 /* ***      COPY AND ASSIGNMENT	***/
 NT3D_light_o::NT3D_light_o(const NT3D_light_o & original)
 {
-    lightOn = original.lightOn;
-    lightId = CreateLight();
+	lightOn = original.lightOn;
+	lightId = CreateLight();
 }
 
-const NT3D_light_o&
+const NT3D_light_o&  
 NT3D_light_o::operator= (const NT3D_light_o & right)
 {
-    if (this == &right) return *this; // Gracefully handle self assignment
-    // add assignment code here
-    lightOn = right.lightOn;
-    CreateLight();
-    return *this;
+  if (this == &right) return *this; // Gracefully handle self assignment
+  // add assignment code here
+  lightOn = right.lightOn;
+  CreateLight();
+  return *this;
 }
 
 
 /* ***      DESTRUCTOR		***/
 NT3D_light_o::~NT3D_light_o()
 {
-    DeleteLight();
+	DeleteLight();
 }
 
-/* ***  PUBLIC                                    ***   */
-/** @short
+/* ***  PUBLIC                                    ***   */  
+/** @short       
     @param      none
     @return     none
     \warning    unknown
     \bug        unknown
  */
-void
-NT3D_light_o::Illuminate()
+void 
+NT3D_light_o::Illuminate() 
 {
-    if (NT_TRUE == lightOn) {
-        glEnable(GL_LIGHTING);
-        glEnable( (GLenum)lightId );
-        IlluminateLight();
-    } else {
-        glDisable( (GLenum)lightId );
-    }
+	if (NT_TRUE == lightOn) {
+		glEnable(GL_LIGHTING);
+		glEnable( (GLenum)lightId ); 
+		IlluminateLight();
+	} else {
+	glDisable( (GLenum)lightId );
+	}	
 }
 
-void
+ void 
 NT3D_light_o::On()
 {
-    lightOn = NT_TRUE;
+	lightOn = NT_TRUE;
 }
 
-void
+ void 
 NT3D_light_o::Off()
 {
-    lightOn = NT_FALSE;
+	lightOn = NT_FALSE;
 }
 
 /* ***  PROTECTED                         ***   */
@@ -147,9 +150,9 @@ NT3D_light_o::Off()
 void
 NT3D_light_o::InitLights()
 {
-    colorAmbient = NT3D_white() * 0.5 + NT3D_alpha();
-    colorDiffuse = NT3D_white() * 0.5 + NT3D_alpha();
-    colorSpecular = NT3D_white() * 0.5 + NT3D_alpha();
+  colorAmbient = NT3D_white() * 0.5 + NT3D_alpha();
+  colorDiffuse = NT3D_white() * 0.5 + NT3D_alpha();
+  colorSpecular = NT3D_white() * 0.5 + NT3D_alpha();
 }
 
 /* ***  PRIVATE                           ***   */
@@ -162,39 +165,39 @@ NT3D_light_o::InitLights()
 NTid
 NT3D_light_o::CreateLight()
 {
-    NTid number = idManager.IssueId();
-    if (-1 == number) cerr << "NT3D_light_o::NT3D_light_o() - warning : no new lightID issued. Possibly number of maximally "<<(int)NT3D_MAX_LIGHTS<<" lights exceeded." <<endl;
+	NTid number = idManager.IssueId();
+	if (-1 == number) cerr << "NT3D_light_o::NT3D_light_o() - warning : no new lightID issued. Possibly number of maximally "<<(int)NT3D_MAX_LIGHTS<<" lights exceeded." <<endl;
 
-    switch	(number) {
-    case 0 :
-        lightId = GL_LIGHT0;
-        break;
-    case 1 :
-        lightId = GL_LIGHT1;
-        break;
-    case 2 :
-        lightId =GL_LIGHT2;
-        break;
-    case 3 :
-        lightId =GL_LIGHT3;
-        break;
-    case 4 :
-        lightId =GL_LIGHT4;
-        break;
-    case 5 :
-        lightId= GL_LIGHT5;
-        break;
-    case 6 :
-        lightId =GL_LIGHT6;
-        break;
-    case 7 :
-        lightId =GL_LIGHT7;
-        break;
-    default :
-        cerr << "NT3D_light_o::CreateLight - error : issued light id out of range of implemented OpenGL lights \n";
-        lightId = (NTid) -1;
-    }
-    return lightId;
+	switch	(number) {
+		case 0 : 
+			 lightId = GL_LIGHT0;
+		 	 break;
+		case 1 : 
+			 lightId = GL_LIGHT1;
+		 	 break;
+		case 2 : 
+			 lightId =GL_LIGHT2;
+		 	 break;
+		case 3 : 
+			 lightId =GL_LIGHT3;
+		 	 break;
+		case 4 : 
+			 lightId =GL_LIGHT4;
+		 	 break;
+		case 5 : 
+			 lightId= GL_LIGHT5;
+		 	 break;
+		case 6 : 
+			 lightId =GL_LIGHT6;
+		 	 break;
+		case 7 : 
+			 lightId =GL_LIGHT7;
+		 	 break;
+		default :
+			 cerr << "NT3D_light_o::CreateLight - error : issued light id out of range of implemented OpenGL lights \n";
+			 lightId = (NTid) -1;
+	}
+	return lightId;
 }
 
 /** @short  remove light
@@ -207,32 +210,32 @@ NT3D_light_o::CreateLight()
 void
 NT3D_light_o::DeleteLight()
 {
-    switch	(lightId) {
-    case GL_LIGHT0 :
-        idManager.FreeId( 0);
-        break;
-    case GL_LIGHT1 :
-        idManager.FreeId( 1);
-        break;
-    case GL_LIGHT2 :
-        idManager.FreeId( 2);
-        break;
-    case GL_LIGHT3 :
-        idManager.FreeId( 3);
-        break;
-    case GL_LIGHT4 :
-        idManager.FreeId( 4);
-        break;
-    case GL_LIGHT5 :
-        idManager.FreeId( 5);
-        break;
-    case GL_LIGHT6 :
-        idManager.FreeId( 6);
-        break;
-    case GL_LIGHT7 :
-        idManager.FreeId( 7);
-        break;
-    }
-    lightId = (NTid) -1;
+	switch	(lightId) {
+		case GL_LIGHT0 : 
+			 idManager.FreeId( 0);
+		 	 break;
+		case GL_LIGHT1 : 
+			 idManager.FreeId( 1);
+		 	 break;
+		case GL_LIGHT2 : 
+			 idManager.FreeId( 2);
+		 	 break;
+		case GL_LIGHT3 : 
+			 idManager.FreeId( 3);
+		 	 break;
+		case GL_LIGHT4 : 
+			 idManager.FreeId( 4);
+		 	 break;
+		case GL_LIGHT5 : 
+			 idManager.FreeId( 5);
+		 	 break;
+		case GL_LIGHT6 : 
+			 idManager.FreeId( 6);
+		 	 break;
+		case GL_LIGHT7 : 
+			 idManager.FreeId( 7);
+		 	 break;
+	}
+	lightId = (NTid) -1;
 }
 /* File skeleton generated by GenNTObj version 0.5. */

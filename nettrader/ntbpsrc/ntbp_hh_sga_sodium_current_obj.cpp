@@ -1,9 +1,9 @@
-/**\file ntbp_hh_sga_sodium_current_obj.cpp - NTBP_hh_sga_sodium_current_o class implementation
- * by Ahmed Aldo Faisal &copy; created 17.3.2001
+/**\file ntbp_hh_sga_sodium_current_obj.cpp - NTBP_hh_sga_sodium_current_o class implementation 
+ * by Ahmed Aldo Faisal &copy; created 17.3.2001  
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
  * Version:  0.5
- * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
+ * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -18,44 +18,47 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */
+ */ 
+  
 
-
-/* $Id: ntbp_hh_sga_sodium_current_obj.cpp,v 1.1 2001/10/03 14:37:52 face Exp $
+/* $Id: ntbp_hh_sga_sodium_current_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $ 
 * $Log: ntbp_hh_sga_sodium_current_obj.cpp,v $
+* Revision 1.1.1.1  2004/12/16 01:38:36  face
+* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+*
 * Revision 1.1  2001/10/03 14:37:52  face
 * *** empty log message ***
 *
 
 */
-#include "ntbp_hh_sga_sodium_current_obj.h"
+#include "ntbp_hh_sga_sodium_current_obj.h" 
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NTBP_hh_sga_sodium_current_o */
 NTBP_hh_sga_sodium_current_o::NTBP_hh_sga_sodium_current_o(NTreal newArea)
-        :
-        NTBP_hh_current_o(115 /* mV */,  120 /* mS/cm^2 */, newArea)
+:
+NTBP_hh_current_o(115 /* mV */,  120 /* mS/cm^2 */, newArea)
 {
-    /* set rate constants to steady state value at vM = 0 */
-    ComputeRateConstants(0);
-    m = alphaM/(alphaM + betaM);
-    h = alphaH/(alphaH + betaH);
+	/* set rate constants to steady state value at vM = 0 */
+	ComputeRateConstants(0);
+	m = alphaM/(alphaM + betaM);
+	h = alphaH/(alphaH + betaH);
 }
 
-/* ***      COPY AND ASSIGNMENT	***/
+/* ***      COPY AND ASSIGNMENT	***/ 
 NTBP_hh_sga_sodium_current_o::NTBP_hh_sga_sodium_current_o(const NTBP_hh_sga_sodium_current_o & original)
-        :
-        NTBP_hh_current_o(original._reversalPotential(), original._maxConductivity(), original._area())
+:
+NTBP_hh_current_o(original._reversalPotential(), original._maxConductivity(), original._area())
 {
-// add assignment code here
+ // add assignment code here
 }
 
-const NTBP_hh_sga_sodium_current_o&
+const NTBP_hh_sga_sodium_current_o&  
 NTBP_hh_sga_sodium_current_o::operator= (const NTBP_hh_sga_sodium_current_o & right)
 {
-    if (this == &right) return *this; // Gracefully handle self assignment
-// add assignment code here
-    return *this;
+ if (this == &right) return *this; // Gracefully handle self assignment
+ // add assignment code here
+  return *this;
 }
 
 /* ***      DESTRUCTOR		***/
@@ -63,8 +66,8 @@ NTBP_hh_sga_sodium_current_o::~NTBP_hh_sga_sodium_current_o()
 {
 }
 
-/* ***  PUBLIC                                    ***   */
-/** @short
+/* ***  PUBLIC                                    ***   */  
+/** @short       
     @param      none
     @return     none
    \warning    unknown
@@ -74,29 +77,29 @@ NTBP_hh_sga_sodium_current_o::~NTBP_hh_sga_sodium_current_o()
 inline NTreturn
 NTBP_hh_sga_sodium_current_o::StepCurrent()
 {
-    m += _timeStep() * ((1.0 - m) * alphaM - m * betaM);
-    h += _timeStep() * ((1.0 - h) * alphaH - h * betaH);
-    NT_ASSERT( m >= 0 && m <= 1);
-    NT_ASSERT( h >= 0 && h <= 1);
-    return  NT_SUCCESS;
+	m += _timeStep() * ((1.0 - m) * alphaM - m * betaM);
+	h += _timeStep() * ((1.0 - h) * alphaH - h * betaH);
+	NT_ASSERT( m >= 0 && m <= 1);
+	NT_ASSERT( h >= 0 && h <= 1);
+	return  NT_SUCCESS;
 }
 
-inline NTreal
-NTBP_hh_sga_sodium_current_o::ComputeConductance()
-{
-    return Set_conductance(_maxConductivity() * m * m * m * h * _area() * 1.0e-8 /* muMeter^2/cm^2 */);
+inline NTreal 
+NTBP_hh_sga_sodium_current_o::ComputeConductance() 
+{ 
+	return Set_conductance(_maxConductivity() * m * m * m * h * _area() * 1.0e-8 /* muMeter^2/cm^2 */);
 }
 
-inline void
+inline void 
 NTBP_hh_sga_sodium_current_o::ComputeRateConstants(NTreal vM /* in mV */)
 {
-    NTreal q10Factor = NTBP_TemperatureRateRelation(_temperature(), _q10());
+	NTreal q10Factor = NTBP_TemperatureRateRelation(_temperature(), _q10());
+	
+	alphaM = q10Factor * (25.0 - vM) / (10.0 * (exp((25.0 - vM)/10.0) - 1.0));
+	betaM =  q10Factor *4.0 * exp( -vM / 18.0 );
 
-    alphaM = q10Factor * (25.0 - vM) / (10.0 * (exp((25.0 - vM)/10.0) - 1.0));
-    betaM =  q10Factor *4.0 * exp( -vM / 18.0 );
-
-    alphaH = q10Factor * 0.07 * exp( -vM / 20.0 );
-    betaH = q10Factor * 1.0/(exp((30.0 - vM)/10.0) + 1.0);
+	alphaH = q10Factor * 0.07 * exp( -vM / 20.0 );
+	betaH = q10Factor * 1.0/(exp((30.0 - vM)/10.0) + 1.0);
 }
 
 /* ***  PROTECTED                         ***   */

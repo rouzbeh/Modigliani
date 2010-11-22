@@ -1,9 +1,9 @@
-/**\file nt3d_camera_vp_obj.h - NT3D_camera_vp_o class header
- * by Ahmed Aldo Faisal &copy; created 9.5.1999
+/**\file nt3d_camera_vp_obj.h - NT3D_camera_vp_o class header 
+ * by Ahmed Aldo Faisal &copy; created 9.5.1999  
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
  * Version:  0.3
- * Copyright (C) 1998,199 Ahmed Aldo Faisal
+ * Copyright (C) 1998,199 Ahmed Aldo Faisal                            
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -18,10 +18,13 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */
+ */ 
 
-/* $Id: nt3d_camera_vp_obj.h,v 1.1 2001/06/29 13:16:55 face Exp $
+/* $Id: nt3d_camera_vp_obj.h,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
  * $Log: nt3d_camera_vp_obj.h,v $
+ * Revision 1.1.1.1  2004/12/16 01:38:36  face
+ * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+ *
  * Revision 1.1  2001/06/29 13:16:55  face
  * *** empty log message ***
  *
@@ -80,81 +83,49 @@
  */
 class NT3D_camera_vp_o : public NT3D_abstract_vp_o {
 public:
-    /***   Constructors, CopyAssignment and Destructor  ***/
-    NT3D_camera_vp_o();
-    NT3D_camera_vp_o(NT3D_camera_o * newCameraPtr);
-    NT3D_camera_vp_o(const NT3D_camera_vp_o & original);
-    const NT3D_camera_vp_o & operator= (const NT3D_camera_vp_o & right);
-    virtual ~NT3D_camera_vp_o();
-    /* ***  Methods              ***/
-    void Draw();
-    NTbool SetCamera(NT3D_camera_o * newCameraPtr);
-    NTbool _hasCamera() {
-        return haveCamera;
-    }
-    void RotateX ( const NTreal deltaRotX) {
-        cameraPtr->RotateX(deltaRotX);
-    }
-    void RotateY ( const NTreal deltaRotY) {
-        cameraPtr->RotateY(deltaRotY);
-    }
-    void RotateZ ( const NTreal deltaRotZ) {
-        cameraPtr->RotateZ(deltaRotZ);
-    }
-    void SetRotationX ( const NTreal rotX) {
-        cameraPtr->SetRotationX(rotX);
-    }
-    void SetRotationY ( const NTreal rotY) {
-        cameraPtr->SetRotationY(rotY);
-    }
-    void SetRotationZ ( const NTreal rotZ) {
-        cameraPtr->SetRotationZ(rotZ);
-    }
-    void TranslateX ( const NTreal deltaTraX) {
-        cameraPtr->TranslateX(deltaTraX);
-    }
-    void TranslateY ( const NTreal deltaTraY) {
-        cameraPtr->TranslateY(deltaTraY);
-    }
-    void TranslateZ ( const NTreal deltaTraZ) {
-        cameraPtr->TranslateZ(deltaTraZ);
-    }
-    void SetTranslationX ( const NTreal traX) {
-        cameraPtr->SetTranslationX(traX);
-    }
-    void SetTranslationY ( const NTreal traY) {
-        cameraPtr->SetTranslationY(traY);
-    }
-    void SetTranslationZ ( const NTreal traZ) {
-        cameraPtr->SetTranslationZ(traZ);
-    }
-    void SetTranslationXYZ ( const NT_vector3_o & oTra) {
-        cameraPtr->SetTranslationXYZ(oTra);
-    }
-    void SetTarget ( const NT_vector3_o & oTarget) {
-        cameraPtr->SetTarget(oTarget);
-    }
+  /***   Constructors, CopyAssignment and Destructor  ***/  
+  NT3D_camera_vp_o();
+  NT3D_camera_vp_o(NT3D_camera_o * newCameraPtr);
+  NT3D_camera_vp_o(const NT3D_camera_vp_o & original);
+  const NT3D_camera_vp_o & operator= (const NT3D_camera_vp_o & right);
+  virtual ~NT3D_camera_vp_o();
+  /* ***  Methods              ***/  
+  void Draw();
+  NTbool SetCamera(NT3D_camera_o * newCameraPtr);
+  NTbool _hasCamera() { return haveCamera;}
+  void RotateX ( const NTreal deltaRotX){ cameraPtr->RotateX(deltaRotX);}
+  void RotateY ( const NTreal deltaRotY){ cameraPtr->RotateY(deltaRotY);}
+  void RotateZ ( const NTreal deltaRotZ){ cameraPtr->RotateZ(deltaRotZ);}
+  void SetRotationX ( const NTreal rotX){ cameraPtr->SetRotationX(rotX); }
+  void SetRotationY ( const NTreal rotY){ cameraPtr->SetRotationY(rotY); }
+  void SetRotationZ ( const NTreal rotZ){ cameraPtr->SetRotationZ(rotZ); }
+  void TranslateX ( const NTreal deltaTraX){ cameraPtr->TranslateX(deltaTraX);}
+  void TranslateY ( const NTreal deltaTraY){ cameraPtr->TranslateY(deltaTraY);}
+  void TranslateZ ( const NTreal deltaTraZ){ cameraPtr->TranslateZ(deltaTraZ);}
+  void SetTranslationX ( const NTreal traX){ cameraPtr->SetTranslationX(traX); }
+  void SetTranslationY ( const NTreal traY){ cameraPtr->SetTranslationY(traY); }
+  void SetTranslationZ ( const NTreal traZ){ cameraPtr->SetTranslationZ(traZ); }
+  void SetTranslationXYZ ( const NT_vector3_o & oTra){ cameraPtr->SetTranslationXYZ(oTra); }
+  void SetTarget ( const NT_vector3_o & oTarget){ cameraPtr->SetTarget(oTarget); }
 
-
-    /* ***  Data                 ***/
+  
+  /* ***  Data                 ***/  
 
 protected:
-    /* ***  Methods              ***/
-    virtual void DrawScene() = 0;
-    void RedrawChild() {
-        DrawScene();
-    };
-    NTreturn ResizeChild(NTsize width, NTsize height);
-    void InitChild() ;
-    /* ***  Data                 ***/
-    NT3D_camera_o * cameraPtr;
+  /* ***  Methods              ***/  
+  virtual void DrawScene() = 0;
+  void RedrawChild(){DrawScene();};
+  NTreturn ResizeChild(NTsize width, NTsize height);
+  void InitChild() ;
+  /* ***  Data                 ***/  
+  NT3D_camera_o * cameraPtr;
 
 private:
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
-    bool haveCamera;
-
-};
-#endif /* _nt3d_camera_vp_h_ */
+  /* ***  Methods              ***/  
+  /* ***  Data                 ***/	
+  bool haveCamera;
+  
+  };
+#endif /* _nt3d_camera_vp_h_ */ 
 
 /* File skeleton generated by GenNTObj version 0.4. */

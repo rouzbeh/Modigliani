@@ -1,9 +1,9 @@
-/**\file ntbp_channels_current_obj.h - NTBP_channels_current_o class header
- * by Ahmed Aldo Faisal &copy; created 16.3.2001
+/**\file ntbp_channels_current_obj.h - NTBP_channels_current_o class header 
+ * by Ahmed Aldo Faisal &copy; created 16.3.2001  
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
  * Version:  0.5
- * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
+ * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -18,11 +18,20 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */
+ */ 
+  
 
-
-/* $Id: ntbp_channels_current_obj.h,v 1.2 2002/03/13 19:23:27 face Exp $
+/* $Id: ntbp_channels_current_obj.h,v 1.1.1.1 2004/12/16 01:38:36 face Exp $ 
 * $Log: ntbp_channels_current_obj.h,v $
+* Revision 1.1.1.1  2004/12/16 01:38:36  face
+* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+*
+* Revision 1.4  2003/08/14 16:43:27  face
+* *** empty log message ***
+*
+* Revision 1.3  2003/07/21 13:30:57  face
+* *** empty log message ***
+*
 * Revision 1.2  2002/03/13 19:23:27  face
 * *** empty log message ***
 *
@@ -31,71 +40,60 @@
 *
 
 */
-#ifndef _ntbp_channels_current_obj_h_
-#define _ntbp_channels_current_obj_h_
+#ifndef _ntbp_channels_current_obj_h_ 
+#define _ntbp_channels_current_obj_h_ 
 
 /* NT core includes */
-#include "nt_main.h"
-#include "nt_types.h"
-#include "nt_obj.h"
+#include "nt_main.h" 
+#include "nt_types.h" 
+#include "nt_obj.h"  
 /* Parent includes */
-#include "ntbp_membrane_current_obj.h"
+#include "ntbp_membrane_current_obj.h" 
 /* NT includes */
-#include "ntbp_ion_channels_obj.h"
+#include "ntbp_ion_channels_obj.h" 
 /* other includes */
 
-/** @short NTBP_channels_current_o class
+/** @short NTBP_channels_current_o class 
  	Base class for stochastic channel simulations of individual channels
 \bug unknown
-\warning unknown
+\warning unknown 
 */
 class NTBP_channels_current_o : public NTBP_membrane_current_o {
 public:
-    /***   Constructors, Copy/Assignment and Destructor  ***/
-    NTBP_channels_current_o(
-        NTreal reversalPotential, // in mV
-        NTreal density, // channels per mumeter^2
-        NTreal area, // in mumeter^2
-        NTreal conductivity // in mSiemens per channel
-    );
-    NTBP_channels_current_o(const NTBP_channels_current_o & original);
-    const NTBP_channels_current_o & operator= (const NTBP_channels_current_o & right);
-    virtual ~NTBP_channels_current_o();
-    /* ***  Methods              ***/
-    /* mementary total conductance */
-    NTreal _density() const {
-        return density;
-    }
-    NTreal _area()  const {
-        return area;
-    }
-    /* conductivity per channel */
-    NTreal _conductivity() const {
-        return conductivity;    /* in mSiemens per channel */
-    }
-    /* conductivity if all channels open in mSiemens/cm^2 */
-    NTreal _maxConductivity() const {
-        return density*conductivity*1e-8;
-    }
-    /**  */
-    bool ComputeGillespieStep() {
-        return channelsPtr->GillespieStep();
-    }
-    NTreal ComputeConductance() {
-        return Set_conductance( channelsPtr->NumOpen() * conductivity);
-    }
-    /* ***  Data                 ***/
+/***   Constructors, Copy/Assignment and Destructor  ***/  
+NTBP_channels_current_o(
+	NTreal reversalPotential, // in mV
+	NTreal density, // channels per mumeter^2
+	NTreal area, // in mumeter^2
+	NTreal conductivity // in mSiemens per channel
+	);
+NTBP_channels_current_o(const NTBP_channels_current_o & original);
+const NTBP_channels_current_o & operator= (const NTBP_channels_current_o & right);
+virtual ~NTBP_channels_current_o();
+/* ***  Methods              ***/
+/* mementary total conductance */
+NTreal _density() const { return density;}
+NTreal _area()  const { return area; }
+/* conductivity per channel */
+NTreal _conductivity() const { return conductivity; } /* in mSiemens per channel */
+/* conductivity if all channels open in mSiemens/cm^2 */
+NTreal _maxConductivity() const {return density*conductivity*1e-8;}
+ /**  */
+
+bool ComputeGillespieStep() { return channelsPtr->GillespieStep();}
+NTreal ComputeConductance(){ return Set_conductance( channelsPtr->NumOpen() * conductivity);}
+/* ***  Data                 ***/
 protected:
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
-    NTBP_ion_channels_o * channelsPtr;
-    NTreal density; // channels per mumeter^2
-    NTreal area; // in mumeter^2
-    NTreal conductivity; // in mSiemens per channel
+/* ***  Methods              ***/
+/* ***  Data                 ***/
+NTBP_ion_channels_o * channelsPtr;
+NTreal density; // channels per mumeter^2
+NTreal area; // in mumeter^2
+NTreal conductivity; // in mSiemens per channel
 private:
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
+/* ***  Methods              ***/  
+/* ***  Data                 ***/ 
 };
-#endif /* _ntbp_channels_current_obj_h_ */
+#endif /* _ntbp_channels_current_obj_h_ */ 
 
 /* File skeleton generated by GenNTObj version 0.7. */

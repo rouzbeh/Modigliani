@@ -1,9 +1,9 @@
-/**\file nt3d_target_camera_obj.cpp - NT3D_target_camera_o class implementation
- * by Ahmed Aldo Faisal &copy; created 26.4.2000
+/**\file nt3d_target_camera_obj.cpp - NT3D_target_camera_o class implementation 
+ * by Ahmed Aldo Faisal &copy; created 26.4.2000  
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
  * Version:  0.4
- * Copyright (C) 1998,199 Ahmed Aldo Faisal
+ * Copyright (C) 1998,199 Ahmed Aldo Faisal    
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -18,11 +18,14 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */
+ */ 
+  
 
-
-/* $Id: nt3d_target_camera_obj.cpp,v 1.2 2003/06/20 13:25:57 face Exp $
+/* $Id: nt3d_target_camera_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $ 
 * $Log: nt3d_target_camera_obj.cpp,v $
+* Revision 1.1.1.1  2004/12/16 01:38:36  face
+* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+*
 * Revision 1.2  2003/06/20 13:25:57  face
 * *** empty log message ***
 *
@@ -40,32 +43,32 @@
 *
 
 */
-#include "nt3d_target_camera_obj.h"
+#include "nt3d_target_camera_obj.h" 
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NT3D_target_camera_o */
 NT3D_target_camera_o::NT3D_target_camera_o(const NT_vector3_o & oNewPosition, const NT_vector3_o & oNewTarget)
-        :
-        NT3D_camera_o(oNewPosition,oNewTarget)
+:
+NT3D_camera_o(oNewPosition,oNewTarget)
 {
-    tmpDirection = oNewTarget-oNewPosition;
-    oldDirection = oNewTarget-oNewPosition;
-    oldPosition = oNewPosition;
+	tmpDirection = oNewTarget-oNewPosition;
+	oldDirection = oNewTarget-oNewPosition;
+	oldPosition = oNewPosition;
 }
 
-/* ***      COPY AND ASSIGNMENT	***/
+/* ***      COPY AND ASSIGNMENT	***/ 
 NT3D_target_camera_o::NT3D_target_camera_o(const NT3D_target_camera_o & original)
 {
-    NT_CERR(1,"NT3D_target_camera_o::NT3D_target_camera_o(const...) - Error : Not implemented.");
+	NT_CERR(1,"NT3D_target_camera_o::NT3D_target_camera_o(const...) - Error : Not implemented.");
 }
 
-const NT3D_target_camera_o&
+const NT3D_target_camera_o&  
 NT3D_target_camera_o::operator= (const NT3D_target_camera_o & right)
 {
-    if (this == &right) return *this; // Gracefully handle self assignment
-    NT_CERR(1,"NT3D_target_camera_o::operator= - Error : Not implemented.");
-// add assignment code here
-    return *this;
+ if (this == &right) return *this; // Gracefully handle self assignment
+ NT_CERR(1,"NT3D_target_camera_o::operator= - Error : Not implemented.");
+ // add assignment code here
+  return *this;
 }
 
 /* ***      DESTRUCTOR		***/
@@ -73,51 +76,51 @@ NT3D_target_camera_o::~NT3D_target_camera_o()
 {
 }
 
-/* ***  PUBLIC                                    ***   */
-/** @short
+/* ***  PUBLIC                                    ***   */  
+/** @short       
     @param      none
     @return     none
    \warning    UPDATE CODE ALSO IN NT3D_camera_o
    \bug        unknown
  */
 void
-NT3D_target_camera_o::Draw()
+NT3D_target_camera_o::Draw() 
 {
-    cameraChanged = true; /* as long as rotations are not intercepted
+	cameraChanged = true; /* as long as rotations are not intercepted
 	for change test the speedup checking is disabled */
-    if (true == cameraChanged) {
-        glMatrixMode( GL_PROJECTION );
-        glLoadIdentity();
-        gluPerspective(fov, aspectRatio, 0.1, 1000.0);
-        glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity();
+	if (true == cameraChanged){
+	glMatrixMode( GL_PROJECTION );
+	glLoadIdentity();
+	gluPerspective(fov, aspectRatio, 0.1, 1000.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 
+	
+	/* dynamic targetting, based on movement of camera,
+	   the camera points into the direction of the "velocity" vector */
+    /* tmp- and oldDirection designate a "velocity" vectoreading */
+	tmpDirection = (oTranslation - oldPosition);
+	// if "the camera did move use the new motion vector"
+	if (tmpDirection.LenSqr() > 0) {
+		tmpDirection.Norm();
+		oldDirection = tmpDirection;
+	} else  tmpDirection = oldDirection;
+	tmpDirection = tmpDirection.XYZrotation(oRotation); 
+	oTarget = tmpDirection + oTranslation;
 
-        /* dynamic targetting, based on movement of camera,
-           the camera points into the direction of the "velocity" vector */
-        /* tmp- and oldDirection designate a "velocity" vectoreading */
-        tmpDirection = (oTranslation - oldPosition);
-        // if "the camera did move use the new motion vector"
-        if (tmpDirection.LenSqr() > 0) {
-            tmpDirection.Norm();
-            oldDirection = tmpDirection;
-        } else  tmpDirection = oldDirection;
-        tmpDirection = tmpDirection.XYZrotation(oRotation);
-        oTarget = tmpDirection + oTranslation;
+		
+	cerr << "oTranslation" << oTranslation;
+	cerr << "oTarget:" << oTarget;
+	cerr << "tmpDirection:" << tmpDirection;
+	cerr << "oRotation:" << oRotation << endl;
 
-
-        cerr << "oTranslation" << oTranslation;
-        cerr << "oTarget:" << oTarget;
-        cerr << "tmpDirection:" << tmpDirection;
-        cerr << "oRotation:" << oRotation << endl;
-
-        gluLookAt(oTranslation[0],oTranslation[1],oTranslation[2],
-                  oTarget[0], oTarget[1], oTarget[2],
-                  oUp[0],oUp[1],oUp[2]);
-        oldPosition = _oTranslation();
-        //glPushMatrix();//? where does this come from    2DO
-        cameraChanged = false;
-    }
+	gluLookAt(oTranslation[0],oTranslation[1],oTranslation[2],
+    	      oTarget[0], oTarget[1], oTarget[2],
+        	  oUp[0],oUp[1],oUp[2]);
+	oldPosition = _oTranslation();
+	//glPushMatrix();//? where does this come from    2DO
+	cameraChanged = false;
+	}
 }
 
 /* ***  PROTECTED                         ***   */

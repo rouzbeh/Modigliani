@@ -21,8 +21,11 @@
  */
 
 
-/* $Id: ntbp_multi_current_obj.h,v 1.5 2003/01/30 17:13:43 face Exp $
+/* $Id: ntbp_multi_current_obj.h,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
 * $Log: ntbp_multi_current_obj.h,v $
+* Revision 1.1.1.1  2004/12/16 01:38:36  face
+* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+*
 * Revision 1.5  2003/01/30 17:13:43  face
 * *** empty log message ***
 *
@@ -60,72 +63,52 @@
 */
 class NTBP_multi_current_o : public NTBP_membrane_current_o {
 public:
-    /***   Constructors, Copy/Assignment and Destructor  ***/
-    NTBP_multi_current_o(
-        NTreal reversalPotential, // in mV
-        NTreal density, // channels per mumeter^2
-        NTreal area, // in mumeter^2
-        NTreal conductivity, // in mSiemens per channel
-        NTreal vBase = 0 // mV
-    );
-    NTBP_multi_current_o(const NTBP_multi_current_o & original);
-    const NTBP_multi_current_o & operator= (const NTBP_multi_current_o & right);
-    virtual ~NTBP_multi_current_o();
-    /* ***  Methods              ***/
+/***   Constructors, Copy/Assignment and Destructor  ***/
+NTBP_multi_current_o(
+	NTreal reversalPotential, // in mV
+	NTreal density, // channels per mumeter^2
+	NTreal area, // in mumeter^2
+	NTreal conductivity, // in mSiemens per channel
+	NTreal vBase = 0 // mV
+	);
+NTBP_multi_current_o(const NTBP_multi_current_o & original);
+const NTBP_multi_current_o & operator= (const NTBP_multi_current_o & right);
+virtual ~NTBP_multi_current_o();
+/* ***  Methods              ***/
 //virtual NTreal ComputeConductance() = 0;
 //virtual NTreturn StepCurrent() = 0;
-    /* mementary total conductance */
-    NTreal _density() const {
-        return density;
-    }
-    NTreal _area()  const {
-        return area;
-    }
-    /* conductivity per channel in mSiemens */
-    NTreal _conductivity() const {
-        return conductivity;
-    }
-    /* conductivity if all channels open in mSiemens/cm^2, */
-    NTreal _maxConductivity() const {
-        return density /* num/muMeter^2 */ * conductivity /* mSiemens */* 1.0e8 /* muMeter^2/cm^2 */;
-    }
-    /**  */
-    bool ComputeGillespieStep() {
-        cerr <<"NTBP_multi_current_o::ComputeGillespieStep()" << endl;
-        return channelsPtr->GillespieStep();
-    }
-    void UpdateNumChannels() {
-        numChannels = (NTsize) ceil(density*area);
-    }
-    NTsize _numChannels() const {
-        return numChannels;
-    }
-    /** Number of total ionic channels */
-    NTreal NumChannels() const {
-        return _numChannels();
-    }
-    NTreal OpenChannelsRatio() const {
-        return OpenChannels()/NumChannels();
-    }
-    NTreal _vBase() const {
-        return vBase;
-    }
+/* mementary total conductance */
+NTreal _density() const { return density;}
+NTreal _area()  const { return area; }
+/* conductivity per channel in mSiemens */
+NTreal _conductivity() const { return conductivity; }
+/* conductivity if all channels open in mSiemens/cm^2, */
+NTreal _maxConductivity() const {return density /* num/muMeter^2 */ * conductivity /* mSiemens */* 1.0e8 /* muMeter^2/cm^2 */;}
+ /**  */
+bool ComputeGillespieStep() {cerr <<"NTBP_multi_current_o::ComputeGillespieStep()" << endl; return channelsPtr->GillespieStep();}
+void UpdateNumChannels() { numChannels = (NTsize) ceil(density*area); }
+NTsize _numChannels() const { return numChannels; }
+/** Number of total ionic channels */
+NTreal NumChannels() const { return _numChannels(); }
+NTreal OpenChannelsRatio() const { return OpenChannels()/NumChannels(); }
+NTreal _vBase() const { return vBase;}
 // Dangerous: since cached values are not automatically recomputed in derived classes
 //void Set_vBase(NTreal newVBase /* mV */){ vBase = newVBase; }
-    /* ***  Data                 ***/
+/* ***  Data                 ***/
 protected:
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
-    static NT_uniform_rnd_dist_o uniformRnd;
-    NTreal conductivity; // in mSiemens per channel
-    NTreal density; // channels per muMeter^2
-    NTBP_ion_channels_o * channelsPtr;
+/* ***  Methods              ***/
+/* ***  Data                 ***/
+static NT_uniform_rnd_dist_o uniformRnd;
+NTreal conductivity; // in mSiemens per channel
+NTreal density; // channels per muMeter^2
+NTreal vBase; // mV
+NTBP_ion_channels_o * channelsPtr;
 private:
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
-    NTsize numChannels;
-    NTreal area; // in mumeter^2
-    NTreal vBase; // mV
+/* ***  Methods              ***/
+/* ***  Data                 ***/
+NTsize numChannels;
+NTreal area; // in mumeter^2
+
 };
 
 #endif /* _ntbp_multi_current_obj_h_ */

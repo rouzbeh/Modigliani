@@ -21,8 +21,11 @@
  */
 
 
-/* $Id: ntbp_Na_only_sga_cylindrical_compartment_obj.h,v 1.1 2001/10/03 14:37:52 face Exp $
+/* $Id: ntbp_Na_only_sga_cylindrical_compartment_obj.h,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
 * $Log: ntbp_Na_only_sga_cylindrical_compartment_obj.h,v $
+* Revision 1.1.1.1  2004/12/16 01:38:36  face
+* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+*
 * Revision 1.1  2001/10/03 14:37:52  face
 * *** empty log message ***
 *
@@ -50,19 +53,19 @@
 */
 class NTBP_na_only_sga_cylindrical_compartment_o : public NTBP_cylindrical_compartment_o {
 public:
-    /***   Constructors, Copy/Assignment and Destructor  ***/
-    NTBP_na_only_sga_cylindrical_compartment_o(NTreal length /* muMeter */ , NTreal diameter = 476 /* muMeter */);
-    NTBP_na_only_sga_cylindrical_compartment_o(const NTBP_na_only_sga_cylindrical_compartment_o & original);
-    const NTBP_na_only_sga_cylindrical_compartment_o & operator= (const NTBP_na_only_sga_cylindrical_compartment_o & right);
-    virtual ~NTBP_na_only_sga_cylindrical_compartment_o();
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
+/***   Constructors, Copy/Assignment and Destructor  ***/
+NTBP_na_only_sga_cylindrical_compartment_o(NTreal length /* muMeter */ , NTreal diameter = 476 /* muMeter */);
+NTBP_na_only_sga_cylindrical_compartment_o(const NTBP_na_only_sga_cylindrical_compartment_o & original);
+const NTBP_na_only_sga_cylindrical_compartment_o & operator= (const NTBP_na_only_sga_cylindrical_compartment_o & right);
+virtual ~NTBP_na_only_sga_cylindrical_compartment_o();
+/* ***  Methods              ***/
+/* ***  Data                 ***/
 protected:
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
+/* ***  Methods              ***/
+/* ***  Data                 ***/
 private:
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
+/* ***  Methods              ***/
+/* ***  Data                 ***/
 };
 #endif /* _ntbp_na_only_sga_cylindrical_compartment_obj_h_ */
 

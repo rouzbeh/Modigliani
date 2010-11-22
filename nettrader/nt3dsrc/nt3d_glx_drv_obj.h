@@ -1,9 +1,9 @@
-/**\file nt3d_glx_drv_obj.h - NT3D_glx_drv_o class header
- * by Ahmed Aldo Faisal &copy; created 9.5.1999
+/**\file nt3d_glx_drv_obj.h - NT3D_glx_drv_o class header 
+ * by Ahmed Aldo Faisal &copy; created 9.5.1999  
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
  * Version:  0.3
- * Copyright (C) 1998,199 Ahmed Aldo Faisal
+ * Copyright (C) 1998,199 Ahmed Aldo Faisal                            
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -18,10 +18,13 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */
+ */ 
 
-/* $Id: nt3d_glx_drv_obj.h,v 1.1 2001/06/29 13:16:55 face Exp $
+/* $Id: nt3d_glx_drv_obj.h,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
  * $Log: nt3d_glx_drv_obj.h,v $
+ * Revision 1.1.1.1  2004/12/16 01:38:36  face
+ * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+ *
  * Revision 1.1  2001/06/29 13:16:55  face
  * *** empty log message ***
  *
@@ -110,59 +113,54 @@
 
 class NT3D_glx_drv_o : public NT3D_drv_vp_o {
 public:
-    /***   Constructors, CopyAssignment and Destructor  ***/
-    NT3D_glx_drv_o(NTsize windowWidth = 200 , NTsize windowHeight = 200, bool useCommonContext = false);
-    NT3D_glx_drv_o(const NT3D_glx_drv_o & original);
-    const NT3D_glx_drv_o & operator= (const NT3D_glx_drv_o & right);
-    virtual ~NT3D_glx_drv_o();
-    /* ***  Methods              ***/
-    NTreturn Open(NT3D_vp_spec_o newWinSpec);
-    NTreturn Close();
-    /** makes the window associated with this object the current rendering context */
-    void MakeCurrent() { /*cerr << "NT3D_glx_drv_o : "<<_uniqId() <<"MC"<<endl;*/
-        if (NT_FALSE == glXMakeCurrent (dpy, win, ctx )) NT_CERR(1,"NT3D_glx_drv_o::MakeCurrent - error : unable to comply. Current rendering context not changed.");
-        //else cerr << dpy << " "<< win <<" " << ctx << " "/*"NT3D_glx_drv_o::MakeCurrent - talk : Made windowNumber "*/<< windowNumber <<" current rendering context." << endl;
-    }
-    /** call instead of glXSwapBuffers */
-    void SwapBuffer() { /*cerr << "NT3D_glx_drv_o : "<<_uniqId() <<"SB"<<endl;*/
-        glXSwapBuffers (dpy, win);
-    }
-    NTreturn Resize(NTsize width, NTsize height);
-    NTreturn SetWindowTitle(string newTitle);
+  /***   Constructors, CopyAssignment and Destructor  ***/  
+  NT3D_glx_drv_o(NTsize windowWidth = 200 , NTsize windowHeight = 200, bool useCommonContext = false);
+  NT3D_glx_drv_o(const NT3D_glx_drv_o & original);
+  const NT3D_glx_drv_o & operator= (const NT3D_glx_drv_o & right);
+  virtual ~NT3D_glx_drv_o();
+  /* ***  Methods              ***/  
+  NTreturn Open(NT3D_vp_spec_o newWinSpec);
+  NTreturn Close();
+  /** makes the window associated with this object the current rendering context */
+  void MakeCurrent() { /*cerr << "NT3D_glx_drv_o : "<<_uniqId() <<"MC"<<endl;*/
+  					   if (NT_FALSE == glXMakeCurrent (dpy, win, ctx )) NT_CERR(1,"NT3D_glx_drv_o::MakeCurrent - error : unable to comply. Current rendering context not changed.");
+  					   //else cerr << dpy << " "<< win <<" " << ctx << " "/*"NT3D_glx_drv_o::MakeCurrent - talk : Made windowNumber "*/<< windowNumber <<" current rendering context." << endl;
+  					   }
+  /** call instead of glXSwapBuffers */
+  void SwapBuffer() { /*cerr << "NT3D_glx_drv_o : "<<_uniqId() <<"SB"<<endl;*/
+                      glXSwapBuffers (dpy, win);}
+  NTreturn Resize(NTsize width, NTsize height);
+  NTreturn SetWindowTitle(string newTitle);
 
-    /** Make sure that the method is called directly after a Draw() to the VP,
-     ** as neither a MakeCurrent() nor a Draw()  is executed by this method */
-    NT3D_bitmap_o   View2Bitmap();
-    NT3D_bitmap_o * View2BitmapPtr(NT3D_bitmap_o * bmpPtr);
+  /** Make sure that the method is called directly after a Draw() to the VP,
+   ** as neither a MakeCurrent() nor a Draw()  is executed by this method */
+  NT3D_bitmap_o   View2Bitmap();
+  NT3D_bitmap_o * View2BitmapPtr(NT3D_bitmap_o * bmpPtr);
 
-    NTsize _width() {
-        return width;
-    }
-    NTsize _height() {
-        return height;
-    }
+  NTsize _width(){return width;}
+  NTsize _height(){return height;}
 
-protected:
-private:
-    /* Create a window of given size and return its unique window number */
-    NTint CreateWindow(NTint windowWidth, NTint windowHeight);
-    /** Low level  and GLX call to open a RGBA double buffered window */
-    NTreturn MakeRGBDBWindow(NTint windowWidth, NTint windowHeight);
+  protected:
+  private:
+  /* Create a window of given size and return its unique window number */
+  NTint CreateWindow(NTint windowWidth, NTint windowHeight);
+  /** Low level  and GLX call to open a RGBA double buffered window */
+  NTreturn MakeRGBDBWindow(NTint windowWidth, NTint windowHeight);
 
-    static NTint initCount;
-    static NTint windowCount;
-    static NTint commonCtxCount;
-    unsigned int width;
-    unsigned int height;
-    NTint windowNumber;
-    string windowTitle;
-    static Display * dpy;
-    Window win;
-    GLXContext ctx;
-    bool useUniqueCommonCtx;
-    static GLXContext uniqueCommonCtx;
+  static NTint initCount;
+  static NTint windowCount;
+  static NTint commonCtxCount;
+  unsigned int width;
+  unsigned int height;
+  NTint windowNumber;
+  string windowTitle;
+  static Display * dpy;
+  Window win;
+  GLXContext ctx;      
+  bool useUniqueCommonCtx;
+  static GLXContext uniqueCommonCtx;
 };
 
-#endif /* _nt3d_glx_drv_h_ */
+#endif /* _nt3d_glx_drv_h_ */ 
 
 /* File skeleton generated by GenNTObj version 0.3. */

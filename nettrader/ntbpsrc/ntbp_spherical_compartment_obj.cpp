@@ -1,9 +1,9 @@
-/**\file ntbp_spherical_compartment_obj.cpp - NTBP_spherical_compartment_o class implementation
- * by Ahmed Aldo Faisal &copy; created 19.3.2001
+/**\file ntbp_spherical_compartment_obj.cpp - NTBP_spherical_compartment_o class implementation 
+ * by Ahmed Aldo Faisal &copy; created 19.3.2001  
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
  * Version:  0.5
- * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
+ * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -18,11 +18,14 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */
+ */ 
+  
 
-
-/* $Id: ntbp_spherical_compartment_obj.cpp,v 1.2 2003/04/08 15:13:36 face Exp $
+/* $Id: ntbp_spherical_compartment_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $ 
 * $Log: ntbp_spherical_compartment_obj.cpp,v $
+* Revision 1.1.1.1  2004/12/16 01:38:36  face
+* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+*
 * Revision 1.2  2003/04/08 15:13:36  face
 * *** empty log message ***
 *
@@ -31,34 +34,34 @@
 *
 
 */
-#include "ntbp_spherical_compartment_obj.h"
+#include "ntbp_spherical_compartment_obj.h" 
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NTBP_spherical_compartment_o */
 NTBP_spherical_compartment_o::NTBP_spherical_compartment_o(NTreal newRadius, NTreal newCm)
-        :
-        NTBP_membrane_compartment_o(4 * M_PI * newRadius * newRadius )
+:
+NTBP_membrane_compartment_o(4 * M_PI * newRadius * newRadius )
 {
-    radius = newRadius;
-    Set_cM(newCm);
-    Set_rA(35.4);
+	radius = newRadius;
+	Set_cM(newCm);
+	Set_rA(35.4);
 }
 
-/* ***      COPY AND ASSIGNMENT	***/
+/* ***      COPY AND ASSIGNMENT	***/ 
 NTBP_spherical_compartment_o::NTBP_spherical_compartment_o(const NTBP_spherical_compartment_o & original)
-        :
-        NTBP_membrane_compartment_o( original._area() )
+:
+NTBP_membrane_compartment_o( original._area() )
 {
-// add assignment code here
-    radius = original.radius;
+ // add assignment code here
+	radius = original.radius;
 }
 
-const NTBP_spherical_compartment_o&
+const NTBP_spherical_compartment_o&  
 NTBP_spherical_compartment_o::operator= (const NTBP_spherical_compartment_o & right)
 {
-    if (this == &right) return *this; // Gracefully handle self assignment
-// add assignment code here
-    return *this;
+ if (this == &right) return *this; // Gracefully handle self assignment
+ // add assignment code here
+  return *this;
 }
 
 /* ***      DESTRUCTOR		***/
@@ -66,8 +69,8 @@ NTBP_spherical_compartment_o::~NTBP_spherical_compartment_o()
 {
 }
 
-/* ***  PUBLIC                                    ***   */
-/** @short
+/* ***  PUBLIC                                    ***   */  
+/** @short       
     @param      none
     @return     none
    \warning    unknown

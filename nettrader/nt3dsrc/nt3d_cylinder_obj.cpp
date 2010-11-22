@@ -1,5 +1,5 @@
 /* nt3d_cylinder_obj_obj.h - NT3D implementation for cylinder class
- * by Ahmed A. Faisal, 15. 10. 1998(c)
+ * by Ahmed A. Faisal, 15. 10. 1998(c) 
  *
  * NetTrader - finance management, analysis and simulation system
  * Version:  0.1
@@ -21,8 +21,11 @@
  */
 
 
-/* $Id: nt3d_cylinder_obj.cpp,v 1.1 2001/06/29 13:16:55 face Exp $
+/* $Id: nt3d_cylinder_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
  * $Log: nt3d_cylinder_obj.cpp,v $
+ * Revision 1.1.1.1  2004/12/16 01:38:36  face
+ * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+ *
  * Revision 1.1  2001/06/29 13:16:55  face
  * *** empty log message ***
  *
@@ -77,7 +80,7 @@
  * Revision 1.1  1998/12/06 15:03:10  face
  * Initial revision
  *
- */
+ */ 
 
 
 #include "nt3d_cylinder_obj.h"
@@ -89,36 +92,36 @@
 
 
 NT3D_cylinder_o::NT3D_cylinder_o()
-        :
-        NT3D_solid_o()
+  : 
+  NT3D_solid_o()
 {
-    Init(1.0);
-}
+   Init(1.0);
+}	
 
 
 NT3D_cylinder_o::NT3D_cylinder_o(NT_vector3_o oNewPosition)
-        :
-        NT3D_solid_o(oNewPosition)
+  :
+  NT3D_solid_o(oNewPosition) 
 {
-    Init(1.0);
+   Init(1.0);
 }
 
 
 NT3D_cylinder_o::NT3D_cylinder_o(NT_vector3_o oBaseCenter, NTreal newHeight, NTreal newRadius)
-        :
-        NT3D_solid_o(oBaseCenter)
+:
+NT3D_solid_o(oBaseCenter)
 {
-    Init(newRadius);
-    height = newHeight;
-//  cerr << "NT3D_cylinder_o::NT3D_cylinder_o " <<oRotation[0] << " "<<oRotation[1] << " "<<oRotation[2] <<endl;
+   Init(newRadius);
+   height = newHeight; 	
+ //  cerr << "NT3D_cylinder_o::NT3D_cylinder_o " <<oRotation[0] << " "<<oRotation[1] << " "<<oRotation[2] <<endl;
 }
-
+ 
 /** \warning see corresponding note in NT3D_solid_o */
 NT3D_cylinder_o::NT3D_cylinder_o(const NT3D_cylinder_o & original)
 {
 }
 
-
+ 
 NT3D_cylinder_o::~NT3D_cylinder_o()
 {
 }
@@ -128,14 +131,14 @@ NT3D_cylinder_o::~NT3D_cylinder_o()
 inline void
 NT3D_cylinder_o::DrawSolidObj() const
 {
-    glScalef(NT3D_solid_o::oScaling[0], NT3D_solid_o::oScaling[1], NT3D_solid_o::oScaling[2] );
-    gluCylinder( pQuadObj,
-                 baseRadius, topRadius,
-                 height,
-                 slices, stacks);
+  glScalef(NT3D_solid_o::oScaling[0], NT3D_solid_o::oScaling[1], NT3D_solid_o::oScaling[2] );
+  gluCylinder( pQuadObj,  
+	      baseRadius, topRadius,
+	      height,
+	      slices, stacks);
 }
 
-
+ 
 
 
 /* Protected */
@@ -143,11 +146,11 @@ NT3D_cylinder_o::DrawSolidObj() const
 void
 NT3D_cylinder_o::Init(NTreal radius)
 {
-    topRadius = radius;
-    baseRadius = radius;
-    height = 1.0;
-    bHaveTopClosed = NT_FALSE;
-    bHaveBaseClosed = NT_FALSE;
+  topRadius = radius;
+  baseRadius = radius;
+  height = 1.0;
+  bHaveTopClosed = NT_FALSE;
+  bHaveBaseClosed = NT_FALSE;
 }
 
 

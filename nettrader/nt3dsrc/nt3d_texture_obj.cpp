@@ -1,9 +1,9 @@
 /**\file nt3d_texture_obj.cpp - NT3D_texture_o class implementation
- * by Ahmed Aldo Faisal &copy; created 27.4.2000
+ * by Ahmed Aldo Faisal &copy; created 27.4.2000  
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
  * Version:  0.4
- * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
+ * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -18,11 +18,14 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */
+ */ 
+  
 
-
-/* $Id: nt3d_texture_obj.cpp,v 1.2 2003/02/17 10:20:20 face Exp $
+/* $Id: nt3d_texture_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $ 
 * $Log: nt3d_texture_obj.cpp,v $
+* Revision 1.1.1.1  2004/12/16 01:38:36  face
+* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+*
 * Revision 1.2  2003/02/17 10:20:20  face
 * *** empty log message ***
 *
@@ -84,7 +87,7 @@
 *
 
 */
-#include "nt3d_texture_obj.h"
+#include "nt3d_texture_obj.h" 
 
 
 
@@ -94,82 +97,82 @@
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NT3D_texture_o */
-NT3D_texture_o::NT3D_texture_o(NTsize newTextureWidth,
-                               NTsize newTextureHeight,
-                               NTsize newDim,
-                               bool newMakeTextureCoord)
+NT3D_texture_o::NT3D_texture_o(NTsize newTextureWidth, 
+							   NTsize newTextureHeight,
+							   NTsize newDim,
+							   bool newMakeTextureCoord)
 {
 //cerr<< "NT3D_texture_o::NT3D_texture_o() - Talk : uniqId="<<_uniqId() << endl;
 
-    textureCreated = false;
-    textureId = 0;
-    textureWidth = newTextureWidth;
-    textureHeight = newTextureHeight;
-    makeTextureCoord = newMakeTextureCoord;
+textureCreated = false;
+textureId = 0;
+textureWidth = newTextureWidth;
+textureHeight = newTextureHeight;
+makeTextureCoord = newMakeTextureCoord;
 
-    if (2 == newDim ) {
-        dim = GL_TEXTURE_2D;
-        if ((1==textureWidth) || (1==textureHeight)) {
-            dim = GL_TEXTURE_1D;
-            NT_CERR(3,"NT3D_texture_o::NT3D_texture_o - Warning : dim declared 2, but height and/or width == 1. dim set now to 1.");
-        }
-    } else if (1 == newDim ) {
-        dim = GL_TEXTURE_1D;
-        if ((1 > textureWidth) && (1 > textureHeight)) {
-            dim = GL_TEXTURE_2D;
-            NT_CERR(3,"T3D_texture_o::NT3D_texture_o - Warning : dim declared 1, but both height and width greater 1. dim set now to 2.");
-        }
-    } else cerr << "NT3D_texture_o::NT3D_texture_o - Error : invalid texture dim="<<newDim<<"specified." << endl;
+if (2 == newDim ) {
+	dim = GL_TEXTURE_2D;
+	if ((1==textureWidth) || (1==textureHeight)) { 
+		dim = GL_TEXTURE_1D;
+		NT_CERR(3,"NT3D_texture_o::NT3D_texture_o - Warning : dim declared 2, but height and/or width == 1. dim set now to 1.");
+	}
+} else if (1 == newDim ) {
+	dim = GL_TEXTURE_1D;
+	if ((1 > textureWidth) && (1 > textureHeight)) {
+		dim = GL_TEXTURE_2D;
+		NT_CERR(3,"T3D_texture_o::NT3D_texture_o - Warning : dim declared 1, but both height and width greater 1. dim set now to 2.");
+	}
+} else cerr << "NT3D_texture_o::NT3D_texture_o - Error : invalid texture dim="<<newDim<<"specified." << endl;
 
-    textureImagePtr = new GLfloat[4 * textureWidth * textureHeight];
-    cerr<< "NT3D_texture_o::NT3D_texture_o() - Talk : uniqId="<<_uniqId() << endl;
+textureImagePtr = new GLfloat[4 * textureWidth * textureHeight];
+cerr<< "NT3D_texture_o::NT3D_texture_o() - Talk : uniqId="<<_uniqId() << endl;
 }
 
 
 
-/* ***      COPY AND ASSIGNMENT	***/
+/* ***      COPY AND ASSIGNMENT	***/ 
 /** The copy constructor copies all aspects of the texture, but binds it to a new, different textureId */
 NT3D_texture_o::NT3D_texture_o(const NT3D_texture_o & original)
 {
-    NT_CERR(7,"NT3D_texture_o::NT3D_texture_o - Talk : copy and assignment called.");
-    textureImagePtr = new GLfloat[4*textureWidth*textureHeight];
+ NT_CERR(7,"NT3D_texture_o::NT3D_texture_o - Talk : copy and assignment called.");
+ textureImagePtr = new GLfloat[4*textureWidth*textureHeight];
 
-    textureWidth = original.textureWidth;
-    textureHeight = original.textureHeight;
-    dim = original.dim;
+ textureWidth = original.textureWidth;
+ textureHeight = original.textureHeight;
+ dim = original.dim;
+	
+ for (NTsize ll = 0 ; ll < 4*textureWidth*textureHeight; ll++)
+	textureImagePtr[ll] = original.textureImagePtr[ll];
 
-    for (NTsize ll = 0 ; ll < 4*textureWidth*textureHeight; ll++)
-        textureImagePtr[ll] = original.textureImagePtr[ll];
-
-    CreateTexture();
+ CreateTexture();
 }
 
 
 
-const NT3D_texture_o&
+const NT3D_texture_o&  
 NT3D_texture_o::operator= (const NT3D_texture_o & right)
 {
-    NT_CERR(7,"NT3D_texture_o::operator= - Talk: operator= called.");
-    if (this == &right) return *this; // Gracefully handle self assignment
-// add assignment code here
-    textureWidth = right.textureWidth;
-    textureHeight = right.textureHeight;
-    dim = right.dim;
+ NT_CERR(7,"NT3D_texture_o::operator= - Talk: operator= called.");
+ if (this == &right) return *this; // Gracefully handle self assignment
+ // add assignment code here
+	textureWidth = right.textureWidth;
+	textureHeight = right.textureHeight;
+	dim = right.dim;
 
-    if (true == textureCreated) {
-        GLuint tmp = textureId;
-        glDeleteTextures(1, &tmp);
-    }
+	if (true == textureCreated){
+		GLuint tmp = textureId;
+		glDeleteTextures(1, &tmp);
+	}
+	
+	delete[] textureImagePtr;
+	textureImagePtr = new GLfloat[4*textureWidth*textureHeight];
 
-    delete[] textureImagePtr;
-    textureImagePtr = new GLfloat[4*textureWidth*textureHeight];
+ for (NTsize ll = 0 ; ll < 4*textureWidth*textureHeight; ll++)
+	textureImagePtr[ll] = right.textureImagePtr[ll];
 
-    for (NTsize ll = 0 ; ll < 4*textureWidth*textureHeight; ll++)
-        textureImagePtr[ll] = right.textureImagePtr[ll];
+ CreateTexture();
 
-    CreateTexture();
-
-    return *this;
+ return *this;
 }
 
 
@@ -178,14 +181,14 @@ NT3D_texture_o::operator= (const NT3D_texture_o & right)
 /* ***      DESTRUCTOR		***/
 NT3D_texture_o::~NT3D_texture_o()
 {
-    NT_CERR(9,"NT3D_texture_o::~NT3D_texture_o()");
-    GLuint tmp = textureId;
-    glDeleteTextures(1, &tmp);
-    delete[] textureImagePtr;
-    cerr << "...completed" << endl;
+	NT_CERR(9,"NT3D_texture_o::~NT3D_texture_o()");
+	GLuint tmp = textureId;
+	glDeleteTextures(1, &tmp);
+	delete[] textureImagePtr;
+	cerr << "...completed" << endl;
 }
 
-/* ***  PUBLIC                                    ***   */
+/* ***  PUBLIC                                    ***   */  
 /** @short      Paint sets up texture-ing, such that hereafter
 	 		    texture coordinates should be provided to the control flow
     @param      none
@@ -194,21 +197,20 @@ NT3D_texture_o::~NT3D_texture_o()
    			   otherwise the system will crash here with SIGSEV
    \bug        unknown
  */
-void NT3D_texture_o::Paint()
-{
-    //cerr << "NT3D_texture_o::Paint() - Talk : before calling drawing routines, runnId="<< _uniqId() << endl;
-    if (true == textureCreated) {
-        glEnable(dim);
-        glBindTexture(dim, textureId);
-    }
-    else CreateTexture();
-    glBindTexture(dim, textureId);
-    //cerr << "NT3D_texture_o::Paint() - Talk : after drawing routines, runnId="<< _uniqId() << endl;
-}
+ void NT3D_texture_o::Paint()
+ {
+ 	//cerr << "NT3D_texture_o::Paint() - Talk : before calling drawing routines, runnId="<< _uniqId() << endl;
+ 	if (true == textureCreated) {
+ 		glEnable(dim); 
+ 		glBindTexture(dim, textureId);
+ 	}
+ 	else CreateTexture(); glBindTexture(dim, textureId);
+ 	//cerr << "NT3D_texture_o::Paint() - Talk : after drawing routines, runnId="<< _uniqId() << endl;
+ }
 
 /* ***  PROTECTED                         ***   */
 /* ***  PRIVATE                           ***   */
-/** @short
+/** @short        
     @param      none
     @return     OpenGL textureId or 0 if failed.
    \warning    Call only after a rendering context was defined/opened
@@ -218,86 +220,85 @@ void NT3D_texture_o::Paint()
 GLuint
 NT3D_texture_o::CreateTexture()
 {
-    if (true == textureCreated) return textureId;
-    //cerr << "NT3D_texture_o::CreateTexture() - Talk : before call to AssignTexture, runnId="<< _uniqId() << endl;
-    NTreturn tmpReturn = AssignTexture();
-    //cerr << "NT3D_texture_o::CreateTexture() - Talk : after call to AssignTexture" << endl;
-    if (NT_SUCCESS != tmpReturn) {
-        NT_CERR(1,"NT3D_texture_o::CreateTexture() - Error : AssignTexture failed.");
-        textureCreated = false;
-        return 0;
-    }
+	if (true == textureCreated) return textureId;
+	//cerr << "NT3D_texture_o::CreateTexture() - Talk : before call to AssignTexture, runnId="<< _uniqId() << endl;
+	NTreturn tmpReturn = AssignTexture();
+	//cerr << "NT3D_texture_o::CreateTexture() - Talk : after call to AssignTexture" << endl;
+	if (NT_SUCCESS != tmpReturn){
+		NT_CERR(1,"NT3D_texture_o::CreateTexture() - Error : AssignTexture failed.");
+		textureCreated = false;
+		return 0;
+	}
 
-    /*  THIS MAKES REMOVES A LOT OF TEXTURED SURFACES...DO NOT USE
-    	DO NOT USE glEnable(GL_CULL_FACE);
-    	DO NOT USE glFrontFace(GL_CW);
-    	DO NOT USE glCullFace(GL_BACK);
-      */
+/*  THIS MAKES REMOVES A LOT OF TEXTURED SURFACES...DO NOT USE
+	DO NOT USE glEnable(GL_CULL_FACE);
+	DO NOT USE glFrontFace(GL_CW);
+	DO NOT USE glCullFace(GL_BACK);
+  */
     glEnable(dim);
-    glEnable(GL_AUTO_NORMAL);
+	glEnable(GL_AUTO_NORMAL);
     glEnable(GL_NORMALIZE);
-    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_DEPTH_TEST);		
 
 
-    // Work around code, for compilers that do not handle pointers to members well:
-    /*	 GLuint tmp = 0;
-    glGenTextures(1, &tmp);
-    textureId = tmp;
-    glBindTexture(GL_TEXTURE_2D, textureId);
-    */
+	// Work around code, for compilers that do not handle pointers to members well:
+	GLuint tmp = 0;
+	glGenTextures(1, &tmp);
+	textureId = tmp;
+	glBindTexture(GL_TEXTURE_2D, textureId);
+	
+	
+	/*
+	glGenTextures(1, &textureId);
+	glBindTexture(dim, textureId);
+	*/
+	
 
 
 
-    glGenTextures(1, &textureId);
-    glBindTexture(dim, textureId);
+	GLfloat objPlaneVec[] = {1.0, 0.0, 0.0, 0.0};
+
+	glTexParameteri(dim, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(dim, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+   	glTexParameteri(dim, GL_TEXTURE_WRAP_S, GL_REPEAT);
+   	if (true == makeTextureCoord) {
+		glEnable(GL_TEXTURE_GEN_S);
+		glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+		glTexGenfv(GL_S, GL_OBJECT_PLANE, objPlaneVec);
+	} else {
+		glDisable(GL_TEXTURE_GEN_S);
+	}
+   	if (GL_TEXTURE_2D == dim) {
+		glTexParameteri(dim, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		if (true == makeTextureCoord) {
+			glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+   			glTexGenfv(GL_T, GL_OBJECT_PLANE, objPlaneVec);
+     	} else {
+     		glDisable(GL_TEXTURE_GEN_T);
+     	}    		
+   	}
+
+	glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	// glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
 
 
-
-
-
-    GLfloat objPlaneVec[] = {1.0, 0.0, 0.0, 0.0};
-
-    glTexParameteri(dim, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(dim, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    glTexParameteri(dim, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    if (true == makeTextureCoord) {
-        glEnable(GL_TEXTURE_GEN_S);
-        glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
-        glTexGenfv(GL_S, GL_OBJECT_PLANE, objPlaneVec);
-    } else {
-        glDisable(GL_TEXTURE_GEN_S);
-    }
-    if (GL_TEXTURE_2D == dim) {
-        glTexParameteri(dim, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        if (true == makeTextureCoord) {
-            glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
-            glTexGenfv(GL_T, GL_OBJECT_PLANE, objPlaneVec);
-        } else {
-            glDisable(GL_TEXTURE_GEN_T);
-        }
-    }
-
-    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-    // glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
-
-
-    /* assign the texture dim specific */
-    if (GL_TEXTURE_1D == dim)
-        glTexImage1D(GL_TEXTURE_1D, 0 , GL_RGBA, (textureWidth > textureHeight) ? textureWidth : textureHeight, 0,
-                     GL_RGBA, GL_FLOAT, textureImagePtr);
-    else if (GL_TEXTURE_2D == dim)
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureWidth, textureHeight, 0,
-                     GL_RGBA, GL_FLOAT, textureImagePtr);
-    else {
-        cerr << "NT3D_texture_o::CreateTexture() - Error : invalid texture dim="<<dim<<"specified." <<endl;
-        textureCreated = false;
-        return NT_FAIL;
-    }
-
+	/* assign the texture dim specific */
+	if (GL_TEXTURE_1D == dim) 
+				glTexImage1D(GL_TEXTURE_1D, 0 , GL_RGBA, (textureWidth > textureHeight) ? textureWidth : textureHeight, 0,
+			     			 GL_RGBA, GL_FLOAT, textureImagePtr);
+	else if (GL_TEXTURE_2D == dim) 
+				glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureWidth, textureHeight, 0,
+       		     			 GL_RGBA, GL_FLOAT, textureImagePtr);
+	else {
+		cerr << "NT3D_texture_o::CreateTexture() - Error : invalid texture dim="<<dim<<"specified." <<endl;
+		textureCreated = false;
+		return NT_FAIL;
+		}	
+       		     			 
 
     textureCreated = true;
-    return textureId;
+   	return textureId;
 }
 
 

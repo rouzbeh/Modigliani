@@ -1,8 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node2" href="$class_n_t3_d__plot2d__vp__o.html" title="NT3D_plot2d_vp_o class." alt="" coords="31,392,172,421"/>
-<area shape="rect" id="node4" href="$class_n_t3_d__plot__vp__o.html" title="NT3D_plot_vp_o class." alt="" coords="39,315,164,344"/>
-<area shape="rect" id="node6" href="$class_n_t3_d__abstract__vp__o.html" title="NT3D_abstract_vp_o class The abstract viewport class houses the driver independent part of the visual..." alt="" coords="24,237,179,267"/>
-<area shape="rect" id="node8" href="$class_n_t3_d__vp__o.html" title="NT3D_vp_o class Superclass that unifys a common interface for abstract viewport implementations and t..." alt="" coords="55,160,148,189"/>
-<area shape="rect" id="node10" href="$class_n_t3_d__o.html" title="NT3D_o class The superclass for the NT3D graphic visualisation classes." alt="" coords="65,83,137,112"/>
-<area shape="rect" id="node12" href="$class_n_t__o.html" title="Master class for all NT objects." alt="" coords="75,5,128,35"/>
-</map>

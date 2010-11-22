@@ -1,5 +1,5 @@
 /* nt3d_object_obj.h - NT 3D supcerclass declaration
- * by Ahmed A. Faisal, 5. 12. 1998(c)
+ * by Ahmed A. Faisal, 5. 12. 1998(c) 
  *
  * NetTrader - finance management, analysis and simulation system
  * Version:  0.1
@@ -21,8 +21,11 @@
  */
 
 
-/* $Id: nt3d_object_obj.h,v 1.2 2003/06/20 13:25:57 face Exp $
+/* $Id: nt3d_object_obj.h,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
  * $Log: nt3d_object_obj.h,v $
+ * Revision 1.1.1.1  2004/12/16 01:38:36  face
+ * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+ *
  * Revision 1.2  2003/06/20 13:25:57  face
  * *** empty log message ***
  *
@@ -129,119 +132,85 @@
 
 #include "nt3d_obj.h"
 
-enum NT3Dcontroller { NT3D_DrawStyle = 1000,
-                      NT3D_Slices,
-                      NT3D_Stacks,
-                      NT3D_Texture
-                    } ;
+enum NT3Dcontroller { NT3D_DrawStyle = 1000, 
+				NT3D_Slices, 
+				NT3D_Stacks,
+				NT3D_Texture
+			} ;
 
-
+ 
 //
 //	Class name : NT3D_object_o
 //
 /**	NT3D object class. Definition of a drawable entity with positional
     and rotational characteristics in 3D space.
 
-	The "main axis" of an object in space,
+	The "main axis" of an object in space,  
 	should be constructed along the X-Axis, as methods
 	will assume this.
  */
 class NT3D_object_o : public NT3D_o {
 public:
-    NT3D_object_o();
-    NT3D_object_o(const NT_vector3_o & oNewPosition);
-    NT3D_object_o(const NT3D_object_o & original);
+  NT3D_object_o();
+  NT3D_object_o(const NT_vector3_o & oNewPosition);
+  NT3D_object_o(const NT3D_object_o & original);
+   
+  virtual ~NT3D_object_o();
+  /*                         */  
+  void Rotate( const NT_vector3_o & oDeltaRotation );
+  void RotateX ( NTreal deltaRotX);
+  void RotateY ( NTreal deltaRotY);
+  void RotateZ ( NTreal deltaRotZ);
+  void RotateXYZ ( NT_vector3_o oDeltaRot ) { oRotation += oDeltaRot; }
+  void RotateXYZ ( const NTreal deltaRot[3] );
+  void RotateNull () { oRotation = NT_OriginVec3();};
+  void SetRotationX ( const NTreal rotX){ oRotation.x= rotX; }
+  void SetRotationY ( const NTreal rotY){ oRotation.y= rotY; }
+  void SetRotationZ ( const NTreal rotZ){ oRotation.z= rotZ; }
+  void SetRotationXYZ ( const NT_vector3_o & oRot ) { oTranslation = oRot; }
+  
+  virtual void Translate( const NT_vector3_o & oDeltaTranslation ); 
+  virtual void TranslateX ( const NTreal deltaTraX);
+  virtual void TranslateY ( const NTreal deltaTraY);
+  virtual void TranslateZ ( const NTreal deltaTraZ);
+  virtual void TranslateXYZ ( const NT_vector3_o & oDeltaTra ) { oTranslation += oDeltaTra; }
+  virtual void TranslateXYZ ( const NTreal deltaTra[3]);
+  virtual void TranslateNull () { oTranslation = NT_OriginVec3();};
+  virtual void SetTranslationX ( const NTreal traX){ oTranslation.x= traX; }
+  virtual void SetTranslationY ( const NTreal traY){ oTranslation.y= traY; }
+  virtual void SetTranslationZ ( const NTreal traZ){ oTranslation.z= traZ; }
+  virtual void SetTranslationXYZ ( const NT_vector3_o & oTra ) { oTranslation = oTra; }
 
-    virtual ~NT3D_object_o();
-    /*                         */
-    void Rotate( const NT_vector3_o & oDeltaRotation );
-    void RotateX ( NTreal deltaRotX);
-    void RotateY ( NTreal deltaRotY);
-    void RotateZ ( NTreal deltaRotZ);
-    void RotateXYZ ( NT_vector3_o oDeltaRot ) {
-        oRotation += oDeltaRot;
-    }
-    void RotateXYZ ( const NTreal deltaRot[3] );
-    void RotateNull () {
-        oRotation = NT_OriginVec3();
-    };
-    void SetRotationX ( const NTreal rotX) {
-        oRotation.x= rotX;
-    }
-    void SetRotationY ( const NTreal rotY) {
-        oRotation.y= rotY;
-    }
-    void SetRotationZ ( const NTreal rotZ) {
-        oRotation.z= rotZ;
-    }
-    void SetRotationXYZ ( const NT_vector3_o & oRot ) {
-        oTranslation = oRot;
-    }
-
-    virtual void Translate( const NT_vector3_o & oDeltaTranslation );
-    virtual void TranslateX ( const NTreal deltaTraX);
-    virtual void TranslateY ( const NTreal deltaTraY);
-    virtual void TranslateZ ( const NTreal deltaTraZ);
-    virtual void TranslateXYZ ( const NT_vector3_o & oDeltaTra ) {
-        oTranslation += oDeltaTra;
-    }
-    virtual void TranslateXYZ ( const NTreal deltaTra[3]);
-    virtual void TranslateNull () {
-        oTranslation = NT_OriginVec3();
-    };
-    virtual void SetTranslationX ( const NTreal traX) {
-        oTranslation.x= traX;
-    }
-    virtual void SetTranslationY ( const NTreal traY) {
-        oTranslation.y= traY;
-    }
-    virtual void SetTranslationZ ( const NTreal traZ) {
-        oTranslation.z= traZ;
-    }
-    virtual void SetTranslationXYZ ( const NT_vector3_o & oTra ) {
-        oTranslation = oTra;
-    }
-
-    /** rotate the object such that its (oRotation vector would rotate
-        a vector on the) x-axis in the direction of oRelativeVector */
-    void Collinearize (const NT_vector3_o & oRelativeVector);
+  /** rotate the object such that its (oRotation vector would rotate 
+      a vector on the) x-axis in the direction of oRelativeVector */ 
+  void Collinearize (const NT_vector3_o & oRelativeVector);
 
 
-    NT_vector3_o _oTranslation() const {
-        return oTranslation;
-    }
-    NT_vector3_o _oRotation() const {
-        return oRotation;
-    }
+  NT_vector3_o _oTranslation() const { return oTranslation; }
+  NT_vector3_o _oRotation() const { return oRotation; }
 
 
-    /** The Draw() method is the invocation method to use for users.
-       It handles the drawing of the object */
-    virtual void Draw() = 0;
-    /** Set any control/state variables in the object and in the child tree */
-    void Control(NT3Dcontroller cntrl , NTint value) {
-        ControlImpl(cntrl , value);
-    }
-    void Control(NT3Dcontroller cntrl , NTreal value) {
-        ControlImpl(cntrl , value);
-    }
-    void Control(NT3Dcontroller cntrl , NT_vector_o value) {
-        ControlImpl(cntrl , value);
-    }
+ /** The Draw() method is the invocation method to use for users.
+    It handles the drawing of the object */
+  virtual void Draw() = 0;
+  /** Set any control/state variables in the object and in the child tree */
+  void Control(NT3Dcontroller cntrl , NTint value){ControlImpl(cntrl , value);}
+  void Control(NT3Dcontroller cntrl , NTreal value){ControlImpl(cntrl , value);}
+  void Control(NT3Dcontroller cntrl , NT_vector_o value){ControlImpl(cntrl , value);}
+ 
+  protected:
+  NT_vector3_o oTranslation;
+  NT_vector3_o oRotation;
 
-protected:
-    NT_vector3_o oTranslation;
-    NT_vector3_o oRotation;
+ /** Set the control/state variable in *this object.
+    ControlImpl() should be overridden by derived classes ONLY if control/state
+    are to be applied to *this object !*/
+  virtual void ControlImpl(NT3Dcontroller cntrl , NTint value) = 0;
+  virtual void ControlImpl(NT3Dcontroller cntrl , NTreal value) = 0; 
+  virtual void ControlImpl(NT3Dcontroller cntrl , NT_vector_o value) = 0;
 
-    /** Set the control/state variable in *this object.
-       ControlImpl() should be overridden by derived classes ONLY if control/state
-       are to be applied to *this object !*/
-    virtual void ControlImpl(NT3Dcontroller cntrl , NTint value) = 0;
-    virtual void ControlImpl(NT3Dcontroller cntrl , NTreal value) = 0;
-    virtual void ControlImpl(NT3Dcontroller cntrl , NT_vector_o value) = 0;
-
-private:
-    double padding;
+  private:
+  double padding;
 
 };
 

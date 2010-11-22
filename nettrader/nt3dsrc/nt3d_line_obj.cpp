@@ -1,9 +1,9 @@
 /** \file nt3d_line_obj.cpp - NT template2 class implementation
- * by Ahmed Aldo Faisal &copy; created 15.10.1998
+ * by Ahmed Aldo Faisal &copy; created 15.10.1998  
  */
-/* NetTrader - finance management, analysis and simulation system
- * Version:   0.2
- * Copyright (C) 1998 Ahmed Aldo Faisal
+/* NetTrader - finance management, analysis and simulation system 
+ * Version:   0.2						 
+ * Copyright (C) 1998 Ahmed Aldo Faisal 
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -21,8 +21,11 @@
  */
 
 
-/* $Id: nt3d_line_obj.cpp,v 1.1 2001/06/29 13:16:55 face Exp $
+/* $Id: nt3d_line_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
  * $Log: nt3d_line_obj.cpp,v $
+ * Revision 1.1.1.1  2004/12/16 01:38:36  face
+ * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+ *
  * Revision 1.1  2001/06/29 13:16:55  face
  * *** empty log message ***
  *
@@ -94,37 +97,37 @@
 /** Create a line from origin (0,0,0) to (1,1,1) */
 NT3D_line_o::NT3D_line_o()
 {
-    startPnt = NT_OriginVec3();
-    endPnt = NT_UnitXYZVec3();
+  startPnt = NT_OriginVec3();
+  endPnt = NT_UnitXYZVec3();
 }
 
 NT3D_line_o::NT3D_line_o(NT_vector3_o newStartPnt, NT_vector3_o newEndPnt)
 {
-    NT_ASSERT( 3 == newStartPnt._dimension());
-    NT_ASSERT( 3 == newEndPnt._dimension());
-    startPnt = newStartPnt;
-    endPnt = newEndPnt;
+  NT_ASSERT( 3 == newStartPnt._dimension());
+  NT_ASSERT( 3 == newEndPnt._dimension());
+  startPnt = newStartPnt;
+  endPnt = newEndPnt;
 }
 
 
 /* 	COPY AND ASSIGNMENT 	*/
 NT3D_line_o::NT3D_line_o(const NT3D_line_o & original)
-        :
-        NT3D_hierarchic_object_o(original),
-        oMaterial(original.oMaterial)
+:
+NT3D_hierarchic_object_o(original),
+oMaterial(original.oMaterial)
 {
-    startPnt = original.startPnt;
-    endPnt = original.endPnt;
+   startPnt = original.startPnt;
+   endPnt = original.endPnt;
 }
 
-const NT3D_line_o&
+const NT3D_line_o&  
 NT3D_line_o::operator= (const NT3D_line_o & right)
 {
-    if (this == &right) return *this; // Gracefully handle self assignment
-    // add assignment code here
-    startPnt = right.startPnt;
-    endPnt = right.endPnt;
-    return *this;
+  if (this == &right) return *this; // Gracefully handle self assignment
+  // add assignment code here
+   startPnt = right.startPnt;
+   endPnt = right.endPnt;
+  return *this;
 }
 
 
@@ -134,22 +137,22 @@ NT3D_line_o::~NT3D_line_o()
 }
 
 
-/*   	PUBLIC                	*/
-/** @short 	draw the line
+/*   	PUBLIC                	*/  
+/** @short 	draw the line 
     @param 	none
     @return 	none
     \warning 	unknown
     \bug 	unknown
  */
 void
-NT3D_line_o::DrawObj()
+NT3D_line_o::DrawObj() 
 {
-    oMaterial.Paint();
-    glBegin(GL_LINES);
-    glVertex3dv ( startPnt._elem() );
-    glVertex3dv ( endPnt._elem() );
-    glEnd();
-    //glFlush(); //2DO is the flush really needed ?
+  oMaterial.Paint();
+  glBegin(GL_LINES);
+  glVertex3dv ( startPnt._elem() );
+  glVertex3dv ( endPnt._elem() );
+  glEnd();
+  //glFlush(); //2DO is the flush really needed ?
 }
 
 
