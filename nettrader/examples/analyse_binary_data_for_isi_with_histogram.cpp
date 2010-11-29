@@ -116,13 +116,13 @@ main(int argc, char* argv[])
 
     ifstream file (filename.c_str(), ios::binary);
 
-    strstream histSuffix;
+    stringstream histSuffix;
     histSuffix << ".Column" << plotCol << ".histogram";
     string hist_filename = filename + histSuffix.str();
     cerr << "Writing histogram to " << hist_filename << "." << endl;
     ofstream histFile(hist_filename.c_str());
 
-    strstream isiSuffix;
+    stringstream isiSuffix;
     isiSuffix << ".Column" << plotCol << ".isi";
     string isi_filename = filename + isiSuffix.str();
     cerr << "Writing interspikeintervals to " << hist_filename << "." << endl;

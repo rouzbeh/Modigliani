@@ -64,7 +64,7 @@
 #include <algorithm>
 #include "tnt/tnt.h"
 #include "tnt/cmat.h"
-#include <string>
+#include <cstring>
 
 using namespace TNT;
 

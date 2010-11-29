@@ -101,8 +101,7 @@ measure_mutual_information_in_binary_file.o: \
  /usr/include/c++/4.4/bits/vector.tcc ../ntsrc/nt_2dim_histogram_obj.h \
  ../tnt/cmat.h ../tnt/subscript.h ../tnt/vec.h \
  /usr/include/c++/4.4/cassert /usr/include/assert.h \
- /usr/include/c++/4.4/backward/strstream \
- /usr/include/c++/4.4/backward/backward_warning.h \
+ /usr/include/c++/4.4/sstream /usr/include/c++/4.4/bits/sstream.tcc \
  ../ntsrc/nt_sequential_statistics_obj.h /usr/include/values.h \
  /usr/lib/gcc/x86_64-linux-gnu/4.4.5/include/float.h ../tnt/tnt.h \
  ../tnt/version.h ../tnt/tntmath.h
@@ -431,9 +430,9 @@ measure_mutual_information_in_binary_file.o: \
 
 /usr/include/assert.h:
 
-/usr/include/c++/4.4/backward/strstream:
+/usr/include/c++/4.4/sstream:
 
-/usr/include/c++/4.4/backward/backward_warning.h:
+/usr/include/c++/4.4/bits/sstream.tcc:
 
 ../ntsrc/nt_sequential_statistics_obj.h:
 
