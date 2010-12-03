@@ -301,6 +301,16 @@ NTBP_membrane_compartment_sequence_o::WriteMembranePotential( ofstream & file )
 	return NT_SUCCESS;
 }
 
+NTreturn
+NTBP_membrane_compartment_sequence_o::WriteMembranePotentialASCII( ofstream & file )
+{
+	for (NTsize ll=0; ll< _numCompartments(); ll++){
+			file << vVec[ll] << " ";
+	}
+	file<<endl;
+	return NT_SUCCESS;
+}
+
 
 /** @short  Write compartment currents into a binary file
 	@param      reference to a file object and a current index (i.e. position of requested current in the currentVec of
@@ -588,5 +598,22 @@ bool NTBP_membrane_compartment_sequence_o::GillespieStep()
 	Step();
 	ShowVoltage();
 		
+	return NT_SUCCESS;
+}
+
+/** @short  Write number of ATPs consumed into a file
+	@param      reference to a file object.
+	@return     none
+	\warning    unknown
+	\bug        unknown  */
+NTreturn
+NTBP_membrane_compartment_sequence_o::WriteATP(ofstream & file)
+{
+	//float data[_numCompartments()];
+	for (NTsize ll=0; ll< _numCompartments(); ll++){
+		file << -compartmentVec[ll]->AttachedCurrent(2) * _timeStep() * (624151*pow(10,13)) / 3 << " ";
+	}
+	file<<endl;
+	//file.write( reinterpret_cast<char*>(data), _numCompartments()*sizeof(float) );
 	return NT_SUCCESS;
 }
