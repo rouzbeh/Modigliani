@@ -448,7 +448,7 @@ Copyright (C) 2010 Free Software Foundation, Inc.
 This config.status script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it."
 
-ac_pwd='/home/man210/projects/nettrader-0.5'
+ac_pwd='/home/man210/workspace/nettrader'
 srcdir='.'
 INSTALL='/usr/bin/install -c'
 MKDIR_P='/bin/mkdir -p'
@@ -673,7 +673,7 @@ S["CXXFLAGS"]="-O3 -march=core2"
 S["CXX"]="g++"
 S["am__untar"]="${AMTAR} xf -"
 S["am__tar"]="${AMTAR} chof - \"$$tardir\""
-S["AMTAR"]="${SHELL} /home/man210/projects/nettrader-0.5/missing --run tar"
+S["AMTAR"]="${SHELL} /home/man210/workspace/nettrader/missing --run tar"
 S["am__leading_dot"]="."
 S["SET_MAKE"]=""
 S["AWK"]="gawk"
@@ -681,12 +681,12 @@ S["mkdir_p"]="/bin/mkdir -p"
 S["MKDIR_P"]="/bin/mkdir -p"
 S["INSTALL_STRIP_PROGRAM"]="$(install_sh) -c -s"
 S["STRIP"]=""
-S["install_sh"]="${SHELL} /home/man210/projects/nettrader-0.5/install-sh"
-S["MAKEINFO"]="${SHELL} /home/man210/projects/nettrader-0.5/missing --run makeinfo"
-S["AUTOHEADER"]="${SHELL} /home/man210/projects/nettrader-0.5/missing --run autoheader"
-S["AUTOMAKE"]="${SHELL} /home/man210/projects/nettrader-0.5/missing --run automake-1.11"
-S["AUTOCONF"]="${SHELL} /home/man210/projects/nettrader-0.5/missing --run autoconf"
-S["ACLOCAL"]="${SHELL} /home/man210/projects/nettrader-0.5/missing --run aclocal-1.11"
+S["install_sh"]="${SHELL} /home/man210/workspace/nettrader/install-sh"
+S["MAKEINFO"]="${SHELL} /home/man210/workspace/nettrader/missing --run makeinfo"
+S["AUTOHEADER"]="${SHELL} /home/man210/workspace/nettrader/missing --run autoheader"
+S["AUTOMAKE"]="${SHELL} /home/man210/workspace/nettrader/missing --run automake-1.11"
+S["AUTOCONF"]="${SHELL} /home/man210/workspace/nettrader/missing --run autoconf"
+S["ACLOCAL"]="${SHELL} /home/man210/workspace/nettrader/missing --run aclocal-1.11"
 S["VERSION"]="0.5 "
 S["PACKAGE"]="nettrader"
 S["CYGPATH_W"]="echo"
