@@ -1,0 +1,51 @@
+[global]
+temperature = 37
+diameter = 1
+computeELeak = 1
+
+[node]
+numNd = 10
+numComp = 1
+length = 1
+GLeak = 35.4
+Ra = 70
+Cm = 1.4
+chNaModel = 2;human
+chNaAlg = 4;binomial
+chNaDen = 2000
+chNaCond = 13
+						
+[paranode]
+numComp = 1
+length = 1
+GLeak = 0.04
+Ra = 70
+Cm = 0.5
+chKModel = 2
+chKAlg = 4;binomial
+chKDen = 80
+chKCond = 20
+										
+[internode]
+numComp = 100
+length = 4
+GLeak = 0.004
+Ra = 70	
+Cm = 0.004
+chKModel = 2
+chKAlg = 4; binomial
+chKDen = 3
+chKCond = 20
+			
+[simulation]
+inputFile = ../../whitenoise.txt
+ATPOutputFile = ../../mylienatedoutATP.txt
+potentialOutputFile = ../../mylienatedoutPotential.txt
+readN = 1000
+inpI = 0.1
+inpISDV = 1
+useVis = 100
+sampN = 100
+timeStep = 0.0001
+numIter = 1000000
+numTrials = 1

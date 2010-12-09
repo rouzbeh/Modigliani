@@ -100,7 +100,8 @@ int main(int argc, char *argv[]) {
 
 	/* Read and set parameters */
 	string filename;
-	NT_config_file_parser_o oCfg("mylienated.config.txt");
+
+	NT_config_file_parser_o oCfg(argv[1]);
 	/* Global */
 	NTreal temperature = oCfg.Value("global", "temperature"); //= 37; /* in Celsius */
 	NTreal diameter = oCfg.Value("global", "diameter"); // = 1; /* in muMeter */
@@ -579,18 +580,18 @@ int main(int argc, char *argv[]) {
 						}
 					}
 
-					cerr << "t=" << timeInMS << " mSec :" << voltVec[1] << "\t"
-							<< voltVec[10] << endl;
+					//cerr << "t=" << timeInMS << " mSec :" << voltVec[1] << "\t"
+					//		<< voltVec[10] << endl;
 
 					plotXY.SetData(oModel._vVec());
 					plotXY.Draw();
-					cout << "Na" << endl;
+					//cout << "Na" << endl;
 					plotChanNa.SetData(oModel.OpenChannels(2));
 					plotChanNa.Draw();
-					cout << "K" << endl;
+					//cout << "K" << endl;
 					plotChanK.SetData(oModel.OpenChannels(3));
 					plotChanK.Draw();
-					cout << "plotted" << endl;
+					//cout << "plotted" << endl;
 				}
 			}
 
