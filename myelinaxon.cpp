@@ -132,7 +132,7 @@ int main(int argc, char *argv[]) {
 	NTreal numTrials = oCfg.Value("simulation", "numTrials");
 
 
-	int numAxonHillockNodeCompartments = 10;
+	NTsize numAxonHillockNodeCompartments = 10;
 
 	cerr
 			<< "Remember that data file should have more lines than Num iterations."
@@ -174,12 +174,13 @@ int main(int argc, char *argv[]) {
 		cout << "Eleak set to " << eLeak << " mV." << endl;
 	} else {
 		cout << "Eleak not set. Going to compute eLeak." << endl;
-		/* COMPUTE Eleak by simulating and solving for the current balance equation after 50ms of simulated time at the NODE including the PARANODAL K channels*/
+		/* COMPUTE Eleak by simulating and solving for the current balance equation after
+		 * 50ms of simulated time at the NODE including the PARANODAL K channels*/
 
 		/* Create a cylindrical membrane compartment */
-		NTBP_custom_cylindrical_compartment_o compartment(10 /* muMeter */,
-				10 /* muMeter */, 1 /*muFarad/cm^2 */, 100 /* ohm cm */);
-		NTreal areaPerCompartment = compartment._area();
+		NTBP_custom_cylindrical_compartment_o compartment(1 /* muMeter */,
+				0.5 /* muMeter */, 1.4 /*muFarad/cm^2 */, 70 /* ohm cm */);
+		//NTreal areaPerCompartment = compartment._area();
 		compartment.Set_temperature(temperature /* in celsius */);
 
 		NTBP_membrane_current_o* tmpLeakPtr = new NTBP_hh_sga_leak_current_o(
@@ -204,9 +205,9 @@ int main(int argc, char *argv[]) {
 
 		/* ***  Determine leak reversal potential by simulating 50 ms *** */
 		NTsize lt = 0;
-		for (lt = 0; lt < 50.0 / timeStep; lt++) {
+		for (lt = 0; lt < 100.0/timeStep; lt++) {
 			compartment.Step(0);
-			if (lt % 50 == 0) {
+			if (lt % 100 == 0) {
 				naCurrent = compartment.AttachedReversalPotential(1)
 						* (compartment.AttachedConductance(1));
 				kCurrent = compartment.AttachedReversalPotential(2)
@@ -258,7 +259,7 @@ int main(int argc, char *argv[]) {
 
 	NT_uniform_rnd_dist_o testRnd; // DO NOT DELETE, otherwise linker problems occur!
 	NT_gaussian_rnd_dist_o gaussianRnd; // DO NOT DELETE, otherwise linker problems occur !
-	NTreal rnd = 0;
+	//NTreal rnd = 0;
 
 	// Read input file only once. Store its content in memory.
 	ifstream dataFile(inputFilename.c_str(), ios::binary);
@@ -491,7 +492,7 @@ int main(int argc, char *argv[]) {
 		/* ***********************  Main loop **************************** */
 		cerr << "MainLoop started" << endl;
 		float timeVar = 0;
-		float tmpCurr = 0.0;
+		//float tmpCurr = 0.0;
 		NTreal inpCurrent = 0.0;
 
 		/* prerun system for 20 ms
@@ -508,9 +509,9 @@ int main(int argc, char *argv[]) {
 		vector<NTreal> voltVec;
 		vector<NTreal>::iterator maxVoltPos;
 		vector<NTreal>::iterator maxVoltOldPos;
-		NTreal speed;
+		//NTreal speed;
 
-		NTreal maxVoltage;
+		//NTreal maxVoltage;
 
 		timeInMS = 0;
 
@@ -537,7 +538,7 @@ int main(int argc, char *argv[]) {
 				if (lt % useVis == 0) {
 					voltVec = oModel._vVec();
 
-					for (NTsize lc = 0; lc++; lc < numCompartments) {
+					for (NTsize lc = 0; lc < numCompartments; lc++) {
 						if (NTisnan(voltVec[lc])) {
 							cerr << "ERROR at t=" << timeVar
 									<< " voltage in compartment " << lc
