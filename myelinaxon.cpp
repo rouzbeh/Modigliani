@@ -27,11 +27,12 @@
  */
 
 #include <cmath>
-#include <string>
+#include <cstring>
 #include <fstream>
 #include <iostream>
 #include <cstdlib>
 #include <algorithm>
+#include <ctime>
 
 #include <ntbp_membrane_compartment_sequence_obj.h>
 #include <ntbp_sga_cylindrical_compartment_obj.h>
@@ -109,7 +110,6 @@ int main(int argc, char *argv[]) {
 	NTreal pndPotassiumConductance = oCfg.Value("paranode", "chKCond");
 	NTreal pndPotassiumQ10 = oCfg.Value("paranode", "chKQ10");
 
-
 	/* Internodes */
 	NTsize numIntComp = oCfg.Value("internode", "numComp");
 	NTreal lengthIntNd = oCfg.Value("internode", "length"); /* micron */
@@ -123,8 +123,7 @@ int main(int argc, char *argv[]) {
 
 	/* Simulation */
 	string inputFilename = oCfg.Value("simulation", "inputFile");
-	string ATPOutputFilename = oCfg.Value("simulation", "ATPOutputFile");
-	string potentialOutputFilename = oCfg.Value("simulation", "potentialOutputFile");
+	string outputFolder = oCfg.Value("simulation", "outputFolder");
 	NTsize readN = oCfg.Value("simulation", "readN");
 	NTreal inpI = oCfg.Value("simulation", "inpI");
 	NTreal inpISDV = oCfg.Value("simulation", "inpISDV");
@@ -134,19 +133,43 @@ int main(int argc, char *argv[]) {
 	NTsize numIterations = oCfg.Value("simulation", "numIter");
 	NTreal numTrials = oCfg.Value("simulation", "numTrials");
 
-
 	NTsize numAxonHillockNodeCompartments = 10;
 
 	cerr
 			<< "Remember that data file should have more lines than Num iterations."
 			<< endl;
 
+	/* open files */
+	time_t rawtime;
+	struct tm * timeinfo;
+	stringstream ss(stringstream::in | stringstream::out);
+	char dateString[80];
+	time(&rawtime);
+	timeinfo = localtime(&rawtime);
+	strftime(dateString, 80, "%b%d_%H%M.txt", timeinfo);
+	ss << outputFolder << "/ATP-" << dateString;
+
+	ofstream ATPFile(ss.str().c_str(), ios::binary);
+	ss.clear();
+	ss.str("");
+	ss << outputFolder << "/Potential-" << dateString;
+	ofstream PotentialFile(ss.str().c_str(), ios::binary);
+	if (ATPFile.fail()) {
+		cerr << "Could not open output ATP file " << endl;
+		return 1;
+	}
+	if (PotentialFile.fail()) {
+		cerr << "Could not open output potential file " << endl;
+		return 1;
+	}
+
 	cout << "[Global]" << endl;
 	cout << "Temperature [Celsius] " << temperature << endl;
 	cout << "Membrane leak reversal potential [mV]" << eLeak << endl;
 
 	cout << "[Node]" << endl;
-	cout << "Number of axon hillock compartments (node-like) " << numAxonHillockNodeCompartments << endl;
+	cout << "Number of axon hillock compartments (node-like) "
+			<< numAxonHillockNodeCompartments << endl;
 	cout << "Number of nodes " << numNd << endl;
 	cout << "Number of node compartments per node " << numNdComp << endl;
 	cout << "Node Compartment Diameter [muMeter] " << diameter << endl;
@@ -172,6 +195,89 @@ int main(int argc, char *argv[]) {
 	cout << "Trial duration [ms] " << numIterations * timeStep << endl;
 	cout << "Number of repated stimulus trials [#] " << numTrials << endl;
 
+	ATPFile << "#" << "[Global]" << endl;
+	ATPFile << "#" << "Temperature [Celsius] " << temperature << endl;
+	ATPFile << "#" << "Membrane leak reversal potential [mV]" << eLeak << endl;
+
+	ATPFile << "#" << "[Node]" << endl;
+	ATPFile << "#" << "Number of axon hillock compartments (node-like) "
+			<< numAxonHillockNodeCompartments << endl;
+	ATPFile << "#" << "Number of nodes " << numNd << endl;
+	ATPFile << "#" << "Number of node compartments per node " << numNdComp
+			<< endl;
+	ATPFile << "#" << "Node Compartment Diameter [muMeter] " << diameter
+			<< endl;
+	ATPFile << "#" << "Node Compartment Length [muMeter] " << lengthNd << endl;
+	ATPFile << "#" << "Membrane leak conductance [mSiemens/cm^2] " << ndGLeak
+			<< endl;
+	ATPFile << "#" << "Axoplasmic resistivity [Ohm cm] " << ndRa << endl;
+
+	ATPFile << "#" << "[Paranode]" << endl;
+	ATPFile << "#" << "Paranode Compartment Diameter [muMeter] " << diameter
+			<< endl;
+	ATPFile << "#" << "Membrane leak conductance [mSiemens/cm^2] " << pndGLeak
+			<< endl;
+	ATPFile << "#" << "Axoplasmic resistivity [Ohm cm] " << pndRa << endl;
+
+	ATPFile << "#" << "[Internode]" << endl;
+	ATPFile << "#" << "InterNode Compartment Diameter [muMeter] " << diameter
+			<< endl;
+	ATPFile << "#" << "Membrane leak conductance [mSiemens/cm^2] " << intGLeak
+			<< endl;
+	ATPFile << "#" << "Axoplasmic resistivity [Ohm cm] " << intRa << endl;
+
+	ATPFile << "#" << "[Simulation]" << endl;
+	ATPFile << "#" << "Storing data in" << filename << " every " << sampN
+			<< "th iteration" << endl;
+	ATPFile << "#" << "Time step size in [mSec] " << timeStep << endl;
+	ATPFile << "#" << "Num iterations [#] " << numIterations << endl;
+	ATPFile << "#" << "Trial duration [ms] " << numIterations * timeStep
+			<< endl;
+	ATPFile << "#" << "Number of repated stimulus trials [#] " << numTrials
+			<< endl;
+
+	PotentialFile << "#" << "[Global]" << endl;
+	PotentialFile << "#" << "Temperature [Celsius] " << temperature << endl;
+	PotentialFile << "#" << "Membrane leak reversal potential [mV]" << eLeak
+			<< endl;
+
+	PotentialFile << "#" << "[Node]" << endl;
+	PotentialFile << "#" << "Number of axon hillock compartments (node-like) "
+			<< numAxonHillockNodeCompartments << endl;
+	PotentialFile << "#" << "Number of nodes " << numNd << endl;
+	PotentialFile << "#" << "Number of node compartments per node "
+			<< numNdComp << endl;
+	PotentialFile << "#" << "Node Compartment Diameter [muMeter] " << diameter
+			<< endl;
+	PotentialFile << "#" << "Node Compartment Length [muMeter] " << lengthNd
+			<< endl;
+	PotentialFile << "#" << "Membrane leak conductance [mSiemens/cm^2] "
+			<< ndGLeak << endl;
+	PotentialFile << "#" << "Axoplasmic resistivity [Ohm cm] " << ndRa << endl;
+
+	PotentialFile << "#" << "[Paranode]" << endl;
+	PotentialFile << "#" << "Paranode Compartment Diameter [muMeter] "
+			<< diameter << endl;
+	PotentialFile << "#" << "Membrane leak conductance [mSiemens/cm^2] "
+			<< pndGLeak << endl;
+	PotentialFile << "#" << "Axoplasmic resistivity [Ohm cm] " << pndRa << endl;
+
+	PotentialFile << "#" << "[Internode]" << endl;
+	PotentialFile << "#" << "InterNode Compartment Diameter [muMeter] "
+			<< diameter << endl;
+	PotentialFile << "#" << "Membrane leak conductance [mSiemens/cm^2] "
+			<< intGLeak << endl;
+	PotentialFile << "#" << "Axoplasmic resistivity [Ohm cm] " << intRa << endl;
+
+	PotentialFile << "#" << "[Simulation]" << endl;
+	PotentialFile << "#" << "Storing data in" << filename << " every " << sampN
+			<< "th iteration" << endl;
+	PotentialFile << "#" << "Time step size in [mSec] " << timeStep << endl;
+	PotentialFile << "#" << "Num iterations [#] " << numIterations << endl;
+	PotentialFile << "#" << "Trial duration [ms] " << numIterations * timeStep
+			<< endl;
+	PotentialFile << "#" << "Number of repated stimulus trials [#] "
+			<< numTrials << endl;
 
 	if (false == swComputeELeak) {
 		cout << "Eleak set to " << eLeak << " mV." << endl;
@@ -181,8 +287,9 @@ int main(int argc, char *argv[]) {
 		 * 50ms of simulated time at the NODE including the PARANODAL K channels*/
 
 		/* Create a cylindrical membrane compartment */
-		NTBP_custom_cylindrical_compartment_o compartment(1 /* muMeter */,
-				diameter /* muMeter */, ndCm /*muFarad/cm^2 */, ndRa /* ohm cm */);
+		NTBP_custom_cylindrical_compartment_o
+				compartment(1 /* muMeter */, diameter /* muMeter */,
+						ndCm /*muFarad/cm^2 */, ndRa /* ohm cm */);
 		NTreal areaPerCompartment = compartment._area();
 		compartment.Set_temperature(temperature /* in celsius */);
 
@@ -190,15 +297,18 @@ int main(int argc, char *argv[]) {
 				areaPerCompartment, ndGLeak, eLeak);
 
 		/* Na current is number 2 */
-		NTBP_membrane_current_o* tmpNaPtr = NTBP_create_na_channel_ptr(
-				ndSodiumModel, 1//ndSodiumAlg
-				, ndSodiumDensity /* mum^-2 */,
-				ndSodiumConductance /* pS */, ndSodiumQ10 /* q10 */, temperature /* C */,
-				areaPerCompartment /* mum^2 */);
+		NTBP_membrane_current_o* tmpNaPtr =
+				NTBP_create_na_channel_ptr(
+						ndSodiumModel,
+						1//ndSodiumAlg
+						, ndSodiumDensity /* mum^-2 */,
+						ndSodiumConductance /* pS */, ndSodiumQ10 /* q10 */,
+						temperature /* C */, areaPerCompartment /* mum^2 */);
 		compartment.AttachCurrent(tmpNaPtr, NTBP_IONIC);
 		/* K current is number 3 */
 		NTBP_membrane_current_o* tmpKPtr = NTBP_create_k_channel_ptr(
-				pndPotassiumModel, 1,//pndPotassiumAlg,
+				pndPotassiumModel,
+				1,//pndPotassiumAlg,
 				pndPotassiumDensity /* mum^-2 */,
 				pndPotassiumConductance /* pS */, pndPotassiumQ10 /* q10 */,
 				temperature /* C */, areaPerCompartment /* mum^2 */);
@@ -210,7 +320,7 @@ int main(int argc, char *argv[]) {
 		/* ***  Determine leak reversal potential by simulating 50 ms *** */
 		NTsize lt = 0;
 		NTreal tmpEleak = 0;
-		for (lt = 0; lt < 100.0/timeStep; lt++) {
+		for (lt = 0; lt < 100.0 / timeStep; lt++) {
 			compartment.Step(0);
 			if (lt % 100 == 0) {
 				naCurrent = compartment.AttachedReversalPotential(1)
@@ -218,8 +328,7 @@ int main(int argc, char *argv[]) {
 				kCurrent = compartment.AttachedReversalPotential(2)
 						* (compartment.AttachedConductance(2));
 
-				tmpEleak = -(naCurrent + kCurrent)
-								/ tmpLeakPtr->_conductance();
+				tmpEleak = -(naCurrent + kCurrent) / tmpLeakPtr->_conductance();
 				cerr << "I_Na=" << naCurrent << " I_K=" << kCurrent
 						<< " E_Leak=" << tmpEleak << endl;
 			}
@@ -252,48 +361,32 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
-	/* open files */
-	ofstream ATPFile(ATPOutputFilename.c_str(), ios::binary);
-	if(ATPFile.fail()){
-		cerr << "Could not open output file " << ATPOutputFilename.c_str() << endl;
-		return 1;
-	}
-	ofstream PotentialFile(potentialOutputFilename.c_str(), ios::binary);
-	if(PotentialFile.fail()){
-		cerr << "Could not open output file " << potentialOutputFilename.c_str() << endl;
-		return 1;
-	}
-
 	NT_uniform_rnd_dist_o testRnd; // DO NOT DELETE, otherwise linker problems occur!
 	NT_gaussian_rnd_dist_o gaussianRnd; // DO NOT DELETE, otherwise linker problems occur !
 	//NTreal rnd = 0;
 
 	// Read input file only once. Store its content in memory.
 	ifstream dataFile(inputFilename.c_str(), ios::binary);
-	if(dataFile.fail()){
+	if (dataFile.fail()) {
 		cerr << "Could not open input file " << inputFilename.c_str() << endl;
 		exit(1);
 	}
-	int count=1000000;
-	vector<float> inputData (count);
-	int index=0;
+	int count = 1000000;
+	vector<float> inputData(count);
+	int index = 0;
 
-	while(dataFile.good()){
-		if (index<count) {
+	while (dataFile.good()) {
+		if (index < count) {
 			char tmp[100];
-			dataFile.getline(tmp,100);
+			dataFile.getline(tmp, 100);
 			sscanf(tmp, "%f", &inputData[index]);
 			index++;
-		}
-		else {
+		} else {
 			count += 1000000;
 			inputData.resize(count);
 		}
 	}
 	dataFile.close();
-
-
-
 
 	cout << "Assembling neuron..." << endl;
 	/* *** Trials loop *** */
@@ -305,40 +398,40 @@ int main(int argc, char *argv[]) {
 		oModel.StepNTBP();
 		NTreal timeInMS = 0;
 
-
 		NTsize compartmentCounter = 1;
 		/* *** MODEL CREATION LOOP *** */
 		/* Create a Node, followed by Paranode, Internode, Paranode */
 		for (NTsize lnd = 0; lnd < numNd; lnd++) {
 
-
-			if (0 == lnd){ // Generate an axon hillock
+			if (0 == lnd) { // Generate an axon hillock
 
 				for (NTsize lcomp = 0; lcomp < numAxonHillockNodeCompartments; lcomp++) {
-					cout << compartmentCounter++ << "NODE (Axon Hillock)" << endl;
+					cout << compartmentCounter++ << "NODE (Axon Hillock)"
+							<< endl;
 					cerr << "Node compartment " << endl;
-							NTBP_custom_cylindrical_compartment_o *tmpPtr =
-									new NTBP_custom_cylindrical_compartment_o(
-											lengthNd /* muMeter */, diameter /* muMeter */,
-											ndCm/*muFarad/cm^2 */, ndRa /* ohm cm */);
-							tmpPtr->Set_temperature(temperature /* in celsius */);
-							/* Leak current is number 0 */
-							tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(
-									tmpPtr->_area(), ndGLeak, eLeak), NTBP_LEAK);
-							/* Na current is number 1 */
-							tmpPtr->AttachCurrent(NTBP_create_na_channel_ptr(ndSodiumModel,
-									ndSodiumAlg, ndSodiumDensity /* mum^-2 */,
-									ndSodiumConductance /* pS */, ndSodiumQ10 /* q10 */,
-									temperature /* C */, tmpPtr->_area() /* mum^2 */),
-									NTBP_IONIC);
-							/* Dummy zero leak current is number 2 */
-							tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(
-									tmpPtr->_area(), 0, eLeak), NTBP_LEAK);
-							oModel.PushBack(tmpPtr);
-						}
+					NTBP_custom_cylindrical_compartment_o *tmpPtr =
+							new NTBP_custom_cylindrical_compartment_o(
+									lengthNd /* muMeter */,
+									diameter /* muMeter */,
+									ndCm/*muFarad/cm^2 */, ndRa /* ohm cm */);
+					tmpPtr->Set_temperature(temperature /* in celsius */);
+					/* Leak current is number 0 */
+					tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(
+							tmpPtr->_area(), ndGLeak, eLeak), NTBP_LEAK);
+					/* Na current is number 1 */
+					tmpPtr->AttachCurrent(NTBP_create_na_channel_ptr(
+							ndSodiumModel, ndSodiumAlg,
+							ndSodiumDensity /* mum^-2 */,
+							ndSodiumConductance /* pS */,
+							ndSodiumQ10 /* q10 */, temperature /* C */,
+							tmpPtr->_area() /* mum^2 */), NTBP_IONIC);
+					/* Dummy zero leak current is number 2 */
+					tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(
+							tmpPtr->_area(), 0, eLeak), NTBP_LEAK);
+					oModel.PushBack(tmpPtr);
+				}
 
-
-		}
+			}
 
 			/* Create a Node compartment */
 			for (NTsize lcomp = 0; lcomp < numNdComp; lcomp++) {
@@ -451,11 +544,13 @@ int main(int argc, char *argv[]) {
 		oModel.Init();
 
 		/* Information measurement init */
-		NTsize numCompartments = numAxonHillockNodeCompartments + (numNd - 1) * (numNdComp + numPndComp + numIntComp + numPndComp) + numNdComp + numPndComp;
+		NTsize numCompartments = numAxonHillockNodeCompartments + (numNd - 1)
+				* (numNdComp + numPndComp + numIntComp + numPndComp)
+				+ numNdComp + numPndComp;
 		cerr << "Total number of compartments(computed)" << numCompartments
-						<< endl;
+				<< endl;
 		cerr << "Total number of compartments(assembled)" << compartmentCounter
-						<< endl;
+				<< endl;
 		cerr << "Total number of compartments(in oModel)"
 				<< oModel._numCompartments() << endl;
 		vector<NTreal> leakCurrVec(numCompartments);
@@ -501,15 +596,6 @@ int main(int argc, char *argv[]) {
 		float timeVar = 0;
 		//float tmpCurr = 0.0;
 		NTreal inpCurrent = 0.0;
-
-		/* prerun system for 20 ms
-		 oModel.InjectCurrent(inpCurrent, 0);
-		 NTsize ll=0;
-		 for(ll=0;ll<20.0/oModel._timeStep();ll++ )
-		 {
-		 oModel.Step();
-		 }
-		 */
 
 		NT_uniform_rnd_dist_o uniformRnd;
 
