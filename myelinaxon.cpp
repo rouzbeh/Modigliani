@@ -95,6 +95,7 @@ int main(int argc, char *argv[]) {
 	NTsize ndSodiumAlg = oCfg.Value("node", "chNaAlg");
 	NTreal ndSodiumDensity = oCfg.Value("node", "chNaDen"); //= 60; // per mu^2
 	NTreal ndSodiumConductance = oCfg.Value("node", "chNaCond");
+	NTreal ndSodiumQ10 = oCfg.Value("node", "chNaQ10");
 
 	/* Paranodes */
 	NTsize numPndComp = oCfg.Value("paranode", "numComp");
@@ -106,6 +107,8 @@ int main(int argc, char *argv[]) {
 	NTsize pndPotassiumAlg = oCfg.Value("paranode", "chKAlg");
 	NTreal pndPotassiumDensity = oCfg.Value("paranode", "chKDen"); //  per mu^2
 	NTreal pndPotassiumConductance = oCfg.Value("paranode", "chKCond");
+	NTreal pndPotassiumQ10 = oCfg.Value("paranode", "chKQ10");
+
 
 	/* Internodes */
 	NTsize numIntComp = oCfg.Value("internode", "numComp");
@@ -179,32 +182,34 @@ int main(int argc, char *argv[]) {
 
 		/* Create a cylindrical membrane compartment */
 		NTBP_custom_cylindrical_compartment_o compartment(1 /* muMeter */,
-				0.5 /* muMeter */, 1.4 /*muFarad/cm^2 */, 70 /* ohm cm */);
-		//NTreal areaPerCompartment = compartment._area();
+				diameter /* muMeter */, ndCm /*muFarad/cm^2 */, ndRa /* ohm cm */);
+		NTreal areaPerCompartment = compartment._area();
 		compartment.Set_temperature(temperature /* in celsius */);
 
 		NTBP_membrane_current_o* tmpLeakPtr = new NTBP_hh_sga_leak_current_o(
-				compartment._area(), ndGLeak, eLeak);
+				areaPerCompartment, ndGLeak, eLeak);
 
-		/* Na current is number 1 */
+		/* Na current is number 2 */
 		NTBP_membrane_current_o* tmpNaPtr = NTBP_create_na_channel_ptr(
-				ndSodiumModel, ndSodiumAlg, ndSodiumDensity /* mum^-2 */,
-				ndSodiumConductance /* pS */, 3 /* q10 */, temperature /* C */,
-				compartment._area() /* mum^2 */);
+				ndSodiumModel, 1//ndSodiumAlg
+				, ndSodiumDensity /* mum^-2 */,
+				ndSodiumConductance /* pS */, ndSodiumQ10 /* q10 */, temperature /* C */,
+				areaPerCompartment /* mum^2 */);
 		compartment.AttachCurrent(tmpNaPtr, NTBP_IONIC);
-		/* K current is number 2 */
+		/* K current is number 3 */
 		NTBP_membrane_current_o* tmpKPtr = NTBP_create_k_channel_ptr(
-				pndPotassiumModel, pndPotassiumAlg,
+				pndPotassiumModel, 1,//pndPotassiumAlg,
 				pndPotassiumDensity /* mum^-2 */,
-				pndPotassiumConductance /* pS */, 3 /* q10 */,
-				temperature /* C */, compartment._area() /* mum^2 */);
+				pndPotassiumConductance /* pS */, pndPotassiumQ10 /* q10 */,
+				temperature /* C */, areaPerCompartment /* mum^2 */);
 		compartment.AttachCurrent(tmpKPtr, NTBP_IONIC);
-
+		//compartment.AttachCurrent(tmpLeakPtr, NTBP_LEAK);//not sure
 		float naCurrent = 0;
 		float kCurrent = 0;
 
 		/* ***  Determine leak reversal potential by simulating 50 ms *** */
 		NTsize lt = 0;
+		NTreal tmpEleak = 0;
 		for (lt = 0; lt < 100.0/timeStep; lt++) {
 			compartment.Step(0);
 			if (lt % 100 == 0) {
@@ -212,9 +217,11 @@ int main(int argc, char *argv[]) {
 						* (compartment.AttachedConductance(1));
 				kCurrent = compartment.AttachedReversalPotential(2)
 						* (compartment.AttachedConductance(2));
+
+				tmpEleak = -(naCurrent + kCurrent)
+								/ tmpLeakPtr->_conductance();
 				cerr << "I_Na=" << naCurrent << " I_K=" << kCurrent
-						<< " E_Leak=" << -(naCurrent + kCurrent)
-						/ tmpLeakPtr->_conductance() << endl;
+						<< " E_Leak=" << tmpEleak << endl;
 			}
 		}
 
@@ -321,7 +328,7 @@ int main(int argc, char *argv[]) {
 							/* Na current is number 1 */
 							tmpPtr->AttachCurrent(NTBP_create_na_channel_ptr(ndSodiumModel,
 									ndSodiumAlg, ndSodiumDensity /* mum^-2 */,
-									ndSodiumConductance /* pS */, 3 /* q10 */,
+									ndSodiumConductance /* pS */, ndSodiumQ10 /* q10 */,
 									temperature /* C */, tmpPtr->_area() /* mum^2 */),
 									NTBP_IONIC);
 							/* Dummy zero leak current is number 2 */
@@ -464,7 +471,7 @@ int main(int argc, char *argv[]) {
 				exit(1);
 			plotXY.AutoRange(false);
 			plotXY.SetXRange(0, numCompartments);
-			plotXY.SetYRange(-30, 120);
+			plotXY.SetYRange(-10, 120);
 		}
 
 		NT3D_plot2d_vec_vp_o plotChanNa(numCompartments);
@@ -574,7 +581,6 @@ int main(int argc, char *argv[]) {
 			oModel.InjectCurrent(inpCurrent, 1);
 
 			oModel.Step();
-			//oModel.GillespieStep();
 		}
 	} // lTrials
 
