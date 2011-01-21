@@ -217,7 +217,7 @@ int main(int argc, char *argv[]) {
 		/* Na current is number 1 */
 		NTBP_membrane_current_o* tmpNaPtr = NTBP_create_na_channel_ptr(
 				ndSodiumModel, ndSodiumAlg, ndSodiumDensity /* mum^-2 */,
-				ndSodiumConductance /* pS */, 3 /* q10 */, temperature /* C */,
+				ndSodiumConductance /* pS */, 2.2 , 2.9/* q10 */, temperature /* C */,
 				compartment._area() /* mum^2 */);
 		compartment.AttachCurrent(tmpNaPtr, NTBP_IONIC);
 		/* K current is number 2 */
@@ -261,14 +261,14 @@ int main(int argc, char *argv[]) {
 					1) << " < Eleak=" << eLeak << " < E_K="
 					<< compartment.AttachedReversalPotential(2) << endl;
 			cout
-					<< "Does a stable resting potential exist at all? Check by increasing iteratiosn of current balance equation."
+					<< "Does a stable resting potential exist at all? Check by increasing iterations of current balance equation."
 					<< endl;
 			cerr << "Eleak might be out of biological plausible range." << endl;
 			cerr << "Typically E_Na=" << compartment.AttachedReversalPotential(
 					1) << " < Eleak=" << eLeak << " < E_K="
 					<< compartment.AttachedReversalPotential(2) << endl;
 			cerr
-					<< "Does a stable resting potential exist at all? Check by increasing iteratiosn of current balance equation."
+					<< "Does a stable resting potential exist at all? Check by increasing iterations of current balance equation."
 					<< endl;
 		}
 	}
@@ -349,7 +349,7 @@ int main(int argc, char *argv[]) {
 							/* Na current is number 1 */
 							tmpPtr->AttachCurrent(NTBP_create_na_channel_ptr(ndSodiumModel,
 									ndSodiumAlg, ndSodiumDensity /* mum^-2 */,
-									ndSodiumConductance /* pS */, 3 /* q10 */,
+									ndSodiumConductance /* pS */, 2.2, 2.9 /* q10 */,
 									temperature /* C */, tmpPtr->_area() /* mum^2 */),
 									NTBP_IONIC);
 							/* Dummy zero leak current is number 2 */
@@ -376,7 +376,7 @@ int main(int argc, char *argv[]) {
 				/* Na current is number 1 */
 				tmpPtr->AttachCurrent(NTBP_create_na_channel_ptr(ndSodiumModel,
 						ndSodiumAlg, ndSodiumDensity /* mum^-2 */,
-						ndSodiumConductance /* pS */, 3 /* q10 */,
+						ndSodiumConductance /* pS */, 3 , 2.9/* q10 */,
 						temperature /* C */, tmpPtr->_area() /* mum^2 */),
 						NTBP_IONIC);
 				/* Dummy zero leak current is number 2 */

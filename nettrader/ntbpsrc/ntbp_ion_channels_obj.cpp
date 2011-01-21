@@ -34,7 +34,7 @@
 *
 
 */
-#include "ntbp_ion_channels_obj.h" 
+#include "ntbp_ion_channels_obj.h"
 
 NT_uniform_rnd_dist_o NTBP_ion_channels_o::uniformRnd;
 NT_binomial_rnd_dist_o NTBP_ion_channels_o::binomRnd(0.0,1);

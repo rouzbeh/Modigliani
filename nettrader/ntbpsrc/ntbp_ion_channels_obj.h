@@ -85,7 +85,7 @@ protected:
 /* ***  Data                 ***/
 vector < NTreal > statePersistenceProbVec;
 vector < NTsize > stateCounterVec;
-static NT_uniform_rnd_dist_o uniformRnd; // [0,1] randum number generation
+static NT_uniform_rnd_dist_o uniformRnd; // [0,1] random number generation
 static NT_binomial_rnd_dist_o binomRnd;
 private:
 /* ***  Methods              ***/  

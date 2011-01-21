@@ -70,11 +70,18 @@ public:
 NTBP_hranvier_sodium_multi_current_o(NTreal area /* in muMeter^2 */,
 																		 NTreal density = 110 /* in num/muMeter^2 */,
 																		 NTreal channelConductance = 1.3e-8, /* in mSiemens per channel = 13pS */
-																		 NTreal vBase = -84/* in mV */
+																		 NTreal vBase = -84, /* in mV */
+																		 NTreal newQ10m = 2.2,
+																		 NTreal newQ10h = 2.9,
+																		 NTreal reversalPotential = 115
   																	 );
 NTBP_hranvier_sodium_multi_current_o(const NTBP_hranvier_sodium_multi_current_o & original);
 const NTBP_hranvier_sodium_multi_current_o & operator= (const NTBP_hranvier_sodium_multi_current_o & right);
 virtual ~NTBP_hranvier_sodium_multi_current_o();
+virtual NTreturn Set_q10(NTreal newQ10) {
+	cerr << "WARNING : Set_q10 is being called on a Ranvier sodium channel.";
+	return NT_NOT_IMPLEMENTED;
+}
 /* ***  Methods              ***/
 /** in 1/ms or kHz */
 NTreal ComputeChannelStateTimeConstant() const;
