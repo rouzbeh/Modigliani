@@ -96,7 +96,9 @@ int main(int argc, char *argv[]) {
 	NTsize ndSodiumAlg = oCfg.Value("node", "chNaAlg");
 	NTreal ndSodiumDensity = oCfg.Value("node", "chNaDen"); //= 60; // per mu^2
 	NTreal ndSodiumConductance = oCfg.Value("node", "chNaCond");
-	NTreal ndSodiumQ10 = oCfg.Value("node", "chNaQ10");
+	NTreal ndSodiumQ10m = oCfg.Value("node", "chNaQ10m");
+	NTreal ndSodiumQ10h = oCfg.Value("node", "chNaQ10h");
+	NTreal noSodiumReversalPotential = oCfg.Value("node", "chNaRevPot");
 
 	/* Paranodes */
 	NTsize numPndComp = oCfg.Value("paranode", "numComp");
@@ -132,7 +134,8 @@ int main(int argc, char *argv[]) {
 	NTreal timeStep = oCfg.Value("simulation", "timeStep"); // in msec
 	NTsize numIterations = oCfg.Value("simulation", "numIter");
 	NTreal numTrials = oCfg.Value("simulation", "numTrials");
-
+	NTsize emulateMS = oCfg.Value("simulation", "emulateMS");
+	NTsize emulateMSFactor = oCfg.Value("simulation", "emulateMSFactor");
 	NTsize numAxonHillockNodeCompartments = 10;
 
 	cerr
@@ -176,6 +179,10 @@ int main(int argc, char *argv[]) {
 	cout << "Node Compartment Length [muMeter] " << lengthNd << endl;
 	cout << "Membrane leak conductance [mSiemens/cm^2] " << ndGLeak << endl;
 	cout << "Axoplasmic resistivity [Ohm cm] " << ndRa << endl;
+	cout << "Sodium Q10m " << ndSodiumQ10m << endl;
+	cout << "Sodium Q10h " << ndSodiumQ10h << endl;
+	cout << "Sodium Channel reversal potential " << noSodiumReversalPotential
+			<< endl;
 
 	cout << "[Paranode]" << endl;
 	cout << "Paranode Compartment Diameter [muMeter] " << diameter << endl;
@@ -195,89 +202,88 @@ int main(int argc, char *argv[]) {
 	cout << "Trial duration [ms] " << numIterations * timeStep << endl;
 	cout << "Number of repated stimulus trials [#] " << numTrials << endl;
 
-	ATPFile << "#" << "[Global]" << endl;
-	ATPFile << "#" << "Temperature [Celsius] " << temperature << endl;
-	ATPFile << "#" << "Membrane leak reversal potential [mV]" << eLeak << endl;
+	ATPFile << "#[Global]" << endl;
+	ATPFile << "#Temperature [Celsius] " << temperature << endl;
+	ATPFile << "#Membrane leak reversal potential [mV]" << eLeak << endl;
 
-	ATPFile << "#" << "[Node]" << endl;
-	ATPFile << "#" << "Number of axon hillock compartments (node-like) "
+	ATPFile << "#[Node]" << endl;
+	ATPFile << "#Number of axon hillock compartments (node-like) "
 			<< numAxonHillockNodeCompartments << endl;
-	ATPFile << "#" << "Number of nodes " << numNd << endl;
-	ATPFile << "#" << "Number of node compartments per node " << numNdComp
-			<< endl;
-	ATPFile << "#" << "Node Compartment Diameter [muMeter] " << diameter
-			<< endl;
-	ATPFile << "#" << "Node Compartment Length [muMeter] " << lengthNd << endl;
-	ATPFile << "#" << "Membrane leak conductance [mSiemens/cm^2] " << ndGLeak
-			<< endl;
-	ATPFile << "#" << "Axoplasmic resistivity [Ohm cm] " << ndRa << endl;
+	ATPFile << "#Number of nodes " << numNd << endl;
+	ATPFile << "#Number of node compartments per node " << numNdComp << endl;
+	ATPFile << "#Node Compartment Diameter [muMeter] " << diameter << endl;
+	ATPFile << "#Node Compartment Length [muMeter] " << lengthNd << endl;
+	ATPFile << "#Membrane leak conductance [mSiemens/cm^2] " << ndGLeak << endl;
+	ATPFile << "#Axoplasmic resistivity [Ohm cm] " << ndRa << endl;
+	ATPFile << "#Sodium Q10m " << ndSodiumQ10m << endl;
+	ATPFile << "#Sodium Q10h " << ndSodiumQ10h << endl;
+	ATPFile << "#Sodium Channel reversal potential "
+			<< noSodiumReversalPotential << endl;
 
-	ATPFile << "#" << "[Paranode]" << endl;
-	ATPFile << "#" << "Paranode Compartment Diameter [muMeter] " << diameter
+	ATPFile << "#[Paranode]" << endl;
+	ATPFile << "#Paranode Compartment Diameter [muMeter] " << diameter << endl;
+	ATPFile << "#Membrane leak conductance [mSiemens/cm^2] " << pndGLeak
 			<< endl;
-	ATPFile << "#" << "Membrane leak conductance [mSiemens/cm^2] " << pndGLeak
-			<< endl;
-	ATPFile << "#" << "Axoplasmic resistivity [Ohm cm] " << pndRa << endl;
+	ATPFile << "#Axoplasmic resistivity [Ohm cm] " << pndRa << endl;
 
-	ATPFile << "#" << "[Internode]" << endl;
-	ATPFile << "#" << "InterNode Compartment Diameter [muMeter] " << diameter
+	ATPFile << "#[Internode]" << endl;
+	ATPFile << "#InterNode Compartment Diameter [muMeter] " << diameter << endl;
+	ATPFile << "#Membrane leak conductance [mSiemens/cm^2] " << intGLeak
 			<< endl;
-	ATPFile << "#" << "Membrane leak conductance [mSiemens/cm^2] " << intGLeak
-			<< endl;
-	ATPFile << "#" << "Axoplasmic resistivity [Ohm cm] " << intRa << endl;
+	ATPFile << "#Axoplasmic resistivity [Ohm cm] " << intRa << endl;
 
-	ATPFile << "#" << "[Simulation]" << endl;
-	ATPFile << "#" << "Storing data in" << filename << " every " << sampN
+	ATPFile << "#[Simulation]" << endl;
+	ATPFile << "#Storing data in" << filename << " every " << sampN
 			<< "th iteration" << endl;
-	ATPFile << "#" << "Time step size in [mSec] " << timeStep << endl;
-	ATPFile << "#" << "Num iterations [#] " << numIterations << endl;
-	ATPFile << "#" << "Trial duration [ms] " << numIterations * timeStep
-			<< endl;
-	ATPFile << "#" << "Number of repated stimulus trials [#] " << numTrials
-			<< endl;
+	ATPFile << "#Time step size in [mSec] " << timeStep << endl;
+	ATPFile << "#Num iterations [#] " << numIterations << endl;
+	ATPFile << "#Trial duration [ms] " << numIterations * timeStep << endl;
+	ATPFile << "#Number of repated stimulus trials [#] " << numTrials << endl;
 
-	PotentialFile << "#" << "[Global]" << endl;
-	PotentialFile << "#" << "Temperature [Celsius] " << temperature << endl;
-	PotentialFile << "#" << "Membrane leak reversal potential [mV]" << eLeak
-			<< endl;
+	PotentialFile << "#[Global]" << endl;
+	PotentialFile << "#Temperature [Celsius] " << temperature << endl;
+	PotentialFile << "#Membrane leak reversal potential [mV]" << eLeak << endl;
 
-	PotentialFile << "#" << "[Node]" << endl;
-	PotentialFile << "#" << "Number of axon hillock compartments (node-like) "
+	PotentialFile << "#[Node]" << endl;
+	PotentialFile << "#Number of axon hillock compartments (node-like) "
 			<< numAxonHillockNodeCompartments << endl;
-	PotentialFile << "#" << "Number of nodes " << numNd << endl;
-	PotentialFile << "#" << "Number of node compartments per node "
-			<< numNdComp << endl;
-	PotentialFile << "#" << "Node Compartment Diameter [muMeter] " << diameter
+	PotentialFile << "#Number of nodes " << numNd << endl;
+	PotentialFile << "#Number of node compartments per node " << numNdComp
 			<< endl;
-	PotentialFile << "#" << "Node Compartment Length [muMeter] " << lengthNd
+	PotentialFile << "#Node Compartment Diameter [muMeter] " << diameter
 			<< endl;
-	PotentialFile << "#" << "Membrane leak conductance [mSiemens/cm^2] "
-			<< ndGLeak << endl;
-	PotentialFile << "#" << "Axoplasmic resistivity [Ohm cm] " << ndRa << endl;
+	PotentialFile << "#Node Compartment Length [muMeter] " << lengthNd << endl;
+	PotentialFile << "#Membrane leak conductance [mSiemens/cm^2] " << ndGLeak
+			<< endl;
+	PotentialFile << "#Axoplasmic resistivity [Ohm cm] " << ndRa << endl;
+	PotentialFile << "#Sodium Q10m " << ndSodiumQ10m << endl;
+	PotentialFile << "#Sodium Q10h " << ndSodiumQ10h << endl;
+	PotentialFile << "#Sodium Channel reversal potential "
+			<< noSodiumReversalPotential << endl;
 
-	PotentialFile << "#" << "[Paranode]" << endl;
-	PotentialFile << "#" << "Paranode Compartment Diameter [muMeter] "
-			<< diameter << endl;
-	PotentialFile << "#" << "Membrane leak conductance [mSiemens/cm^2] "
-			<< pndGLeak << endl;
-	PotentialFile << "#" << "Axoplasmic resistivity [Ohm cm] " << pndRa << endl;
+	PotentialFile << "#[Paranode]" << endl;
+	PotentialFile << "#Paranode Compartment Diameter [muMeter] " << diameter
+			<< endl;
+	PotentialFile << "#Membrane leak conductance [mSiemens/cm^2] " << pndGLeak
+			<< endl;
+	PotentialFile << "#Axoplasmic resistivity [Ohm cm] " << pndRa << endl;
 
-	PotentialFile << "#" << "[Internode]" << endl;
-	PotentialFile << "#" << "InterNode Compartment Diameter [muMeter] "
-			<< diameter << endl;
-	PotentialFile << "#" << "Membrane leak conductance [mSiemens/cm^2] "
-			<< intGLeak << endl;
-	PotentialFile << "#" << "Axoplasmic resistivity [Ohm cm] " << intRa << endl;
+	PotentialFile << "#[Internode]" << endl;
+	PotentialFile << "#InterNode Compartment Diameter [muMeter] " << diameter
+			<< endl;
+	PotentialFile << "#Membrane leak conductance [mSiemens/cm^2] " << intGLeak
+			<< endl;
+	PotentialFile << "#Axoplasmic resistivity [Ohm cm] " << intRa << endl;
 
-	PotentialFile << "#" << "[Simulation]" << endl;
-	PotentialFile << "#" << "Storing data in" << filename << " every " << sampN
+	PotentialFile << "#[Simulation]" << endl;
+	PotentialFile << "#Storing data in" << filename << " every " << sampN
 			<< "th iteration" << endl;
-	PotentialFile << "#" << "Time step size in [mSec] " << timeStep << endl;
-	PotentialFile << "#" << "Num iterations [#] " << numIterations << endl;
-	PotentialFile << "#" << "Trial duration [ms] " << numIterations * timeStep
+	PotentialFile << "#Time step size in [mSec] " << timeStep << endl;
+	PotentialFile << "#Num iterations [#] " << numIterations << endl;
+	PotentialFile << "#Trial duration [ms] " << numIterations * timeStep
 			<< endl;
-	PotentialFile << "#" << "Number of repated stimulus trials [#] "
-			<< numTrials << endl;
+	PotentialFile << "#Number of repated stimulus trials [#] " << numTrials
+			<< endl;
 
 	if (false == swComputeELeak) {
 		cout << "Eleak set to " << eLeak << " mV." << endl;
@@ -302,8 +308,10 @@ int main(int argc, char *argv[]) {
 						ndSodiumModel,
 						1//ndSodiumAlg
 						, ndSodiumDensity /* mum^-2 */,
-						ndSodiumConductance /* pS */, ndSodiumQ10 /* q10 */,
-						temperature /* C */, areaPerCompartment /* mum^2 */);
+						ndSodiumConductance /* pS */, ndSodiumQ10m,
+						ndSodiumQ10h, temperature /* C */,
+						areaPerCompartment /* mum^2 */,
+						noSodiumReversalPotential /*mV*/);
 		compartment.AttachCurrent(tmpNaPtr, NTBP_IONIC);
 		/* K current is number 3 */
 		NTBP_membrane_current_o* tmpKPtr = NTBP_create_k_channel_ptr(
@@ -363,7 +371,6 @@ int main(int argc, char *argv[]) {
 
 	NT_uniform_rnd_dist_o testRnd; // DO NOT DELETE, otherwise linker problems occur!
 	NT_gaussian_rnd_dist_o gaussianRnd; // DO NOT DELETE, otherwise linker problems occur !
-	//NTreal rnd = 0;
 
 	// Read input file only once. Store its content in memory.
 	ifstream dataFile(inputFilename.c_str(), ios::binary);
@@ -422,9 +429,10 @@ int main(int argc, char *argv[]) {
 					tmpPtr->AttachCurrent(NTBP_create_na_channel_ptr(
 							ndSodiumModel, ndSodiumAlg,
 							ndSodiumDensity /* mum^-2 */,
-							ndSodiumConductance /* pS */,
-							ndSodiumQ10 /* q10 */, temperature /* C */,
-							tmpPtr->_area() /* mum^2 */), NTBP_IONIC);
+							ndSodiumConductance /* pS */, ndSodiumQ10m,
+							ndSodiumQ10h /* q10 */, temperature /* C */,
+							tmpPtr->_area() /* mum^2 */,
+							noSodiumReversalPotential /*mV*/), NTBP_IONIC);
 					/* Dummy zero leak current is number 2 */
 					tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(
 							tmpPtr->_area(), 0, eLeak), NTBP_LEAK);
@@ -446,11 +454,13 @@ int main(int argc, char *argv[]) {
 				tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(
 						tmpPtr->_area(), ndGLeak, eLeak), NTBP_LEAK);
 				/* Na current is number 1 */
-				tmpPtr->AttachCurrent(NTBP_create_na_channel_ptr(ndSodiumModel,
-						ndSodiumAlg, ndSodiumDensity /* mum^-2 */,
-						ndSodiumConductance /* pS */, 3 /* q10 */,
-						temperature /* C */, tmpPtr->_area() /* mum^2 */),
-						NTBP_IONIC);
+				tmpPtr->AttachCurrent(
+						NTBP_create_na_channel_ptr(ndSodiumModel, ndSodiumAlg,
+								ndSodiumDensity /* mum^-2 */,
+								ndSodiumConductance /* pS */, ndSodiumQ10m,
+								ndSodiumQ10h /* q10 */, temperature /* C */,
+								tmpPtr->_area() /* mum^2 */,
+								noSodiumReversalPotential /*mV*/), NTBP_IONIC);
 				/* Dummy zero leak current is number 2 */
 				tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(
 						tmpPtr->_area(), 0, eLeak), NTBP_LEAK);
@@ -488,29 +498,56 @@ int main(int argc, char *argv[]) {
 			}
 
 			/* Create an Internode compartment */
-			for (NTsize lcomp = 0; lcomp < numIntComp; lcomp++) {
-				cout << compartmentCounter++ << "INT" << endl;
-				cerr << "Internode compartment " << endl;
-				NTBP_custom_cylindrical_compartment_o *tmpPtr =
-						new NTBP_custom_cylindrical_compartment_o(
-								lengthIntNd /* muMeter */,
-								diameter /* muMeter */, intCm/*muFarad/cm^2 */,
-								intRa /* ohm cm */);
-				tmpPtr->Set_temperature(temperature /* in celsius */);
-				/* Leak current is number 0 */
-				tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(
-						tmpPtr->_area(), intGLeak, eLeak), NTBP_LEAK);
-				/* Dummy zero leak current is number 1 */
-				tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(
-						tmpPtr->_area(), 0.001, eLeak), NTBP_LEAK);
-				/* K current is number 2 */
-				tmpPtr->AttachCurrent(NTBP_create_k_channel_ptr(
-						intPotassiumModel, intPotassiumAlg,
-						intPotassiumDensity /* mum^-2 */,
-						intPotassiumConductance /* pS */, 3 /* q10 */,
-						temperature /* C */, tmpPtr->_area() /* mum^2 */),
-						NTBP_IONIC);
-				oModel.PushBack(tmpPtr);
+			if (emulateMS && (lnd == emulateMS || lnd== emulateMS+1)) {
+				for (NTsize lcomp = 0; lcomp < numIntComp; lcomp++) {
+					cout << compartmentCounter++ << "INT" << endl;
+					cerr << "Internode compartment " << endl;
+					NTBP_custom_cylindrical_compartment_o *tmpPtr =
+							new NTBP_custom_cylindrical_compartment_o(
+									lengthIntNd /* muMeter */,
+									diameter /* muMeter */,
+									intCm/*muFarad/cm^2 */, intRa /* ohm cm */);
+					tmpPtr->Set_temperature(temperature /* in celsius */);
+					/* Leak current is number 0 */
+					tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(
+							tmpPtr->_area(), intGLeak * emulateMSFactor, eLeak), NTBP_LEAK);
+					/* Dummy zero leak current is number 1 */
+					tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(
+							tmpPtr->_area(), 0.001, eLeak), NTBP_LEAK);
+					/* K current is number 2 */
+					tmpPtr->AttachCurrent(NTBP_create_k_channel_ptr(
+							intPotassiumModel, 4,
+							intPotassiumDensity /* mum^-2 */,
+							intPotassiumConductance /* pS */, 3 /* q10 */,
+							temperature /* C */, tmpPtr->_area() /* mum^2 */),
+							NTBP_IONIC);
+					oModel.PushBack(tmpPtr);
+				}
+			} else {
+				for (NTsize lcomp = 0; lcomp < numIntComp; lcomp++) {
+					cout << compartmentCounter++ << "INT" << endl;
+					cerr << "Internode compartment " << endl;
+					NTBP_custom_cylindrical_compartment_o *tmpPtr =
+							new NTBP_custom_cylindrical_compartment_o(
+									lengthIntNd /* muMeter */,
+									diameter /* muMeter */,
+									intCm/*muFarad/cm^2 */, intRa /* ohm cm */);
+					tmpPtr->Set_temperature(temperature /* in celsius */);
+					/* Leak current is number 0 */
+					tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(
+							tmpPtr->_area(), intGLeak, eLeak), NTBP_LEAK);
+					/* Dummy zero leak current is number 1 */
+					tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(
+							tmpPtr->_area(), 0.001, eLeak), NTBP_LEAK);
+					/* K current is number 2 */
+					tmpPtr->AttachCurrent(NTBP_create_k_channel_ptr(
+							intPotassiumModel, intPotassiumAlg,
+							intPotassiumDensity /* mum^-2 */,
+							intPotassiumConductance /* pS */, 3 /* q10 */,
+							temperature /* C */, tmpPtr->_area() /* mum^2 */),
+							NTBP_IONIC);
+					oModel.PushBack(tmpPtr);
+				}
 			}
 
 			/* Create a Paranode compartment */
