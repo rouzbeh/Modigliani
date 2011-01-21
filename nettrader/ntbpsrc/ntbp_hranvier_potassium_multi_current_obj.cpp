@@ -56,7 +56,8 @@ NTBP_hranvier_potassium_multi_current_o::NTBP_hranvier_potassium_multi_current_o
 			NTreal newArea,
 			NTreal newDensity,
 			NTreal newChannelConductance,
-			NTreal newVBase
+			NTreal newVBase,
+			NTreal newQ10
 			)
 :
 NTBP_multi_current_o( 0.0 /* mV */,newDensity , newArea, newChannelConductance, newVBase)
@@ -66,6 +67,7 @@ NTBP_multi_current_o( 0.0 /* mV */,newDensity , newArea, newChannelConductance, 
 	NT_ASSERT (newChannelConductance >= 0);
 	
 	baseTemp=20.0; // C
+	q10 = newQ10;
 	
 	
 	NTreal vTmp;
@@ -120,7 +122,7 @@ NTBP_hranvier_potassium_multi_current_o::~NTBP_hranvier_potassium_multi_current_
 inline void
 NTBP_hranvier_potassium_multi_current_o::ComputeRateConstants(NTreal vM)
 {
-	NTreal q10Factor = NTBP_TemperatureRateRelation(_temperature(), baseTemp /* C */, 3.0);
+	NTreal q10Factor = NTBP_TemperatureRateRelation(_temperature(), baseTemp /* C */, q10);
 	
 	NTsize index = 0;
 	if ( (vM < -20.0) || ( vM > 130.0 ) ) {

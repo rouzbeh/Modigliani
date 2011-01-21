@@ -107,7 +107,7 @@ public:
         return q10;
     }
     /** Set Q10 */
-    NTreturn Set_q10(NTreal newQ10) {
+    virtual NTreturn Set_q10(NTreal newQ10) {
         q10 = newQ10;
         return NT_SUCCESS;
     }

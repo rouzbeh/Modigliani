@@ -18,15 +18,14 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */ 
-  
-/* $Id: ntbp_auxfunc.h,v 1.1 2005/04/25 13:55:27 face Exp $
-* $Log: ntbp_auxfunc.h,v $
-* Revision 1.1  2005/04/25 13:55:27  face
-* *** empty log message ***
-*
-*/
+ */
 
+/* $Id: ntbp_auxfunc.h,v 1.1 2005/04/25 13:55:27 face Exp $
+ * $Log: ntbp_auxfunc.h,v $
+ * Revision 1.1  2005/04/25 13:55:27  face
+ * *** empty log message ***
+ *
+ */
 
 #ifndef _ntbp_auxfunc_h_ 
 #define _ntbp_auxfunc_h_ 
@@ -44,15 +43,23 @@
 #include "ntbp_hranvier_potassium_multi_current_obj.h"
 #include "ntbp_potassium_multi_current_obj.h"
 
-NTreal /* mum^-2 */ 
-NTBP_corrected_channel_density(NTreal chDensity /* mum^-2 */, NTreal compArea /* mum^-2 */);
+NTreal /* mum^-2 */
+		NTBP_corrected_channel_density(NTreal chDensity /* mum^-2 */,
+				NTreal compArea /* mum^-2 */);
 
-NTBP_membrane_current_o * 
-NTBP_create_na_channel_ptr(NTsize sodiumModel, NTsize algorithm, NTreal chDensity /* mum^-2 */,
-NTreal chConductance /* pS */, NTreal q10, NTreal temperature /* C */, NTreal compArea /* mum^2 */);
+NTBP_membrane_current_o *
+NTBP_create_na_channel_ptr(NTsize sodiumModel, NTsize algorithm,
+		NTreal chDensity /* mum^-2 */, NTreal chConductance /* pS */,
+		NTreal q10, NTreal temperature /* C */, NTreal compArea /* mum^2 */);
 
-NTBP_membrane_current_o * 
-NTBP_create_k_channel_ptr(NTsize potassiumModel, NTsize algorithm, NTreal chDensity /* mum^-2*/, NTreal chConductance /* pS */, NTreal q10, NTreal temperature /* C */, NTreal compArea /* mum^2 */);
-
+NTBP_membrane_current_o	*
+		NTBP_create_na_channel_ptr(NTsize sodiumModel, NTsize algorithm,
+				NTreal chDensity /* mum^-2 */, NTreal chConductance /* pS */,
+				NTreal q10m, NTreal q10h, NTreal temperature /* C */,
+				NTreal compArea /* mum^2 */, NTreal reversalPotential = 115 /*mV*/);
+NTBP_membrane_current_o *
+NTBP_create_k_channel_ptr(NTsize potassiumModel, NTsize algorithm,
+		NTreal chDensity /* mum^-2*/, NTreal chConductance /* pS */,
+		NTreal q10, NTreal temperature /* C */, NTreal compArea /* mum^2 */);
 
 #endif /* _ntbp_auxfunc_h_ */ 

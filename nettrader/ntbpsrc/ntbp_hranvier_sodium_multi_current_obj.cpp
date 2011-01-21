@@ -62,9 +62,9 @@ NTreal NTBP_hranvier_sodium_multi_current_o::betaHvec[15000];
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NTBP_hranvier_sodium_multi_current_o */
-NTBP_hranvier_sodium_multi_current_o::NTBP_hranvier_sodium_multi_current_o(NTreal newArea, NTreal newDensity, NTreal newConductivity, NTreal newVBase)
+NTBP_hranvier_sodium_multi_current_o::NTBP_hranvier_sodium_multi_current_o(NTreal newArea, NTreal newDensity, NTreal newConductivity, NTreal newVBase, NTreal newQ10m, NTreal newQ10h, NTreal reversalPotential)
 :
-NTBP_multi_current_o(109 /* in mV */,
+NTBP_multi_current_o(reversalPotential /* in mV */,
 						newDensity /* channels per mu^2 */,
 						newArea /* in mu^2 */,
 						newConductivity /* in mS per channel  */,
@@ -77,8 +77,8 @@ NTBP_multi_current_o(109 /* in mV */,
 	noiseH = 0;
 	
 	baseTemp = 20.0; // C
-	q10m = 2.2;
-	q10h = 2.9;
+	q10m = newQ10m;
+	q10h = newQ10h;
 	
 	NTreal vTmp = 0;
 	
