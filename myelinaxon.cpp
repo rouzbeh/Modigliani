@@ -65,20 +65,79 @@
 
 #include <nt_config_file_parser_obj.h>
 
+#define CHANNEL_TYPE_SODIUM 0
+#define CHANNEL_TYPE_POTASSIUM 1
+
 using namespace std;
 using namespace TNT;
 
-int main(int argc, char *argv[]) {
+string filename;
 
-	/* Read and set parameters */
-	string filename;
+/* Global */
+NTreal temperature; /* in Celsius */
+NTreal diameter; /* in muMeter */
+NTreal eLeak;
+bool swComputeELeak;
 
-	NT_config_file_parser_o oCfg(argv[1]);
+/* Nodes */
+NTsize numNd; /* start with node at proximal end */
+NTsize numNdComp; /* per Node ! */
+NTreal lengthNd; /* micron */
+NTreal ndGLeak;/* mSiemens/cm^2 */
+NTreal ndRa; /* Ohm cm */
+NTreal ndCm; /* muFarad/cm^2 */
+NTsize ndSodiumModel;
+NTsize ndSodiumAlg;
+NTreal ndSodiumDensity; // per mu^2
+NTreal ndSodiumConductance;
+NTreal ndSodiumQ10m;
+NTreal ndSodiumQ10h;
+NTreal noSodiumReversalPotential;
+
+/* Paranodes */
+NTsize numPndComp;
+NTreal lengthPnd; /* micron */
+NTreal pndGLeak; /* mSiemens/cm^2 */
+NTreal pndRa; /* Ohm cm */
+NTreal pndCm; /* muFarad/cm^2 */
+NTsize pndPotassiumModel;
+NTsize pndPotassiumAlg;
+NTreal pndPotassiumDensity; //  per mu^2
+NTreal pndPotassiumConductance;
+NTreal pndPotassiumQ10;
+
+/* Internodes */
+NTsize numIntComp;
+NTreal lengthIntNd; /* micron */
+NTreal intGLeak; /* mSiemens/cm^2 */
+NTreal intRa; /* Ohm cm */
+NTreal intCm; /* muFarad/cm^2 */
+NTsize intPotassiumModel;
+NTsize intPotassiumAlg;
+NTreal intPotassiumDensity; //  per mu^2
+NTreal intPotassiumConductance;
+
+/* Simulation */
+string inputFilename;
+string outputFolder;
+NTsize readN;
+NTreal inpI;
+NTreal inpISDV;
+NTsize useVis;
+NTsize sampN;
+NTreal timeStep; // in msec
+NTsize numIterations;
+NTreal numTrials;
+NTsize emulateMS;
+NTsize emulateMSFactor;
+NTsize numAxonHillockNodeCompartments;
+
+void readConfig(string fileName) {
+	NT_config_file_parser_o oCfg(fileName);
 	/* Global */
-	NTreal temperature = oCfg.Value("global", "temperature"); //= 37; /* in Celsius */
-	NTreal diameter = oCfg.Value("global", "diameter"); // = 1; /* in muMeter */
-	NTreal eLeak;
-	bool swComputeELeak;
+	temperature = oCfg.Value("global", "temperature"); //= 37; /* in Celsius */
+	diameter = oCfg.Value("global", "diameter"); // = 1; /* in muMeter */
+
 	if (0 == oCfg.Value("global", "computeELeak")) {
 		swComputeELeak = false;
 		eLeak = oCfg.Value("global", "eLeak"); /* in mV */
@@ -86,62 +145,102 @@ int main(int argc, char *argv[]) {
 		swComputeELeak = true;
 	}
 	/* Nodes */
-	NTsize numNd = oCfg.Value("node", "numNd"); /* start with node at proximal end */
-	NTsize numNdComp = oCfg.Value("node", "numComp"); /* per Node ! */
-	NTreal lengthNd = oCfg.Value("node", "length"); /* micron */
-	NTreal ndGLeak = oCfg.Value("node", "GLeak");/* mSiemens/cm^2 */
-	NTreal ndRa = oCfg.Value("node", "Ra"); /* Ohm cm */
-	NTreal ndCm = oCfg.Value("node", "Cm"); /* muFarad/cm^2 */
-	NTsize ndSodiumModel = oCfg.Value("node", "chNaModel");
-	NTsize ndSodiumAlg = oCfg.Value("node", "chNaAlg");
-	NTreal ndSodiumDensity = oCfg.Value("node", "chNaDen"); //= 60; // per mu^2
-	NTreal ndSodiumConductance = oCfg.Value("node", "chNaCond");
-	NTreal ndSodiumQ10m = oCfg.Value("node", "chNaQ10m");
-	NTreal ndSodiumQ10h = oCfg.Value("node", "chNaQ10h");
-	NTreal noSodiumReversalPotential = oCfg.Value("node", "chNaRevPot");
+	numNd = oCfg.Value("node", "numNd"); /* start with node at proximal end */
+	numNdComp = oCfg.Value("node", "numComp"); /* per Node ! */
+	lengthNd = oCfg.Value("node", "length"); /* micron */
+	ndGLeak = oCfg.Value("node", "GLeak");/* mSiemens/cm^2 */
+	ndRa = oCfg.Value("node", "Ra"); /* Ohm cm */
+	ndCm = oCfg.Value("node", "Cm"); /* muFarad/cm^2 */
+	ndSodiumModel = oCfg.Value("node", "chNaModel");
+	ndSodiumAlg = oCfg.Value("node", "chNaAlg");
+	ndSodiumDensity = oCfg.Value("node", "chNaDen"); //= 60; // per mu^2
+	ndSodiumConductance = oCfg.Value("node", "chNaCond");
+	ndSodiumQ10m = oCfg.Value("node", "chNaQ10m");
+	ndSodiumQ10h = oCfg.Value("node", "chNaQ10h");
+	noSodiumReversalPotential = oCfg.Value("node", "chNaRevPot");
 
 	/* Paranodes */
-	NTsize numPndComp = oCfg.Value("paranode", "numComp");
-	NTreal lengthPnd = oCfg.Value("paranode", "length"); /* micron */
-	NTreal pndGLeak = oCfg.Value("paranode", "GLeak"); /* mSiemens/cm^2 */
-	NTreal pndRa = oCfg.Value("paranode", "Ra"); /* Ohm cm */
-	NTreal pndCm = oCfg.Value("paranode", "Cm"); /* muFarad/cm^2 */
-	NTsize pndPotassiumModel = oCfg.Value("paranode", "chKModel");
-	NTsize pndPotassiumAlg = oCfg.Value("paranode", "chKAlg");
-	NTreal pndPotassiumDensity = oCfg.Value("paranode", "chKDen"); //  per mu^2
-	NTreal pndPotassiumConductance = oCfg.Value("paranode", "chKCond");
-	NTreal pndPotassiumQ10 = oCfg.Value("paranode", "chKQ10");
+	numPndComp = oCfg.Value("paranode", "numComp");
+	lengthPnd = oCfg.Value("paranode", "length"); /* micron */
+	pndGLeak = oCfg.Value("paranode", "GLeak"); /* mSiemens/cm^2 */
+	pndRa = oCfg.Value("paranode", "Ra"); /* Ohm cm */
+	pndCm = oCfg.Value("paranode", "Cm"); /* muFarad/cm^2 */
+	pndPotassiumModel = oCfg.Value("paranode", "chKModel");
+	pndPotassiumAlg = oCfg.Value("paranode", "chKAlg");
+	pndPotassiumDensity = oCfg.Value("paranode", "chKDen"); //  per mu^2
+	pndPotassiumConductance = oCfg.Value("paranode", "chKCond");
+	pndPotassiumQ10 = oCfg.Value("paranode", "chKQ10");
 
 	/* Internodes */
-	NTsize numIntComp = oCfg.Value("internode", "numComp");
-	NTreal lengthIntNd = oCfg.Value("internode", "length"); /* micron */
-	NTreal intGLeak = oCfg.Value("internode", "GLeak"); /* mSiemens/cm^2 */
-	NTreal intRa = oCfg.Value("internode", "Ra"); /* Ohm cm */
-	NTreal intCm = oCfg.Value("internode", "Cm"); /* muFarad/cm^2 */
-	NTsize intPotassiumModel = oCfg.Value("internode", "chKModel");
-	NTsize intPotassiumAlg = oCfg.Value("internode", "chKAlg");
-	NTreal intPotassiumDensity = oCfg.Value("internode", "chKDen"); //  per mu^2
-	NTreal intPotassiumConductance = oCfg.Value("paranode", "chKCond");
+	numIntComp = oCfg.Value("internode", "numComp");
+	lengthIntNd = oCfg.Value("internode", "length"); /* micron */
+	intGLeak = oCfg.Value("internode", "GLeak"); /* mSiemens/cm^2 */
+	intRa = oCfg.Value("internode", "Ra"); /* Ohm cm */
+	intCm = oCfg.Value("internode", "Cm"); /* muFarad/cm^2 */
+	intPotassiumModel = oCfg.Value("internode", "chKModel");
+	intPotassiumAlg = oCfg.Value("internode", "chKAlg");
+	intPotassiumDensity = oCfg.Value("internode", "chKDen"); //  per mu^2
+	intPotassiumConductance = oCfg.Value("paranode", "chKCond");
 
 	/* Simulation */
-	string inputFilename = oCfg.Value("simulation", "inputFile");
-	string outputFolder = oCfg.Value("simulation", "outputFolder");
-	NTsize readN = oCfg.Value("simulation", "readN");
-	NTreal inpI = oCfg.Value("simulation", "inpI");
-	NTreal inpISDV = oCfg.Value("simulation", "inpISDV");
-	NTsize useVis = oCfg.Value("simulation", "useVis");
-	NTsize sampN = oCfg.Value("simulation", "sampN");
-	NTreal timeStep = oCfg.Value("simulation", "timeStep"); // in msec
-	NTsize numIterations = oCfg.Value("simulation", "numIter");
-	NTreal numTrials = oCfg.Value("simulation", "numTrials");
-	NTsize emulateMS = oCfg.Value("simulation", "emulateMS");
-	NTsize emulateMSFactor = oCfg.Value("simulation", "emulateMSFactor");
-	NTsize numAxonHillockNodeCompartments = 10;
+	inputFilename = (string) oCfg.Value("simulation", "inputFile");
+	outputFolder = (string) oCfg.Value("simulation", "outputFolder");
+	readN = oCfg.Value("simulation", "readN");
+	inpI = oCfg.Value("simulation", "inpI");
+	inpISDV = oCfg.Value("simulation", "inpISDV");
+	useVis = oCfg.Value("simulation", "useVis");
+	sampN = oCfg.Value("simulation", "sampN");
+	timeStep = oCfg.Value("simulation", "timeStep"); // in msec
+	numIterations = oCfg.Value("simulation", "numIter");
+	numTrials = oCfg.Value("simulation", "numTrials");
+	emulateMS = oCfg.Value("simulation", "emulateMS");
+	emulateMSFactor = oCfg.Value("simulation", "emulateMSFactor");
+	numAxonHillockNodeCompartments = 10;
 
 	cerr
 			<< "Remember that data file should have more lines than Num iterations."
 			<< endl;
+}
 
+void printConfig(ofstream& out) {
+	out << "#[Global]" << endl;
+	out << "#Temperature [Celsius] " << temperature << endl;
+	out << "#Membrane leak reversal potential [mV]" << eLeak << endl;
+
+	out << "#[Node]" << endl;
+	out << "#Number of axon hillock compartments (node-like) "
+			<< numAxonHillockNodeCompartments << endl;
+	out << "#Number of nodes " << numNd << endl;
+	out << "#Number of node compartments per node " << numNdComp << endl;
+	out << "#Node Compartment Diameter [muMeter] " << diameter << endl;
+	out << "#Node Compartment Length [muMeter] " << lengthNd << endl;
+	out << "#Membrane leak conductance [mSiemens/cm^2] " << ndGLeak << endl;
+	out << "#Axoplasmic resistivity [Ohm cm] " << ndRa << endl;
+	out << "#Sodium Q10m " << ndSodiumQ10m << endl;
+	out << "#Sodium Q10h " << ndSodiumQ10h << endl;
+	out << "#Sodium Channel reversal potential " << noSodiumReversalPotential
+			<< endl;
+
+	out << "#[Paranode]" << endl;
+	out << "#Paranode Compartment Diameter [muMeter] " << diameter << endl;
+	out << "#Membrane leak conductance [mSiemens/cm^2] " << pndGLeak << endl;
+	out << "#Axoplasmic resistivity [Ohm cm] " << pndRa << endl;
+
+	out << "#[Internode]" << endl;
+	out << "#InterNode Compartment Diameter [muMeter] " << diameter << endl;
+	out << "#Membrane leak conductance [mSiemens/cm^2] " << intGLeak << endl;
+	out << "#Axoplasmic resistivity [Ohm cm] " << intRa << endl;
+
+	out << "#[Simulation]" << endl;
+	out << "#Storing data in" << filename << " every " << sampN
+			<< "th iteration" << endl;
+	out << "#Time step size in [mSec] " << timeStep << endl;
+	out << "#Num iterations [#] " << numIterations << endl;
+	out << "#Trial duration [ms] " << numIterations * timeStep << endl;
+	out << "#Number of repated stimulus trials [#] " << numTrials << endl;
+}
+
+ofstream openOutputFile(string outputFolder, string prefix) {
 	/* open files */
 	time_t rawtime;
 	struct tm * timeinfo;
@@ -150,141 +249,65 @@ int main(int argc, char *argv[]) {
 	time(&rawtime);
 	timeinfo = localtime(&rawtime);
 	strftime(dateString, 80, "%b%d_%H%M.txt", timeinfo);
-	ss << outputFolder << "/ATP-" << dateString;
+	ss << outputFolder << "/" << prefix << "-" << dateString;
 
-	ofstream ATPFile(ss.str().c_str(), ios::binary);
-	ss.clear();
-	ss.str("");
-	ss << outputFolder << "/Potential-" << dateString;
-	ofstream PotentialFile(ss.str().c_str(), ios::binary);
-	if (ATPFile.fail()) {
-		cerr << "Could not open output ATP file " << endl;
-		return 1;
+	ofstream outStream(ss.str().c_str(), ios::binary);
+
+	if (outStream.fail()) {
+		cerr << "Could not open output file " << prefix << endl;
+		exit(1);
 	}
-	if (PotentialFile.fail()) {
-		cerr << "Could not open output potential file " << endl;
-		return 1;
+	return outStream;
+}
+
+NTBP_custom_cylindrical_compartment_o* createSection(NTsize numberCompartments, NTsize length, NTsize sectionDiameter,
+		NTreal C, NTsize R, NTsize temperature, NTreal eLeak, NTreal gLeak, NTsize channelType,
+		NTsize channelModel, NTsize channelAlg, NTsize channelDensity /* mum^-2 */,
+		NTreal channelConductance /* pS */, NTreal q10m,
+		NTreal q10h /* q10 */, NTreal channelReversalPotential) {
+	for (NTsize lcomp = 0; lcomp < numberCompartments; lcomp++) {
+		/*cout << compartmentCounter++ << "NODE (Axon Hillock)"
+		 << endl;
+		 cerr << "Node compartment " << endl;*/
+		NTBP_custom_cylindrical_compartment_o
+				*tmpPtr = new NTBP_custom_cylindrical_compartment_o(
+						length /* muMeter */, sectionDiameter /* muMeter */,
+						C/*muFarad/cm^2 */, R /* ohm cm */);
+		tmpPtr->Set_temperature(temperature /* in celsius */);
+		/* Leak current is number 0 */
+		tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(tmpPtr->_area(),
+				gLeak, eLeak), NTBP_LEAK);
+		/* Channel current is number 1 */
+		if(channelType == CHANNEL_TYPE_SODIUM)
+		tmpPtr->AttachCurrent(NTBP_create_na_channel_ptr(channelModel,
+				channelAlg, channelDensity /* mum^-2 */,
+				channelConductance /* pS */, q10m,
+				q10h /* q10 */, temperature /* C */,
+				tmpPtr->_area() /* mum^2 */, channelReversalPotential /*mV*/),
+				NTBP_IONIC);
+		if(channelType == CHANNEL_TYPE_POTASSIUM)
+				tmpPtr->AttachCurrent(NTBP_create_k_channel_ptr(channelModel, channelAlg,
+						channelDensity /* mum^-2 */,
+						channelConductance /* pS */, 3 /* q10 */,
+						temperature /* C */, tmpPtr->_area() /* mum^2 */),
+						NTBP_IONIC);
+		/* Dummy zero leak current is number 2 */
+		tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(tmpPtr->_area(),
+				0, eLeak), NTBP_LEAK);
+		/*oModel.PushBack(tmpPtr);*/
+		return tmpPtr;
 	}
+}
 
-	cout << "[Global]" << endl;
-	cout << "Temperature [Celsius] " << temperature << endl;
-	cout << "Membrane leak reversal potential [mV]" << eLeak << endl;
+int main(int argc, char *argv[]) {
 
-	cout << "[Node]" << endl;
-	cout << "Number of axon hillock compartments (node-like) "
-			<< numAxonHillockNodeCompartments << endl;
-	cout << "Number of nodes " << numNd << endl;
-	cout << "Number of node compartments per node " << numNdComp << endl;
-	cout << "Node Compartment Diameter [muMeter] " << diameter << endl;
-	cout << "Node Compartment Length [muMeter] " << lengthNd << endl;
-	cout << "Membrane leak conductance [mSiemens/cm^2] " << ndGLeak << endl;
-	cout << "Axoplasmic resistivity [Ohm cm] " << ndRa << endl;
-	cout << "Sodium Q10m " << ndSodiumQ10m << endl;
-	cout << "Sodium Q10h " << ndSodiumQ10h << endl;
-	cout << "Sodium Channel reversal potential " << noSodiumReversalPotential
-			<< endl;
+	/* Read and set parameters */
+	readConfig(argv[1]);
+	ofstream ATPFile = openOutputFile(outputFolder, "ATP");
+	ofstream PotentialFile = openOutputFile(outputFolder, "Potential");
 
-	cout << "[Paranode]" << endl;
-	cout << "Paranode Compartment Diameter [muMeter] " << diameter << endl;
-	cout << "Membrane leak conductance [mSiemens/cm^2] " << pndGLeak << endl;
-	cout << "Axoplasmic resistivity [Ohm cm] " << pndRa << endl;
-
-	cout << "[Internode]" << endl;
-	cout << "InterNode Compartment Diameter [muMeter] " << diameter << endl;
-	cout << "Membrane leak conductance [mSiemens/cm^2] " << intGLeak << endl;
-	cout << "Axoplasmic resistivity [Ohm cm] " << intRa << endl;
-
-	cout << "[Simulation]" << endl;
-	cout << "Storing data in" << filename << " every " << sampN
-			<< "th iteration" << endl;
-	cout << "Time step size in [mSec] " << timeStep << endl;
-	cout << "Num iterations [#] " << numIterations << endl;
-	cout << "Trial duration [ms] " << numIterations * timeStep << endl;
-	cout << "Number of repated stimulus trials [#] " << numTrials << endl;
-
-	ATPFile << "#[Global]" << endl;
-	ATPFile << "#Temperature [Celsius] " << temperature << endl;
-	ATPFile << "#Membrane leak reversal potential [mV]" << eLeak << endl;
-
-	ATPFile << "#[Node]" << endl;
-	ATPFile << "#Number of axon hillock compartments (node-like) "
-			<< numAxonHillockNodeCompartments << endl;
-	ATPFile << "#Number of nodes " << numNd << endl;
-	ATPFile << "#Number of node compartments per node " << numNdComp << endl;
-	ATPFile << "#Node Compartment Diameter [muMeter] " << diameter << endl;
-	ATPFile << "#Node Compartment Length [muMeter] " << lengthNd << endl;
-	ATPFile << "#Membrane leak conductance [mSiemens/cm^2] " << ndGLeak << endl;
-	ATPFile << "#Axoplasmic resistivity [Ohm cm] " << ndRa << endl;
-	ATPFile << "#Sodium Q10m " << ndSodiumQ10m << endl;
-	ATPFile << "#Sodium Q10h " << ndSodiumQ10h << endl;
-	ATPFile << "#Sodium Channel reversal potential "
-			<< noSodiumReversalPotential << endl;
-
-	ATPFile << "#[Paranode]" << endl;
-	ATPFile << "#Paranode Compartment Diameter [muMeter] " << diameter << endl;
-	ATPFile << "#Membrane leak conductance [mSiemens/cm^2] " << pndGLeak
-			<< endl;
-	ATPFile << "#Axoplasmic resistivity [Ohm cm] " << pndRa << endl;
-
-	ATPFile << "#[Internode]" << endl;
-	ATPFile << "#InterNode Compartment Diameter [muMeter] " << diameter << endl;
-	ATPFile << "#Membrane leak conductance [mSiemens/cm^2] " << intGLeak
-			<< endl;
-	ATPFile << "#Axoplasmic resistivity [Ohm cm] " << intRa << endl;
-
-	ATPFile << "#[Simulation]" << endl;
-	ATPFile << "#Storing data in" << filename << " every " << sampN
-			<< "th iteration" << endl;
-	ATPFile << "#Time step size in [mSec] " << timeStep << endl;
-	ATPFile << "#Num iterations [#] " << numIterations << endl;
-	ATPFile << "#Trial duration [ms] " << numIterations * timeStep << endl;
-	ATPFile << "#Number of repated stimulus trials [#] " << numTrials << endl;
-
-	PotentialFile << "#[Global]" << endl;
-	PotentialFile << "#Temperature [Celsius] " << temperature << endl;
-	PotentialFile << "#Membrane leak reversal potential [mV]" << eLeak << endl;
-
-	PotentialFile << "#[Node]" << endl;
-	PotentialFile << "#Number of axon hillock compartments (node-like) "
-			<< numAxonHillockNodeCompartments << endl;
-	PotentialFile << "#Number of nodes " << numNd << endl;
-	PotentialFile << "#Number of node compartments per node " << numNdComp
-			<< endl;
-	PotentialFile << "#Node Compartment Diameter [muMeter] " << diameter
-			<< endl;
-	PotentialFile << "#Node Compartment Length [muMeter] " << lengthNd << endl;
-	PotentialFile << "#Membrane leak conductance [mSiemens/cm^2] " << ndGLeak
-			<< endl;
-	PotentialFile << "#Axoplasmic resistivity [Ohm cm] " << ndRa << endl;
-	PotentialFile << "#Sodium Q10m " << ndSodiumQ10m << endl;
-	PotentialFile << "#Sodium Q10h " << ndSodiumQ10h << endl;
-	PotentialFile << "#Sodium Channel reversal potential "
-			<< noSodiumReversalPotential << endl;
-
-	PotentialFile << "#[Paranode]" << endl;
-	PotentialFile << "#Paranode Compartment Diameter [muMeter] " << diameter
-			<< endl;
-	PotentialFile << "#Membrane leak conductance [mSiemens/cm^2] " << pndGLeak
-			<< endl;
-	PotentialFile << "#Axoplasmic resistivity [Ohm cm] " << pndRa << endl;
-
-	PotentialFile << "#[Internode]" << endl;
-	PotentialFile << "#InterNode Compartment Diameter [muMeter] " << diameter
-			<< endl;
-	PotentialFile << "#Membrane leak conductance [mSiemens/cm^2] " << intGLeak
-			<< endl;
-	PotentialFile << "#Axoplasmic resistivity [Ohm cm] " << intRa << endl;
-
-	PotentialFile << "#[Simulation]" << endl;
-	PotentialFile << "#Storing data in" << filename << " every " << sampN
-			<< "th iteration" << endl;
-	PotentialFile << "#Time step size in [mSec] " << timeStep << endl;
-	PotentialFile << "#Num iterations [#] " << numIterations << endl;
-	PotentialFile << "#Trial duration [ms] " << numIterations * timeStep
-			<< endl;
-	PotentialFile << "#Number of repated stimulus trials [#] " << numTrials
-			<< endl;
-
+	printConfig(ATPFile);
+	printConfig(PotentialFile);
 	if (false == swComputeELeak) {
 		cout << "Eleak set to " << eLeak << " mV." << endl;
 	} else {
@@ -498,7 +521,7 @@ int main(int argc, char *argv[]) {
 			}
 
 			/* Create an Internode compartment */
-			if (emulateMS && (lnd == emulateMS || lnd== emulateMS+1)) {
+			if (emulateMS && (lnd == emulateMS || lnd == emulateMS + 1)) {
 				for (NTsize lcomp = 0; lcomp < numIntComp; lcomp++) {
 					cout << compartmentCounter++ << "INT" << endl;
 					cerr << "Internode compartment " << endl;
@@ -509,8 +532,10 @@ int main(int argc, char *argv[]) {
 									intCm/*muFarad/cm^2 */, intRa /* ohm cm */);
 					tmpPtr->Set_temperature(temperature /* in celsius */);
 					/* Leak current is number 0 */
-					tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(
-							tmpPtr->_area(), intGLeak * emulateMSFactor, eLeak), NTBP_LEAK);
+					tmpPtr->AttachCurrent(
+							new NTBP_hh_sga_leak_current_o(tmpPtr->_area(),
+									intGLeak * emulateMSFactor, eLeak),
+							NTBP_LEAK);
 					/* Dummy zero leak current is number 1 */
 					tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(
 							tmpPtr->_area(), 0.001, eLeak), NTBP_LEAK);
@@ -713,3 +738,4 @@ int main(int argc, char *argv[]) {
 	cerr << "Simulation completed." << endl;
 	return 0;
 }
+
