@@ -302,8 +302,9 @@ NTBP_membrane_compartment_sequence_o::WriteMembranePotential( ofstream & file )
 }
 
 NTreturn
-NTBP_membrane_compartment_sequence_o::WriteMembranePotentialASCII( ofstream & file )
+NTBP_membrane_compartment_sequence_o::WriteMembranePotentialASCII( ofstream & file, NTreal timeVar )
 {
+	file << timeVar << "";
 	for (NTsize ll=0; ll< _numCompartments(); ll++){
 			file << vVec[ll] << " ";
 	}
@@ -611,7 +612,7 @@ NTBP_membrane_compartment_sequence_o::WriteATP(ofstream & file)
 {
 	//float data[_numCompartments()];
 	for (NTsize ll=0; ll< _numCompartments(); ll++){
-		file << -compartmentVec[ll]->AttachedCurrent(2) * _timeStep() * (624151*pow(10,13)) / 3 << " ";
+		file << -compartmentVec[ll]->AttachedCurrent(2) * _timeStep() * 6241510000 / 3 << " ";
 	}
 	file<<endl;
 	//file.write( reinterpret_cast<char*>(data), _numCompartments()*sizeof(float) );

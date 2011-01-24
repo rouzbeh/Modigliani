@@ -97,7 +97,8 @@ public:
 NTBP_colbert_axonal_potassium_multi_current_o(NTreal area /* in muMeter^2 */,
 																				NTreal density = 8/* num/muMeter^2 */,
 																				NTreal channelConductance = 2.0e-8, /* in mSiemens per channel = 13pS */
-																				NTreal newVBase = -64.5 /*m mV */
+																				NTreal newVBase = -64.5 /*m mV */,
+																				NTreal newQ10 = 3
   																	 		);
 NTBP_colbert_axonal_potassium_multi_current_o(const NTBP_colbert_axonal_potassium_multi_current_o & original);
 const NTBP_colbert_axonal_potassium_multi_current_o & operator= (const NTBP_colbert_axonal_potassium_multi_current_o & right);
@@ -129,6 +130,7 @@ static NT_gaussian_rnd_dist_o normalRnd;
 static bool initTableLookUp;
 static NTreal alphaNvec [15000];
 static NTreal betaNvec [15000];
+NTreal q10;
 NTreal alphaN;
 NTreal betaN;
 NTreal n;

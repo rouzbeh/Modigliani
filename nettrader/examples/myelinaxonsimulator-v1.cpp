@@ -552,7 +552,7 @@ int main(int argc, char *argv[]) {
 				/* the "sampling ratio" used for "measurement" to disk */
 				//file.write(reinterpret_cast<char *> (&timeVar), sizeof(float));
 				//file.write(reinterpret_cast<char *> (&inpCurrent), sizeof(float));
-				oModel.WriteMembranePotentialASCII(PotentialFile);
+				oModel.WriteMembranePotentialASCII(PotentialFile, timeVar);
 				//oModel.WriteCurrent(file, 2); // Na
 				//oModel.WriteCurrent(file, 3); // K
 
