@@ -21,11 +21,6 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-/* $Id: myelinaxonsimulator-v1.cpp,v 1.1 2005/04/25 15:13:17 face Exp $
- * $Log: myelinaxonsimulator-v1.cpp,v $
- *
- */
-
 #include <cmath>
 #include <cstring>
 #include <fstream>
@@ -134,6 +129,7 @@ NTsize emulateMSFactor;
 NTsize numAxonHillockNodeCompartments;
 
 void readConfig(string fileName) {
+	// Remember that data file should have more lines than Num iterations.
 	NT_config_file_parser_o oCfg(fileName);
 	/* Global */
 	temperature = oCfg.Value("global", "temperature"); //= 37; /* in Celsius */
@@ -198,10 +194,6 @@ void readConfig(string fileName) {
 	emulateMS = oCfg.Value("simulation", "emulateMS");
 	emulateMSFactor = oCfg.Value("simulation", "emulateMSFactor");
 	numAxonHillockNodeCompartments = 10;
-
-	cerr
-			<< "Remember that data file should have more lines than Num iterations."
-			<< endl;
 }
 
 void printConfig(ofstream& out) {
@@ -293,10 +285,10 @@ NTBP_custom_cylindrical_compartment_o* createCompartment(NTsize length,
 			eLeak), NTBP_LEAK);
 
 	if (channelType == CHANNEL_TYPE_POTASSIUM)
-			tmpPtr->AttachCurrent(NTBP_create_k_channel_ptr(channelModel,
-					channelAlg, channelDensity /* mum^-2 */,
-					channelConductance /* pS */, 3 /* q10 */, temperature /* C */,
-					tmpPtr->_area() /* mum^2 */), NTBP_IONIC);
+		tmpPtr->AttachCurrent(NTBP_create_k_channel_ptr(channelModel,
+				channelAlg, channelDensity /* mum^-2 */,
+				channelConductance /* pS */, q10m /* q10 */, temperature /* C */,
+				tmpPtr->_area() /* mum^2 */), NTBP_IONIC);
 	return tmpPtr;
 }
 
@@ -433,71 +425,26 @@ int main(int argc, char *argv[]) {
 
 		NTsize compartmentCounter = 1;
 		/* *** MODEL CREATION LOOP *** */
+
+		// Generate an axon hillock
+
+		for (NTsize lcomp = 0; lcomp < numAxonHillockNodeCompartments; lcomp++) {
+
+			cout << compartmentCounter++ << "NODE (Axon Hillock)" << endl;
+			cerr << "Node compartment " << endl;
+			oModel.PushBack(createCompartment(lengthNd, diameter, ndCm, ndRa,
+					temperature, eLeak, ndGLeak, CHANNEL_TYPE_SODIUM,
+					ndSodiumModel, ndSodiumAlg, ndSodiumDensity /* mum^-2 */,
+					ndSodiumConductance /* pS */, ndSodiumQ10m,
+					ndSodiumQ10h /* q10 */, ndSodiumReversalPotential));
+
+		}
 		/* Create a Node, followed by Paranode, Internode, Paranode */
 		for (NTsize lnd = 0; lnd < numNd; lnd++) {
-
-			if (0 == lnd) { // Generate an axon hillock
-
-				for (NTsize lcomp = 0; lcomp < numAxonHillockNodeCompartments; lcomp++) {
-
-					cout << compartmentCounter++ << "NODE (Axon Hillock)"
-							<< endl;
-					cerr << "Node compartment " << endl;
-					//					NTBP_custom_cylindrical_compartment_o *tmpPtr =
-					//							new NTBP_custom_cylindrical_compartment_o(
-					//									lengthNd /* muMeter */,
-					//									diameter /* muMeter */,
-					//									ndCm/*muFarad/cm^2 */, ndRa /* ohm cm */);
-					//					tmpPtr->Set_temperature(temperature /* in celsius */);
-					//					/* Leak current is number 0 */
-					//					tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(
-					//							tmpPtr->_area(), ndGLeak, eLeak), NTBP_LEAK);
-					//					/* Na current is number 1 */
-					//					tmpPtr->AttachCurrent(NTBP_create_na_channel_ptr(
-					//							ndSodiumModel, ndSodiumAlg,
-					//							ndSodiumDensity /* mum^-2 */,
-					//							ndSodiumConductance /* pS */, ndSodiumQ10m,
-					//							ndSodiumQ10h /* q10 */, temperature /* C */,
-					//							tmpPtr->_area() /* mum^2 */,
-					//							noSodiumReversalPotential /*mV*/), NTBP_IONIC);
-					//					/* Dummy zero leak current is number 2 */
-					//					tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(
-					//							tmpPtr->_area(), 0, eLeak), NTBP_LEAK);
-					oModel.PushBack(createCompartment(lengthNd, diameter, ndCm,
-							ndRa, temperature, eLeak, ndGLeak,
-							CHANNEL_TYPE_SODIUM, ndSodiumModel, ndSodiumAlg,
-							ndSodiumDensity /* mum^-2 */,
-							ndSodiumConductance /* pS */, ndSodiumQ10m,
-							ndSodiumQ10h /* q10 */, ndSodiumReversalPotential));
-
-				}
-
-			}
-
 			/* Create a Node compartment */
 			for (NTsize lcomp = 0; lcomp < numNdComp; lcomp++) {
 				cout << compartmentCounter++ << "NODE" << endl;
 				cerr << "Node compartment " << endl;
-				//				NTBP_custom_cylindrical_compartment_o *tmpPtr =
-				//						new NTBP_custom_cylindrical_compartment_o(
-				//								lengthNd /* muMeter */, diameter /* muMeter */,
-				//								ndCm/*muFarad/cm^2 */, ndRa /* ohm cm */);
-				//				tmpPtr->Set_temperature(temperature /* in celsius */);
-				//				/* Leak current is number 0 */
-				//				tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(
-				//						tmpPtr->_area(), ndGLeak, eLeak), NTBP_LEAK);
-				//				/* Na current is number 1 */
-				//				tmpPtr->AttachCurrent(
-				//						NTBP_create_na_channel_ptr(ndSodiumModel, ndSodiumAlg,
-				//								ndSodiumDensity /* mum^-2 */,
-				//								ndSodiumConductance /* pS */, ndSodiumQ10m,
-				//								ndSodiumQ10h /* q10 */, temperature /* C */,
-				//								tmpPtr->_area() /* mum^2 */,
-				//								noSodiumReversalPotential /*mV*/), NTBP_IONIC);
-				//				/* Dummy zero leak current is number 2 */
-				//				tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(
-				//						tmpPtr->_area(), 0, eLeak), NTBP_LEAK);
-				//				oModel.PushBack(tmpPtr);
 				oModel.PushBack(createCompartment(lengthNd, diameter, ndCm,
 						ndRa, temperature, eLeak, ndGLeak, CHANNEL_TYPE_SODIUM,
 						ndSodiumModel, ndSodiumAlg,
@@ -511,26 +458,6 @@ int main(int argc, char *argv[]) {
 			for (NTsize lcomp = 0; lcomp < numPndComp; lcomp++) {
 				cout << compartmentCounter++ << "PARA" << endl;
 				cerr << "Paranode compartment " << endl;
-				//				NTBP_custom_cylindrical_compartment_o *tmpPtr =
-				//						new NTBP_custom_cylindrical_compartment_o(
-				//								lengthPnd /* muMeter */,
-				//								diameter /* muMeter */, pndCm/*muFarad/cm^2 */,
-				//								pndRa /* ohm cm */);
-				//				tmpPtr->Set_temperature(temperature /* in celsius */);
-				//				/* Leak current is number 0 */
-				//				tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(
-				//						tmpPtr->_area(), pndGLeak, eLeak), NTBP_LEAK);
-				//				/* Dummy zero leak current is number 1 */
-				//				tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(
-				//						tmpPtr->_area(), 0.001, eLeak), NTBP_LEAK);
-				//				/* K current is number 2 */
-				//				tmpPtr->AttachCurrent(NTBP_create_k_channel_ptr(
-				//						pndPotassiumModel, pndPotassiumAlg,
-				//						pndPotassiumDensity /* mum^-2 */,
-				//						pndPotassiumConductance /* pS */, 3 /* q10 */,
-				//						temperature /* C */, tmpPtr->_area() /* mum^2 */),
-				//						NTBP_IONIC);
-				//				oModel.PushBack(tmpPtr);
 				oModel.PushBack(createCompartment(lengthPnd, diameter, pndCm,
 						pndRa, temperature, eLeak, pndGLeak,
 						CHANNEL_TYPE_POTASSIUM, pndPotassiumModel,
@@ -546,30 +473,6 @@ int main(int argc, char *argv[]) {
 			/* Create an Internode compartment */
 			if (emulateMS && (lnd == emulateMS || lnd == emulateMS + 1)) {
 				for (NTsize lcomp = 0; lcomp < numIntComp; lcomp++) {
-					//					cout << compartmentCounter++ << "INT" << endl;
-					//					cerr << "Internode compartment " << endl;
-					//					NTBP_custom_cylindrical_compartment_o *tmpPtr =
-					//							new NTBP_custom_cylindrical_compartment_o(
-					//									lengthIntNd /* muMeter */,
-					//									diameter /* muMeter */,
-					//									intCm/*muFarad/cm^2 */, intRa /* ohm cm */);
-					//					tmpPtr->Set_temperature(temperature /* in celsius */);
-					//					/* Leak current is number 0 */
-					//					tmpPtr->AttachCurrent(
-					//							new NTBP_hh_sga_leak_current_o(tmpPtr->_area(),
-					//									intGLeak * emulateMSFactor, eLeak),
-					//							NTBP_LEAK);
-					//					/* Dummy zero leak current is number 1 */
-					//					tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(
-					//							tmpPtr->_area(), 0.001, eLeak), NTBP_LEAK);
-					//					/* K current is number 2 */
-					//					tmpPtr->AttachCurrent(NTBP_create_k_channel_ptr(
-					//							intPotassiumModel, 4,
-					//							intPotassiumDensity /* mum^-2 */,
-					//							intPotassiumConductance /* pS */, 3 /* q10 */,
-					//							temperature /* C */, tmpPtr->_area() /* mum^2 */),
-					//							NTBP_IONIC);
-					//					oModel.PushBack(tmpPtr);
 					oModel.PushBack(createCompartment(lengthIntNd, diameter,
 							intCm, intRa, temperature, eLeak, intGLeak
 									* emulateMSFactor, CHANNEL_TYPE_POTASSIUM,
@@ -582,26 +485,6 @@ int main(int argc, char *argv[]) {
 				for (NTsize lcomp = 0; lcomp < numIntComp; lcomp++) {
 					cout << compartmentCounter++ << "INT" << endl;
 					cerr << "Internode compartment " << endl;
-					//					NTBP_custom_cylindrical_compartment_o *tmpPtr =
-					//							new NTBP_custom_cylindrical_compartment_o(
-					//									lengthIntNd /* muMeter */,
-					//									diameter /* muMeter */,
-					//									intCm/*muFarad/cm^2 */, intRa /* ohm cm */);
-					//					tmpPtr->Set_temperature(temperature /* in celsius */);
-					//					/* Leak current is number 0 */
-					//					tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(
-					//							tmpPtr->_area(), intGLeak, eLeak), NTBP_LEAK);
-					//					/* Dummy zero leak current is number 1 */
-					//					tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(
-					//							tmpPtr->_area(), 0.001, eLeak), NTBP_LEAK);
-					//					/* K current is number 2 */
-					//					tmpPtr->AttachCurrent(NTBP_create_k_channel_ptr(
-					//							intPotassiumModel, intPotassiumAlg,
-					//							intPotassiumDensity /* mum^-2 */,
-					//							intPotassiumConductance /* pS */, 3 /* q10 */,
-					//							temperature /* C */, tmpPtr->_area() /* mum^2 */),
-					//							NTBP_IONIC);
-					//					oModel.PushBack(tmpPtr);
 					oModel.PushBack(createCompartment(lengthIntNd, diameter,
 							intCm, intRa, temperature, eLeak, intGLeak,
 							CHANNEL_TYPE_POTASSIUM, intPotassiumModel,
@@ -613,28 +496,6 @@ int main(int argc, char *argv[]) {
 
 			/* Create a Paranode compartment */
 			for (NTsize lcomp = 0; lcomp < numPndComp; lcomp++) {
-				//				cout << compartmentCounter++ << "PARA" << endl;
-				//				cerr << "Paranode compartment " << endl;
-				//				NTBP_custom_cylindrical_compartment_o *tmpPtr =
-				//						new NTBP_custom_cylindrical_compartment_o(
-				//								lengthPnd /* muMeter */,
-				//								diameter /* muMeter */, pndCm/*muFarad/cm^2 */,
-				//								pndRa /* ohm cm */);
-				//				tmpPtr->Set_temperature(temperature /* in celsius */);
-				//				/* Leak current is number 0 */
-				//				tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(
-				//						tmpPtr->_area(), pndGLeak, eLeak), NTBP_LEAK);
-				//				/* Dummy zero leak current is number 1 */
-				//				tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(
-				//						tmpPtr->_area(), 0.001, eLeak), NTBP_LEAK);
-				//				/* K current is number 2 */
-				//				tmpPtr->AttachCurrent(NTBP_create_k_channel_ptr(
-				//						pndPotassiumModel, pndPotassiumAlg,
-				//						pndPotassiumDensity /* mum^-2 */,
-				//						pndPotassiumConductance /* pS */, 3 /* q10 */,
-				//						temperature /* C */, tmpPtr->_area() /* mum^2 */),
-				//						NTBP_IONIC);
-				//				oModel.PushBack(tmpPtr);
 				oModel.PushBack(createCompartment(lengthPnd, diameter, pndCm,
 						pndRa, temperature, eLeak, pndGLeak,
 						CHANNEL_TYPE_POTASSIUM, pndPotassiumModel,
@@ -698,7 +559,6 @@ int main(int argc, char *argv[]) {
 		/* ***********************  Main loop **************************** */
 		cerr << "MainLoop started" << endl;
 		float timeVar = 0;
-		//float tmpCurr = 0.0;
 		NTreal inpCurrent = 0.0;
 
 		NT_uniform_rnd_dist_o uniformRnd;
@@ -706,10 +566,6 @@ int main(int argc, char *argv[]) {
 		vector<NTreal> voltVec;
 		vector<NTreal>::iterator maxVoltPos;
 		vector<NTreal>::iterator maxVoltOldPos;
-		//NTreal speed;
-
-		//NTreal maxVoltage;
-
 		timeInMS = 0;
 
 		int dataRead = 0;
@@ -721,11 +577,10 @@ int main(int argc, char *argv[]) {
 				/* the "sampling ratio" used for "measurement" to disk */
 				//file.write(reinterpret_cast<char *> (&timeVar), sizeof(float));
 				//file.write(reinterpret_cast<char *> (&inpCurrent), sizeof(float));
-				oModel.WriteMembranePotentialASCII(PotentialFile);
+				oModel.WriteMembranePotentialASCII(PotentialFile, timeVar);
 				//oModel.WriteCurrent(file, 2); // Na
 				//oModel.WriteCurrent(file, 3); // K
 
-				// Added by Ali
 				// Number of ATPs consumed is (SI units)
 				// NaCurrent * dt * 6.24151e18 / 3
 				oModel.WriteATP(ATPFile);
@@ -754,13 +609,10 @@ int main(int argc, char *argv[]) {
 
 					plotXY.SetData(oModel._vVec());
 					plotXY.Draw();
-					//cout << "Na" << endl;
 					plotChanNa.SetData(oModel.OpenChannels(2));
 					plotChanNa.Draw();
-					//cout << "K" << endl;
 					plotChanK.SetData(oModel.OpenChannels(3));
 					plotChanK.Draw();
-					//cout << "plotted" << endl;
 				}
 			}
 
