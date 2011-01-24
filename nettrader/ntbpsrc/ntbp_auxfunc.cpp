@@ -1,4 +1,4 @@
-/**\file ntbp_auxfunc.cpp - NTBP auxiliary function implementation for heteregenous object creation 
+/**\file ntbp_auxfunc.cpp - NTBP auxiliary function implementation for heterogeneous object creation
  * by Ahmed Aldo Faisal &copy; created 22.4.2005  
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
@@ -153,7 +153,8 @@ NTBP_create_k_channel_ptr(NTsize potassiumModel, NTsize potassiumAlg,
 		/* COLBERT AXONAL */
 		tmpKPtr
 				= new NTBP_colbert_axonal_potassium_multi_current_o(area,
-						indPotassiumDensity, potassiumConductance * 1e-9 /* mSiemens per channel */);
+						indPotassiumDensity, potassiumConductance * 1e-9 /* mSiemens per channel */,
+						-64.5, q10);
 		cout << "Using Colbert-Axonal K model." << endl;
 		break;
 	case 4:

@@ -1,4 +1,4 @@
-/**\file ntbp_colbert_axonal_potassium_multi_current_obj.cpp - squid giant axon sodium conducta nce class implementation
+/**\file ntbp_colbert_axonal_potassium_multi_current_obj.cpp - squid giant axon sodium conductance class implementation
  * by Ahmed Aldo Faisal &copy; created 16.3.2001
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
@@ -59,7 +59,8 @@ NTBP_colbert_axonal_potassium_multi_current_o::NTBP_colbert_axonal_potassium_mul
 			NTreal newArea,
 			NTreal newDensity,
 			NTreal newChannelConductance,
-			NTreal newVBase
+			NTreal newVBase,
+			NTreal newQ10
 			)
 :
 NTBP_multi_current_o( -15.5 /* mV */,
@@ -73,7 +74,7 @@ NTBP_multi_current_o( -15.5 /* mV */,
 	NT_ASSERT (newChannelConductance >= 0);
 	
 	baseTemp=22.0; // C
-	
+	q10 = newQ10;
 	
 	NTreal vTmp;
 	if (false == initTableLookUp) {
@@ -127,7 +128,7 @@ NTBP_colbert_axonal_potassium_multi_current_o::~NTBP_colbert_axonal_potassium_mu
 inline void
 NTBP_colbert_axonal_potassium_multi_current_o::ComputeRateConstants(NTreal vM)
 {
-	NTreal q10Factor = NTBP_TemperatureRateRelation(_temperature(), baseTemp /* C */, 3.0);
+	NTreal q10Factor = NTBP_TemperatureRateRelation(_temperature(), baseTemp /* C */, q10);
 	
 	NTsize index = 0;
 	if ( (vM < -20.0) || ( vM > 130.0 ) ) {
