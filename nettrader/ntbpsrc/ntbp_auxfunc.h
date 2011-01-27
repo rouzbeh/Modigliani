@@ -60,6 +60,6 @@ NTBP_membrane_current_o	*
 NTBP_membrane_current_o *
 NTBP_create_k_channel_ptr(NTsize potassiumModel, NTsize algorithm,
 		NTreal chDensity /* mum^-2*/, NTreal chConductance /* pS */,
-		NTreal q10, NTreal temperature /* C */, NTreal compArea /* mum^2 */);
+		NTreal q10, NTreal temperature /* C */, NTreal compArea /* mum^2 */, NTreal reversalPotential = 0 /*mV*/);
 
 #endif /* _ntbp_auxfunc_h_ */ 

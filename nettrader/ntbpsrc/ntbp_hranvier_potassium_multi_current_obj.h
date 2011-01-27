@@ -72,7 +72,8 @@ NTBP_hranvier_potassium_multi_current_o(NTreal area /* in muMeter^2 */,
 																				NTreal density /* num/muMeter^2 */,
 																				NTreal channelConductance = 2.0e-8, /* in mSiemens per channel = 13pS */
 																				NTreal newVBase = -84 /*m mV */,
-																				NTreal q10 = 3
+																				NTreal q10 = 3,
+																				NTreal reversalPotential = -15
   																	 		);
 NTBP_hranvier_potassium_multi_current_o(const NTBP_hranvier_potassium_multi_current_o & original);
 const NTBP_hranvier_potassium_multi_current_o & operator= (const NTBP_hranvier_potassium_multi_current_o & right);

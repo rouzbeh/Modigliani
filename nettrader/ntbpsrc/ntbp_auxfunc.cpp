@@ -129,7 +129,7 @@ NTBP_create_na_channel_custom_q10_ptr(NTsize sodiumModel, NTsize sodiumAlg,
 NTBP_membrane_current_o *
 NTBP_create_k_channel_ptr(NTsize potassiumModel, NTsize potassiumAlg,
 		NTreal potassiumDensity, NTreal potassiumConductance, NTreal q10,
-		NTreal temperature, NTreal area) {
+		NTreal temperature, NTreal area, NTreal potassiumReversalPotential) {
 
 	NTreal indPotassiumDensity = NTBP_corrected_channel_density(
 			potassiumDensity, area);
@@ -146,7 +146,7 @@ NTBP_create_k_channel_ptr(NTsize potassiumModel, NTsize potassiumAlg,
 		/* hRanvier */
 		tmpKPtr
 				= new NTBP_hranvier_potassium_multi_current_o(area,
-						indPotassiumDensity, potassiumConductance * 1e-9/* mSiemens per channel */, -84, potassiumConductance);
+						indPotassiumDensity, potassiumConductance * 1e-9/* mSiemens per channel */, -84, q10,potassiumReversalPotential);
 		cout << "Using human Ranvier K model." << endl;
 		break;
 	case 3:
@@ -154,7 +154,7 @@ NTBP_create_k_channel_ptr(NTsize potassiumModel, NTsize potassiumAlg,
 		tmpKPtr
 				= new NTBP_colbert_axonal_potassium_multi_current_o(area,
 						indPotassiumDensity, potassiumConductance * 1e-9 /* mSiemens per channel */,
-						-64.5, q10);
+						-84/*-64.5*/, q10);
 		cout << "Using Colbert-Axonal K model." << endl;
 		break;
 	case 4:

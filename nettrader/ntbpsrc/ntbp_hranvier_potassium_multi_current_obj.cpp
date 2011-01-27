@@ -57,10 +57,11 @@ NTBP_hranvier_potassium_multi_current_o::NTBP_hranvier_potassium_multi_current_o
 			NTreal newDensity,
 			NTreal newChannelConductance,
 			NTreal newVBase,
-			NTreal newQ10
+			NTreal newQ10,
+			NTreal reversalPotential
 			)
 :
-NTBP_multi_current_o( 0.0 /* mV */,newDensity , newArea, newChannelConductance, newVBase)
+NTBP_multi_current_o( reversalPotential /* mV */,newDensity , newArea, newChannelConductance, newVBase)
 {								
 	NT_ASSERT (newArea >= 0);
 	NT_ASSERT (newDensity >= 0);
