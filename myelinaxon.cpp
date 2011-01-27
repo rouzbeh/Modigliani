@@ -60,58 +60,19 @@
 
 #include <nt_config_file_parser_obj.h>
 
-#define CHANNEL_TYPE_SODIUM 0
-#define CHANNEL_TYPE_POTASSIUM 1
-
 using namespace std;
 using namespace TNT;
 
 string filename;
 
 /* Global */
-NTreal temperature; /* in Celsius */
-NTreal diameter; /* in muMeter */
-NTreal eLeak;
 bool swComputeELeak;
 
-/* Nodes */
-NTsize numNd; /* start with node at proximal end */
-NTsize numNdComp; /* per Node ! */
-NTreal lengthNd; /* micron */
-NTreal ndGLeak;/* mSiemens/cm^2 */
-NTreal ndRa; /* Ohm cm */
-NTreal ndCm; /* muFarad/cm^2 */
-NTsize ndSodiumModel;
-NTsize ndSodiumAlg;
-NTreal ndSodiumDensity; // per mu^2
-NTreal ndSodiumConductance;
-NTreal ndSodiumQ10m;
-NTreal ndSodiumQ10h;
-NTreal ndSodiumReversalPotential;
-
-/* Paranodes */
-NTsize numPndComp;
-NTreal lengthPnd; /* micron */
-NTreal pndGLeak; /* mSiemens/cm^2 */
-NTreal pndRa; /* Ohm cm */
-NTreal pndCm; /* muFarad/cm^2 */
-NTsize pndPotassiumModel;
-NTsize pndPotassiumAlg;
-NTreal pndPotassiumDensity; //  per mu^2
-NTreal pndPotassiumConductance;
-NTreal pndPotassiumQ10;
-
-/* Internodes */
-NTsize numIntComp;
-NTreal lengthIntNd; /* micron */
-NTreal intGLeak; /* mSiemens/cm^2 */
-NTreal intRa; /* Ohm cm */
-NTreal intCm; /* muFarad/cm^2 */
-NTsize intPotassiumModel;
-NTsize intPotassiumAlg;
-NTreal intPotassiumDensity; //  per mu^2
-NTreal intPotassiumConductance;
-NTreal intPotassiumQ10;
+typedef std::map<std::string, NTreal> parameters;
+parameters nodeParameters;
+parameters paranodeParameters;
+parameters internodeParameters;
+parameters globalParameters;
 
 /* Simulation */
 string inputFilename;
@@ -132,53 +93,87 @@ void readConfig(string fileName) {
 	// Remember that data file should have more lines than Num iterations.
 	NT_config_file_parser_o oCfg(fileName);
 	/* Global */
-	temperature = oCfg.Value("global", "temperature"); //= 37; /* in Celsius */
-	diameter = oCfg.Value("global", "diameter"); // = 1; /* in muMeter */
+	globalParameters["temperature"] = oCfg.Value("global", "temperature"); //= 37; /* in Celsius */
+	globalParameters["diameter"] = oCfg.Value("global", "diameter"); // = 1; /* in muMeter */
+	globalParameters["swComputeELeak"] = oCfg.Value("global", "computeELeak");
+	globalParameters["eLeak"] = oCfg.Value("global", "eLeak"); /* in mV */
 
-	if (0 == oCfg.Value("global", "computeELeak")) {
-		swComputeELeak = false;
-		eLeak = oCfg.Value("global", "eLeak"); /* in mV */
-	} else {
-		swComputeELeak = true;
-	}
 	/* Nodes */
-	numNd = oCfg.Value("node", "numNd"); /* start with node at proximal end */
-	numNdComp = oCfg.Value("node", "numComp"); /* per Node ! */
-	lengthNd = oCfg.Value("node", "length"); /* micron */
-	ndGLeak = oCfg.Value("node", "GLeak");/* mSiemens/cm^2 */
-	ndRa = oCfg.Value("node", "Ra"); /* Ohm cm */
-	ndCm = oCfg.Value("node", "Cm"); /* muFarad/cm^2 */
-	ndSodiumModel = oCfg.Value("node", "chNaModel");
-	ndSodiumAlg = oCfg.Value("node", "chNaAlg");
-	ndSodiumDensity = oCfg.Value("node", "chNaDen"); //= 60; // per mu^2
-	ndSodiumConductance = oCfg.Value("node", "chNaCond");
-	ndSodiumQ10m = oCfg.Value("node", "chNaQ10m");
-	ndSodiumQ10h = oCfg.Value("node", "chNaQ10h");
-	ndSodiumReversalPotential = oCfg.Value("node", "chNaRevPot");
+	nodeParameters["num"] = oCfg.Value("node", "numNd"); /* start with node at proximal end */
+	nodeParameters["numComp"] = oCfg.Value("node", "numComp"); /* per Node ! */
+	nodeParameters["length"] = oCfg.Value("node", "length"); /* micron */
+	nodeParameters["gLeak"] = oCfg.Value("node", "GLeak");/* mSiemens/cm^2 */
+	nodeParameters["ra"] = oCfg.Value("node", "Ra"); /* Ohm cm */
+	nodeParameters["cm"] = oCfg.Value("node", "Cm"); /* muFarad/cm^2 */
+
+	nodeParameters["sodiumModel"] = oCfg.Value("node", "chNaModel");
+	nodeParameters["sodiumAlg"] = oCfg.Value("node", "chNaAlg");
+	nodeParameters["sodiumDensity"] = oCfg.Value("node", "chNaDen"); //= 60; // per mu^2
+	nodeParameters["sodiumConductance"] = oCfg.Value("node", "chNaCond");
+	nodeParameters["sodiumQ10m"] = oCfg.Value("node", "chNaQ10m");
+	nodeParameters["sodiumQ10h"] = oCfg.Value("node", "chNaQ10h");
+	nodeParameters["sodiumReversalPotential"]
+			= oCfg.Value("node", "chNaRevPot");
+
+	nodeParameters["potassiumModel"] = oCfg.Value("node", "chKModel");
+	nodeParameters["potassiumAlg"] = oCfg.Value("node", "chKAlg");
+	nodeParameters["potassiumDensity"] = oCfg.Value("node", "chKDen"); //= 60; // per mu^2
+	nodeParameters["potassiumConductance"] = oCfg.Value("node", "chKCond");
+	nodeParameters["potassiumQ10"] = oCfg.Value("node", "chKQ10");
+	nodeParameters["potassiumReversalPotential"] = oCfg.Value("node",
+			"chKRevPot");
 
 	/* Paranodes */
-	numPndComp = oCfg.Value("paranode", "numComp");
-	lengthPnd = oCfg.Value("paranode", "length"); /* micron */
-	pndGLeak = oCfg.Value("paranode", "GLeak"); /* mSiemens/cm^2 */
-	pndRa = oCfg.Value("paranode", "Ra"); /* Ohm cm */
-	pndCm = oCfg.Value("paranode", "Cm"); /* muFarad/cm^2 */
-	pndPotassiumModel = oCfg.Value("paranode", "chKModel");
-	pndPotassiumAlg = oCfg.Value("paranode", "chKAlg");
-	pndPotassiumDensity = oCfg.Value("paranode", "chKDen"); //  per mu^2
-	pndPotassiumConductance = oCfg.Value("paranode", "chKCond");
-	pndPotassiumQ10 = oCfg.Value("paranode", "chKQ10");
+	paranodeParameters["numComp"] = oCfg.Value("paranode", "numComp"); /* per Node ! */
+	paranodeParameters["length"] = oCfg.Value("paranode", "length"); /* micron */
+	paranodeParameters["gLeak"] = oCfg.Value("paranode", "GLeak");/* mSiemens/cm^2 */
+	paranodeParameters["ra"] = oCfg.Value("paranode", "Ra"); /* Ohm cm */
+	paranodeParameters["cm"] = oCfg.Value("paranode", "Cm"); /* muFarad/cm^2 */
+
+	paranodeParameters["sodiumModel"] = oCfg.Value("paranode", "chNaModel");
+	paranodeParameters["sodiumAlg"] = oCfg.Value("paranode", "chNaAlg");
+	paranodeParameters["sodiumDensity"] = oCfg.Value("paranode", "chNaDen"); //= 60; // per mu^2
+	paranodeParameters["sodiumConductance"]
+			= oCfg.Value("paranode", "chNaCond");
+	paranodeParameters["sodiumQ10m"] = oCfg.Value("paranode", "chNaQ10m");
+	paranodeParameters["sodiumQ10h"] = oCfg.Value("paranode", "chNaQ10h");
+	paranodeParameters["sodiumReversalPotential"] = oCfg.Value("paranode",
+			"chNaRevPot");
+
+	paranodeParameters["potassiumModel"] = oCfg.Value("paranode", "chKModel");
+	paranodeParameters["potassiumAlg"] = oCfg.Value("paranode", "chKAlg");
+	paranodeParameters["potassiumDensity"] = oCfg.Value("paranode", "chKDen"); //= 60; // per mu^2
+	paranodeParameters["potassiumConductance"] = oCfg.Value("paranode",
+			"chKCond");
+	paranodeParameters["potassiumQ10"] = oCfg.Value("paranode", "chKQ10");
+	paranodeParameters["potassiumReversalPotential"] = oCfg.Value("paranode",
+			"chKRevPot");
 
 	/* Internodes */
-	numIntComp = oCfg.Value("internode", "numComp");
-	lengthIntNd = oCfg.Value("internode", "length"); /* micron */
-	intGLeak = oCfg.Value("internode", "GLeak"); /* mSiemens/cm^2 */
-	intRa = oCfg.Value("internode", "Ra"); /* Ohm cm */
-	intCm = oCfg.Value("internode", "Cm"); /* muFarad/cm^2 */
-	intPotassiumModel = oCfg.Value("internode", "chKModel");
-	intPotassiumAlg = oCfg.Value("internode", "chKAlg");
-	intPotassiumDensity = oCfg.Value("internode", "chKDen"); //  per mu^2
-	intPotassiumConductance = oCfg.Value("internode", "chKCond");
-	intPotassiumQ10 = oCfg.Value("internode", "chKQ10");
+	internodeParameters["numComp"] = oCfg.Value("internode", "numComp"); /* per Node ! */
+	internodeParameters["length"] = oCfg.Value("internode", "length"); /* micron */
+	internodeParameters["gLeak"] = oCfg.Value("internode", "GLeak");/* mSiemens/cm^2 */
+	internodeParameters["ra"] = oCfg.Value("internode", "Ra"); /* Ohm cm */
+	internodeParameters["cm"] = oCfg.Value("internode", "Cm"); /* muFarad/cm^2 */
+
+	internodeParameters["sodiumModel"] = oCfg.Value("internode", "chNaModel");
+	internodeParameters["sodiumAlg"] = oCfg.Value("internode", "chNaAlg");
+	internodeParameters["sodiumDensity"] = oCfg.Value("internode", "chNaDen"); //= 60; // per mu^2
+	internodeParameters["sodiumConductance"] = oCfg.Value("internode",
+			"chNaCond");
+	internodeParameters["sodiumQ10m"] = oCfg.Value("internode", "chNaQ10m");
+	internodeParameters["sodiumQ10h"] = oCfg.Value("internode", "chNaQ10h");
+	internodeParameters["sodiumReversalPotential"] = oCfg.Value("internode",
+			"chNaRevPot");
+
+	internodeParameters["potassiumModel"] = oCfg.Value("internode", "chKModel");
+	internodeParameters["potassiumAlg"] = oCfg.Value("internode", "chKAlg");
+	internodeParameters["potassiumDensity"] = oCfg.Value("internode", "chKDen"); //= 60; // per mu^2
+	internodeParameters["potassiumConductance"] = oCfg.Value("internode",
+			"chKCond");
+	internodeParameters["potassiumQ10"] = oCfg.Value("internode", "chKQ10");
+	internodeParameters["potassiumReversalPotential"] = oCfg.Value("internode",
+			"chKRevPot");
 
 	/* Simulation */
 	inputFilename = (string) oCfg.Value("simulation", "inputFile");
@@ -193,47 +188,43 @@ void readConfig(string fileName) {
 	numTrials = oCfg.Value("simulation", "numTrials");
 	emulateMS = oCfg.Value("simulation", "emulateMS");
 	emulateMSFactor = oCfg.Value("simulation", "emulateMSFactor");
-	numAxonHillockNodeCompartments = 10;
 }
 
 void printConfig(ofstream& out) {
-	out << "#[Global]" << endl;
-	out << "#Temperature [Celsius] " << temperature << endl;
-	out << "#Membrane leak reversal potential [mV]" << eLeak << endl;
+	out << ";#[Global]" << endl;
 
-	out << "#[Node]" << endl;
-	out << "#Number of axon hillock compartments (node-like) "
-			<< numAxonHillockNodeCompartments << endl;
-	out << "#Number of nodes " << numNd << endl;
-	out << "#Number of node compartments per node " << numNdComp << endl;
-	out << "#Node Compartment Diameter [muMeter] " << diameter << endl;
-	out << "#Node Compartment Length [muMeter] " << lengthNd << endl;
-	out << "#Membrane leak conductance [mSiemens/cm^2] " << ndGLeak << endl;
-	out << "#Axoplasmic resistivity [Ohm cm] " << ndRa << endl;
-	out << "#Sodium Q10m " << ndSodiumQ10m << endl;
-	out << "#Sodium Q10h " << ndSodiumQ10h << endl;
-	out << "#Sodium Channel reversal potential " << ndSodiumReversalPotential
-			<< endl;
+	for (parameters::iterator globalIter = globalParameters.begin(); globalIter
+			!= globalParameters.end(); ++globalIter) {
+		out << ";#" << globalIter->first << " = " << globalIter->second << endl;
+	}
 
-	out << "#[Paranode]" << endl;
-	out << "#Paranode Compartment Diameter [muMeter] " << diameter << endl;
-	out << "#Membrane leak conductance [mSiemens/cm^2] " << pndGLeak << endl;
-	out << "#Axoplasmic resistivity [Ohm cm] " << pndRa << endl;
-	out << "#Potassium Q10m " << pndPotassiumQ10 << endl;
+	out << endl << "#[Node]" << endl;
+	for (parameters::iterator nodeIter = nodeParameters.begin(); nodeIter
+			!= nodeParameters.end(); ++nodeIter) {
+		out << ";#" << nodeIter->first << " = " << nodeIter->second << endl;
+	}
 
-	out << "#[Internode]" << endl;
-	out << "#InterNode Compartment Diameter [muMeter] " << diameter << endl;
-	out << "#Membrane leak conductance [mSiemens/cm^2] " << intGLeak << endl;
-	out << "#Axoplasmic resistivity [Ohm cm] " << intRa << endl;
-	out << "#Potassium Q10m " << intPotassiumQ10 << endl;
+	out << endl << "#[Paranode]" << endl;
+	for (parameters::iterator paranodeIter = paranodeParameters.begin(); paranodeIter
+			!= paranodeParameters.end(); ++paranodeIter) {
+		out << ";#" << paranodeIter->first << " = " << paranodeIter->second
+				<< endl;
+	}
 
-	out << "#[Simulation]" << endl;
-	out << "#Storing data in" << filename << " every " << sampN
+	out << endl << "#[Internode]" << endl;
+	for (parameters::iterator internodeIter = internodeParameters.begin(); internodeIter
+			!= internodeParameters.end(); ++internodeIter) {
+		out << ";#" << internodeIter->first << " = " << internodeIter->second
+				<< endl;
+	}
+
+	out << ";#[Simulation]" << endl;
+	out << ";#Storing data in" << filename << " every " << sampN
 			<< "th iteration" << endl;
-	out << "#Time step size in [mSec] " << timeStep << endl;
-	out << "#Num iterations [#] " << numIterations << endl;
-	out << "#Trial duration [ms] " << numIterations * timeStep << endl;
-	out << "#Number of repated stimulus trials [#] " << numTrials << endl;
+	out << ";#Time step size in [mSec] " << timeStep << endl;
+	out << ";#Num iterations [#] " << numIterations << endl;
+	out << ";#Trial duration [ms] " << numIterations * timeStep << endl;
+	out << ";#Number of repated stimulus trials [#] " << numTrials << endl;
 }
 
 void openOutputFile(string outputFolder, string prefix, ofstream& outStream) {
@@ -257,38 +248,54 @@ void openOutputFile(string outputFolder, string prefix, ofstream& outStream) {
 	}
 }
 
-NTBP_custom_cylindrical_compartment_o* createCompartment(NTsize length,
-		NTsize sectionDiameter, NTreal C, NTsize R, NTsize temperature,
-		NTreal eLeak, NTreal gLeak, NTsize channelType, NTsize channelModel,
-		NTsize channelAlg, NTsize channelDensity /* mum^-2 */,
-		NTreal channelConductance /* pS */, NTreal q10m, NTreal q10h /* q10 */,
-		NTreal channelReversalPotential) {
+NTBP_custom_cylindrical_compartment_o* createCompartment(
+		parameters globalParameters, parameters compartmentParameters) {
 
-	NTBP_custom_cylindrical_compartment_o
-			*tmpPtr = new NTBP_custom_cylindrical_compartment_o(
-					length /* muMeter */, sectionDiameter /* muMeter */,
-					C/*muFarad/cm^2 */, R /* ohm cm */);
-	tmpPtr->Set_temperature(temperature /* in celsius */);
+	NTBP_custom_cylindrical_compartment_o *tmpPtr =
+			new NTBP_custom_cylindrical_compartment_o(
+					compartmentParameters["length"] /* muMeter */,
+					globalParameters["diameter"] /* muMeter */,
+					compartmentParameters["cm"]/*muFarad/cm^2 */,
+					compartmentParameters["ra"] /* ohm cm */);
+	tmpPtr->Set_temperature(globalParameters["temperature"] /* in celsius */);
+
 	/* Leak current is number 0 */
 	tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(tmpPtr->_area(),
-			gLeak, eLeak), NTBP_LEAK);
+			compartmentParameters["gLeak"], globalParameters["eLeak"]),
+			NTBP_LEAK);
+
 	/* Channel current is number 1 */
-	if (channelType == CHANNEL_TYPE_SODIUM)
-		tmpPtr->AttachCurrent(NTBP_create_na_channel_ptr(channelModel,
-				channelAlg, channelDensity /* mum^-2 */,
-				channelConductance /* pS */, q10m, q10h /* q10 */,
-				temperature /* C */, tmpPtr->_area() /* mum^2 */,
-				channelReversalPotential /*mV*/), NTBP_IONIC);
 
-	/* Dummy zero leak current is number 2 */
-	tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(tmpPtr->_area(), 0,
-			eLeak), NTBP_LEAK);
+	if (compartmentParameters["sodiumDensity"] > 0)
+		tmpPtr->AttachCurrent(NTBP_create_na_channel_ptr(
+				compartmentParameters["sodiumModel"],
+				compartmentParameters["sodiumAlg"],
+				compartmentParameters["sodiumDensity"] /* mum^-2 */,
+				compartmentParameters["sodiumConductance"] /* pS */,
+				compartmentParameters["sodiumQ10m"],
+				compartmentParameters["sodiumQ10h"] /* q10 */,
+				globalParameters["temperature"] /* C */,
+				tmpPtr->_area() /* mum^2 */,
+				compartmentParameters["sodiumReversalPotential"] /*mV*/),
+				NTBP_IONIC);
+	else
+		tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(tmpPtr->_area(),
+				0, 0), NTBP_LEAK);
 
-	if (channelType == CHANNEL_TYPE_POTASSIUM)
-		tmpPtr->AttachCurrent(NTBP_create_k_channel_ptr(channelModel,
-				channelAlg, channelDensity /* mum^-2 */,
-				channelConductance /* pS */, q10m /* q10 */, temperature /* C */,
-				tmpPtr->_area() /* mum^2 */), NTBP_IONIC);
+	if (compartmentParameters["potassiumDensity"] > 0)
+		tmpPtr->AttachCurrent(NTBP_create_k_channel_ptr(
+				compartmentParameters["potassiumModel"],
+				compartmentParameters["potassiumAlg"],
+				compartmentParameters["potassiumDensity"] /* mum^-2 */,
+				compartmentParameters["potassiumConductance"] /* pS */,
+				compartmentParameters["potassiumQ10"] /* q10 */,
+				globalParameters["temperature"] /* C */,
+				tmpPtr->_area() /* mum^2 */,
+				compartmentParameters["potassiumReversalPotential"] /*mV*/),
+				NTBP_IONIC);
+	else
+		tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(tmpPtr->_area(),
+				0, 0), NTBP_LEAK);
 	return tmpPtr;
 }
 
@@ -303,43 +310,34 @@ int main(int argc, char *argv[]) {
 
 	printConfig(ATPFile);
 	printConfig(PotentialFile);
-	if (false == swComputeELeak) {
-		cout << "Eleak set to " << eLeak << " mV." << endl;
+
+	if (0 == globalParameters["swComputeELeak"]) {
+		cout << "Eleak set to " << globalParameters["eLeak"] << " mV." << endl;
 	} else {
 		cout << "Eleak not set. Going to compute eLeak." << endl;
 		/* COMPUTE Eleak by simulating and solving for the current balance equation after
 		 * 50ms of simulated time at the NODE including the PARANODAL K channels*/
+		parameters temp = nodeParameters;
+		temp["potassiumModel"] = paranodeParameters["potassiumModel"];
+		temp["potassiumAlg"] = paranodeParameters["potassiumAlg"];
+		temp["potassiumDensity"] = paranodeParameters["potassiumDensity"];
+		temp["potassiumConductance"]
+				= paranodeParameters["potassiumConductance"];
+		temp["potassiumQ10"] = paranodeParameters["potassiumQ10"];
+		temp["potassiumReversalPotential"]
+				= paranodeParameters["potassiumReversalPotential"];
+
+		temp["gLeak"] = 0;
 
 		/* Create a cylindrical membrane compartment */
-		NTBP_custom_cylindrical_compartment_o
-				compartment(1 /* muMeter */, diameter /* muMeter */,
-						ndCm /*muFarad/cm^2 */, ndRa /* ohm cm */);
-		NTreal areaPerCompartment = compartment._area();
-		compartment.Set_temperature(temperature /* in celsius */);
+		NTBP_custom_cylindrical_compartment_o* compartment = createCompartment(
+				globalParameters, temp);
+		NTreal areaPerCompartment = compartment->_area();
 
 		NTBP_membrane_current_o* tmpLeakPtr = new NTBP_hh_sga_leak_current_o(
-				areaPerCompartment, ndGLeak, eLeak);
+				areaPerCompartment, nodeParameters["gLeak"],
+				globalParameters["eLeak"]);
 
-		/* Na current is number 2 */
-		NTBP_membrane_current_o* tmpNaPtr =
-				NTBP_create_na_channel_ptr(
-						ndSodiumModel,
-						1//ndSodiumAlg
-						, ndSodiumDensity /* mum^-2 */,
-						ndSodiumConductance /* pS */, ndSodiumQ10m,
-						ndSodiumQ10h, temperature /* C */,
-						areaPerCompartment /* mum^2 */,
-						ndSodiumReversalPotential /*mV*/);
-		compartment.AttachCurrent(tmpNaPtr, NTBP_IONIC);
-		/* K current is number 3 */
-		NTBP_membrane_current_o* tmpKPtr = NTBP_create_k_channel_ptr(
-				pndPotassiumModel,
-				1,//pndPotassiumAlg,
-				pndPotassiumDensity /* mum^-2 */,
-				pndPotassiumConductance /* pS */, pndPotassiumQ10 /* q10 */,
-				temperature /* C */, areaPerCompartment /* mum^2 */);
-		compartment.AttachCurrent(tmpKPtr, NTBP_IONIC);
-		//compartment.AttachCurrent(tmpLeakPtr, NTBP_LEAK);//not sure
 		float naCurrent = 0;
 		float kCurrent = 0;
 
@@ -347,12 +345,12 @@ int main(int argc, char *argv[]) {
 		NTsize lt = 0;
 		NTreal tmpEleak = 0;
 		for (lt = 0; lt < 100.0 / timeStep; lt++) {
-			compartment.Step(0);
+			compartment->Step(0);
 			if (lt % 100 == 0) {
-				naCurrent = compartment.AttachedReversalPotential(1)
-						* (compartment.AttachedConductance(1));
-				kCurrent = compartment.AttachedReversalPotential(2)
-						* (compartment.AttachedConductance(2));
+				naCurrent = compartment->AttachedReversalPotential(1)
+						* (compartment->AttachedConductance(1));
+				kCurrent = compartment->AttachedReversalPotential(2)
+						* (compartment->AttachedConductance(2));
 
 				tmpEleak = -(naCurrent + kCurrent) / tmpLeakPtr->_conductance();
 				cerr << "I_Na=" << naCurrent << " I_K=" << kCurrent
@@ -360,27 +358,34 @@ int main(int argc, char *argv[]) {
 			}
 		}
 
-		naCurrent = compartment.AttachedReversalPotential(1)
-				* (compartment.AttachedConductance(1));
-		kCurrent = compartment.AttachedReversalPotential(2)
-				* (compartment.AttachedConductance(2));
-		eLeak = -(naCurrent + kCurrent) / tmpLeakPtr->_conductance();
+		naCurrent = compartment->AttachedReversalPotential(1)
+				* (compartment->AttachedConductance(1));
+		kCurrent = compartment->AttachedReversalPotential(2)
+				* (compartment->AttachedConductance(2));
+		globalParameters["eLeak"] = -(naCurrent + kCurrent)
+				/ tmpLeakPtr->_conductance();
 		swComputeELeak = false;
-		cout << "Eleak computed as " << eLeak << " mV" << endl;
-		cerr << "Eleak computed as " << eLeak << " mV" << endl;
-		if ((eLeak > compartment.AttachedReversalPotential(1)) || (eLeak
-				< compartment.AttachedReversalPotential(2))) {
+		cout << "Eleak computed as " << globalParameters["eLeak"] << " mV"
+				<< endl;
+		cerr << "Eleak computed as " << globalParameters["eLeak"] << " mV"
+				<< endl;
+		if ((globalParameters["eLeak"]
+				> compartment->AttachedReversalPotential(1))
+				|| (globalParameters["eLeak"]
+						< compartment->AttachedReversalPotential(2))) {
 			cout << "Eleak might be out of biological plausible range." << endl;
-			cout << "Typically E_Na=" << compartment.AttachedReversalPotential(
-					1) << " < Eleak=" << eLeak << " < E_K="
-					<< compartment.AttachedReversalPotential(2) << endl;
+			cout << "Typically E_Na="
+					<< compartment->AttachedReversalPotential(1) << " < Eleak="
+					<< globalParameters["eLeak"] << " < E_K="
+					<< compartment->AttachedReversalPotential(2) << endl;
 			cout
 					<< "Does a stable resting potential exist at all? Check by increasing iterations of current balance equation."
 					<< endl;
 			cerr << "Eleak might be out of biological plausible range." << endl;
-			cerr << "Typically E_Na=" << compartment.AttachedReversalPotential(
-					1) << " < Eleak=" << eLeak << " < E_K="
-					<< compartment.AttachedReversalPotential(2) << endl;
+			cerr << "Typically E_Na="
+					<< compartment->AttachedReversalPotential(1) << " < Eleak="
+					<< globalParameters["eLeak"] << " < E_K="
+					<< compartment->AttachedReversalPotential(2) << endl;
 			cerr
 					<< "Does a stable resting potential exist at all? Check by increasing iterations of current balance equation."
 					<< endl;
@@ -412,7 +417,7 @@ int main(int argc, char *argv[]) {
 		}
 	}
 	dataFile.close();
-
+	NTsize compartmentCounter;
 	cout << "Assembling neuron..." << endl;
 	/* *** Trials loop *** */
 	for (NTsize lTrials = 0; lTrials < numTrials; lTrials++) {
@@ -423,7 +428,7 @@ int main(int argc, char *argv[]) {
 		oModel.StepNTBP();
 		NTreal timeInMS = 0;
 
-		NTsize compartmentCounter = 1;
+		compartmentCounter = 1;
 		/* *** MODEL CREATION LOOP *** */
 
 		// Generate an axon hillock
@@ -432,76 +437,49 @@ int main(int argc, char *argv[]) {
 
 			cout << compartmentCounter++ << "NODE (Axon Hillock)" << endl;
 			cerr << "Node compartment " << endl;
-			oModel.PushBack(createCompartment(lengthNd, diameter, ndCm, ndRa,
-					temperature, eLeak, ndGLeak, CHANNEL_TYPE_SODIUM,
-					ndSodiumModel, ndSodiumAlg, ndSodiumDensity /* mum^-2 */,
-					ndSodiumConductance /* pS */, ndSodiumQ10m,
-					ndSodiumQ10h /* q10 */, ndSodiumReversalPotential));
-
+			parameters hillockParameters = nodeParameters;
+			hillockParameters["numComp"] = 10;
+			oModel.PushBack(createCompartment(globalParameters,
+					hillockParameters));
 		}
+
 		/* Create a Node, followed by Paranode, Internode, Paranode */
-		for (NTsize lnd = 0; lnd < numNd; lnd++) {
+		for (NTsize lnd = 0; lnd < nodeParameters["num"]; lnd++) {
 			/* Create a Node compartment */
-			for (NTsize lcomp = 0; lcomp < numNdComp; lcomp++) {
+			for (NTsize lcomp = 0; lcomp < nodeParameters["numComp"]; lcomp++) {
 				cout << compartmentCounter++ << "NODE" << endl;
 				cerr << "Node compartment " << endl;
-				oModel.PushBack(createCompartment(lengthNd, diameter, ndCm,
-						ndRa, temperature, eLeak, ndGLeak, CHANNEL_TYPE_SODIUM,
-						ndSodiumModel, ndSodiumAlg,
-						ndSodiumDensity /* mum^-2 */,
-						ndSodiumConductance /* pS */, ndSodiumQ10m,
-						ndSodiumQ10h /* q10 */, ndSodiumReversalPotential));
-
+				oModel.PushBack(createCompartment(globalParameters,
+						nodeParameters));
 			}
 
 			/* Create a Paranode compartment */
-			for (NTsize lcomp = 0; lcomp < numPndComp; lcomp++) {
+			for (NTsize lcomp = 0; lcomp < paranodeParameters["numComp"]; lcomp++) {
 				cout << compartmentCounter++ << "PARA" << endl;
 				cerr << "Paranode compartment " << endl;
-				oModel.PushBack(createCompartment(lengthPnd, diameter, pndCm,
-						pndRa, temperature, eLeak, pndGLeak,
-						CHANNEL_TYPE_POTASSIUM, pndPotassiumModel,
-						pndPotassiumAlg, pndPotassiumDensity /* mum^-2 */,
-						pndPotassiumConductance /* pS */, pndPotassiumQ10,
-						pndPotassiumQ10 /* q10 */, 0));
+				oModel.PushBack(createCompartment(globalParameters,
+						paranodeParameters));
 			}
 
-			if ((numNd - 1) == lnd) {
+			if ((nodeParameters["num"] - 1) == lnd) {
 				break;
 			}
 
 			/* Create an Internode compartment */
-			if (emulateMS && (lnd == emulateMS || lnd == emulateMS + 1)) {
-				for (NTsize lcomp = 0; lcomp < numIntComp; lcomp++) {
-					oModel.PushBack(createCompartment(lengthIntNd, diameter,
-							intCm, intRa, temperature, eLeak, intGLeak
-									* emulateMSFactor, CHANNEL_TYPE_POTASSIUM,
-							intPotassiumModel, intPotassiumAlg,
-							intPotassiumDensity /* mum^-2 */,
-							intPotassiumConductance /* pS */, intPotassiumQ10,
-							intPotassiumQ10 /* q10 */, 0));
-				}
-			} else {
-				for (NTsize lcomp = 0; lcomp < numIntComp; lcomp++) {
-					cout << compartmentCounter++ << "INT" << endl;
-					cerr << "Internode compartment " << endl;
-					oModel.PushBack(createCompartment(lengthIntNd, diameter,
-							intCm, intRa, temperature, eLeak, intGLeak,
-							CHANNEL_TYPE_POTASSIUM, intPotassiumModel,
-							intPotassiumAlg, intPotassiumDensity /* mum^-2 */,
-							intPotassiumConductance /* pS */, intPotassiumQ10,
-							intPotassiumQ10 /* q10 */, 0));
-				}
+			for (NTsize lcomp = 0; lcomp < internodeParameters["numComp"]; lcomp++) {
+				cout << compartmentCounter++ << "INTER" << endl;
+				cerr << "Internode compartment " << endl;
+				oModel.PushBack(createCompartment(globalParameters,
+						internodeParameters));
 			}
 
 			/* Create a Paranode compartment */
-			for (NTsize lcomp = 0; lcomp < numPndComp; lcomp++) {
-				oModel.PushBack(createCompartment(lengthPnd, diameter, pndCm,
-						pndRa, temperature, eLeak, pndGLeak,
-						CHANNEL_TYPE_POTASSIUM, pndPotassiumModel,
-						pndPotassiumAlg, pndPotassiumDensity /* mum^-2 */,
-						pndPotassiumConductance /* pS */, pndPotassiumQ10,
-						pndPotassiumQ10 /* q10 */, 0));
+			for (NTsize lcomp = 0; lcomp < paranodeParameters["numComp"]; lcomp++) {
+				cout << compartmentCounter++ << "PARA" << endl;
+				cerr << "Paranode compartment " << endl;
+
+				oModel.PushBack(createCompartment(globalParameters,
+						paranodeParameters));
 			}
 
 		}
@@ -509,9 +487,12 @@ int main(int argc, char *argv[]) {
 		oModel.Init();
 
 		/* Information measurement init */
-		NTsize numCompartments = numAxonHillockNodeCompartments + (numNd - 1)
-				* (numNdComp + numPndComp + numIntComp + numPndComp)
-				+ numNdComp + numPndComp;
+		NTsize numCompartments = numAxonHillockNodeCompartments
+				+ (nodeParameters["num"] - 1) * (nodeParameters["numComp"]
+						+ paranodeParameters["numComp"]
+						+ internodeParameters["numComp"]
+						+ paranodeParameters["numComp"])
+				+ nodeParameters["numComp"] + paranodeParameters["numComp"];
 		cerr << "Total number of compartments(computed)" << numCompartments
 				<< endl;
 		cerr << "Total number of compartments(assembled)" << compartmentCounter
@@ -541,7 +522,7 @@ int main(int argc, char *argv[]) {
 			if (NT_FAIL == plotChanNa.Connect(drv2VP))
 				exit(1);
 			plotChanNa.SetXRange(0, numCompartments);
-			plotChanNa.SetYRange(0, 100);
+			plotChanNa.SetYRange(0, 6000);
 		}
 
 		NT3D_plot2d_vec_vp_o plotChanK(numCompartments);
