@@ -264,6 +264,14 @@ NTBP_hranvier_sodium_multi_current_o::OpenChannels() const
 				return 0;			}	
 }
 
+/**  */
+/** No descriptions */
+inline NTreal
+NTBP_hranvier_sodium_multi_current_o::OpenChannelsRatio() const
+{
+	return OpenChannels()*100/NumChannels();
+}
+
 
 inline NTreal NTBP_hranvier_sodium_multi_current_o::ComputeConductance()
 {

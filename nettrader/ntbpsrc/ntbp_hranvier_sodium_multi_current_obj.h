@@ -87,6 +87,7 @@ virtual NTreturn Set_q10(NTreal newQ10) {
 NTreal ComputeChannelStateTimeConstant() const;
 NTreturn StepCurrent();
 NTreal OpenChannels() const;
+NTreal OpenChannelsRatio() const;
 NTreal ComputeConductance();
 void ComputeRateConstants(NTreal vM /* in mV */);
 void ShowChannelStatePopulation() { channelsPtr->ShowStates(); }

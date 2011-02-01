@@ -173,6 +173,13 @@ NTBP_hranvier_potassium_multi_current_o::OpenChannels() const
 				return 0;			}	
 }
 
+/** No descriptions */
+inline NTreal
+NTBP_hranvier_potassium_multi_current_o::OpenChannelsRatio() const
+{
+	return 100*OpenChannels()/NumChannels();
+}
+
 
 inline NTreal
 NTBP_hranvier_potassium_multi_current_o::ComputeConductance()

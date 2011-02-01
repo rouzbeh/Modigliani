@@ -81,6 +81,7 @@ virtual ~NTBP_hranvier_potassium_multi_current_o();
 /* ***  Methods              ***/
 NTreal ComputeRateSum() const;
 NTreal OpenChannels() const;
+NTreal OpenChannelsRatio() const;
 NTreal ComputeConductance();
 void ComputeRateConstants(NTreal voltage);
   /**  in kHz */
