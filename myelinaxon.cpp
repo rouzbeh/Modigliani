@@ -3,7 +3,7 @@
  * by Ahmed Aldo Faisal &copy; created 25.9.2001
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
- * Version:  0.5
+ * Version:  1.1
  * Copyright (C) 1998,1999,2000,2001 Ahmed Aldo Faisal
  *
  * This library is free software; you can redistribute it and/or
@@ -69,6 +69,9 @@ string filename;
 bool swComputeELeak;
 
 typedef std::map<std::string, NTreal> parameters;
+
+/* Axon parameters */
+parameters hillockParameters;
 parameters nodeParameters;
 parameters paranodeParameters;
 parameters internodeParameters;
@@ -87,8 +90,42 @@ NTsize numIterations;
 NTreal numTrials;
 NTsize emulateMS;
 NTsize emulateMSFactor;
-NTsize numAxonHillockNodeCompartments;
 
+/**
+ * This function reads a section of the config file (a section in initiated by a [tag],
+ * and lasts until the next [tag]. The parameters are stored in the param object supplied.
+ * @param oCfg The file parser which will be used to read parameters
+ * @param params The parameters structure in which the new parameters will be saved.
+ * @param section Which section of the config file to read. (ex. node)
+ */
+void readCommonConfig(NT_config_file_parser_o oCfg, parameters& params,
+		string section) {
+	params["numComp"] = oCfg.Value(section, "numComp"); /* per Node ! */
+	params["length"] = oCfg.Value(section, "length"); /* micron */
+	params["gLeak"] = oCfg.Value(section, "GLeak");/* mSiemens/cm^2 */
+	params["ra"] = oCfg.Value(section, "Ra"); /* Ohm cm */
+	params["cm"] = oCfg.Value(section, "Cm"); /* muFarad/cm^2 */
+
+	params["sodiumModel"] = oCfg.Value(section, "chNaModel");
+	params["sodiumAlg"] = oCfg.Value(section, "chNaAlg");
+	params["sodiumDensity"] = oCfg.Value(section, "chNaDen"); //= 60; // per mu^2
+	params["sodiumConductance"] = oCfg.Value(section, "chNaCond");
+	params["sodiumQ10m"] = oCfg.Value(section, "chNaQ10m");
+	params["sodiumQ10h"] = oCfg.Value(section, "chNaQ10h");
+	params["sodiumReversalPotential"] = oCfg.Value(section, "chNaRevPot");
+
+	params["potassiumModel"] = oCfg.Value(section, "chKModel");
+	params["potassiumAlg"] = oCfg.Value(section, "chKAlg");
+	params["potassiumDensity"] = oCfg.Value(section, "chKDen"); //= 60; // per mu^2
+	params["potassiumConductance"] = oCfg.Value(section, "chKCond");
+	params["potassiumQ10"] = oCfg.Value(section, "chKQ10");
+	params["potassiumReversalPotential"] = oCfg.Value(section, "chKRevPot");
+}
+
+/**
+ * Reads the parameters in the file given as argument.
+ * @param fileName Input file.
+ */
 void readConfig(string fileName) {
 	// Remember that data file should have more lines than Num iterations.
 	NT_config_file_parser_o oCfg(fileName);
@@ -98,82 +135,18 @@ void readConfig(string fileName) {
 	globalParameters["swComputeELeak"] = oCfg.Value("global", "computeELeak");
 	globalParameters["eLeak"] = oCfg.Value("global", "eLeak"); /* in mV */
 
+	/*Hillokc*/
+	readCommonConfig(oCfg, hillockParameters, "hillock");
+
 	/* Nodes */
 	nodeParameters["num"] = oCfg.Value("node", "numNd"); /* start with node at proximal end */
-	nodeParameters["numComp"] = oCfg.Value("node", "numComp"); /* per Node ! */
-	nodeParameters["length"] = oCfg.Value("node", "length"); /* micron */
-	nodeParameters["gLeak"] = oCfg.Value("node", "GLeak");/* mSiemens/cm^2 */
-	nodeParameters["ra"] = oCfg.Value("node", "Ra"); /* Ohm cm */
-	nodeParameters["cm"] = oCfg.Value("node", "Cm"); /* muFarad/cm^2 */
-
-	nodeParameters["sodiumModel"] = oCfg.Value("node", "chNaModel");
-	nodeParameters["sodiumAlg"] = oCfg.Value("node", "chNaAlg");
-	nodeParameters["sodiumDensity"] = oCfg.Value("node", "chNaDen"); //= 60; // per mu^2
-	nodeParameters["sodiumConductance"] = oCfg.Value("node", "chNaCond");
-	nodeParameters["sodiumQ10m"] = oCfg.Value("node", "chNaQ10m");
-	nodeParameters["sodiumQ10h"] = oCfg.Value("node", "chNaQ10h");
-	nodeParameters["sodiumReversalPotential"]
-			= oCfg.Value("node", "chNaRevPot");
-
-	nodeParameters["potassiumModel"] = oCfg.Value("node", "chKModel");
-	nodeParameters["potassiumAlg"] = oCfg.Value("node", "chKAlg");
-	nodeParameters["potassiumDensity"] = oCfg.Value("node", "chKDen"); //= 60; // per mu^2
-	nodeParameters["potassiumConductance"] = oCfg.Value("node", "chKCond");
-	nodeParameters["potassiumQ10"] = oCfg.Value("node", "chKQ10");
-	nodeParameters["potassiumReversalPotential"] = oCfg.Value("node",
-			"chKRevPot");
+	readCommonConfig(oCfg, nodeParameters, "node");
 
 	/* Paranodes */
-	paranodeParameters["numComp"] = oCfg.Value("paranode", "numComp"); /* per Node ! */
-	paranodeParameters["length"] = oCfg.Value("paranode", "length"); /* micron */
-	paranodeParameters["gLeak"] = oCfg.Value("paranode", "GLeak");/* mSiemens/cm^2 */
-	paranodeParameters["ra"] = oCfg.Value("paranode", "Ra"); /* Ohm cm */
-	paranodeParameters["cm"] = oCfg.Value("paranode", "Cm"); /* muFarad/cm^2 */
-
-	paranodeParameters["sodiumModel"] = oCfg.Value("paranode", "chNaModel");
-	paranodeParameters["sodiumAlg"] = oCfg.Value("paranode", "chNaAlg");
-	paranodeParameters["sodiumDensity"] = oCfg.Value("paranode", "chNaDen"); //= 60; // per mu^2
-	paranodeParameters["sodiumConductance"]
-			= oCfg.Value("paranode", "chNaCond");
-	paranodeParameters["sodiumQ10m"] = oCfg.Value("paranode", "chNaQ10m");
-	paranodeParameters["sodiumQ10h"] = oCfg.Value("paranode", "chNaQ10h");
-	paranodeParameters["sodiumReversalPotential"] = oCfg.Value("paranode",
-			"chNaRevPot");
-
-	paranodeParameters["potassiumModel"] = oCfg.Value("paranode", "chKModel");
-	paranodeParameters["potassiumAlg"] = oCfg.Value("paranode", "chKAlg");
-	paranodeParameters["potassiumDensity"] = oCfg.Value("paranode", "chKDen"); //= 60; // per mu^2
-	paranodeParameters["potassiumConductance"] = oCfg.Value("paranode",
-			"chKCond");
-	paranodeParameters["potassiumQ10"] = oCfg.Value("paranode", "chKQ10");
-	paranodeParameters["potassiumReversalPotential"] = oCfg.Value("paranode",
-			"chKRevPot");
+	readCommonConfig(oCfg, paranodeParameters, "paranode");
 
 	/* Internodes */
-	internodeParameters["numComp"] = oCfg.Value("internode", "numComp"); /* per Node ! */
-	internodeParameters["length"] = oCfg.Value("internode", "length"); /* micron */
-	internodeParameters["gLeak"] = oCfg.Value("internode", "GLeak");/* mSiemens/cm^2 */
-	internodeParameters["ra"] = oCfg.Value("internode", "Ra"); /* Ohm cm */
-	internodeParameters["cm"] = oCfg.Value("internode", "Cm"); /* muFarad/cm^2 */
-
-	internodeParameters["sodiumModel"] = oCfg.Value("internode", "chNaModel");
-	internodeParameters["sodiumAlg"] = oCfg.Value("internode", "chNaAlg");
-	internodeParameters["sodiumDensity"] = oCfg.Value("internode", "chNaDen"); //= 60; // per mu^2
-	internodeParameters["sodiumConductance"] = oCfg.Value("internode",
-			"chNaCond");
-	internodeParameters["sodiumQ10m"] = oCfg.Value("internode", "chNaQ10m");
-	internodeParameters["sodiumQ10h"] = oCfg.Value("internode", "chNaQ10h");
-	internodeParameters["sodiumReversalPotential"] = oCfg.Value("internode",
-			"chNaRevPot");
-
-	internodeParameters["potassiumModel"] = oCfg.Value("internode", "chKModel");
-	internodeParameters["potassiumAlg"] = oCfg.Value("internode", "chKAlg");
-	internodeParameters["potassiumDensity"] = oCfg.Value("internode", "chKDen"); //= 60; // per mu^2
-	internodeParameters["potassiumConductance"] = oCfg.Value("internode",
-			"chKCond");
-	internodeParameters["potassiumQ10"] = oCfg.Value("internode", "chKQ10");
-	internodeParameters["potassiumReversalPotential"] = oCfg.Value("internode",
-			"chKRevPot");
+	readCommonConfig(oCfg, internodeParameters, "internode");
 
 	/* Simulation */
 	inputFilename = (string) oCfg.Value("simulation", "inputFile");
@@ -190,6 +163,10 @@ void readConfig(string fileName) {
 	emulateMSFactor = oCfg.Value("simulation", "emulateMSFactor");
 }
 
+/**
+ * Formats and prints current parameters into the ofstream given as input.
+ * @param out
+ */
 void printConfig(ofstream& out) {
 	out << ";#[Global]" << endl;
 
@@ -198,20 +175,20 @@ void printConfig(ofstream& out) {
 		out << ";#" << globalIter->first << " = " << globalIter->second << endl;
 	}
 
-	out << endl << "#[Node]" << endl;
+	out << ";#[Node]" << endl;
 	for (parameters::iterator nodeIter = nodeParameters.begin(); nodeIter
 			!= nodeParameters.end(); ++nodeIter) {
 		out << ";#" << nodeIter->first << " = " << nodeIter->second << endl;
 	}
 
-	out << endl << "#[Paranode]" << endl;
+	out << ";#[Paranode]" << endl;
 	for (parameters::iterator paranodeIter = paranodeParameters.begin(); paranodeIter
 			!= paranodeParameters.end(); ++paranodeIter) {
 		out << ";#" << paranodeIter->first << " = " << paranodeIter->second
 				<< endl;
 	}
 
-	out << endl << "#[Internode]" << endl;
+	out << ";#[Internode]" << endl;
 	for (parameters::iterator internodeIter = internodeParameters.begin(); internodeIter
 			!= internodeParameters.end(); ++internodeIter) {
 		out << ";#" << internodeIter->first << " = " << internodeIter->second
@@ -227,6 +204,12 @@ void printConfig(ofstream& out) {
 	out << ";#Number of repated stimulus trials [#] " << numTrials << endl;
 }
 
+/**
+ * Opens a new file in write mode, and puts a timestamp in its name.
+ * @param output Folder The folder in which to create the new file.
+ * @param prefix File name prefix
+ * @param outStream Will contain an ofstream pointing to the newly created file.
+ */
 void openOutputFile(string outputFolder, string prefix, ofstream& outStream) {
 	/* open files */
 	time_t rawtime;
@@ -248,6 +231,12 @@ void openOutputFile(string outputFolder, string prefix, ofstream& outStream) {
 	}
 }
 
+/**
+ * Creates a compartment using the parameters supplied in the parameters structs supplied.
+ * @param globalParameters Used for the temperature, the diameter and leakage.
+ * @param compartmentParameters Used for channel parameters, as well as capacity and leakage conductance.
+ * @return The constructed compartment.
+ */
 NTBP_custom_cylindrical_compartment_o* createCompartment(
 		parameters globalParameters, parameters compartmentParameters) {
 
@@ -433,12 +422,9 @@ int main(int argc, char *argv[]) {
 
 		// Generate an axon hillock
 
-		for (NTsize lcomp = 0; lcomp < numAxonHillockNodeCompartments; lcomp++) {
-
+		for (NTsize lcomp = 0; lcomp < hillockParameters["numComp"]; lcomp++) {
 			cout << compartmentCounter++ << "NODE (Axon Hillock)" << endl;
 			cerr << "Node compartment " << endl;
-			parameters hillockParameters = nodeParameters;
-			hillockParameters["numComp"] = 10;
 			oModel.PushBack(createCompartment(globalParameters,
 					hillockParameters));
 		}
@@ -487,7 +473,7 @@ int main(int argc, char *argv[]) {
 		oModel.Init();
 
 		/* Information measurement init */
-		NTsize numCompartments = numAxonHillockNodeCompartments
+		NTsize numCompartments = hillockParameters["numComp"]
 				+ (nodeParameters["num"] - 1) * (nodeParameters["numComp"]
 						+ paranodeParameters["numComp"]
 						+ internodeParameters["numComp"]
@@ -505,6 +491,9 @@ int main(int argc, char *argv[]) {
 
 		/* Graphics init */
 		NT3D_plot2d_vec_vp_o plotXY(numCompartments);
+		NT3D_plot2d_vec_vp_o plotChanNa(numCompartments);
+		NT3D_plot2d_vec_vp_o plotChanK(numCompartments);
+
 		if (useVis > 0) {
 			NT3D_glx_drv_o* drvVP = new NT3D_glx_drv_o(500, 200);
 			drvVP->SetWindowTitle("Voltage-Compartment-Plot");
@@ -515,17 +504,15 @@ int main(int argc, char *argv[]) {
 			plotXY.SetYRange(-10, 120);
 		}
 
-		NT3D_plot2d_vec_vp_o plotChanNa(numCompartments);
 		if (useVis > 0) {
 			NT3D_glx_drv_o* drv2VP = new NT3D_glx_drv_o(500, 200);
 			drv2VP->SetWindowTitle("NaOpenChannelRatio-Compartment-Plot");
 			if (NT_FAIL == plotChanNa.Connect(drv2VP))
 				exit(1);
 			plotChanNa.SetXRange(0, numCompartments);
-			plotChanNa.SetYRange(0, 6000);
+			plotChanNa.SetYRange(0, 100);
 		}
 
-		NT3D_plot2d_vec_vp_o plotChanK(numCompartments);
 		if (useVis > 0) {
 			NT3D_glx_drv_o* drv3VP = new NT3D_glx_drv_o(500, 200);
 			drv3VP->SetWindowTitle("KOpenChannelRatio-Compartment-Plot");
@@ -590,9 +577,9 @@ int main(int argc, char *argv[]) {
 
 					plotXY.SetData(oModel._vVec());
 					plotXY.Draw();
-					plotChanNa.SetData(oModel.OpenChannels(2));
+					plotChanNa.SetData(oModel.OpenChannelsRatio(2));
 					plotChanNa.Draw();
-					plotChanK.SetData(oModel.OpenChannels(3));
+					plotChanK.SetData(oModel.OpenChannelsRatio(3));
 					plotChanK.Draw();
 				}
 			}
