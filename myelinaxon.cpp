@@ -5,6 +5,7 @@
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
  * Version:  1.1
  * Copyright (C) 1998,1999,2000,2001 Ahmed Aldo Faisal
+ * Copyright (C) 2010, 2011 Mohammad Ali Neishabouri
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -27,37 +28,18 @@
 #include <iostream>
 #include <cstdlib>
 #include <algorithm>
-#include <ctime>
+#include <map>
 
 #include <ntbp_membrane_compartment_sequence_obj.h>
-#include <ntbp_sga_cylindrical_compartment_obj.h>
-#include <ntbp_custom_cylindrical_compartment_obj.h>
 
 #include <ntbp_auxfunc.h>
-
-#include <ntbp_multi_sodium_current_obj.h>
-#include <ntbp_colbert_axonal_sodium_multi_current_obj.h>
-#include <ntbp_hranvier_sodium_multi_current_obj.h>
-#include <ntbp_patlak_sodium_multi_current_obj.h>
-
-#include <ntbp_multi_potassium_current_obj.h>
-#include <ntbp_colbert_axonal_potassium_multi_current_obj.h>
-#include <ntbp_hranvier_potassium_multi_current_obj.h>
-#include <ntbp_potassium_multi_current_obj.h>
 
 #include <nt_error_obj.h>
 #include <nt_vector_obj.h>
 
-#include <nt_histogram_obj.h>
-#include <nt_sequential_statistics_obj.h>
 #include <tnt.h>
-#include <cmat.h>
-#include <nt_uniform_rnd_dist_obj.h>
-#include <nt_binomial_rnd_dist_obj.h>
-#include <nt_gaussian_rnd_dist_obj.h>
 #include <nt3d_plot2d_vec_vp_obj.h>
 #include <nt3d_glx_drv_obj.h>
-
 #include <nt_config_file_parser_obj.h>
 
 using namespace std;
@@ -93,7 +75,8 @@ NTsize emulateMSFactor;
 
 /**
  * This function reads a section of the config file (a section in initiated by a [tag],
- * and lasts until the next [tag]. The parameters are stored in the param object supplied.
+ * and lasts until the next [tag]) and stores parameters common to all sections of the fibre
+ * (such as channel densities)in the param object supplied.
  * @param oCfg The file parser which will be used to read parameters
  * @param params The parameters structure in which the new parameters will be saved.
  * @param section Which section of the config file to read. (ex. node)
@@ -134,6 +117,7 @@ void readConfig(string fileName) {
 	globalParameters["diameter"] = oCfg.Value("global", "diameter"); // = 1; /* in muMeter */
 	globalParameters["swComputeELeak"] = oCfg.Value("global", "computeELeak");
 	globalParameters["eLeak"] = oCfg.Value("global", "eLeak"); /* in mV */
+	globalParameters["vBase"] = oCfg.Value("global", "vBase"); /* in mV */
 
 	/*Hillokc*/
 	readCommonConfig(oCfg, hillockParameters, "hillock");
@@ -265,7 +249,8 @@ NTBP_custom_cylindrical_compartment_o* createCompartment(
 				compartmentParameters["sodiumQ10h"] /* q10 */,
 				globalParameters["temperature"] /* C */,
 				tmpPtr->_area() /* mum^2 */,
-				compartmentParameters["sodiumReversalPotential"] /*mV*/),
+				compartmentParameters["sodiumReversalPotential"] /*mV*/,
+				globalParameters["vBase"] /*mV*/),
 				NTBP_IONIC);
 	else
 		tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(tmpPtr->_area(),
@@ -280,7 +265,8 @@ NTBP_custom_cylindrical_compartment_o* createCompartment(
 				compartmentParameters["potassiumQ10"] /* q10 */,
 				globalParameters["temperature"] /* C */,
 				tmpPtr->_area() /* mum^2 */,
-				compartmentParameters["potassiumReversalPotential"] /*mV*/),
+				compartmentParameters["potassiumReversalPotential"] /*mV*/,
+				globalParameters["vBase"] /*mV*/),
 				NTBP_IONIC);
 	else
 		tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(tmpPtr->_area(),
