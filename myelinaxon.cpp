@@ -1,6 +1,7 @@
-/**\file myelinaxonsimulator-v1.cpp - myelinated axon simultor version 1
- * based on axonsimulator-v3.cpp - axon simulator version 3
+/**\file myelinaxon.cpp - myelinated axon simultor version 2
+ * based on myelinaxonsimulator-v1.cpp - axon simulator version 1
  * by Ahmed Aldo Faisal &copy; created 25.9.2001
+ * by Mohammad Ali Neishabouri
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
  * Version:  1.1
@@ -526,9 +527,8 @@ int main(int argc, char *argv[]) {
 		for (NTsize lt = 0; lt < numIterations; lt++) {
 			timeInMS += oModel._timeStep();
 			timeVar = timeInMS;
-
+			/* the "sampling ratio" used for "measurement" to disk */
 			if (lt % sampN == 0) {
-				/* the "sampling ratio" used for "measurement" to disk */
 				//file.write(reinterpret_cast<char *> (&timeVar), sizeof(float));
 				//file.write(reinterpret_cast<char *> (&inpCurrent), sizeof(float));
 				oModel.WriteMembranePotentialASCII(PotentialFile, timeVar);
