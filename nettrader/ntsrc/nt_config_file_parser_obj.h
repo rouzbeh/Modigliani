@@ -49,7 +49,6 @@
 class NT_config_file_parser_o : public NT_o {
 
    std::map<std::string,NT_str2real_o> content_;
-
 public:
 /***   Constructors, Copy/Assignment and Destructor  ***/  
   NT_config_file_parser_o(std::string const& configFile);
