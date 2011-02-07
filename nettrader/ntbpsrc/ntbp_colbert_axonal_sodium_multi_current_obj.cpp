@@ -49,10 +49,11 @@ NTBP_colbert_axonal_sodium_multi_current_o::NTBP_colbert_axonal_sodium_multi_cur
 				NTreal newArea,
 				NTreal newDensity,
 				NTreal newConductivity,
-				NTreal newVBase
+				NTreal newVBase,
+				NTreal newQ10m, NTreal newQ10h, NTreal reversalPotential
 				)
 :
-NTBP_multi_current_o(118 /* in mV */,
+	NTBP_multi_current_o(reversalPotential /* in mV */,
 						newDensity /* channels per mu^2 */,
 						newArea /* in mu^2 */,
 						newConductivity /* in mS per channel  */,
@@ -70,8 +71,8 @@ NTBP_multi_current_o(118 /* in mV */,
 		Schwartz, J. and Reid, G. and Bostock, H. (1995)
 		"Action potentials and membrane currents in the human node of Ranvier"
 		J.Physiol. 430:283-292 */
-	q10m = 2.2; //
-	q10h = 2.9; //
+	q10m = newQ10m; //
+	q10h = newQ10h; //
 	
 	NTreal vTmp = 0;
 	

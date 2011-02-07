@@ -52,14 +52,16 @@ NTBP_create_na_channel_ptr(NTsize sodiumModel, NTsize algorithm,
 		NTreal chDensity /* mum^-2 */, NTreal chConductance /* pS */,
 		NTreal q10, NTreal temperature /* C */, NTreal compArea /* mum^2 */);
 
-NTBP_membrane_current_o	*
-		NTBP_create_na_channel_ptr(NTsize sodiumModel, NTsize algorithm,
-				NTreal chDensity /* mum^-2 */, NTreal chConductance /* pS */,
-				NTreal q10m, NTreal q10h, NTreal temperature /* C */,
-				NTreal compArea /* mum^2 */, NTreal reversalPotential = 115 /*mV*/);
+NTBP_membrane_current_o *
+NTBP_create_na_channel_ptr(NTsize sodiumModel, NTsize algorithm,
+		NTreal chDensity /* mum^-2 */, NTreal chConductance /* pS */,
+		NTreal q10m, NTreal q10h, NTreal temperature /* C */,
+		NTreal compArea /* mum^2 */, NTreal reversalPotential = 115 /*mV*/,
+		NTreal vBase = -84);
 NTBP_membrane_current_o *
 NTBP_create_k_channel_ptr(NTsize potassiumModel, NTsize algorithm,
 		NTreal chDensity /* mum^-2*/, NTreal chConductance /* pS */,
-		NTreal q10, NTreal temperature /* C */, NTreal compArea /* mum^2 */, NTreal reversalPotential = 0 /*mV*/);
+		NTreal q10, NTreal temperature /* C */, NTreal compArea /* mum^2 */,
+		NTreal reversalPotential = 0 /*mV*/, NTreal vBase = -84);
 
 #endif /* _ntbp_auxfunc_h_ */ 
