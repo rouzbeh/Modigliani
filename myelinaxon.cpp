@@ -153,40 +153,40 @@ void readConfig(string fileName) {
  * @param out
  */
 void printConfig(ofstream& out) {
-	out << ";#[Global]" << endl;
+	out << "%[Global]" << endl;
 
 	for (parameters::iterator globalIter = globalParameters.begin(); globalIter
 			!= globalParameters.end(); ++globalIter) {
-		out << ";#" << globalIter->first << " = " << globalIter->second << endl;
+		out << "%" << globalIter->first << " = " << globalIter->second << endl;
 	}
 
-	out << ";#[Node]" << endl;
+	out << "%[Node]" << endl;
 	for (parameters::iterator nodeIter = nodeParameters.begin(); nodeIter
 			!= nodeParameters.end(); ++nodeIter) {
-		out << ";#" << nodeIter->first << " = " << nodeIter->second << endl;
+		out << "%" << nodeIter->first << " = " << nodeIter->second << endl;
 	}
 
-	out << ";#[Paranode]" << endl;
+	out << "%[Paranode]" << endl;
 	for (parameters::iterator paranodeIter = paranodeParameters.begin(); paranodeIter
 			!= paranodeParameters.end(); ++paranodeIter) {
-		out << ";#" << paranodeIter->first << " = " << paranodeIter->second
+		out << "%" << paranodeIter->first << " = " << paranodeIter->second
 				<< endl;
 	}
 
-	out << ";#[Internode]" << endl;
+	out << "%[Internode]" << endl;
 	for (parameters::iterator internodeIter = internodeParameters.begin(); internodeIter
 			!= internodeParameters.end(); ++internodeIter) {
-		out << ";#" << internodeIter->first << " = " << internodeIter->second
+		out << "%" << internodeIter->first << " = " << internodeIter->second
 				<< endl;
 	}
 
-	out << ";#[Simulation]" << endl;
-	out << ";#Storing data in" << filename << " every " << sampN
+	out << "%[Simulation]" << endl;
+	out << "%Storing data in" << filename << " every " << sampN
 			<< "th iteration" << endl;
-	out << ";#Time step size in [mSec] " << timeStep << endl;
-	out << ";#Num iterations [#] " << numIterations << endl;
-	out << ";#Trial duration [ms] " << numIterations * timeStep << endl;
-	out << ";#Number of repated stimulus trials [#] " << numTrials << endl;
+	out << "%Time step size in [mSec] " << timeStep << endl;
+	out << "%Num iterations [#] " << numIterations << endl;
+	out << "%Trial duration [ms] " << numIterations * timeStep << endl;
+	out << "%Number of repated stimulus trials [#] " << numTrials << endl;
 }
 
 /**
