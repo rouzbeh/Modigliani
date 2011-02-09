@@ -230,8 +230,8 @@ NTBP_custom_cylindrical_compartment_o* createCompartment(
 					compartmentParameters["length"] /* muMeter */,
 					globalParameters["diameter"] /* muMeter */,
 					compartmentParameters["cm"]/*muFarad/cm^2 */,
-					compartmentParameters["ra"] /* ohm cm */);
-	tmpPtr->Set_temperature(globalParameters["temperature"] /* in celsius */);
+					compartmentParameters["ra"] /* ohm cm */,
+					globalParameters["temperature"]);
 
 	/* Leak current is number 0 */
 	tmpPtr->AttachCurrent(new NTBP_hh_sga_leak_current_o(tmpPtr->_area(),
