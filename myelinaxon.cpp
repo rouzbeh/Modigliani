@@ -43,6 +43,7 @@
 #include <nt3d_glx_drv_obj.h>
 #include <nt_config_file_parser_obj.h>
 
+
 using namespace std;
 using namespace TNT;
 
@@ -119,19 +120,28 @@ void readConfig(string fileName) {
 	globalParameters["swComputeELeak"] = oCfg.Value("global", "computeELeak");
 	globalParameters["eLeak"] = oCfg.Value("global", "eLeak"); /* in mV */
 	globalParameters["vBase"] = oCfg.Value("global", "vBase"); /* in mV */
+	globalParameters["hillock"] = oCfg.Value("global", "hillock"); /* in mV */
+	globalParameters["node"] = oCfg.Value("global", "node"); /* in mV */
+	globalParameters["paranode"] = oCfg.Value("global", "paranode"); /* in mV */
+	globalParameters["internode"] = oCfg.Value("global", "internode"); /* in mV */
 
 	/*Hillokc*/
-	readCommonConfig(oCfg, hillockParameters, "hillock");
+	if(globalParameters["hillock"])
+		readCommonConfig(oCfg, hillockParameters, "hillock");
 
 	/* Nodes */
-	nodeParameters["num"] = oCfg.Value("node", "numNd"); /* start with node at proximal end */
-	readCommonConfig(oCfg, nodeParameters, "node");
+	if(globalParameters["node"]){
+		nodeParameters["num"] = oCfg.Value("node", "numNd"); /* start with node at proximal end */
+		readCommonConfig(oCfg, nodeParameters, "node");
+	}
 
 	/* Paranodes */
-	readCommonConfig(oCfg, paranodeParameters, "paranode");
+	if(globalParameters["paranode"])
+		readCommonConfig(oCfg, paranodeParameters, "paranode");
 
 	/* Internodes */
-	readCommonConfig(oCfg, internodeParameters, "internode");
+	if(globalParameters["internode"])
+		readCommonConfig(oCfg, internodeParameters, "internode");
 
 	/* Simulation */
 	inputFilename = (string) oCfg.Value("simulation", "inputFile");
@@ -275,14 +285,24 @@ NTBP_custom_cylindrical_compartment_o* createCompartment(
 	return tmpPtr;
 }
 
+/**
+ * Let's go!
+ *
+ * @param argc
+ * @param argv
+ * @return
+ */
 int main(int argc, char *argv[]) {
-
 	/* Read and set parameters */
-	readConfig(argv[1]);
+	string fileName = argv[1];
+	//return colbert(argc, argv);
+	readConfig(fileName);
 	ofstream ATPFile;
 	openOutputFile(outputFolder, "ATP", ATPFile);
 	ofstream PotentialFile;
 	openOutputFile(outputFolder, "Potential", PotentialFile);
+	ofstream potassiumFile;
+	openOutputFile(outputFolder, "Potassium", potassiumFile);
 
 	printConfig(ATPFile);
 	printConfig(PotentialFile);
@@ -534,10 +554,8 @@ int main(int argc, char *argv[]) {
 				oModel.WriteMembranePotentialASCII(PotentialFile, timeVar);
 				//oModel.WriteCurrent(file, 2); // Na
 				//oModel.WriteCurrent(file, 3); // K
-
-				// Number of ATPs consumed is (SI units)
-				// NaCurrent * dt * 6.24151e18 / 3
 				oModel.WriteATP(ATPFile);
+				oModel.WriteCurrentAscii(potassiumFile, 3); // K
 			}
 
 			if (useVis > 0) {
@@ -557,7 +575,6 @@ int main(int argc, char *argv[]) {
 							exit(1);
 						}
 					}
-
 					//cerr << "t=" << timeInMS << " mSec :" << voltVec[1] << "\t"
 					//		<< voltVec[10] << endl;
 
