@@ -55,10 +55,12 @@ NTreal NTBP_multi_potassium_current_o::betaNvec[15000];
 NTBP_multi_potassium_current_o::NTBP_multi_potassium_current_o(
 			NTreal newArea, 
 			enum NTBPdelayedPotassiumRectifierType newType,
-			NTreal newDensity
+			NTreal newDensity,
+			NTreal vBase,
+			NTreal reversalPotential
 			)
 :
-NTBP_multi_current_o(-12 /* mV */,0 , newArea, 0) // "0" means to be set in constructor (see below)
+NTBP_multi_current_o(reversalPotential,0 , newArea, 0, vBase) // "0" means to be set in constructor (see below)
 {								
 	NT_ASSERT (newArea >= 0);
 	NT_ASSERT (newDensity >= 0);

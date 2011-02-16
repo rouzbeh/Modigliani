@@ -18,19 +18,18 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */ 
-  
+ */
 
 /* $Id: ntbp_cylindrical_compartment_obj.h,v 1.1.1.1 2004/12/16 01:38:36 face Exp $ 
-* $Log: ntbp_cylindrical_compartment_obj.h,v $
-* Revision 1.1.1.1  2004/12/16 01:38:36  face
-* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
-*
-* Revision 1.1  2001/10/03 14:37:52  face
-* *** empty log message ***
-*
+ * $Log: ntbp_cylindrical_compartment_obj.h,v $
+ * Revision 1.1.1.1  2004/12/16 01:38:36  face
+ * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+ *
+ * Revision 1.1  2001/10/03 14:37:52  face
+ * *** empty log message ***
+ *
 
-*/
+ */
 #ifndef _ntbp_cylindrical_compartment_obj_h_ 
 #define _ntbp_cylindrical_compartment_obj_h_ 
 
@@ -45,36 +44,49 @@
 /* other includes */
 
 /** @short NTBP_cylindrical_compartment_o class 
-\bug unknown
-\warning unknown 
-*/
-class NTBP_cylindrical_compartment_o : public NTBP_membrane_compartment_o {
+ \bug unknown
+ \warning unknown
+ */
+class NTBP_cylindrical_compartment_o: public NTBP_membrane_compartment_o {
 public:
-/***   Constructors, Copy/Assignment and Destructor  ***/  
-NTBP_cylindrical_compartment_o(NTreal length /* in muMeter */, NTreal diameter /* in muMeter */);
-NTBP_cylindrical_compartment_o(const NTBP_cylindrical_compartment_o & original);
-const NTBP_cylindrical_compartment_o & operator= (const NTBP_cylindrical_compartment_o & right);
-virtual ~NTBP_cylindrical_compartment_o();
-/* ***  Methods              ***/
-/** length constant in muMeter for instantenous membrane conductance */
-NTreal ActiveLengthConstant() { return _diameter()/(4.0 * _rA() * 1.0e4 * TotalConductance());}
-/* in muMeter^2 */
-NTreal _CrosssectionalArea() const {return _radius() * _radius() * M_PI;}
-/* in muMeter */
-NTreal _diameter() const { return diameter;}
-/* in muMeter */
-NTreal _radius() const { return _diameter()/2.0;}
-/* in muMeter */
-NTreal _length() const { return length; }
-/* ***  Data                 ***/  
+	/***   Constructors, Copy/Assignment and Destructor  ***/
+	NTBP_cylindrical_compartment_o(NTreal length /* in muMeter */,
+			NTreal diameter /* in muMeter */, NTreal newTemperature = 6.3);
+	NTBP_cylindrical_compartment_o(
+			const NTBP_cylindrical_compartment_o & original);
+	const NTBP_cylindrical_compartment_o & operator=(
+			const NTBP_cylindrical_compartment_o & right);
+	virtual ~NTBP_cylindrical_compartment_o();
+	/* ***  Methods              ***/
+	/** length constant in muMeter for instantenous membrane conductance */
+	NTreal ActiveLengthConstant() {
+		return _diameter() / (4.0 * _rA() * 1.0e4 * TotalConductance());
+	}
+	/* in muMeter^2 */
+	NTreal _CrosssectionalArea() const {
+		return _radius() * _radius() * M_PI;
+	}
+	/* in muMeter */
+	NTreal _diameter() const {
+		return diameter;
+	}
+	/* in muMeter */
+	NTreal _radius() const {
+		return _diameter() / 2.0;
+	}
+	/* in muMeter */
+	NTreal _length() const {
+		return length;
+	}
+	/* ***  Data                 ***/
 protected:
-/* ***  Methods              ***/  
-/* ***  Data                 ***/  
+	/* ***  Methods              ***/
+	/* ***  Data                 ***/
 private:
-/* ***  Methods              ***/  
-NTreal diameter; // in muMeter 
-NTreal length; // in muMeter
-/* ***  Data                 ***/
+	/* ***  Methods              ***/
+	NTreal diameter; // in muMeter
+	NTreal length; // in muMeter
+	/* ***  Data                 ***/
 };
 #endif /* _ntbp_cylindrical_compartment_obj_h_ */ 
 

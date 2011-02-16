@@ -90,7 +90,7 @@
 #include "nt3d_drv_vp_obj.h"
 #include "nt3d_bitmap_obj.h"
 
-#include <string>
+#include <cstring>
 
 #include <X11/keysym.h>
 #include <X11/Xlib.h>

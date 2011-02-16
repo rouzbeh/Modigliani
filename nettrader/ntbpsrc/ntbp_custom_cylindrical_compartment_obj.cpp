@@ -35,9 +35,9 @@
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NTBP_custom_cylindrical_compartment_o */
-NTBP_custom_cylindrical_compartment_o::NTBP_custom_cylindrical_compartment_o(NTreal newLength, NTreal newDiameter, NTreal newCm, NTreal newRa)
+NTBP_custom_cylindrical_compartment_o::NTBP_custom_cylindrical_compartment_o(NTreal newLength, NTreal newDiameter, NTreal newCm, NTreal newRa, NTreal newTemperature)
 :
-NTBP_cylindrical_compartment_o(newLength, newDiameter)
+NTBP_cylindrical_compartment_o(newLength, newDiameter, newTemperature)
 {
 	Set_cM(newCm);
 	Set_rA(newRa);

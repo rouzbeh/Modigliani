@@ -54,7 +54,7 @@
 class NTBP_custom_cylindrical_compartment_o : public NTBP_cylindrical_compartment_o {
 public:
 /***   Constructors, Copy/Assignment and Destructor  ***/
-NTBP_custom_cylindrical_compartment_o(NTreal length /* muMeter */ , NTreal diameter /* muMeter */, NTreal cM /* muFarad/cm^2 */, NTreal rA /* ohm cm */);
+NTBP_custom_cylindrical_compartment_o(NTreal length /* muMeter */ , NTreal diameter /* muMeter */, NTreal cM /* muFarad/cm^2 */, NTreal rA /* ohm cm */, NTreal newTemperature=6.3);
 NTBP_custom_cylindrical_compartment_o(const NTBP_custom_cylindrical_compartment_o & original);
 const NTBP_custom_cylindrical_compartment_o & operator= (const NTBP_custom_cylindrical_compartment_o & right);
 virtual ~NTBP_custom_cylindrical_compartment_o();

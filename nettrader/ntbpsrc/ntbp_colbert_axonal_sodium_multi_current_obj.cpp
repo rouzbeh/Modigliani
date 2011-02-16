@@ -95,6 +95,12 @@ NTBP_colbert_axonal_sodium_multi_current_o::NTBP_colbert_axonal_sodium_multi_cur
 		
 }
 
+/**  */
+/** No descriptions */
+inline NTreal NTBP_colbert_axonal_sodium_multi_current_o::OpenChannelsRatio() const {
+	return OpenChannels() * 100 / NumChannels();
+}
+
 /* ***      COPY AND ASSIGNMENT	***/
 NTBP_colbert_axonal_sodium_multi_current_o::NTBP_colbert_axonal_sodium_multi_current_o(const NTBP_colbert_axonal_sodium_multi_current_o & original)
 :

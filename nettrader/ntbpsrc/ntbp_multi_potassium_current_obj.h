@@ -61,7 +61,7 @@ class NTBP_multi_potassium_current_o : public NTBP_multi_current_o {
 public:
 /***   Constructors, Copy/Assignment and Destructor  ***/  
 NTBP_multi_potassium_current_o(NTreal area /* in muMeter^2 */,
-											enum NTBPdelayedPotassiumRectifierType newType, NTreal density  = 0/* num/muMeter^2 */);
+											enum NTBPdelayedPotassiumRectifierType newType, NTreal density  = 0/* num/muMeter^2 */, NTreal vBase = 0, NTreal revPotential = -12);
 NTBP_multi_potassium_current_o(const NTBP_multi_potassium_current_o & original);
 const NTBP_multi_potassium_current_o & operator= (const NTBP_multi_potassium_current_o & right);
 virtual ~NTBP_multi_potassium_current_o();

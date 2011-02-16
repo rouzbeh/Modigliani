@@ -77,7 +77,7 @@ classes that can be attached to it.
 class NTBP_membrane_compartment_o : public NTBP_object_o {
 public:
 /***   Constructors, Copy/Assignment and Destructor  ***/  
-NTBP_membrane_compartment_o(NTreal area /* in muMeter^2 */);
+NTBP_membrane_compartment_o(NTreal area /* in muMeter^2 */, NTreal newTemperature = 6.3);
 NTBP_membrane_compartment_o(const NTBP_membrane_compartment_o & original);
 const NTBP_membrane_compartment_o & operator= (const NTBP_membrane_compartment_o & right);
 virtual ~NTBP_membrane_compartment_o();

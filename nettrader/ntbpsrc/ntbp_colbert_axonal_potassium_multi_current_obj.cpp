@@ -63,7 +63,7 @@ NTBP_colbert_axonal_potassium_multi_current_o::NTBP_colbert_axonal_potassium_mul
 	NT_ASSERT (newDensity >= 0);
 	NT_ASSERT (newChannelConductance >= 0);
 
-	baseTemp = 22.0; // C
+	baseTemp = 24.0; // C
 	q10 = newQ10;
 
 	NTreal vTmp;
@@ -92,6 +92,13 @@ NTBP_colbert_axonal_potassium_multi_current_o::NTBP_colbert_axonal_potassium_mul
 	// add assignment code here
 	channelsPtr = new NTBP_potassium_ion_channels_o(original._numChannels());
 }
+
+/**  */
+/** No descriptions */
+inline NTreal NTBP_colbert_axonal_potassium_multi_current_o::OpenChannelsRatio() const {
+	return OpenChannels() * 100 / NumChannels();
+}
+
 
 const NTBP_colbert_axonal_potassium_multi_current_o&
 NTBP_colbert_axonal_potassium_multi_current_o::operator=(
