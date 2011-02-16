@@ -62,12 +62,13 @@ NTreal NTBP_multi_sodium_current_o::betaHvec[15000];
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NTBP_multi_sodium_current_o */
-NTBP_multi_sodium_current_o::NTBP_multi_sodium_current_o(NTreal newArea, NTreal newDensity, NTreal newConductivity)
+NTBP_multi_sodium_current_o::NTBP_multi_sodium_current_o(NTreal newArea, NTreal newDensity, NTreal newConductivity, NTreal newVBase, NTreal newReversalPotential)
 :
-NTBP_multi_current_o(115 /* in mV */,
+NTBP_multi_current_o(newReversalPotential /* in mV */,
 						newDensity /* channels per mu^2 */,
 						newArea /* in mu^2 */, 
-						newConductivity /* in mS per channel  */
+						newConductivity /* in mS per channel  */,
+						newVBase
 						)
 {
 	UpdateNumChannels();

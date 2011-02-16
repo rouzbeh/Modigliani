@@ -104,6 +104,7 @@ public:
 	/* ***  Methods              ***/
 	NTreal ComputeRateSum() const;
 	NTreal OpenChannels() const;
+	NTreal OpenChannelsRatio() const;
 	NTreal ComputeConductance();
 	void ComputeRateConstants(NTreal voltage);
 	/**  in kHz */

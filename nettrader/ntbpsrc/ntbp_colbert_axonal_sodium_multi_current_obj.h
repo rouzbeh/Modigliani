@@ -81,6 +81,7 @@ public:
 	NTreal ComputeChannelStateTimeConstant() const;
 	NTreturn StepCurrent();
 	NTreal OpenChannels() const;
+	NTreal OpenChannelsRatio() const;
 	NTreal ComputeConductance();
 	void ComputeRateConstants(NTreal vM /* in mV */);
 	void ShowChannelStatePopulation() {

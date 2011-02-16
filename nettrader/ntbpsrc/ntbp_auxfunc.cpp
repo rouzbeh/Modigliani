@@ -55,9 +55,11 @@ NTBP_create_na_channel_ptr(NTsize sodiumModel, NTsize sodiumAlg,
 	switch (sodiumModel) {
 	case 1:
 		/* SGA */
-		tmpNaPtr = new NTBP_multi_sodium_current_o(area, indSodiumDensity, pow(
-				3, (temperature - 6.3) / 10.0) * sodiumConductance * 1e-9 /* mSiemens per channel */
-		);
+		tmpNaPtr
+				= new NTBP_multi_sodium_current_o(area, indSodiumDensity, pow(
+						3, (temperature - 6.3) / 10.0) * sodiumConductance
+						* 1e-9 /* mSiemens per channel */, vBase,
+						reversalPotential);
 		cout << "Using SGA Na model." << endl;
 		break;
 	case 2:
@@ -133,7 +135,7 @@ NTBP_create_k_channel_ptr(NTsize potassiumModel, NTsize potassiumAlg,
 	case 1:
 		/* SGA */
 		tmpKPtr = new NTBP_multi_potassium_current_o(area, NTBP_SGA_SCHNEIDMAN,
-				indPotassiumDensity);
+				indPotassiumDensity, vBase, potassiumReversalPotential);
 		cout << "Using SGA K model." << endl;
 		break;
 	case 2:

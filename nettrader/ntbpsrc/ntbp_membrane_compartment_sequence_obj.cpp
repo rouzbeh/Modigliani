@@ -335,6 +335,25 @@ NTreturn NTBP_membrane_compartment_sequence_o::WriteCurrent(ofstream & file,
 	return NT_SUCCESS;
 }
 
+NTreturn NTBP_membrane_compartment_sequence_o::WriteCurrentAscii(ofstream & file,
+		NTsize index) {
+	float data[_numCompartments()];
+	if (0 == index) {
+		for (NTsize ll = 0; ll < _numCompartments(); ll++) {
+			//data[ll] = compartmentVec[ll]->CompartmentMembraneNetCurrent();
+			file << compartmentVec[ll]->CompartmentMembraneNetCurrent() << " ";
+		}
+	} else {
+		for (NTsize ll = 0; ll < _numCompartments(); ll++) {
+			//data[ll] = compartmentVec[ll]->AttachedCurrent(index);
+			file << compartmentVec[ll]->AttachedCurrent(index) << " ";
+		}
+	}
+	file << endl;
+
+	return NT_SUCCESS;
+}
+
 NTreturn NTBP_membrane_compartment_sequence_o::WriteOpenChannelsRatio(
 		ofstream & file, NTsize index) {
 	float data[_numCompartments()];
@@ -604,9 +623,9 @@ bool NTBP_membrane_compartment_sequence_o::GillespieStep() {
 NTreturn NTBP_membrane_compartment_sequence_o::WriteATP(ofstream & file) {
 	//float data[_numCompartments()];
 	for (NTsize ll = 0; ll < _numCompartments(); ll++) {
-		for (NTsize j = 0; j < compartmentVec[ll]->_length(); j++)
-			file << -compartmentVec[ll]->AttachedCurrent(2) * _timeStep()
-					* 6241510000 / 3 << " ";
+		file << -compartmentVec[ll]->AttachedCurrent(2)
+				/** _timeStep()
+				* 6241510000 / 3 */<< " ";
 	}
 	file << endl;
 	//file.write( reinterpret_cast<char*>(data), _numCompartments()*sizeof(float) );

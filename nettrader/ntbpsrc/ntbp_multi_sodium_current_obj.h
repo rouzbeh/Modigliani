@@ -63,7 +63,7 @@ Temperature 9 Celsius
 class NTBP_multi_sodium_current_o : public NTBP_multi_current_o {
 public:
 /***   Constructors, Copy/Assignment and Destructor  ***/  
-NTBP_multi_sodium_current_o(NTreal area /* in muMeter^2 */, NTreal density = 330 /* in num/muMeter^2 */, NTreal channelConductave = 4.0e-9 /* in mSiemens per channel = 4pS */);
+NTBP_multi_sodium_current_o(NTreal area /* in muMeter^2 */, NTreal density = 330 /* in num/muMeter^2 */, NTreal channelConductave = 4.0e-9 /* in mSiemens per channel = 4pS */, NTreal newVBase = 0, NTreal newReversalPotential =115);
 NTBP_multi_sodium_current_o(const NTBP_multi_sodium_current_o & original);
 const NTBP_multi_sodium_current_o & operator= (const NTBP_multi_sodium_current_o & right);
 virtual ~NTBP_multi_sodium_current_o();

@@ -110,6 +110,7 @@ vector <NTreal> NumChannels(NTsize currIndex) const;
 NTreturn WriteMembranePotential( ofstream & file );
 NTreturn WriteMembranePotentialASCII( ofstream & file, NTreal timeVar );
 NTreturn WriteCurrent( ofstream & file, NTsize currentIndex /* 1..numCurrents in compartment */);
+NTreturn WriteCurrentAscii( ofstream & file, NTsize currentIndex /* 1..numCurrents in compartment */);
 NTreturn WriteOpenChannelsRatio( ofstream & file, NTsize currentIndex /* 1..numCurrents in compartment */);
 NTreturn WriteATP(ofstream & file);
 /**  */

@@ -47,17 +47,16 @@
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NTBP_membrane_compartment_o */
-NTBP_membrane_compartment_o::NTBP_membrane_compartment_o(NTreal newArea /* in muMeter^2 */)
+NTBP_membrane_compartment_o::NTBP_membrane_compartment_o(NTreal newArea /* in muMeter^2 */, NTreal newTemperature)
 {
 	NT_ASSERT( newArea > 0 );
 	area = newArea;
-	
+
 	cM = 0;
 	rA = 0;
 	vM = 0;
 	iInj = 0;
-	temperature = 6.3; /* Celsius */
-	
+	temperature = newTemperature;
 }
 
 /* ***      COPY AND ASSIGNMENT	***/
