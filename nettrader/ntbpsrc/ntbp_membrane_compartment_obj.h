@@ -95,6 +95,7 @@ const NTBP_membrane_current_o * Current(NTsize currentIndex){NT_ASSERT((currentI
 NTreal _area()  /* in muMeter^2 */const { return area; }
 /* in mV */
 NTreal _vM() /* in mV muMeter */ const { return vM; }
+void Set_vM(NTreal newVoltage) { vM = newVoltage;}
 /** Set specific membrane capacitance in muF / cm^2 */
 void Set_cM( NTreal newCm /* in muF / cm^2 */ ) { cM = newCm;  compartmentMembraneCapacitance = CompartmentMembraneCapacitance(); }
 /* in muF / cm^2 */
@@ -120,6 +121,7 @@ bool GillespieStep();
 /**  */
 void ShowParam() const;
 /* ***  Data                 ***/
+vector< NTBP_membrane_current_o * > currentVec;
 protected:
 /* ***  Methods              ***/
 NTreal  TotalConductance() const;
@@ -127,7 +129,7 @@ NTreal  WeightedConductance() const;// OBSOLETE?
 /* ***  Data                 ***/
 NTreal vM; // membrane voltage in mV
 NTreal iInj; // injected current into compartment in nA
-vector< NTBP_membrane_current_o * > currentVec;
+
 private:
 /* ***  Methods              ***/
 NTreal cM; // membrane capacity in muFarad/cm^2

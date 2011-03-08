@@ -57,6 +57,8 @@ public:
 NTBP_custom_cylindrical_compartment_o(NTreal length /* muMeter */ , NTreal diameter /* muMeter */, NTreal cM /* muFarad/cm^2 */, NTreal rA /* ohm cm */, NTreal newTemperature=6.3);
 NTBP_custom_cylindrical_compartment_o(const NTBP_custom_cylindrical_compartment_o & original);
 const NTBP_custom_cylindrical_compartment_o & operator= (const NTBP_custom_cylindrical_compartment_o & right);
+const NTreal getVoltage();
+void setVoltage(NTreal newVoltage);
 virtual ~NTBP_custom_cylindrical_compartment_o();
 /* ***  Methods              ***/  
 /* ***  Data                 ***/  
@@ -66,6 +68,7 @@ protected:
 private:
 /* ***  Methods              ***/  
 /* ***  Data                 ***/ 
+NTreal voltage;
 };
 #endif /* _ntbp_custom_cylindrical_compartment_obj_h_ */ 
 

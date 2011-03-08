@@ -77,6 +77,13 @@ NTBP_custom_cylindrical_compartment_o::() const
 }
  */
  
+const NTreal NTBP_custom_cylindrical_compartment_o::getVoltage(){
+	return voltage;
+}
+
+void NTBP_custom_cylindrical_compartment_o::setVoltage(NTreal newVoltage){
+	voltage = newVoltage;
+}
 /* ***  PROTECTED                         ***   */
 /* ***  PRIVATE                           ***   */
 

@@ -107,11 +107,11 @@ NTBP_delayed_potassium_rectifier_current_o::~NTBP_delayed_potassium_rectifier_cu
 inline NTreturn
 NTBP_delayed_potassium_rectifier_current_o::StepCurrent()
 {
-		vector < NTreal > vec(2);
+		/*vector < NTreal > vec(2);
 		vec[0] = alphaN;
 		vec[1] = betaN;
-		NT_ASSERT(	(channelsPtr)->UpdateStateProb(vec) == NT_SUCCESS );
-		return (channelsPtr->Step());
+		NT_ASSERT(	(channelsPtr)->UpdateStateProb(vec) == NT_SUCCESS );*/
+		return (channelsPtr->Step(voltage));
 }
 
 inline void 
@@ -143,7 +143,7 @@ NTreal NTBP_delayed_potassium_rectifier_current_o::ComputeChannelStateTimeConsta
 	vec[0] = alphaN;
 	vec[1] = betaN;
 	(channelsPtr)->UpdateStateProb(vec);*/
-	return channelsPtr->ComputeChannelStateTimeConstant();
+	return channelsPtr->ComputeChannelStateTimeConstant(voltage);
 }
 
 

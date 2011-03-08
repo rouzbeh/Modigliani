@@ -90,13 +90,12 @@ void ShowVoltage()
 { 
 	cerr << "Voltage [";
 	for (NTsize ll =0; ll < _numCompartments(); ll++) {
-		cout << vVec[ll] << "\t";
-		cerr << vVec[ll] << " ";
+		cout << compartmentVec[ll]->_vM() << "\t";
+		cerr << compartmentVec[ll]->_vM() << " ";
 	}
 	cerr << "]"<< endl;
 }
-vector <NTreal> _vVec(){ return vVec;}
-NTreal MembraneVoltage(NTsize compartmentId /* 1..numCompartments*/){ return vVec[compartmentId-1]; }
+NTreal MembraneVoltage(NTsize compartmentId /* 1..numCompartments*/){ return compartmentVec[compartmentId-1]->_vM(); }
 NTreturn InjectCurrent(NTreal current /* in nA */, NTsize compartmentId);
 NTsize _numCompartments() const { return numCompartments; }
 /**  */
@@ -107,6 +106,7 @@ NTreal AttachedCurrent(NTsize compIndex, NTsize currIndex){ NT_ASSERT(compIndex 
 vector <NTreal> OpenChannels(NTsize currIndex) const;
 vector <NTreal> OpenChannelsRatio(NTsize currIndex) const;
 vector <NTreal> NumChannels(NTsize currIndex) const;
+vector <NTreal> _vVec() const;
 NTreturn WriteMembranePotential( ofstream & file );
 NTreturn WriteMembranePotentialASCII( ofstream & file, NTreal timeVar );
 NTreturn WriteCurrent( ofstream & file, NTsize currentIndex /* 1..numCurrents in compartment */);
@@ -118,6 +118,8 @@ bool GillespieStep();
   /**  */
 vector <NTreal> GiveCurrent(NTsize index);
 /* ***  Data                 ***/  
+vector < NTBP_cylindrical_compartment_o* > compartmentVec;
+
 protected:
 /* ***  Methods              ***/
 /** CRAP not working */
@@ -127,14 +129,16 @@ vector <NTreal> MascagniSolveTriDiag(vector <NTreal> lNewVec, vector <NTreal>dNe
 /** WORKING ! */
 vector <NTreal> NumericalRecipesSolveTriDiag(const vector <NTreal> & l, const vector <NTreal> & d, const vector <NTreal> & u, const vector <NTreal> & r) const;
 /* ***  Data                 ***/
-vector < NTBP_cylindrical_compartment_o* > compartmentVec;
+
 private:
 /* ***  Methods              ***/  
 /* ***  Data                 ***/
 vector <NTreal> lVec;
 vector <NTreal> dVec;
 vector <NTreal> uVec;
-vector <NTreal> vVec;
+
+//This should be in each compartment
+//vector <NTreal> vVec;
 vector <NTreal> rVec;
 NTsize numCompartments;
 bool initialised;

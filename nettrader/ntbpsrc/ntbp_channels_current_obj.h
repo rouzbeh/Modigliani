@@ -80,7 +80,7 @@ NTreal _conductivity() const { return conductivity; } /* in mSiemens per channel
 NTreal _maxConductivity() const {return density*conductivity*1e-8;}
  /**  */
 
-bool ComputeGillespieStep() { return channelsPtr->GillespieStep();}
+bool ComputeGillespieStep() { return channelsPtr->GillespieStep(voltage);}
 NTreal ComputeConductance(){ return Set_conductance( channelsPtr->NumOpen() * conductivity);}
 /* ***  Data                 ***/
 protected:

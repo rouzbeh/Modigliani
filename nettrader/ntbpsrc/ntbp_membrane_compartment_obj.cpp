@@ -163,6 +163,9 @@ NTreturn
 NTBP_membrane_compartment_o::AttachCurrent(NTBP_membrane_current_o * currentPtr, NTBPcurrentType type = NTBP_IONIC)
 {
 	currentPtr->Set_temperature(temperature);
+	currentPtr->Set_voltage(vM);
+	currentPtr->UpdateTimeStep(_timeStep());
+	currentPtr->StepNTBP();
 	switch (type){
 		case NTBP_LEAK:
 			currentVec.push_back(currentPtr);
@@ -174,7 +177,7 @@ NTBP_membrane_compartment_o::AttachCurrent(NTBP_membrane_current_o * currentPtr,
 			cerr <<"NTBP_membrane_compartment_o::AttachCurrent - Error : Unsupported current type "<< type <<"specified." << endl;
 			return NT_PARAM_UNSUPPORTED;
 	}
-		
+
 	return NT_SUCCESS;
 }
 
@@ -215,7 +218,7 @@ NTreal NTBP_membrane_compartment_o::CompartmentChannelStateTimeConstant() const
 	NTreal sum = 0;
 	vector< NTBP_membrane_current_o * >::const_iterator it = currentVec.begin();
 	for (it = currentVec.begin(); it != currentVec.end(); it++) {
-			(*it)->ComputeRateConstants(_vM());
+			//(*it)->ComputeRateConstants(_vM());
 			sum += (*it)->ChannelStateTimeConstant();
 			cerr << "Compartment Time constant sum=" << sum << endl;
 	}

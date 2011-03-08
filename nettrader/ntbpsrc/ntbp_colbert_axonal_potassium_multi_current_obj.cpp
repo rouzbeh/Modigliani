@@ -81,7 +81,7 @@ NTBP_colbert_axonal_potassium_multi_current_o::NTBP_colbert_axonal_potassium_mul
 	noiseN = 0.0;
 	UpdateNumChannels();
 	channelsPtr = new NTBP_potassium_ion_channels_o(_numChannels());
-	channelsPtr->SteadyStateDistribution();
+	//channelsPtr->SteadyStateDistribution(voltage);
 }
 
 /* ***      COPY AND ASSIGNMENT	***/
@@ -152,7 +152,7 @@ inline void NTBP_colbert_axonal_potassium_multi_current_o::ComputeRateConstants(
 
 /** in kHz */
 inline NTreal NTBP_colbert_axonal_potassium_multi_current_o::ComputeChannelStateTimeConstant() const {
-	return channelsPtr->ComputeChannelStateTimeConstant();
+	return channelsPtr->ComputeChannelStateTimeConstant(voltage);
 }
 
 /** No descriptions */
@@ -213,15 +213,16 @@ inline NTreturn NTBP_colbert_axonal_potassium_multi_current_o::StepCurrent() {
 
 	switch (_simulationMode()) {
 	case NTBP_BINOMIALPOPULATION:
-		NT_ASSERT( (channelsPtr)->UpdateStateProb(vec) == NT_SUCCESS );
-		return (channelsPtr->BinomialStep());
+		//NT_ASSERT( (channelsPtr)->UpdateStateProb(vec) == NT_SUCCESS );
+		return (channelsPtr->BinomialStep(voltage));
 		break;
 	case NTBP_GILLESPIE:
-		return (channelsPtr)->UpdateStateProb(vec);
+		//return (channelsPtr)->UpdateStateProb(vec);
+		return NT_SUCCESS;
 		break;
 	case NTBP_SINGLECHANNEL:
-		NT_ASSERT( (channelsPtr)->UpdateStateProb(vec) == NT_SUCCESS );
-		return (channelsPtr->Step());
+		//NT_ASSERT( (channelsPtr)->UpdateStateProb(vec) == NT_SUCCESS );
+		return (channelsPtr->Step(voltage));
 		break;
 	case NTBP_LANGEVIN:
 		counter = 0;

@@ -18,322 +18,358 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */ 
-  
+ */
 
 /* $Id:$ 
-* $Log:$
+ * $Log:$
 
-*/
+ */
 #include "ntbp_multi_sodium_steadystate_timeconstant_current_obj.h" 
-NT_gaussian_rnd_dist_o NTBP_multi_sodium_steadystate_timeconstant_current_o::normalRnd;
-bool NTBP_multi_sodium_steadystate_timeconstant_current_o::initTableLookUp = false;
+NT_gaussian_rnd_dist_o
+		NTBP_multi_sodium_steadystate_timeconstant_current_o::normalRnd;
+bool NTBP_multi_sodium_steadystate_timeconstant_current_o::initTableLookUp =
+		false;
 NTreal NTBP_multi_sodium_steadystate_timeconstant_current_o::alphaMvec[15000];
 NTreal NTBP_multi_sodium_steadystate_timeconstant_current_o::betaMvec[15000];
 NTreal NTBP_multi_sodium_steadystate_timeconstant_current_o::alphaHvec[15000];
 NTreal NTBP_multi_sodium_steadystate_timeconstant_current_o::betaHvec[15000];
 /* ***      CONSTRUCTORS	***/
 /** Create a NTBP_multi_sodium_steadystate_timeconstant_current_o */
-NTBP_multi_sodium_steadystate_timeconstant_current_o::NTBP_multi_sodium_steadystate_timeconstant_current_o(	NTreal newArea /* in muMeter^2 */, 
-																					NTreal newDensity/* in num/muMeter^2 */, 
-																					NTreal  newChannelConductance /* in mSiemens per channel  */,
-																					NTBPKineticFunctionType newmKineticFnct,
-																					NTreal newvMOffset /* [mV] */,
-																					NTreal newaM ,
-																					NTreal newbM ,
-																					NTreal newcM,								NTBPKineticFunctionType newmTKineticFnct,
-																					NTreal newvMTOffset /* [mV] */,
-																					NTreal newaMT ,
-																					NTreal newbMT ,
-																					NTreal newcMT ,
-																					NTBPKineticFunctionType newhKineticFnct,
-																					NTreal newvHOffset /* [mV] */,
-																					NTreal newaH ,
-																					NTreal newbH ,
-																					NTreal newcH,
-																					NTBPKineticFunctionType newhTKineticFnct,
-																					NTreal newvHTOffset /* [mV] */,
-																					NTreal newaHT ,
-																					NTreal newbHT ,
-																					NTreal newcHT
- 																					)
-:
-NTBP_multi_current_o(109 /* in mV */,
-						newDensity /* channels per mu^2 */,
-						newArea /* in mu^2 */,
-						newChannelConductance /* in mS per channel  */,
-						-60 /* mV */
-						)
-{
-//	mKineticFnct  = newmKineticFnct;//unused atm
+NTBP_multi_sodium_steadystate_timeconstant_current_o::NTBP_multi_sodium_steadystate_timeconstant_current_o(
+		NTreal newArea /* in muMeter^2 */,
+		NTreal newDensity/* in num/muMeter^2 */,
+		NTreal newChannelConductance /* in mSiemens per channel  */,
+		NTBPKineticFunctionType newmKineticFnct, NTreal newvMOffset /* [mV] */,
+		NTreal newaM, NTreal newbM, NTreal newcM,
+		NTBPKineticFunctionType newmTKineticFnct,
+		NTreal newvMTOffset /* [mV] */, NTreal newaMT, NTreal newbMT,
+		NTreal newcMT, NTBPKineticFunctionType newhKineticFnct,
+		NTreal newvHOffset /* [mV] */, NTreal newaH, NTreal newbH,
+		NTreal newcH, NTBPKineticFunctionType newhTKineticFnct,
+		NTreal newvHTOffset /* [mV] */, NTreal newaHT, NTreal newbHT,
+		NTreal newcHT) :
+			NTBP_multi_current_o(109 /* in mV */,
+					newDensity /* channels per mu^2 */, newArea /* in mu^2 */,
+					newChannelConductance /* in mS per channel  */, -60 /* mV */
+			) {
+	//	mKineticFnct  = newmKineticFnct;//unused atm
 	vMOffset = newvMOffset; // [mV]
 	aM = newaM; //unused atm
-	bM = newbM; 
-	cM = newcM; 
+	bM = newbM;
+	cM = newcM;
 	vMTOffset = newvMTOffset; // [mV]
 	aMT = newaMT;
-	bMT = newbMT; 
+	bMT = newbMT;
 	cMT = newcMT; //	hKineticFnct  = newhKineticFnct;//unused atm
 	vHOffset = newvHOffset; // [mV]
-	aH = newaH; 
-	bH = newbH; 
-	cH = newcH; 
+	aH = newaH;
+	bH = newbH;
+	cH = newcH;
 	vHTOffset = newvHTOffset; // [mV]
-	aHT = newaHT; 
-	bHT = newbHT; 
+	aHT = newaHT;
+	bHT = newbHT;
 	cHT = newcHT;
 
 	UpdateNumChannels();
-	channelsPtr = new NTBP_sodium_ion_channels_o( _numChannels() );
+	channelsPtr = new NTBP_ion_channels_o(_numChannels(), 8);
 	noiseM = 0;
 	noiseH = 0;
-	
+
 	baseTemp = 21.0; // C
 	q10m = 2.2;
 	q10h = 2.9;
-	
+
 	NTreal vTmp = 0;
-	if ( false == initTableLookUp ) {
-		for (NTsize ll=0; ll < 15000; ll++){
-			vTmp = ((float)ll)/100.0 - 20 + 0.0054321 /* otherwise we hit undefined points of alpha and beta function */;
-			alphaMvec[ll]= AlphaM(vTmp);
-			betaMvec[ll]= BetaM(vTmp);
-			alphaHvec[ll]= AlphaH(vTmp);
-			betaHvec[ll]= BetaH(vTmp);
+	if (false == initTableLookUp) {
+		for (NTsize ll = 0; ll < 15000; ll++) {
+			vTmp = ((float) ll) / 100.0 - 20 + 0.0054321 /* otherwise we hit undefined points of alpha and beta function */;
+			alphaMvec[ll] = AlphaM(vTmp);
+			betaMvec[ll] = BetaM(vTmp);
+			alphaHvec[ll] = AlphaH(vTmp);
+			betaHvec[ll] = BetaH(vTmp);
 		}
 		initTableLookUp = true;
 	}
-	
-	ComputeRateConstants(0);
-	m = alphaM/(alphaM + betaM);
-	h = alphaH/(alphaH + betaH);
 
-//	cout << "Constructor " <<  m << "\t" << h << "\t" << alphaH << "\t" << betaH << endl;
-	channelsPtr->SteadyStateDistribution();
-		
+	ComputeRateConstants();
+	channelsPtr->setAsOpenState(4);
+	m = alphaM / (alphaM + betaM);
+	h = alphaH / (alphaH + betaH);
+
+	//	cout << "Constructor " <<  m << "\t" << h << "\t" << alphaH << "\t" << betaH << endl;
+	//channelsPtr->SteadyStateDistribution();
+
 }
 
-
-/* ***      COPY AND ASSIGNMENT	***/ 
-NTBP_multi_sodium_steadystate_timeconstant_current_o::NTBP_multi_sodium_steadystate_timeconstant_current_o(const NTBP_multi_sodium_steadystate_timeconstant_current_o & original)
-:
-NTBP_multi_current_o(original._reversalPotential(), original._density(), original._area(), original._conductivity())
-{
- channelsPtr = new NTBP_sodium_ion_channels_o(  original._numChannels() );
-// add assignment code here
+/* ***      COPY AND ASSIGNMENT	***/
+NTBP_multi_sodium_steadystate_timeconstant_current_o::NTBP_multi_sodium_steadystate_timeconstant_current_o(
+		const NTBP_multi_sodium_steadystate_timeconstant_current_o & original) :
+			NTBP_multi_current_o(original._reversalPotential(),
+					original._density(), original._area(),
+					original._conductivity()) {
+	channelsPtr = new NTBP_ion_channels_o(original._numChannels(), 8);
+	ComputeRateConstants();
+	channelsPtr->setAsOpenState(4);
+	// add assignment code here
 }
 
-const NTBP_multi_sodium_steadystate_timeconstant_current_o&  
-NTBP_multi_sodium_steadystate_timeconstant_current_o::operator= (const NTBP_multi_sodium_steadystate_timeconstant_current_o & right)
-{
- if (this == &right) return *this; // Gracefully handle self assignment
- // add assignment code here
-channelsPtr = new NTBP_sodium_ion_channels_o(  right._numChannels() );
-  return *this;
+const NTBP_multi_sodium_steadystate_timeconstant_current_o&
+NTBP_multi_sodium_steadystate_timeconstant_current_o::operator=(
+		const NTBP_multi_sodium_steadystate_timeconstant_current_o & right) {
+	if (this == &right)
+		return *this; // Gracefully handle self assignment
+	// add assignment code here
+	channelsPtr = new NTBP_ion_channels_o(right._numChannels(), 8);
+	ComputeRateConstants();
+	channelsPtr->setAsOpenState(4);
+	return *this;
 }
 
 /* ***      DESTRUCTOR		***/
-NTBP_multi_sodium_steadystate_timeconstant_current_o::~NTBP_multi_sodium_steadystate_timeconstant_current_o()
-{
+NTBP_multi_sodium_steadystate_timeconstant_current_o::~NTBP_multi_sodium_steadystate_timeconstant_current_o() {
 	delete channelsPtr;
 }
 
-/* ***  PUBLIC                                    ***   */  
+/* ***  PUBLIC                                    ***   */
 /** @short       
-    @param      none
-    @return     none
-   \warning    unknown
-   \bug        unknown
-void
-NTBP_multi_sodium_steadystate_timeconstant_current_o::() const
-{
+ @param      none
+ @return     none
+ \warning    unknown
+ \bug        unknown
+ void
+ NTBP_multi_sodium_steadystate_timeconstant_current_o::() const
+ {
  */
-inline NTreturn NTBP_multi_sodium_steadystate_timeconstant_current_o::StepCurrent()
-{
-//	cerr << "NTBP_multi_sodium_steadystate_timeconstant_current_o::StepCurrent()" << endl;
+inline NTreturn NTBP_multi_sodium_steadystate_timeconstant_current_o::StepCurrent() {
+	//	cerr << "NTBP_multi_sodium_steadystate_timeconstant_current_o::StepCurrent()" << endl;
 	NTreal tmpM = 0;
-	NTreal tmpH = 0;	
+	NTreal tmpH = 0;
 	NTsize counter = 0;
 
-	switch(_simulationMode()) {
-		case NTBP_BINOMIALPOPULATION:
-					{
-					vector < NTreal > vec(4);
-					vec[0] = alphaM;
-					vec[1] = betaM;
-   					vec[2] = alphaH;
-					vec[3] = betaH;
-					NT_ASSERT(	(channelsPtr)->UpdateStateProb(vec) == NT_SUCCESS );
-					return (channelsPtr->BinomialStep());			
-					}
-					break;
-		case NTBP_GILLESPIE:
-					{
-					vector < NTreal > vec(4);
-					vec[0] = alphaM;
-					vec[1] = betaM;
-   				vec[2] = alphaH;
-					vec[3] = betaH;
-					return (channelsPtr)->UpdateStateProb(vec);
-					}
-					break;
-		case NTBP_SINGLECHANNEL:
-					{
-					vector < NTreal > vec(4);
-					vec[0] = alphaM;
-   				vec[1] = betaM;
-		     	vec[2] = alphaH;
-					vec[3] = betaH;
-					NT_ASSERT(	(channelsPtr)->UpdateStateProb(vec) == NT_SUCCESS );
-					return (channelsPtr->Step());			
-					}
+	switch (_simulationMode()) {
+	case NTBP_BINOMIALPOPULATION: {
+		/*vector<NTreal> vec(4);
+		 vec[0] = alphaM;
+		 vec[1] = betaM;
+		 vec[2] = alphaH;
+		 vec[3] = betaH;
+		 NT_ASSERT( (channelsPtr)->UpdateStateProb(vec) == NT_SUCCESS );*/
+		return (channelsPtr->BinomialStep(voltage));
+	}
+		break;
+	case NTBP_GILLESPIE: {
+		/*vector<NTreal> vec(4);
+		 vec[0] = alphaM;
+		 vec[1] = betaM;
+		 vec[2] = alphaH;
+		 vec[3] = betaH;
+		 return (channelsPtr)->UpdateStateProb(vec);*/
+		return NT_SUCCESS;
+	}
+		break;
+	case NTBP_SINGLECHANNEL: {
+		//		vector<NTreal> vec(4);
+		//		vec[0] = alphaM;
+		//		vec[1] = betaM;
+		//		vec[2] = alphaH;
+		//		vec[3] = betaH;
+		//		NT_ASSERT( (channelsPtr)->UpdateStateProb(vec) == NT_SUCCESS );
+		return (channelsPtr->Step(voltage));
+	}
+		break;
+	case NTBP_LANGEVIN: {
+		counter = 0;
+		m += _timeStep() * ((1.0 - m) * alphaM - m * betaM);
+		NT_ASSERT(m>=0 && m<=1);
+		do {
+			counter++;
+			tmpM = _timeStep() * normalRnd.RndVal() * sqrt(
+					(alphaM * (1 - m) + betaM * m) / _numChannels());
+			if (counter > 1 && counter < 1024)
+				cerr << "NaM=" << counter << endl;
+			else if (counter >= 1024) {
+				noiseM = 0;
+				tmpM = 0;
 				break;
-		case NTBP_LANGEVIN:
-					{
-					counter = 0;
-					m += _timeStep() * ((1.0 - m) * alphaM - m * betaM);
-					NT_ASSERT(m>=0 &&  m<=1);								
-					do {
-						counter++;
-						tmpM = _timeStep()*normalRnd.RndVal()* sqrt((alphaM * (1-m) + betaM * m)/_numChannels());
-						if (counter > 1 && counter < 1024)	cerr << "NaM=" << counter << endl;
-						else if (counter >= 1024 ) {noiseM = 0;tmpM=0; break;}
-					} while (( _timeStep()*(tmpM + noiseM) + m >= 1) || (_timeStep()*(tmpM+noiseM) + m <= 0));
-					noiseM += tmpM;
-					m += _timeStep()*noiseM;
-						
-					counter = 0;
-					h += _timeStep() * ((1.0 - h) * alphaH - h * betaH);
-					NT_ASSERT(h>=0 &&  h<= 1);			
-					do {
-						counter++;
-						tmpH = _timeStep()*normalRnd.RndVal()*sqrt((alphaH* (1-h) + betaH * h)/_numChannels());
-						if (counter > 1 && counter < 1024)	 cerr << "NaH=" << counter << endl;
-						else if (counter >= 1024){ noiseH = 0;tmpH=0;break;}
-					} while ((_timeStep()*(tmpH + noiseH) + h >= 1) || (_timeStep()*(tmpH + noiseH) + h <= 0));					
-					noiseH += tmpH;
-					h += _timeStep()*noiseH;
-					
-					return NT_SUCCESS;
-					}
+			}
+		} while ((_timeStep() * (tmpM + noiseM) + m >= 1) || (_timeStep()
+				* (tmpM + noiseM) + m <= 0));
+		noiseM += tmpM;
+		m += _timeStep() * noiseM;
+
+		counter = 0;
+		h += _timeStep() * ((1.0 - h) * alphaH - h * betaH);
+		NT_ASSERT(h>=0 && h<= 1);
+		do {
+			counter++;
+			tmpH = _timeStep() * normalRnd.RndVal() * sqrt(
+					(alphaH * (1 - h) + betaH * h) / _numChannels());
+			if (counter > 1 && counter < 1024)
+				cerr << "NaH=" << counter << endl;
+			else if (counter >= 1024) {
+				noiseH = 0;
+				tmpH = 0;
 				break;
-		case NTBP_NOISYMEAN:
-		case NTBP_DETERMINISTIC:
-					m += _timeStep() * ((1.0 - m) * alphaM - m * betaM);
-					h += _timeStep() * ((1.0 - h) * alphaH - h * betaH);
-	//				cout << m << "\t" << h << endl;
-					NT_ASSERT(m>=0 &&  m<= 1);			
-					NT_ASSERT(h>=0 &&  h<= 1);			
-					return NT_SUCCESS;
-				break;
-		default:
-				cerr << "NTBP_multi_sodium_steadystate_timeconstant_current_o::StepCurrent - ERROR : Unsupported simulation mode." << endl;
-				return NT_PARAM_UNSUPPORTED;
-				break;
+			}
+		} while ((_timeStep() * (tmpH + noiseH) + h >= 1) || (_timeStep()
+				* (tmpH + noiseH) + h <= 0));
+		noiseH += tmpH;
+		h += _timeStep() * noiseH;
+
+		return NT_SUCCESS;
+	}
+		break;
+	case NTBP_NOISYMEAN:
+	case NTBP_DETERMINISTIC:
+		m += _timeStep() * ((1.0 - m) * alphaM - m * betaM);
+		h += _timeStep() * ((1.0 - h) * alphaH - h * betaH);
+		//				cout << m << "\t" << h << endl;
+		NT_ASSERT(m>=0 && m<= 1);
+		NT_ASSERT(h>=0 && h<= 1);
+		return NT_SUCCESS;
+		break;
+	default:
+		cerr
+				<< "NTBP_multi_sodium_steadystate_timeconstant_current_o::StepCurrent - ERROR : Unsupported simulation mode."
+				<< endl;
+		return NT_PARAM_UNSUPPORTED;
+		break;
 	}
 	return NT_FAIL;
 }
 
-
-
-inline void
-NTBP_multi_sodium_steadystate_timeconstant_current_o::ComputeRateConstants(NTreal vM /* in mV */)
-{
-	//	cerr << "NTBP_multi_sodium_steadystate_timeconstant_current_o::ComputeRateConstants" << endl;
+inline void NTBP_multi_sodium_steadystate_timeconstant_current_o::ComputeRateConstants() {
 	NTreal temp = _temperature();
-	
-	NTreal q10Factor = 1.0;
+	NTreal deltaT = _timeStep();
+	NTreal q10FactorM = NTBP_TemperatureRateRelation(temp, baseTemp /* C */,
+			q10m);
+	NTreal q10FactorH = NTBP_TemperatureRateRelation(temp, baseTemp /* C */,
+			q10h);
 	NTsize index = 0;
-	if ( (vM < -20) || ( vM > 130.0 ) ) {
-		q10Factor = NTBP_TemperatureRateRelation(temp, baseTemp /* C */, q10m);
-		alphaM = q10Factor * AlphaM(vM);
-		betaM = q10Factor * BetaM(vM);
-		
-		q10Factor = NTBP_TemperatureRateRelation(temp, baseTemp /* C */, q10h);
-		alphaH = q10Factor * AlphaH(vM);
-		betaH = q10Factor * BetaH(vM);
-	} else {
-		index = (NTsize) floor((vM+20)*100.0);
-		q10Factor = NTBP_TemperatureRateRelation(temp, baseTemp /* C */, q10m);
-		alphaM = q10Factor * alphaMvec[index];
-		betaM = q10Factor * betaMvec[index];
-		
-		q10Factor = NTBP_TemperatureRateRelation(temp, baseTemp /* C */, q10h);
-		alphaH = q10Factor * alphaHvec[index];
-		betaH = q10Factor * betaHvec[index];
-	}
+	NTreal vM = -100;
 
-//	cout << "ComputeRateConstants v="<<vM << "\t" << alphaM << "\t" << betaM << "\t" << alphaH << "\t" << betaH  << endl;
+	for (NTsize i = 0; i < 3000; i++) {
+		vM += 0.1;
+		if ((vM < -20) || (vM > 130.0)) {
+			alphaM = q10FactorM * AlphaM(vM);
+			betaM = q10FactorM * BetaM(vM);
+
+			alphaH = q10FactorH * AlphaH(vM);
+			betaH = q10FactorH * BetaH(vM);
+		} else {
+			index = (NTsize) floor((vM + 20) * 100.0);
+			alphaM = q10FactorM * alphaMvec[index];
+			betaM = q10FactorM * betaMvec[index];
+
+			alphaH = q10FactorH * alphaHvec[index];
+			betaH = q10FactorH * betaHvec[index];
+		}
+
+		NTreal alphaMdeltaT = alphaM * deltaT;
+		NTreal betaMdeltaT = betaM * deltaT;
+		NTreal alphaHdeltaT = alphaH * deltaT;
+		NTreal betaHdeltaT = betaH * deltaT;
+
+		channelsPtr->setTransactionProbability(i, 0, 1, 2 * alphaMdeltaT);
+		channelsPtr->setTransactionProbability(i, 1, 2, 1 * alphaMdeltaT);
+		channelsPtr->setTransactionProbability(i, 2, 3, alphaMdeltaT);
+		channelsPtr->setTransactionProbability(i, 4, 5,
+				channelsPtr->getTransactionProbability(i, 0, 1));
+		channelsPtr->setTransactionProbability(i, 5, 6,
+				channelsPtr->getTransactionProbability(i, 1, 2));
+		channelsPtr->setTransactionProbability(i, 6, 7,
+				channelsPtr->getTransactionProbability(i, 2, 3));
+
+		channelsPtr->setTransactionProbability(i, 7, 6, 2 * betaMdeltaT);
+		channelsPtr->setTransactionProbability(i, 6, 5, 1 * betaMdeltaT);
+		channelsPtr->setTransactionProbability(i, 5, 4, betaMdeltaT);
+		channelsPtr->setTransactionProbability(i, 3, 2,
+				channelsPtr->getTransactionProbability(i, 7, 6));
+		channelsPtr->setTransactionProbability(i, 2, 1,
+				channelsPtr->getTransactionProbability(i, 6, 5));
+		channelsPtr->setTransactionProbability(i, 1, 0,
+				channelsPtr->getTransactionProbability(i, 5, 4));
+
+		channelsPtr->setTransactionProbability(i, 0, 4, betaHdeltaT);
+		channelsPtr->setTransactionProbability(i, 1, 5, betaHdeltaT);
+		channelsPtr->setTransactionProbability(i, 2, 6, betaHdeltaT);
+		channelsPtr->setTransactionProbability(i, 3, 7, betaHdeltaT);
+
+		channelsPtr->setTransactionProbability(i, 4, 0, alphaHdeltaT);
+		channelsPtr->setTransactionProbability(i, 5, 1, alphaHdeltaT);
+		channelsPtr->setTransactionProbability(i, 6, 2, alphaHdeltaT);
+		channelsPtr->setTransactionProbability(i, 7, 3, alphaHdeltaT);
+	}
 }
 
 /**  */
 /** No descriptions */
-inline NTreal
-NTBP_multi_sodium_steadystate_timeconstant_current_o::OpenChannels() const
-{
-	switch(_simulationMode()) {
-		case NTBP_BINOMIALPOPULATION:
-		case NTBP_GILLESPIE:
-		case NTBP_SINGLECHANNEL:
-				return channelsPtr->NumOpen();
-				break;
-		case NTBP_LANGEVIN:
-		case NTBP_DETERMINISTIC:
-				return m*m*m*h*NumChannels();
-		default:
-				cerr << "NTBP_multi_sodium_steadystate_timeconstant_current_o::OpenChannels - ERROR : Unsupported simulation mode for OpenChannels." << endl;
-				return 0;			}	
-}
-
-
-inline NTreal NTBP_multi_sodium_steadystate_timeconstant_current_o::ComputeConductance()
-{
-//  cerr << "NTBP_multi_sodium_steadystate_timeconstant_current_o::ComputeConductance" << endl;
-	switch(_simulationMode()) {
-		case NTBP_BINOMIALPOPULATION:
-		case NTBP_GILLESPIE:
-		case NTBP_SINGLECHANNEL:
-				return Set_conductance( channelsPtr->NumOpen() * conductivity);
-				break;
-		case NTBP_LANGEVIN:
-		case NTBP_DETERMINISTIC:
-				return Set_conductance(_maxConductivity() /* mS/cm^2 */ * m*m*m*h * _area() /* muMeter^2 */ * 1.0e-8 /* cm^2/muMeter^2 */);	
-				break;
-		case NTBP_NOISYMEAN:
-				{
-					NTreal mean = m*m*m*h;
-					NTreal numAddOpening = m*m*(1-m)*(1-h)* alphaM/_timeStep() + m*m*m*(1-h) * alphaH/_timeStep();
-					NTreal numAddClosing = m*m*m*h * (3 * betaM + betaH)/_timeStep();
-					mean += numAddOpening - numAddClosing;
-					cerr << "NOT IMPLEMENTED CORRECTLY"<< endl;
-					return Set_conductance(_maxConductivity() /* mS/cm^2 */ *  mean * _area() /* muMeter^2 */ * 1.0e-8 /* cm^2/muMeter^2 */);					
-				break;
-				}
-		default:
-				cerr << "NTBP_multi_sodium_steadystate_timeconstant_current_o::ComputeConductance - ERROR : Unsupported simulation mode for ComputeConductance." << endl;
-				return 0;
+inline NTreal NTBP_multi_sodium_steadystate_timeconstant_current_o::OpenChannels() const {
+	switch (_simulationMode()) {
+	case NTBP_BINOMIALPOPULATION:
+	case NTBP_GILLESPIE:
+	case NTBP_SINGLECHANNEL:
+		return channelsPtr->NumOpen();
+		break;
+	case NTBP_LANGEVIN:
+	case NTBP_DETERMINISTIC:
+		return m * m * m * h * NumChannels();
+	default:
+		cerr
+				<< "NTBP_multi_sodium_steadystate_timeconstant_current_o::OpenChannels - ERROR : Unsupported simulation mode for OpenChannels."
+				<< endl;
+		return 0;
 	}
 }
 
-
-inline NTreal
-NTBP_multi_sodium_steadystate_timeconstant_current_o::ComputeChannelStateTimeConstant() const
-{
-  // cerr << "NTBP_multi_sodium_steadystate_timeconstant_current_o::ComputeChannelStateTimeConstant()" << endl;
-	return channelsPtr->ComputeChannelStateTimeConstant();
+inline NTreal NTBP_multi_sodium_steadystate_timeconstant_current_o::ComputeConductance() {
+	//  cerr << "NTBP_multi_sodium_steadystate_timeconstant_current_o::ComputeConductance" << endl;
+	switch (_simulationMode()) {
+	case NTBP_BINOMIALPOPULATION:
+	case NTBP_GILLESPIE:
+	case NTBP_SINGLECHANNEL:
+		return Set_conductance(channelsPtr->NumOpen() * conductivity);
+		break;
+	case NTBP_LANGEVIN:
+	case NTBP_DETERMINISTIC:
+		return Set_conductance(
+				_maxConductivity() /* mS/cm^2 */* m * m * m * h * _area()
+				/* muMeter^2 */* 1.0e-8 /* cm^2/muMeter^2 */);
+		break;
+	case NTBP_NOISYMEAN: {
+		NTreal mean = m * m * m * h;
+		NTreal numAddOpening = m * m * (1 - m) * (1 - h) * alphaM / _timeStep()
+				+ m * m * m * (1 - h) * alphaH / _timeStep();
+		NTreal numAddClosing = m * m * m * h * (3 * betaM + betaH)
+				/ _timeStep();
+		mean += numAddOpening - numAddClosing;
+		cerr << "NOT IMPLEMENTED CORRECTLY" << endl;
+		return Set_conductance(_maxConductivity() /* mS/cm^2 */* mean * _area()
+		/* muMeter^2 */* 1.0e-8 /* cm^2/muMeter^2 */);
+		break;
+	}
+	default:
+		cerr
+				<< "NTBP_multi_sodium_steadystate_timeconstant_current_o::ComputeConductance - ERROR : Unsupported simulation mode for ComputeConductance."
+				<< endl;
+		return 0;
+	}
 }
 
-void NTBP_multi_sodium_steadystate_timeconstant_current_o::ShowParam() const
-{
+inline NTreal NTBP_multi_sodium_steadystate_timeconstant_current_o::ComputeChannelStateTimeConstant() const {
+	// cerr << "NTBP_multi_sodium_steadystate_timeconstant_current_o::ComputeChannelStateTimeConstant()" << endl;
+	return channelsPtr->ComputeChannelStateTimeConstant(voltage);
+}
+
+void NTBP_multi_sodium_steadystate_timeconstant_current_o::ShowParam() const {
 	cout << "Na channel parameters:" << endl;
 	cout << "Single channel conductivity [nA]" << _conductivity() << endl;
 	cout << "Channel density [1/muMeter^2]" << _area() << endl;
-	cout << "MaxConductivity (all channels open) mSiemens/cm^2" << _maxConductivity() << endl;
+	cout << "MaxConductivity (all channels open) mSiemens/cm^2"
+			<< _maxConductivity() << endl;
 }
-
 
 /* ***  PROTECTED                         ***   */
 /* ***  PRIVATE                           ***   */
-
 
 /* File skeleton generated by GenNTObj version 0.7. */

@@ -77,7 +77,7 @@ virtual ~NTBP_potassium_multi_current_o();
 NTreal ComputeRateSum() const;
 NTreal OpenChannels() const;
 NTreal ComputeConductance();
-void ComputeRateConstants(NTreal voltage);
+void ComputeRateConstants();
 /**  in kHz */
 NTreal ComputeChannelStateTimeConstant() const;
 /**  */
