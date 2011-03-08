@@ -103,6 +103,9 @@ virtual NTreturn Step() { cerr << "NTBP_object_o:Step() - Warning : Non-override
 NTreturn StepNTBP() { timeStep = suggestedTimeStep; return NT_SUCCESS;}
 NTreal _timeStep() { return timeStep;}
 NTreal _baseTimeStep(){ return baseTimeStep;}
+void setTimeStep(NTreal newTimeStep){
+	timeStep = newTimeStep;
+}
 /* ***  Data                 ***/
 protected:
 /* ***  Methods              ***/

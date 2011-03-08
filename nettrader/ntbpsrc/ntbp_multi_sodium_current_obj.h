@@ -18,25 +18,24 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */ 
-  
+ */
 
 /* $Id: ntbp_multi_sodium_current_obj.h,v 1.1.1.1 2004/12/16 01:38:36 face Exp $ 
-* $Log: ntbp_multi_sodium_current_obj.h,v $
-* Revision 1.1.1.1  2004/12/16 01:38:36  face
-* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
-*
-* Revision 1.3  2003/01/17 16:53:13  face
-* *** empty log message ***
-*
-* Revision 1.2  2002/03/13 19:23:27  face
-* *** empty log message ***
-*
-* Revision 1.1  2001/10/03 14:37:52  face
-* *** empty log message ***
-*
+ * $Log: ntbp_multi_sodium_current_obj.h,v $
+ * Revision 1.1.1.1  2004/12/16 01:38:36  face
+ * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+ *
+ * Revision 1.3  2003/01/17 16:53:13  face
+ * *** empty log message ***
+ *
+ * Revision 1.2  2002/03/13 19:23:27  face
+ * *** empty log message ***
+ *
+ * Revision 1.1  2001/10/03 14:37:52  face
+ * *** empty log message ***
+ *
 
-*/
+ */
 #ifndef _ntbp_multi_sodium_current_obj_h_ 
 #define _ntbp_multi_sodium_current_obj_h_ 
 
@@ -53,62 +52,81 @@
 #include <cmath>
 
 /** @short NTBP_multi_sodium_current_o class 
-Channel density 330/muM^2
-Single channel conductivity 4 pS
-Temperature 9 Celsius
-(see Hille (1992) p. 329 or Conti et. al (1975) )
-\bug unknown
-\warning unknown 
-*/
-class NTBP_multi_sodium_current_o : public NTBP_multi_current_o {
+ Channel density 330/muM^2
+ Single channel conductivity 4 pS
+ Temperature 9 Celsius
+ (see Hille (1992) p. 329 or Conti et. al (1975) )
+ \bug unknown
+ \warning unknown
+ */
+class NTBP_multi_sodium_current_o: public NTBP_multi_current_o {
 public:
-/***   Constructors, Copy/Assignment and Destructor  ***/  
-NTBP_multi_sodium_current_o(NTreal area /* in muMeter^2 */, NTreal density = 330 /* in num/muMeter^2 */, NTreal channelConductave = 4.0e-9 /* in mSiemens per channel = 4pS */, NTreal newVBase = 0, NTreal newReversalPotential =115);
-NTBP_multi_sodium_current_o(const NTBP_multi_sodium_current_o & original);
-const NTBP_multi_sodium_current_o & operator= (const NTBP_multi_sodium_current_o & right);
-virtual ~NTBP_multi_sodium_current_o();
-/* ***  Methods              ***/
-/** in 1/ms or kHz */
-NTreal ComputeChannelStateTimeConstant() const;
-NTreturn StepCurrent();
-NTreal OpenChannels() const;
-NTreal ComputeConductance();
-void ComputeRateConstants(NTreal vM /* in mV */);
-void ShowChannelStatePopulation() { channelsPtr->ShowStates(); }
-//void Show() {  cout << " alphaM= " << alphaM << "\t betaM= " << betaM << "\t openRatio= " << //((double)channelsPtr->NumOpen())/channelsPtr->_numChannels()
-//				   << "\t alphaH= " << alphaH << "\t betaH= " << betaH << "\t openNum= " << channelsPtr->NumOpen();}
-void Show() {  cout  << "\t" << alphaM << "\t" << betaM << "\t" << ((double)channelsPtr->NumOpen())/channelsPtr->_numChannels()
-  << "\t" << alphaH << "\t" << betaH << "\t" << channelsPtr->NumOpen();}
- 
-NTreal AlphaM(NTreal vM /* in mV */) { 	return (25.0 - vM) / (10.0 * (exp((25.0 - vM)/10.0) - 1.0));}
- NTreal BetaM(NTreal vM /* in mV */) { 	return 4.0 * exp( -vM / 18.0 ); }
- NTreal AlphaH(NTreal vM /* in mV */) { 	return 0.07 * exp( -vM / 20.0 ); }
- NTreal BetaH(NTreal vM /* in mV */) { 	return 1.0/(exp(3.0 - vM/10.0) + 1.0); }
-  /**  */
-void ShowParam() const;
-/* ***  Data                 ***/
+	/***   Constructors, Copy/Assignment and Destructor  ***/
+			NTBP_multi_sodium_current_o(
+					NTreal area /* in muMeter^2 */,
+					NTreal density = 330 /* in num/muMeter^2 */,
+					NTreal channelConductave = 4.0e-9 /* in mSiemens per channel = 4pS */,
+					NTreal newVBase = 0, NTreal newReversalPotential = 115);
+	NTBP_multi_sodium_current_o(const NTBP_multi_sodium_current_o & original);
+	const NTBP_multi_sodium_current_o & operator=(
+			const NTBP_multi_sodium_current_o & right);
+	virtual ~NTBP_multi_sodium_current_o();
+	/* ***  Methods              ***/
+	/** in 1/ms or kHz */
+	NTreal ComputeChannelStateTimeConstant() const;
+	NTreturn StepCurrent();
+	NTreal OpenChannels() const;
+	NTreal ComputeConductance();
+	void ComputeRateConstants();
+	void ShowChannelStatePopulation() {
+		channelsPtr->ShowStates();
+	}
+	//void Show() {  cout << " alphaM= " << alphaM << "\t betaM= " << betaM << "\t openRatio= " << //((double)channelsPtr->NumOpen())/channelsPtr->_numChannels()
+	//				   << "\t alphaH= " << alphaH << "\t betaH= " << betaH << "\t openNum= " << channelsPtr->NumOpen();}
+	void Show() {
+		cout << "\t" << alphaM << "\t" << betaM << "\t"
+				<< ((double) channelsPtr->NumOpen())
+						/ channelsPtr->_numChannels() << "\t" << alphaH << "\t"
+				<< betaH << "\t" << channelsPtr->NumOpen();
+	}
+
+	NTreal AlphaM(NTreal vM /* in mV */) {
+		return (25.0 - vM) / (10.0 * (exp((25.0 - vM) / 10.0) - 1.0));
+	}
+	NTreal BetaM(NTreal vM /* in mV */) {
+		return 4.0 * exp(-vM / 18.0);
+	}
+	NTreal AlphaH(NTreal vM /* in mV */) {
+		return 0.07 * exp(-vM / 20.0);
+	}
+	NTreal BetaH(NTreal vM /* in mV */) {
+		return 1.0 / (exp(3.0 - vM / 10.0) + 1.0);
+	}
+	/**  */
+	void ShowParam() const;
+	/* ***  Data                 ***/
 protected:
-/* ***  Methods              ***/  
-/* ***  Data                 ***/  
+	/* ***  Methods              ***/
+	/* ***  Data                 ***/
 private:
-/* ***  Methods              ***/
-/* ***  Data                 ***/
-static NT_gaussian_rnd_dist_o normalRnd; // notice, sometimes a linker error is produced, which can be removed by adding a NT_gaussian_..._o object at the beginning of the main() code.
+	/* ***  Methods              ***/
+	/* ***  Data                 ***/
+	static NT_gaussian_rnd_dist_o normalRnd; // notice, sometimes a linker error is produced, which can be removed by adding a NT_gaussian_..._o object at the beginning of the main() code.
 
-static bool initTableLookUp;
-NTreal alphaM;
-NTreal betaM;
-NTreal m;
-NTreal noiseM;
-static NTreal alphaMvec[15000];
-static NTreal betaMvec[15000];
+	static bool initTableLookUp;
+	NTreal alphaM;
+	NTreal betaM;
+	NTreal m;
+	NTreal noiseM;
+	static NTreal alphaMvec[15000];
+	static NTreal betaMvec[15000];
 
-NTreal alphaH;
-NTreal betaH;
-NTreal h;
-NTreal noiseH;
-static NTreal alphaHvec[15000];
-static NTreal betaHvec[15000];
+	NTreal alphaH;
+	NTreal betaH;
+	NTreal h;
+	NTreal noiseH;
+	static NTreal alphaHvec[15000];
+	static NTreal betaHvec[15000];
 };
 #endif /* _ntbp_multi_sodium_current_obj_h_ */ 
 

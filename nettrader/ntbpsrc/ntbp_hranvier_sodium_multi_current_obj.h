@@ -73,7 +73,8 @@ NTBP_hranvier_sodium_multi_current_o(NTreal area /* in muMeter^2 */,
 																		 NTreal vBase = -84, /* in mV */
 																		 NTreal newQ10m = 2.2,
 																		 NTreal newQ10h = 2.9,
-																		 NTreal reversalPotential = 115
+																		 NTreal reversalPotential = 115,
+																		 NTreal timeStep = 0.1
   																	 );
 NTBP_hranvier_sodium_multi_current_o(const NTBP_hranvier_sodium_multi_current_o & original);
 const NTBP_hranvier_sodium_multi_current_o & operator= (const NTBP_hranvier_sodium_multi_current_o & right);
@@ -89,7 +90,7 @@ NTreturn StepCurrent();
 NTreal OpenChannels() const;
 NTreal OpenChannelsRatio() const;
 NTreal ComputeConductance();
-void ComputeRateConstants(NTreal vM /* in mV */);
+void ComputeRateConstants();
 void ShowChannelStatePopulation() { channelsPtr->ShowStates(); }
 void Show() {  cout << " alphaM= " << alphaM << "\t betaM= " << betaM << "\t openRatio= " << ((double)channelsPtr->NumOpen())/channelsPtr->_numChannels()
 				   << "\t alphaH= " << alphaH << "\t betaH= " << betaH << "\t openNum= " << channelsPtr->NumOpen();}

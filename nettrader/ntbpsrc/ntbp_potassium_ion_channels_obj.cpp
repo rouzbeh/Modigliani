@@ -61,10 +61,10 @@ NTBP_ion_channels_o(numNewChannels, 5)
 }
 
 /* ***      COPY AND ASSIGNMENT	***/ 
-NTBP_potassium_ion_channels_o::NTBP_potassium_ion_channels_o(const NTBP_potassium_ion_channels_o & original)
+/*NTBP_potassium_ion_channels_o::NTBP_potassium_ion_channels_o(const NTBP_potassium_ion_channels_o & original)
 {
  // add assignment code here
-}
+}*/
 
 const NTBP_potassium_ion_channels_o&  
 NTBP_potassium_ion_channels_o::operator= (const NTBP_potassium_ion_channels_o & right)

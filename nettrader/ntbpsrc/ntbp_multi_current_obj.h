@@ -85,7 +85,7 @@ NTreal _conductivity() const { return conductivity; }
 /* conductivity if all channels open in mSiemens/cm^2, */
 NTreal _maxConductivity() const {return density /* num/muMeter^2 */ * conductivity /* mSiemens */* 1.0e8 /* muMeter^2/cm^2 */;}
  /**  */
-bool ComputeGillespieStep() {cerr <<"NTBP_multi_current_o::ComputeGillespieStep()" << endl; return channelsPtr->GillespieStep();}
+bool ComputeGillespieStep() {cerr <<"NTBP_multi_current_o::ComputeGillespieStep()" << endl; return channelsPtr->GillespieStep(voltage);}
 void UpdateNumChannels() { numChannels = (NTsize) ceil(density*area); }
 NTsize _numChannels() const { return numChannels; }
 /** Number of total ionic channels */
@@ -94,6 +94,11 @@ NTreal OpenChannelsRatio() const { return OpenChannels()/NumChannels(); }
 NTreal _vBase() const { return vBase;}
 // Dangerous: since cached values are not automatically recomputed in derived classes
 //void Set_vBase(NTreal newVBase /* mV */){ vBase = newVBase; }
+NTBP_ion_channels_o * getChannelsPtr(){
+	return channelsPtr;
+}
+
+
 /* ***  Data                 ***/
 protected:
 /* ***  Methods              ***/
@@ -108,6 +113,7 @@ private:
 /* ***  Data                 ***/
 NTsize numChannels;
 NTreal area; // in mumeter^2
+bool ratesComputed;
 
 };
 

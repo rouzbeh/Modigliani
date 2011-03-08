@@ -64,20 +64,21 @@ NTreal NTBP_hranvier_sodium_multi_current_o::betaHvec[15000];
 NTBP_hranvier_sodium_multi_current_o::NTBP_hranvier_sodium_multi_current_o(
 		NTreal newArea, NTreal newDensity, NTreal newConductivity,
 		NTreal newVBase, NTreal newQ10m, NTreal newQ10h,
-		NTreal reversalPotential) :
-	NTBP_multi_current_o(reversalPotential /* in mV */,
-			newDensity /* channels per mu^2 */, newArea /* in mu^2 */,
-			newConductivity /* in mS per channel  */, newVBase /* mV */
-	) {
+		NTreal reversalPotential, NTreal newTimeStep) :
+			NTBP_multi_current_o(reversalPotential /* in mV */,
+					newDensity /* channels per mu^2 */, newArea /* in mu^2 */,
+					newConductivity /* in mS per channel  */, newVBase /* mV */
+			) {
 	UpdateNumChannels();
-	channelsPtr = new NTBP_sodium_ion_channels_o(_numChannels());
+	channelsPtr = new NTBP_ion_channels_o(_numChannels(), 8, newTimeStep);
+	channelsPtr->setAsOpenState(4);
 	noiseM = 0;
 	noiseH = 0;
 
 	baseTemp = 20.0; // C
 	q10m = newQ10m;
 	q10h = newQ10h;
-
+	setTimeStep(newTimeStep);
 	NTreal vTmp = 0;
 
 	if (false == initTableLookUp) {
@@ -91,20 +92,21 @@ NTBP_hranvier_sodium_multi_current_o::NTBP_hranvier_sodium_multi_current_o(
 		initTableLookUp = true;
 	}
 
-	ComputeRateConstants(0);
 	m = alphaM / (alphaM + betaM);
 	h = alphaH / (alphaH + betaH);
-
-	channelsPtr->SteadyStateDistribution();
-
+	ComputeRateConstants();
+	channelsPtr->SteadyStateDistribution(voltage);
 }
 
 /* ***      COPY AND ASSIGNMENT	***/
 NTBP_hranvier_sodium_multi_current_o::NTBP_hranvier_sodium_multi_current_o(
 		const NTBP_hranvier_sodium_multi_current_o & original) :
-	NTBP_multi_current_o(original._reversalPotential(), original._density(),
-			original._area(), original._conductivity()) {
-	channelsPtr = new NTBP_sodium_ion_channels_o(original._numChannels());
+			NTBP_multi_current_o(original._reversalPotential(),
+					original._density(), original._area(),
+					original._conductivity()) {
+	channelsPtr = new NTBP_ion_channels_o(original._numChannels(), 8);
+	channelsPtr->setAsOpenState(4);
+
 }
 
 const NTBP_hranvier_sodium_multi_current_o&
@@ -112,7 +114,9 @@ NTBP_hranvier_sodium_multi_current_o::operator=(
 		const NTBP_hranvier_sodium_multi_current_o & right) {
 	if (this == &right)
 		return *this; // Gracefully handle self assignment
-	channelsPtr = new NTBP_sodium_ion_channels_o(right._numChannels());
+	channelsPtr = new NTBP_ion_channels_o(right._numChannels(), 8);
+	channelsPtr->setAsOpenState(4);
+
 	return *this;
 }
 
@@ -133,35 +137,21 @@ inline NTreturn NTBP_hranvier_sodium_multi_current_o::StepCurrent() {
 	NTreal tmpM = 0;
 	NTreal tmpH = 0;
 	NTsize counter = 0;
+	if (!channelsPtr->getRatesComputed()){
+		ComputeRateConstants();
+	}
 
 	switch (_simulationMode()) {
 	case NTBP_BINOMIALPOPULATION: {
-		vector<NTreal> vec(4);
-		vec[0] = alphaM;
-		vec[1] = betaM;
-		vec[2] = alphaH;
-		vec[3] = betaH;
-		NT_ASSERT( (channelsPtr)->UpdateStateProb(vec) == NT_SUCCESS );
-		return (channelsPtr->BinomialStep());
+		return (channelsPtr->BinomialStep(voltage));
 	}
 		break;
 	case NTBP_GILLESPIE: {
-		vector<NTreal> vec(4);
-		vec[0] = alphaM;
-		vec[1] = betaM;
-		vec[2] = alphaH;
-		vec[3] = betaH;
-		return (channelsPtr)->UpdateStateProb(vec);
+		return NT_SUCCESS;
 	}
 		break;
 	case NTBP_SINGLECHANNEL: {
-		vector<NTreal> vec(4);
-		vec[0] = alphaM;
-		vec[1] = betaM;
-		vec[2] = alphaH;
-		vec[3] = betaH;
-		NT_ASSERT( (channelsPtr)->UpdateStateProb(vec) == NT_SUCCESS );
-		return (channelsPtr->Step());
+		return (channelsPtr->Step(voltage));
 	}
 		break;
 	case NTBP_LANGEVIN: {
@@ -170,8 +160,8 @@ inline NTreturn NTBP_hranvier_sodium_multi_current_o::StepCurrent() {
 		NT_ASSERT(m>=0 && m<=1);
 		do {
 			counter++;
-			tmpM = _timeStep() * normalRnd.RndVal() * sqrt((alphaM * (1 - m)
-					+ betaM * m) / _numChannels());
+			tmpM = _timeStep() * normalRnd.RndVal() * sqrt(
+					(alphaM * (1 - m) + betaM * m) / _numChannels());
 			if (counter > 1 && counter < 1024)
 				cerr << "NaM=" << counter << endl;
 			else if (counter >= 1024) {
@@ -189,8 +179,8 @@ inline NTreturn NTBP_hranvier_sodium_multi_current_o::StepCurrent() {
 		NT_ASSERT(h>=0 && h<= 1);
 		do {
 			counter++;
-			tmpH = _timeStep() * normalRnd.RndVal() * sqrt((alphaH * (1 - h)
-					+ betaH * h) / _numChannels());
+			tmpH = _timeStep() * normalRnd.RndVal() * sqrt(
+					(alphaH * (1 - h) + betaH * h) / _numChannels());
 			if (counter > 1 && counter < 1024)
 				cerr << "NaH=" << counter << endl;
 			else if (counter >= 1024) {
@@ -224,31 +214,72 @@ inline NTreturn NTBP_hranvier_sodium_multi_current_o::StepCurrent() {
 	return NT_FAIL;
 }
 
-inline void NTBP_hranvier_sodium_multi_current_o::ComputeRateConstants(
-		NTreal vM /* in mV */) {
-	//	cerr << "NTBP_hranvier_sodium_multi_current_o::ComputeRateConstants" << endl;
+inline void NTBP_hranvier_sodium_multi_current_o::ComputeRateConstants() {
+	cerr << "NTBP_hranvier_sodium_multi_current_o::ComputeRateConstants" << endl;
 	NTreal temp = _temperature();
-
-	NTreal q10Factor = 1.0;
+	NTreal deltaT = _timeStep();
+	NTreal q10FactorM = NTBP_TemperatureRateRelation(temp, baseTemp /* C */,
+			q10m);
+	NTreal q10FactorH = NTBP_TemperatureRateRelation(temp, baseTemp /* C */,
+			q10h);
 	NTsize index = 0;
-	if ((vM < -20) || (vM > 130.0)) {
-		q10Factor = NTBP_TemperatureRateRelation(temp, baseTemp /* C */, q10m);
-		alphaM = q10Factor * AlphaM(vM);
-		betaM = q10Factor * BetaM(vM);
+	NTreal vM = -100;
 
-		q10Factor = NTBP_TemperatureRateRelation(temp, baseTemp /* C */, q10h);
-		alphaH = q10Factor * AlphaH(vM);
-		betaH = q10Factor * BetaH(vM);
-	} else {
-		index = (NTsize) floor((vM + 20) * 100.0);
-		q10Factor = NTBP_TemperatureRateRelation(temp, baseTemp /* C */, q10m);
-		alphaM = q10Factor * alphaMvec[index];
-		betaM = q10Factor * betaMvec[index];
+	for (NTsize i = 0; i < 3000; i++) {
+		vM += 0.1;
+		if ((vM < -20) || (vM > 130.0)) {
+			alphaM = q10FactorM * AlphaM(vM);
+			betaM = q10FactorM * BetaM(vM);
 
-		q10Factor = NTBP_TemperatureRateRelation(temp, baseTemp /* C */, q10h);
-		alphaH = q10Factor * alphaHvec[index];
-		betaH = q10Factor * betaHvec[index];
+
+			alphaH = q10FactorH * AlphaH(vM);
+			betaH = q10FactorH * BetaH(vM);
+		} else {
+			index = (NTsize) floor((vM + 20) * 100.0);
+			alphaM = q10FactorM * alphaMvec[index];
+			betaM = q10FactorM * betaMvec[index];
+
+			alphaH = q10FactorH * alphaHvec[index];
+			betaH = q10FactorH * betaHvec[index];
+		}
+
+		NTreal alphaMdeltaT = alphaM * deltaT;
+		NTreal betaMdeltaT = betaM * deltaT;
+		NTreal alphaHdeltaT = alphaH * deltaT;
+		NTreal betaHdeltaT = betaH * deltaT;
+
+		channelsPtr->setTransactionProbability(i, 0, 1, 3 * alphaMdeltaT);
+		channelsPtr->setTransactionProbability(i, 1, 2, 2 * alphaMdeltaT);
+		channelsPtr->setTransactionProbability(i, 2, 3, alphaMdeltaT);
+		channelsPtr->setTransactionProbability(i, 4, 5,
+				channelsPtr->getTransactionProbability(i, 0, 1));
+		channelsPtr->setTransactionProbability(i, 5, 6,
+				channelsPtr->getTransactionProbability(i, 1, 2));
+		channelsPtr->setTransactionProbability(i, 6, 7,
+				channelsPtr->getTransactionProbability(i, 2, 3));
+
+		channelsPtr->setTransactionProbability(i, 7, 6, 3 * betaMdeltaT);
+		channelsPtr->setTransactionProbability(i, 6, 5, 2 * betaMdeltaT);
+		channelsPtr->setTransactionProbability(i, 5, 4, betaMdeltaT);
+		channelsPtr->setTransactionProbability(i, 3, 2,
+				channelsPtr->getTransactionProbability(i, 7, 6));
+		channelsPtr->setTransactionProbability(i, 2, 1,
+				channelsPtr->getTransactionProbability(i, 6, 5));
+		channelsPtr->setTransactionProbability(i, 1, 0,
+				channelsPtr->getTransactionProbability(i, 5, 4));
+
+		channelsPtr->setTransactionProbability(i, 0, 4, betaHdeltaT);
+		channelsPtr->setTransactionProbability(i, 1, 5, betaHdeltaT);
+		channelsPtr->setTransactionProbability(i, 2, 6, betaHdeltaT);
+		channelsPtr->setTransactionProbability(i, 3, 7, betaHdeltaT);
+
+		channelsPtr->setTransactionProbability(i, 4, 0, alphaHdeltaT);
+		channelsPtr->setTransactionProbability(i, 5, 1, alphaHdeltaT);
+		channelsPtr->setTransactionProbability(i, 6, 2, alphaHdeltaT);
+		channelsPtr->setTransactionProbability(i, 7, 3, alphaHdeltaT);
 	}
+
+	channelsPtr->setRatesComputed(true);
 }
 
 /**  */
@@ -287,8 +318,9 @@ inline NTreal NTBP_hranvier_sodium_multi_current_o::ComputeConductance() {
 		break;
 	case NTBP_LANGEVIN:
 	case NTBP_DETERMINISTIC:
-		return Set_conductance(_maxConductivity() /* mS/cm^2 */* m * m * m * h
-				* _area() /* muMeter^2 */* 1.0e-8 /* cm^2/muMeter^2 */);
+		return Set_conductance(
+				_maxConductivity() /* mS/cm^2 */* m * m * m * h * _area()
+				/* muMeter^2 */* 1.0e-8 /* cm^2/muMeter^2 */);
 		break;
 	case NTBP_NOISYMEAN: {
 		NTreal mean = m * m * m * h;
@@ -299,7 +331,7 @@ inline NTreal NTBP_hranvier_sodium_multi_current_o::ComputeConductance() {
 		mean += numAddOpening - numAddClosing;
 		cerr << "NOT IMPLEMENTED CORRECTLY" << endl;
 		return Set_conductance(_maxConductivity() /* mS/cm^2 */* mean * _area()
-				/* muMeter^2 */* 1.0e-8 /* cm^2/muMeter^2 */);
+		/* muMeter^2 */* 1.0e-8 /* cm^2/muMeter^2 */);
 		break;
 	}
 	default:
@@ -312,7 +344,7 @@ inline NTreal NTBP_hranvier_sodium_multi_current_o::ComputeConductance() {
 
 inline NTreal NTBP_hranvier_sodium_multi_current_o::ComputeChannelStateTimeConstant() const {
 	// cerr << "NTBP_hranvier_sodium_multi_current_o::ComputeChannelStateTimeConstant()" << endl;
-	return channelsPtr->ComputeChannelStateTimeConstant();
+	return channelsPtr->ComputeChannelStateTimeConstant(voltage);
 }
 
 void NTBP_hranvier_sodium_multi_current_o::ShowParam() const {

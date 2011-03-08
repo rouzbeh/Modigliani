@@ -83,7 +83,7 @@ public:
 	NTreal OpenChannels() const;
 	NTreal OpenChannelsRatio() const;
 	NTreal ComputeConductance();
-	void ComputeRateConstants(NTreal vM /* in mV */);
+	void ComputeRateConstants();
 	void ShowChannelStatePopulation() {
 		channelsPtr->ShowStates();
 	}

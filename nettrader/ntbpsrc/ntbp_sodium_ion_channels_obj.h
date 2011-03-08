@@ -68,20 +68,11 @@ NTBP_sodium_ion_channels_o(const NTBP_sodium_ion_channels_o & original);
 const NTBP_sodium_ion_channels_o & operator= (const NTBP_sodium_ion_channels_o & right);
 virtual ~NTBP_sodium_ion_channels_o();
 /* ***  Methods              ***/  
-NTreturn Step();
-void ShowStates() const;
-NTsize NumOpen() const { return stateCounterVec[4];}// because 0 is num total channels
-NTsize NumClosed() const { return _numChannels() - NumOpen();}
-/**  */
-NTreal ComputeChannelStateTimeConstant( ) const;
-/**  */
 NTreturn UpdateStateProb( vector < NTreal > rateConstVec);
 /**  */
-bool ComputeGillespieStep(NTsize stateId);
 /** set the steady state distribution of channel states for current rate constants, DIRTY HACK*/
 NTreturn SteadyStateDistribution();
 /** No descriptions */
-NTreturn BinomialStep();
 /* ***  Data                 ***/  
 protected:
 /* ***  Methods              ***/  

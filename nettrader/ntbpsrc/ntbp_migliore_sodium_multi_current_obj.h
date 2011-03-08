@@ -81,7 +81,7 @@ virtual ~NTBP_migliore_sodium_multi_current_o();
    NTreturn StepCurrent();
    NTreal OpenChannels() const;
    NTreal ComputeConductance();
-   void ComputeRateConstants(NTreal vM /* in mV */);
+   void ComputeRateConstants();
    void ShowChannelStatePopulation() { channelsPtr->ShowStates(); }
    void Show() {  cout << " alphaM= " << alphaM << "\t betaM= " << betaM << "\t openRatio= " << ((double)channelsPtr->NumOpen())/channelsPtr->_numChannels()
 				   << "\t alphaH= " << alphaH << "\t betaH= " << betaH << "\t openNum= " << channelsPtr->NumOpen();}
