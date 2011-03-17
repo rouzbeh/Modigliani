@@ -122,10 +122,10 @@ public:
 
 	NTreturn Step(NTreal newVm /* in mV */) {
 		//ComputeRateConstants(newVm); /* UpdateRateConstantsAND*/
+		voltage = newVm;
 		StepCurrent();
 		ComputeConductance();
 		ComputeCurrent(newVm);
-		voltage = newVm;
 		return NT_SUCCESS;
 	}
 	/* in nA */

@@ -56,7 +56,8 @@ NTBP_membrane_current_o *
 NTBP_create_na_channel_ptr(NTsize sodiumModel, NTsize algorithm,
 		NTreal chDensity /* mum^-2 */, NTreal chConductance /* pS */,
 		NTreal q10m, NTreal q10h, NTreal temperature /* C */,
-		NTreal compArea /* mum^2 */, NTreal reversalPotential = 115 /*mV*/,
+		NTreal compArea /* mum^2 */, NTreal timeStep,
+		NTreal reversalPotential = 115 /*mV*/,
 		NTreal vBase = -84);
 NTBP_membrane_current_o *
 NTBP_create_k_channel_ptr(NTsize potassiumModel, NTsize algorithm,

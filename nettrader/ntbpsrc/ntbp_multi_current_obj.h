@@ -100,6 +100,8 @@ NTBP_ion_channels_o * getChannelsPtr(){
 
 
 /* ***  Data                 ***/
+public:
+NTBP_ion_channels_o * channelsPtr;
 protected:
 /* ***  Methods              ***/
 /* ***  Data                 ***/
@@ -107,7 +109,6 @@ static NT_uniform_rnd_dist_o uniformRnd;
 NTreal conductivity; // in mSiemens per channel
 NTreal density; // channels per muMeter^2
 NTreal vBase; // mV
-NTBP_ion_channels_o * channelsPtr;
 private:
 /* ***  Methods              ***/
 /* ***  Data                 ***/

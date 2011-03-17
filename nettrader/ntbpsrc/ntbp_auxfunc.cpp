@@ -44,7 +44,7 @@ NTreal NTBP_corrected_channel_density(NTreal chDensity, NTreal compArea) {
 NTBP_membrane_current_o *
 NTBP_create_na_channel_ptr(NTsize sodiumModel, NTsize sodiumAlg,
 		NTreal sodiumDensity, NTreal sodiumConductance, NTreal q10m,
-		NTreal q10h, NTreal temperature, NTreal area, NTreal reversalPotential,
+		NTreal q10h, NTreal temperature, NTreal area, NTreal timeStep, NTreal reversalPotential,
 		NTreal vBase) {
 
 	NTreal indSodiumDensity = NTBP_corrected_channel_density(sodiumDensity,
@@ -66,7 +66,7 @@ NTBP_create_na_channel_ptr(NTsize sodiumModel, NTsize sodiumAlg,
 		/* hRanvier */
 		tmpNaPtr = new NTBP_hranvier_sodium_multi_current_o(area,
 				indSodiumDensity, sodiumConductance * 1e-9, /* mSiemens per channel */
-				vBase, q10m, q10h, reversalPotential);
+				vBase, q10m, q10h, reversalPotential, timeStep);
 		cout << "Using human Ranvier Na model." << endl;
 		break;
 	case 3:

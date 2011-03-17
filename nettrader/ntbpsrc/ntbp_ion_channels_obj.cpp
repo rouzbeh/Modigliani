@@ -36,7 +36,7 @@ NT_binomial_rnd_dist_o NTBP_ion_channels_o::binomRnd(0.0, 1);
 NTBP_ion_channels_o::NTBP_ion_channels_o(NTsize numNewChannels,
 		NTsize numNewStates, NTreal newTimeStep) :
 	NTBP_object_o(),
-			_probMatrices(boost::extents[3000][numNewStates][numNewStates]) {
+			_probMatrices(boost::extents[5000][numNewStates][numNewStates]) {
 	NT_ASSERT(numNewChannels >= 0);
 	setTimeStep(newTimeStep);
 	numChannels = numNewChannels;
@@ -153,6 +153,7 @@ void NTBP_ion_channels_o::ShowStates() const {
 	cout << "\tChannel:";
 	for (NTsize ll = 1; ll < _numStates() + 1; ll++)
 		cout << stateCounterVec[ll] << " ";
+	cout << endl;
 }
 
 /*
@@ -162,6 +163,7 @@ NTsize NTBP_ion_channels_o::NumOpen() const {
 	NTsize count = 0;
 	for (vector<NTsize>::const_iterator it = openStates.begin(); it
 			!= openStates.end(); ++it) {
+		int test = *it;
 		count += stateCounterVec[*it];
 	}
 	return count;
@@ -193,7 +195,7 @@ NTreal NTBP_ion_channels_o::ComputeChannelStateTimeConstant(NTreal voltage) cons
 bool NTBP_ion_channels_o::ComputeGillespieStep(NTsize stateId, NTreal voltage) {
 	cerr << "NTBP_ion_channels_o::ComputeGillespieStep" << endl;
 	NT_uniform_rnd_dist_o rnd;
-	int index = (voltage + 100) / 1000;
+	int index = (voltage + 100) * 1000;
 
 	NTsize oldOpen = NumOpen();
 	NTreal deltaT = _timeStep();
@@ -245,30 +247,28 @@ bool NTBP_ion_channels_o::ComputeGillespieStep(NTsize stateId, NTreal voltage) {
 void NTBP_ion_channels_o::setTransactionProbability(NTreal voltage,
 		NTsize start, NTsize stop, NTreal probability) {
 	int index = (voltage * 10) + 1000;
-	_probMatrices[index][start][stop] = probability;
+	_probMatrices[index][start-1][stop-1] = probability;
 }
 
 NTreal NTBP_ion_channels_o::getTransactionProbability(NTreal voltage,
 		NTsize start, NTsize stop) {
-	int index = (voltage * 10) + 1000;
-	return _probMatrices[index][start][stop];
+	NTsize index = (voltage * 10) + 1000;
+	return getTransactionProbability(index, start, stop);
 }
 
 void NTBP_ion_channels_o::setTransactionProbability(NTsize index, NTsize start,
 		NTsize stop, NTreal probability) {
-	_probMatrices[index][start][stop] = probability;
+	_probMatrices[index][start-1][stop-1] = probability;
 }
 
 NTreal NTBP_ion_channels_o::getTransactionProbability(NTsize index,
 		NTsize start, NTsize stop) {
-	return _probMatrices[index][start][stop];
+	return _probMatrices[index][start-1][stop-1];
 }
 
 inline NTreturn NTBP_ion_channels_o::BinomialStep(NTreal voltage) {
 	vector<NTsize> oldStateCounterVec = stateCounterVec;
 	vector<NTint> newStateCounterVec(stateCounterVec.size());
-	int index = (voltage + 100) / 1000;
-
 	for (NTsize ll = 1; ll < _numStates() + 1; ll++) {
 		newStateCounterVec[ll] = stateCounterVec[ll];
 	}
@@ -280,16 +280,18 @@ inline NTreturn NTBP_ion_channels_o::BinomialStep(NTreal voltage) {
 		loop = false;
 		loopCounter++;
 
-		for (NTsize currentState = 0; currentState < _numStates(); currentState++) {
-			for (NTsize nextState = 0; nextState < _numStates(); nextState++) {
+		for (NTsize currentState = 1; currentState < _numStates()+1; currentState++) {
+			for (NTsize nextState = 1; nextState < _numStates()+1; nextState++) {
 				if (nextState == currentState
-						|| !_probMatrices[index][currentState][nextState])
+						|| getTransactionProbability(voltage, currentState, nextState)==0)
 					continue;
+				NTreal prob = getTransactionProbability(voltage, currentState, nextState);
+				NTsize numberOfChannels = oldStateCounterVec[currentState];
 				NTreal delta = binomRnd.Binomial(
-						_probMatrices[index][currentState][nextState],
-						oldStateCounterVec[currentState + 1]);
-				newStateCounterVec[nextState + 1] += delta;
-				newStateCounterVec[currentState + 1] -= delta;
+						prob,
+						oldStateCounterVec[currentState]);
+				newStateCounterVec[nextState] += delta;
+				newStateCounterVec[currentState] -= delta;
 			}
 		}
 
@@ -297,7 +299,7 @@ inline NTreturn NTBP_ion_channels_o::BinomialStep(NTreal voltage) {
 		NTsize check = 0;
 		for (NTsize ll = 1; ll < _numStates() + 1; ll++) {
 			check += newStateCounterVec[ll];
-			/** if this bails out here it means that the step sizes (i.e. probabilities) are to large */
+			/** if this bails out here it means that the step sizes (i.e. probabilities) are too large */
 			if (newStateCounterVec[ll] < 0)
 				loop = true;
 		}
@@ -312,8 +314,6 @@ inline NTreturn NTBP_ion_channels_o::BinomialStep(NTreal voltage) {
 			stateCounterVec[ll] = newStateCounterVec[ll];
 		}
 	}
-	//	NT_ASSERT(newStateCounterVec.size() == 9);
-	//	NT_ASSERT(check == _numChannels());
 	return NT_SUCCESS;
 }
 

@@ -270,35 +270,35 @@ inline void NTBP_multi_sodium_steadystate_timeconstant_current_o::ComputeRateCon
 		NTreal alphaHdeltaT = alphaH * deltaT;
 		NTreal betaHdeltaT = betaH * deltaT;
 
-		channelsPtr->setTransactionProbability(i, 0, 1, 2 * alphaMdeltaT);
-		channelsPtr->setTransactionProbability(i, 1, 2, 1 * alphaMdeltaT);
-		channelsPtr->setTransactionProbability(i, 2, 3, alphaMdeltaT);
-		channelsPtr->setTransactionProbability(i, 4, 5,
-				channelsPtr->getTransactionProbability(i, 0, 1));
+		channelsPtr->setTransactionProbability(i, 1, 2, 3 * alphaMdeltaT);
+		channelsPtr->setTransactionProbability(i, 2, 3, 2 * alphaMdeltaT);
+		channelsPtr->setTransactionProbability(i, 3, 4, alphaMdeltaT);
 		channelsPtr->setTransactionProbability(i, 5, 6,
 				channelsPtr->getTransactionProbability(i, 1, 2));
 		channelsPtr->setTransactionProbability(i, 6, 7,
 				channelsPtr->getTransactionProbability(i, 2, 3));
+		channelsPtr->setTransactionProbability(i, 7, 8,
+				channelsPtr->getTransactionProbability(i, 3, 4));
 
+		channelsPtr->setTransactionProbability(i, 8, 7, 3 * betaMdeltaT);
 		channelsPtr->setTransactionProbability(i, 7, 6, 2 * betaMdeltaT);
-		channelsPtr->setTransactionProbability(i, 6, 5, 1 * betaMdeltaT);
-		channelsPtr->setTransactionProbability(i, 5, 4, betaMdeltaT);
+		channelsPtr->setTransactionProbability(i, 6, 5, betaMdeltaT);
+		channelsPtr->setTransactionProbability(i, 4, 3,
+				channelsPtr->getTransactionProbability(i, 8, 7));
 		channelsPtr->setTransactionProbability(i, 3, 2,
 				channelsPtr->getTransactionProbability(i, 7, 6));
 		channelsPtr->setTransactionProbability(i, 2, 1,
 				channelsPtr->getTransactionProbability(i, 6, 5));
-		channelsPtr->setTransactionProbability(i, 1, 0,
-				channelsPtr->getTransactionProbability(i, 5, 4));
 
-		channelsPtr->setTransactionProbability(i, 0, 4, betaHdeltaT);
 		channelsPtr->setTransactionProbability(i, 1, 5, betaHdeltaT);
 		channelsPtr->setTransactionProbability(i, 2, 6, betaHdeltaT);
 		channelsPtr->setTransactionProbability(i, 3, 7, betaHdeltaT);
+		channelsPtr->setTransactionProbability(i, 4, 8, betaHdeltaT);
 
-		channelsPtr->setTransactionProbability(i, 4, 0, alphaHdeltaT);
 		channelsPtr->setTransactionProbability(i, 5, 1, alphaHdeltaT);
 		channelsPtr->setTransactionProbability(i, 6, 2, alphaHdeltaT);
 		channelsPtr->setTransactionProbability(i, 7, 3, alphaHdeltaT);
+		channelsPtr->setTransactionProbability(i, 8, 4, alphaHdeltaT);
 	}
 }
 
