@@ -141,29 +141,17 @@ NTreturn NTBP_membrane_compartment_sequence_o::Step() {
 				/ compartmentVec[ll]->_compartmentMembraneCapacitance())
 				* (compartmentVec[ll]->CompartmentMembraneNetCurrent());
 
-		cerr << "capacitance is :" <<compartmentVec[ll]->_compartmentMembraneCapacitance()<<endl;
-		cerr << "current is :" <<compartmentVec[ll]->CompartmentMembraneNetCurrent()<<endl;
-		cerr << "Omega is : " << omega << endl;
-		cerr << "Timestep is : " << _timeStep() << endl;
 		rVec[ll] = compartmentVec[ll]->_vM() + omega; // compute RHS of finite difference equation
 		// TODO it appears to be correct, but why is omega ADDED and not subtracted ?
 	}
 
 	vector<NTreal> vVec = NumericalRecipesSolveTriDiag(lVec, dVec, uVec, rVec);
-
-	for (ll = 0; ll < numCompartments; ll++) {
-		cerr << "vVec is : " << vVec[ll] << endl;
-		cerr << "lVec is : " << lVec[ll] << endl;
-		cerr << "dvec is : " << dVec[ll] << endl;
-		cerr << "uVec is : " << uVec[ll] << endl;
-		cerr << "rVec is : " << rVec[ll] << endl;
-	}
 	/* set new voltage */
-
 	for (ll = 0; ll < numCompartments; ll++) {
+		cerr << vVec[ll] << "\t";
 		compartmentVec[ll]->Step(vVec[ll]); // Step also advances the voltage -> ignore by using vVec
 	}
-
+cerr << endl;
 	return NT_SUCCESS;
 }
 
@@ -211,7 +199,6 @@ NTreturn NTBP_membrane_compartment_sequence_o::Init() {
 			* (compartmentVec[0]->_area()
 					/ compartmentVec[0]->CompartmentMembraneCapacitance());
 
-	cerr << "sigma is :" << sigma << endl;
 	uVec[0] = -2.0 * sigma; // vonNeumann boundary conditions
 	dVec[0] = 2.0 * sigma + 1.0;
 

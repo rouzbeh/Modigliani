@@ -92,8 +92,8 @@ NTreal OpenChannelsRatio() const;
 NTreal ComputeConductance();
 void ComputeRateConstants();
 void ShowChannelStatePopulation() { channelsPtr->ShowStates(); }
-void Show() {  cout << " alphaM= " << alphaM << "\t betaM= " << betaM << "\t openRatio= " << ((double)channelsPtr->NumOpen())/channelsPtr->_numChannels()
-				   << "\t alphaH= " << alphaH << "\t betaH= " << betaH << "\t openNum= " << channelsPtr->NumOpen();}
+void Show() {  cout << " alphaM= " << AlphaM(voltage) << "\t betaM= " << BetaM(voltage) << "\t openRatio= " << ((double)channelsPtr->NumOpen())/channelsPtr->_numChannels()
+				   << "\t alphaH= " << AlphaH(voltage) << "\t betaH= " << BetaH(voltage) << "\t openNum= " << channelsPtr->NumOpen();}
 NTreal AlphaM(NTreal vM /* in mV */) { 	 vM += _vBase(); return 1.86*(vM+18.4)/(1-exp((-18.4-vM)/10.3));}
 NTreal BetaM(NTreal vM /* in mV */) { 	vM += _vBase(); return 0.0860*(-22.7-vM)/(1-exp((vM+22.7)/9.16)); }
 NTreal AlphaH(NTreal vM /* in mV */) { 	vM += _vBase(); return 0.0336*(-111.0-vM)/(1-exp((vM+111.0)/11.0)); }
@@ -112,17 +112,17 @@ static NT_gaussian_rnd_dist_o normalRnd; // notice, sometimes a linker error is 
 static bool initTableLookUp;
 
 NTreal baseTemp; // C
-NTreal alphaM;
+/*NTreal alphaM;
 NTreal betaM;
-NTreal m;
+NTreal m;*/
 NTreal noiseM;
 static NTreal alphaMvec[15000];
 static NTreal betaMvec[15000];
 NTreal q10m;
 
-NTreal alphaH;
+/*NTreal alphaH;
 NTreal betaH;
-NTreal h;
+NTreal h;*/
 NTreal noiseH;
 static NTreal alphaHvec[15000];
 static NTreal betaHvec[15000];

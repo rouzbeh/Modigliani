@@ -162,10 +162,10 @@ NTBP_membrane_compartment_o::WeightedConductance() const
 NTreturn
 NTBP_membrane_compartment_o::AttachCurrent(NTBP_membrane_current_o * currentPtr, NTBPcurrentType type = NTBP_IONIC)
 {
-	currentPtr->Set_temperature(temperature);
 	currentPtr->Set_voltage(vM);
-	currentPtr->UpdateTimeStep(_timeStep());
-	currentPtr->StepNTBP();
+	currentPtr->setTimeStep(_timeStep());
+	currentPtr->Set_temperature(temperature);
+
 	switch (type){
 		case NTBP_LEAK:
 			currentVec.push_back(currentPtr);

@@ -541,7 +541,7 @@ void NTG_graph_o::ShowAdjacencyMatrix()
     Matrix<int> aMtr(nodeIdManager.LargestIssuedId()+1,nodeIdManager.LargestIssuedId()+1,0);
     sort(E.begin(), E.end(), NTG_graph_sort_edges_o()); //2DO is this really needed ?
 
-    for (NTid ll=1; ll<=nodeIdManager.LargestIssuedId(); ll++)
+    for (int ll=1; ll<=nodeIdManager.LargestIssuedId(); ll++)
     {
         if (InGraph(ll) == true) {
             aMtr[ll][0] = ll;
@@ -551,14 +551,14 @@ void NTG_graph_o::ShowAdjacencyMatrix()
             aMtr[0][ll] = -1;
             for (NTid ls =0; ls <= nodeIdManager.LargestIssuedId(); ls++) {
                 aMtr[ll][ls] = -1;
-                aMtr[ls][ll] = -1;
+                aMtr[(int)ls][ll] = -1;
             }
         }
     }
 
     NTG_EdgeContainer::iterator itE;
     for (itE = E.begin(); itE != E.end(); itE++) {
-        (aMtr[(*itE).Source()][(*itE).Target()])++;
+        (aMtr[(int)(*itE).Source()][(int)(*itE).Target()])++;
     }
     cout << "Showing adjacency matrix (first row and column indicate node id, negative values indicate unused node ids)." << endl;
     cout << aMtr;
@@ -574,7 +574,7 @@ NTG_AdjacencyMatrix NTG_graph_o::AdjacencyMatrix()
     NTG_EdgeContainer::iterator itE;
     for (itE = E.begin(); itE != E.end(); itE++) {
         //	cerr << "Edge  ("<<(*itE).Source()<<","<<(*itE).Target()<<") touched." << endl;
-        (aMtr[(*itE).Source()-1][(*itE).Target()-1]) = true;
+        (aMtr[(int)(*itE).Source()-1][(int)(*itE).Target()-1]) = true;
     }
 
     return aMtr;

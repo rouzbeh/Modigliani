@@ -151,10 +151,10 @@ inline NTreal NTBP_hranvier_potassium_multi_current_o::OpenChannels() const {
 	case NTBP_BINOMIALPOPULATION:
 	case NTBP_GILLESPIE:
 	case NTBP_SINGLECHANNEL:
+	case NTBP_DETERMINISTIC:
 		return channelsPtr->NumOpen();
 		break;
 	case NTBP_LANGEVIN:
-	case NTBP_DETERMINISTIC:
 		return n * n * n * n * NumChannels();
 	default:
 		cerr
@@ -174,10 +174,10 @@ inline NTreal NTBP_hranvier_potassium_multi_current_o::ComputeConductance() {
 	case NTBP_GILLESPIE:
 	case NTBP_SINGLECHANNEL:
 	case NTBP_BINOMIALPOPULATION:
+	case NTBP_DETERMINISTIC:
 		return Set_conductance(channelsPtr->NumOpen() * conductivity);
 		break;
 	case NTBP_LANGEVIN:
-	case NTBP_DETERMINISTIC:
 		return Set_conductance(
 				_maxConductivity() /* mS/cm^2 */* n * n * n * n * _area()
 				/* muMeter^2 */* 1.0e-8 /* cm^2/muMeter^2 */);
