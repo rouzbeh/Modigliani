@@ -65,10 +65,10 @@ NTBP_hranvier_sodium_multi_current_o::NTBP_hranvier_sodium_multi_current_o(
 		NTreal newArea, NTreal newDensity, NTreal newConductivity,
 		NTreal newVBase, NTreal newQ10m, NTreal newQ10h,
 		NTreal reversalPotential, NTreal newTimeStep) :
-			NTBP_multi_current_o(reversalPotential /* in mV */,
-					newDensity /* channels per mu^2 */, newArea /* in mu^2 */,
-					newConductivity /* in mS per channel  */, newVBase /* mV */
-			) {
+	NTBP_multi_current_o(reversalPotential /* in mV */,
+			newDensity /* channels per mu^2 */, newArea /* in mu^2 */,
+			newConductivity /* in mS per channel  */, newVBase /* mV */
+	) {
 	UpdateNumChannels();
 	channelsPtr = new NTBP_ion_channels_o(_numChannels(), 8, newTimeStep);
 	channelsPtr->setAsOpenState(4);
@@ -96,9 +96,8 @@ NTBP_hranvier_sodium_multi_current_o::NTBP_hranvier_sodium_multi_current_o(
 /* ***      COPY AND ASSIGNMENT	***/
 NTBP_hranvier_sodium_multi_current_o::NTBP_hranvier_sodium_multi_current_o(
 		const NTBP_hranvier_sodium_multi_current_o & original) :
-			NTBP_multi_current_o(original._reversalPotential(),
-					original._density(), original._area(),
-					original._conductivity()) {
+	NTBP_multi_current_o(original._reversalPotential(), original._density(),
+			original._area(), original._conductivity()) {
 	channelsPtr = new NTBP_ion_channels_o(original._numChannels(), 8);
 	channelsPtr->setAsOpenState(4);
 }
@@ -273,7 +272,6 @@ inline void NTBP_hranvier_sodium_multi_current_o::ComputeRateConstants() {
 	}
 
 	channelsPtr->setRatesComputed(true);
-	channelsPtr->SteadyStateDistribution();
 }
 
 /**  */

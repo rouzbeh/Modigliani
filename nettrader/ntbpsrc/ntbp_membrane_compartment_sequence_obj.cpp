@@ -132,15 +132,18 @@ NTreturn NTBP_membrane_compartment_sequence_o::Step() {
 
 	vector<NTreal> tmpVVec;
 	NTreal omega = 0.0;
-
-	/* load voltage vector and rhs-vector */
 	NTsize ll = 0;
+	for (ll = 0; ll < numCompartments; ll++) {
+			cerr << ll << " : rVec : " << rVec[ll] << " : dVec : " << dVec[ll] << " : uVec : " << uVec[ll] << " : lVec : " << lVec[ll] <<"\t";
+			cout << endl;
+		}
+	/* load voltage vector and rhs-vector */
+
 	for (ll = 0; ll < numCompartments; ll++) {
 		/* omega should have units of mV : mSec nA / muF = muV */
 		omega = 1e-3 /* mV/muV */* (_timeStep()
 				/ compartmentVec[ll]->_compartmentMembraneCapacitance())
 				* (compartmentVec[ll]->CompartmentMembraneNetCurrent());
-
 		rVec[ll] = compartmentVec[ll]->_vM() + omega; // compute RHS of finite difference equation
 		// TODO it appears to be correct, but why is omega ADDED and not subtracted ?
 	}
@@ -148,10 +151,12 @@ NTreturn NTBP_membrane_compartment_sequence_o::Step() {
 	vector<NTreal> vVec = NumericalRecipesSolveTriDiag(lVec, dVec, uVec, rVec);
 	/* set new voltage */
 	for (ll = 0; ll < numCompartments; ll++) {
-		cerr << vVec[ll] << "\t";
+		cerr << ll << " : vVec : " << vVec[ll] << " : rVec : " << rVec[ll] << " : dVec : " << dVec[ll] << " : uVec : " << uVec[ll] << " : lVec : " << lVec[ll] <<"\t";
+		cout << endl;
+	}
+	for (ll = 0; ll < numCompartments; ll++) {
 		compartmentVec[ll]->Step(vVec[ll]); // Step also advances the voltage -> ignore by using vVec
 	}
-cerr << endl;
 	return NT_SUCCESS;
 }
 
@@ -300,8 +305,8 @@ NTreturn NTBP_membrane_compartment_sequence_o::WriteMembranePotential(
 	for (NTsize ll = 0; ll < _numCompartments(); ll++) {
 		data[ll] = compartmentVec[ll]->_vM();
 	}
-	file.write(reinterpret_cast<char*> (data),
-			_numCompartments() * sizeof(float));
+	file.write(reinterpret_cast<char*> (data), _numCompartments()
+			* sizeof(float));
 	return NT_SUCCESS;
 }
 
@@ -334,8 +339,8 @@ NTreturn NTBP_membrane_compartment_sequence_o::WriteCurrent(ofstream & file,
 			data[ll] = compartmentVec[ll]->AttachedCurrent(index);
 		}
 	}
-	file.write(reinterpret_cast<char*> (data),
-			_numCompartments() * sizeof(float));
+	file.write(reinterpret_cast<char*> (data), _numCompartments()
+			* sizeof(float));
 	return NT_SUCCESS;
 }
 
@@ -365,8 +370,8 @@ NTreturn NTBP_membrane_compartment_sequence_o::WriteOpenChannelsRatio(
 	for (NTsize ll = 0; ll < _numCompartments(); ll++) {
 		data[ll] = tmp[ll];
 	}
-	file.write(reinterpret_cast<char*> (data),
-			_numCompartments() * sizeof(float));
+	file.write(reinterpret_cast<char*> (data), _numCompartments()
+			* sizeof(float));
 	return NT_SUCCESS;
 }
 
