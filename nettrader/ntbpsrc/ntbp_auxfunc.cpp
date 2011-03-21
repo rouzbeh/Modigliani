@@ -66,7 +66,7 @@ NTBP_create_na_channel_ptr(NTsize sodiumModel, NTsize sodiumAlg,
 		/* hRanvier */
 		tmpNaPtr = new NTBP_hranvier_sodium_multi_current_o(area,
 				indSodiumDensity, sodiumConductance * 1e-9, /* mSiemens per channel */
-				vBase, q10m, q10h, reversalPotential, timeStep);
+				vBase, q10m, q10h, reversalPotential, timeStep, temperature);
 		cout << "Using human Ranvier Na model." << endl;
 		break;
 	case 3:

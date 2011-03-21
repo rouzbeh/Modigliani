@@ -203,13 +203,13 @@ NTreal Set_conductance(NTreal newVal /* in mSiemens */) {
 /* ***  Data                 ***/
 NT_uniform_rnd_dist_o uniform;
 NTreal voltage;
+NTreal temperature; // in Celsius
 private:
 /* ***  Methods              ***/
 /* ***  Data                 ***/
 NTreal current; // in nanoAmpere
 NTreal conductance; // in mSiemens
 NTreal reversalPotential; // in mV
-NTreal temperature; // in Celsius
 NTreal q10; // the Q_10 value for temperature dependent reaction kinetics
 enum NTBPstochasticType simulationMode;
 };

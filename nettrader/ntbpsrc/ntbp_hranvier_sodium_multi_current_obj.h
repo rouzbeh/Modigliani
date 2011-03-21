@@ -74,7 +74,8 @@ NTBP_hranvier_sodium_multi_current_o(NTreal area /* in muMeter^2 */,
 																		 NTreal newQ10m = 2.2,
 																		 NTreal newQ10h = 2.9,
 																		 NTreal reversalPotential = 115,
-																		 NTreal timeStep = 0.1
+																		 NTreal timeStep = 0.001,
+																		 NTreal newTemperature = 24
   																	 );
 NTBP_hranvier_sodium_multi_current_o(const NTBP_hranvier_sodium_multi_current_o & original);
 const NTBP_hranvier_sodium_multi_current_o & operator= (const NTBP_hranvier_sodium_multi_current_o & right);
@@ -112,21 +113,23 @@ static NT_gaussian_rnd_dist_o normalRnd; // notice, sometimes a linker error is 
 static bool initTableLookUp;
 
 NTreal baseTemp; // C
-/*NTreal alphaM;
+NTreal alphaM;
 NTreal betaM;
-NTreal m;*/
+NTreal m;
 NTreal noiseM;
 static NTreal alphaMvec[15000];
 static NTreal betaMvec[15000];
-NTreal q10m;
+const NTreal q10m;
 
-/*NTreal alphaH;
+NTreal alphaH;
 NTreal betaH;
-NTreal h;*/
+NTreal h;
 NTreal noiseH;
 static NTreal alphaHvec[15000];
 static NTreal betaHvec[15000];
-NTreal q10h;
+static NTreal mvec[15000];
+static NTreal hvec[15000];
+const NTreal q10h;
 };
 
 
