@@ -165,7 +165,6 @@ NTBP_membrane_compartment_o::AttachCurrent(NTBP_membrane_current_o * currentPtr,
 	currentPtr->Set_voltage(vM);
 	currentPtr->setTimeStep(_timeStep());
 	currentPtr->Set_temperature(temperature);
-
 	switch (type){
 		case NTBP_LEAK:
 			currentVec.push_back(currentPtr);
