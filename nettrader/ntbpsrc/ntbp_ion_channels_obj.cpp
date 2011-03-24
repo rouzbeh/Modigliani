@@ -80,7 +80,7 @@ NTBP_ion_channels_o::~NTBP_ion_channels_o() {
 /* ***  PUBLIC                                    ***   */
 
 void NTBP_ion_channels_o::setAsOpenState(NTsize newOpenState) {
-	openStates.push_back(4);
+	openStates.push_back(newOpenState);
 }
 
 /**  */
