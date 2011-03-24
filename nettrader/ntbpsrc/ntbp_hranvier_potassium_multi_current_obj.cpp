@@ -209,15 +209,15 @@ inline NTreturn NTBP_hranvier_potassium_multi_current_o::StepCurrent() {
 
 	switch (_simulationMode()) {
 	case NTBP_BINOMIALPOPULATION:
-		NT_ASSERT(	((NTBP_potassium_ion_channels_o*) channelsPtr)->UpdateStateProb(vec) == NT_SUCCESS );
+		//NT_ASSERT(	((NTBP_potassium_ion_channels_o*) channelsPtr)->UpdateStateProb(vec) == NT_SUCCESS );
 		return (channelsPtr->BinomialStep(voltage));
 		break;
 	case NTBP_GILLESPIE:
-		return ((NTBP_potassium_ion_channels_o*)channelsPtr)->UpdateStateProb(vec);
+		//return ((NTBP_potassium_ion_channels_o*)channelsPtr)->UpdateStateProb(vec);
 		return NT_SUCCESS;
 		break;
 	case NTBP_SINGLECHANNEL:
-		NT_ASSERT(	((NTBP_potassium_ion_channels_o*)channelsPtr)->UpdateStateProb(vec) == NT_SUCCESS );
+		//NT_ASSERT(	((NTBP_potassium_ion_channels_o*)channelsPtr)->UpdateStateProb(vec) == NT_SUCCESS );
 		return (channelsPtr->Step(voltage));
 		break;
 	case NTBP_LANGEVIN:
