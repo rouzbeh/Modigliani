@@ -448,11 +448,11 @@ Copyright (C) 2010 Free Software Foundation, Inc.
 This config.status script is free software; the Free Software Foundation
 gives unlimited permission to copy, distribute and modify it."
 
-ac_pwd='/home/man210/Dropbox/workspace/nettrader'
+ac_pwd='/home/fpeters/devel/nettrader'
 srcdir='.'
 INSTALL='/usr/bin/install -c'
 MKDIR_P='/bin/mkdir -p'
-AWK='gawk'
+AWK='mawk'
 test -n "$AWK" || AWK=awk
 # The default lists apply if the user does not specify any file.
 ac_need_defaults=:
@@ -669,24 +669,24 @@ S["EXEEXT"]=""
 S["ac_ct_CXX"]="g++"
 S["CPPFLAGS"]=""
 S["LDFLAGS"]=""
-S["CXXFLAGS"]="-march=core2 -g3"
+S["CXXFLAGS"]="-g3 -march=core2"
 S["CXX"]="g++"
 S["am__untar"]="${AMTAR} xf -"
 S["am__tar"]="${AMTAR} chof - \"$$tardir\""
-S["AMTAR"]="${SHELL} /home/man210/Dropbox/workspace/nettrader/missing --run tar"
+S["AMTAR"]="${SHELL} /home/fpeters/devel/nettrader/missing --run tar"
 S["am__leading_dot"]="."
 S["SET_MAKE"]=""
-S["AWK"]="gawk"
+S["AWK"]="mawk"
 S["mkdir_p"]="/bin/mkdir -p"
 S["MKDIR_P"]="/bin/mkdir -p"
 S["INSTALL_STRIP_PROGRAM"]="$(install_sh) -c -s"
 S["STRIP"]=""
-S["install_sh"]="${SHELL} /home/man210/Dropbox/workspace/nettrader/install-sh"
-S["MAKEINFO"]="${SHELL} /home/man210/Dropbox/workspace/nettrader/missing --run makeinfo"
-S["AUTOHEADER"]="${SHELL} /home/man210/Dropbox/workspace/nettrader/missing --run autoheader"
-S["AUTOMAKE"]="${SHELL} /home/man210/Dropbox/workspace/nettrader/missing --run automake-1.11"
-S["AUTOCONF"]="${SHELL} /home/man210/Dropbox/workspace/nettrader/missing --run autoconf"
-S["ACLOCAL"]="${SHELL} /home/man210/Dropbox/workspace/nettrader/missing --run aclocal-1.11"
+S["install_sh"]="${SHELL} /home/fpeters/devel/nettrader/install-sh"
+S["MAKEINFO"]="${SHELL} /home/fpeters/devel/nettrader/missing --run makeinfo"
+S["AUTOHEADER"]="${SHELL} /home/fpeters/devel/nettrader/missing --run autoheader"
+S["AUTOMAKE"]="${SHELL} /home/fpeters/devel/nettrader/missing --run automake-1.11"
+S["AUTOCONF"]="${SHELL} /home/fpeters/devel/nettrader/missing --run autoconf"
+S["ACLOCAL"]="${SHELL} /home/fpeters/devel/nettrader/missing --run aclocal-1.11"
 S["VERSION"]="0.5 "
 S["PACKAGE"]="nettrader"
 S["CYGPATH_W"]="echo"

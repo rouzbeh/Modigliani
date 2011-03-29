@@ -122,6 +122,9 @@ bool GillespieStep();
 void ShowParam() const;
 /* ***  Data                 ***/
 vector< NTBP_membrane_current_o * > currentVec;
+
+vector< NTBP_membrane_current_o * > ReturnCurrentVec (); //TODO: added
+
 protected:
 /* ***  Methods              ***/
 NTreal  TotalConductance() const;

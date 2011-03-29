@@ -113,6 +113,7 @@ NTreturn WriteCurrent( ofstream & file, NTsize currentIndex /* 1..numCurrents in
 NTreturn WriteCurrentAscii( ofstream & file, NTsize currentIndex /* 1..numCurrents in compartment */);
 NTreturn WriteOpenChannelsRatio( ofstream & file, NTsize currentIndex /* 1..numCurrents in compartment */);
 NTreturn WriteATP(ofstream & file);
+NTBP_cylindrical_compartment_o* ReturnCompartmentVec (NTsize index);
 /**  */
 bool GillespieStep();
   /**  */

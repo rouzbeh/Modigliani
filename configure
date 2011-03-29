@@ -6696,7 +6696,7 @@ fi
 done
 
 
-CXXFLAGS="-march=core2 -g3"
+CXXFLAGS="-g3 -march=core2"
 
 all_includes="$all_includes -I../ntsrc -I../nt3dsrc -I../ntgsrc -I../ntbpsrc -I.. -I../tnt"
 all_includes="$all_includes $USER_INCLUDES"

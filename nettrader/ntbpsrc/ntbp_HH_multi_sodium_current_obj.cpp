@@ -1,9 +1,9 @@
-/**\file ntbp_hranvier_sodium_multi_current_obj.cpp - squid giant axon sodium conducta nce class implementation
- * by Ahmed Aldo Faisal &copy; created 16.3.2001
+/**\file ntbp_HH_multi_sodium_current_obj.cpp - squid giant axon sodium conducta nce class implementation
+ * by Ahmed Aldo Faisal &copy; created 16.3.2001  
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
  * Version:  0.5
- * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
+ * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -20,33 +20,63 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include "ntbp_hranvier_sodium_multi_current_obj.h"
-NT_gaussian_rnd_dist_o NTBP_hranvier_sodium_multi_current_o::normalRnd;
-bool NTBP_hranvier_sodium_multi_current_o::initTableLookUp = false;
-NTreal NTBP_hranvier_sodium_multi_current_o::alphaMvec[15000];
-NTreal NTBP_hranvier_sodium_multi_current_o::betaMvec[15000];
-NTreal NTBP_hranvier_sodium_multi_current_o::alphaHvec[15000];
-NTreal NTBP_hranvier_sodium_multi_current_o::betaHvec[15000];
+/* $Id: ntbp_HH_multi_sodium_current_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
+ * $Log: ntbp_HH_multi_sodium_current_obj.cpp,v $
+ * Revision 1.1.1.1  2004/12/16 01:38:36  face
+ * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+ *
+ * Revision 1.9  2003/07/21 13:30:57  face
+ * *** empty log message ***
+ *
+ * Revision 1.8  2003/01/30 17:13:44  face
+ * *** empty log message ***
+ *
+ * Revision 1.7  2002/12/12 15:31:45  face
+ * *** empty log message ***
+ *
+ * Revision 1.6  2002/03/13 19:23:27  face
+ * *** empty log message ***
+ *
+ * Revision 1.5  2002/03/08 15:13:26  face
+ * *** empty log message ***
+ *
+ * Revision 1.4  2002/01/21 17:24:28  face
+ * *** empty log message ***
+ *
+ * Revision 1.3  2001/11/06 16:28:13  face
+ * *** empty log message ***
+ *
+ * Revision 1.2  2001/10/12 09:18:36  face
+ * *** empty log message ***
+ *
+
+ */
+#include "ntbp_HH_multi_sodium_current_obj.h"
+NT_gaussian_rnd_dist_o NTBP_HH_multi_sodium_current_o::normalRnd;
+bool NTBP_HH_multi_sodium_current_o::initTableLookUp = false;
+NTreal NTBP_HH_multi_sodium_current_o::alphaMvec[15000];
+NTreal NTBP_HH_multi_sodium_current_o::betaMvec[15000];
+NTreal NTBP_HH_multi_sodium_current_o::alphaHvec[15000];
+NTreal NTBP_HH_multi_sodium_current_o::betaHvec[15000];
 
 /* ***      CONSTRUCTORS	***/
-/** Create a NTBP_hranvier_sodium_multi_current_o */
-NTBP_hranvier_sodium_multi_current_o::NTBP_hranvier_sodium_multi_current_o(
+/** Create a NTBP_HH_multi_sodium_current_o */
+NTBP_HH_multi_sodium_current_o::NTBP_HH_multi_sodium_current_o(
 		NTreal newArea, NTreal newDensity, NTreal newConductivity,
 		NTreal newVBase, NTreal newQ10m, NTreal newQ10h,
 		NTreal reversalPotential, NTreal newTimeStep, NTreal newTemperature) :
-			q10h(newQ10h),
-			q10m(newQ10m),
-			NTBP_multi_current_o(reversalPotential /* in mV */,
-					newDensity /* channels per mu^2 */, newArea /* in mu^2 */,
-					newConductivity /* in mS per channel  */, newVBase /* mV */
-			) {
+	q10h(newQ10h), q10m(newQ10m), NTBP_multi_current_o(
+			reversalPotential /* in mV */, newDensity /* channels per mu^2 */,
+			newArea /* in mu^2 */, newConductivity /* in mS per channel  */,
+			newVBase /* mV */
+	) {
 	//density and area updated by NTBP_multi_current_obj constructor
 	UpdateNumChannels();
 	channelsPtr = new NTBP_ion_channels_o(_numChannels(), 8, newTimeStep);
 	channelsPtr->setAsOpenState(4);
 	noiseM = 0;
 	noiseH = 0;
-	baseTemp = 20.0;
+	baseTemp = 6.3;
 	setTimeStep(newTimeStep);
 	Set_temperature(newTemperature);
 	NTreal vTmp = 0;
@@ -67,20 +97,18 @@ NTBP_hranvier_sodium_multi_current_o::NTBP_hranvier_sodium_multi_current_o(
 }
 
 /* ***      COPY AND ASSIGNMENT	***/
-NTBP_hranvier_sodium_multi_current_o::NTBP_hranvier_sodium_multi_current_o(
-		const NTBP_hranvier_sodium_multi_current_o & original) :
-			q10h(original.q10h),
-			q10m(original.q10m),
-			NTBP_multi_current_o(original._reversalPotential(),
-					original._density(), original._area(),
-					original._conductivity()) {
+NTBP_HH_multi_sodium_current_o::NTBP_HH_multi_sodium_current_o(
+		const NTBP_HH_multi_sodium_current_o & original) :
+	q10h(original.q10h), q10m(original.q10m), NTBP_multi_current_o(
+			original._reversalPotential(), original._density(),
+			original._area(), original._conductivity()) {
 	channelsPtr = new NTBP_ion_channels_o(original._numChannels(), 8);
 	channelsPtr->setAsOpenState(4);
 }
 
-const NTBP_hranvier_sodium_multi_current_o&
-NTBP_hranvier_sodium_multi_current_o::operator=(
-		const NTBP_hranvier_sodium_multi_current_o & right) {
+const NTBP_HH_multi_sodium_current_o&
+NTBP_HH_multi_sodium_current_o::operator=(
+		const NTBP_HH_multi_sodium_current_o & right) {
 	if (this == &right)
 		return *this; // Gracefully handle self assignment
 	channelsPtr = new NTBP_ion_channels_o(right._numChannels(), 8);
@@ -89,7 +117,7 @@ NTBP_hranvier_sodium_multi_current_o::operator=(
 }
 
 /* ***      DESTRUCTOR		***/
-NTBP_hranvier_sodium_multi_current_o::~NTBP_hranvier_sodium_multi_current_o() {
+NTBP_HH_multi_sodium_current_o::~NTBP_HH_multi_sodium_current_o() {
 	delete channelsPtr;
 }
 
@@ -100,8 +128,8 @@ NTBP_hranvier_sodium_multi_current_o::~NTBP_hranvier_sodium_multi_current_o() {
  \warning    unknown
  \bug        unknown
  */
-inline NTreturn NTBP_hranvier_sodium_multi_current_o::StepCurrent() {
-	//	cerr << "NTBP_hranvier_sodium_multi_current_o::StepCurrent()" << endl;
+inline NTreturn NTBP_HH_multi_sodium_current_o::StepCurrent() {
+	//	cerr << "NTBP_HH_multi_sodium_current_o::StepCurrent()" << endl;
 	NTreal tmpM = 0;
 	NTreal tmpH = 0;
 	NTsize counter = 0;
@@ -128,8 +156,8 @@ inline NTreturn NTBP_hranvier_sodium_multi_current_o::StepCurrent() {
 		NT_ASSERT(m>=0 && m<=1);
 		do {
 			counter++;
-			tmpM = _timeStep() * normalRnd.RndVal() * sqrt(
-					(alphaM * (1 - m) + betaM * m) / _numChannels());
+			tmpM = _timeStep() * normalRnd.RndVal() * sqrt((alphaM * (1 - m)
+					+ betaM * m) / _numChannels());
 			if (counter > 1 && counter < 1024)
 				cerr << "NaM=" << counter << endl;
 			else if (counter >= 1024) {
@@ -147,8 +175,8 @@ inline NTreturn NTBP_hranvier_sodium_multi_current_o::StepCurrent() {
 		NT_ASSERT(h>=0 && h<= 1);
 		do {
 			counter++;
-			tmpH = _timeStep() * normalRnd.RndVal() * sqrt(
-					(alphaH * (1 - h) + betaH * h) / _numChannels());
+			tmpH = _timeStep() * normalRnd.RndVal() * sqrt((alphaH * (1 - h)
+					+ betaH * h) / _numChannels());
 			if (counter > 1 && counter < 1024)
 				cerr << "NaH=" << counter << endl;
 			else if (counter >= 1024) {
@@ -165,41 +193,16 @@ inline NTreturn NTBP_hranvier_sodium_multi_current_o::StepCurrent() {
 	}
 		break;
 	case NTBP_NOISYMEAN:
-	case NTBP_DETERMINISTIC: {
-		NTreal q10FactorM = NTBP_TemperatureRateRelation(_temperature(),
-				baseTemp /* C */, q10m);
-		NTreal q10FactorH = NTBP_TemperatureRateRelation(_temperature(),
-				baseTemp /* C */, q10h);
-		//	cerr << "q10FactorM = " << q10FactorM << " :: q10FactorH = " << q10FactorH << endl;
-
-		NTreal alphaM, betaM, alphaH, betaH;
-		if ((voltage < -20) || (voltage > 130.0)) {
-			alphaM = q10FactorM * AlphaM(voltage);
-			betaM = q10FactorM * BetaM(voltage);
-
-			alphaH = q10FactorH * AlphaH(voltage);
-			betaH = q10FactorH * BetaH(voltage);
-		} else {
-			NTsize index = (NTsize) floor((voltage + 20) * 100.0);
-			alphaM = q10FactorM * alphaMvec[index];
-			betaM = q10FactorM * betaMvec[index];
-
-			alphaH = q10FactorH * alphaHvec[index];
-			betaH = q10FactorH * betaHvec[index];
-		}
-
-		m += _timeStep() * ((1.0 - m) * alphaM - m * betaM);
+	case NTBP_DETERMINISTIC:
+		m += _timeStep() * ((1.0 - m) * AlphaM(voltage) - m * BetaM(voltage));
 		NT_ASSERT(m>=0 && m<= 1);
-		h += _timeStep() * ((1.0 - h) * alphaH - h * betaH);
+		h += _timeStep() * ((1.0 - h) * AlphaH(voltage) - h * BetaH(voltage));
 		NT_ASSERT(h>=0 && h<= 1);
-
-//		cerr << "m = " << m << " :: h = " << h << endl;
 		return NT_SUCCESS;
-	}
 		break;
 	default:
 		cerr
-				<< "NTBP_hranvier_sodium_multi_current_o::StepCurrent - ERROR : Unsupported simulation mode."
+				<< "NTBP_HH_multi_sodium_current_o::StepCurrent - ERROR : Unsupported simulation mode."
 				<< endl;
 		return NT_PARAM_UNSUPPORTED;
 		break;
@@ -207,8 +210,8 @@ inline NTreturn NTBP_hranvier_sodium_multi_current_o::StepCurrent() {
 	return NT_FAIL;
 }
 
-inline void NTBP_hranvier_sodium_multi_current_o::ComputeRateConstants() {
-	cerr << "NTBP_hranvier_sodium_multi_current_o::ComputeRateConstants"
+inline void NTBP_HH_multi_sodium_current_o::ComputeRateConstants() {
+	cerr << "NTBP_HH_multi_sodium_current_o::ComputeRateConstants"
 			<< endl;
 	NTreal temp = _temperature();
 	NTreal deltaT = _timeStep();
@@ -216,7 +219,6 @@ inline void NTBP_hranvier_sodium_multi_current_o::ComputeRateConstants() {
 			q10m);
 	NTreal q10FactorH = NTBP_TemperatureRateRelation(temp, baseTemp /* C */,
 			q10h);
-	//	cerr << "q10FactorM = " << q10FactorM << " :: q10FactorH = " << q10FactorH << endl;
 	NTsize index = 0;
 	NTreal vM = -100;
 
@@ -278,7 +280,7 @@ inline void NTBP_hranvier_sodium_multi_current_o::ComputeRateConstants() {
 
 /**  */
 /** No descriptions */
-inline NTreal NTBP_hranvier_sodium_multi_current_o::OpenChannels() const {
+inline NTreal NTBP_HH_multi_sodium_current_o::OpenChannels() const {
 	switch (_simulationMode()) {
 	case NTBP_BINOMIALPOPULATION:
 	case NTBP_GILLESPIE:
@@ -290,7 +292,7 @@ inline NTreal NTBP_hranvier_sodium_multi_current_o::OpenChannels() const {
 		return m * m * m * h * NumChannels();
 	default:
 		cerr
-				<< "NTBP_hranvier_sodium_multi_current_o::OpenChannels - ERROR : Unsupported simulation mode for OpenChannels."
+				<< "NTBP_HH_multi_sodium_current_o::OpenChannels - ERROR : Unsupported simulation mode for OpenChannels."
 				<< endl;
 		return 0;
 	}
@@ -298,24 +300,24 @@ inline NTreal NTBP_hranvier_sodium_multi_current_o::OpenChannels() const {
 
 /**  */
 /** No descriptions */
-inline NTreal NTBP_hranvier_sodium_multi_current_o::OpenChannelsRatio() const {
+inline NTreal NTBP_HH_multi_sodium_current_o::OpenChannelsRatio() const {
 	return OpenChannels() * 100 / NumChannels();
 }
 
-inline NTreal NTBP_hranvier_sodium_multi_current_o::ComputeConductance() {
-	//  cerr << "NTBP_hranvier_sodium_multi_current_o::ComputeConductance" << endl;
+inline NTreal NTBP_HH_multi_sodium_current_o::ComputeConductance() {
+	//  cerr << "NTBP_HH_multi_sodium_current_o::ComputeConductance" << endl;
 	switch (_simulationMode()) {
 	case NTBP_BINOMIALPOPULATION:
 	case NTBP_GILLESPIE:
 	case NTBP_SINGLECHANNEL:
+	case NTBP_DETERMINISTIC:
+
 		return Set_conductance(channelsPtr->NumOpen() * conductivity);
 		break;
 	case NTBP_LANGEVIN:
-	case NTBP_DETERMINISTIC:
-		//		cerr << "m = " << m << " :: h = " << h << endl;
-		return Set_conductance(
-				_maxConductivity() /* mS/cm^2 */* m * m * m * h * _area()
-						/* muMeter^2 */* 1.0e-8 /* cm^2/muMeter^2 */);
+		return Set_conductance(_maxConductivity() /* mS/cm^2 */* m * m * m * h
+				* _area()
+		/* muMeter^2 */* 1.0e-8 /* cm^2/muMeter^2 */);
 		break;
 	case NTBP_NOISYMEAN: {
 		NTreal mean = m * m * m * h;
@@ -331,18 +333,18 @@ inline NTreal NTBP_hranvier_sodium_multi_current_o::ComputeConductance() {
 	}
 	default:
 		cerr
-				<< "NTBP_hranvier_sodium_multi_current_o::ComputeConductance - ERROR : Unsupported simulation mode for ComputeConductance."
+				<< "NTBP_HH_multi_sodium_current_o::ComputeConductance - ERROR : Unsupported simulation mode for ComputeConductance."
 				<< endl;
 		return 0;
 	}
 }
 
-inline NTreal NTBP_hranvier_sodium_multi_current_o::ComputeChannelStateTimeConstant() const {
-	// cerr << "NTBP_hranvier_sodium_multi_current_o::ComputeChannelStateTimeConstant()" << endl;
+inline NTreal NTBP_HH_multi_sodium_current_o::ComputeChannelStateTimeConstant() const {
+	// cerr << "NTBP_HH_multi_sodium_current_o::ComputeChannelStateTimeConstant()" << endl;
 	return channelsPtr->ComputeChannelStateTimeConstant(voltage);
 }
 
-void NTBP_hranvier_sodium_multi_current_o::ShowParam() const {
+void NTBP_HH_multi_sodium_current_o::ShowParam() const {
 	cout << "Na channel parameters:" << endl;
 	cout << "Single channel conductivity [nA]" << _conductivity() << endl;
 	cout << "Channel density [1/muMeter^2]" << _area() << endl;

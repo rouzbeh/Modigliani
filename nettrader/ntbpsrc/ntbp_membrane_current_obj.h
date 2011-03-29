@@ -76,8 +76,7 @@ public:
 	/* in mSiemens/cm^2 */
 	virtual NTreal _maxConductivity() const = 0;
 	/** momentary current in nA */
-	NTreal _current() const { /*cerr << "Current in nA" << current << endl*/
-		;
+	NTreal _current() const { /*cerr << "Current in nA" << current << endl;*/
 		return current;
 	}
 	/** momentary conductance in muFarad */

@@ -133,10 +133,7 @@ NTreturn NTBP_membrane_compartment_sequence_o::Step() {
 	vector<NTreal> tmpVVec;
 	NTreal omega = 0.0;
 	NTsize ll = 0;
-	for (ll = 0; ll < numCompartments; ll++) {
-			cerr << ll << " : rVec : " << rVec[ll] << " : dVec : " << dVec[ll] << " : uVec : " << uVec[ll] << " : lVec : " << lVec[ll] <<"\t";
-			cout << endl;
-		}
+
 	/* load voltage vector and rhs-vector */
 
 	for (ll = 0; ll < numCompartments; ll++) {
@@ -150,10 +147,7 @@ NTreturn NTBP_membrane_compartment_sequence_o::Step() {
 
 	vector<NTreal> vVec = NumericalRecipesSolveTriDiag(lVec, dVec, uVec, rVec);
 	/* set new voltage */
-	for (ll = 0; ll < numCompartments; ll++) {
-		cerr << ll << " : vVec : " << vVec[ll] << " : rVec : " << rVec[ll] << " : dVec : " << dVec[ll] << " : uVec : " << uVec[ll] << " : lVec : " << lVec[ll] <<"\t";
-		cout << endl;
-	}
+
 	for (ll = 0; ll < numCompartments; ll++) {
 		compartmentVec[ll]->Step(vVec[ll]); // Step also advances the voltage -> ignore by using vVec
 	}
@@ -639,3 +633,12 @@ NTreturn NTBP_membrane_compartment_sequence_o::WriteATP(ofstream & file) {
 	file << endl;
 	return NT_SUCCESS;
 }
+
+
+//returns copy of compartment vector
+NTBP_cylindrical_compartment_o* NTBP_membrane_compartment_sequence_o::ReturnCompartmentVec (NTsize index) //TODO: added
+{
+	NTBP_cylindrical_compartment_o* compVec = compartmentVec[index];
+	return compVec;
+}
+
