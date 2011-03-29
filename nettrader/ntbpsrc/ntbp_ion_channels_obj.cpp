@@ -56,7 +56,7 @@ NTBP_ion_channels_o::NTBP_ion_channels_o(NTsize numNewChannels,
 	for (NTsize ll = 0; ll < _numStates() + 1; ll++)
 		stateCounterVec[ll] = 0;
 	stateCounterVec[0] = _numChannels();
-	stateCounterVec[1] = _numChannels();
+	stateCounterVec[3] = _numChannels();
 	ratesComputed = false;
 }
 
@@ -78,7 +78,6 @@ NTBP_ion_channels_o::~NTBP_ion_channels_o() {
 }
 
 /* ***  PUBLIC                                    ***   */
-
 void NTBP_ion_channels_o::setAsOpenState(NTsize newOpenState) {
 	openStates.push_back(newOpenState);
 }
@@ -163,9 +162,9 @@ NTsize NTBP_ion_channels_o::NumOpen() const {
 	NTsize count = 0;
 	for (vector<NTsize>::const_iterator it = openStates.begin(); it
 			!= openStates.end(); ++it) {
-		int test = *it;
 		count += stateCounterVec[*it];
 	}
+//	cerr << "open channels = " << count << endl;
 	return count;
 }
 
@@ -314,6 +313,13 @@ inline NTreturn NTBP_ion_channels_o::BinomialStep(NTreal voltage) {
 			stateCounterVec[ll] = newStateCounterVec[ll];
 		}
 	}
+//	else {cerr << "ERROR: Binominal step loop counter limit reached." << endl;}
+	//TODO: added: all state counters shown in BinominalStep
+//	for (NTsize ll = 1; ll < _numStates() + 1; ll++)
+//	{
+//		cerr << ll << ": " << stateCounterVec[ll] << "\t";
+//	}
+//	cerr << "\n" << endl;
 	return NT_SUCCESS;
 }
 

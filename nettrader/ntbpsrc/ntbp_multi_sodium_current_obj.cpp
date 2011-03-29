@@ -1,9 +1,9 @@
-/**\file ntbp_multi_sodium_current_obj.cpp - squid giant axon sodium conducta nce class implementation 
- * by Ahmed Aldo Faisal &copy; created 16.3.2001  
+/**\file ntbp_multi_sodium_current_obj.cpp - squid giant axon sodium conducta nce class implementation
+ * by Ahmed Aldo Faisal &copy; created 16.3.2001
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
  * Version:  0.5
- * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    
+ * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -20,7 +20,7 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-/* $Id: ntbp_multi_sodium_current_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $ 
+/* $Id: ntbp_multi_sodium_current_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
  * $Log: ntbp_multi_sodium_current_obj.cpp,v $
  * Revision 1.1.1.1  2004/12/16 01:38:36  face
  * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
@@ -122,7 +122,7 @@ NTBP_multi_sodium_current_o::~NTBP_multi_sodium_current_o() {
 }
 
 /* ***  PUBLIC                                    ***   */
-/** @short       
+/** @short
  @param      none
  @return     none
  \warning    unknown

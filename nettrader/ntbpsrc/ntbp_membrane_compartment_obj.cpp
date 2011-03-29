@@ -110,6 +110,7 @@ NTBP_membrane_compartment_o::Step(NTreal newVM)
 {
 	vM = newVM;
 	
+	//for every current
 	for (NTsize it = 0; it < currentVec.size(); it++) {
 		(currentVec[it])->Step(vM);
 	}
@@ -264,7 +265,11 @@ void NTBP_membrane_compartment_o::ShowParam() const
 	}
 }
 
-
+vector< NTBP_membrane_current_o * > NTBP_membrane_compartment_o::ReturnCurrentVec ()
+{
+	vector< NTBP_membrane_current_o * > cV = currentVec;
+	return cV;
+}
 
 /* ***  PROTECTED                         ***   */
 /* ***  PRIVATE                           ***   */
