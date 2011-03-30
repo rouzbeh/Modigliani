@@ -36,7 +36,7 @@ NT_binomial_rnd_dist_o NTBP_ion_channels_o::binomRnd(0.0, 1);
 NTBP_ion_channels_o::NTBP_ion_channels_o(NTsize numNewChannels,
 		NTsize numNewStates, NTreal newTimeStep) :
 	NTBP_object_o(),
-			_probMatrices(boost::extents[5000][numNewStates][numNewStates]) {
+			_probMatrices(boost::extents[50000][numNewStates][numNewStates]) {
 	NT_ASSERT(numNewChannels >= 0);
 	setTimeStep(newTimeStep);
 	numChannels = numNewChannels;
@@ -56,7 +56,7 @@ NTBP_ion_channels_o::NTBP_ion_channels_o(NTsize numNewChannels,
 	for (NTsize ll = 0; ll < _numStates() + 1; ll++)
 		stateCounterVec[ll] = 0;
 	stateCounterVec[0] = _numChannels();
-	stateCounterVec[3] = _numChannels();
+	stateCounterVec[1] = _numChannels();
 	ratesComputed = false;
 }
 
@@ -245,13 +245,13 @@ bool NTBP_ion_channels_o::ComputeGillespieStep(NTsize stateId, NTreal voltage) {
 
 void NTBP_ion_channels_o::setTransactionProbability(NTreal voltage,
 		NTsize start, NTsize stop, NTreal probability) {
-	int index = (voltage * 10) + 1000;
+	int index = floor((voltage * 10) + 1000);
 	_probMatrices[index][start-1][stop-1] = probability;
 }
 
 NTreal NTBP_ion_channels_o::getTransactionProbability(NTreal voltage,
 		NTsize start, NTsize stop) {
-	NTsize index = (voltage * 10) + 1000;
+	NTsize index = floor((voltage * 10) + 1000);
 	return getTransactionProbability(index, start, stop);
 }
 
