@@ -140,11 +140,11 @@ NTBP_create_k_channel_ptr(NTsize potassiumModel, NTsize potassiumAlg,
 		break;
 	case 2:
 		/* hRanvier */
-		tmpKPtr = new NTBP_hranvier_potassium_multi_current_o(area,
-				indPotassiumDensity,
-				potassiumConductance * 1e-9/* mSiemens per channel */, vBase,
-				q10, potassiumReversalPotential);
-		cout << "Using human Ranvier K model." << endl;
+//		tmpKPtr = new NTBP_hranvier_potassium_multi_current_o(area,
+//				indPotassiumDensity,
+//				potassiumConductance * 1e-9/* mSiemens per channel */, vBase,
+//				q10, potassiumReversalPotential);
+//		cout << "Using human Ranvier K model." << endl;
 		break;
 	case 3:
 		/* COLBERT AXONAL */

@@ -69,12 +69,10 @@ NTBP_hranvier_sodium_multi_current_o::NTBP_hranvier_sodium_multi_current_o(
 /* ***      COPY AND ASSIGNMENT	***/
 NTBP_hranvier_sodium_multi_current_o::NTBP_hranvier_sodium_multi_current_o(
 		const NTBP_hranvier_sodium_multi_current_o & original) :
-			q10h(original.q10h),
-			q10m(original.q10m),
-			NTBP_multi_current_o(original._reversalPotential(),
-					original._density(), original._area(),
-					original._conductivity()) {
-	channelsPtr = new NTBP_ion_channels_o(original._numChannels(), 8);
+	q10h(original.q10h), q10m(original.q10m), NTBP_multi_current_o(
+			original._reversalPotential(), original._density(),
+			original._area(), original._conductivity()) {
+	channelsPtr = new NTBP_ion_channels_o(original._numChannels(), 8, original._timeStep());
 	channelsPtr->setAsOpenState(4);
 }
 
@@ -83,7 +81,7 @@ NTBP_hranvier_sodium_multi_current_o::operator=(
 		const NTBP_hranvier_sodium_multi_current_o & right) {
 	if (this == &right)
 		return *this; // Gracefully handle self assignment
-	channelsPtr = new NTBP_ion_channels_o(right._numChannels(), 8);
+	channelsPtr = new NTBP_ion_channels_o(right._numChannels(), 8, right._timeStep());
 	channelsPtr->setAsOpenState(4);
 	return *this;
 }
@@ -312,7 +310,6 @@ inline NTreal NTBP_hranvier_sodium_multi_current_o::ComputeConductance() {
 		break;
 	case NTBP_LANGEVIN:
 	case NTBP_DETERMINISTIC:
-		//		cerr << "m = " << m << " :: h = " << h << endl;
 		return Set_conductance(
 				_maxConductivity() /* mS/cm^2 */* m * m * m * h * _area()
 						/* muMeter^2 */* 1.0e-8 /* cm^2/muMeter^2 */);
