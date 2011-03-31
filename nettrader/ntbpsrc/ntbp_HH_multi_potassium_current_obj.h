@@ -99,6 +99,8 @@ public:
 	/**  */
 	void ShowParam() const;
 	/* ***  Data                 ***/
+	static NTBP_transition_rate_matrix_o* probMatrix;
+
 protected:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
