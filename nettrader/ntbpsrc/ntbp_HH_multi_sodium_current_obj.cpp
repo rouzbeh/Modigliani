@@ -90,7 +90,7 @@ NTBP_HH_multi_sodium_current_o::NTBP_HH_multi_sodium_current_o(NTreal newArea,
 			alphaHvec[ll] = AlphaH(vTmp);
 			betaHvec[ll] = BetaH(vTmp);
 		}
-		probMatrix = new NTBP_transition_rate_matrix_o(8, -100, 400, 0.1);
+		probMatrix = new NTBP_transition_rate_matrix_o(8, -100, 300, 0.01);
 		ComputeRateConstants();
 		initTableLookUp = true;
 	}
@@ -224,7 +224,7 @@ inline void NTBP_HH_multi_sodium_current_o::ComputeRateConstants() {
 			q10h);
 	NTsize index = 0;
 
-	for (NTreal vM = -100; vM < 400; vM+=0.1) {
+	for (NTreal vM = -100; vM < 300; vM+=0.01) {
 		NTreal alphaM, betaM, alphaH, betaH;
 		if ((vM < -20) || (vM > 130.0)) {
 			alphaM = q10FactorM * AlphaM(vM);
