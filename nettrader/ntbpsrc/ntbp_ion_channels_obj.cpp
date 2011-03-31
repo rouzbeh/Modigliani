@@ -34,9 +34,9 @@ NT_binomial_rnd_dist_o NTBP_ion_channels_o::binomRnd(0.0, 1);
 /* ***      CONSTRUCTORS	***/
 /** Create a NTBP_ion_channels_o */
 NTBP_ion_channels_o::NTBP_ion_channels_o(NTsize numNewChannels,
-		NTsize numNewStates, NTreal newTimeStep) :
-	NTBP_object_o(),
-			_probMatrices(boost::extents[50000][numNewStates][numNewStates]) {
+		NTsize numNewStates, NTBP_transition_rate_matrix_o* probMatrix, NTreal newTimeStep) :
+		_probMatrix(probMatrix),
+	NTBP_object_o(){
 	NT_ASSERT(numNewChannels >= 0);
 	setTimeStep(newTimeStep);
 	numChannels = numNewChannels;
@@ -85,7 +85,6 @@ void NTBP_ion_channels_o::setAsOpenState(NTsize newOpenState) {
 /**  */
 bool NTBP_ion_channels_o::GillespieStep(NTreal voltage) {
 	cerr << "NTBP_ion_channels_o::GillespieStep()" << endl;
-	int index = (voltage + 100) / 1000;
 	NT_uniform_rnd_dist_o rnd;
 	NTreal val = rnd.RndVal();
 	NTreal deltaT = _timeStep();
@@ -93,17 +92,17 @@ bool NTBP_ion_channels_o::GillespieStep(NTreal voltage) {
 	cerr << "channelTau=" << channelTau << endl;
 
 	NTreal sum = 0.0;
-	for (NTsize ll = 0; ll < _numStates(); ll++) {
+	for (NTsize ll = 1; ll < _numStates()+1; ll++) {
 		NTreal stateChangeProbability = 0;
-		for (NTsize nextState = 0; nextState < _numStates(); nextState++) {
+		for (NTsize nextState = 1; nextState < _numStates()+1; nextState++) {
 			if (ll == nextState)
 				continue;
-			stateChangeProbability += _probMatrices[index][ll][nextState];
+			stateChangeProbability += _probMatrix->getTransitionProbability(voltage,ll,nextState);
 		}
-		sum += (stateChangeProbability / deltaT) * stateCounterVec[ll + 1];
+		sum += (stateChangeProbability / deltaT) * stateCounterVec[ll];
 		cerr << "p=" << sum / (channelTau) << " val=" << val << endl;
 		if (val < sum / channelTau) {
-			return ComputeGillespieStep(ll + 1, voltage);
+			return ComputeGillespieStep(ll, voltage);
 		}
 	}
 	cerr
@@ -120,20 +119,20 @@ NTreturn NTBP_ion_channels_o::Step(NTreal voltage) {
 	NTreal rv = 0;
 	vector<NTsize> oldStateCounterVec = stateCounterVec;
 	int index = (voltage + 100) / 1000;
-	for (NTsize lls = 0; lls < _numStates(); lls++) {
-		for (NTsize llc = 0; llc < oldStateCounterVec[lls + 1]; llc++) {
+	for (NTsize lls = 1; lls < _numStates()+1; lls++) {
+		for (NTsize llc = 0; llc < oldStateCounterVec[lls]; llc++) {
 			rv = uniformRnd.RndVal();
 			NTreal accumulatedProb = 0;
 			for (NTsize nextState = 0; nextState < _numStates(); nextState++) {
-				if (_probMatrices[index][lls][nextState] == 0)
+				if (_probMatrix->getTransitionProbability(voltage,lls,nextState) == 0)
 					continue;
 
 				// This replaces awkward tNN probabilities
-				accumulatedProb += _probMatrices[index][lls][nextState];
+				accumulatedProb += _probMatrix->getTransitionProbability(voltage,lls,nextState);
 				if (rv <= accumulatedProb) {
 					// The state counter vector starts at 1
-					stateCounterVec[nextState + 1]++;
-					stateCounterVec[lls + 1]--;
+					stateCounterVec[nextState]++;
+					stateCounterVec[lls]--;
 
 					// We have found our next state
 					break;
@@ -171,17 +170,16 @@ NTsize NTBP_ion_channels_o::NumOpen() const {
 /** Sum of escape rates [1/s] */
 NTreal NTBP_ion_channels_o::ComputeChannelStateTimeConstant(NTreal voltage) const {
 	cerr << "NTBP_ion_channels_o::ComputeChannelStateTimeConstant()" << endl;
-	int index = (voltage + 100) / 1000;
 	NTreal sum = 0.0;
 	NTreal deltaT = _timeStep();
-	for (NTsize ll = 0; ll < _numStates(); ll++) {
+	for (NTsize ll = 1; ll < _numStates()+1; ll++) {
 		NTreal stateChangeProbability = 0;
-		for (NTsize nextState = 0; nextState < _numStates(); nextState++) {
+		for (NTsize nextState = 1; nextState < _numStates()+1; nextState++) {
 			if (ll == nextState)
 				continue;
-			stateChangeProbability += _probMatrices[index][ll][nextState];
+			stateChangeProbability += _probMatrix->getTransitionProbability(voltage,ll,nextState);
 		}
-		sum += (stateChangeProbability / deltaT) * stateCounterVec[ll + 1];
+		sum += (stateChangeProbability / deltaT) * stateCounterVec[ll];
 	}
 	return sum;
 }
@@ -201,27 +199,27 @@ bool NTBP_ion_channels_o::ComputeGillespieStep(NTsize stateId, NTreal voltage) {
 
 	NTreal val = rnd.RndVal() * _timeStep();
 	// the probability has to be converted into a rate
-	for (NTsize lls = 0; lls < _numStates(); lls++) {
+	for (NTsize lls = 1; lls < _numStates()+1; lls++) {
 		NTreal stateChangeProbability = 0;
-		for (NTsize nextState = 0; nextState < _numStates(); nextState++) {
+		for (NTsize nextState = 1; nextState < _numStates()+1; nextState++) {
 			if (lls == nextState)
 				continue;
-			stateChangeProbability += _probMatrices[index][lls][nextState];
+			stateChangeProbability += _probMatrix->getTransitionProbability(voltage,lls,nextState);
 		}
 		NTreal accumulatedProb = 0;
 		stateChangeProbability = stateChangeProbability / deltaT;
 		for (NTsize nextState = 0; nextState < _numStates(); nextState++) {
-			if (lls == nextState || !_probMatrices[index][lls][nextState])
+			if (lls == nextState || !_probMatrix->getTransitionProbability(voltage,lls,nextState))
 				continue;
 
-			accumulatedProb += _probMatrices[index][lls][nextState]
+			accumulatedProb += _probMatrix->getTransitionProbability(voltage,lls,nextState)
 					/ stateChangeProbability;
 
 			// We want to ensure change in the state even if float division induces errors
 			if (val <= accumulatedProb || nextState == _numStates() - 1) {
 				// The state counter vector starts at 1
-				stateCounterVec[nextState + 1]++;
-				stateCounterVec[lls + 1]--;
+				stateCounterVec[nextState]++;
+				stateCounterVec[lls]--;
 				break;
 			}
 		}
@@ -243,28 +241,6 @@ bool NTBP_ion_channels_o::ComputeGillespieStep(NTsize stateId, NTreal voltage) {
 		return true;
 }
 
-void NTBP_ion_channels_o::setTransactionProbability(NTreal voltage,
-		NTsize start, NTsize stop, NTreal probability) {
-	int index = floor((voltage * 10) + 1000);
-	_probMatrices[index][start-1][stop-1] = probability;
-}
-
-NTreal NTBP_ion_channels_o::getTransactionProbability(NTreal voltage,
-		NTsize start, NTsize stop) {
-	NTsize index = floor((voltage * 10) + 1000);
-	return getTransactionProbability(index, start, stop);
-}
-
-void NTBP_ion_channels_o::setTransactionProbability(NTsize index, NTsize start,
-		NTsize stop, NTreal probability) {
-	_probMatrices[index][start-1][stop-1] = probability;
-}
-
-NTreal NTBP_ion_channels_o::getTransactionProbability(NTsize index,
-		NTsize start, NTsize stop) {
-	return _probMatrices[index][start-1][stop-1];
-}
-
 inline NTreturn NTBP_ion_channels_o::BinomialStep(NTreal voltage) {
 	vector<NTsize> oldStateCounterVec = stateCounterVec;
 	vector<NTint> newStateCounterVec(stateCounterVec.size());
@@ -282,9 +258,9 @@ inline NTreturn NTBP_ion_channels_o::BinomialStep(NTreal voltage) {
 		for (NTsize currentState = 1; currentState < _numStates()+1; currentState++) {
 			for (NTsize nextState = 1; nextState < _numStates()+1; nextState++) {
 				if (nextState == currentState
-						|| getTransactionProbability(voltage, currentState, nextState)==0)
+						|| _probMatrix->getTransitionProbability(voltage,currentState,nextState)==0)
 					continue;
-				NTreal prob = getTransactionProbability(voltage, currentState, nextState);
+				NTreal prob = _probMatrix->getTransitionProbability(voltage,currentState,nextState);
 				NTsize numberOfChannels = oldStateCounterVec[currentState];
 				NTreal delta = binomRnd.Binomial(
 						prob,
