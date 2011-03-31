@@ -213,10 +213,8 @@ inline void NTBP_HH_multi_potassium_current_o::ComputeRateConstants() {
 			q10n);
 	//	cerr  << "q10 = " << q10FactorN << endl;
 	NTsize index = 0;
-	NTreal vM = -100;
 
-	for (NTsize i = 0; i < 5000; i++) {
-		vM += 0.1;
+	for (NTreal vM = -100; vM<300; vM+=0.01) {
 		NTreal alphaN, betaN;
 		if ((vM < -20) || (vM > 130.0)) {
 			alphaN = q10FactorN * AlphaN(vM);
