@@ -69,6 +69,8 @@ NTreal BetaN(NTreal vM /* in mV */) { 	vM += _vBase(); return 0.264*exp((vM-22)/
 /**  */
 void ShowParam() const;
 /* ***  Data                 ***/
+static NTBP_transition_rate_matrix_o* probMatrix;
+
 protected:
 /* ***  Methods              ***/
 /* ***  Data                 ***/
