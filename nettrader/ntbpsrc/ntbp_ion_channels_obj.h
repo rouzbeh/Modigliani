@@ -33,11 +33,12 @@
 #include "nt_error_obj.h"
 #include "nt_uniform_rnd_dist_obj.h"
 #include "nt_binomial_rnd_dist_obj.h"
+#include "ntbp_transition_rate_matrix_obj.h"
 /* other includes */
 #include <vector>
 #include <iostream>
 
-#include "boost/multi_array.hpp"
+//#include "boost/multi_array.hpp"
 
 /** @short NTBP_ion_channels_o class 
  \bug unknown
@@ -46,7 +47,7 @@
 class NTBP_ion_channels_o: public NTBP_object_o {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	NTBP_ion_channels_o(NTsize numNewChannels, NTsize numNewStates, NTreal newTimeStep=0.1);
+	NTBP_ion_channels_o(NTsize numNewChannels, NTsize numNewStates, NTBP_transition_rate_matrix_o* probMatrix, NTreal newTimeStep=0.1);
 	NTBP_ion_channels_o(const NTBP_ion_channels_o & original);
 	const NTBP_ion_channels_o & operator=(const NTBP_ion_channels_o & right);
 	virtual ~NTBP_ion_channels_o();
@@ -59,12 +60,6 @@ public:
 	}
 	bool GillespieStep(NTreal voltage);
 	void setAsOpenState(NTsize newOpenState);
-	void setTransactionProbability(NTsize index, NTsize start, NTsize stop,
-			NTreal probability);
-	NTreal getTransactionProbability(NTsize index, NTsize start, NTsize stop);
-	void setTransactionProbability(NTreal voltage, NTsize start, NTsize stop,
-			NTreal probability);
-	NTreal getTransactionProbability(NTreal voltage, NTsize start, NTsize stop);
 	virtual NTreturn BinomialStep(NTreal voltage);
 	virtual NTreturn Step(NTreal voltage);
 	virtual bool ComputeGillespieStep(NTsize channelStateId, NTreal voltage);
@@ -99,12 +94,13 @@ private:
 	/* ***  Data                 ***/
 
 	//vector<boost::numeric::ublas::matrix<NTreal>*> ;
-	typedef boost::multi_array<double, 3> matrix_array_type;
-	matrix_array_type _probMatrices;
+//	typedef boost::multi_array<double, 3> matrix_array_type;
+//	matrix_array_type _probMatrices;
 	vector<NTsize> openStates;
 	NTsize numStates;
 	NTsize numChannels;
 	bool ratesComputed;
+	NTBP_transition_rate_matrix_o* _probMatrix;
 };
 
 #endif /* _ntbp_ion_channels_obj_h_ */
