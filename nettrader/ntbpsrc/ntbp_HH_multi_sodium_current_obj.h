@@ -59,39 +59,45 @@
  \bug unknown
  \warning unknown
  */
-class NTBP_HH_multi_sodium_current_o : public NTBP_multi_current_o {
+class NTBP_HH_multi_sodium_current_o: public NTBP_multi_current_o {
 public:
-/***   Constructors, Copy/Assignment and Destructor  ***/
-NTBP_HH_multi_sodium_current_o(NTreal area /* in muMeter^2 */,
-							 NTreal density = 120 /* in num/muMeter^2 */,
-							 NTreal channelConductance = 2.0e-8, /* in mSiemens per channel = 13pS */
-							 NTreal vBase = 0, /* in mV */
-							 NTreal newQ10m = 3,
-							 NTreal newQ10h = 3,
-							 NTreal reversalPotential = 115,
-							 NTreal timeStep = 0.001,
-							 NTreal newTemperature = 6.3
-						 );
-NTBP_HH_multi_sodium_current_o(const NTBP_HH_multi_sodium_current_o & original);
-const NTBP_HH_multi_sodium_current_o & operator= (const NTBP_HH_multi_sodium_current_o & right);
-virtual ~NTBP_HH_multi_sodium_current_o();
-virtual NTreturn Set_q10(NTreal newQ10) {
-	cerr << "WARNING : Set_q10 is being called on a multi sodium channel.";
-	return NT_NOT_IMPLEMENTED;
-}
-/* ***  Methods              ***/
-/** in 1/ms or kHz */
-NTreal ComputeChannelStateTimeConstant() const;
-NTreturn StepCurrent();
-NTreal OpenChannels() const;
-NTreal OpenChannelsRatio() const;
-NTreal ComputeConductance();
-void ComputeRateConstants();
-void ShowChannelStatePopulation() { channelsPtr->ShowStates(); }
-void Show() {  cout << " alphaM= " << AlphaM(voltage) << "\t betaM= " << BetaM(voltage) << "\t openRatio= " << ((double)channelsPtr->NumOpen())/channelsPtr->_numChannels()
-				   << "\t alphaH= " << AlphaH(voltage) << "\t betaH= " << BetaH(voltage) << "\t openNum= " << channelsPtr->NumOpen();}
-NTreal AlphaM(NTreal vM /* in mV */) {
-	 	vM += _vBase();
+	/***   Constructors, Copy/Assignment and Destructor  ***/
+	NTBP_HH_multi_sodium_current_o(NTreal area /* in muMeter^2 */,
+			NTreal density = 120 /* in num/muMeter^2 */,
+			NTreal channelConductance = 2.0e-8, /* in mSiemens per channel = 13pS */
+			NTreal vBase = 0, /* in mV */
+			NTreal newQ10m = 3, NTreal newQ10h = 3, NTreal reversalPotential =
+					115, NTreal timeStep = 0.001, NTreal newTemperature = 6.3);
+	NTBP_HH_multi_sodium_current_o(
+			const NTBP_HH_multi_sodium_current_o & original);
+	const NTBP_HH_multi_sodium_current_o & operator=(
+			const NTBP_HH_multi_sodium_current_o & right);
+	virtual ~NTBP_HH_multi_sodium_current_o();
+	virtual NTreturn Set_q10(NTreal newQ10) {
+		cerr << "WARNING : Set_q10 is being called on a multi sodium channel.";
+		return NT_NOT_IMPLEMENTED;
+	}
+	/* ***  Methods              ***/
+	/** in 1/ms or kHz */
+	NTreal ComputeChannelStateTimeConstant() const;
+	NTreturn StepCurrent();
+	NTreal OpenChannels() const;
+	NTreal OpenChannelsRatio() const;
+	NTreal ComputeConductance();
+	void ComputeRateConstants();
+	void ShowChannelStatePopulation() {
+		channelsPtr->ShowStates();
+	}
+	void Show() {
+		cout << " alphaM= " << AlphaM(voltage) << "\t betaM= "
+				<< BetaM(voltage) << "\t openRatio= "
+				<< ((double) channelsPtr->NumOpen())
+						/ channelsPtr->_numChannels() << "\t alphaH= "
+				<< AlphaH(voltage) << "\t betaH= " << BetaH(voltage)
+				<< "\t openNum= " << channelsPtr->NumOpen();
+	}
+	NTreal AlphaM(NTreal vM /* in mV */) {
+		vM += _vBase();
 		return (25.0 - vM) / (10.0 * (exp((25.0 - vM) / 10.0) - 1.0));
 	}
 	NTreal BetaM(NTreal vM /* in mV */) {
@@ -106,39 +112,40 @@ NTreal AlphaM(NTreal vM /* in mV */) {
 		vM += _vBase();
 		return 1.0 / (exp(3.0 - vM / 10.0) + 1.0);
 	}
-  /**  */
-void ShowParam() const;
-/* ***  Data                 ***/
+	/**  */
+	void ShowParam() const;
+	/* ***  Data                 ***/
+	static NTBP_transition_rate_matrix_o* probMatrix;
+
 protected:
-/* ***  Methods              ***/
-/* ***  Data                 ***/
+	/* ***  Methods              ***/
+	/* ***  Data                 ***/
 private:
-/* ***  Methods              ***/
-/* ***  Data                 ***/
-static NT_gaussian_rnd_dist_o normalRnd; // notice, sometimes a linker error is produced, which can be removed by adding a NT_gaussian_..._o object at the beginning of the main() code.
+	/* ***  Methods              ***/
+	/* ***  Data                 ***/
+	static NT_gaussian_rnd_dist_o normalRnd; // notice, sometimes a linker error is produced, which can be removed by adding a NT_gaussian_..._o object at the beginning of the main() code.
 
-static bool initTableLookUp;
+	static bool initTableLookUp;
 
-NTreal baseTemp; // C
-NTreal alphaM;
-NTreal betaM;
-NTreal m;
-NTreal noiseM;
-static NTreal alphaMvec[15000];
-static NTreal betaMvec[15000];
-const NTreal q10m;
+	NTreal baseTemp; // C
+	NTreal alphaM;
+	NTreal betaM;
+	NTreal m;
+	NTreal noiseM;
+	static NTreal alphaMvec[15000];
+	static NTreal betaMvec[15000];
+	const NTreal q10m;
 
-NTreal alphaH;
-NTreal betaH;
-NTreal h;
-NTreal noiseH;
-static NTreal alphaHvec[15000];
-static NTreal betaHvec[15000];
-static NTreal mvec[15000];
-static NTreal hvec[15000];
-const NTreal q10h;
+	NTreal alphaH;
+	NTreal betaH;
+	NTreal h;
+	NTreal noiseH;
+	static NTreal alphaHvec[15000];
+	static NTreal betaHvec[15000];
+	static NTreal mvec[15000];
+	static NTreal hvec[15000];
+	const NTreal q10h;
 };
-
 
 #endif /* _ntbp_HH_multi_sodium_current_obj_h_ */
 

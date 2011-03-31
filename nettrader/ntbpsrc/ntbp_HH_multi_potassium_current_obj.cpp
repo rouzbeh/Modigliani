@@ -1,9 +1,9 @@
 /**\file ntbp_HH_multi_potassium_current_obj.cpp - squid giant axon sodium conducta nce class implementation
- * by Ahmed Aldo Faisal &copy; created 16.3.2001  
+ * by Ahmed Aldo Faisal &copy; created 16.3.2001
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
  * Version:  0.5
- * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    
+ * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -49,21 +49,21 @@ bool NTBP_HH_multi_potassium_current_o::initTableLookUp = false;
 NTreal NTBP_HH_multi_potassium_current_o::alphaNvec[15000];
 NTreal NTBP_HH_multi_potassium_current_o::betaNvec[15000];
 
+NTBP_transition_rate_matrix_o* NTBP_HH_multi_potassium_current_o::probMatrix;
+
 /* ***      CONSTRUCTORS	***/
 /** Create a NTBP_HH_multi_potassium_current_o */
 NTBP_HH_multi_potassium_current_o::NTBP_HH_multi_potassium_current_o(
 		NTreal newArea, NTreal newDensity, NTreal newConductivity,
-		NTreal newVBase, NTreal newQ10n,
-		NTreal reversalPotential, NTreal newTimeStep, NTreal newTemperature) :
-	q10n(newQ10n), NTBP_multi_current_o(
-			reversalPotential /* in mV */, newDensity /* channels per mu^2 */,
-			newArea /* in mu^2 */, newConductivity /* in mS per channel  */,
-			newVBase /* mV */
+		NTreal newVBase, NTreal newQ10n, NTreal reversalPotential,
+		NTreal newTimeStep, NTreal newTemperature) :
+	q10n(newQ10n), NTBP_multi_current_o(reversalPotential /* in mV */,
+			newDensity /* channels per mu^2 */, newArea /* in mu^2 */,
+			newConductivity /* in mS per channel  */, newVBase /* mV */
 	) {
 	//density and area updated by NTBP_multi_current_obj constructor
 	UpdateNumChannels();
-	channelsPtr = new NTBP_ion_channels_o(_numChannels(), 5, newTimeStep);
-	channelsPtr->setAsOpenState(5);
+
 	//TODO: What are noiseM / -H?
 	noiseN = 0;
 	baseTemp = 6.3;
@@ -77,8 +77,13 @@ NTBP_HH_multi_potassium_current_o::NTBP_HH_multi_potassium_current_o(
 			alphaNvec[ll] = AlphaN(vTmp);
 			betaNvec[ll] = BetaN(vTmp);
 		}
+		probMatrix = new NTBP_transition_rate_matrix_o(5, -100, 300, 0.01);
+		ComputeRateConstants();
 		initTableLookUp = true;
 	}
+	channelsPtr = new NTBP_ion_channels_o(_numChannels(), 5, probMatrix,
+			newTimeStep);
+	channelsPtr->setAsOpenState(5);
 
 	// this is n_inf
 	n = AlphaN(0) / (AlphaN(0) + BetaN(0));
@@ -87,10 +92,10 @@ NTBP_HH_multi_potassium_current_o::NTBP_HH_multi_potassium_current_o(
 /* ***      COPY AND ASSIGNMENT	***/
 NTBP_HH_multi_potassium_current_o::NTBP_HH_multi_potassium_current_o(
 		const NTBP_HH_multi_potassium_current_o & original) :
-	q10n(original.q10n), NTBP_multi_current_o(
-			original._reversalPotential(), original._density(),
-			original._area(), original._conductivity()) {
-	channelsPtr = new NTBP_ion_channels_o(original._numChannels(), 5);
+	q10n(original.q10n), NTBP_multi_current_o(original._reversalPotential(),
+			original._density(), original._area(), original._conductivity()) {
+	channelsPtr = new NTBP_ion_channels_o(_numChannels(), 5, probMatrix,
+			original._timeStep());
 	channelsPtr->setAsOpenState(5);
 }
 
@@ -99,7 +104,8 @@ NTBP_HH_multi_potassium_current_o::operator=(
 		const NTBP_HH_multi_potassium_current_o & right) {
 	if (this == &right)
 		return *this; // Gracefully handle self assignment
-	channelsPtr = new NTBP_ion_channels_o(right._numChannels(), 5);
+	channelsPtr = new NTBP_ion_channels_o(right._numChannels(), 5, probMatrix,
+			right._timeStep());
 	channelsPtr->setAsOpenState(5);
 	return *this;
 }
@@ -120,9 +126,6 @@ inline NTreturn NTBP_HH_multi_potassium_current_o::StepCurrent() {
 	//	cerr << "NTBP_HH_multi_potassium_current_o::StepCurrent()" << endl;
 	NTreal tmpN = 0;
 	NTsize counter = 0;
-	if (!channelsPtr->getRatesComputed()) {
-		ComputeRateConstants();
-	}
 
 	switch (_simulationMode()) {
 	case NTBP_BINOMIALPOPULATION: {
@@ -130,7 +133,8 @@ inline NTreturn NTBP_HH_multi_potassium_current_o::StepCurrent() {
 	}
 		break;
 	case NTBP_GILLESPIE: {
-		cerr << "WARNING : NTBP_GILLESPIE is being called on multi potassium channel. NOT IMPLEMENTED.";
+		cerr
+				<< "WARNING : NTBP_GILLESPIE is being called on multi potassium channel. NOT IMPLEMENTED.";
 		return NT_NOT_IMPLEMENTED;
 	}
 		break;
@@ -140,45 +144,46 @@ inline NTreturn NTBP_HH_multi_potassium_current_o::StepCurrent() {
 		break;
 	case NTBP_LANGEVIN: {
 		/*counter = 0;
-		m += _timeStep() * ((1.0 - m) * alphaM - m * betaM);
-		NT_ASSERT(m>=0 && m<=1);
-		do {
-			counter++;
-			tmpM = _timeStep() * normalRnd.RndVal() * sqrt((alphaM * (1 - m)
-					+ betaM * m) / _numChannels());
-			if (counter > 1 && counter < 1024)
-				cerr << "NaM=" << counter << endl;
-			else if (counter >= 1024) {
-				noiseM = 0;
-				tmpM = 0;
-				break;
-			}
-		} while ((_timeStep() * (tmpM + noiseM) + m >= 1) || (_timeStep()
-				* (tmpM + noiseM) + m <= 0));
-		noiseM += tmpM;
-		m += _timeStep() * noiseM;
+		 m += _timeStep() * ((1.0 - m) * alphaM - m * betaM);
+		 NT_ASSERT(m>=0 && m<=1);
+		 do {
+		 counter++;
+		 tmpM = _timeStep() * normalRnd.RndVal() * sqrt((alphaM * (1 - m)
+		 + betaM * m) / _numChannels());
+		 if (counter > 1 && counter < 1024)
+		 cerr << "NaM=" << counter << endl;
+		 else if (counter >= 1024) {
+		 noiseM = 0;
+		 tmpM = 0;
+		 break;
+		 }
+		 } while ((_timeStep() * (tmpM + noiseM) + m >= 1) || (_timeStep()
+		 * (tmpM + noiseM) + m <= 0));
+		 noiseM += tmpM;
+		 m += _timeStep() * noiseM;
 
-		counter = 0;
-		h += _timeStep() * ((1.0 - h) * alphaH - h * betaH);
-		NT_ASSERT(h>=0 && h<= 1);
-		do {
-			counter++;
-			tmpH = _timeStep() * normalRnd.RndVal() * sqrt((alphaH * (1 - h)
-					+ betaH * h) / _numChannels());
-			if (counter > 1 && counter < 1024)
-				cerr << "NaH=" << counter << endl;
-			else if (counter >= 1024) {
-				noiseH = 0;
-				tmpH = 0;
-				break;
-			}
-		} while ((_timeStep() * (tmpH + noiseH) + h >= 1) || (_timeStep()
-				* (tmpH + noiseH) + h <= 0));
-		noiseH += tmpH;
-		h += _timeStep() * noiseH;
+		 counter = 0;
+		 h += _timeStep() * ((1.0 - h) * alphaH - h * betaH);
+		 NT_ASSERT(h>=0 && h<= 1);
+		 do {
+		 counter++;
+		 tmpH = _timeStep() * normalRnd.RndVal() * sqrt((alphaH * (1 - h)
+		 + betaH * h) / _numChannels());
+		 if (counter > 1 && counter < 1024)
+		 cerr << "NaH=" << counter << endl;
+		 else if (counter >= 1024) {
+		 noiseH = 0;
+		 tmpH = 0;
+		 break;
+		 }
+		 } while ((_timeStep() * (tmpH + noiseH) + h >= 1) || (_timeStep()
+		 * (tmpH + noiseH) + h <= 0));
+		 noiseH += tmpH;
+		 h += _timeStep() * noiseH;
 
-		return NT_SUCCESS;*/
-		cerr << "WARNING : NTBP_LANGEVIN is being called on multi potassium channel. NOT IMPLEMENTED.";
+		 return NT_SUCCESS;*/
+		cerr
+				<< "WARNING : NTBP_LANGEVIN is being called on multi potassium channel. NOT IMPLEMENTED.";
 		return NT_NOT_IMPLEMENTED;
 	}
 		break;
@@ -200,11 +205,13 @@ inline NTreturn NTBP_HH_multi_potassium_current_o::StepCurrent() {
 }
 
 inline void NTBP_HH_multi_potassium_current_o::ComputeRateConstants() {
-	cerr << "Calculating rate matrix for NTBP_HH_multi_potassium_current_o" << endl;
+	cerr << "Calculating rate matrix for NTBP_HH_multi_potassium_current_o"
+			<< endl;
 	NTreal temp = _temperature();
 	NTreal deltaT = _timeStep();
-	NTreal q10FactorN = NTBP_TemperatureRateRelation(temp, baseTemp /* C */,q10n);
-//	cerr  << "q10 = " << q10FactorN << endl;
+	NTreal q10FactorN = NTBP_TemperatureRateRelation(temp, baseTemp /* C */,
+			q10n);
+	//	cerr  << "q10 = " << q10FactorN << endl;
 	NTsize index = 0;
 	NTreal vM = -100;
 
@@ -223,20 +230,17 @@ inline void NTBP_HH_multi_potassium_current_o::ComputeRateConstants() {
 		NTreal alphaNdeltaT = alphaN * deltaT;
 		NTreal betaNdeltaT = betaN * deltaT;
 
-		channelsPtr->setTransactionProbability(i, 1, 2, 4 * alphaNdeltaT);
-		channelsPtr->setTransactionProbability(i, 2, 3, 3 * alphaNdeltaT);
-		channelsPtr->setTransactionProbability(i, 3, 4, 2 * alphaNdeltaT);
-		channelsPtr->setTransactionProbability(i, 4, 5, 1 * alphaNdeltaT);
+		probMatrix->setTransitionProbability(vM, 1, 2, 4 * alphaNdeltaT);
+		probMatrix->setTransitionProbability(vM, 2, 3, 3 * alphaNdeltaT);
+		probMatrix->setTransitionProbability(vM, 3, 4, 2 * alphaNdeltaT);
+		probMatrix->setTransitionProbability(vM, 4, 5, 1 * alphaNdeltaT);
 
-		channelsPtr->setTransactionProbability(i, 5, 4, 4 * betaNdeltaT);
-		channelsPtr->setTransactionProbability(i, 4, 3, 3 * betaNdeltaT);
-		channelsPtr->setTransactionProbability(i, 3, 2, 2 * betaNdeltaT);
-		channelsPtr->setTransactionProbability(i, 2, 1, 1 * betaNdeltaT);
-
+		probMatrix->setTransitionProbability(vM, 5, 4, 4 * betaNdeltaT);
+		probMatrix->setTransitionProbability(vM, 4, 3, 3 * betaNdeltaT);
+		probMatrix->setTransitionProbability(vM, 3, 2, 2 * betaNdeltaT);
+		probMatrix->setTransitionProbability(vM, 2, 1, 1 * betaNdeltaT);
 
 	}
-
-	channelsPtr->setRatesComputed(true);
 }
 
 /**  */
@@ -250,7 +254,7 @@ inline NTreal NTBP_HH_multi_potassium_current_o::OpenChannels() const {
 		break;
 	case NTBP_LANGEVIN:
 	case NTBP_DETERMINISTIC:
-		return pow(n,4) * NumChannels();
+		return pow(n, 4) * NumChannels();
 	default:
 		cerr
 				<< "NTBP_HH_multi_potassium_current_o::OpenChannels - ERROR : Unsupported simulation mode for OpenChannels."
@@ -276,17 +280,20 @@ inline NTreal NTBP_HH_multi_potassium_current_o::ComputeConductance() {
 	case NTBP_LANGEVIN:
 	case NTBP_DETERMINISTIC:
 
-//		cerr << Set_conductance(_maxConductivity() /* mS/cm^2 */* pow(n,4) * _area() /* muMeter^2 */* 1.0e-8 /* cm^2/muMeter^2 */) << endl;
-		return Set_conductance(_maxConductivity() /* mS/cm^2 */* pow(n,4) * _area()/* muMeter^2 */* 1.0e-8 /* cm^2/muMeter^2 */);
+		//		cerr << Set_conductance(_maxConductivity() /* mS/cm^2 */* pow(n,4) * _area() /* muMeter^2 */* 1.0e-8 /* cm^2/muMeter^2 */) << endl;
+		return Set_conductance(_maxConductivity() /* mS/cm^2 */* pow(n, 4)
+				* _area()/* muMeter^2 */* 1.0e-8 /* cm^2/muMeter^2 */);
 		break;
 	case NTBP_NOISYMEAN: {
 		/*NTreal mean = n^4;
-		NTreal numAddOpening = m * m * (1 - m) * (1 - h) * alphaM / _timeStep()
-				+ m * m * m * (1 - h) * alphaH / _timeStep();
-		NTreal numAddClosing = m * m * m * h * (3 * betaM + betaH)
-				/ _timeStep();
-		mean += numAddOpening - numAddClosing;*/
-		cerr << "NTBP_HH_multi_potassium_current_o::ComputeConductance(NTBP_NOISYMEAN): NOT IMPLEMENTED CORRECTLY" << endl;
+		 NTreal numAddOpening = m * m * (1 - m) * (1 - h) * alphaM / _timeStep()
+		 + m * m * m * (1 - h) * alphaH / _timeStep();
+		 NTreal numAddClosing = m * m * m * h * (3 * betaM + betaH)
+		 / _timeStep();
+		 mean += numAddOpening - numAddClosing;*/
+		cerr
+				<< "NTBP_HH_multi_potassium_current_o::ComputeConductance(NTBP_NOISYMEAN): NOT IMPLEMENTED CORRECTLY"
+				<< endl;
 		//return Set_conductance(_maxConductivity() /* mS/cm^2 */* mean * _area()
 		return NT_NOT_IMPLEMENTED;
 		// /* muMeter^2 */* 1.0e-8 /* cm^2/muMeter^2 */);
