@@ -48,10 +48,10 @@ NTBP_multi_sodium_steadystate_timeconstant_current_o::NTBP_multi_sodium_steadyst
 		NTreal newcH, NTBPKineticFunctionType newhTKineticFnct,
 		NTreal newvHTOffset /* [mV] */, NTreal newaHT, NTreal newbHT,
 		NTreal newcHT) :
-			NTBP_multi_current_o(109 /* in mV */,
-					newDensity /* channels per mu^2 */, newArea /* in mu^2 */,
-					newChannelConductance /* in mS per channel  */, -60 /* mV */
-			) {
+	NTBP_multi_current_o(109 /* in mV */, newDensity /* channels per mu^2 */,
+			newArea /* in mu^2 */,
+			newChannelConductance /* in mS per channel  */, -60 /* mV */
+	) {
 	//	mKineticFnct  = newmKineticFnct;//unused atm
 	vMOffset = newvMOffset; // [mV]
 	aM = newaM; //unused atm
@@ -71,7 +71,7 @@ NTBP_multi_sodium_steadystate_timeconstant_current_o::NTBP_multi_sodium_steadyst
 	cHT = newcHT;
 
 	UpdateNumChannels();
-	channelsPtr = new NTBP_ion_channels_o(_numChannels(), 8);
+
 	noiseM = 0;
 	noiseH = 0;
 
@@ -88,10 +88,12 @@ NTBP_multi_sodium_steadystate_timeconstant_current_o::NTBP_multi_sodium_steadyst
 			alphaHvec[ll] = AlphaH(vTmp);
 			betaHvec[ll] = BetaH(vTmp);
 		}
+		probMatrix = new NTBP_transition_rate_matrix_o(8, -100, 300, 0.01);
 		initTableLookUp = true;
 	}
 
 	ComputeRateConstants();
+	channelsPtr = new NTBP_ion_channels_o(_numChannels(), 8, probMatrix);
 	channelsPtr->setAsOpenState(4);
 	m = alphaM / (alphaM + betaM);
 	h = alphaH / (alphaH + betaH);
@@ -104,10 +106,10 @@ NTBP_multi_sodium_steadystate_timeconstant_current_o::NTBP_multi_sodium_steadyst
 /* ***      COPY AND ASSIGNMENT	***/
 NTBP_multi_sodium_steadystate_timeconstant_current_o::NTBP_multi_sodium_steadystate_timeconstant_current_o(
 		const NTBP_multi_sodium_steadystate_timeconstant_current_o & original) :
-			NTBP_multi_current_o(original._reversalPotential(),
-					original._density(), original._area(),
-					original._conductivity()) {
-	channelsPtr = new NTBP_ion_channels_o(original._numChannels(), 8);
+	NTBP_multi_current_o(original._reversalPotential(), original._density(),
+			original._area(), original._conductivity()) {
+	channelsPtr = new NTBP_ion_channels_o(original._numChannels(), 8,
+			probMatrix, original._timeStep());
 	ComputeRateConstants();
 	channelsPtr->setAsOpenState(4);
 	// add assignment code here
@@ -119,7 +121,8 @@ NTBP_multi_sodium_steadystate_timeconstant_current_o::operator=(
 	if (this == &right)
 		return *this; // Gracefully handle self assignment
 	// add assignment code here
-	channelsPtr = new NTBP_ion_channels_o(right._numChannels(), 8);
+	channelsPtr = new NTBP_ion_channels_o(right._numChannels(), 8, probMatrix,
+			right._timeStep());
 	ComputeRateConstants();
 	channelsPtr->setAsOpenState(4);
 	return *this;
@@ -183,8 +186,8 @@ inline NTreturn NTBP_multi_sodium_steadystate_timeconstant_current_o::StepCurren
 		NT_ASSERT(m>=0 && m<=1);
 		do {
 			counter++;
-			tmpM = _timeStep() * normalRnd.RndVal() * sqrt(
-					(alphaM * (1 - m) + betaM * m) / _numChannels());
+			tmpM = _timeStep() * normalRnd.RndVal() * sqrt((alphaM * (1 - m)
+					+ betaM * m) / _numChannels());
 			if (counter > 1 && counter < 1024)
 				cerr << "NaM=" << counter << endl;
 			else if (counter >= 1024) {
@@ -202,8 +205,8 @@ inline NTreturn NTBP_multi_sodium_steadystate_timeconstant_current_o::StepCurren
 		NT_ASSERT(h>=0 && h<= 1);
 		do {
 			counter++;
-			tmpH = _timeStep() * normalRnd.RndVal() * sqrt(
-					(alphaH * (1 - h) + betaH * h) / _numChannels());
+			tmpH = _timeStep() * normalRnd.RndVal() * sqrt((alphaH * (1 - h)
+					+ betaH * h) / _numChannels());
 			if (counter > 1 && counter < 1024)
 				cerr << "NaH=" << counter << endl;
 			else if (counter >= 1024) {
@@ -270,35 +273,34 @@ inline void NTBP_multi_sodium_steadystate_timeconstant_current_o::ComputeRateCon
 		NTreal alphaHdeltaT = alphaH * deltaT;
 		NTreal betaHdeltaT = betaH * deltaT;
 
-		channelsPtr->setTransactionProbability(i, 1, 2, 3 * alphaMdeltaT);
-		channelsPtr->setTransactionProbability(i, 2, 3, 2 * alphaMdeltaT);
-		channelsPtr->setTransactionProbability(i, 3, 4, alphaMdeltaT);
-		channelsPtr->setTransactionProbability(i, 5, 6,
-				channelsPtr->getTransactionProbability(i, 1, 2));
-		channelsPtr->setTransactionProbability(i, 6, 7,
-				channelsPtr->getTransactionProbability(i, 2, 3));
-		channelsPtr->setTransactionProbability(i, 7, 8,
-				channelsPtr->getTransactionProbability(i, 3, 4));
+		probMatrix->setTransitionProbability(vM, 1, 2, 3 * alphaMdeltaT);
+		probMatrix->setTransitionProbability(vM, 2, 3, 2 * alphaMdeltaT);
+		probMatrix->setTransitionProbability(vM, 3, 4, alphaMdeltaT);
+		probMatrix->setTransitionProbability(vM, 5, 6,
+				probMatrix->getTransitionProbability(vM, 1, 2));
+		probMatrix->setTransitionProbability(vM, 6, 7,
+				probMatrix->getTransitionProbability(vM, 2, 3));
+		probMatrix->setTransitionProbability(vM, 7, 8,
+				probMatrix->getTransitionProbability(vM, 3, 4));
 
-		channelsPtr->setTransactionProbability(i, 8, 7, 3 * betaMdeltaT);
-		channelsPtr->setTransactionProbability(i, 7, 6, 2 * betaMdeltaT);
-		channelsPtr->setTransactionProbability(i, 6, 5, betaMdeltaT);
-		channelsPtr->setTransactionProbability(i, 4, 3,
-				channelsPtr->getTransactionProbability(i, 8, 7));
-		channelsPtr->setTransactionProbability(i, 3, 2,
-				channelsPtr->getTransactionProbability(i, 7, 6));
-		channelsPtr->setTransactionProbability(i, 2, 1,
-				channelsPtr->getTransactionProbability(i, 6, 5));
+		probMatrix->setTransitionProbability(vM, 8, 7, 3 * betaMdeltaT);
+		probMatrix->setTransitionProbability(vM, 7, 6, 2 * betaMdeltaT);
+		probMatrix->setTransitionProbability(vM, 6, 5, betaMdeltaT);
+		probMatrix->setTransitionProbability(vM, 4, 3, 3 * betaMdeltaT);
+		probMatrix->setTransitionProbability(vM, 3, 2,
+				probMatrix->getTransitionProbability(vM, 7, 6));
+		probMatrix->setTransitionProbability(vM, 2, 1,
+				probMatrix->getTransitionProbability(vM, 6, 5));
 
-		channelsPtr->setTransactionProbability(i, 1, 5, betaHdeltaT);
-		channelsPtr->setTransactionProbability(i, 2, 6, betaHdeltaT);
-		channelsPtr->setTransactionProbability(i, 3, 7, betaHdeltaT);
-		channelsPtr->setTransactionProbability(i, 4, 8, betaHdeltaT);
+		probMatrix->setTransitionProbability(vM, 1, 5, betaHdeltaT);
+		probMatrix->setTransitionProbability(vM, 2, 6, betaHdeltaT);
+		probMatrix->setTransitionProbability(vM, 3, 7, betaHdeltaT);
+		probMatrix->setTransitionProbability(vM, 4, 8, betaHdeltaT);
 
-		channelsPtr->setTransactionProbability(i, 5, 1, alphaHdeltaT);
-		channelsPtr->setTransactionProbability(i, 6, 2, alphaHdeltaT);
-		channelsPtr->setTransactionProbability(i, 7, 3, alphaHdeltaT);
-		channelsPtr->setTransactionProbability(i, 8, 4, alphaHdeltaT);
+		probMatrix->setTransitionProbability(vM, 5, 1, alphaHdeltaT);
+		probMatrix->setTransitionProbability(vM, 6, 2, alphaHdeltaT);
+		probMatrix->setTransitionProbability(vM, 7, 3, alphaHdeltaT);
+		probMatrix->setTransitionProbability(vM, 8, 4, alphaHdeltaT);
 	}
 }
 
@@ -332,9 +334,9 @@ inline NTreal NTBP_multi_sodium_steadystate_timeconstant_current_o::ComputeCondu
 		break;
 	case NTBP_LANGEVIN:
 	case NTBP_DETERMINISTIC:
-		return Set_conductance(
-				_maxConductivity() /* mS/cm^2 */* m * m * m * h * _area()
-				/* muMeter^2 */* 1.0e-8 /* cm^2/muMeter^2 */);
+		return Set_conductance(_maxConductivity() /* mS/cm^2 */* m * m * m * h
+				* _area()
+		/* muMeter^2 */* 1.0e-8 /* cm^2/muMeter^2 */);
 		break;
 	case NTBP_NOISYMEAN: {
 		NTreal mean = m * m * m * h;

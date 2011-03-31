@@ -105,6 +105,8 @@ public:
 				<< betaH << "\t" << channelsPtr->NumOpen();
 	}
 	/* ***  Data                 ***/
+	static NTBP_transition_rate_matrix_o* probMatrix;
+
 protected:
 	/* ***  Methods              ***/
 	/** in 1/ms or kHz */

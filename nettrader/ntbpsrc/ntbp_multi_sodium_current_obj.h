@@ -66,7 +66,7 @@ public:
 					NTreal area /* in muMeter^2 */,
 					NTreal density = 330 /* in num/muMeter^2 */,
 					NTreal channelConductave = 4.0e-9 /* in mSiemens per channel = 4pS */,
-					NTreal newVBase = 0, NTreal newReversalPotential = 115);
+					NTreal newVBase = 0, NTreal newReversalPotential = 115,  NTreal newTimeStep=0.01, NTreal newTemperature=20);
 	NTBP_multi_sodium_current_o(const NTBP_multi_sodium_current_o & original);
 	const NTBP_multi_sodium_current_o & operator=(
 			const NTBP_multi_sodium_current_o & right);
@@ -105,6 +105,8 @@ public:
 	/**  */
 	void ShowParam() const;
 	/* ***  Data                 ***/
+	static NTBP_transition_rate_matrix_o* probMatrix;
+
 protected:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
