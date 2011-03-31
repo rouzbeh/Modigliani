@@ -55,13 +55,13 @@ NTBP_create_na_channel_ptr(NTsize sodiumModel, NTsize sodiumAlg,
 	switch (sodiumModel) {
 	case 1:
 		/* SGA */
-		tmpNaPtr
-				= new NTBP_multi_sodium_current_o(area, indSodiumDensity, pow(
-						3, (temperature - 6.3) / 10.0) * sodiumConductance
-						* 1e-9 /* mSiemens per channel */, vBase,
-						reversalPotential);
-		cout << "Using SGA Na model." << endl;
-		break;
+//		tmpNaPtr
+//				= new NTBP_multi_sodium_current_o(area, indSodiumDensity, pow(
+//						3, (temperature - 6.3) / 10.0) * sodiumConductance
+//						* 1e-9 /* mSiemens per channel */, vBase,
+//						reversalPotential);
+//		cout << "Using SGA Na model." << endl;
+//		break;
 	case 2:
 		/* hRanvier */
 		tmpNaPtr = new NTBP_hranvier_sodium_multi_current_o(area,
@@ -71,19 +71,19 @@ NTBP_create_na_channel_ptr(NTsize sodiumModel, NTsize sodiumAlg,
 		break;
 	case 3:
 		/* COLBERTAXONAL */
-		tmpNaPtr = new NTBP_colbert_axonal_sodium_multi_current_o(area,
-				indSodiumDensity, pow(1.4, (temperature - 24.0) / 10.0)
-						* sodiumConductance * 1e-9 /* mSiemens per channel */
-				, vBase, q10m, q10h, reversalPotential);
-		cout << "Using Colbert-Axonal Na model." << endl;
-		break;
+//		tmpNaPtr = new NTBP_colbert_axonal_sodium_multi_current_o(area,
+//				indSodiumDensity, pow(1.4, (temperature - 24.0) / 10.0)
+//						* sodiumConductance * 1e-9 /* mSiemens per channel */
+//				, vBase, q10m, q10h, reversalPotential);
+//		cout << "Using Colbert-Axonal Na model." << endl;
+//		break;
 	case 4:
-		/* PATLAK */
-		tmpNaPtr = new NTBP_patlak_sodium_multi_current_o(area,
-				indSodiumDensity, sodiumConductance * 1e-9 /* mSiemens per channel */
-		);
-		cout << "Using Patlak Na model." << endl;
-		break;
+//		/* PATLAK */
+//		tmpNaPtr = new NTBP_patlak_sodium_multi_current_o(area,
+//				indSodiumDensity, sodiumConductance * 1e-9 /* mSiemens per channel */
+//		);
+//		cout << "Using Patlak Na model." << endl;
+//		break;
 	default:
 		cerr
 				<< "Axonsimulator-v2 - Error  : Invalid Na channel model specified. Exiting.";
@@ -133,11 +133,11 @@ NTBP_create_k_channel_ptr(NTsize potassiumModel, NTsize potassiumAlg,
 	NTBP_membrane_current_o *tmpKPtr;
 	switch (potassiumModel) {
 	case 1:
-		/* SGA */
-		tmpKPtr = new NTBP_multi_potassium_current_o(area, NTBP_SGA_SCHNEIDMAN,
-				indPotassiumDensity, vBase, potassiumReversalPotential);
-		cout << "Using SGA K model." << endl;
-		break;
+//		/* SGA */
+//		tmpKPtr = new NTBP_multi_potassium_current_o(area, NTBP_SGA_SCHNEIDMAN,
+//				indPotassiumDensity, vBase, potassiumReversalPotential);
+//		cout << "Using SGA K model." << endl;
+//		break;
 	case 2:
 		/* hRanvier */
 //		tmpKPtr = new NTBP_hranvier_potassium_multi_current_o(area,
@@ -147,21 +147,21 @@ NTBP_create_k_channel_ptr(NTsize potassiumModel, NTsize potassiumAlg,
 //		cout << "Using human Ranvier K model." << endl;
 		break;
 	case 3:
-		/* COLBERT AXONAL */
-		tmpKPtr = new NTBP_colbert_axonal_potassium_multi_current_o(area,
-				indPotassiumDensity,
-				potassiumConductance * 1e-9 /* mSiemens per channel */,
-				vBase/*-64.5*/, q10, potassiumReversalPotential);
-		cout << "Using Colbert-Axonal K model." << endl;
-		break;
+//		/* COLBERT AXONAL */
+//		tmpKPtr = new NTBP_colbert_axonal_potassium_multi_current_o(area,
+//				indPotassiumDensity,
+//				potassiumConductance * 1e-9 /* mSiemens per channel */,
+//				vBase/*-64.5*/, q10, potassiumReversalPotential);
+//		cout << "Using Colbert-Axonal K model." << endl;
+//		break;
 	case 4:
-		/* K-MULTI */
-		tmpKPtr = new NTBP_potassium_multi_current_o(area, indPotassiumDensity,
-				potassiumConductance * 1e-9 /* mSiemens per channel*/,
-				-63 /* mV */, 24 /* C */, -15 /* mV */
-		);//CHANGE VALUES ALSO ABOVE !
-		cout << "Using K-multi model." << endl;
-		break;
+//		/* K-MULTI */
+//		tmpKPtr = new NTBP_potassium_multi_current_o(area, indPotassiumDensity,
+//				potassiumConductance * 1e-9 /* mSiemens per channel*/,
+//				-63 /* mV */, 24 /* C */, -15 /* mV */
+//		);//CHANGE VALUES ALSO ABOVE !
+//		cout << "Using K-multi model." << endl;
+//		break;
 	default:
 		cerr << "Axonsimulator-v2 - Error : Invalid K channel model "
 				<< potassiumModel << " specified. Exiting.";

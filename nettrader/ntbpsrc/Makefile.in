@@ -50,7 +50,8 @@ AR = ar
 ARFLAGS = cru
 libntbpsrc_a_AR = $(AR) $(ARFLAGS)
 libntbpsrc_a_LIBADD =
-am_libntbpsrc_a_OBJECTS = ntbp_synaptic_background_obj.$(OBJEXT) \
+am_libntbpsrc_a_OBJECTS = ntbp_transition_rate_matrix_obj.$(OBJEXT) \
+	ntbp_synaptic_background_obj.$(OBJEXT) \
 	ntbp_potassium_multi_current_obj.$(OBJEXT) \
 	ntbp_colbert_axonal_potassium_multi_current_obj.$(OBJEXT) \
 	ntbp_colbert_axonal_sodium_multi_current_obj.$(OBJEXT) \
@@ -211,7 +212,7 @@ top_srcdir = @top_srcdir@
 
 ####### kdevelop will overwrite this part!!! (begin)##########
 noinst_LIBRARIES = libntbpsrc.a
-libntbpsrc_a_SOURCES = ntbp_synaptic_background_obj.cpp \
+libntbpsrc_a_SOURCES = ntbp_transition_rate_matrix_obj.cpp ntbp_synaptic_background_obj.cpp \
 	ntbp_potassium_multi_current_obj.cpp ntbp_colbert_axonal_potassium_multi_current_obj.cpp \
 	ntbp_colbert_axonal_sodium_multi_current_obj.cpp ntbp_hranvier_potassium_multi_current_obj.cpp \
 	ntbp_hranvier_sodium_multi_current_obj.cpp ntbp_patlak_sodium_ion_channels_obj.cpp \
@@ -228,8 +229,7 @@ libntbpsrc_a_SOURCES = ntbp_synaptic_background_obj.cpp \
 	ntbp_custom_cylindrical_compartment_obj.cpp ntbp_channels_current_obj.cpp \
 	ntbp_Na_only_sga_cylindrical_compartment_obj.cpp ntbp_K_only_sga_cylindrical_compartment_obj.cpp ntbp_auxfunc.cpp \
 	ntbp_multi_sodium_steadystate_timeconstant_current_obj.cpp ntbp_Spampanato_WT_sodium_multi_current_obj.cpp \
-	ntbp_Spampanato_WT_potassium_multi_current_obj.cpp ntbp_HH_multi_sodium_current_obj.cpp \
-	ntbp_HH_multi_potassium_current_obj.cpp
+	ntbp_Spampanato_WT_potassium_multi_current_obj.cpp ntbp_HH_multi_sodium_current_obj.cpp ntbp_HH_multi_potassium_current_obj.cpp 
 
 EXTRA_DIST = ntbp_K_only_sga_cylindrical_compartment_obj.cpp \
 	ntbp_K_only_sga_cylindrical_compartment_obj.h \
@@ -291,7 +291,15 @@ EXTRA_DIST = ntbp_K_only_sga_cylindrical_compartment_obj.cpp \
 	ntbp_potassium_multi_current_obj.h \
 	ntbp_synaptic_background_obj.cpp \
 	ntbp_synaptic_background_obj.h \
-	ntbp_Spampanato_WT_potassium_multi_current_obj.cpp
+	ntbp_Spampanato_WT_potassium_multi_current_obj.cpp \
+	ntbp_Spampanato_WT_potassium_multi_current_obj.h \
+	ntbp_Spampanato_WT_sodium_multi_current_obj.cpp \
+	ntbp_Spampanato_WT_sodium_multi_current_obj.h \
+	ntbp_HH_multi_sodium_current_obj.h \
+	ntbp_HH_multi_sodium_current_obj.cpp \
+	ntbp_HH_multi_potassium_current_obj.h \
+	ntbp_HH_multi_potassium_current_obj.cpp \
+	ntbp_transition_rate_matrix_obj.cpp
 
 ####### kdevelop will overwrite this part!!! (end)############
 # set the include path found by configure
@@ -388,6 +396,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_sodium_ion_channels_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_spherical_compartment_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_synaptic_background_obj.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_transition_rate_matrix_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_tridiag_solver_obj.Po@am__quote@
 
 .cpp.o:
@@ -598,6 +607,7 @@ uninstall-am:
 	maintainer-clean-generic mostlyclean mostlyclean-compile \
 	mostlyclean-generic pdf pdf-am ps ps-am tags uninstall \
 	uninstall-am
+
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
