@@ -102,6 +102,8 @@ NTreal BetaH(NTreal vM /* in mV */) { 	vM += _vBase(); return 2.30/(1+exp((-28.8
   /**  */
 void ShowParam() const;
 /* ***  Data                 ***/
+static NTBP_transition_rate_matrix_o* probMatrix;
+
 protected:
 /* ***  Methods              ***/
 /* ***  Data                 ***/
