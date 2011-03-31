@@ -5,6 +5,8 @@ NT_gaussian_rnd_dist_o NTBP_Spampanato_WT_potassium_multi_current_o::normalRnd;
 bool NTBP_Spampanato_WT_potassium_multi_current_o::initTableLookUp = false;
 NTreal NTBP_Spampanato_WT_potassium_multi_current_o::alphaNvec[15000];
 NTreal NTBP_Spampanato_WT_potassium_multi_current_o::betaNvec[15000];
+NTBP_transition_rate_matrix_o* NTBP_Spampanato_WT_potassium_multi_current_o::probMatrix;
+
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NTBP_Spampanato_WT_potassium_multi_current_o */
@@ -19,8 +21,7 @@ NTBP_Spampanato_WT_potassium_multi_current_o::NTBP_Spampanato_WT_potassium_multi
 	) {
 	//density and area updated by NTBP_multi_current_obj constructor
 	UpdateNumChannels();
-	channelsPtr = new NTBP_ion_channels_o(_numChannels(), 5, newTimeStep);
-	channelsPtr->setAsOpenState(5);
+
 	//TODO: What are noiseM / -H?
 	noiseN = 0;
 	baseTemp = 20.0;	//all measurements at 20C
@@ -34,9 +35,12 @@ NTBP_Spampanato_WT_potassium_multi_current_o::NTBP_Spampanato_WT_potassium_multi
 			alphaNvec[ll] = AlphaN(vTmp);
 			betaNvec[ll] = BetaN(vTmp);
 		}
+		probMatrix = new NTBP_transition_rate_matrix_o(8, -100, 300, 0.01);
+		ComputeRateConstants();
 		initTableLookUp = true;
 	}
-
+	channelsPtr = new NTBP_ion_channels_o(_numChannels(), 5, probMatrix, newTimeStep);;
+	channelsPtr->setAsOpenState(5);
 	// this is n_inf
 	n = AlphaN(0) / (AlphaN(0) + BetaN(0));
 }
@@ -47,7 +51,7 @@ NTBP_Spampanato_WT_potassium_multi_current_o::NTBP_Spampanato_WT_potassium_multi
 	q10n(original.q10n), NTBP_multi_current_o(
 			original._reversalPotential(), original._density(),
 			original._area(), original._conductivity()) {
-	channelsPtr = new NTBP_ion_channels_o(original._numChannels(), 5);
+	channelsPtr = new NTBP_ion_channels_o(original._numChannels(), 5, probMatrix, original._timeStep());
 	channelsPtr->setAsOpenState(5);
 }
 
@@ -56,7 +60,7 @@ NTBP_Spampanato_WT_potassium_multi_current_o::operator=(
 		const NTBP_Spampanato_WT_potassium_multi_current_o & right) {
 	if (this == &right)
 		return *this; // Gracefully handle self assignment
-	channelsPtr = new NTBP_ion_channels_o(right._numChannels(), 5);
+	channelsPtr = new NTBP_ion_channels_o(right._numChannels(), 5, probMatrix, right._timeStep());
 	channelsPtr->setAsOpenState(5);
 	return *this;
 }
@@ -77,9 +81,6 @@ inline NTreturn NTBP_Spampanato_WT_potassium_multi_current_o::StepCurrent() {
 	//	cerr << "NTBP_Spampanato_WT_potassium_multi_current_o::StepCurrent()" << endl;
 	NTreal tmpN = 0;
 	NTsize counter = 0;
-	if (!channelsPtr->getRatesComputed()) {
-		ComputeRateConstants();
-	}
 
 	switch (_simulationMode()) {
 	case NTBP_BINOMIALPOPULATION: {
@@ -162,10 +163,8 @@ inline void NTBP_Spampanato_WT_potassium_multi_current_o::ComputeRateConstants()
 	NTreal q10FactorN = NTBP_TemperatureRateRelation(temp, baseTemp /* C */,
 			q10n);
 	NTsize index = 0;
-	NTreal vM = -100;
 
-	for (NTsize i = 0; i < 5000; i++) {
-		vM += 0.1;
+	for (NTreal vM = -100; vM<300; vM+=0.01) {
 		NTreal alphaN, betaN;
 		if ((vM < -20) || (vM > 130.0)) {
 			alphaN = q10FactorN * AlphaN(vM);
@@ -179,20 +178,16 @@ inline void NTBP_Spampanato_WT_potassium_multi_current_o::ComputeRateConstants()
 		NTreal alphaNdeltaT = alphaN * deltaT;
 		NTreal betaNdeltaT = betaN * deltaT;
 
-		channelsPtr->setTransactionProbability(i, 1, 2, 4 * alphaNdeltaT);
-		channelsPtr->setTransactionProbability(i, 2, 3, 3 * alphaNdeltaT);
-		channelsPtr->setTransactionProbability(i, 3, 4, 2 * alphaNdeltaT);
-		channelsPtr->setTransactionProbability(i, 4, 5, 1 * alphaNdeltaT);
+		probMatrix->setTransitionProbability(vM, 1, 2, 4 * alphaNdeltaT);
+		probMatrix->setTransitionProbability(vM, 2, 3, 3 * alphaNdeltaT);
+		probMatrix->setTransitionProbability(vM, 3, 4, 2 * alphaNdeltaT);
+		probMatrix->setTransitionProbability(vM, 4, 5, 1 * alphaNdeltaT);
 
-		channelsPtr->setTransactionProbability(i, 5, 4, 4 * betaNdeltaT);
-		channelsPtr->setTransactionProbability(i, 4, 3, 3 * betaNdeltaT);
-		channelsPtr->setTransactionProbability(i, 3, 2, 2 * betaNdeltaT);
-		channelsPtr->setTransactionProbability(i, 2, 1, 1 * betaNdeltaT);
-
-
+		probMatrix->setTransitionProbability(vM, 5, 4, 4 * betaNdeltaT);
+		probMatrix->setTransitionProbability(vM, 4, 3, 3 * betaNdeltaT);
+		probMatrix->setTransitionProbability(vM, 3, 2, 2 * betaNdeltaT);
+		probMatrix->setTransitionProbability(vM, 2, 1, 1 * betaNdeltaT);
 	}
-
-	channelsPtr->setRatesComputed(true);
 }
 
 /**  */
