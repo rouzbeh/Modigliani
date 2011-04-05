@@ -60,12 +60,13 @@ public:
 	}
 	bool GillespieStep(NTreal voltage);
 	void setAsOpenState(NTsize newOpenState);
-	virtual NTreturn BinomialStep(NTreal voltage);
-	virtual NTreturn Step(NTreal voltage);
-	virtual bool ComputeGillespieStep(NTsize channelStateId, NTreal voltage);
-	virtual void ShowStates() const;
-	virtual NTsize NumOpen() const;
-	virtual NTsize NumClosed() const {
+	NTreturn BinomialStep(NTreal voltage);
+	NTreturn DeterministicStep(NTreal voltage);
+	NTreturn Step(NTreal voltage);
+	bool ComputeGillespieStep(NTsize channelStateId, NTreal voltage);
+	void ShowStates() const;
+	NTsize NumOpen() const;
+	NTsize NumClosed() const {
 		return _numChannels() - NumOpen();
 	}
 	virtual NTreturn SteadyStateDistribution(NTreal voltage);

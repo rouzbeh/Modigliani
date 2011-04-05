@@ -49,7 +49,7 @@ LIBRARIES = $(noinst_LIBRARIES)
 AR = ar
 ARFLAGS = cru
 libntbpsrc_a_AR = $(AR) $(ARFLAGS)
-libntbpsrc_a_LIBADD =
+libntbpsrc_a_DEPENDENCIES = json/libjson_linux-gcc-4.5.2_libmt.a
 am_libntbpsrc_a_OBJECTS = ntbp_transition_rate_matrix_obj.$(OBJEXT) \
 	ntbp_synaptic_background_obj.$(OBJEXT) \
 	ntbp_potassium_multi_current_obj.$(OBJEXT) \
@@ -91,7 +91,8 @@ am_libntbpsrc_a_OBJECTS = ntbp_transition_rate_matrix_obj.$(OBJEXT) \
 	ntbp_Spampanato_WT_sodium_multi_current_obj.$(OBJEXT) \
 	ntbp_Spampanato_WT_potassium_multi_current_obj.$(OBJEXT) \
 	ntbp_HH_multi_sodium_current_obj.$(OBJEXT) \
-	ntbp_HH_multi_potassium_current_obj.$(OBJEXT)
+	ntbp_HH_multi_potassium_current_obj.$(OBJEXT) \
+	NTBP_file_based_multi_current_obj.$(OBJEXT)
 libntbpsrc_a_OBJECTS = $(am_libntbpsrc_a_OBJECTS)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -229,7 +230,8 @@ libntbpsrc_a_SOURCES = ntbp_transition_rate_matrix_obj.cpp ntbp_synaptic_backgro
 	ntbp_custom_cylindrical_compartment_obj.cpp ntbp_channels_current_obj.cpp \
 	ntbp_Na_only_sga_cylindrical_compartment_obj.cpp ntbp_K_only_sga_cylindrical_compartment_obj.cpp ntbp_auxfunc.cpp \
 	ntbp_multi_sodium_steadystate_timeconstant_current_obj.cpp ntbp_Spampanato_WT_sodium_multi_current_obj.cpp \
-	ntbp_Spampanato_WT_potassium_multi_current_obj.cpp ntbp_HH_multi_sodium_current_obj.cpp ntbp_HH_multi_potassium_current_obj.cpp 
+	ntbp_Spampanato_WT_potassium_multi_current_obj.cpp ntbp_HH_multi_sodium_current_obj.cpp ntbp_HH_multi_potassium_current_obj.cpp \
+	NTBP_file_based_multi_current_obj.cpp
 
 EXTRA_DIST = ntbp_K_only_sga_cylindrical_compartment_obj.cpp \
 	ntbp_K_only_sga_cylindrical_compartment_obj.h \
@@ -299,7 +301,9 @@ EXTRA_DIST = ntbp_K_only_sga_cylindrical_compartment_obj.cpp \
 	ntbp_HH_multi_sodium_current_obj.cpp \
 	ntbp_HH_multi_potassium_current_obj.h \
 	ntbp_HH_multi_potassium_current_obj.cpp \
-	ntbp_transition_rate_matrix_obj.cpp
+	ntbp_transition_rate_matrix_obj.cpp \
+	NTBP_file_based_multi_current_obj.cpp
+libntbpsrc_a_LIBADD = json/libjson_linux-gcc-4.5.2_libmt.a
 
 ####### kdevelop will overwrite this part!!! (end)############
 # set the include path found by configure
@@ -355,6 +359,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/NTBP_file_based_multi_current_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_HH_multi_potassium_current_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_HH_multi_sodium_current_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_K_only_sga_cylindrical_compartment_obj.Po@am__quote@
