@@ -54,6 +54,7 @@ string filename;
 bool swComputeELeak;
 
 typedef std::map<std::string, NTreal> parameters;
+typedef std::map<std::string, std::string> channel_parameters;
 
 /* Axon parameters */
 parameters hillockParameters;
@@ -61,9 +62,10 @@ parameters nodeParameters;
 parameters paranodeParameters;
 parameters internodeParameters;
 parameters globalParameters;
+channel_parameters channel_params;
 /* Simulation */
 string inputFilename;
-NTsize output=0;
+NTsize output = 0;
 string outputFolder;
 NTsize readN;
 NTreal inpI;
@@ -92,19 +94,18 @@ void readCommonConfig(NT_config_file_parser_o oCfg, parameters& params,
 	params["ra"] = oCfg.Value(section, "Ra"); /* Ohm cm */
 	params["cm"] = oCfg.Value(section, "Cm"); /* muFarad/cm^2 */
 
-	params["sodiumModel"] = oCfg.Value(section, "chNaModel");
+	channel_params[section + "SodiumModel"] = (string) oCfg.Value(section,
+			"chNaModel");
 	params["sodiumAlg"] = oCfg.Value(section, "chNaAlg");
 	params["sodiumDensity"] = oCfg.Value(section, "chNaDen"); //= 60; // per mu^2
 	params["sodiumConductance"] = oCfg.Value(section, "chNaCond");
-	params["sodiumQ10m"] = oCfg.Value(section, "chNaQ10m");
-	params["sodiumQ10h"] = oCfg.Value(section, "chNaQ10h");
 	params["sodiumReversalPotential"] = oCfg.Value(section, "chNaRevPot");
 
-	params["potassiumModel"] = oCfg.Value(section, "chKModel");
+	channel_params[section + "PotassiumModel"] = (string) oCfg.Value(section,
+			"chKModel");
 	params["potassiumAlg"] = oCfg.Value(section, "chKAlg");
 	params["potassiumDensity"] = oCfg.Value(section, "chKDen"); //= 60; // per mu^2
 	params["potassiumConductance"] = oCfg.Value(section, "chKCond");
-	params["potassiumQ10"] = oCfg.Value(section, "chKQ10");
 	params["potassiumReversalPotential"] = oCfg.Value(section, "chKRevPot");
 }
 
@@ -147,8 +148,8 @@ void readConfig(string fileName) {
 	/* Simulation */
 	inputFilename = (string) oCfg.Value("simulation", "inputFile");
 	outputFolder = (string) oCfg.Value("simulation", "outputFolder");
-	if (outputFolder.compare("0")!=0) {
-		output=1;
+	if (outputFolder.compare("none") != 0) {
+		output = 1;
 	}
 	readN = oCfg.Value("simulation", "readN");
 	inpI = oCfg.Value("simulation", "inpI");
@@ -169,7 +170,8 @@ void readConfig(string fileName) {
 void printConfig(ofstream& out) {
 	for (parameters::iterator globalIter = globalParameters.begin(); globalIter
 			!= globalParameters.end(); ++globalIter) {
-		out << "global_" << globalIter->first << " = " << globalIter->second << endl;
+		out << "global_" << globalIter->first << " = " << globalIter->second
+				<< endl;
 	}
 
 	for (parameters::iterator nodeIter = nodeParameters.begin(); nodeIter
@@ -179,14 +181,14 @@ void printConfig(ofstream& out) {
 
 	for (parameters::iterator paranodeIter = paranodeParameters.begin(); paranodeIter
 			!= paranodeParameters.end(); ++paranodeIter) {
-		out << "paranode_" << paranodeIter->first << " = " << paranodeIter->second
-				<< endl;
+		out << "paranode_" << paranodeIter->first << " = "
+				<< paranodeIter->second << endl;
 	}
 
 	for (parameters::iterator internodeIter = internodeParameters.begin(); internodeIter
 			!= internodeParameters.end(); ++internodeIter) {
-		out << "internode_" << internodeIter->first << " = " << internodeIter->second
-				<< endl;
+		out << "internode_" << internodeIter->first << " = "
+				<< internodeIter->second << endl;
 	}
 
 	out << "simulation_samplerate = " << sampN << endl;
@@ -226,7 +228,8 @@ string createOutputFolder(string outputFolder) {
  * @param prefix File name prefix
  * @param outStream Will contain an ofstream pointing to the newly created file.
  */
-void openOutputFile(string outputFolder, string prefix, ofstream& outStream, string extension=".txt") {
+void openOutputFile(string outputFolder, string prefix, ofstream& outStream,
+		string extension = ".txt") {
 	/* open files */
 	stringstream ss(stringstream::in | stringstream::out);
 	ss << outputFolder << "/" << prefix << extension;
@@ -248,7 +251,8 @@ void openOutputFile(string outputFolder, string prefix, ofstream& outStream, str
  * @return The constructed compartment.
  */
 NTBP_custom_cylindrical_compartment_o* createCompartment(
-		parameters globalParameters, parameters compartmentParameters) {
+		parameters globalParameters, parameters compartmentParameters,
+		string sodiumModel, string potassiumModel) {
 
 	NTBP_custom_cylindrical_compartment_o *tmpPtr =
 			new NTBP_custom_cylindrical_compartment_o(
@@ -279,7 +283,7 @@ NTBP_custom_cylindrical_compartment_o* createCompartment(
 								compartmentParameters["sodiumReversalPotential"] /* mV */,
 								timeStep,
 								globalParameters["temperature"] /* C */,
-								"/home/man210/Dropbox/workspace/myelin-simulator/hranvier_sodium.json");
+								sodiumModel);
 		na_current->SetSimulationMode(NTBP_BINOMIALPOPULATION);
 		tmpPtr->AttachCurrent(na_current, NTBP_IONIC);
 
@@ -302,7 +306,7 @@ NTBP_custom_cylindrical_compartment_o* createCompartment(
 								compartmentParameters["potassiumReversalPotential"] /* mV */,
 								timeStep,
 								globalParameters["temperature"] /* C */,
-								"/home/man210/Dropbox/workspace/ChannelGenerators/src/channelGenerators/hranvier_potassium.json");
+								potassiumModel);
 		k_current->SetSimulationMode(NTBP_BINOMIALPOPULATION);
 		tmpPtr->AttachCurrent(k_current, NTBP_IONIC);
 	} else
@@ -324,13 +328,14 @@ int main(int argc, char *argv[]) {
 	string fileName = argv[1];
 	//return colbert(argc, argv);
 	readConfig(fileName);
-	string timedOutputFolder = createOutputFolder(outputFolder);
+	string timedOutputFolder;
 
 	ofstream TimeFile, PotentialPerCompartmentFile, PotentialPerUnitLengthFile,
 			PotassiumFile, SodiumFile, TypePerCompartmentFile,
 			TypePerUnitLengthFile, ConfigUsedFile;
 
 	if (output) {
+		timedOutputFolder = createOutputFolder(outputFolder);
 		openOutputFile(timedOutputFolder, "Time", TimeFile);
 		openOutputFile(timedOutputFolder, "PotentialPerCompartment",
 				PotentialPerCompartmentFile);
@@ -342,8 +347,7 @@ int main(int argc, char *argv[]) {
 				TypePerCompartmentFile);
 		openOutputFile(timedOutputFolder, "TypePerUnitLength",
 				TypePerUnitLengthFile);
-		openOutputFile(timedOutputFolder, "ConfigUsed",
-						ConfigUsedFile, ".m");
+		openOutputFile(timedOutputFolder, "ConfigUsed", ConfigUsedFile, ".m");
 		printConfig(ConfigUsedFile);
 		TimeFile << "% in ms" << endl;
 	}
@@ -368,7 +372,8 @@ int main(int argc, char *argv[]) {
 
 		/* Create a cylindrical membrane compartment */
 		NTBP_custom_cylindrical_compartment_o* compartment = createCompartment(
-				globalParameters, temp);
+				globalParameters, temp, channel_params["nodeSodiumModel"],
+				channel_params["nodePotassiumModel"]);
 		NTreal areaPerCompartment = compartment->_area();
 
 		NTBP_membrane_current_o* tmpLeakPtr = new NTBP_hh_sga_leak_current_o(
@@ -384,10 +389,10 @@ int main(int argc, char *argv[]) {
 		for (lt = 0; lt < 100.0 / timeStep; lt++) {
 			compartment->Step(0);
 			if (lt % 100 == 0) {
-				naCurrent = compartment->AttachedReversalPotential(1)
-						* (compartment->AttachedConductance(1));
-				kCurrent = compartment->AttachedReversalPotential(2)
+				naCurrent = compartment->AttachedReversalPotential(2)
 						* (compartment->AttachedConductance(2));
+				kCurrent = compartment->AttachedReversalPotential(3)
+						* (compartment->AttachedConductance(3));
 
 				tmpEleak = -(naCurrent + kCurrent) / tmpLeakPtr->_conductance();
 				cerr << "I_Na=" << naCurrent << " I_K=" << kCurrent
@@ -395,10 +400,10 @@ int main(int argc, char *argv[]) {
 			}
 		}
 
-		naCurrent = compartment->AttachedReversalPotential(1)
-				* (compartment->AttachedConductance(1));
-		kCurrent = compartment->AttachedReversalPotential(2)
+		naCurrent = compartment->AttachedReversalPotential(2)
 				* (compartment->AttachedConductance(2));
+		kCurrent = compartment->AttachedReversalPotential(3)
+				* (compartment->AttachedConductance(3));
 		globalParameters["eLeak"] = -(naCurrent + kCurrent)
 				/ tmpLeakPtr->_conductance();
 		swComputeELeak = false;
@@ -407,22 +412,22 @@ int main(int argc, char *argv[]) {
 		cerr << "Eleak computed as " << globalParameters["eLeak"] << " mV"
 				<< endl;
 		if ((globalParameters["eLeak"]
-				> compartment->AttachedReversalPotential(1))
+				> compartment->AttachedReversalPotential(2))
 				|| (globalParameters["eLeak"]
-						< compartment->AttachedReversalPotential(2))) {
+						< compartment->AttachedReversalPotential(3))) {
 			cout << "Eleak might be out of biological plausible range." << endl;
 			cout << "Typically E_Na="
-					<< compartment->AttachedReversalPotential(1) << " < Eleak="
+					<< compartment->AttachedReversalPotential(2) << " < Eleak="
 					<< globalParameters["eLeak"] << " < E_K="
-					<< compartment->AttachedReversalPotential(2) << endl;
+					<< compartment->AttachedReversalPotential(3) << endl;
 			cout
 					<< "Does a stable resting potential exist at all? Check by increasing iterations of current balance equation."
 					<< endl;
 			cerr << "Eleak might be out of biological plausible range." << endl;
 			cerr << "Typically E_Na="
-					<< compartment->AttachedReversalPotential(1) << " < Eleak="
+					<< compartment->AttachedReversalPotential(2) << " < Eleak="
 					<< globalParameters["eLeak"] << " < E_K="
-					<< compartment->AttachedReversalPotential(2) << endl;
+					<< compartment->AttachedReversalPotential(3) << endl;
 			cerr
 					<< "Does a stable resting potential exist at all? Check by increasing iterations of current balance equation."
 					<< endl;
@@ -469,14 +474,17 @@ int main(int argc, char *argv[]) {
 		/* *** MODEL CREATION LOOP *** */
 
 		// Generate an axon hillock
-
-		for (NTsize lcomp = 0; lcomp < hillockParameters["numComp"]; lcomp++) {
-			TypePerCompartmentFile << compartmentCounter++ << " 0" << endl;
-			for (int i = 0; i < hillockParameters["length"]; i++)
-				TypePerUnitLengthFile << "0" << endl;
-			cerr << "Node compartment " << endl;
-			oModel.PushBack(
-					createCompartment(globalParameters, hillockParameters));
+		if (globalParameters["hillock"]) {
+			for (NTsize lcomp = 0; lcomp < hillockParameters["numComp"]; lcomp++) {
+				TypePerCompartmentFile << compartmentCounter++ << " 0" << endl;
+				for (int i = 0; i < hillockParameters["length"]; i++)
+					TypePerUnitLengthFile << "0" << endl;
+				cerr << "Node compartment " << endl;
+				oModel.PushBack(
+						createCompartment(globalParameters, hillockParameters,
+								channel_params["hillockSodiumModel"],
+								channel_params["hillockPotassiumModel"]));
+			}
 		}
 
 		/* Create a Node, followed by Paranode, Internode, Paranode */
@@ -488,17 +496,25 @@ int main(int argc, char *argv[]) {
 					TypePerUnitLengthFile << "1" << endl;
 				cerr << "Node compartment " << endl;
 				oModel.PushBack(
-						createCompartment(globalParameters, nodeParameters));
+						createCompartment(globalParameters, nodeParameters,
+								channel_params["nodeSodiumModel"],
+								channel_params["nodePotassiumModel"]));
 			}
 
 			/* Create a Paranode compartment */
-			for (NTsize lcomp = 0; lcomp < paranodeParameters["numComp"]; lcomp++) {
-				TypePerCompartmentFile << compartmentCounter++ << " 2" << endl;
-				for (int i = 0; i < paranodeParameters["length"]; i++)
-					TypePerUnitLengthFile << "2" << endl;
-				cerr << "Paranode compartment " << endl;
-				oModel.PushBack(
-						createCompartment(globalParameters, paranodeParameters));
+			if (globalParameters["paranode"]) {
+				for (NTsize lcomp = 0; lcomp < paranodeParameters["numComp"]; lcomp++) {
+					TypePerCompartmentFile << compartmentCounter++ << " 2"
+							<< endl;
+					for (int i = 0; i < paranodeParameters["length"]; i++)
+						TypePerUnitLengthFile << "2" << endl;
+					cerr << "Paranode compartment " << endl;
+					oModel.PushBack(
+							createCompartment(globalParameters,
+									paranodeParameters,
+									channel_params["paranodeSodiumModel"],
+									channel_params["paranodePotassiumModel"]));
+				}
 			}
 
 			if ((nodeParameters["num"] - 1) == lnd) {
@@ -506,23 +522,35 @@ int main(int argc, char *argv[]) {
 			}
 
 			/* Create an Internode compartment */
-			for (NTsize lcomp = 0; lcomp < internodeParameters["numComp"]; lcomp++) {
-				TypePerCompartmentFile << compartmentCounter++ << " 3" << endl;
-				for (int i = 0; i < internodeParameters["length"]; i++)
-					TypePerUnitLengthFile << "3" << endl;
-				cerr << "Internode compartment " << endl;
-				oModel.PushBack(
-						createCompartment(globalParameters, internodeParameters));
+			if (globalParameters["internode"]) {
+				for (NTsize lcomp = 0; lcomp < internodeParameters["numComp"]; lcomp++) {
+					TypePerCompartmentFile << compartmentCounter++ << " 3"
+							<< endl;
+					for (int i = 0; i < internodeParameters["length"]; i++)
+						TypePerUnitLengthFile << "3" << endl;
+					cerr << "Internode compartment " << endl;
+					oModel.PushBack(
+							createCompartment(globalParameters,
+									internodeParameters,
+									channel_params["internodeSodiumModel"],
+									channel_params["internodePotassiumModel"]));
+				}
 			}
 
 			/* Create a Paranode compartment */
-			for (NTsize lcomp = 0; lcomp < paranodeParameters["numComp"]; lcomp++) {
-				TypePerCompartmentFile << compartmentCounter++ << " 2" << endl;
-				for (int i = 0; i < paranodeParameters["length"]; i++)
-					TypePerUnitLengthFile << "2" << endl;
-				cerr << "Paranode compartment " << endl;
-				oModel.PushBack(
-						createCompartment(globalParameters, paranodeParameters));
+			if (globalParameters["paranode"]) {
+				for (NTsize lcomp = 0; lcomp < paranodeParameters["numComp"]; lcomp++) {
+					TypePerCompartmentFile << compartmentCounter++ << " 2"
+							<< endl;
+					for (int i = 0; i < paranodeParameters["length"]; i++)
+						TypePerUnitLengthFile << "2" << endl;
+					cerr << "Paranode compartment " << endl;
+					oModel.PushBack(
+							createCompartment(globalParameters,
+									paranodeParameters,
+									channel_params["paranodeSodiumModel"],
+									channel_params["paranodePotassiumModel"]));
+				}
 			}
 
 		}
@@ -632,8 +660,10 @@ int main(int argc, char *argv[]) {
 					plotXY.SetData(voltVec);
 					plotXY.Draw();
 					plotChanNa.SetData(oModel.OpenChannelsRatio(2));
+					//plotChanNa.SetData(oModel.NumChannelsInState(2,1));
 					plotChanNa.Draw();
 					plotChanK.SetData(oModel.OpenChannelsRatio(3));
+					//plotChanK.SetData(oModel.NumChannelsInState(3,1));
 					plotChanK.Draw();
 				}
 			}
