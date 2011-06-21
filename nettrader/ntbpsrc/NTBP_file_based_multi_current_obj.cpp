@@ -28,12 +28,12 @@ NTBP_file_based_multi_current_o::NTBP_file_based_multi_current_o(
 
 	UpdateNumChannels();//TODO
 
-	baseTemp = base_temperature_map[fileName];
 	setTimeStep(newTimeStep);
 	Set_temperature(newTemperature);
 	if (number_of_states_map[fileName] == 0) {
-		load_file(fileName, newTemperature, newTimeStep);
+		load_file(fileName, newTemperature, newTimeStep, newVBase);
 	}
+	baseTemp = base_temperature_map[fileName];
 
 	NT_ASSERT(number_of_states_map[fileName]>0);
 
@@ -78,7 +78,7 @@ NTBP_file_based_multi_current_o::~NTBP_file_based_multi_current_o() {
 /* ***  PUBLIC                                    ***   */
 
 void NTBP_file_based_multi_current_o::load_file(string fileName,
-		double temperature, double time_step) {
+		double temperature, double time_step, double vbase) {
 	Json::Value root; // will contains the root value after parsing.
 	Json::Reader reader;
 	ifstream config_doc;
@@ -101,9 +101,15 @@ void NTBP_file_based_multi_current_o::load_file(string fileName,
 		open_states_map[fileName].push_back(open_states[index].asInt());
 	}
 
+	double minV = root.get("minV", 0).asDouble();
+	double maxV = root.get("maxV", 0).asDouble();
+	double step = root.get("step", 0).asDouble();
+
 	const Json::Value transitions = root["transitions"];
+
 	probability_matrix_map[fileName] = new NTBP_transition_rate_matrix_o(
-			number_of_states_map[fileName], -100, 400, 0.1);
+			number_of_states_map[fileName], minV, maxV, step);
+
 	for (unsigned int index = 0; index < transitions.size(); ++index) { // Iterates over the sequence elements.
 		double q10 = transitions[index].get("q10", 0).asDouble();
 		double base_probability =
@@ -111,8 +117,11 @@ void NTBP_file_based_multi_current_o::load_file(string fileName,
 		double probability = NTBP_TemperatureRateRelation(temperature,
 				base_temperature_map[fileName] /* C */, q10) * base_probability
 				* time_step;
+
+		// Converted voltage is real_voltage
+		double converted_voltage = transitions[index].get("voltage", 0).asDouble();
 		probability_matrix_map[fileName]->setTransitionProbability(
-				transitions[index].get("voltage", 0).asDouble(),
+				converted_voltage,
 				transitions[index].get("start", 0).asInt(),
 				transitions[index].get("stop", 0).asInt(), probability);
 	}
@@ -127,11 +136,11 @@ void NTBP_file_based_multi_current_o::load_file(string fileName,
 inline NTreturn NTBP_file_based_multi_current_o::StepCurrent() {
 	switch (_simulationMode()) {
 	case NTBP_BINOMIALPOPULATION: {
-		return (channelsPtr->BinomialStep(voltage));
+		return (channelsPtr->BinomialStep(voltage+vBase));
 	}
 		break;
 	case NTBP_DETERMINISTIC: {
-		return (channelsPtr->DeterministicStep(voltage));
+		return (channelsPtr->DeterministicStep(voltage+vBase));
 	}
 
 		break;
@@ -155,6 +164,12 @@ inline NTreal NTBP_file_based_multi_current_o::OpenChannels() const {
 /** No descriptions */
 inline NTreal NTBP_file_based_multi_current_o::OpenChannelsRatio() const {
 	return OpenChannels() * 100 / NumChannels();
+}
+
+/**  */
+/** No descriptions */
+inline NTreal NTBP_file_based_multi_current_o::NumChannelsInState(NTsize state) const {
+	return channelsPtr->numChannelsInState(state);
 }
 
 inline NTreal NTBP_file_based_multi_current_o::ComputeConductance() {
