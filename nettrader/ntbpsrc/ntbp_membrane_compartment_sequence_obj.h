@@ -106,13 +106,13 @@ NTreal AttachedCurrent(NTsize compIndex, NTsize currIndex){ NT_ASSERT(compIndex 
 vector <NTreal> OpenChannels(NTsize currIndex) const;
 vector <NTreal> OpenChannelsRatio(NTsize currIndex) const;
 vector <NTreal> NumChannels(NTsize currIndex) const;
+vector <NTreal> NumChannelsInState(NTsize currIndex, NTsize state) const;
 vector <NTreal> _vVec() const;
 NTreturn WriteMembranePotential( ofstream & file );
-NTreturn WriteMembranePotentialASCII( ofstream & file, NTreal timeVar );
+NTreturn WriteMembranePotentialASCII( ofstream & file, bool perUnitLength );
 NTreturn WriteCurrent( ofstream & file, NTsize currentIndex /* 1..numCurrents in compartment */);
 NTreturn WriteCurrentAscii( ofstream & file, NTsize currentIndex /* 1..numCurrents in compartment */);
 NTreturn WriteOpenChannelsRatio( ofstream & file, NTsize currentIndex /* 1..numCurrents in compartment */);
-NTreturn WriteATP(ofstream & file);
 NTBP_cylindrical_compartment_o* ReturnCompartmentVec (NTsize index);
 /**  */
 bool GillespieStep();
