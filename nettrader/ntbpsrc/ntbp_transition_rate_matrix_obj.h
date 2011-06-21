@@ -22,8 +22,6 @@ public:
 private:
 	typedef boost::multi_array<double, 3> matrix_array_type;
 	matrix_array_type _probMatrices;
-	void setTransitionProbability(NTsize index, NTsize start, NTsize stop,
-			NTreal probability);
 	NTreal getTransitionProbability(NTsize index, NTsize start, NTsize stop);
 
 	NTreal min;
