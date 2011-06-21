@@ -247,7 +247,7 @@ bool NTBP_ion_channels_o::ComputeGillespieStep(NTsize stateId, NTreal voltage) {
 		return true;
 }
 
-inline NTreturn NTBP_ion_channels_o::BinomialStep(NTreal voltage) {
+NTreturn NTBP_ion_channels_o::BinomialStep(NTreal voltage) {
 	//vector<NTsize> oldStateCounterVec = stateCounterVec;
 	vector<NTsize> newStateCounterVec = stateCounterVec;
 

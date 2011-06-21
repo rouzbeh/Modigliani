@@ -303,17 +303,6 @@ vector<NTreal> NTBP_membrane_compartment_sequence_o::OpenChannelsRatio(
 	return tmp;
 }
 
-NTreturn NTBP_membrane_compartment_sequence_o::WriteMembranePotential(
-		ofstream & file) {
-	float data[_numCompartments()];
-	for (NTsize ll = 0; ll < _numCompartments(); ll++) {
-		data[ll] = compartmentVec[ll]->_vM();
-	}
-	file.write(reinterpret_cast<char*> (data), _numCompartments()
-			* sizeof(float));
-	return NT_SUCCESS;
-}
-
 NTreturn NTBP_membrane_compartment_sequence_o::WriteMembranePotentialASCII(
 		ofstream & file, bool perUnitLength) {
 	for (NTsize ll = 0; ll < _numCompartments(); ll++) {
@@ -329,57 +318,25 @@ NTreturn NTBP_membrane_compartment_sequence_o::WriteMembranePotentialASCII(
 	return NT_SUCCESS;
 }
 
-/** @short  Write compartment currents into a binary file
+/** @short  Write compartment currents into a ascii file
  @param      reference to a file object and a current index (i.e. position of requested current in the currentVec of
  the membrane compartment). If current index == 0, the compartment net current is written.
  @return     none
  \warning    unknown
  \bug        unknown  */
-NTreturn NTBP_membrane_compartment_sequence_o::WriteCurrent(ofstream & file,
-		NTsize index) {
-	float data[_numCompartments()];
-	if (0 == index) {
-		for (NTsize ll = 0; ll < _numCompartments(); ll++) {
-			data[ll] = compartmentVec[ll]->CompartmentMembraneNetCurrent();
-		}
-	} else {
-		for (NTsize ll = 0; ll < _numCompartments(); ll++) {
-			data[ll] = compartmentVec[ll]->AttachedCurrent(index);
-		}
-	}
-	file.write(reinterpret_cast<char*> (data), _numCompartments()
-			* sizeof(float));
-	return NT_SUCCESS;
-}
-
 NTreturn NTBP_membrane_compartment_sequence_o::WriteCurrentAscii(
 		ofstream & file, NTsize index) {
-	float data[_numCompartments()];
 	if (0 == index) {
 		for (NTsize ll = 0; ll < _numCompartments(); ll++) {
-			//data[ll] = compartmentVec[ll]->CompartmentMembraneNetCurrent();
 			file << compartmentVec[ll]->CompartmentMembraneNetCurrent() << " ";
 		}
 	} else {
 		for (NTsize ll = 0; ll < _numCompartments(); ll++) {
-			//data[ll] = compartmentVec[ll]->AttachedCurrent(index);
 			file << compartmentVec[ll]->AttachedCurrent(index) << " ";
 		}
 	}
 	file << endl;
 
-	return NT_SUCCESS;
-}
-
-NTreturn NTBP_membrane_compartment_sequence_o::WriteOpenChannelsRatio(
-		ofstream & file, NTsize index) {
-	float data[_numCompartments()];
-	vector<NTreal> tmp = OpenChannelsRatio(index);
-	for (NTsize ll = 0; ll < _numCompartments(); ll++) {
-		data[ll] = tmp[ll];
-	}
-	file.write(reinterpret_cast<char*> (data), _numCompartments()
-			* sizeof(float));
 	return NT_SUCCESS;
 }
 

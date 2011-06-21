@@ -80,10 +80,10 @@ MTRand NT_rnd_dist_o::randgen = NTMakeMTRandFunction( MTRand::uint32(7121974) );
 NT_rnd_dist_o::NT_rnd_dist_o()
 {
     if ( (1.0 - 1.2e-7) == 1.0 ) cerr << "NT_rnd_dist_o::NT_rnd_dist_o - Error : Insufficient floating point number accuracy (1.0 - 1.2e-7) == 1.0  in this implementation " << endl;
-};
+}
 
 
-NT_rnd_dist_o::~NT_rnd_dist_o() {};
+NT_rnd_dist_o::~NT_rnd_dist_o() {}
 
 
 

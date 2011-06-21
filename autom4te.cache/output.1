@@ -6699,7 +6699,7 @@ fi
 done
 
 
-CXXFLAGS = "-O3 -march=pentium4"
+CXXFLAGS="-Ofast -march=native"
 
 all_includes="$all_includes -I../ntsrc -I../nt3dsrc -I../ntgsrc -I../ntbpsrc -I.. -I../tnt"
 all_includes="$all_includes $USER_INCLUDES"
@@ -6708,7 +6708,7 @@ all_includes="$all_includes $USER_INCLUDES"
 all_libraries="$all_libraries $USER_LDFLAGS"
 
 
-ac_config_files="$ac_config_files Makefile nettrader/Makefile nettrader/auxsrc/Makefile nettrader/examples/Makefile nettrader/nt3dsrc/Makefile nettrader/ntbpsrc/Makefile nettrader/ntgsrc/Makefile nettrader/ntsrc/Makefile nettrader/tnt/Makefile"
+ac_config_files="$ac_config_files Makefile nettrader/Makefile nettrader/auxsrc/Makefile nettrader/nt3dsrc/Makefile nettrader/ntbpsrc/Makefile nettrader/ntgsrc/Makefile nettrader/ntsrc/Makefile nettrader/tnt/Makefile"
 
 
 cat >confcache <<\_ACEOF
@@ -7449,7 +7449,6 @@ do
     "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
     "nettrader/Makefile") CONFIG_FILES="$CONFIG_FILES nettrader/Makefile" ;;
     "nettrader/auxsrc/Makefile") CONFIG_FILES="$CONFIG_FILES nettrader/auxsrc/Makefile" ;;
-    "nettrader/examples/Makefile") CONFIG_FILES="$CONFIG_FILES nettrader/examples/Makefile" ;;
     "nettrader/nt3dsrc/Makefile") CONFIG_FILES="$CONFIG_FILES nettrader/nt3dsrc/Makefile" ;;
     "nettrader/ntbpsrc/Makefile") CONFIG_FILES="$CONFIG_FILES nettrader/ntbpsrc/Makefile" ;;
     "nettrader/ntgsrc/Makefile") CONFIG_FILES="$CONFIG_FILES nettrader/ntgsrc/Makefile" ;;

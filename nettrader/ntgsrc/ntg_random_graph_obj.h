@@ -58,7 +58,8 @@
 #include <cmath>
 
 /* apparently g++ and STL dont know this one */
-extern long int lrand48 __P ((void));
+/* Apparently they do in 2011 */
+//extern long int lrand48 __P ((void));
 
 
 /** @short NTG_random_graph_o class
