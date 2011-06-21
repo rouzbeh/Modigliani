@@ -63,7 +63,7 @@ AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([alarm clock_gettime fesetround floor ftime getcwd gettimeofday memchr memmove memset pathconf pow regcomp rint select setlocale sqrt strchr strcspn strerror strpbrk strrchr strspn strstr strtol strtoul uname])
 
 dnl CXXFLAGS="-g -O2 -ansi -pedantic -Wabi -Weffc++ -Wold-style-cast -Woverloaded-virtual"
-CXXFLAGS = "-O3 -march=pentium4"
+CXXFLAGS="-Ofast -march=native"
 dnl CXXFLAGS="-O3 -march=pentium4 -malign-double -fomit-frame-pointer -mfpmath=sse"
 dnl CXXFLAGS="-O3 -malign-double -fomit-frame-pointer -ansi -pedantic "
 dnl CXXFLAGS="-O3 -n32 "
@@ -80,7 +80,6 @@ AC_SUBST(all_libraries)
 AC_CONFIG_FILES([Makefile
                  nettrader/Makefile
                  nettrader/auxsrc/Makefile
-                 nettrader/examples/Makefile
                  nettrader/nt3dsrc/Makefile
                  nettrader/ntbpsrc/Makefile
                  nettrader/ntgsrc/Makefile

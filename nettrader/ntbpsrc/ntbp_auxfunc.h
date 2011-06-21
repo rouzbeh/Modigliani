@@ -34,14 +34,8 @@
 #include "ntbp_custom_cylindrical_compartment_obj.h"
 
 #include "ntbp_multi_sodium_current_obj.h"
-#include "ntbp_colbert_axonal_sodium_multi_current_obj.h"
-#include "ntbp_hranvier_sodium_multi_current_obj.h"
-#include "ntbp_patlak_sodium_multi_current_obj.h"
 
 #include "ntbp_multi_potassium_current_obj.h"
-#include "ntbp_colbert_axonal_potassium_multi_current_obj.h"
-#include "ntbp_hranvier_potassium_multi_current_obj.h"
-#include "ntbp_potassium_multi_current_obj.h"
 
 NTreal /* mum^-2 */
 		NTBP_corrected_channel_density(NTreal chDensity /* mum^-2 */,
@@ -52,17 +46,5 @@ NTBP_create_na_channel_ptr(NTsize sodiumModel, NTsize algorithm,
 		NTreal chDensity /* mum^-2 */, NTreal chConductance /* pS */,
 		NTreal q10, NTreal temperature /* C */, NTreal compArea /* mum^2 */);
 
-NTBP_membrane_current_o *
-NTBP_create_na_channel_ptr(NTsize sodiumModel, NTsize algorithm,
-		NTreal chDensity /* mum^-2 */, NTreal chConductance /* pS */,
-		NTreal q10m, NTreal q10h, NTreal temperature /* C */,
-		NTreal compArea /* mum^2 */, NTreal timeStep,
-		NTreal reversalPotential = 115 /*mV*/,
-		NTreal vBase = -84);
-NTBP_membrane_current_o *
-NTBP_create_k_channel_ptr(NTsize potassiumModel, NTsize algorithm,
-		NTreal chDensity /* mum^-2*/, NTreal chConductance /* pS */,
-		NTreal q10, NTreal temperature /* C */, NTreal compArea /* mum^2 */,
-		NTreal reversalPotential = 0 /*mV*/, NTreal vBase = -84);
 
 #endif /* _ntbp_auxfunc_h_ */ 

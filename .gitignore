@@ -1,4 +1,7 @@
 *.o
+.settings
+config.h
+config.status
 *.swn
 *.swo
 *~

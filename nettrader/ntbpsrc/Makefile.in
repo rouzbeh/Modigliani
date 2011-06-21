@@ -53,11 +53,6 @@ libntbpsrc_a_DEPENDENCIES = json/libjson_linux-gcc-4.5.2_libmt.a
 am_libntbpsrc_a_OBJECTS = ntbp_transition_rate_matrix_obj.$(OBJEXT) \
 	ntbp_synaptic_background_obj.$(OBJEXT) \
 	ntbp_potassium_multi_current_obj.$(OBJEXT) \
-	ntbp_colbert_axonal_potassium_multi_current_obj.$(OBJEXT) \
-	ntbp_colbert_axonal_sodium_multi_current_obj.$(OBJEXT) \
-	ntbp_hranvier_potassium_multi_current_obj.$(OBJEXT) \
-	ntbp_hranvier_sodium_multi_current_obj.$(OBJEXT) \
-	ntbp_patlak_sodium_ion_channels_obj.$(OBJEXT) \
 	ntbp_patlak_sodium_multi_current_obj.$(OBJEXT) \
 	ntbp_membrane_patch_obj.$(OBJEXT) \
 	ntbp_tridiag_solver_obj.$(OBJEXT) \
@@ -214,9 +209,7 @@ top_srcdir = @top_srcdir@
 ####### kdevelop will overwrite this part!!! (begin)##########
 noinst_LIBRARIES = libntbpsrc.a
 libntbpsrc_a_SOURCES = ntbp_transition_rate_matrix_obj.cpp ntbp_synaptic_background_obj.cpp \
-	ntbp_potassium_multi_current_obj.cpp ntbp_colbert_axonal_potassium_multi_current_obj.cpp \
-	ntbp_colbert_axonal_sodium_multi_current_obj.cpp ntbp_hranvier_potassium_multi_current_obj.cpp \
-	ntbp_hranvier_sodium_multi_current_obj.cpp ntbp_patlak_sodium_ion_channels_obj.cpp \
+	ntbp_potassium_multi_current_obj.cpp \
 	ntbp_patlak_sodium_multi_current_obj.cpp ntbp_membrane_patch_obj.cpp ntbp_tridiag_solver_obj.cpp \
 	ntbp_spherical_compartment_obj.cpp ntbp_sodium_ion_channels_obj.cpp \
 	ntbp_simple_ranvier_cylindrical_compartment_obj.cpp ntbp_simple_myelinated_cylindrical_compartment_obj.cpp \
@@ -276,20 +269,7 @@ EXTRA_DIST = ntbp_K_only_sga_cylindrical_compartment_obj.cpp \
 	ntbp_spherical_compartment_obj.cpp \
 	ntbp_spherical_compartment_obj.h ntbp_tridiag_solver_obj.cpp \
 	ntbp_tridiag_solver_obj.h ntbp_membrane_patch_obj.cpp \
-	ntbp_membrane_patch_obj.h \
-	ntbp_patlak_sodium_multi_current_obj.h \
-	ntbp_patlak_sodium_multi_current_obj.cpp \
-	ntbp_patlak_sodium_ion_channels_obj.h \
-	ntbp_patlak_sodium_ion_channels_obj.cpp \
-	ntbp_hranvier_sodium_multi_current_obj.cpp \
-	ntbp_hranvier_sodium_multi_current_obj.h \
-	ntbp_hranvier_potassium_multi_current_obj.cpp \
-	ntbp_hranvier_potassium_multi_current_obj.h \
-	ntbp_colbert_axonal_sodium_multi_current_obj.cpp \
-	ntbp_colbert_axonal_sodium_multi_current_obj.h \
-	ntbp_colbert_axonal_potassium_multi_current_obj.cpp \
-	ntbp_colbert_axonal_potassium_multi_current_obj.h \
-	ntbp_potassium_multi_current_obj.cpp \
+	ntbp_membrane_patch_obj.h ntbp_potassium_multi_current_obj.cpp \
 	ntbp_potassium_multi_current_obj.h \
 	ntbp_synaptic_background_obj.cpp \
 	ntbp_synaptic_background_obj.h \
@@ -324,9 +304,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu nettrader/ntbpsrc/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign nettrader/ntbpsrc/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu nettrader/ntbpsrc/Makefile
+	  $(AUTOMAKE) --foreign nettrader/ntbpsrc/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -368,8 +348,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_Spampanato_WT_sodium_multi_current_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_auxfunc.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_channels_current_obj.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_colbert_axonal_potassium_multi_current_obj.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_colbert_axonal_sodium_multi_current_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_custom_cylindrical_compartment_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_cylindrical_compartment_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_delayed_potassium_rectifier_current_obj.Po@am__quote@
@@ -377,8 +355,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_hh_sga_leak_current_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_hh_sga_potassium_current_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_hh_sga_sodium_current_obj.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_hranvier_potassium_multi_current_obj.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_hranvier_sodium_multi_current_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_ion_channels_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_membrane_compartment_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_membrane_compartment_sequence_obj.Po@am__quote@
@@ -390,7 +366,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_multi_sodium_current_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_multi_sodium_steadystate_timeconstant_current_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_object_obj.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_patlak_sodium_ion_channels_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_patlak_sodium_multi_current_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_potassium_ion_channels_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_potassium_multi_current_obj.Po@am__quote@

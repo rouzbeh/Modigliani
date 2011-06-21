@@ -164,5 +164,5 @@ ostream & operator<<(ostream & os, const  NT_date_o & self)
     //     delete(tmPtr->__tm_zone__);
     delete(tmPtr);
     return os;
-};
+}
 
