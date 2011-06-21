@@ -1,4 +1,6 @@
 *.o
+*.swn
+*.swo
 *~
 *.swp
 *.orig
@@ -57,3 +59,4 @@ nettrader/examples/test_graph_distance_stats
 nettrader/examples/test_membrane_currents
 nettrader/examples/tunnel_flight_demo
 nettrader-api/*
+*.log
