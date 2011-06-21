@@ -66,6 +66,9 @@ public:
 	bool ComputeGillespieStep(NTsize channelStateId, NTreal voltage);
 	void ShowStates() const;
 	NTsize NumOpen() const;
+	NTsize numChannelsInState(NTsize state) const {
+		return stateCounterVec[state];
+	}
 	NTsize NumClosed() const {
 		return _numChannels() - NumOpen();
 	}
