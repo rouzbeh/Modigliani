@@ -186,7 +186,8 @@ NTreturn NTBP_membrane_compartment_sequence_o::Init() {
 	NTsize ll = 1;
 	for (ll = 1; ll < numCompartments; ll++) {
 		compartmentVec[ll]->Set_vM(0);
-		/* testing requirement for constant axo-geometric properties */NT_ASSERT(compartmentVec[ll]->_radius() == compartmentVec[ll-1]->_radius());
+		/* testing requirement for constant axo-geometric properties */
+		NT_ASSERT(compartmentVec[ll]->_radius() == compartmentVec[ll-1]->_radius());
 		NT_ASSERT(compartmentVec[ll]->_rA() == compartmentVec[ll-1]->_rA());
 	}
 	compartmentVec[numCompartments - 1]->Set_vM(0);
@@ -284,6 +285,15 @@ vector<NTreal> NTBP_membrane_compartment_sequence_o::NumChannels(
 	return tmp;
 }
 
+vector<NTreal> NTBP_membrane_compartment_sequence_o::NumChannelsInState(
+		NTsize currIndex, NTsize state) const {
+	vector<NTreal> tmp(_numCompartments());
+	for (NTsize ll = 0; ll < _numCompartments(); ll++) {
+		tmp[ll] = compartmentVec[ll]->Current(currIndex)->NumChannelsInState(state);
+	}
+	return tmp;
+}
+
 vector<NTreal> NTBP_membrane_compartment_sequence_o::OpenChannelsRatio(
 		NTsize currIndex) const {
 	vector<NTreal> tmp(_numCompartments());
@@ -305,11 +315,15 @@ NTreturn NTBP_membrane_compartment_sequence_o::WriteMembranePotential(
 }
 
 NTreturn NTBP_membrane_compartment_sequence_o::WriteMembranePotentialASCII(
-		ofstream & file, NTreal timeVar) {
-	file << timeVar << " ";
+		ofstream & file, bool perUnitLength) {
 	for (NTsize ll = 0; ll < _numCompartments(); ll++) {
-		for (NTsize j = 0; j < compartmentVec[ll]->_length(); j++)
+		if(perUnitLength){
+			for (NTsize j = 0; j < compartmentVec[ll]->_length(); j++)
+				file << compartmentVec[ll]->_vM() << " ";
+		}
+		else{
 			file << compartmentVec[ll]->_vM() << " ";
+		}
 	}
 	file << endl;
 	return NT_SUCCESS;
@@ -440,6 +454,7 @@ void NTBP_membrane_compartment_sequence_o::ShowHinesMatrix() {
 
 }
 
+// NOT WORKING
 vector<NTreal> NTBP_membrane_compartment_sequence_o::ZadorPearlmutterSolveTriDiag(
 		vector<NTreal> lNewVec, vector<NTreal> dNewVec, vector<NTreal> uNewVec,
 		vector<NTreal> rNewVec) const {
@@ -479,6 +494,7 @@ vector<NTreal> NTBP_membrane_compartment_sequence_o::ZadorPearlmutterSolveTriDia
 	return vNewVec;
 }
 
+// NOT WORKING
 vector<NTreal> NTBP_membrane_compartment_sequence_o::MascagniSolveTriDiag(
 		vector<NTreal> lNewVec, vector<NTreal> dNewVec, vector<NTreal> uNewVec,
 		vector<NTreal> rNewVec) const {
@@ -617,23 +633,6 @@ bool NTBP_membrane_compartment_sequence_o::GillespieStep() {
 
 	return NT_SUCCESS;
 }
-
-/** @short  Write number of ATPs consumed into a file
- @param      reference to a file object.
- @return     none
- \warning    unknown
- \bug        unknown  */
-NTreturn NTBP_membrane_compartment_sequence_o::WriteATP(ofstream & file) {
-	//float data[_numCompartments()];
-	for (NTsize ll = 0; ll < _numCompartments(); ll++) {
-		file << -compartmentVec[ll]->AttachedCurrent(2)
-		/** _timeStep()
-		 * 6241510000 / 3 */<< " ";
-	}
-	file << endl;
-	return NT_SUCCESS;
-}
-
 
 //returns copy of compartment vector
 NTBP_cylindrical_compartment_o* NTBP_membrane_compartment_sequence_o::ReturnCompartmentVec (NTsize index) //TODO: added
