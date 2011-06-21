@@ -152,6 +152,13 @@ public:
 				<< endl;
 		return -42;
 	}
+
+	virtual NTreal NumChannelsInState(NTsize state) const {
+			cerr
+					<< "NTBP_membrane_current_o::NumChannels() - Error : Not Implemented."
+					<< endl;
+			return -42;
+		}
 	/** Number of open over total number of channels */
 	virtual NTreal OpenChannelsRatio() const {
 		cerr
