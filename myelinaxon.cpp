@@ -4,7 +4,7 @@
  * by Mohammad Ali Neishabouri
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
- * Version:  1.1
+ * Version:  2.0
  * Copyright (C) 1998,1999,2000,2001 Ahmed Aldo Faisal
  * Copyright (C) 2010, 2011 Mohammad Ali Neishabouri
  *
@@ -30,11 +30,10 @@
 #include <cstdlib>
 #include <algorithm>
 #include <map>
-#include <unistd.h>
 #include <boost/filesystem.hpp>
 
 #include <ntbp_membrane_compartment_sequence_obj.h>
-#include <NTBP_file_based_multi_current_obj.h>
+#include <ntbp_file_based_multi_current_obj.h>
 #include <ntbp_custom_cylindrical_compartment_obj.h>
 #include <ntbp_auxfunc.h>
 
@@ -48,6 +47,10 @@
 
 using namespace std;
 using namespace TNT;
+
+const int EXIT_V_TOO_HIGH = 1;
+const int EXIT_GRAPHIC_ERROR = 2;
+const int EXIT_IO_ERROR = 3;
 
 /* Global */
 string filename;
@@ -240,7 +243,7 @@ void openOutputFile(string outputFolder, string prefix, ofstream& outStream,
 
 	if (outStream.fail()) {
 		cerr << "Could not open output file " << prefix << endl;
-		exit(1);
+		exit(EXIT_IO_ERROR);
 	}
 }
 
@@ -441,7 +444,7 @@ int main(int argc, char *argv[]) {
 	ifstream dataFile(inputFilename.c_str(), ios::binary);
 	if (dataFile.fail()) {
 		cerr << "Could not open input file " << inputFilename.c_str() << endl;
-		exit(1);
+		return(EXIT_IO_ERROR);
 	}
 	int count = 1000000;
 	vector<float> inputData(count);
@@ -463,7 +466,6 @@ int main(int argc, char *argv[]) {
 	cout << "Assembling neuron..." << endl;
 	/* *** Trials loop *** */
 	for (NTsize lTrials = 0; lTrials < numTrials; lTrials++) {
-
 		/* Model setup */
 		NTBP_membrane_compartment_sequence_o oModel;
 		oModel.UpdateTimeStep(timeStep /* mSec */);
@@ -479,7 +481,7 @@ int main(int argc, char *argv[]) {
 				TypePerCompartmentFile << compartmentCounter++ << " 0" << endl;
 				for (int i = 0; i < hillockParameters["length"]; i++)
 					TypePerUnitLengthFile << "0" << endl;
-				cerr << "Node compartment " << endl;
+				cerr << "Hillock compartment " << endl;
 				oModel.PushBack(
 						createCompartment(globalParameters, hillockParameters,
 								channel_params["hillockSodiumModel"],
@@ -580,29 +582,25 @@ int main(int argc, char *argv[]) {
 		NT3D_plot2d_vec_vp_o plotChanK(numCompartments);
 
 		if (useVis > 0) {
-			NT3D_glx_drv_o* drvVP = new NT3D_glx_drv_o(500, 200);
+			NT3D_glx_drv_o* drvVP = new NT3D_glx_drv_o(1000, 120);
 			drvVP->SetWindowTitle("Voltage-Compartment-Plot");
 			if (NT_FAIL == plotXY.Connect(drvVP))
-				exit(1);
+				return(EXIT_GRAPHIC_ERROR);
 			plotXY.AutoRange(false);
 			plotXY.SetXRange(0, numCompartments);
 			plotXY.SetYRange(-100, 200);
-		}
 
-		if (useVis > 0) {
-			NT3D_glx_drv_o* drv2VP = new NT3D_glx_drv_o(500, 200);
+			NT3D_glx_drv_o* drv2VP = new NT3D_glx_drv_o(1000, 100);
 			drv2VP->SetWindowTitle("NaOpenChannelRatio-Compartment-Plot");
 			if (NT_FAIL == plotChanNa.Connect(drv2VP))
-				exit(1);
+				return(EXIT_GRAPHIC_ERROR);
 			plotChanNa.SetXRange(0, numCompartments);
 			plotChanNa.SetYRange(0, 100);
-		}
 
-		if (useVis > 0) {
-			NT3D_glx_drv_o* drv3VP = new NT3D_glx_drv_o(500, 200);
+			NT3D_glx_drv_o* drv3VP = new NT3D_glx_drv_o(1000, 100);
 			drv3VP->SetWindowTitle("KOpenChannelRatio-Compartment-Plot");
 			if (NT_FAIL == plotChanK.Connect(drv3VP))
-				exit(1);
+				return(EXIT_GRAPHIC_ERROR);
 			plotChanK.SetXRange(0, numCompartments);
 			plotChanK.SetYRange(0, 100);
 		}
@@ -646,24 +644,22 @@ int main(int argc, char *argv[]) {
 							cerr << "ERROR at t=" << timeVar
 									<< " voltage in compartment " << lc
 									<< " is NaN." << endl;
-							exit(1);
+							return(EXIT_V_TOO_HIGH);
 						} else if (voltVec[lc] > 200.0 /* mV */) {
 							cerr << "ERROR at t=" << timeVar
 									<< " voltage in compartment " << lc
 									<< " is " << voltVec[lc] << "." << endl;
-							exit(1);
+							return(EXIT_V_TOO_HIGH);
 						}
 					}
-					//cerr << "t=" << timeInMS << " mSec :" << voltVec[1] << "\t"
-					//		<< voltVec[10] << endl;
 
 					plotXY.SetData(voltVec);
 					plotXY.Draw();
 					plotChanNa.SetData(oModel.OpenChannelsRatio(2));
-					//plotChanNa.SetData(oModel.NumChannelsInState(2,1));
+					//plotChanNa.SetData(oModel.NumChannelsInState(2,5));
 					plotChanNa.Draw();
 					plotChanK.SetData(oModel.OpenChannelsRatio(3));
-					//plotChanK.SetData(oModel.NumChannelsInState(3,1));
+					//plotChanK.SetData(oModel.NumChannelsInState(3,5));
 					plotChanK.Draw();
 				}
 			}
@@ -671,9 +667,9 @@ int main(int argc, char *argv[]) {
 			if (lt % readN == 0) {
 				inpCurrent = (inputData[dataRead] * inpISDV) + inpI;
 				dataRead++;
+				cout << lt <<endl;
 			}
 			oModel.InjectCurrent(inpCurrent, 1);
-			//oModel.InjectCurrent(, 1);
 
 			oModel.Step();
 		}
@@ -681,4 +677,3 @@ int main(int argc, char *argv[]) {
 	cerr << "Simulation completed." << endl;
 	return 0;
 }
-
