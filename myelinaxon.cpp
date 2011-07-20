@@ -171,34 +171,35 @@ void readConfig(string fileName) {
  * @param out
  */
 void printConfig(ofstream& out) {
-	for (parameters::iterator globalIter = globalParameters.begin(); globalIter
-			!= globalParameters.end(); ++globalIter) {
+	for (parameters::iterator globalIter = globalParameters.begin();
+			globalIter != globalParameters.end(); ++globalIter) {
 		out << "global_" << globalIter->first << " = " << globalIter->second
+				<< ";" << endl;
+	}
+
+	for (parameters::iterator nodeIter = nodeParameters.begin();
+			nodeIter != nodeParameters.end(); ++nodeIter) {
+		out << "node_" << nodeIter->first << " = " << nodeIter->second << ";"
 				<< endl;
 	}
 
-	for (parameters::iterator nodeIter = nodeParameters.begin(); nodeIter
-			!= nodeParameters.end(); ++nodeIter) {
-		out << "node_" << nodeIter->first << " = " << nodeIter->second << endl;
-	}
-
-	for (parameters::iterator paranodeIter = paranodeParameters.begin(); paranodeIter
-			!= paranodeParameters.end(); ++paranodeIter) {
+	for (parameters::iterator paranodeIter = paranodeParameters.begin();
+			paranodeIter != paranodeParameters.end(); ++paranodeIter) {
 		out << "paranode_" << paranodeIter->first << " = "
-				<< paranodeIter->second << endl;
+				<< paranodeIter->second << ";" << endl;
 	}
 
-	for (parameters::iterator internodeIter = internodeParameters.begin(); internodeIter
-			!= internodeParameters.end(); ++internodeIter) {
+	for (parameters::iterator internodeIter = internodeParameters.begin();
+			internodeIter != internodeParameters.end(); ++internodeIter) {
 		out << "internode_" << internodeIter->first << " = "
-				<< internodeIter->second << endl;
+				<< internodeIter->second << ";" << endl;
 	}
 
-	out << "simulation_samplerate = " << sampN << endl;
-	out << "simulation_timestep_inms = " << timeStep << endl;
-	out << "simulation_number_of_iterations = " << numIterations << endl;
-	out << "simulation_duration = " << numIterations * timeStep << endl;
-	out << "simulation_trials = " << numTrials << endl;
+	out << "simulation_samplerate = " << sampN << ";" << endl;
+	out << "simulation_timestep_inms = " << timeStep << ";" << endl;
+	out << "simulation_number_of_iterations = " << numIterations << ";" << endl;
+	out << "simulation_duration = " << numIterations * timeStep << ";" << endl;
+	out << "simulation_trials = " << numTrials << ";" << endl;
 }
 
 /**
@@ -275,18 +276,16 @@ NTBP_custom_cylindrical_compartment_o* createCompartment(
 	if (compartmentParameters["sodiumDensity"] > 0) {
 		NTreal indSodiumDensity = NTBP_corrected_channel_density(
 				compartmentParameters["sodiumDensity"], tmpPtr->_area());
-		NTBP_file_based_multi_current_o
-				* na_current =
-						new NTBP_file_based_multi_current_o(
-								tmpPtr->_area(),
-								indSodiumDensity /* mum^-2 */,
-								compartmentParameters["sodiumConductance"]
-										* 1e-9 /* pS */,
-								globalParameters["vBase"] /* mV */,
-								compartmentParameters["sodiumReversalPotential"] /* mV */,
-								timeStep,
-								globalParameters["temperature"] /* C */,
-								sodiumModel);
+		NTBP_file_based_multi_current_o * na_current =
+				new NTBP_file_based_multi_current_o(
+						tmpPtr->_area(),
+						indSodiumDensity /* mum^-2 */,
+						compartmentParameters["sodiumConductance"]
+								* 1e-9 /* pS */,
+						globalParameters["vBase"] /* mV */,
+						compartmentParameters["sodiumReversalPotential"] /* mV */,
+						timeStep, globalParameters["temperature"] /* C */,
+						sodiumModel);
 		na_current->SetSimulationMode(NTBP_BINOMIALPOPULATION);
 		tmpPtr->AttachCurrent(na_current, NTBP_IONIC);
 
@@ -298,18 +297,16 @@ NTBP_custom_cylindrical_compartment_o* createCompartment(
 	if (compartmentParameters["potassiumDensity"] > 0) {
 		NTreal indPotassiumDensity = NTBP_corrected_channel_density(
 				compartmentParameters["potassiumDensity"], tmpPtr->_area());
-		NTBP_file_based_multi_current_o
-				* k_current =
-						new NTBP_file_based_multi_current_o(
-								tmpPtr->_area(),
-								indPotassiumDensity /* mum^-2 */,
-								compartmentParameters["potassiumConductance"]
-										* 1e-9 /* pS */,
-								globalParameters["vBase"] /* mV */,
-								compartmentParameters["potassiumReversalPotential"] /* mV */,
-								timeStep,
-								globalParameters["temperature"] /* C */,
-								potassiumModel);
+		NTBP_file_based_multi_current_o * k_current =
+				new NTBP_file_based_multi_current_o(
+						tmpPtr->_area(),
+						indPotassiumDensity /* mum^-2 */,
+						compartmentParameters["potassiumConductance"]
+								* 1e-9 /* pS */,
+						globalParameters["vBase"] /* mV */,
+						compartmentParameters["potassiumReversalPotential"] /* mV */,
+						timeStep, globalParameters["temperature"] /* C */,
+						potassiumModel);
 		k_current->SetSimulationMode(NTBP_BINOMIALPOPULATION);
 		tmpPtr->AttachCurrent(k_current, NTBP_IONIC);
 	} else
@@ -333,109 +330,29 @@ int main(int argc, char *argv[]) {
 	readConfig(fileName);
 	string timedOutputFolder;
 
-	ofstream TimeFile, PotentialPerCompartmentFile, PotentialPerUnitLengthFile,
-			PotassiumFile, SodiumFile, TypePerCompartmentFile,
-			TypePerUnitLengthFile, ConfigUsedFile;
+	ofstream TimeFile, PotentialPerCompartmentFile, LengthPerCompartmentFile,
+			PotassiumFile, SodiumFile, TypePerCompartmentFile, ConfigUsedFile,
+			LeakFile;
 
 	if (output) {
 		timedOutputFolder = createOutputFolder(outputFolder);
 		openOutputFile(timedOutputFolder, "Time", TimeFile);
 		openOutputFile(timedOutputFolder, "PotentialPerCompartment",
 				PotentialPerCompartmentFile);
-		openOutputFile(timedOutputFolder, "PotentialPerUnitLength",
-				PotentialPerUnitLengthFile);
 		openOutputFile(timedOutputFolder, "Potassium", PotassiumFile);
 		openOutputFile(timedOutputFolder, "Sodium", SodiumFile);
 		openOutputFile(timedOutputFolder, "TypePerCompartment",
 				TypePerCompartmentFile);
-		openOutputFile(timedOutputFolder, "TypePerUnitLength",
-				TypePerUnitLengthFile);
+		openOutputFile(timedOutputFolder, "LengthPerCompartment",
+				LengthPerCompartmentFile);
+		openOutputFile(timedOutputFolder, "LeakPerCompartment", LeakFile,
+				".txt");
 		openOutputFile(timedOutputFolder, "ConfigUsed", ConfigUsedFile, ".m");
 		printConfig(ConfigUsedFile);
 		TimeFile << "% in ms" << endl;
 	}
 
-	if (0 == globalParameters["swComputeELeak"]) {
-		cout << "Eleak set to " << globalParameters["eLeak"] << " mV." << endl;
-	} else {
-		cout << "Eleak not set. Going to compute eLeak." << endl;
-		/* COMPUTE Eleak by simulating and solving for the current balance equation after
-		 * 50ms of simulated time at the NODE including the PARANODAL K channels*/
-		parameters temp = nodeParameters;
-		temp["potassiumModel"] = paranodeParameters["potassiumModel"];
-		temp["potassiumAlg"] = paranodeParameters["potassiumAlg"];
-		temp["potassiumDensity"] = paranodeParameters["potassiumDensity"];
-		temp["potassiumConductance"]
-				= paranodeParameters["potassiumConductance"];
-		temp["potassiumQ10"] = paranodeParameters["potassiumQ10"];
-		temp["potassiumReversalPotential"]
-				= paranodeParameters["potassiumReversalPotential"];
-
-		temp["gLeak"] = 0;
-
-		/* Create a cylindrical membrane compartment */
-		NTBP_custom_cylindrical_compartment_o* compartment = createCompartment(
-				globalParameters, temp, channel_params["nodeSodiumModel"],
-				channel_params["nodePotassiumModel"]);
-		NTreal areaPerCompartment = compartment->_area();
-
-		NTBP_membrane_current_o* tmpLeakPtr = new NTBP_hh_sga_leak_current_o(
-				areaPerCompartment, nodeParameters["gLeak"],
-				globalParameters["eLeak"]);
-
-		float naCurrent = 0;
-		float kCurrent = 0;
-
-		/* ***  Determine leak reversal potential by simulating 50 ms *** */
-		NTsize lt = 0;
-		NTreal tmpEleak = 0;
-		for (lt = 0; lt < 100.0 / timeStep; lt++) {
-			compartment->Step(0);
-			if (lt % 100 == 0) {
-				naCurrent = compartment->AttachedReversalPotential(2)
-						* (compartment->AttachedConductance(2));
-				kCurrent = compartment->AttachedReversalPotential(3)
-						* (compartment->AttachedConductance(3));
-
-				tmpEleak = -(naCurrent + kCurrent) / tmpLeakPtr->_conductance();
-				cerr << "I_Na=" << naCurrent << " I_K=" << kCurrent
-						<< " E_Leak=" << tmpEleak << endl;
-			}
-		}
-
-		naCurrent = compartment->AttachedReversalPotential(2)
-				* (compartment->AttachedConductance(2));
-		kCurrent = compartment->AttachedReversalPotential(3)
-				* (compartment->AttachedConductance(3));
-		globalParameters["eLeak"] = -(naCurrent + kCurrent)
-				/ tmpLeakPtr->_conductance();
-		swComputeELeak = false;
-		cout << "Eleak computed as " << globalParameters["eLeak"] << " mV"
-				<< endl;
-		cerr << "Eleak computed as " << globalParameters["eLeak"] << " mV"
-				<< endl;
-		if ((globalParameters["eLeak"]
-				> compartment->AttachedReversalPotential(2))
-				|| (globalParameters["eLeak"]
-						< compartment->AttachedReversalPotential(3))) {
-			cout << "Eleak might be out of biological plausible range." << endl;
-			cout << "Typically E_Na="
-					<< compartment->AttachedReversalPotential(2) << " < Eleak="
-					<< globalParameters["eLeak"] << " < E_K="
-					<< compartment->AttachedReversalPotential(3) << endl;
-			cout
-					<< "Does a stable resting potential exist at all? Check by increasing iterations of current balance equation."
-					<< endl;
-			cerr << "Eleak might be out of biological plausible range." << endl;
-			cerr << "Typically E_Na="
-					<< compartment->AttachedReversalPotential(2) << " < Eleak="
-					<< globalParameters["eLeak"] << " < E_K="
-					<< compartment->AttachedReversalPotential(3) << endl;
-			cerr
-					<< "Does a stable resting potential exist at all? Check by increasing iterations of current balance equation."
-					<< endl;
-		}
-	}
+	cout << "Eleak set to " << globalParameters["eLeak"] << " mV." << endl;
 
 	NT_uniform_rnd_dist_o testRnd; // DO NOT DELETE, otherwise linker problems occur!
 	NT_gaussian_rnd_dist_o gaussianRnd; // DO NOT DELETE, otherwise linker problems occur !
@@ -444,7 +361,7 @@ int main(int argc, char *argv[]) {
 	ifstream dataFile(inputFilename.c_str(), ios::binary);
 	if (dataFile.fail()) {
 		cerr << "Could not open input file " << inputFilename.c_str() << endl;
-		return(EXIT_IO_ERROR);
+		return (EXIT_IO_ERROR);
 	}
 	int count = 1000000;
 	vector<float> inputData(count);
@@ -477,11 +394,10 @@ int main(int argc, char *argv[]) {
 
 		// Generate an axon hillock
 		if (globalParameters["hillock"]) {
-			for (NTsize lcomp = 0; lcomp < hillockParameters["numComp"]; lcomp++) {
+			for (NTsize lcomp = 0; lcomp < hillockParameters["numComp"];
+					lcomp++) {
 				TypePerCompartmentFile << compartmentCounter++ << " 0" << endl;
-				for (int i = 0; i < hillockParameters["length"]; i++)
-					TypePerUnitLengthFile << "0" << endl;
-				cerr << "Hillock compartment " << endl;
+				LengthPerCompartmentFile << hillockParameters["length"] << endl;
 				oModel.PushBack(
 						createCompartment(globalParameters, hillockParameters,
 								channel_params["hillockSodiumModel"],
@@ -494,9 +410,7 @@ int main(int argc, char *argv[]) {
 			/* Create a Node compartment */
 			for (NTsize lcomp = 0; lcomp < nodeParameters["numComp"]; lcomp++) {
 				TypePerCompartmentFile << compartmentCounter++ << " 1" << endl;
-				for (int i = 0; i < nodeParameters["length"]; i++)
-					TypePerUnitLengthFile << "1" << endl;
-				cerr << "Node compartment " << endl;
+				LengthPerCompartmentFile << nodeParameters["length"] << endl;
 				oModel.PushBack(
 						createCompartment(globalParameters, nodeParameters,
 								channel_params["nodeSodiumModel"],
@@ -505,12 +419,12 @@ int main(int argc, char *argv[]) {
 
 			/* Create a Paranode compartment */
 			if (globalParameters["paranode"]) {
-				for (NTsize lcomp = 0; lcomp < paranodeParameters["numComp"]; lcomp++) {
+				for (NTsize lcomp = 0; lcomp < paranodeParameters["numComp"];
+						lcomp++) {
 					TypePerCompartmentFile << compartmentCounter++ << " 2"
 							<< endl;
-					for (int i = 0; i < paranodeParameters["length"]; i++)
-						TypePerUnitLengthFile << "2" << endl;
-					cerr << "Paranode compartment " << endl;
+					LengthPerCompartmentFile << paranodeParameters["length"]
+							<< endl;
 					oModel.PushBack(
 							createCompartment(globalParameters,
 									paranodeParameters,
@@ -525,12 +439,12 @@ int main(int argc, char *argv[]) {
 
 			/* Create an Internode compartment */
 			if (globalParameters["internode"]) {
-				for (NTsize lcomp = 0; lcomp < internodeParameters["numComp"]; lcomp++) {
+				for (NTsize lcomp = 0; lcomp < internodeParameters["numComp"];
+						lcomp++) {
 					TypePerCompartmentFile << compartmentCounter++ << " 3"
 							<< endl;
-					for (int i = 0; i < internodeParameters["length"]; i++)
-						TypePerUnitLengthFile << "3" << endl;
-					cerr << "Internode compartment " << endl;
+					LengthPerCompartmentFile << internodeParameters["length"]
+							<< endl;
 					oModel.PushBack(
 							createCompartment(globalParameters,
 									internodeParameters,
@@ -541,12 +455,12 @@ int main(int argc, char *argv[]) {
 
 			/* Create a Paranode compartment */
 			if (globalParameters["paranode"]) {
-				for (NTsize lcomp = 0; lcomp < paranodeParameters["numComp"]; lcomp++) {
+				for (NTsize lcomp = 0; lcomp < paranodeParameters["numComp"];
+						lcomp++) {
 					TypePerCompartmentFile << compartmentCounter++ << " 2"
 							<< endl;
-					for (int i = 0; i < paranodeParameters["length"]; i++)
-						TypePerUnitLengthFile << "2" << endl;
-					cerr << "Paranode compartment " << endl;
+					LengthPerCompartmentFile << paranodeParameters["length"]
+							<< endl;
 					oModel.PushBack(
 							createCompartment(globalParameters,
 									paranodeParameters,
@@ -557,14 +471,18 @@ int main(int argc, char *argv[]) {
 
 		}
 
+		TypePerCompartmentFile.close();
+		LengthPerCompartmentFile.close();
+
 		oModel.Init();
 
 		/* Information measurement init */
 		NTsize numCompartments = hillockParameters["numComp"]
-				+ (nodeParameters["num"] - 1) * (nodeParameters["numComp"]
-						+ paranodeParameters["numComp"]
-						+ internodeParameters["numComp"]
-						+ paranodeParameters["numComp"])
+				+ (nodeParameters["num"] - 1)
+						* (nodeParameters["numComp"]
+								+ paranodeParameters["numComp"]
+								+ internodeParameters["numComp"]
+								+ paranodeParameters["numComp"])
 				+ nodeParameters["numComp"] + paranodeParameters["numComp"];
 		cerr << "Total number of compartments(computed)" << numCompartments
 				<< endl;
@@ -585,7 +503,7 @@ int main(int argc, char *argv[]) {
 			NT3D_glx_drv_o* drvVP = new NT3D_glx_drv_o(1000, 120);
 			drvVP->SetWindowTitle("Voltage-Compartment-Plot");
 			if (NT_FAIL == plotXY.Connect(drvVP))
-				return(EXIT_GRAPHIC_ERROR);
+				return (EXIT_GRAPHIC_ERROR);
 			plotXY.AutoRange(false);
 			plotXY.SetXRange(0, numCompartments);
 			plotXY.SetYRange(-100, 200);
@@ -593,14 +511,14 @@ int main(int argc, char *argv[]) {
 			NT3D_glx_drv_o* drv2VP = new NT3D_glx_drv_o(1000, 100);
 			drv2VP->SetWindowTitle("NaOpenChannelRatio-Compartment-Plot");
 			if (NT_FAIL == plotChanNa.Connect(drv2VP))
-				return(EXIT_GRAPHIC_ERROR);
+				return (EXIT_GRAPHIC_ERROR);
 			plotChanNa.SetXRange(0, numCompartments);
 			plotChanNa.SetYRange(0, 100);
 
 			NT3D_glx_drv_o* drv3VP = new NT3D_glx_drv_o(1000, 100);
 			drv3VP->SetWindowTitle("KOpenChannelRatio-Compartment-Plot");
 			if (NT_FAIL == plotChanK.Connect(drv3VP))
-				return(EXIT_GRAPHIC_ERROR);
+				return (EXIT_GRAPHIC_ERROR);
 			plotChanK.SetXRange(0, numCompartments);
 			plotChanK.SetYRange(0, 100);
 		}
@@ -624,12 +542,12 @@ int main(int argc, char *argv[]) {
 			timeVar = timeInMS;
 			/* the "sampling ratio" used for "measurement" to disk */
 			if (output && lt % sampN == 0) {
-				oModel.WriteMembranePotentialASCII(PotentialPerUnitLengthFile,
-						true);
 				oModel.WriteMembranePotentialASCII(PotentialPerCompartmentFile,
 						false);
+				oModel.WriteCurrentAscii(LeakFile, 1); //Leak
 				oModel.WriteCurrentAscii(SodiumFile, 2); //Na
 				oModel.WriteCurrentAscii(PotassiumFile, 3); // K
+
 				TimeFile << timeVar << endl;
 			}
 
@@ -644,12 +562,12 @@ int main(int argc, char *argv[]) {
 							cerr << "ERROR at t=" << timeVar
 									<< " voltage in compartment " << lc
 									<< " is NaN." << endl;
-							return(EXIT_V_TOO_HIGH);
+							return (EXIT_V_TOO_HIGH);
 						} else if (voltVec[lc] > 200.0 /* mV */) {
 							cerr << "ERROR at t=" << timeVar
 									<< " voltage in compartment " << lc
 									<< " is " << voltVec[lc] << "." << endl;
-							return(EXIT_V_TOO_HIGH);
+							return (EXIT_V_TOO_HIGH);
 						}
 					}
 
@@ -667,7 +585,7 @@ int main(int argc, char *argv[]) {
 			if (lt % readN == 0) {
 				inpCurrent = (inputData[dataRead] * inpISDV) + inpI;
 				dataRead++;
-				cout << lt <<endl;
+				cout << lt << "\t" << inpCurrent << endl;
 			}
 			oModel.InjectCurrent(inpCurrent, 1);
 
