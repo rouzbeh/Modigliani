@@ -40,11 +40,6 @@
 #include "nt_obj.h"  
 /* Parent includes */
 #include "ntbp_cylindrical_compartment_obj.h"
-/* NT includes */
-#include "ntbp_delayed_potassium_rectifier_current_obj.h"
-#include "ntbp_sga_sodium_current_obj.h"
-#include "ntbp_multi_potassium_current_obj.h"
-#include "ntbp_multi_sodium_current_obj.h"
 /* other includes */
 
 /** @short NTBP_custom_cylindrical_compartment_o class 

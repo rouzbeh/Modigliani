@@ -30,12 +30,7 @@
 #ifndef _ntbp_auxfunc_h_ 
 #define _ntbp_auxfunc_h_ 
 
-#include "ntbp_sga_cylindrical_compartment_obj.h"
 #include "ntbp_custom_cylindrical_compartment_obj.h"
-
-#include "ntbp_multi_sodium_current_obj.h"
-
-#include "ntbp_multi_potassium_current_obj.h"
 
 NTreal /* mum^-2 */
 		NTBP_corrected_channel_density(NTreal chDensity /* mum^-2 */,

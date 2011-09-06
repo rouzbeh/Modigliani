@@ -52,41 +52,19 @@ libntbpsrc_a_AR = $(AR) $(ARFLAGS)
 libntbpsrc_a_DEPENDENCIES = json/libjson_linux-gcc-4.5.2_libmt.a
 am_libntbpsrc_a_OBJECTS = ntbp_transition_rate_matrix_obj.$(OBJEXT) \
 	ntbp_synaptic_background_obj.$(OBJEXT) \
-	ntbp_potassium_multi_current_obj.$(OBJEXT) \
-	ntbp_patlak_sodium_multi_current_obj.$(OBJEXT) \
 	ntbp_membrane_patch_obj.$(OBJEXT) \
 	ntbp_tridiag_solver_obj.$(OBJEXT) \
 	ntbp_spherical_compartment_obj.$(OBJEXT) \
-	ntbp_sodium_ion_channels_obj.$(OBJEXT) \
-	ntbp_simple_ranvier_cylindrical_compartment_obj.$(OBJEXT) \
-	ntbp_simple_myelinated_cylindrical_compartment_obj.$(OBJEXT) \
-	ntbp_sga_sodium_current_obj.$(OBJEXT) \
-	ntbp_sga_cylindrical_compartment_obj.$(OBJEXT) \
-	ntbp_potassium_ion_channels_obj.$(OBJEXT) \
-	ntbp_object_obj.$(OBJEXT) \
-	ntbp_multi_sodium_current_obj.$(OBJEXT) \
-	ntbp_multi_potassium_current_obj.$(OBJEXT) \
+	ntbp_object_obj.$(OBJEXT) ntbp_hh_current_obj.$(OBJEXT) \
 	ntbp_multi_current_obj.$(OBJEXT) ntbp_membrane_obj.$(OBJEXT) \
+	ntbp_hh_sga_leak_current_obj.$(OBJEXT) \
 	ntbp_membrane_current_obj.$(OBJEXT) \
 	ntbp_membrane_compartment_sequence_obj.$(OBJEXT) \
 	ntbp_membrane_compartment_obj.$(OBJEXT) \
 	ntbp_ion_channels_obj.$(OBJEXT) \
-	ntbp_hh_sga_sodium_current_obj.$(OBJEXT) \
-	ntbp_hh_sga_potassium_current_obj.$(OBJEXT) \
-	ntbp_hh_sga_leak_current_obj.$(OBJEXT) \
-	ntbp_hh_current_obj.$(OBJEXT) \
-	ntbp_delayed_potassium_rectifier_current_obj.$(OBJEXT) \
 	ntbp_cylindrical_compartment_obj.$(OBJEXT) \
 	ntbp_custom_cylindrical_compartment_obj.$(OBJEXT) \
-	ntbp_channels_current_obj.$(OBJEXT) \
-	ntbp_Na_only_sga_cylindrical_compartment_obj.$(OBJEXT) \
-	ntbp_K_only_sga_cylindrical_compartment_obj.$(OBJEXT) \
-	ntbp_auxfunc.$(OBJEXT) \
-	ntbp_multi_sodium_steadystate_timeconstant_current_obj.$(OBJEXT) \
-	ntbp_Spampanato_WT_sodium_multi_current_obj.$(OBJEXT) \
-	ntbp_Spampanato_WT_potassium_multi_current_obj.$(OBJEXT) \
-	ntbp_HH_multi_sodium_current_obj.$(OBJEXT) \
-	ntbp_HH_multi_potassium_current_obj.$(OBJEXT) \
+	ntbp_channels_current_obj.$(OBJEXT) ntbp_auxfunc.$(OBJEXT) \
 	ntbp_file_based_multi_current_obj.$(OBJEXT)
 libntbpsrc_a_OBJECTS = $(am_libntbpsrc_a_OBJECTS)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
@@ -209,41 +187,22 @@ top_srcdir = @top_srcdir@
 ####### kdevelop will overwrite this part!!! (begin)##########
 noinst_LIBRARIES = libntbpsrc.a
 libntbpsrc_a_SOURCES = ntbp_transition_rate_matrix_obj.cpp ntbp_synaptic_background_obj.cpp \
-	ntbp_potassium_multi_current_obj.cpp \
-	ntbp_patlak_sodium_multi_current_obj.cpp ntbp_membrane_patch_obj.cpp ntbp_tridiag_solver_obj.cpp \
-	ntbp_spherical_compartment_obj.cpp ntbp_sodium_ion_channels_obj.cpp \
-	ntbp_simple_ranvier_cylindrical_compartment_obj.cpp ntbp_simple_myelinated_cylindrical_compartment_obj.cpp \
-	ntbp_sga_sodium_current_obj.cpp ntbp_sga_cylindrical_compartment_obj.cpp \
-	ntbp_potassium_ion_channels_obj.cpp ntbp_object_obj.cpp ntbp_multi_sodium_current_obj.cpp \
-	ntbp_multi_potassium_current_obj.cpp ntbp_multi_current_obj.cpp ntbp_membrane_obj.cpp \
+	ntbp_membrane_patch_obj.cpp ntbp_tridiag_solver_obj.cpp \
+	ntbp_spherical_compartment_obj.cpp \
+	ntbp_object_obj.cpp  ntbp_hh_current_obj.cpp\
+	ntbp_multi_current_obj.cpp ntbp_membrane_obj.cpp ntbp_hh_sga_leak_current_obj.cpp\
 	ntbp_membrane_current_obj.cpp ntbp_membrane_compartment_sequence_obj.cpp \
-	ntbp_membrane_compartment_obj.cpp ntbp_ion_channels_obj.cpp ntbp_hh_sga_sodium_current_obj.cpp \
-	ntbp_hh_sga_potassium_current_obj.cpp ntbp_hh_sga_leak_current_obj.cpp ntbp_hh_current_obj.cpp \
-	ntbp_delayed_potassium_rectifier_current_obj.cpp ntbp_cylindrical_compartment_obj.cpp \
+	ntbp_membrane_compartment_obj.cpp ntbp_ion_channels_obj.cpp \
+	ntbp_cylindrical_compartment_obj.cpp \
 	ntbp_custom_cylindrical_compartment_obj.cpp ntbp_channels_current_obj.cpp \
-	ntbp_Na_only_sga_cylindrical_compartment_obj.cpp ntbp_K_only_sga_cylindrical_compartment_obj.cpp ntbp_auxfunc.cpp \
-	ntbp_multi_sodium_steadystate_timeconstant_current_obj.cpp ntbp_Spampanato_WT_sodium_multi_current_obj.cpp \
-	ntbp_Spampanato_WT_potassium_multi_current_obj.cpp ntbp_HH_multi_sodium_current_obj.cpp ntbp_HH_multi_potassium_current_obj.cpp \
+	ntbp_auxfunc.cpp \
 	ntbp_file_based_multi_current_obj.cpp
 
-EXTRA_DIST = ntbp_K_only_sga_cylindrical_compartment_obj.cpp \
-	ntbp_K_only_sga_cylindrical_compartment_obj.h \
-	ntbp_Na_only_sga_cylindrical_compartment_obj.cp \
-	ntbp_Na_only_sga_cylindrical_compartment_obj.h \
-	ntbp_channels_current_obj.cpp ntbp_channels_current_obj.h \
+EXTRA_DIST = ntbp_channels_current_obj.cpp ntbp_channels_current_obj.h \
 	ntbp_custom_cylindrical_compartment_obj.cpp \
 	ntbp_custom_cylindrical_compartment_obj.h \
 	ntbp_cylindrical_compartment_obj.cpp \
-	ntbp_cylindrical_compartment_obj.h \
-	ntbp_delayed_potassium_rectifier_current_obj.cpp \
-	ntbp_delayed_potassium_rectifier_current_obj.h \
-	ntbp_hh_current_obj.cpp ntbp_hh_current_obj.h \
-	ntbp_hh_sga_leak_current_obj.cpp \
-	ntbp_hh_sga_leak_current_obj.h \
-	ntbp_hh_sga_potassium_current_obj.cpp \
-	ntbp_hh_sga_potassium_current_obj.h \
-	ntbp_hh_sga_sodium_current_obj.cpp \
-	ntbp_hh_sga_sodium_current_obj.h ntbp_ion_channels_obj.cpp \
+	ntbp_cylindrical_compartment_obj.h ntbp_ion_channels_obj.cpp \
 	ntbp_ion_channels_obj.h ntbp_membrane_compartment_obj.cpp \
 	ntbp_membrane_compartment_obj.h \
 	ntbp_membrane_compartment_sequence_obj.cpp \
@@ -251,46 +210,23 @@ EXTRA_DIST = ntbp_K_only_sga_cylindrical_compartment_obj.cpp \
 	ntbp_membrane_current_obj.cpp ntbp_membrane_current_obj.h \
 	ntbp_membrane_obj.cpp ntbp_membrane_obj.h \
 	ntbp_multi_current_obj.cpp ntbp_multi_current_obj.h \
-	ntbp_multi_potassium_current_obj.cpp \
-	ntbp_multi_potassium_current_obj.h \
-	ntbp_multi_sodium_current_obj.cpp \
-	ntbp_multi_sodium_current_obj.h ntbp_object_obj.cpp \
-	ntbp_object_obj.h ntbp_potassium_ion_channels_obj.cpp \
-	ntbp_potassium_ion_channels_obj.h \
-	ntbp_sga_cylindrical_compartment_obj.cpp \
-	ntbp_sga_cylindrical_compartment_obj.h \
-	ntbp_sga_sodium_current_obj.cpp ntbp_sga_sodium_current_obj.h \
-	ntbp_simple_myelinated_cylindrical_compartment_obj.cpp \
-	ntbp_simple_myelinated_cylindrical_compartment_obj.h \
-	ntbp_simple_ranvier_cylindrical_compartment_obj.cpp \
-	ntbp_simple_ranvier_cylindrical_compartment_obj.h \
-	ntbp_sodium_ion_channels_obj.cpp \
-	ntbp_sodium_ion_channels_obj.h \
+	ntbp_object_obj.cpp ntbp_object_obj.h \
 	ntbp_spherical_compartment_obj.cpp \
 	ntbp_spherical_compartment_obj.h ntbp_tridiag_solver_obj.cpp \
 	ntbp_tridiag_solver_obj.h ntbp_membrane_patch_obj.cpp \
-	ntbp_membrane_patch_obj.h ntbp_potassium_multi_current_obj.cpp \
-	ntbp_potassium_multi_current_obj.h \
-	ntbp_synaptic_background_obj.cpp \
+	ntbp_membrane_patch_obj.h ntbp_synaptic_background_obj.cpp \
 	ntbp_synaptic_background_obj.h \
-	ntbp_Spampanato_WT_potassium_multi_current_obj.cpp \
-	ntbp_Spampanato_WT_potassium_multi_current_obj.h \
-	ntbp_Spampanato_WT_sodium_multi_current_obj.cpp \
-	ntbp_Spampanato_WT_sodium_multi_current_obj.h \
-	ntbp_HH_multi_sodium_current_obj.h \
-	ntbp_HH_multi_sodium_current_obj.cpp \
-	ntbp_HH_multi_potassium_current_obj.h \
-	ntbp_HH_multi_potassium_current_obj.cpp \
-	ntbp_transition_rate_matrix_obj.cpp \
-	ntbp_file_based_multi_current_obj.cpp
+	ntbp_ntbp_transition_rate_matrix_obj.cpp \
+	ntbp_file_based_multi_current_obj.cpp \
+	ntbp_hh_sga_leak_current_obj.cpp \
+	ntbp_hh_sga_leak_current_obj.h ntbp_hh_current_obj.cpp \
+	ntbp_hh_current_obj.cpp
 libntbpsrc_a_LIBADD = json/libjson_linux-gcc-4.5.2_libmt.a
 
 ####### kdevelop will overwrite this part!!! (end)############
 # set the include path found by configure
 INCLUDES = $(all_includes)
-noinst_HEADERS = ntbp_auxfunc.h \
-	ntbp_multi_sodium_steadystate_timeconstant_current_obj.cpp ntbp_multi_sodium_steadystate_timeconstant_current_obj.h
-
+noinst_HEADERS = ntbp_auxfunc.h
 all: all-am
 
 .SUFFIXES:
@@ -339,22 +275,13 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_HH_multi_potassium_current_obj.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_HH_multi_sodium_current_obj.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_K_only_sga_cylindrical_compartment_obj.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_Na_only_sga_cylindrical_compartment_obj.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_Spampanato_WT_potassium_multi_current_obj.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_Spampanato_WT_sodium_multi_current_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_auxfunc.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_channels_current_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_custom_cylindrical_compartment_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_cylindrical_compartment_obj.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_delayed_potassium_rectifier_current_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_file_based_multi_current_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_hh_current_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_hh_sga_leak_current_obj.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_hh_sga_potassium_current_obj.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_hh_sga_sodium_current_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_ion_channels_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_membrane_compartment_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_membrane_compartment_sequence_obj.Po@am__quote@
@@ -362,18 +289,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_membrane_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_membrane_patch_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_multi_current_obj.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_multi_potassium_current_obj.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_multi_sodium_current_obj.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_multi_sodium_steadystate_timeconstant_current_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_object_obj.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_patlak_sodium_multi_current_obj.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_potassium_ion_channels_obj.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_potassium_multi_current_obj.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_sga_cylindrical_compartment_obj.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_sga_sodium_current_obj.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_simple_myelinated_cylindrical_compartment_obj.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_simple_ranvier_cylindrical_compartment_obj.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_sodium_ion_channels_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_spherical_compartment_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_synaptic_background_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_transition_rate_matrix_obj.Po@am__quote@

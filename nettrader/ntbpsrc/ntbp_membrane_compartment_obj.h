@@ -56,12 +56,6 @@
 #include "nt_obj.h"  
 /* NT includes */
 #include "ntbp_membrane_current_obj.h"
-#include"ntbp_hh_sga_potassium_current_obj.h"
-#include"ntbp_hh_sga_sodium_current_obj.h"
-#include"ntbp_hh_sga_leak_current_obj.h"
-#include"ntbp_delayed_potassium_rectifier_current_obj.h"
-#include"ntbp_sga_sodium_current_obj.h"
-
 /* other includes */
 #include <vector>
 
