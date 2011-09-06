@@ -110,8 +110,8 @@
 #include "nt_vector3_obj.h"
 
 #include <iostream>
-#include <math.h>
-
+//#include <math.h>
+#include <cmath>
 //
 //	Class name : NT_vector_o
 //

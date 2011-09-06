@@ -18,8 +18,7 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */ 
-
+ */
 
 /* $Id: nt3d_glx_drv_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
  * $Log: nt3d_glx_drv_obj.cpp,v $
@@ -87,7 +86,6 @@
 #include <iostream>
 #include <strstream>
 
-
 #include <stdio.h>
 #include <X11/Xatom.h>
 
@@ -100,256 +98,233 @@ GLXContext NT3D_glx_drv_o::uniqueCommonCtx = NULL;
 
 /* ***      CONSTRUCTORS	***/
 /** standard constructor which on default opens a 200 X 200 window */
-NT3D_glx_drv_o::NT3D_glx_drv_o(NTsize windowWidth, NTsize windowHeight, bool useCommonContext)
-{ 
- useUniqueCommonCtx = useCommonContext;
+NT3D_glx_drv_o::NT3D_glx_drv_o(NTsize windowWidth, NTsize windowHeight,
+		bool useCommonContext) {
+	useUniqueCommonCtx = useCommonContext;
 
-  if (1 > initCount) {
-	dpy = XOpenDisplay(NULL);
-  	if (NULL == dpy) {
-  		cerr << "NT3D_glx_drv_o::Constructor failed - error : XOpenDisplay failed." << endl;
-  		return;
+	if (1 > initCount) {
+		dpy = XOpenDisplay(NULL);
+		if (NULL == dpy) {
+			cerr
+					<< "NT3D_glx_drv_o::Constructor failed - error : XOpenDisplay failed."
+					<< endl;
+			return;
+		}
 	}
-  }
 
-  CreateWindow(windowWidth,windowHeight); 
-  NT3D_glx_drv_o::initCount++; 
- 
-  ostrstream title;
-  title << "GLX drv win no. " << windowNumber;
-  windowTitle = title.str();
-  SetWindowTitle(windowTitle);
+	CreateWindow(windowWidth, windowHeight);
+	NT3D_glx_drv_o::initCount++;
+
+	ostrstream title;
+	title << "GLX drv win no. " << windowNumber;
+	windowTitle = title.str();
+	SetWindowTitle(windowTitle);
 }
 
-
-
-const NT3D_glx_drv_o&  
-NT3D_glx_drv_o::operator= (const NT3D_glx_drv_o & right)
-{
-  if (this == &right) return *this; // Gracefully handle self assignment
-  // add assignment code here
-  return *this;
+const NT3D_glx_drv_o&
+NT3D_glx_drv_o::operator=(const NT3D_glx_drv_o & right) {
+	if (this == &right)
+		return *this; // Gracefully handle self assignment
+	// add assignment code here
+	return *this;
 }
-
 
 /* ***      DESTRUCTOR		***/
-NT3D_glx_drv_o::~NT3D_glx_drv_o()
-{
-	if (NT_FAIL == Close() ) {
-		cerr << "NT3D_glx_drv_o::Close - error : call to Close failed !" << endl;
+NT3D_glx_drv_o::~NT3D_glx_drv_o() {
+	if (NT_FAIL == Close()) {
+		cerr << "NT3D_glx_drv_o::Close - error : call to Close failed !"
+				<< endl;
 		return;
-	} 
-	NT3D_glx_drv_o::initCount--;   
+	}
+	NT3D_glx_drv_o::initCount--;
 
-	if (initCount < 1 ) XCloseDisplay(dpy);
+	if (initCount < 1)
+		XCloseDisplay(dpy);
 }
 
-/* ***  PUBLIC                                    ***   */  
-NTreturn 
-NT3D_glx_drv_o::Open(NT3D_vp_spec_o newWinSpec)
-{
-	if (0 != CreateWindow(newWinSpec.width,newWinSpec.height) )	return NT_SUCCESS;
-	else return NT_FAIL;
+/* ***  PUBLIC                                    ***   */
+NTreturn NT3D_glx_drv_o::Open(NT3D_vp_spec_o newWinSpec) {
+	if (0 != CreateWindow(newWinSpec.width, newWinSpec.height))
+		return NT_SUCCESS;
+	else
+		return NT_FAIL;
 }
 
-NTreturn 
-NT3D_glx_drv_o::Close()
-{
+NTreturn NT3D_glx_drv_o::Close() {
 	glXDestroyContext(dpy, ctx);
-	XDestroyWindow(dpy,win);
+	XDestroyWindow(dpy, win);
 //	NT3D_glx_drv_o::windowCount--;   
-	if (true == useUniqueCommonCtx) commonCtxCount--;
-	
+	if (true == useUniqueCommonCtx)
+		commonCtxCount--;
+
 	return NT_SUCCESS;
 }
 
-NTreturn 
-NT3D_glx_drv_o::Resize(NTsize windowWidth, NTsize windowHeight)
-{
-  width = windowWidth;
-  height = windowHeight;
+NTreturn NT3D_glx_drv_o::Resize(NTsize windowWidth, NTsize windowHeight) {
+	width = windowWidth;
+	height = windowHeight;
 
-  glViewport(0,0, width, height);
-  XResizeWindow(dpy, win ,width, height);
-  
-  return NT_SUCCESS;  
+	glViewport(0, 0, width, height);
+	XResizeWindow(dpy, win, width, height);
+
+	return NT_SUCCESS;
 }
-
 
 /** @short   The OLD method of choice to open a rendering window.  It opens a
-  window of size windowWidth and windowHeight, sets the rendering
-  pipelin up as SMOOTH shaded, black clear render. Next it will provid a
-  window which set as current rendering context, swaps ones the
-  drawing buffers and is clears  the color and depth buffer.
-  @return The windowNumber identifier of the the added window.
-    
-    @param      NTint windowWidth, NTint windowHeight
-    @return     returns the internal windowNumber and 0 if failed
-    \warning    unknown
-    \bug        unknown
+ window of size windowWidth and windowHeight, sets the rendering
+ pipelin up as SMOOTH shaded, black clear render. Next it will provid a
+ window which set as current rendering context, swaps ones the
+ drawing buffers and is clears  the color and depth buffer.
+ @return The windowNumber identifier of the the added window.
+
+ @param      NTint windowWidth, NTint windowHeight
+ @return     returns the internal windowNumber and 0 if failed
+ \warning    unknown
+ \bug        unknown
  */
-NTint
-NT3D_glx_drv_o::CreateWindow(NTint windowWidth, NTint windowHeight) 
-{
-  width = windowWidth;
-  height = windowHeight;
+NTint NT3D_glx_drv_o::CreateWindow(NTint windowWidth, NTint windowHeight) {
+	width = windowWidth;
+	height = windowHeight;
 
-  windowNumber = 0; // in case it fails
+	windowNumber = 0; // in case it fails
 
-  if (MakeRGBDBWindow(width, height) != NT_SUCCESS) {
-  	cerr << "NT3D_glx_drv_o::CreateWindow - error : MakeRBGDBWindow failed." << endl;
-	return 0;
-  }
-  
-  
-  XMapWindow( dpy, win); 
-  glXMakeCurrent (dpy, win, ctx ); /* necessary for the first time */
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
-  glShadeModel( GL_SMOOTH );
-  glEnable(GL_DEPTH_TEST); /* enable depth buffering */
-  glDepthFunc(GL_LESS);    /* pedantic, GL_LESS is the default */
-  glClearDepth(1.0);       /* pedantic, 1.0 is the default */
-  glClearColor(0.0, 0.0, 0.0, 0.0);  /* frame buffer clears should be to black */
-  
-  glXSwapBuffers(dpy, win );
+	if (MakeRGBDBWindow(width, height) != NT_SUCCESS) {
+		cerr << "NT3D_glx_drv_o::CreateWindow - error : MakeRBGDBWindow failed."
+				<< endl;
+		return 0;
+	}
 
-  windowCount++;   
-  windowNumber = windowCount;
+	XMapWindow(dpy, win);
+	glXMakeCurrent(dpy, win, ctx); /* necessary for the first time */
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  return windowNumber;  // return 0 if failed !
+	glShadeModel(GL_SMOOTH);
+	glEnable(GL_DEPTH_TEST); /* enable depth buffering */
+	glDepthFunc(GL_LESS); /* pedantic, GL_LESS is the default */
+	glClearDepth(1.0); /* pedantic, 1.0 is the default */
+	glClearColor(0.0, 0.0, 0.0, 0.0); /* frame buffer clears should be to black */
+
+	glXSwapBuffers(dpy, win);
+
+	windowCount++;
+	windowNumber = windowCount;
+
+	return windowNumber; // return 0 if failed !
 }
 
-
-
-
-NTreturn
-NT3D_glx_drv_o::SetWindowTitle( string newTitle )
-{
+NTreturn NT3D_glx_drv_o::SetWindowTitle(string newTitle) {
 
 	windowTitle = newTitle;
- 	XTextProperty textprop;
-	
+	XTextProperty textprop;
 
-XSizeHints * szHints;
-szHints = XAllocSizeHints();
-szHints->x = (int) width;
-szHints->y = (int) height;
-XWMHints *wmHints;
-wmHints = XAllocWMHints();
-wmHints->initial_state = NormalState;
-wmHints->flags = StateHint;
+	XSizeHints * szHints;
+	szHints = XAllocSizeHints();
+	szHints->x = (int) width;
+	szHints->y = (int) height;
+	XWMHints *wmHints;
+	wmHints = XAllocWMHints();
+	wmHints->initial_state = NormalState;
+	wmHints->flags = StateHint;
 
-          /* Setup ICCCM properties. */
-          textprop.value = (unsigned char *) windowTitle.c_str();
-          
-          textprop.encoding = XA_STRING;
-          textprop.format = 8;
-          textprop.nitems = windowTitle.length();
+	/* Setup ICCCM properties. */
+	textprop.value = (unsigned char *) windowTitle.c_str();
 
-	XSetWMProperties(dpy, win, &textprop, &textprop, NULL, 0, szHints, wmHints, NULL);
+	textprop.encoding = XA_STRING;
+	textprop.format = 8;
+	textprop.nitems = windowTitle.length();
+
+	XSetWMProperties(dpy, win, &textprop, &textprop, NULL, 0, szHints, wmHints,
+			NULL);
 
 	XFree(wmHints);
 	delete szHints;
-
-	
+	return NT_SUCCESS;
 }
 
-
-NT3D_bitmap_o 
-NT3D_glx_drv_o::View2Bitmap()
-{ 
-	NT3D_bitmap_o oTmp;  
-	oTmp.GetBitmap(0,0, width, height, NT_RGB); 
+NT3D_bitmap_o NT3D_glx_drv_o::View2Bitmap() {
+	NT3D_bitmap_o oTmp;
+	oTmp.GetBitmap(0, 0, width, height, NT_RGB);
 	return oTmp;
 }
 
-
-NT3D_bitmap_o * 
-NT3D_glx_drv_o::View2BitmapPtr(NT3D_bitmap_o * bmpPtr)
-{ 
-  			 	if (NULL == bmpPtr){ 
-  			 		NT3D_bitmap_o * oTmp = new NT3D_bitmap_o; 
-					oTmp->GetBitmap( 0, 0, width, height, NT_RGB);
-					return oTmp;
-  			 		} else {
-  			 		bmpPtr->GetBitmap( 0, 0, width, height, NT_RGB); 
-  					return bmpPtr;
-  				}
+NT3D_bitmap_o *
+NT3D_glx_drv_o::View2BitmapPtr(NT3D_bitmap_o * bmpPtr) {
+	if (NULL == bmpPtr) {
+		NT3D_bitmap_o * oTmp = new NT3D_bitmap_o;
+		oTmp->GetBitmap(0, 0, width, height, NT_RGB);
+		return oTmp;
+	} else {
+		bmpPtr->GetBitmap(0, 0, width, height, NT_RGB);
+		return bmpPtr;
+	}
 }
-
 
 /* ***  PROTECTED                         ***   */
 /* ***  PRIVATE                           ***   */
-NTreturn
-NT3D_glx_drv_o::MakeRGBDBWindow(NTint windowWidth, NTint windowHeight)
-{
-  int attrib[] = { GLX_RGBA,
-                   GLX_DEPTH_SIZE,16,
-                   GLX_DOUBLEBUFFER,
-                   None };
-  int scrnum;
-  XSetWindowAttributes attr;
-  unsigned long mask;
-  Window root;
-  XVisualInfo *visinfo;
-  
- 
+NTreturn NT3D_glx_drv_o::MakeRGBDBWindow(NTint windowWidth,
+		NTint windowHeight) {
+	int attrib[] = { GLX_RGBA, GLX_DEPTH_SIZE, 16, GLX_DOUBLEBUFFER, None };
+	int scrnum;
+	XSetWindowAttributes attr;
+	unsigned long mask;
+	Window root;
+	XVisualInfo *visinfo;
 
-  scrnum = DefaultScreen( dpy );
-  root = RootWindow( dpy, scrnum );
+	scrnum = DefaultScreen( dpy );
+	root = RootWindow( dpy, scrnum );
 
-  visinfo = glXChooseVisual( dpy, scrnum, attrib );
-  if (!visinfo) {
-    cerr <<"NT3D_glx_drv_o::MakeRGBDBWindow - error: couldn't get an RGB, Double-buffered visual."<<endl;
- 	return NT_FAIL;
-  }
+	visinfo = glXChooseVisual(dpy, scrnum, attrib);
+	if (!visinfo) {
+		cerr
+				<< "NT3D_glx_drv_o::MakeRGBDBWindow - error: couldn't get an RGB, Double-buffered visual."
+				<< endl;
+		return NT_FAIL;
+	}
 
-  
-  /* window attributes */
-  attr.background_pixel = 0;
-  attr.border_pixel = 0;
-  attr.colormap = XCreateColormap( dpy, root, visinfo->visual, AllocNone);
-  /*** Attribute EVENT_MASK ***/ 
-  attr.event_mask = StructureNotifyMask | ExposureMask; // | ButtonPressMask |KeyPressMask;
-  mask = CWBackPixel | CWBorderPixel | CWColormap | CWEventMask;
+	/* window attributes */
+	attr.background_pixel = 0;
+	attr.border_pixel = 0;
+	attr.colormap = XCreateColormap(dpy, root, visinfo->visual, AllocNone);
+	/*** Attribute EVENT_MASK ***/
+	attr.event_mask = StructureNotifyMask | ExposureMask; // | ButtonPressMask |KeyPressMask;
+	mask = CWBackPixel | CWBorderPixel | CWColormap | CWEventMask;
 
-  win = XCreateWindow(  dpy, root, 0, 0, windowWidth, windowHeight,
-                       0, visinfo->depth, InputOutput,
-                       visinfo->visual, mask, &attr );
-    
-  /* 2DO hacked code here BEWARE of side effects, e.g. deletion of original context object ... */
-  GLXContext shared_context;
-  if (useUniqueCommonCtx == true) {
-  		cerr << "Using unique common context." << endl;
-  		if (commonCtxCount < 1) {
-  			cerr << "First init of common context." << endl;
-  			shared_context = NULL;
-  		} else {
-  			cerr << "Using used context." << endl;
-  			shared_context = uniqueCommonCtx;
-  		}
-  } else {
-  		cerr <<"Using individual context." << endl;
-  		shared_context = NULL;
-  }
-  
-  ctx = glXCreateContext( dpy, visinfo, shared_context, (Bool) False);
-  if (NULL == ctx) { cerr <<"NT3D_glx_drv_o::MakeRGBDBWindow - error: could not create a rendering context."<<endl;
- 	return NT_FAIL;
-  }
+	win = XCreateWindow(dpy, root, 0, 0, windowWidth, windowHeight, 0,
+			visinfo->depth, InputOutput, visinfo->visual, mask, &attr);
 
-  if (useUniqueCommonCtx == true)  {
-  	commonCtxCount++;
-  	if (commonCtxCount < 2)
-  	{
+	/* 2DO hacked code here BEWARE of side effects, e.g. deletion of original context object ... */
+	GLXContext shared_context;
+	if (useUniqueCommonCtx == true) {
+		cerr << "Using unique common context." << endl;
+		if (commonCtxCount < 1) {
+			cerr << "First init of common context." << endl;
+			shared_context = NULL;
+		} else {
+			cerr << "Using used context." << endl;
+			shared_context = uniqueCommonCtx;
+		}
+	} else {
+		cerr << "Using individual context." << endl;
+		shared_context = NULL;
+	}
+
+	ctx = glXCreateContext(dpy, visinfo, shared_context, (Bool) False);
+	if (NULL == ctx) {
+		cerr
+				<< "NT3D_glx_drv_o::MakeRGBDBWindow - error: could not create a rendering context."
+				<< endl;
+		return NT_FAIL;
+	}
+
+	if (useUniqueCommonCtx == true) {
+		commonCtxCount++;
+		if (commonCtxCount < 2) {
 			cerr << "First time assignment of common context." << endl;
-  			uniqueCommonCtx = ctx;
-  	}
-  }
+			uniqueCommonCtx = ctx;
+		}
+	}
 
-
-return NT_SUCCESS;
+	return NT_SUCCESS;
 
 }
 
