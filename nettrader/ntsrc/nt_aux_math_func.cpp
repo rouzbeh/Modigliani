@@ -75,7 +75,7 @@ NTComputePLogP(NTreal prob)
     if (0.0 == prob) return 0;
     else if (prob < 0.0) {
         cerr << "ComputeEntropyElement - Error : Negative probability encountered." << endl;
-        //		exit(1);
+        return 0;
     } else {
         return prob*log(prob)/0.69314718055994530942 /* log(2) */;
     }

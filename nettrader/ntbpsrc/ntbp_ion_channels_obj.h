@@ -58,12 +58,12 @@ public:
 	NTsize _numStates() const {
 		return numStates;
 	}
-	bool GillespieStep(NTreal voltage);
+	NTreturn GillespieStep(NTreal voltage);
 	void setAsOpenState(NTsize newOpenState);
 	NTreturn BinomialStep(NTreal voltage);
 	NTreturn DeterministicStep(NTreal voltage);
 	NTreturn Step(NTreal voltage);
-	bool ComputeGillespieStep(NTsize channelStateId, NTreal voltage);
+	NTreturn ComputeGillespieStep(NTsize channelStateId, NTreal voltage);
 	void ShowStates() const;
 	NTsize NumOpen() const;
 	NTsize numChannelsInState(NTsize state) const {

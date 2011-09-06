@@ -72,8 +72,8 @@
 
 #include "nt_rnd_dist_obj.h"
 
-long NT_rnd_dist_o::seed = (long) -4351398; // 2DO improve initialization of seed
-MTRand NT_rnd_dist_o::randgen = NTMakeMTRandFunction( MTRand::uint32(7121974) );
+long NT_rnd_dist_o::seed = (long) time(NULL); // 2DO improve initialization of seed
+MTRand NT_rnd_dist_o::randgen = NTMakeMTRandFunction( MTRand::uint32(~time(NULL)) );
 
 
 

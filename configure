@@ -6699,7 +6699,7 @@ fi
 done
 
 
-CXXFLAGS="-Ofast -march=native"
+CXXFLAGS="-g3 -march=native"
 
 all_includes="$all_includes -I../ntsrc -I../nt3dsrc -I../ntgsrc -I../ntbpsrc -I.. -I../tnt"
 all_includes="$all_includes $USER_INCLUDES"

@@ -87,7 +87,7 @@ am_libntbpsrc_a_OBJECTS = ntbp_transition_rate_matrix_obj.$(OBJEXT) \
 	ntbp_Spampanato_WT_potassium_multi_current_obj.$(OBJEXT) \
 	ntbp_HH_multi_sodium_current_obj.$(OBJEXT) \
 	ntbp_HH_multi_potassium_current_obj.$(OBJEXT) \
-	NTBP_file_based_multi_current_obj.$(OBJEXT)
+	ntbp_file_based_multi_current_obj.$(OBJEXT)
 libntbpsrc_a_OBJECTS = $(am_libntbpsrc_a_OBJECTS)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
@@ -224,7 +224,7 @@ libntbpsrc_a_SOURCES = ntbp_transition_rate_matrix_obj.cpp ntbp_synaptic_backgro
 	ntbp_Na_only_sga_cylindrical_compartment_obj.cpp ntbp_K_only_sga_cylindrical_compartment_obj.cpp ntbp_auxfunc.cpp \
 	ntbp_multi_sodium_steadystate_timeconstant_current_obj.cpp ntbp_Spampanato_WT_sodium_multi_current_obj.cpp \
 	ntbp_Spampanato_WT_potassium_multi_current_obj.cpp ntbp_HH_multi_sodium_current_obj.cpp ntbp_HH_multi_potassium_current_obj.cpp \
-	NTBP_file_based_multi_current_obj.cpp
+	ntbp_file_based_multi_current_obj.cpp
 
 EXTRA_DIST = ntbp_K_only_sga_cylindrical_compartment_obj.cpp \
 	ntbp_K_only_sga_cylindrical_compartment_obj.h \
@@ -282,7 +282,7 @@ EXTRA_DIST = ntbp_K_only_sga_cylindrical_compartment_obj.cpp \
 	ntbp_HH_multi_potassium_current_obj.h \
 	ntbp_HH_multi_potassium_current_obj.cpp \
 	ntbp_transition_rate_matrix_obj.cpp \
-	NTBP_file_based_multi_current_obj.cpp
+	ntbp_file_based_multi_current_obj.cpp
 libntbpsrc_a_LIBADD = json/libjson_linux-gcc-4.5.2_libmt.a
 
 ####### kdevelop will overwrite this part!!! (end)############
@@ -304,9 +304,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --foreign nettrader/ntbpsrc/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu nettrader/ntbpsrc/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --foreign nettrader/ntbpsrc/Makefile
+	  $(AUTOMAKE) --gnu nettrader/ntbpsrc/Makefile
 .PRECIOUS: Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
@@ -339,7 +339,6 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/NTBP_file_based_multi_current_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_HH_multi_potassium_current_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_HH_multi_sodium_current_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_K_only_sga_cylindrical_compartment_obj.Po@am__quote@
@@ -351,6 +350,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_custom_cylindrical_compartment_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_cylindrical_compartment_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_delayed_potassium_rectifier_current_obj.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_file_based_multi_current_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_hh_current_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_hh_sga_leak_current_obj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ntbp_hh_sga_potassium_current_obj.Po@am__quote@

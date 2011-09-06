@@ -462,7 +462,7 @@ vector<NTreal> NTBP_membrane_compartment_sequence_o::MascagniSolveTriDiag(
 	/*	Solution of tridiagonal system */
 	/* forward elimination */
 	lNewVec[0] = 0;
-	dNewVec[0] = dNewVec[0];
+	//dNewVec[0] = dNewVec[0];
 	uNewVec[0] = uNewVec[0] / dNewVec[0];
 	rNewVec[0] = rNewVec[0] / dNewVec[0];
 	NTsize i = 1;
