@@ -1,8 +1,3 @@
-/**\file myelinaxon.cpp - myelinated axon simultor version 2
- * based on myelinaxonsimulator-v1.cpp - axon simulator version 1
- * by Ahmed Aldo Faisal &copy; created 25.9.2001
- * by Mohammad Ali Neishabouri
- */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
  * Version:  2.0
  * Copyright (C) 1998,1999,2000,2001 Ahmed Aldo Faisal
@@ -23,297 +18,55 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include <cmath>
-#include <cstring>
-#include <fstream>
-#include <iostream>
-#include <cstdlib>
-#include <algorithm>
-#include <map>
-#include <boost/filesystem.hpp>
-
-#include <ntbp_membrane_compartment_sequence_obj.h>
-#include <ntbp_file_based_multi_current_obj.h>
-#include <ntbp_custom_cylindrical_compartment_obj.h>
-#include <ntbp_auxfunc.h>
-
-#include <nt_error_obj.h>
-#include <nt_vector_obj.h>
-
-#include <tnt.h>
-#include <nt3d_plot2d_vec_vp_obj.h>
-#include <nt3d_glx_drv_obj.h>
-#include <nt_config_file_parser_obj.h>
-
-using namespace std;
-using namespace TNT;
-
-const int EXIT_V_TOO_HIGH = 1;
-const int EXIT_GRAPHIC_ERROR = 2;
-const int EXIT_IO_ERROR = 3;
+#include "common_tools.h"
+#include "bz2stream.hpp"
 
 /* Global */
-string filename;
-bool swComputeELeak;
-
-typedef std::map<std::string, NTreal> parameters;
-typedef std::map<std::string, std::string> channel_parameters;
-
-/* Axon parameters */
-parameters hillockParameters;
-parameters nodeParameters;
-parameters paranodeParameters;
-parameters internodeParameters;
-parameters globalParameters;
-channel_parameters channel_params;
-/* Simulation */
-string inputFilename;
-NTsize output = 0;
-string outputFolder;
-NTsize readN;
-NTreal inpI;
-NTreal inpISDV;
-NTsize useVis;
-NTsize sampN;
-NTreal timeStep; // in msec
-NTsize numIterations;
-NTreal numTrials;
-NTsize emulateMS;
-NTsize emulateMSFactor;
-
-/**
- * This function reads a section of the config file (a section in initiated by a [tag],
- * and lasts until the next [tag]) and stores parameters common to all sections of the fibre
- * (such as channel densities)in the param object supplied.
- * @param oCfg The file parser which will be used to read parameters
- * @param params The parameters structure in which the new parameters will be saved.
- * @param section Which section of the config file to read. (ex. node)
- */
-void readCommonConfig(NT_config_file_parser_o oCfg, parameters& params,
-		string section) {
-	params["numComp"] = oCfg.Value(section, "numComp"); /* per Node ! */
-	params["length"] = oCfg.Value(section, "length"); /* micron */
-	params["gLeak"] = oCfg.Value(section, "GLeak");/* mSiemens/cm^2 */
-	params["ra"] = oCfg.Value(section, "Ra"); /* Ohm cm */
-	params["cm"] = oCfg.Value(section, "Cm"); /* muFarad/cm^2 */
-
-	channel_params[section + "SodiumModel"] = (string) oCfg.Value(section,
-			"chNaModel");
-	params["sodiumAlg"] = oCfg.Value(section, "chNaAlg");
-	params["sodiumDensity"] = oCfg.Value(section, "chNaDen"); //= 60; // per mu^2
-	params["sodiumConductance"] = oCfg.Value(section, "chNaCond");
-	params["sodiumReversalPotential"] = oCfg.Value(section, "chNaRevPot");
-
-	channel_params[section + "PotassiumModel"] = (string) oCfg.Value(section,
-			"chKModel");
-	params["potassiumAlg"] = oCfg.Value(section, "chKAlg");
-	params["potassiumDensity"] = oCfg.Value(section, "chKDen"); //= 60; // per mu^2
-	params["potassiumConductance"] = oCfg.Value(section, "chKCond");
-	params["potassiumReversalPotential"] = oCfg.Value(section, "chKRevPot");
-}
+Json::Value hillock_parameters;
+Json::Value node_parameters;
+Json::Value paranode_parameters;
+Json::Value internode_parameters;
+Json::Value simulation_parameters;
+Json::Value config_root; // will contains the root value after parsing.
 
 /**
  * Reads the parameters in the file given as argument.
  * @param fileName Input file.
  */
-void readConfig(string fileName) {
+void read_config(string fileName) {
 	// Remember that data file should have more lines than Num iterations.
-	NT_config_file_parser_o oCfg(fileName);
-	/* Global */
-	globalParameters["temperature"] = oCfg.Value("global", "temperature"); //= 37; /* in Celsius */
-	globalParameters["diameter"] = oCfg.Value("global", "diameter"); // = 1; /* in muMeter */
-	globalParameters["swComputeELeak"] = oCfg.Value("global", "computeELeak");
-	globalParameters["eLeak"] = oCfg.Value("global", "eLeak"); /* in mV */
-	globalParameters["vBase"] = oCfg.Value("global", "vBase"); /* in mV */
-	globalParameters["hillock"] = oCfg.Value("global", "hillock"); /* in mV */
-	globalParameters["node"] = oCfg.Value("global", "node"); /* in mV */
-	globalParameters["paranode"] = oCfg.Value("global", "paranode"); /* in mV */
-	globalParameters["internode"] = oCfg.Value("global", "internode"); /* in mV */
+	//NT_config_file_parser_o oCfg(fileName);
+
+	Json::Reader config_reader;
+	ifstream config_doc;
+	config_doc.open(fileName.c_str(), ifstream::in);
+	bool parsingSuccessful = config_reader.parse(config_doc, config_root);
+	if (!parsingSuccessful) {
+		// report to the user the failure and their locations in the document.
+		std::cerr << "Failed to parse configuration\n"
+				<< config_reader.getFormatedErrorMessages();
+		exit(1);
+	}
 
 	/*Hillokc*/
-	if (globalParameters["hillock"])
-		readCommonConfig(oCfg, hillockParameters, "hillock");
+	if (config_root.get("hillock", false).asBool())
+		hillock_parameters = config_root["hillock_parameters"];
 
 	/* Nodes */
-	if (globalParameters["node"]) {
-		nodeParameters["num"] = oCfg.Value("node", "numNd"); /* start with node at proximal end */
-		readCommonConfig(oCfg, nodeParameters, "node");
+	if (config_root.get("node", false).asBool()) {
+		node_parameters = config_root["node_parameters"];
 	}
 
 	/* Paranodes */
-	if (globalParameters["paranode"])
-		readCommonConfig(oCfg, paranodeParameters, "paranode");
+	if (config_root.get("paranode", false).asBool())
+		paranode_parameters = config_root["paranode_parameters"];
 
 	/* Internodes */
-	if (globalParameters["internode"])
-		readCommonConfig(oCfg, internodeParameters, "internode");
+	if (config_root.get("internode", false).asBool())
+		internode_parameters = config_root["internode_parameters"];
 
-	/* Simulation */
-	inputFilename = (string) oCfg.Value("simulation", "inputFile");
-	outputFolder = (string) oCfg.Value("simulation", "outputFolder");
-	if (outputFolder.compare("none") != 0) {
-		output = 1;
-	}
-	readN = oCfg.Value("simulation", "readN");
-	inpI = oCfg.Value("simulation", "inpI");
-	inpISDV = oCfg.Value("simulation", "inpISDV");
-	useVis = oCfg.Value("simulation", "useVis");
-	sampN = oCfg.Value("simulation", "sampN");
-	timeStep = oCfg.Value("simulation", "timeStep"); // in msec
-	numIterations = oCfg.Value("simulation", "numIter");
-	numTrials = oCfg.Value("simulation", "numTrials");
-	emulateMS = oCfg.Value("simulation", "emulateMS");
-	emulateMSFactor = oCfg.Value("simulation", "emulateMSFactor");
-}
+	simulation_parameters = config_root["simulation_parameters"];
 
-/**
- * Formats and prints current parameters into the ofstream given as input.
- * @param out
- */
-void printConfig(ofstream& out) {
-	for (parameters::iterator globalIter = globalParameters.begin();
-			globalIter != globalParameters.end(); ++globalIter) {
-		out << "global_" << globalIter->first << " = " << globalIter->second
-				<< ";" << endl;
-	}
-
-	for (parameters::iterator nodeIter = nodeParameters.begin();
-			nodeIter != nodeParameters.end(); ++nodeIter) {
-		out << "node_" << nodeIter->first << " = " << nodeIter->second << ";"
-				<< endl;
-	}
-
-	for (parameters::iterator paranodeIter = paranodeParameters.begin();
-			paranodeIter != paranodeParameters.end(); ++paranodeIter) {
-		out << "paranode_" << paranodeIter->first << " = "
-				<< paranodeIter->second << ";" << endl;
-	}
-
-	for (parameters::iterator internodeIter = internodeParameters.begin();
-			internodeIter != internodeParameters.end(); ++internodeIter) {
-		out << "internode_" << internodeIter->first << " = "
-				<< internodeIter->second << ";" << endl;
-	}
-
-	out << "simulation_samplerate = " << sampN << ";" << endl;
-	out << "simulation_timestep_inms = " << timeStep << ";" << endl;
-	out << "simulation_number_of_iterations = " << numIterations << ";" << endl;
-	out << "simulation_duration = " << numIterations * timeStep << ";" << endl;
-	out << "simulation_trials = " << numTrials << ";" << endl;
-}
-
-/**
- * Creates a new folder in the output directory
- * and puts a timestamp in its name.
- * @param output Folder The folder in which to create the new folder.
- * @return Name of the newly created folder
- */
-string createOutputFolder(string outputFolder) {
-	/* open files */
-	time_t rawtime;
-	struct tm * timeinfo;
-	stringstream ss(stringstream::in | stringstream::out);
-	char dateString[80];
-	time(&rawtime);
-	timeinfo = localtime(&rawtime);
-	strftime(dateString, 80, "%b%d_%H%M%S", timeinfo);
-	ss << outputFolder << "/" << dateString;
-	string folderName;
-	ss >> folderName;
-
-	boost::filesystem::create_directories(folderName);
-
-	return folderName;
-}
-
-/**
- * Opens a new file in write mode.
- * @param output Folder The folder in which to create the new file.
- * @param prefix File name prefix
- * @param outStream Will contain an ofstream pointing to the newly created file.
- */
-void openOutputFile(string outputFolder, string prefix, ofstream& outStream,
-		string extension = ".txt") {
-	/* open files */
-	stringstream ss(stringstream::in | stringstream::out);
-	ss << outputFolder << "/" << prefix << extension;
-	string filname;
-	ss >> filename;
-
-	outStream.open(filename.c_str(), ios::binary);
-
-	if (outStream.fail()) {
-		cerr << "Could not open output file " << prefix << endl;
-		exit(EXIT_IO_ERROR);
-	}
-}
-
-/**
- * Creates a compartment using the parameters supplied in the parameters structs supplied.
- * @param globalParameters Used for the temperature, the diameter and leakage.
- * @param compartmentParameters Used for channel parameters, as well as capacity and leakage conductance.
- * @return The constructed compartment.
- */
-NTBP_custom_cylindrical_compartment_o* createCompartment(
-		parameters globalParameters, parameters compartmentParameters,
-		string sodiumModel, string potassiumModel) {
-
-	NTBP_custom_cylindrical_compartment_o *tmpPtr =
-			new NTBP_custom_cylindrical_compartment_o(
-					compartmentParameters["length"] /* muMeter */,
-					globalParameters["diameter"] /* muMeter */,
-					compartmentParameters["cm"]/*muFarad/cm^2 */,
-					compartmentParameters["ra"] /* ohm cm */,
-					globalParameters["temperature"]);
-
-	/* Leak current is number 0 */
-	tmpPtr->AttachCurrent(
-			new NTBP_hh_sga_leak_current_o(tmpPtr->_area(),
-					compartmentParameters["gLeak"], globalParameters["eLeak"]),
-			NTBP_LEAK);
-
-	/* Channel current is number 1 */
-	if (compartmentParameters["sodiumDensity"] > 0) {
-		NTreal indSodiumDensity = NTBP_corrected_channel_density(
-				compartmentParameters["sodiumDensity"], tmpPtr->_area());
-		NTBP_file_based_multi_current_o * na_current =
-				new NTBP_file_based_multi_current_o(
-						tmpPtr->_area(),
-						indSodiumDensity /* mum^-2 */,
-						compartmentParameters["sodiumConductance"]
-								* 1e-9 /* pS */,
-						globalParameters["vBase"] /* mV */,
-						compartmentParameters["sodiumReversalPotential"] /* mV */,
-						timeStep, globalParameters["temperature"] /* C */,
-						sodiumModel);
-		na_current->SetSimulationMode(NTBP_BINOMIALPOPULATION);
-		tmpPtr->AttachCurrent(na_current, NTBP_IONIC);
-
-	} else
-		tmpPtr->AttachCurrent(
-				new NTBP_hh_sga_leak_current_o(tmpPtr->_area(), 0, 0),
-				NTBP_LEAK);
-
-	if (compartmentParameters["potassiumDensity"] > 0) {
-		NTreal indPotassiumDensity = NTBP_corrected_channel_density(
-				compartmentParameters["potassiumDensity"], tmpPtr->_area());
-		NTBP_file_based_multi_current_o * k_current =
-				new NTBP_file_based_multi_current_o(
-						tmpPtr->_area(),
-						indPotassiumDensity /* mum^-2 */,
-						compartmentParameters["potassiumConductance"]
-								* 1e-9 /* pS */,
-						globalParameters["vBase"] /* mV */,
-						compartmentParameters["potassiumReversalPotential"] /* mV */,
-						timeStep, globalParameters["temperature"] /* C */,
-						potassiumModel);
-		k_current->SetSimulationMode(NTBP_BINOMIALPOPULATION);
-		tmpPtr->AttachCurrent(k_current, NTBP_IONIC);
-	} else
-		tmpPtr->AttachCurrent(
-				new NTBP_hh_sga_leak_current_o(tmpPtr->_area(), 0, 0),
-				NTBP_LEAK);
-	return tmpPtr;
 }
 
 /**
@@ -323,45 +76,60 @@ NTBP_custom_cylindrical_compartment_o* createCompartment(
  * @param argv
  * @return
  */
-int main(int argc, char *argv[]) {
-	/* Read and set parameters */
-	string fileName = argv[1];
-	//return colbert(argc, argv);
-	readConfig(fileName);
+int simulate(string fileName) {
+	read_config(fileName);
 	string timedOutputFolder;
 
 	ofstream TimeFile, PotentialPerCompartmentFile, LengthPerCompartmentFile,
-			PotassiumFile, SodiumFile, TypePerCompartmentFile, ConfigUsedFile,
-			LeakFile;
+			PotassiumFile, SodiumFile, PersistentSodiumFile,
+			TypePerCompartmentFile, ConfigUsedFile, LeakFile;
+	bz2ostream *bz2PotentialPerCompartmentFile = 0, *bz2SodiumFile = 0,
+			*bz2PotassiumFile = 0, *bz2LeakFile = 0, *bz2PersistentFile = 0;
 
-	if (output) {
-		timedOutputFolder = createOutputFolder(outputFolder);
+	if (simulation_parameters.get("sampN", 0).asUInt() > 0) {
+		timedOutputFolder = createOutputFolder(
+				simulation_parameters["outputFolder"].asString());
 		openOutputFile(timedOutputFolder, "Time", TimeFile);
 		openOutputFile(timedOutputFolder, "PotentialPerCompartment",
-				PotentialPerCompartmentFile);
-		openOutputFile(timedOutputFolder, "Potassium", PotassiumFile);
-		openOutputFile(timedOutputFolder, "Sodium", SodiumFile);
+				PotentialPerCompartmentFile, ".bz2");
+		openOutputFile(timedOutputFolder, "Potassium", PotassiumFile, ".bz2");
+		openOutputFile(timedOutputFolder, "Sodium", SodiumFile, ".bz2");
 		openOutputFile(timedOutputFolder, "TypePerCompartment",
 				TypePerCompartmentFile);
 		openOutputFile(timedOutputFolder, "LengthPerCompartment",
 				LengthPerCompartmentFile);
 		openOutputFile(timedOutputFolder, "LeakPerCompartment", LeakFile,
-				".txt");
+				".bz2");
+		openOutputFile(timedOutputFolder, "PersistentSodium",
+				PersistentSodiumFile, ".bz2");
 		openOutputFile(timedOutputFolder, "ConfigUsed", ConfigUsedFile, ".m");
-		printConfig(ConfigUsedFile);
+		printConfig(ConfigUsedFile, hillock_parameters, node_parameters,
+				paranode_parameters, internode_parameters,
+				simulation_parameters, config_root);
 		TimeFile << "% in ms" << endl;
+
+		bz2PotentialPerCompartmentFile = new bz2ostream(
+				PotentialPerCompartmentFile.rdbuf());
+		bz2SodiumFile = new bz2ostream(SodiumFile.rdbuf());
+		bz2PotassiumFile = new bz2ostream(PotassiumFile.rdbuf());
+		bz2LeakFile = new bz2ostream(LeakFile.rdbuf());
+		bz2PersistentFile = new bz2ostream(PersistentSodiumFile.rdbuf());
 	}
 
-	cout << "Eleak set to " << globalParameters["eLeak"] << " mV." << endl;
+	cout << "Eleak set to " << config_root.get("eLeak", 0).asDouble() << " mV."
+			<< endl;
 
-	NT_uniform_rnd_dist_o testRnd; // DO NOT DELETE, otherwise linker problems occur!
-	NT_gaussian_rnd_dist_o gaussianRnd; // DO NOT DELETE, otherwise linker problems occur !
+	//NT_uniform_rnd_dist_o testRnd; // DO NOT DELETE, otherwise linker problems occur!
+	//NT_gaussian_rnd_dist_o gaussianRnd; // DO NOT DELETE, otherwise linker problems occur !
 
 	// Read input file only once. Store its content in memory.
-	ifstream dataFile(inputFilename.c_str(), ios::binary);
+	ifstream dataFile(simulation_parameters["inputFile"].asString().c_str(),
+			ios::binary);
 	if (dataFile.fail()) {
-		cerr << "Could not open input file " << inputFilename.c_str() << endl;
-		return (EXIT_IO_ERROR);
+		cerr << "Could not open input file "
+				<< simulation_parameters["inputFile"].asString().c_str()
+				<< endl;
+		exit(EXIT_IO_ERROR);
 	}
 	int count = 1000000;
 	vector<float> inputData(count);
@@ -379,115 +147,35 @@ int main(int argc, char *argv[]) {
 		}
 	}
 	dataFile.close();
-	NTsize compartmentCounter;
+	//NTsize compartmentCounter;
 	cout << "Assembling neuron..." << endl;
 	/* *** Trials loop *** */
-	for (NTsize lTrials = 0; lTrials < numTrials; lTrials++) {
+	for (NTsize lTrials = 0;
+			lTrials < simulation_parameters["numTrials"].asUInt(); lTrials++) {
+
+		vector<NTsize> nodes_vec;
 		/* Model setup */
-		NTBP_membrane_compartment_sequence_o oModel;
-		oModel.UpdateTimeStep(timeStep /* mSec */);
-		oModel.StepNTBP();
-		NTreal timeInMS = 0;
+		NTBP_membrane_compartment_sequence_o oModel = create_axon(config_root,
+				TypePerCompartmentFile, LengthPerCompartmentFile, nodes_vec);
 
-		compartmentCounter = 1;
-		/* *** MODEL CREATION LOOP *** */
-
-		// Generate an axon hillock
-		if (globalParameters["hillock"]) {
-			for (NTsize lcomp = 0; lcomp < hillockParameters["numComp"];
-					lcomp++) {
-				TypePerCompartmentFile << compartmentCounter++ << " 0" << endl;
-				LengthPerCompartmentFile << hillockParameters["length"] << endl;
-				oModel.PushBack(
-						createCompartment(globalParameters, hillockParameters,
-								channel_params["hillockSodiumModel"],
-								channel_params["hillockPotassiumModel"]));
-			}
+		if (!lTrials) {
+			TypePerCompartmentFile.close();
+			LengthPerCompartmentFile.close();
 		}
-
-		/* Create a Node, followed by Paranode, Internode, Paranode */
-		for (NTsize lnd = 0; lnd < nodeParameters["num"]; lnd++) {
-			/* Create a Node compartment */
-			for (NTsize lcomp = 0; lcomp < nodeParameters["numComp"]; lcomp++) {
-				TypePerCompartmentFile << compartmentCounter++ << " 1" << endl;
-				LengthPerCompartmentFile << nodeParameters["length"] << endl;
-				oModel.PushBack(
-						createCompartment(globalParameters, nodeParameters,
-								channel_params["nodeSodiumModel"],
-								channel_params["nodePotassiumModel"]));
-			}
-
-			/* Create a Paranode compartment */
-			if (globalParameters["paranode"]) {
-				for (NTsize lcomp = 0; lcomp < paranodeParameters["numComp"];
-						lcomp++) {
-					TypePerCompartmentFile << compartmentCounter++ << " 2"
-							<< endl;
-					LengthPerCompartmentFile << paranodeParameters["length"]
-							<< endl;
-					oModel.PushBack(
-							createCompartment(globalParameters,
-									paranodeParameters,
-									channel_params["paranodeSodiumModel"],
-									channel_params["paranodePotassiumModel"]));
-				}
-			}
-
-			if ((nodeParameters["num"] - 1) == lnd) {
-				break;
-			}
-
-			/* Create an Internode compartment */
-			if (globalParameters["internode"]) {
-				for (NTsize lcomp = 0; lcomp < internodeParameters["numComp"];
-						lcomp++) {
-					TypePerCompartmentFile << compartmentCounter++ << " 3"
-							<< endl;
-					LengthPerCompartmentFile << internodeParameters["length"]
-							<< endl;
-					oModel.PushBack(
-							createCompartment(globalParameters,
-									internodeParameters,
-									channel_params["internodeSodiumModel"],
-									channel_params["internodePotassiumModel"]));
-				}
-			}
-
-			/* Create a Paranode compartment */
-			if (globalParameters["paranode"]) {
-				for (NTsize lcomp = 0; lcomp < paranodeParameters["numComp"];
-						lcomp++) {
-					TypePerCompartmentFile << compartmentCounter++ << " 2"
-							<< endl;
-					LengthPerCompartmentFile << paranodeParameters["length"]
-							<< endl;
-					oModel.PushBack(
-							createCompartment(globalParameters,
-									paranodeParameters,
-									channel_params["paranodeSodiumModel"],
-									channel_params["paranodePotassiumModel"]));
-				}
-			}
-
-		}
-
-		TypePerCompartmentFile.close();
-		LengthPerCompartmentFile.close();
-
 		oModel.Init();
 
 		/* Information measurement init */
-		NTsize numCompartments = hillockParameters["numComp"]
-				+ (nodeParameters["num"] - 1)
-						* (nodeParameters["numComp"]
-								+ paranodeParameters["numComp"]
-								+ internodeParameters["numComp"]
-								+ paranodeParameters["numComp"])
-				+ nodeParameters["numComp"] + paranodeParameters["numComp"];
+		NTsize numCompartments = hillock_parameters["numComp"].asUInt()
+				+ (node_parameters["numNd"].asUInt() - 1)
+						* (node_parameters["numComp"].asUInt()
+								+ 2 * paranode_parameters["numComp"].asUInt()
+								+ internode_parameters["numComp"].asUInt())
+				+ node_parameters["numComp"].asUInt()
+				+ paranode_parameters["numComp"].asUInt();
 		cerr << "Total number of compartments(computed)" << numCompartments
 				<< endl;
-		cerr << "Total number of compartments(assembled)" << compartmentCounter
-				<< endl;
+		//cerr << "Total number of compartments(assembled)" << compartmentCounter
+		//	<< endl;
 		cerr << "Total number of compartments(in oModel)"
 				<< oModel._numCompartments() << endl;
 		vector<NTreal> leakCurrVec(numCompartments);
@@ -499,7 +187,7 @@ int main(int argc, char *argv[]) {
 		NT3D_plot2d_vec_vp_o plotChanNa(numCompartments);
 		NT3D_plot2d_vec_vp_o plotChanK(numCompartments);
 
-		if (useVis > 0) {
+		if (simulation_parameters["useVis"].asInt() > 0) {
 			NT3D_glx_drv_o* drvVP = new NT3D_glx_drv_o(1000, 120);
 			drvVP->SetWindowTitle("Voltage-Compartment-Plot");
 			if (NT_FAIL == plotXY.Connect(drvVP))
@@ -535,24 +223,26 @@ int main(int argc, char *argv[]) {
 		vector<NTreal> voltVec;
 		vector<NTreal>::iterator maxVoltPos;
 		vector<NTreal>::iterator maxVoltOldPos;
-		timeInMS = 0;
+		NTreal timeInMS = 0;
 		int dataRead = 0;
-		for (NTsize lt = 0; lt < numIterations; lt++) {
+		for (NTsize lt = 0; lt < simulation_parameters["numIter"].asUInt();
+				lt++) {
 			timeInMS += oModel._timeStep();
 			timeVar = timeInMS;
 			/* the "sampling ratio" used for "measurement" to disk */
-			if (output && lt % sampN == 0) {
-				oModel.WriteMembranePotentialASCII(PotentialPerCompartmentFile,
-						false);
-				oModel.WriteCurrentAscii(LeakFile, 1); //Leak
-				oModel.WriteCurrentAscii(SodiumFile, 2); //Na
-				oModel.WriteCurrentAscii(PotassiumFile, 3); // K
-
+			if (simulation_parameters["sampN"].asInt() > 0
+					&& lt % simulation_parameters["sampN"].asInt() == 0) {
+				oModel.WriteMembranePotentialASCII(
+						*bz2PotentialPerCompartmentFile);
+				oModel.WriteCurrentAscii(*bz2LeakFile, 1); //Leak
+				oModel.WriteCurrentAscii(*bz2SodiumFile, 2); //Na
+				oModel.WriteCurrentAscii(*bz2PotassiumFile, 3); // K
+				oModel.WriteCurrentAscii(*bz2PersistentFile, 4); // Persistent Na
 				TimeFile << timeVar << endl;
 			}
 
-			if (useVis > 0) {
-				if (lt % useVis == 0) {
+			if (simulation_parameters["useVis"].asInt() > 0) {
+				if (lt % simulation_parameters["useVis"].asInt() == 0) {
 					voltVec.clear();
 					for (NTsize ll = 0; ll < oModel._numCompartments(); ll++) {
 						voltVec.push_back(oModel.compartmentVec[ll]->_vM());
@@ -582,8 +272,10 @@ int main(int argc, char *argv[]) {
 				}
 			}
 
-			if (lt % readN == 0) {
-				inpCurrent = (inputData[dataRead] * inpISDV) + inpI;
+			if (lt % simulation_parameters["readN"].asInt() == 0) {
+				inpCurrent = (inputData[dataRead]
+						* simulation_parameters["inpISDV"].asDouble())
+						+ simulation_parameters["inpI"].asDouble();
 				dataRead++;
 				cout << lt << "\t" << inpCurrent << endl;
 			}
@@ -593,5 +285,524 @@ int main(int argc, char *argv[]) {
 		}
 	} // lTrials
 	cerr << "Simulation completed." << endl;
+	bz2PotentialPerCompartmentFile->flush();
+	bz2SodiumFile->flush();
+	bz2PotassiumFile->flush();
+	bz2LeakFile->flush();
+	bz2PersistentFile->flush();
+	delete bz2PotentialPerCompartmentFile;
+	delete bz2SodiumFile;
+	delete bz2PotassiumFile;
+	delete bz2LeakFile;
+	delete bz2PersistentFile;
 	return 0;
+}
+
+int simulateMS(string fileName) {
+	read_config(fileName);
+	string timedOutputFolder;
+
+	ofstream TimeFile, PotentialPerCompartmentFile, LengthPerCompartmentFile,
+			PotassiumFile, SodiumFile, PersistentSodiumFile,
+			TypePerCompartmentFile, ConfigUsedFile, LeakFile;
+	bz2ostream *bz2PotentialPerCompartmentFile = 0, *bz2SodiumFile = 0,
+			*bz2PotassiumFile = 0, *bz2LeakFile = 0, *bz2PersistentFile = 0;
+
+	if (simulation_parameters.get("sampN", 0).asUInt() > 0) {
+		timedOutputFolder = createOutputFolder(
+				simulation_parameters["outputFolder"].asString());
+		openOutputFile(timedOutputFolder, "Time", TimeFile);
+		openOutputFile(timedOutputFolder, "PotentialPerCompartment",
+				PotentialPerCompartmentFile, ".bz2");
+		openOutputFile(timedOutputFolder, "Potassium", PotassiumFile, ".bz2");
+		openOutputFile(timedOutputFolder, "Sodium", SodiumFile, ".bz2");
+		openOutputFile(timedOutputFolder, "TypePerCompartment",
+				TypePerCompartmentFile);
+		openOutputFile(timedOutputFolder, "LengthPerCompartment",
+				LengthPerCompartmentFile);
+		openOutputFile(timedOutputFolder, "LeakPerCompartment", LeakFile,
+				".bz2");
+		openOutputFile(timedOutputFolder, "PersistentSodium",
+				PersistentSodiumFile, ".bz2");
+		openOutputFile(timedOutputFolder, "ConfigUsed", ConfigUsedFile, ".m");
+		printConfig(ConfigUsedFile, hillock_parameters, node_parameters,
+				paranode_parameters, internode_parameters,
+				simulation_parameters, config_root);
+		TimeFile << "% in ms" << endl;
+
+		bz2PotentialPerCompartmentFile = new bz2ostream(
+				PotentialPerCompartmentFile.rdbuf());
+		bz2SodiumFile = new bz2ostream(SodiumFile.rdbuf());
+		bz2PotassiumFile = new bz2ostream(PotassiumFile.rdbuf());
+		bz2LeakFile = new bz2ostream(LeakFile.rdbuf());
+		bz2PersistentFile = new bz2ostream(PersistentSodiumFile.rdbuf());
+	}
+
+	cout << "Eleak set to " << config_root.get("eLeak", 0).asDouble() << " mV."
+			<< endl;
+
+	//NT_uniform_rnd_dist_o testRnd; // DO NOT DELETE, otherwise linker problems occur!
+	//NT_gaussian_rnd_dist_o gaussianRnd; // DO NOT DELETE, otherwise linker problems occur !
+
+	// Read input file only once. Store its content in memory.
+	ifstream dataFile(simulation_parameters["inputFile"].asString().c_str(),
+			ios::binary);
+	if (dataFile.fail()) {
+		cerr << "Could not open input file "
+				<< simulation_parameters["inputFile"].asString().c_str()
+				<< endl;
+		exit(EXIT_IO_ERROR);
+	}
+	int count = 1000000;
+	vector<float> inputData(count);
+	int index = 0;
+
+	while (dataFile.good()) {
+		if (index < count) {
+			char tmp[100];
+			dataFile.getline(tmp, 100);
+			sscanf(tmp, "%f", &inputData[index]);
+			index++;
+		} else {
+			count += 1000000;
+			inputData.resize(count);
+		}
+	}
+	dataFile.close();
+	//NTsize compartmentCounter;
+	cout << "Assembling neuron..." << endl;
+	/* *** Trials loop *** */
+	for (NTsize lTrials = 0;
+			lTrials < simulation_parameters["numTrials"].asUInt(); lTrials++) {
+
+		vector<NTsize> nodes_vec;
+		if (lTrials > 9 && lTrials < 20) {
+			config_root["internode_parameters"]["GLeak"] =
+					config_root["node_parameters"]["GLeak"];
+			config_root["internode_parameters"]["Cm"] =
+					config_root["node_parameters"]["Cm"];
+			config_root["internode_parameters"]["chKDen"] = 0.36;
+		}
+		if (lTrials > 19 && lTrials < 30) {
+			config_root["internode_parameters"]["GLeak"] =
+					config_root["node_parameters"]["GLeak"];
+			config_root["internode_parameters"]["Cm"] =
+					config_root["node_parameters"]["Cm"];
+			config_root["internode_parameters"]["chKDen"] = 0.36;
+		}
+		/* Model setup */
+		/*Hillokc*/
+		if (config_root.get("hillock", false).asBool())
+			hillock_parameters = config_root["hillock_parameters"];
+
+		/* Nodes */
+		if (config_root.get("node", false).asBool()) {
+			node_parameters = config_root["node_parameters"];
+		}
+
+		/* Paranodes */
+		if (config_root.get("paranode", false).asBool())
+			paranode_parameters = config_root["paranode_parameters"];
+
+		/* Internodes */
+		if (config_root.get("internode", false).asBool())
+			internode_parameters = config_root["internode_parameters"];
+
+		simulation_parameters = config_root["simulation_parameters"];
+		NTBP_membrane_compartment_sequence_o oModel;
+		oModel.UpdateTimeStep(
+				simulation_parameters["timeStep"].asDouble() /* mSec */);
+		oModel.StepNTBP();
+
+		NTsize compartmentCounter = 1;
+		/* *** MODEL CREATION LOOP *** */
+
+		// Generate an axon hillock
+		if (config_root.get("hillock", false).asBool()) {
+			for (NTsize lcomp = 0;
+					lcomp < hillock_parameters["numComp"].asUInt(); lcomp++) {
+				TypePerCompartmentFile << compartmentCounter++ << " 0" << endl;
+				LengthPerCompartmentFile
+						<< hillock_parameters["length"].asDouble() << endl;
+				oModel.PushBack(
+						createCompartment(config_root, simulation_parameters,
+								hillock_parameters));
+			}
+		}
+
+		/* Create a Node, followed by Paranode, Internode, Paranode */
+		for (NTsize lnd = 0; lnd < node_parameters["numNd"].asUInt(); lnd++) {
+			/* Create a Node compartment */
+
+			Json::Value ms_node_parameters = node_parameters;
+			if (lTrials > 1 && lTrials < 3) {
+				ms_node_parameters["chNaDen"] = 10;
+			}
+			for (NTsize lcomp = 0; lcomp < node_parameters["numComp"].asUInt();
+					lcomp++) {
+				TypePerCompartmentFile << compartmentCounter++ << " 1" << endl;
+				LengthPerCompartmentFile << node_parameters["length"].asDouble()
+						<< endl;
+				nodes_vec.push_back(compartmentCounter - 2);
+				NTBP_custom_cylindrical_compartment_o* compartment;
+				if (lnd == 6) {
+					compartment = createCompartment(config_root,
+							simulation_parameters, ms_node_parameters);
+//					NTBP_file_based_multi_current_o * persistant_na_current =
+//							new NTBP_file_based_multi_current_o(
+//									compartment->_area(),
+//									6.5 /* mum^-2 */,
+//									node_parameters["chNaCond"].asDouble()
+//											* 1e-9 /* pS */,
+//									config_root["vBase"].asDouble() /* mV */,
+//									node_parameters["chNaRevPot"].asDouble() /* mV */,
+//									simulation_parameters["timeStep"].asDouble(),
+//									config_root["temperature"].asDouble() /* C */,
+//									"/home/rouzbeh/thesis/channels/mcintyre_sodium_persistent.json");
+//					persistant_na_current->SetSimulationMode(
+//							NTBP_BINOMIALPOPULATION);
+//					compartment->AttachCurrent(persistant_na_current,
+//							NTBP_IONIC);
+				} else {
+					compartment = createCompartment(config_root,
+							simulation_parameters, node_parameters);
+				}
+				oModel.PushBack(compartment);
+			}
+
+			Json::Value ms_paranode_parameters = paranode_parameters;
+			if (lTrials > 0 && lTrials < 2) {
+				ms_paranode_parameters["GLeak"] =
+						config_root["node_parameters"]["GLeak"].asDouble()/4;
+				ms_paranode_parameters["Cm"] =
+						config_root["node_parameters"]["Cm"].asDouble()/4;
+				ms_paranode_parameters["chKDen"] = 0;
+			}
+			if (lTrials > 1 && lTrials < 3) {
+				ms_paranode_parameters["GLeak"] =
+						config_root["node_parameters"]["GLeak"].asDouble()/4;
+				ms_paranode_parameters["Cm"] =
+						config_root["node_parameters"]["Cm"].asDouble()/4;
+				ms_paranode_parameters["chKDen"] = 0;
+				ms_paranode_parameters["chNaDen"] = 10;
+			}
+			/* Create a Paranode compartment */
+			if (config_root.get("paranode", false).asBool()) {
+				for (NTsize lcomp = 0;
+						lcomp < paranode_parameters["numComp"].asUInt();
+						lcomp++) {
+					TypePerCompartmentFile << compartmentCounter++ << " 2"
+							<< endl;
+					LengthPerCompartmentFile
+							<< paranode_parameters["length"].asDouble() << endl;
+					if (lnd == 5) {
+						oModel.PushBack(
+								createCompartment(config_root,
+										simulation_parameters,
+										ms_paranode_parameters));
+					} else
+						oModel.PushBack(
+								createCompartment(config_root,
+										simulation_parameters,
+										paranode_parameters));
+				}
+			}
+
+			if ((node_parameters["numNd"].asUInt() - 1) == lnd) {
+				break;
+			}
+
+			Json::Value ms_internode_parameters = internode_parameters;
+			if (lTrials > 0 && lTrials < 2) {
+				ms_internode_parameters["GLeak"] =
+						config_root["node_parameters"]["GLeak"].asDouble()/4;
+				ms_internode_parameters["Cm"] =
+						config_root["node_parameters"]["Cm"].asDouble()/4;
+				ms_internode_parameters["chKDen"] = 0;
+			}
+			if (lTrials > 1 && lTrials < 3) {
+				ms_internode_parameters["GLeak"] =
+						config_root["node_parameters"]["GLeak"].asDouble()/4;
+				ms_internode_parameters["Cm"] =
+						config_root["node_parameters"]["Cm"].asDouble()/4;
+				ms_internode_parameters["chKDen"] = 0;
+				ms_internode_parameters["chNaDen"] = 10;
+			}
+			/* Create an Internode compartment */
+			if (config_root.get("internode", false).asBool()) {
+				for (NTsize lcomp = 0;
+						lcomp < internode_parameters["numComp"].asUInt();
+						lcomp++) {
+					TypePerCompartmentFile << compartmentCounter++ << " 3"
+							<< endl;
+					LengthPerCompartmentFile
+							<< internode_parameters["length"].asDouble()
+							<< endl;
+					if (lnd == 5)
+						oModel.PushBack(
+								createCompartment(config_root,
+										simulation_parameters,
+										ms_internode_parameters));
+					else
+						oModel.PushBack(
+								createCompartment(config_root,
+										simulation_parameters,
+										internode_parameters));
+				}
+			}
+
+			if (config_root.get("paranode", false).asBool()) {
+				for (NTsize lcomp = 0;
+						lcomp < paranode_parameters["numComp"].asUInt();
+						lcomp++) {
+					TypePerCompartmentFile << compartmentCounter++ << " 2"
+							<< endl;
+					LengthPerCompartmentFile
+							<< paranode_parameters["length"].asDouble() << endl;
+					if (lnd == 5) {
+						oModel.PushBack(
+								createCompartment(config_root,
+										simulation_parameters,
+										ms_paranode_parameters));
+					} else
+						oModel.PushBack(
+								createCompartment(config_root,
+										simulation_parameters,
+										paranode_parameters));
+				}
+			}
+
+		}
+
+		if (!lTrials) {
+			TypePerCompartmentFile.close();
+			LengthPerCompartmentFile.close();
+		}
+		oModel.Init();
+
+		/* Information measurement init */
+		NTsize numCompartments = hillock_parameters["numComp"].asUInt()
+				+ (node_parameters["numNd"].asUInt() - 1)
+						* (node_parameters["numComp"].asUInt()
+								+ 2 * paranode_parameters["numComp"].asUInt()
+								+ internode_parameters["numComp"].asUInt())
+				+ node_parameters["numComp"].asUInt()
+				+ paranode_parameters["numComp"].asUInt();
+		cerr << "Total number of compartments(computed)" << numCompartments
+				<< endl;
+		//cerr << "Total number of compartments(assembled)" << compartmentCounter
+		//	<< endl;
+		cerr << "Total number of compartments(in oModel)"
+				<< oModel._numCompartments() << endl;
+		vector<NTreal> leakCurrVec(numCompartments);
+		vector<NTreal> naCurrVec(numCompartments);
+		vector<NTreal> kCurrVec(numCompartments);
+
+		/* Graphics init */
+		NT3D_plot2d_vec_vp_o plotXY(numCompartments);
+		NT3D_plot2d_vec_vp_o plotChanNa(numCompartments);
+		NT3D_plot2d_vec_vp_o plotChanK(numCompartments);
+
+		if (simulation_parameters["useVis"].asInt() > 0) {
+			NT3D_glx_drv_o* drvVP = new NT3D_glx_drv_o(1000, 120);
+			drvVP->SetWindowTitle("Voltage-Compartment-Plot");
+			if (NT_FAIL == plotXY.Connect(drvVP))
+				return (EXIT_GRAPHIC_ERROR);
+			plotXY.AutoRange(false);
+			plotXY.SetXRange(0, numCompartments);
+			plotXY.SetYRange(-100, 200);
+
+			NT3D_glx_drv_o* drv2VP = new NT3D_glx_drv_o(1000, 100);
+			drv2VP->SetWindowTitle("NaOpenChannelRatio-Compartment-Plot");
+			if (NT_FAIL == plotChanNa.Connect(drv2VP))
+				return (EXIT_GRAPHIC_ERROR);
+			plotChanNa.SetXRange(0, numCompartments);
+			plotChanNa.SetYRange(0, 100);
+
+			NT3D_glx_drv_o* drv3VP = new NT3D_glx_drv_o(1000, 100);
+			drv3VP->SetWindowTitle("KOpenChannelRatio-Compartment-Plot");
+			if (NT_FAIL == plotChanK.Connect(drv3VP))
+				return (EXIT_GRAPHIC_ERROR);
+			plotChanK.SetXRange(0, numCompartments);
+			plotChanK.SetYRange(0, 100);
+		}
+
+		/* *** SIMULATION ITERATION LOOP *** */
+
+		/* ***********************  Main loop **************************** */
+		cerr << "MainLoop started" << endl;
+		float timeVar = 0;
+		NTreal inpCurrent = 0.0;
+
+		NT_uniform_rnd_dist_o uniformRnd;
+
+		vector<NTreal> voltVec;
+		vector<NTreal>::iterator maxVoltPos;
+		vector<NTreal>::iterator maxVoltOldPos;
+		NTreal timeInMS = 0;
+		int dataRead = 0;
+		for (NTsize lt = 0; lt < simulation_parameters["numIter"].asUInt();
+				lt++) {
+			timeInMS += oModel._timeStep();
+			timeVar = timeInMS;
+			/* the "sampling ratio" used for "measurement" to disk */
+			if (simulation_parameters["sampN"].asInt() > 0
+					&& lt % simulation_parameters["sampN"].asInt() == 0) {
+				oModel.WriteMembranePotentialASCII(
+						*bz2PotentialPerCompartmentFile);
+				oModel.WriteCurrentAscii(*bz2LeakFile, 1); //Leak
+				oModel.WriteCurrentAscii(*bz2SodiumFile, 2); //Na
+				oModel.WriteCurrentAscii(*bz2PotassiumFile, 3); // K
+				oModel.WriteCurrentAscii(*bz2PersistentFile, 4); // Persistent Na
+				TimeFile << timeVar << endl;
+			}
+
+			if (simulation_parameters["useVis"].asInt() > 0) {
+				if (lt % simulation_parameters["useVis"].asInt() == 0) {
+					voltVec.clear();
+					for (NTsize ll = 0; ll < oModel._numCompartments(); ll++) {
+						voltVec.push_back(oModel.compartmentVec[ll]->_vM());
+					}
+					for (NTsize lc = 0; lc < numCompartments; lc++) {
+						if (NTisnan(voltVec[lc])) {
+							cerr << "ERROR at t=" << timeVar
+									<< " voltage in compartment " << lc
+									<< " is NaN." << endl;
+							return (EXIT_V_TOO_HIGH);
+						} else if (voltVec[lc] > 200.0 /* mV */) {
+							cerr << "ERROR at t=" << timeVar
+									<< " voltage in compartment " << lc
+									<< " is " << voltVec[lc] << "." << endl;
+							return (EXIT_V_TOO_HIGH);
+						}
+					}
+
+					plotXY.SetData(voltVec);
+					plotXY.Draw();
+					plotChanNa.SetData(oModel.OpenChannelsRatio(2));
+					//plotChanNa.SetData(oModel.NumChannelsInState(2,5));
+					plotChanNa.Draw();
+					plotChanK.SetData(oModel.OpenChannelsRatio(3));
+					//plotChanK.SetData(oModel.NumChannelsInState(3,5));
+					plotChanK.Draw();
+				}
+			}
+
+			if (lt % simulation_parameters["readN"].asInt() == 0) {
+				inpCurrent = (inputData[dataRead]
+						* simulation_parameters["inpISDV"].asDouble())
+						+ simulation_parameters["inpI"].asDouble();
+				dataRead++;
+				cout << lt << "\t" << inpCurrent << endl;
+			}
+			oModel.InjectCurrent(inpCurrent, 1);
+
+			oModel.Step();
+		}
+	} // lTrials
+	cerr << "Simulation completed." << endl;
+	bz2PotentialPerCompartmentFile->flush();
+	bz2SodiumFile->flush();
+	bz2PotassiumFile->flush();
+	bz2LeakFile->flush();
+	bz2PersistentFile->flush();
+	delete bz2PotentialPerCompartmentFile;
+	delete bz2SodiumFile;
+	delete bz2PotassiumFile;
+	delete bz2LeakFile;
+	delete bz2PersistentFile;
+	return 0;
+}
+
+int get_resting_potential(string fileName) {
+	read_config(fileName);
+	double min = -90;
+	double max = -40;
+	double current_guess;
+	double current_result = 100000;
+
+	ofstream temp;
+	temp.open("/dev/null");
+
+	while (current_result > -79.9 || current_result < -80.1) {
+		/* Model setup */
+		current_guess = (min + max) / 2;
+		cout << "Trying with " << current_guess << endl;
+		config_root["eLeak"] = current_guess;
+		config_root["node_parameters"]["numNd"] = 5;
+		vector<NTsize> nodes_vec;
+		/* Model setup */
+		NTBP_membrane_compartment_sequence_o oModel = create_axon(config_root,
+				temp, temp, nodes_vec);
+
+		oModel.Init();
+
+		/* Information measurement init */
+		NTsize numCompartments = hillock_parameters["numComp"].asUInt()
+				+ (node_parameters["numNd"].asUInt() - 1)
+						* (node_parameters["numComp"].asUInt()
+								+ 2 * paranode_parameters["numComp"].asUInt()
+								+ internode_parameters["numComp"].asUInt())
+				+ node_parameters["numComp"].asUInt()
+				+ paranode_parameters["numComp"].asUInt();
+		cerr << "Total number of compartments(computed)" << numCompartments
+				<< endl;
+		//cerr << "Total number of compartments(assembled)" << compartmentCounter
+		//	<< endl;
+		cerr << "Total number of compartments(in oModel)"
+				<< oModel._numCompartments() << endl;
+
+		/* ***********************  Main loop **************************** */
+		cerr << "MainLoop started" << endl;
+
+		double sum = 0;
+		for (NTsize lt = 0; lt < simulation_parameters["numIter"].asUInt();
+				lt++) {
+
+			/* the "sampling ratio" used for "measurement" to disk */
+			if (lt % 10000 == 0) {
+				sum = 0;
+				for (NTsize ll = 0; ll < oModel._numCompartments(); ll++) {
+					sum += oModel.compartmentVec[ll]->_vM();
+				}
+				cout << "Mean voltage = " << sum / oModel._numCompartments()
+						<< endl;
+			}
+
+			if (lt == 10000) {
+				NTreal inpCurrent = (5
+						* simulation_parameters["inpISDV"].asDouble())
+						+ simulation_parameters["inpI"].asDouble();
+				oModel.InjectCurrent(inpCurrent, 1);
+			} else {
+				oModel.InjectCurrent(0, 1);
+			}
+
+			oModel.Step();
+		}
+		current_result = sum / oModel._numCompartments();
+		if (current_result > -80) {
+			max = current_guess;
+		}
+		if (current_result < -80) {
+			min = current_guess;
+		}
+	}
+	cerr << "Simulation completed. Found " << current_guess << endl;
+	return 0;
+}
+
+
+
+int main(int argc, char* argv[]) {
+	if (strcmp(argv[1], "resting") == 0) {
+		return get_resting_potential(argv[2]);
+	}
+	if (strcmp(argv[1], "simulate") == 0) {
+		return simulate(argv[2]);
+	}
+	if (strcmp(argv[1], "MS") == 0) {
+		return simulateMS(argv[2]);
+	}
+	return 1;
 }
