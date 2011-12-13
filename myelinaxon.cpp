@@ -83,37 +83,37 @@ int simulate(string fileName) {
 	ofstream TimeFile, PotentialPerCompartmentFile, LengthPerCompartmentFile,
 			PotassiumFile, SodiumFile, PersistentSodiumFile,
 			TypePerCompartmentFile, ConfigUsedFile, LeakFile;
-	bz2ostream *bz2PotentialPerCompartmentFile = 0, *bz2SodiumFile = 0,
-			*bz2PotassiumFile = 0, *bz2LeakFile = 0, *bz2PersistentFile = 0;
+	/*bz2ostream *bz2PotentialPerCompartmentFile = 0, *bz2SodiumFile = 0,
+	 *bz2PotassiumFile = 0, *bz2LeakFile = 0, *bz2PersistentFile = 0;*/
 
 	if (simulation_parameters.get("sampN", 0).asUInt() > 0) {
 		timedOutputFolder = createOutputFolder(
 				simulation_parameters["outputFolder"].asString());
 		openOutputFile(timedOutputFolder, "Time", TimeFile);
 		openOutputFile(timedOutputFolder, "PotentialPerCompartment",
-				PotentialPerCompartmentFile, ".bz2");
-		openOutputFile(timedOutputFolder, "Potassium", PotassiumFile, ".bz2");
-		openOutputFile(timedOutputFolder, "Sodium", SodiumFile, ".bz2");
+				PotentialPerCompartmentFile, ".bin");
+		openOutputFile(timedOutputFolder, "Potassium", PotassiumFile, ".bin");
+		openOutputFile(timedOutputFolder, "Sodium", SodiumFile, ".bin");
 		openOutputFile(timedOutputFolder, "TypePerCompartment",
 				TypePerCompartmentFile);
 		openOutputFile(timedOutputFolder, "LengthPerCompartment",
 				LengthPerCompartmentFile);
 		openOutputFile(timedOutputFolder, "LeakPerCompartment", LeakFile,
-				".bz2");
+				".bin");
 		openOutputFile(timedOutputFolder, "PersistentSodium",
-				PersistentSodiumFile, ".bz2");
+				PersistentSodiumFile, ".bin");
 		openOutputFile(timedOutputFolder, "ConfigUsed", ConfigUsedFile, ".m");
 		printConfig(ConfigUsedFile, hillock_parameters, node_parameters,
 				paranode_parameters, internode_parameters,
 				simulation_parameters, config_root);
 		TimeFile << "% in ms" << endl;
 
-		bz2PotentialPerCompartmentFile = new bz2ostream(
-				PotentialPerCompartmentFile.rdbuf());
-		bz2SodiumFile = new bz2ostream(SodiumFile.rdbuf());
-		bz2PotassiumFile = new bz2ostream(PotassiumFile.rdbuf());
-		bz2LeakFile = new bz2ostream(LeakFile.rdbuf());
-		bz2PersistentFile = new bz2ostream(PersistentSodiumFile.rdbuf());
+		/*bz2PotentialPerCompartmentFile = new bz2ostream(
+		 PotentialPerCompartmentFile.rdbuf());
+		 bz2SodiumFile = new bz2ostream(SodiumFile.rdbuf());
+		 bz2PotassiumFile = new bz2ostream(PotassiumFile.rdbuf());
+		 bz2LeakFile = new bz2ostream(LeakFile.rdbuf());
+		 bz2PersistentFile = new bz2ostream(PersistentSodiumFile.rdbuf());*/
 	}
 
 	cout << "Eleak set to " << config_root.get("eLeak", 0).asDouble() << " mV."
@@ -149,14 +149,18 @@ int simulate(string fileName) {
 	dataFile.close();
 	//NTsize compartmentCounter;
 	cout << "Assembling neuron..." << endl;
+	NTsize numCompartments;
+	vector<NTsize> nodes_vec(0);
+	vector<NTsize> nodes_paranodes_vec(0);
 	/* *** Trials loop *** */
 	for (NTsize lTrials = 0;
 			lTrials < simulation_parameters["numTrials"].asUInt(); lTrials++) {
-
-		vector<NTsize> nodes_vec;
 		/* Model setup */
+		nodes_vec.clear();
+		nodes_paranodes_vec.clear();
 		NTBP_membrane_compartment_sequence_o oModel = create_axon(config_root,
-				TypePerCompartmentFile, LengthPerCompartmentFile, nodes_vec);
+				TypePerCompartmentFile, LengthPerCompartmentFile, nodes_vec,
+				nodes_paranodes_vec);
 
 		if (!lTrials) {
 			TypePerCompartmentFile.close();
@@ -165,7 +169,7 @@ int simulate(string fileName) {
 		oModel.Init();
 
 		/* Information measurement init */
-		NTsize numCompartments = hillock_parameters["numComp"].asUInt()
+		numCompartments = hillock_parameters["numComp"].asUInt()
 				+ (node_parameters["numNd"].asUInt() - 1)
 						* (node_parameters["numComp"].asUInt()
 								+ 2 * paranode_parameters["numComp"].asUInt()
@@ -212,7 +216,6 @@ int simulate(string fileName) {
 		}
 
 		/* *** SIMULATION ITERATION LOOP *** */
-
 		/* ***********************  Main loop **************************** */
 		cerr << "MainLoop started" << endl;
 		float timeVar = 0;
@@ -221,8 +224,8 @@ int simulate(string fileName) {
 		NT_uniform_rnd_dist_o uniformRnd;
 
 		vector<NTreal> voltVec;
-		vector<NTreal>::iterator maxVoltPos;
-		vector<NTreal>::iterator maxVoltOldPos;
+		//vector<NTreal>::iterator maxVoltPos;
+		//vector<NTreal>::iterator maxVoltOldPos;
 		NTreal timeInMS = 0;
 		int dataRead = 0;
 		for (NTsize lt = 0; lt < simulation_parameters["numIter"].asUInt();
@@ -232,15 +235,14 @@ int simulate(string fileName) {
 			/* the "sampling ratio" used for "measurement" to disk */
 			if (simulation_parameters["sampN"].asInt() > 0
 					&& lt % simulation_parameters["sampN"].asInt() == 0) {
-				oModel.WriteMembranePotentialASCII(
-						*bz2PotentialPerCompartmentFile);
-				oModel.WriteCurrentAscii(*bz2LeakFile, 1); //Leak
-				oModel.WriteCurrentAscii(*bz2SodiumFile, 2); //Na
-				oModel.WriteCurrentAscii(*bz2PotassiumFile, 3); // K
-				oModel.WriteCurrentAscii(*bz2PersistentFile, 4); // Persistent Na
+				oModel.WriteMembranePotential(PotentialPerCompartmentFile,
+						nodes_vec);
+				oModel.WriteCurrent(LeakFile, 1); //Leak
+				oModel.WriteCurrent(SodiumFile, 2, nodes_vec); //Na
+				oModel.WriteCurrent(PotassiumFile, 3, nodes_paranodes_vec); // K
+				oModel.WriteCurrent(PersistentSodiumFile, 4, nodes_vec); // Persistent Na
 				TimeFile << timeVar << endl;
 			}
-
 			if (simulation_parameters["useVis"].asInt() > 0) {
 				if (lt % simulation_parameters["useVis"].asInt() == 0) {
 					voltVec.clear();
@@ -271,7 +273,6 @@ int simulate(string fileName) {
 					plotChanK.Draw();
 				}
 			}
-
 			if (lt % simulation_parameters["readN"].asInt() == 0) {
 				inpCurrent = (inputData[dataRead]
 						* simulation_parameters["inpISDV"].asDouble())
@@ -285,16 +286,8 @@ int simulate(string fileName) {
 		}
 	} // lTrials
 	cerr << "Simulation completed." << endl;
-	bz2PotentialPerCompartmentFile->flush();
-	bz2SodiumFile->flush();
-	bz2PotassiumFile->flush();
-	bz2LeakFile->flush();
-	bz2PersistentFile->flush();
-	delete bz2PotentialPerCompartmentFile;
-	delete bz2SodiumFile;
-	delete bz2PotassiumFile;
-	delete bz2LeakFile;
-	delete bz2PersistentFile;
+	cerr << "Number of compartments : " << numCompartments << endl;
+	ConfigUsedFile << "Number of compartments : " << numCompartments << endl;
 	return 0;
 }
 
@@ -305,15 +298,15 @@ int simulateMS(string fileName) {
 	ofstream TimeFile, PotentialPerCompartmentFile, LengthPerCompartmentFile,
 			PotassiumFile, SodiumFile, PersistentSodiumFile,
 			TypePerCompartmentFile, ConfigUsedFile, LeakFile;
-	bz2ostream *bz2PotentialPerCompartmentFile = 0, *bz2SodiumFile = 0,
-			*bz2PotassiumFile = 0, *bz2LeakFile = 0, *bz2PersistentFile = 0;
+//	bz2ostream *bz2PotentialPerCompartmentFile = 0, *bz2SodiumFile = 0,
+//			*bz2PotassiumFile = 0, *bz2LeakFile = 0, *bz2PersistentFile = 0;
 
 	if (simulation_parameters.get("sampN", 0).asUInt() > 0) {
 		timedOutputFolder = createOutputFolder(
 				simulation_parameters["outputFolder"].asString());
 		openOutputFile(timedOutputFolder, "Time", TimeFile);
 		openOutputFile(timedOutputFolder, "PotentialPerCompartment",
-				PotentialPerCompartmentFile, ".bz2");
+				PotentialPerCompartmentFile, ".bin");
 		openOutputFile(timedOutputFolder, "Potassium", PotassiumFile, ".bz2");
 		openOutputFile(timedOutputFolder, "Sodium", SodiumFile, ".bz2");
 		openOutputFile(timedOutputFolder, "TypePerCompartment",
@@ -330,12 +323,12 @@ int simulateMS(string fileName) {
 				simulation_parameters, config_root);
 		TimeFile << "% in ms" << endl;
 
-		bz2PotentialPerCompartmentFile = new bz2ostream(
-				PotentialPerCompartmentFile.rdbuf());
-		bz2SodiumFile = new bz2ostream(SodiumFile.rdbuf());
-		bz2PotassiumFile = new bz2ostream(PotassiumFile.rdbuf());
-		bz2LeakFile = new bz2ostream(LeakFile.rdbuf());
-		bz2PersistentFile = new bz2ostream(PersistentSodiumFile.rdbuf());
+//		bz2PotentialPerCompartmentFile = new bz2ostream(
+//				PotentialPerCompartmentFile.rdbuf());
+//		bz2SodiumFile = new bz2ostream(SodiumFile.rdbuf());
+//		bz2PotassiumFile = new bz2ostream(PotassiumFile.rdbuf());
+//		bz2LeakFile = new bz2ostream(LeakFile.rdbuf());
+//		bz2PersistentFile = new bz2ostream(PersistentSodiumFile.rdbuf());
 	}
 
 	cout << "Eleak set to " << config_root.get("eLeak", 0).asDouble() << " mV."
@@ -368,6 +361,7 @@ int simulateMS(string fileName) {
 			inputData.resize(count);
 		}
 	}
+
 	dataFile.close();
 	//NTsize compartmentCounter;
 	cout << "Assembling neuron..." << endl;
@@ -448,21 +442,6 @@ int simulateMS(string fileName) {
 				if (lnd == 6) {
 					compartment = createCompartment(config_root,
 							simulation_parameters, ms_node_parameters);
-//					NTBP_file_based_multi_current_o * persistant_na_current =
-//							new NTBP_file_based_multi_current_o(
-//									compartment->_area(),
-//									6.5 /* mum^-2 */,
-//									node_parameters["chNaCond"].asDouble()
-//											* 1e-9 /* pS */,
-//									config_root["vBase"].asDouble() /* mV */,
-//									node_parameters["chNaRevPot"].asDouble() /* mV */,
-//									simulation_parameters["timeStep"].asDouble(),
-//									config_root["temperature"].asDouble() /* C */,
-//									"/home/rouzbeh/thesis/channels/mcintyre_sodium_persistent.json");
-//					persistant_na_current->SetSimulationMode(
-//							NTBP_BINOMIALPOPULATION);
-//					compartment->AttachCurrent(persistant_na_current,
-//							NTBP_IONIC);
 				} else {
 					compartment = createCompartment(config_root,
 							simulation_parameters, node_parameters);
@@ -473,16 +452,16 @@ int simulateMS(string fileName) {
 			Json::Value ms_paranode_parameters = paranode_parameters;
 			if (lTrials > 0 && lTrials < 2) {
 				ms_paranode_parameters["GLeak"] =
-						config_root["node_parameters"]["GLeak"].asDouble()/4;
+						config_root["node_parameters"]["GLeak"].asDouble() / 4;
 				ms_paranode_parameters["Cm"] =
-						config_root["node_parameters"]["Cm"].asDouble()/4;
+						config_root["node_parameters"]["Cm"].asDouble() / 4;
 				ms_paranode_parameters["chKDen"] = 0;
 			}
 			if (lTrials > 1 && lTrials < 3) {
 				ms_paranode_parameters["GLeak"] =
-						config_root["node_parameters"]["GLeak"].asDouble()/4;
+						config_root["node_parameters"]["GLeak"].asDouble() / 4;
 				ms_paranode_parameters["Cm"] =
-						config_root["node_parameters"]["Cm"].asDouble()/4;
+						config_root["node_parameters"]["Cm"].asDouble() / 4;
 				ms_paranode_parameters["chKDen"] = 0;
 				ms_paranode_parameters["chNaDen"] = 10;
 			}
@@ -515,16 +494,16 @@ int simulateMS(string fileName) {
 			Json::Value ms_internode_parameters = internode_parameters;
 			if (lTrials > 0 && lTrials < 2) {
 				ms_internode_parameters["GLeak"] =
-						config_root["node_parameters"]["GLeak"].asDouble()/4;
+						config_root["node_parameters"]["GLeak"].asDouble() / 4;
 				ms_internode_parameters["Cm"] =
-						config_root["node_parameters"]["Cm"].asDouble()/4;
+						config_root["node_parameters"]["Cm"].asDouble() / 4;
 				ms_internode_parameters["chKDen"] = 0;
 			}
 			if (lTrials > 1 && lTrials < 3) {
 				ms_internode_parameters["GLeak"] =
-						config_root["node_parameters"]["GLeak"].asDouble()/4;
+						config_root["node_parameters"]["GLeak"].asDouble() / 4;
 				ms_internode_parameters["Cm"] =
-						config_root["node_parameters"]["Cm"].asDouble()/4;
+						config_root["node_parameters"]["Cm"].asDouble() / 4;
 				ms_internode_parameters["chKDen"] = 0;
 				ms_internode_parameters["chNaDen"] = 10;
 			}
@@ -648,12 +627,11 @@ int simulateMS(string fileName) {
 			/* the "sampling ratio" used for "measurement" to disk */
 			if (simulation_parameters["sampN"].asInt() > 0
 					&& lt % simulation_parameters["sampN"].asInt() == 0) {
-				oModel.WriteMembranePotentialASCII(
-						*bz2PotentialPerCompartmentFile);
-				oModel.WriteCurrentAscii(*bz2LeakFile, 1); //Leak
-				oModel.WriteCurrentAscii(*bz2SodiumFile, 2); //Na
-				oModel.WriteCurrentAscii(*bz2PotassiumFile, 3); // K
-				oModel.WriteCurrentAscii(*bz2PersistentFile, 4); // Persistent Na
+				oModel.WriteMembranePotentialASCII(PotentialPerCompartmentFile);
+				oModel.WriteCurrentAscii(LeakFile, 1); //Leak
+				oModel.WriteCurrentAscii(SodiumFile, 2); //Na
+				oModel.WriteCurrentAscii(PotassiumFile, 3); // K
+				oModel.WriteCurrentAscii(PersistentSodiumFile, 4); // Persistent Na
 				TimeFile << timeVar << endl;
 			}
 
@@ -701,16 +679,16 @@ int simulateMS(string fileName) {
 		}
 	} // lTrials
 	cerr << "Simulation completed." << endl;
-	bz2PotentialPerCompartmentFile->flush();
-	bz2SodiumFile->flush();
-	bz2PotassiumFile->flush();
-	bz2LeakFile->flush();
-	bz2PersistentFile->flush();
-	delete bz2PotentialPerCompartmentFile;
-	delete bz2SodiumFile;
-	delete bz2PotassiumFile;
-	delete bz2LeakFile;
-	delete bz2PersistentFile;
+//	bz2PotentialPerCompartmentFile->flush();
+//	bz2SodiumFile->flush();
+//	bz2PotassiumFile->flush();
+//	bz2LeakFile->flush();
+//	bz2PersistentFile->flush();
+//	delete bz2PotentialPerCompartmentFile;
+//	delete bz2SodiumFile;
+//	delete bz2PotassiumFile;
+//	delete bz2LeakFile;
+//	delete bz2PersistentFile;
 	return 0;
 }
 
@@ -730,10 +708,10 @@ int get_resting_potential(string fileName) {
 		cout << "Trying with " << current_guess << endl;
 		config_root["eLeak"] = current_guess;
 		config_root["node_parameters"]["numNd"] = 5;
-		vector<NTsize> nodes_vec;
+		vector<NTsize> nodes_vec, nodes_paranodes_vec;
 		/* Model setup */
 		NTBP_membrane_compartment_sequence_o oModel = create_axon(config_root,
-				temp, temp, nodes_vec);
+				temp, temp, nodes_vec, nodes_paranodes_vec);
 
 		oModel.Init();
 
@@ -791,8 +769,6 @@ int get_resting_potential(string fileName) {
 	cerr << "Simulation completed. Found " << current_guess << endl;
 	return 0;
 }
-
-
 
 int main(int argc, char* argv[]) {
 	if (strcmp(argv[1], "resting") == 0) {

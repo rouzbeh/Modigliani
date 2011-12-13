@@ -41,21 +41,28 @@ void printConfig(ofstream& out, Json::Value hillock_parameters,
 		Json::Value config_root) {
 	out << "global_diameter" << " = " << config_root["diameter"].asDouble()
 			<< ";" << endl;
-	out << "global_eLeak" << " = " << config_root["eLeak"].asDouble() << ";" << endl;
-	out << "global_hillock" << " = " << config_root["hillock"].asBool() << ";" << endl;
+	out << "global_eLeak" << " = " << config_root["eLeak"].asDouble() << ";"
+			<< endl;
+	out << "global_hillock" << " = " << config_root["hillock"].asBool() << ";"
+			<< endl;
 	out << "global_internode" << " = " << config_root["internode"].asBool()
 			<< ";" << endl;
-	out << "global_node" << " = " << config_root["node"].asBool() << ";" << endl;
-	out << "global_paranode" << " = " << config_root["paranode"].asBool()
-			<< ";" << endl;
+	out << "global_node" << " = " << config_root["node"].asBool() << ";"
+			<< endl;
+	out << "global_paranode" << " = " << config_root["paranode"].asBool() << ";"
+			<< endl;
 	out << "global_temperature" << " = "
 			<< config_root["temperature"].asDouble() << ";" << endl;
-	out << "global_vBase" << " = " << config_root["vBase"].asDouble() << ";" << endl;
-	out << "node_cm" << " = " << node_parameters["Cm"].asDouble() << ";" << endl;
-	out << "node_gLeak" << " = " << node_parameters["GLeak"].asDouble() << ";" << endl;
-	out << "node_length" << " = " << node_parameters["length"].asDouble()
-			<< ";" << endl;
-	out << "node_num" << " = " << node_parameters["numNd"].asUInt() << ";" << endl;
+	out << "global_vBase" << " = " << config_root["vBase"].asDouble() << ";"
+			<< endl;
+	out << "node_cm" << " = " << node_parameters["Cm"].asDouble() << ";"
+			<< endl;
+	out << "node_gLeak" << " = " << node_parameters["GLeak"].asDouble() << ";"
+			<< endl;
+	out << "node_length" << " = " << node_parameters["length"].asDouble() << ";"
+			<< endl;
+	out << "node_num" << " = " << node_parameters["numNd"].asUInt() << ";"
+			<< endl;
 	out << "node_numComp" << " = " << node_parameters["numComp"].asDouble()
 			<< ";" << endl;
 	out << "node_potassiumAlg" << " = " << node_parameters["chKAlg"].asUInt()
@@ -66,7 +73,8 @@ void printConfig(ofstream& out, Json::Value hillock_parameters,
 			<< node_parameters["chKDen"].asDouble() << ";" << endl;
 	out << "node_potassiumReversalPotential" << " = "
 			<< node_parameters["chKRevPot"].asDouble() << ";" << endl;
-	out << "node_ra" << " = " << node_parameters["Ra"].asDouble() << ";" << endl;
+	out << "node_ra" << " = " << node_parameters["Ra"].asDouble() << ";"
+			<< endl;
 	out << "node_sodiumAlg" << " = " << node_parameters["chNaAlg"].asUInt()
 			<< ";" << endl;
 	out << "node_sodiumConductance" << " = "
@@ -75,8 +83,8 @@ void printConfig(ofstream& out, Json::Value hillock_parameters,
 			<< node_parameters["chNaDen"].asDouble() << ";" << endl;
 	out << "node_sodiumReversalPotential" << " = "
 			<< node_parameters["chNaRevPot"].asDouble() << ";" << endl;
-	out << "paranode_cm" << " = " << paranode_parameters["Cm"].asDouble()
-			<< ";" << endl;
+	out << "paranode_cm" << " = " << paranode_parameters["Cm"].asDouble() << ";"
+			<< endl;
 	out << "paranode_gLeak" << " = " << paranode_parameters["GLeak"].asDouble()
 			<< ";" << endl;
 	out << "paranode_length" << " = "
@@ -91,8 +99,8 @@ void printConfig(ofstream& out, Json::Value hillock_parameters,
 			<< paranode_parameters["chKDen"].asDouble() << ";" << endl;
 	out << "paranode_potassiumReversalPotential" << " = "
 			<< paranode_parameters["chKRevPot"].asDouble() << ";" << endl;
-	out << "paranode_ra" << " = " << paranode_parameters["Ra"].asDouble()
-			<< ";" << endl;
+	out << "paranode_ra" << " = " << paranode_parameters["Ra"].asDouble() << ";"
+			<< endl;
 	out << "paranode_sodiumAlg" << " = "
 			<< paranode_parameters["chNaAlg"].asUInt() << ";" << endl;
 	out << "paranode_sodiumConductance" << " = "
@@ -156,55 +164,35 @@ NTBP_custom_cylindrical_compartment_o* createCompartment(
 					compartment_parameters["Ra"].asDouble() /* ohm cm */,
 					config_root["temperature"].asDouble());
 
-	/* Leak current is number 0 */
-	tmpPtr->AttachCurrent(
-			new NTBP_hh_sga_leak_current_o(tmpPtr->_area(),
-					compartment_parameters["GLeak"].asDouble(),
-					config_root["eLeak"].asDouble()), NTBP_LEAK);
+	// Read a list of currents for each compartments
+	Json::Value currents = compartment_parameters["currents"];
+	for (unsigned int index = 0; index < currents.size(); ++index) {
+		Json::Value current = currents[index];
 
-	/* Channel current is number 1 */
-	if (compartment_parameters["chNaDen"].asDouble() > 0) {
-		NTreal indSodiumDensity = NTBP_corrected_channel_density(
-				compartment_parameters["chNaDen"].asDouble(), tmpPtr->_area());
-		NTBP_file_based_multi_current_o * na_current =
-				new NTBP_file_based_multi_current_o(
-						tmpPtr->_area(),
-						indSodiumDensity /* mum^-2 */,
-						compartment_parameters["chNaCond"].asDouble()
-								* 1e-9 /* pS */,
-						config_root["vBase"].asDouble() /* mV */,
-						compartment_parameters["chNaRevPot"].asDouble() /* mV */,
-						simulation_parameters["timeStep"].asDouble(),
-						config_root["temperature"].asDouble() /* C */,
-						compartment_parameters["chNaModel"].asString());
-		na_current->SetSimulationMode(NTBP_BINOMIALPOPULATION);
-		tmpPtr->AttachCurrent(na_current, NTBP_IONIC);
+		if ("leak" == current["type"].asString()) {
+			tmpPtr->AttachCurrent(
+					new NTBP_hh_sga_leak_current_o(tmpPtr->_area(),
+							current["GLeak"].asDouble(),
+							config_root["eLeak"].asDouble()), NTBP_LEAK);
+			continue;
+		}
 
-	} else
-		tmpPtr->AttachCurrent(
-				new NTBP_hh_sga_leak_current_o(tmpPtr->_area(), 0, 0),
-				NTBP_LEAK);
-
-	if (compartment_parameters["chKDen"].asDouble() > 0) {
-		NTreal indPotassiumDensity = NTBP_corrected_channel_density(
-				compartment_parameters["chKDen"].asDouble(), tmpPtr->_area());
-		NTBP_file_based_multi_current_o * k_current =
-				new NTBP_file_based_multi_current_o(
-						tmpPtr->_area(),
-						indPotassiumDensity /* mum^-2 */,
-						compartment_parameters["chKCond"].asDouble()
-								* 1e-9 /* pS */,
-						config_root["vBase"].asDouble() /* mV */,
-						compartment_parameters["chKRevPot"].asDouble() /* mV */,
-						simulation_parameters["timeStep"].asDouble(),
-						config_root["temperature"].asDouble() /* C */,
-						compartment_parameters["chKModel"].asString());
-		k_current->SetSimulationMode(NTBP_BINOMIALPOPULATION);
-		tmpPtr->AttachCurrent(k_current, NTBP_IONIC);
-	} else
-		tmpPtr->AttachCurrent(
-				new NTBP_hh_sga_leak_current_o(tmpPtr->_area(), 0, 0),
-				NTBP_LEAK);
+		if ("file" == current["type"].asString()) {
+			NTreal indDensity = NTBP_corrected_channel_density(
+					current["chDen"].asDouble(), tmpPtr->_area());
+			NTBP_file_based_multi_current_o * file_current =
+					new NTBP_file_based_multi_current_o(tmpPtr->_area(),
+							indDensity /* mum^-2 */,
+							current["chCond"].asDouble() * 1e-9 /* pS */,
+							config_root["vBase"].asDouble() /* mV */,
+							current["chRevPot"].asDouble() /* mV */,
+							simulation_parameters["timeStep"].asDouble(),
+							config_root["temperature"].asDouble() /* C */,
+							current["chModel"].asString());
+			file_current->SetSimulationMode(NTBP_BINOMIALPOPULATION);
+			tmpPtr->AttachCurrent(file_current, NTBP_IONIC);
+		}
+	}
 	return tmpPtr;
 }
 
@@ -231,7 +219,8 @@ void openOutputFile(string outputFolder, string prefix, ofstream& outStream,
 }
 
 NTBP_membrane_compartment_sequence_o create_axon(Json::Value config_root,
-		ofstream& TypePerCompartmentFile, ofstream& LengthPerCompartmentFile, vector<NTsize>& nodes_vec) {
+		ofstream& TypePerCompartmentFile, ofstream& LengthPerCompartmentFile,
+		vector<NTsize>& nodes_vec, vector<NTsize>& nodes_paranodes_vec) {
 
 	Json::Value hillock_parameters;
 	Json::Value node_parameters;
@@ -286,24 +275,11 @@ NTBP_membrane_compartment_sequence_o create_axon(Json::Value config_root,
 			TypePerCompartmentFile << compartmentCounter++ << " 1" << endl;
 			LengthPerCompartmentFile << node_parameters["length"].asDouble()
 					<< endl;
-			nodes_vec.push_back(compartmentCounter-2);
-			NTBP_custom_cylindrical_compartment_o* compartment =
+			nodes_vec.push_back(compartmentCounter - 2);
+			nodes_paranodes_vec.push_back(compartmentCounter - 2);
+			oModel.PushBack(
 					createCompartment(config_root, simulation_parameters,
-							node_parameters);
-			NTBP_file_based_multi_current_o * persistant_na_current =
-					new NTBP_file_based_multi_current_o(
-							compartment->_area(),
-							6.5 /* mum^-2 */,
-							node_parameters["chNaCond"].asDouble()
-									* 1e-9 /* pS */,
-							config_root["vBase"].asDouble() /* mV */,
-							node_parameters["chNaRevPot"].asDouble() /* mV */,
-							simulation_parameters["timeStep"].asDouble(),
-							config_root["temperature"].asDouble() /* C */,
-							"/home/rouzbeh/thesis/channels/mcintyre_sodium_persistent.json");
-			persistant_na_current->SetSimulationMode(NTBP_BINOMIALPOPULATION);
-			//compartment->AttachCurrent(persistant_na_current, NTBP_IONIC);
-			oModel.PushBack(compartment);
+							node_parameters));
 		}
 
 		/* Create a Paranode compartment */
@@ -313,6 +289,7 @@ NTBP_membrane_compartment_sequence_o create_axon(Json::Value config_root,
 				TypePerCompartmentFile << compartmentCounter++ << " 2" << endl;
 				LengthPerCompartmentFile
 						<< paranode_parameters["length"].asDouble() << endl;
+				nodes_paranodes_vec.push_back(compartmentCounter - 2);
 				oModel.PushBack(
 						createCompartment(config_root, simulation_parameters,
 								paranode_parameters));
@@ -342,6 +319,7 @@ NTBP_membrane_compartment_sequence_o create_axon(Json::Value config_root,
 				TypePerCompartmentFile << compartmentCounter++ << " 2" << endl;
 				LengthPerCompartmentFile
 						<< paranode_parameters["length"].asDouble() << endl;
+				nodes_paranodes_vec.push_back(compartmentCounter - 2);
 				oModel.PushBack(
 						createCompartment(config_root, simulation_parameters,
 								paranode_parameters));

@@ -39,7 +39,6 @@ const int EXIT_V_TOO_HIGH = 1;
 const int EXIT_GRAPHIC_ERROR = 2;
 const int EXIT_IO_ERROR = 3;
 
-
 string createOutputFolder(string outputFolder);
 
 /**
@@ -65,6 +64,7 @@ void openOutputFile(string outputFolder, string prefix, ofstream& outStream,
 		string extension = ".txt");
 
 NTBP_membrane_compartment_sequence_o create_axon(Json::Value config_root,
-		ofstream& TypePerCompartmentFile, ofstream& LengthPerCompartmentFile, vector<NTsize>& nodes_vec);
+		ofstream& TypePerCompartmentFile, ofstream& LengthPerCompartmentFile,
+		vector<NTsize>& nodes_vec, vector<NTsize>& nodes_paranodes_vec);
 
 #endif /* COMMONS_TOOLS_H_ */
