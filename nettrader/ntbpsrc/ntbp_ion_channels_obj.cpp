@@ -37,10 +37,8 @@ NTBP_ion_channels_o::NTBP_ion_channels_o(NTsize numNewChannels,
 		NTsize numNewStates, NTBP_transition_rate_matrix_o* probMatrix,
 		NTreal newTimeStep) :
 		_probMatrix(probMatrix), NTBP_object_o() {
-	NT_ASSERT(numNewChannels >= 0);
 	setTimeStep(newTimeStep);
 	numChannels = numNewChannels;
-	NT_ASSERT(numNewStates >= 0);
 	numStates = numNewStates;
 	statePersistenceProbVec.resize(_numStates());
 	stateCounterVec.resize(_numStates() + 1); // 0: total number of channels, 1..8 state"besetzung"
@@ -56,12 +54,11 @@ NTBP_ion_channels_o::NTBP_ion_channels_o(NTsize numNewChannels,
 	stateCounterVec[0] = _numChannels();
 	stateCounterVec[1] = _numChannels();
 	// Distribute channels evenly
-	NTsize delta = _numChannels()/numStates;
-	for (int i=1; i<numStates;i++){
-		stateCounterVec[1] -=delta;
-		stateCounterVec[i+1] = delta;
+	NTsize delta = _numChannels() / numStates;
+	for (NTsize i = 1; i < numStates; i++) {
+		stateCounterVec[1] -= delta;
+		stateCounterVec[i + 1] = delta;
 	}
-	ShowStates();
 	ratesComputed = false;
 }
 
@@ -126,7 +123,7 @@ NTreturn NTBP_ion_channels_o::Step(NTreal voltage) {
 	vector<NTsize> oldStateCounterVec = stateCounterVec;
 	int index = (voltage + 100) / 1000;
 	for (NTsize lls = 1; lls < _numStates() + 1; lls++) {
-		for (NTsize llc = 1; llc < oldStateCounterVec[lls]+1; llc++) {
+		for (NTsize llc = 1; llc < oldStateCounterVec[lls] + 1; llc++) {
 			rv = uniformRnd.RndVal();
 			NTreal accumulatedProb = 0;
 			for (NTsize nextState = 0; nextState < _numStates(); nextState++) {
@@ -199,10 +196,13 @@ NTreal NTBP_ion_channels_o::ComputeChannelStateTimeConstant(
  * @param stateId
  * @return
  */
-NTreturn NTBP_ion_channels_o::ComputeGillespieStep(NTsize stateId, NTreal voltage) {
+NTreturn NTBP_ion_channels_o::ComputeGillespieStep(NTsize stateId,
+		NTreal voltage) {
 	cerr << "NTBP_ion_channels_o::ComputeGillespieStep" << endl;
 	NT_uniform_rnd_dist_o rnd;
-	int index = (voltage + 100) * 1000;
+	//int index = (voltage + 100) * 1000;
+	// This operation is costly. So we do it only once.
+	NTsize matrix_index = _probMatrix->get_index(voltage);
 
 	NTsize oldOpen = NumOpen();
 	NTreal deltaT = _timeStep();
@@ -215,18 +215,18 @@ NTreturn NTBP_ion_channels_o::ComputeGillespieStep(NTsize stateId, NTreal voltag
 			if (lls == nextState)
 				continue;
 			stateChangeProbability += _probMatrix->getTransitionProbability(
-					voltage, lls, nextState);
+					matrix_index, lls, nextState);
 		}
 		NTreal accumulatedProb = 0;
 		stateChangeProbability = stateChangeProbability / deltaT;
-		for (NTsize nextState = 1; nextState < _numStates()+1; nextState++) {
+		for (NTsize nextState = 1; nextState < _numStates() + 1; nextState++) {
 			if (lls == nextState
-					|| !_probMatrix->getTransitionProbability(voltage, lls,
+					|| !_probMatrix->getTransitionProbability(matrix_index, lls,
 							nextState))
 				continue;
 
-			accumulatedProb += _probMatrix->getTransitionProbability(voltage,
-					lls, nextState) / stateChangeProbability;
+			accumulatedProb += _probMatrix->getTransitionProbability(
+					matrix_index, lls, nextState) / stateChangeProbability;
 
 			// We want to ensure change in the state even if float division induces errors
 			if (val <= accumulatedProb || nextState == _numStates() - 1) {
@@ -254,8 +254,9 @@ NTreturn NTBP_ion_channels_o::ComputeGillespieStep(NTsize stateId, NTreal voltag
 }
 
 NTreturn NTBP_ion_channels_o::BinomialStep(NTreal voltage) {
-	vector<NTsize> newStateCounterVec = stateCounterVec;
-
+	vector<int> newStateCounterVec = stateCounterVec;
+	// This operation is costly. So we do it only once.
+	NTsize matrix_index = _probMatrix->get_index(voltage);
 	bool loop = false;
 	NTsize loopCounter = 0;
 
@@ -266,32 +267,32 @@ NTreturn NTBP_ion_channels_o::BinomialStep(NTreal voltage) {
 				currentState++) {
 			for (NTsize nextState = 1; nextState < _numStates() + 1;
 					nextState++) {
-				if (nextState == currentState
-						|| _probMatrix->getTransitionProbability(voltage,
-								currentState, nextState) == 0)
+				if (nextState == currentState)
 					continue;
-				NTreal prob = _probMatrix->getTransitionProbability(voltage,
-						currentState, nextState);
-				NTsize numberOfChannels = stateCounterVec[currentState];
+				NTreal prob = _probMatrix->getTransitionProbability(
+						matrix_index, currentState, nextState);
+				if (prob == 0)
+					continue;
+				//NT_ASSERT(prob>0 && prob<=1);
+				int numberOfChannels = stateCounterVec[currentState];
 				NTreal delta = binomRnd.Binomial(prob, numberOfChannels);
-				if (delta < newStateCounterVec[currentState]) {
-					newStateCounterVec[nextState] += delta;
-					newStateCounterVec[currentState] -= delta;
-				} else {
-					newStateCounterVec[nextState] +=
-							newStateCounterVec[currentState];
-					newStateCounterVec[currentState] = 0;
-				}
+				//if (delta <= newStateCounterVec[currentState]) {
+				newStateCounterVec[nextState] += delta;
+				newStateCounterVec[currentState] -= delta;
+				//} else {
+				//	newStateCounterVec[nextState] +=
+				//			newStateCounterVec[currentState];
+				//	newStateCounterVec[currentState] = 0;
+				//}
 			}
 		}
 
 		/* CHECKING CODE */
 		NTsize check = 0;
 		for (NTsize ll = 1; ll < _numStates() + 1; ll++) {
-			check += newStateCounterVec[ll];
-			/** if this bails out here it means that the step sizes (i.e. probabilities) are too large */
 			if (newStateCounterVec[ll] < 0)
 				loop = true;
+			check += newStateCounterVec[ll];
 		}
 		if (check != _numChannels())
 			loop = true;
@@ -299,10 +300,12 @@ NTreturn NTBP_ion_channels_o::BinomialStep(NTreal voltage) {
 		// after 100 attempts to find an adequate distribution,
 		// ignore any transitions and "skip" this step
 	} while ((true == loop) && (loopCounter < 100));
-	if (loopCounter >= 100)
+	if (loopCounter >= 100) {
+		cerr << "ERROR: Binominal step loop counter limit reached." << endl;
 		return NT_SUCCESS;
+	}
 	stateCounterVec = newStateCounterVec;
-	//	else {cerr << "ERROR: Binominal step loop counter limit reached." << endl;}
+	//	else {}
 	//TODO: added: all state counters shown in BinominalStep
 	//	for (NTsize ll = 1; ll < _numStates() + 1; ll++)
 	//	{
