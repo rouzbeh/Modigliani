@@ -9,7 +9,8 @@
 #define NTBP_TRANSITION_RATE_MATRIX_OBJ_H_
 
 #include "nt_types.h"
-#include "boost/multi_array.hpp"
+// Boost's multi array class can be slow, if the data is not accessed properly.
+// See http://stackoverflow.com/questions/446866/boostmulti-array-performance-question
 
 class NTBP_transition_rate_matrix_o {
 public:
@@ -19,14 +20,18 @@ public:
 	void setTransitionProbability(NTreal voltage, NTsize start, NTsize stop,
 			NTreal probability);
 	NTreal getTransitionProbability(NTreal voltage, NTsize start, NTsize stop);
-private:
-	typedef boost::multi_array<double, 3> matrix_array_type;
-	matrix_array_type _probMatrices;
 	NTreal getTransitionProbability(NTsize index, NTsize start, NTsize stop);
+	NTsize get_index(NTreal voltage);
+private:
+	//typedef boost::multi_array<double, 3> matrix_array_type;
+	//typedef blitz::Array<double, 3> matrix_array_type;
+	typedef NTreal* matrix_array_type;
+	matrix_array_type _probMatrices;
 
 	NTreal min;
 	NTreal max;
 	NTreal step;
+	int num_states;
 };
 
 #endif /* NTBP_TRANSITION_RATE_MATRIX_OBJ_H_ */

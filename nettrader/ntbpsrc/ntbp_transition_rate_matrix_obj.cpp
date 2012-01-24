@@ -8,33 +8,36 @@
 #include "ntbp_transition_rate_matrix_obj.h"
 
 NTBP_transition_rate_matrix_o::NTBP_transition_rate_matrix_o(
-		NTsize numNewStates, NTreal min, NTreal max, NTreal step) :
-			_probMatrices(
-					boost::extents[floor((max - min) / step + 0.5)+1][numNewStates][numNewStates]) {
-	this->min = min;
-	this->max = max;
-	this->step = step;
+		NTsize new_num_states, NTreal new_min, NTreal new_max, NTreal new_step) :
+		min(new_min), max(new_max), step(new_step), num_states(new_num_states) {
+	long long length = (floor((max - min) / step + 0.5) + 1)	* num_states * num_states;
+	_probMatrices = new NTreal[length];
+	for (int i = 0; i< length; i++){
+		_probMatrices[i]=0;
+	}
 }
 
-NTBP_transition_rate_matrix_o::~NTBP_transition_rate_matrix_o() {
-	// TODO Auto-generated destructor stub
-}
+NTBP_transition_rate_matrix_o::~NTBP_transition_rate_matrix_o() = default;
 
 void NTBP_transition_rate_matrix_o::setTransitionProbability(NTreal voltage,
 		NTsize start, NTsize stop, NTreal probability) {
 	NTsize index = floor((voltage - min) / step + 0.5);
-	_probMatrices[index][start - 1][stop - 1] = probability;
+	_probMatrices[index * num_states * num_states + (start - 1) * num_states
+			+ (stop - 1)] = probability;
+}
+
+NTsize NTBP_transition_rate_matrix_o::get_index(NTreal voltage){
+	return floor((voltage - min) / step +0.5);
 }
 
 NTreal NTBP_transition_rate_matrix_o::getTransitionProbability(NTreal voltage,
 		NTsize start, NTsize stop) {
-	//NTsize index = floor(voltage/step) - floor(min / step);
-	NTsize putative_index = floor((voltage - min) / step + 0.5);
-	//while(abs(voltage-_voltageIndex[putative_index])>step) putative_index++;
-	return _probMatrices[putative_index][start - 1][stop - 1];
+	return _probMatrices[get_index(voltage) * num_states * num_states
+			+ (start - 1) * num_states + (stop - 1)];
 }
 
 NTreal NTBP_transition_rate_matrix_o::getTransitionProbability(NTsize index,
 		NTsize start, NTsize stop) {
-	return _probMatrices[index][start - 1][stop - 1];
+	return _probMatrices[index * num_states * num_states
+			+ (start - 1) * num_states + (stop - 1)];
 }
