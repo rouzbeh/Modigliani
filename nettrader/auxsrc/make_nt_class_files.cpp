@@ -68,7 +68,7 @@ int versionMajor;
 int versionMinor;
 string filePrefix;
 string fileSuffix = "_obj";
-string filetype = ".h";
+string filetype_extension = ".h";
 string classnameStem = "test_test";
 string namePrefix = "NT_";
 string nameSuffix = "_o";
@@ -93,7 +93,7 @@ void writeHeaderFileMain(ostream& fout) {
 
     if (true == derivedClass) {
         fout << "/"<<"* Parent includes *"<<"/" << endl;
-        fout << "#include \""<<filePrefix<<parentClassNameStem<<fileSuffix<<filetype <<"\" "<<endl;
+        fout << "#include \""<<filePrefix<<parentClassNameStem<<fileSuffix<<filetype_extension <<"\" "<<endl;
     }
 
     fout << "/"<<"* NT includes *"<<"/" << endl << endl;
@@ -232,7 +232,7 @@ fstream sfout;
 /* #[ main : */
 
 int
-main(int argc, char argv[])
+main(int argc, char* argv[])
 {
     cout << " GenNTObj - Utility to generate a .h and .cpp file for NetTrader" << endl;
     cout << " by Ahmed A. Faisal, 22.4.1999 (c)" << endl;

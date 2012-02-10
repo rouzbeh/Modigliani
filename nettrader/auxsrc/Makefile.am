@@ -35,8 +35,9 @@ generate_white_noise_SOURCES = generate_white_noise.cpp
 generate_white_noise_LDADD = ../ntsrc/libntsrc.a
 
 measure_mutual_information_in_binary_file_SOURCES = measure_mutual_information_in_binary_file.cpp
-measure_mutual_information_in_binary_file_LDADD = ../ntsrc/libntsrc.a
+measure_mutual_information_in_binary_file_LDADD = ../ntsrc/libntsrc.a 
 
 # set the include path found by configure
 INCLUDES= $(all_includes)
+
 
