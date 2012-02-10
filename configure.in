@@ -1,7 +1,7 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.57)
-AC_INIT(NetTrader, 0.5 , a.faisal@gmx.net)
+AC_INIT(NetTrader, 2.0 , ali@neishabouri.net)
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([nettrader.lsm])
 AC_CONFIG_HEADERS([config.h])
@@ -34,7 +34,7 @@ AC_PATH_X
 AC_FUNC_ALLOCA
 AC_HEADER_DIRENT
 AC_HEADER_STDC
-AC_CHECK_HEADERS([OS.h fcntl.h fenv.h float.h inttypes.h limits.h malloc.h memory.h nl_types.h stddef.h stdint.h stdlib.h string.h sys/file.h sys/param.h sys/time.h unistd.h values.h wchar.h wctype.h])
+AC_CHECK_HEADERS([OS.h fcntl.h fenv.h float.h inttypes.h limits.h malloc.h memory.h nl_types.h stddef.h stdint.h cstdlib string.h sys/file.h sys/param.h sys/time.h unistd.h values.h wchar.h wctype.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_HEADER_STDBOOL
@@ -62,12 +62,11 @@ AC_FUNC_STRFTIME
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([alarm clock_gettime fesetround floor ftime getcwd gettimeofday memchr memmove memset pathconf pow regcomp rint select setlocale sqrt strchr strcspn strerror strpbrk strrchr strspn strstr strtol strtoul uname])
 
-dnl CXXFLAGS="-g -O2 -ansi -pedantic -Wabi -Weffc++ -Wold-style-cast -Woverloaded-virtual"
-CXXFLAGS="-Ofast -march=native"
+dnl CXXFLAGS="-Ofast -march=native -mtune=native -ffast-math -ansi -pedantic -Wshadow"
 dnl CXXFLAGS="-O3 -march=pentium4 -malign-double -fomit-frame-pointer -mfpmath=sse"
 dnl CXXFLAGS="-O3 -malign-double -fomit-frame-pointer -ansi -pedantic "
 dnl CXXFLAGS="-O3 -n32 "
-dnl CXXFLAGS="-g -Wall -W -Wundef -Wshadow -Wpointer-arith -ansi -pedantic -fomit-frame-pointer"
+CXXFLAGS="-g -Wall -W -Wundef -Wshadow -ansi -pedantic"
 dnl CXXFLAGS="-O2"
 
 all_includes="$all_includes -I../ntsrc -I../nt3dsrc -I../ntgsrc -I../ntbpsrc -I.. -I../tnt"

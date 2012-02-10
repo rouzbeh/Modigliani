@@ -1,6 +1,6 @@
 ####### kdevelop will overwrite this part!!! (begin)##########
 
-SUBDIRS = nettrader 
+SUBDIRS = nettrader
 
 EXTRA_DIST = nettrader.kdevprj AUTHORS COPYING ChangeLog INSTALL README TODO nettrader.lsm NTBP_BNF.txt nettrader.doxygen 
 
