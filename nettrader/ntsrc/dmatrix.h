@@ -79,11 +79,11 @@
 #define _dmatrix_h_
 
 #include <iostream>
-#include <stdlib>
+#include <cstdlib>
 #include <iomanip>
 
 //   needed for memcpy:
-#include <string.h>
+#include <string>
 //   i know, it`s not very nice
 //   actually memory.h would be
 //   nicer, though I don`t know

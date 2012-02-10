@@ -148,6 +148,7 @@ public:
     /* ***      COPY AND ASSIGNMENT	***/
     NT_vector3_o(const NT_vector3_o & original)
             :
+            NT_o(),
             x(original.x),
             y(original.y),
             z(original.z)
@@ -229,6 +230,7 @@ public:
             return 0.0;
             break;
         }
+        return 0.0;
     }
 
 
@@ -250,6 +252,7 @@ public:
             return x;
             break;
         }
+        return x;
     }
 
     /** Access vector components read-only */
@@ -270,6 +273,7 @@ public:
             return x;
             break;
         }
+        return 0;
     }
 
     NT_vector3_o Cross( const NT_vector3_o & pV ) const

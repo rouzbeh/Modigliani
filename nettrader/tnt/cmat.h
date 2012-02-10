@@ -31,7 +31,6 @@
 
 #include "tnt/subscript.h"
 #include "tnt/vec.h"
-#include <cstdlib>
 #include <cassert>
 #include <iostream>
 #include <sstream>
