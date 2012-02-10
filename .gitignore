@@ -64,3 +64,5 @@ nettrader/examples/tunnel_flight_demo
 nettrader-api/*
 *.log
 Makefile.in
+autom4te.cache*
+configure
