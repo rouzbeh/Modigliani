@@ -62,7 +62,10 @@ virtual ~NT3D_stub_o();
 void DrawObj() {};
 /* ***  Data                 ***/  
 protected:
-/* ***  Methods              ***/  
+/* ***  Methods              ***/
+virtual void ControlObj(NT3Dcontroller cntrl , NTint value){cerr << "Not implemented" << endl;};
+virtual void ControlObj(NT3Dcontroller cntrl , NTreal value){cerr << "Not implemented" << endl;};
+virtual void ControlObj(NT3Dcontroller cntrl , NT_vector_o value){cerr << "Not implemented" << endl;};
 /* ***  Data                 ***/  
 private:
 /* ***  Methods              ***/  

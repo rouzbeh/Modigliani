@@ -91,9 +91,9 @@ public:
   void ControlImpl(NT3Dcontroller cntrl , NT_vector_o value);
   /** ControlObj is to overwritten by derived classes to
       handle controller calls */
-  virtual void ControlObj(NT3Dcontroller cntrl , NTint value){NT_CERR(3,"NT3D_hierarchic_objet_o::ControlObj(...,NTint) - Warning : Not overridden be derived object.");};
-  virtual void ControlObj(NT3Dcontroller cntrl , NTreal value){}; 
-  virtual void ControlObj(NT3Dcontroller cntrl , NT_vector_o value){};
+  virtual void ControlObj(NT3Dcontroller cntrl , NTint value)=0;
+  virtual void ControlObj(NT3Dcontroller cntrl , NTreal value)=0;
+  virtual void ControlObj(NT3Dcontroller cntrl , NT_vector_o value)=0;
   private:
   void DrawChild() const;
   void SetParent(NT3D_hierarchic_object_o * pNewParent);

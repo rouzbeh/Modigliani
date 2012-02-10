@@ -93,7 +93,10 @@ public:
   void DrawSolidObj() const;
   /*   Data                   */  
 protected:
-  /*   Methods                */  
+  /*   Methods                */
+  virtual void ControlObj(NT3Dcontroller cntrl , NTint value){};
+  virtual void ControlObj(NT3Dcontroller cntrl , NTreal value){};
+  virtual void ControlObj(NT3Dcontroller cntrl , NT_vector_o value){};
   /*   Data                   */  
 private:
   /*   Methods                */  

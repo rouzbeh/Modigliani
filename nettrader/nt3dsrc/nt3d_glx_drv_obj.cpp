@@ -84,7 +84,7 @@
 #include "nt3d_glx_drv_obj.h"
 
 #include <iostream>
-#include <strstream>
+#include <sstream>
 
 #include <stdio.h>
 #include <X11/Xatom.h>
@@ -115,7 +115,7 @@ NT3D_glx_drv_o::NT3D_glx_drv_o(NTsize windowWidth, NTsize windowHeight,
 	CreateWindow(windowWidth, windowHeight);
 	NT3D_glx_drv_o::initCount++;
 
-	ostrstream title;
+	stringstream title;
 	title << "GLX drv win no. " << windowNumber;
 	windowTitle = title.str();
 	SetWindowTitle(windowTitle);
