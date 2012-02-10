@@ -13,151 +13,137 @@
 using namespace std;
 
 #define NUM_NON_COLUMN_PARAM 5 // including argv[0] ==  executable
+int CheckForSpike(float v, float upThreshold, float downThreshold,
+		bool* spiking) {
+	if (v > upThreshold) {
+		if (*spiking == true) {
+			*spiking = true;
+			return 0;
+		} else {
+			*spiking = true;
+			return 1;
+		}
+	} else if (v < downThreshold) {
+		if (*spiking == true) {
+			*spiking = false;
+			return -1;
+		} else {
+			*spiking = false;
+			return 0;
+		}
 
-int CheckForSpike(float v, float upThreshold, float downThreshold, bool* spiking)
-{
-    if (v > upThreshold) {
-        if (*spiking == true) {
-            *spiking = true;
-            return 0;
-        } else {
-            *spiking = true;
-            return 1;
-        }
-    } else if ( v < downThreshold ) {
-        if (*spiking == true) {
-            *spiking = false;
-            return -1;
-        } else {
-            *spiking = false;
-            return 0;
-        }
-
-    }
-    return 0;
+	}
+	return 0;
 }
 
+int main(int argc, char* argv[]) {
+	bool selectColumns = false;
 
+	if (argc < NUM_NON_COLUMN_PARAM) {
+		cerr
+				<< "First columns is time. Invalid command line."
+				<< argv[0]
+				<< "  <number of columns> <binary float data file> <upstroke threshold> <down stroke threshold> [<column index to print 2...>] [<column index to print 3...>] [...] "
+				<< endl;
+		exit(1);
+	}
+	string filename = argv[1];
+	int columns = atoi(argv[2]);
+	float upThreshold = atof(argv[3]);
+	float downThreshold = atof(argv[4]);
 
-int
-main(int argc, char* argv[])
-{
-    bool selectColumns = false;
+	if (argc > NUM_NON_COLUMN_PARAM
+	)
+		selectColumns = true;
+	vector<unsigned int> selectVec(argc - NUM_NON_COLUMN_PARAM);
 
-    if (argc < NUM_NON_COLUMN_PARAM) {
-        cerr <<"First columns is time. Invalid command line." << argv[0] <<"  <number of columns> <binary float data file> <upstroke threshold> <down stroke threshold> [<column index to print 2...>] [<column index to print 3...>] [...] "<< endl;
-        exit(1);
-    }
-    string filename = argv[1];
-    int columns = atoi ( argv[2]);
-    float upThreshold = atof ( argv[3]);
-    float downThreshold = atof ( argv[4]);
+	vector<vector<float> > isiListVec;
 
-    if (argc > NUM_NON_COLUMN_PARAM) selectColumns = true;
-    vector <unsigned int> selectVec(argc-NUM_NON_COLUMN_PARAM);
+	vector<vector<float> >::iterator itVec;
+	vector<float>::iterator itList;
 
-    vector < vector < float > > isiListVec;
+	//unsigned int ll;
+	for (unsigned int ll = 0; ll < argc - NUM_NON_COLUMN_PARAM; ll++) {
+		if (atoi(argv[ll + NUM_NON_COLUMN_PARAM]) == 1) {
+			cerr
+					<< "You selected the first column to be checked for spikes, it should contain the time."
+					<< endl;
+		}
+		selectVec[ll] = atoi(argv[ll + NUM_NON_COLUMN_PARAM]) - 1;
+	}
 
-    vector < vector < float >  >::iterator itVec;
-    vector < float >::iterator itList;
+	for (itVec = isiListVec.begin(); itVec != isiListVec.end(); itVec++) {
+		for (itList = itVec->begin(); itList != itVec->end(); itList++) {
+			itVec->resize(0);
+		}
+	}
 
-    unsigned int ll;
-    for (ll =0 ;ll < argc-NUM_NON_COLUMN_PARAM; ll++) {
-        if (atoi(argv[ll+NUM_NON_COLUMN_PARAM]) == 1) {
-            cerr << "You selected the first column to be checked for spikes, it should contain the time." << endl;
-        }
-        selectVec[ll] = atoi(argv[ll+NUM_NON_COLUMN_PARAM])-1;
-    }
+	float buffer[columns];
+	float spikeTime[columns];
+	bool spiking[columns];
 
-    for ( itVec =  isiListVec.begin(); itVec !=  isiListVec.end(); itVec++) {
-        for ( itList =  itVec->begin(); itList !=  itVec->end(); itList++) {
-            itVec->resize(0);
-        }
-    }
+	for (unsigned int ll = 0; ll < columns; ll++) {
+		buffer[ll] = 0;
+		spikeTime[ll] = 0;
+		spiking[ll] = false;
+	}
 
-    float buffer[columns];
-    float spikeTime[columns];
-    bool spiking[columns];
+	int rows = 0;
 
-    for (ll = 0; ll < columns; ll++) {
-        buffer[ll] = 0;
-        spikeTime[ll] = 0;
-        spiking[ll] = false;
-    }
+	vector<int> indexVec;
 
-    int rows = 0;
+	if (true == selectColumns) {
+		isiListVec.resize(argc - NUM_NON_COLUMN_PARAM);
+	} else {
+		isiListVec.resize(columns);
+	}
 
-    vector < int > indexVec;
+	ifstream file(filename.c_str(), ios::binary);
+	if (!file.good()) {
+		cerr << "Something is bad with reading from file " << filename << endl;
+		exit(2);
+	}
 
-    if (true == selectColumns) {
-        isiListVec.resize(argc-NUM_NON_COLUMN_PARAM);
-    } else {
-        isiListVec.resize(columns);
-    }
+	while (file.eof() == 0) {
+		file.read(reinterpret_cast<char*>(buffer), columns * sizeof(float));
+		if (true == selectColumns) {
+			for (unsigned int ll = 0; ll < argc - NUM_NON_COLUMN_PARAM; ll++) {
+				if (1
+						== CheckForSpike(buffer[selectVec[ll]], upThreshold,
+								downThreshold, &(spiking[selectVec[ll]]))) {
+					(isiListVec[ll]).push_back(
+							buffer[0] - spikeTime[selectVec[ll]]);
+					spikeTime[selectVec[ll]] = buffer[0];
+				}
+			}
+		} else {
+			for (unsigned int ll = 1; ll < columns; ll++) {
+				if (1
+						== CheckForSpike(buffer[ll], upThreshold, downThreshold,
+								&(spiking[ll]))) {
+					(isiListVec[ll]).push_back(buffer[0] - spikeTime[ll]);
+					spikeTime[ll] = buffer[0];
+				}
+			}
+		}
+		cerr << "Analysing row " << rows << endl;
+		rows++;
+	}
 
+	cerr << "Data output" << endl;
 
+	for (itVec = isiListVec.begin(); itVec != isiListVec.end(); itVec++) {
+		for (itList = itVec->begin(); itList != itVec->end(); itList++) {
+			cout << *itList << endl;
+		}
+		cout << endl << endl;
+	}
 
-    ifstream file (filename.c_str(), ios::binary);
-    if (!file.good()) {
-        cerr <<"Something is bad with reading from file "<<filename<<endl;
-        exit(2);
-    }
+	cerr << "Completed and printed (float) " << rows
+			<< " rows  columns from file " << filename << " with " << columns
+			<< "." << endl;
 
-    while (file.eof() == 0) {
-        file.read(reinterpret_cast<char*>(buffer), columns*sizeof(float));
-        if (true == selectColumns) {
-            for (unsigned int ll =0 ;ll < argc-NUM_NON_COLUMN_PARAM; ll++) {
-                if (1 ==  CheckForSpike(buffer[selectVec[ll]], upThreshold, downThreshold, &(spiking[selectVec[ll]]))) {
-                    (isiListVec[ll]).push_back(buffer[0] - spikeTime[selectVec[ll]]);
-                    spikeTime[selectVec[ll]] = buffer[0];
-                }
-            }
-        } else {
-            for (unsigned int ll = 1; ll < columns; ll++) {
-                if (1 ==  CheckForSpike(buffer[ll], upThreshold, downThreshold, &(spiking[ll]))) {
-                    (isiListVec[ll]).push_back(buffer[0] - spikeTime[ll]);
-                    spikeTime[ll] = buffer[0];
-                }
-            }
-        }
-        cerr << "Analysing row " << rows << endl;
-        rows++;
-    }
-
-
-
-    cerr << "Data output" << endl;
-
-
-    for ( itVec =  isiListVec.begin(); itVec !=  isiListVec.end(); itVec++) {
-        for ( itList =  itVec->begin(); itList !=  itVec->end(); itList++) {
-            cout << *itList << endl;
-        }
-        cout << endl << endl;
-    }
-
-
-
-
-    cerr << "Completed and printed (float) "<<rows<<" rows  columns from file "<<filename<<" with "<<columns<<"."<<endl;
+	return 0;
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
