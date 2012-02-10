@@ -20,18 +20,17 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-
 /* $Id: nt_binomial_rnd_dist_obj.h,v 1.2 2001/10/08 11:01:45 face Exp $
-* $Log: nt_binomial_rnd_dist_obj.h,v $
-* Revision 1.2  2001/10/08 11:01:45  face
-* *** empty log message ***
-*
-* Revision 1.1  2001/06/29 13:14:44  face
-* adding vraious addtions
-* mainly in ntsrc (multidim_array)
-*
+ * $Log: nt_binomial_rnd_dist_obj.h,v $
+ * Revision 1.2  2001/10/08 11:01:45  face
+ * *** empty log message ***
+ *
+ * Revision 1.1  2001/06/29 13:14:44  face
+ * adding vraious addtions
+ * mainly in ntsrc (multidim_array)
+ *
 
-*/
+ */
 #ifndef _nt_binomial_rnd_dist_obj_h_
 #define _nt_binomial_rnd_dist_obj_h_
 
@@ -48,32 +47,42 @@
 #include <vector>
 
 /** @short NT_binomial_rnd_dist_o class
-\bug unknown
-\warning unknown
-*/
-class NT_binomial_rnd_dist_o : public NT_rnd_dist_o {
+ \bug unknown
+ \warning unknown
+ */
+class NT_binomial_rnd_dist_o: public NT_rnd_dist_o {
+
+	class Initializer {
+	public:
+		Initializer();
+		vector<NTreal> logGammaTable;
+	};
+
+	friend class Initializer;
 public:
-    /***   Constructors, Copy/Assignment and Destructor  ***/
-    NT_binomial_rnd_dist_o(NTreal pp, NTsize n);
-    NT_binomial_rnd_dist_o(const NT_binomial_rnd_dist_o & original);
-    const NT_binomial_rnd_dist_o & operator= (const NT_binomial_rnd_dist_o & right);
-    virtual ~NT_binomial_rnd_dist_o();
-    NTreal RndVal() const;
-    /** Identical to method 'bnldev' from Numerical Recipes in C (Press et al.) */
-    NTreal Binomial(float pp, int n) const;
-    NTreal LogGamma(NTreal val) const;
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
+	/***   Constructors, Copy/Assignment and Destructor  ***/
+	NT_binomial_rnd_dist_o(NTreal pp, NTsize n);
+	NT_binomial_rnd_dist_o(const NT_binomial_rnd_dist_o & original);
+	const NT_binomial_rnd_dist_o & operator=(
+			const NT_binomial_rnd_dist_o & right);
+	virtual ~NT_binomial_rnd_dist_o();
+	NTreal RndVal() const;
+	/** Identical to method 'bnldev' from Numerical Recipes in C (Press et al.) */
+	NTreal Binomial(float pp, int n) const;
+	NTreal LogGamma(NTreal val) const;
+	/* ***  Methods              ***/
+	/* ***  Data                 ***/
 protected:
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
+	/* ***  Methods              ***/
+	/* ***  Data                 ***/
+	//static vector<NTreal> logGammaTable;
+	static bool init;
 private:
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
-    NTreal p;
-    NTsize n;
-    static vector <NTreal> logGammaTable;
-    static bool init;
+	/* ***  Methods              ***/
+	/* ***  Data                 ***/
+	NTreal p;
+	NTsize n;
+    static Initializer static_table;
 };
 #endif /* _nt_binomial_rnd_dist_obj_h_ */
 

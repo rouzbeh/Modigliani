@@ -28,7 +28,8 @@
 
 #include <cstdlib>
 #include <iostream>
-#include <strstream>
+#include <sstream>
+#include <cstring>
 #include <cassert>
 
 #include "tnt/subscript.h"
@@ -122,7 +123,8 @@ public:
 
     Vector_Adaptor(Subscript N, /*const*/ char *s) : v_(N)
     {
-        istrstream ins(s);
+    	stringstream ins(s) ;
+    	//(s);
         for (Subscript i=0; i<N; i++)
             ins >> v_[i] ;
 
