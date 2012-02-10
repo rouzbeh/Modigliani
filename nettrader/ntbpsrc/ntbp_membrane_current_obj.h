@@ -131,7 +131,7 @@ public:
 	NTreal ComputeCurrent(NTreal vM /* in mV */) {
 		return Set_current(
 				_conductance() /* mSiemens */* 1000.0 /* mA/nA */* (vM
-						/* mV */- _reversalPotential()/* mV */));
+				/* mV */- _reversalPotential()/* mV */));
 	}
 	virtual NTreturn StepCurrent() = 0;
 	/** compute and return conductance in mSiemens */
@@ -154,11 +154,11 @@ public:
 	}
 
 	virtual NTreal NumChannelsInState(NTsize state) const {
-			cerr
-					<< "NTBP_membrane_current_o::NumChannels() - Error : Not Implemented."
-					<< endl;
-			return -42;
-		}
+		cerr
+				<< "NTBP_membrane_current_o::NumChannels() - Error : Not Implemented."
+				<< endl;
+		return -42;
+	}
 	/** Number of open over total number of channels */
 	virtual NTreal OpenChannelsRatio() const {
 		cerr
@@ -193,31 +193,34 @@ public:
 	}
 
 	NTreal Get_voltage() {
-return	voltage;}
-	void Set_voltage(NTreal newVoltage){voltage = newVoltage;}
+		return voltage;
+	}
+	void Set_voltage(NTreal newVoltage) {
+		voltage = newVoltage;
+	}
 
-/* ***  Data                 ***/
+	/* ***  Data                 ***/
 
 protected:
-/* ***  Methods              ***/
-NTreal Set_current(NTreal newVal /* in nA */) {
-	return current = newVal;
-}
-NTreal Set_conductance(NTreal newVal /* in mSiemens */) {
-	return conductance = newVal;
-}
-/* ***  Data                 ***/
-NT_uniform_rnd_dist_o uniform;
-NTreal voltage;
-NTreal temperature; // in Celsius
+	/* ***  Methods              ***/
+	NTreal Set_current(NTreal newVal /* in nA */) {
+		return current = newVal;
+	}
+	NTreal Set_conductance(NTreal newVal /* in mSiemens */) {
+		return conductance = newVal;
+	}
+	/* ***  Data                 ***/
+	NT_uniform_rnd_dist_o uniform;
+	NTreal voltage;
+	NTreal temperature; // in Celsius
 private:
-/* ***  Methods              ***/
-/* ***  Data                 ***/
-NTreal current; // in nanoAmpere
-NTreal conductance; // in mSiemens
-NTreal reversalPotential; // in mV
-NTreal q10; // the Q_10 value for temperature dependent reaction kinetics
-enum NTBPstochasticType simulationMode;
+	/* ***  Methods              ***/
+	/* ***  Data                 ***/
+	NTreal current; // in nanoAmpere
+	NTreal conductance; // in mSiemens
+	NTreal reversalPotential; // in mV
+	NTreal q10; // the Q_10 value for temperature dependent reaction kinetics
+	enum NTBPstochasticType simulationMode;
 };
 
 #endif /* _ntbp_membrane_current_obj_h_ */

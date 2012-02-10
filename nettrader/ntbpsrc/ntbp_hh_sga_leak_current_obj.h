@@ -18,25 +18,24 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */ 
-  
+ */
 
 /* $Id: ntbp_hh_sga_leak_current_obj.h,v 1.2 2005/04/25 13:55:27 face Exp $ 
-* $Log: ntbp_hh_sga_leak_current_obj.h,v $
-* Revision 1.2  2005/04/25 13:55:27  face
-* *** empty log message ***
-*
-* Revision 1.1.1.1  2004/12/16 01:38:36  face
-* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
-*
-* Revision 1.2  2003/08/14 16:43:27  face
-* *** empty log message ***
-*
-* Revision 1.1  2001/10/03 14:37:52  face
-* *** empty log message ***
-*
+ * $Log: ntbp_hh_sga_leak_current_obj.h,v $
+ * Revision 1.2  2005/04/25 13:55:27  face
+ * *** empty log message ***
+ *
+ * Revision 1.1.1.1  2004/12/16 01:38:36  face
+ * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+ *
+ * Revision 1.2  2003/08/14 16:43:27  face
+ * *** empty log message ***
+ *
+ * Revision 1.1  2001/10/03 14:37:52  face
+ * *** empty log message ***
+ *
 
-*/
+ */
 #ifndef _ntbp_hh_sga_leak_current_obj_h_ 
 #define _ntbp_hh_sga_leak_current_obj_h_ 
 
@@ -51,39 +50,63 @@
 /* other includes */
 
 /** @short NTBP_hh_sga_leak_current_o class 
-\bug unknown
-\warning unknown 
-*/
-class NTBP_hh_sga_leak_current_o : public NTBP_hh_current_o {
+ \bug unknown
+ \warning unknown
+ */
+class NTBP_hh_sga_leak_current_o: public NTBP_hh_current_o {
 public:
-/***   Constructors, Copy/Assignment and Destructor  ***/  
-NTBP_hh_sga_leak_current_o(NTreal newArea /* in mu^2 */, NTreal newLeakConductance = 0.3 /* mS/cm^2 */, NTreal newReversalPotential = 10.613 /* mV */);
-NTBP_hh_sga_leak_current_o(const NTBP_hh_sga_leak_current_o & original);
-const NTBP_hh_sga_leak_current_o & operator= (const NTBP_hh_sga_leak_current_o & right);
-virtual ~NTBP_hh_sga_leak_current_o();
-/* ***  Methods              ***/
-void ComputeRateConstants(NTreal voltage /* in mV */){}
-/** in mSiemens */
-NTreturn StepCurrent(){return NT_SUCCESS;}
-/** compute and return conductance in mSiemens */
-void UpdateConductance() { Set_conductance(_maxConductivity() * _area() * 1.0e-8); }
-/** Return leak conductance in mSiemens  (note: function return constant value (leak!) set in constructor) */
-NTreal ComputeConductance(){ return _conductance(); }
-NTreturn DeterministicStepCurrent(){ return NT_SUCCESS;}
-void Show() { cout << "g_Leak [mSiemens]=" <<_conductance();}
-/** Number of open ionic channels */
-virtual NTreal OpenChannels() const { return 0.0; }
-/** Total number of ionic channels */
-virtual NTreal NumChannels() const { return 0.0; }
-/** Number of open over total number of channels */
-virtual NTreal OpenChannelsRatio() const { return 0.0; }
-/* ***  Data                 ***/  
+	/***   Constructors, Copy/Assignment and Destructor  ***/
+	NTBP_hh_sga_leak_current_o(NTreal newArea /* in mu^2 */,
+			NTreal newLeakConductance = 0.3 /* mS/cm^2 */,
+			NTreal newReversalPotential = 10.613 /* mV */);
+	NTBP_hh_sga_leak_current_o(const NTBP_hh_sga_leak_current_o & original);
+	const NTBP_hh_sga_leak_current_o & operator=(
+			const NTBP_hh_sga_leak_current_o & right);
+	virtual ~NTBP_hh_sga_leak_current_o();
+	/* ***  Methods              ***/
+	void ComputeRateConstants(NTreal voltage /* in mV */) {
+	}
+	/** in mSiemens */
+	NTreturn StepCurrent() {
+		return NT_SUCCESS;
+	}
+	/** compute and return conductance in mSiemens */
+	void UpdateConductance() {
+		Set_conductance(_maxConductivity() * _area() * 1.0e-8);
+	}
+	/** Return leak conductance in mSiemens  (note: function return constant value (leak!) set in constructor) */
+	NTreal ComputeConductance() {
+		return _conductance();
+	}
+	NTreturn DeterministicStepCurrent() {
+		return NT_SUCCESS;
+	}
+	void Show() {
+		cout << "g_Leak [mSiemens]=" << _conductance();
+	}
+	/** Number of open ionic channels */
+	virtual NTreal OpenChannels() const {
+		return 0.0;
+	}
+	/** Total number of ionic channels */
+	virtual NTreal NumChannels() const {
+		return 0.0;
+	}
+	/** Number of open over total number of channels */
+	virtual NTreal OpenChannelsRatio() const {
+		return 0.0;
+	}
+
+	virtual NTreal NumChannelsInState(NTsize state) const {
+		return 0;
+	}
+	/* ***  Data                 ***/
 protected:
-/* ***  Methods              ***/  
-/* ***  Data                 ***/  
+	/* ***  Methods              ***/
+	/* ***  Data                 ***/
 private:
-/* ***  Methods              ***/  
-/* ***  Data                 ***/
+	/* ***  Methods              ***/
+	/* ***  Data                 ***/
 };
 #endif /* _ntbp_hh_sga_leak_current_obj_h_ */ 
 
