@@ -63,3 +63,4 @@ nettrader/examples/test_membrane_currents
 nettrader/examples/tunnel_flight_demo
 nettrader-api/*
 *.log
+Makefile.in
