@@ -55,7 +55,7 @@
 /** Create a NTBP_membrane_compartment_sequence_o */
 
 NTBP_membrane_compartment_sequence_o::NTBP_membrane_compartment_sequence_o() :
-	NTBP_membrane_o() {
+		NTBP_membrane_o() {
 	numCompartments = 0;
 
 	lVec.resize(1);
@@ -138,8 +138,8 @@ NTreturn NTBP_membrane_compartment_sequence_o::Step() {
 
 	for (ll = 0; ll < numCompartments; ll++) {
 		/* omega should have units of mV : mSec nA / muF = muV */
-		omega = 1e-3 /* mV/muV */* (_timeStep()
-				/ compartmentVec[ll]->_compartmentMembraneCapacitance())
+		omega = 1e-3 /* mV/muV */
+		* (_timeStep() / compartmentVec[ll]->_compartmentMembraneCapacitance())
 				* (compartmentVec[ll]->CompartmentMembraneNetCurrent());
 		rVec[ll] = compartmentVec[ll]->_vM() + omega; // compute RHS of finite difference equation
 		// TODO it appears to be correct, but why is omega ADDED and not subtracted ?
@@ -187,7 +187,8 @@ NTreturn NTBP_membrane_compartment_sequence_o::Init() {
 	for (ll = 1; ll < numCompartments; ll++) {
 		compartmentVec[ll]->Set_vM(0);
 		/* testing requirement for constant axo-geometric properties */
-		NT_ASSERT(compartmentVec[ll]->_radius() == compartmentVec[ll-1]->_radius());
+		NT_ASSERT(
+				compartmentVec[ll]->_radius() == compartmentVec[ll-1]->_radius());
 		NT_ASSERT(compartmentVec[ll]->_rA() == compartmentVec[ll-1]->_rA());
 	}
 	compartmentVec[numCompartments - 1]->Set_vM(0);
@@ -219,13 +220,12 @@ NTreturn NTBP_membrane_compartment_sequence_o::Init() {
 	deltaXX = compartmentVec[numCompartments - 1]->_length()
 			* compartmentVec[numCompartments - 1]->_length();
 	/* sigma is unit-free  (scaled by 0.1)     [sigma] = mSec muM / (muM^2 Ohm cm) * (muM^2 / muF) */
-	sigma
-			= (0.1 / 2.0) * (deltaT / deltaXX) * (radius / axoplasmicR)
+	sigma =
+			(0.1 / 2.0) * (deltaT / deltaXX) * (radius / axoplasmicR)
 					* (compartmentVec[numCompartments - 1]->_area()
 							/ compartmentVec[numCompartments - 1]->CompartmentMembraneCapacitance());
 	dVec[numCompartments - 1] = 2.0 * sigma + 1.0;
 	lVec[numCompartments - 1] = -2.0 * sigma; // vonNeumann boundary conditions
-
 
 	/* completed initialisation */
 	initialised = true;
@@ -289,7 +289,8 @@ vector<NTreal> NTBP_membrane_compartment_sequence_o::NumChannelsInState(
 		NTsize currIndex, NTsize state) const {
 	vector<NTreal> tmp(_numCompartments());
 	for (NTsize ll = 0; ll < _numCompartments(); ll++) {
-		tmp[ll] = compartmentVec[ll]->Current(currIndex)->NumChannelsInState(state);
+		tmp[ll] = compartmentVec[ll]->Current(currIndex)->NumChannelsInState(
+				state);
 	}
 	return tmp;
 }
@@ -298,21 +299,19 @@ vector<NTreal> NTBP_membrane_compartment_sequence_o::OpenChannelsRatio(
 		NTsize currIndex) const {
 	vector<NTreal> tmp(_numCompartments());
 	for (NTsize ll = 0; ll < _numCompartments(); ll++) {
-		tmp[ll] = compartmentVec[ll]->Current(currIndex)->OpenChannelsRatio();
+		if(currIndex-1<compartmentVec[ll]->currentVec.size())
+					tmp[ll] = compartmentVec[ll]->Current(currIndex)->OpenChannelsRatio();
+				else
+					tmp[ll] = 0;
 	}
 	return tmp;
 }
 
 NTreturn NTBP_membrane_compartment_sequence_o::WriteMembranePotentialASCII(
-		ofstream & file, bool perUnitLength) {
+		ostream & file) const {
 	for (NTsize ll = 0; ll < _numCompartments(); ll++) {
-		if(perUnitLength){
-			for (NTsize j = 0; j < compartmentVec[ll]->_length(); j++)
-				file << compartmentVec[ll]->_vM() << " ";
-		}
-		else{
-			file << compartmentVec[ll]->_vM() << " ";
-		}
+		//for (NTsize i =0; i<compartmentVec[ll]->_length(); i++)
+		file << compartmentVec[ll]->_vM() << " ";
 	}
 	file << endl;
 	return NT_SUCCESS;
@@ -324,19 +323,70 @@ NTreturn NTBP_membrane_compartment_sequence_o::WriteMembranePotentialASCII(
  @return     none
  \warning    unknown
  \bug        unknown  */
-NTreturn NTBP_membrane_compartment_sequence_o::WriteCurrentAscii(
-		ofstream & file, NTsize index) {
+NTreturn NTBP_membrane_compartment_sequence_o::WriteCurrentAscii(ostream & file,
+		NTsize index) const {
 	if (0 == index) {
 		for (NTsize ll = 0; ll < _numCompartments(); ll++) {
 			file << compartmentVec[ll]->CompartmentMembraneNetCurrent() << " ";
 		}
 	} else {
 		for (NTsize ll = 0; ll < _numCompartments(); ll++) {
-			file << compartmentVec[ll]->AttachedCurrent(index) << " ";
+			if (index - 1 < compartmentVec[ll]->currentVec.size())
+				file << compartmentVec[ll]->AttachedCurrent(index) << " ";
 		}
 	}
 	file << endl;
 
+	return NT_SUCCESS;
+}
+
+NTreturn NTBP_membrane_compartment_sequence_o::WriteMembranePotential(
+		ostream & file) const {
+	float data[numCompartments];
+	for (NTsize ll = 0; ll < numCompartments; ll++) {
+		data[ll] = compartmentVec[ll]->_vM();
+	}
+	file.write(reinterpret_cast<char*>(data), numCompartments * sizeof(float));
+	return NT_SUCCESS;
+}
+
+NTreturn NTBP_membrane_compartment_sequence_o::WriteCompartmentData(
+		ostream* file, NTsize to_print) const {
+	NTsize number_of_currents = compartmentVec[to_print]->currentVec.size();
+	float data[1 + number_of_currents];
+	data[0] = compartmentVec[to_print]->_vM();
+	for (NTsize ll = 1; ll - 1 < number_of_currents; ++ll) {
+		data[ll] = compartmentVec[to_print]->AttachedCurrent(ll);
+	}
+	file->write(reinterpret_cast<char*>(data),
+			(1 + number_of_currents) * sizeof(float));
+	return NT_SUCCESS;
+}
+
+/** @short  Write compartment currents into a binary file
+ @param      reference to a file object and a current index (i.e. position of requested current in the currentVec of
+ the membrane compartment). If current index == 0, the compartment net current is written.
+ @return     none
+ \warning    unknown
+ \bug        unknown  */
+NTreturn NTBP_membrane_compartment_sequence_o::WriteCurrent(ostream & file,
+		NTsize index) const {
+	if (0 == index) {
+		float data[numCompartments];
+		for (NTsize ll = 0; ll < _numCompartments(); ll++) {
+			data[ll] = compartmentVec[ll]->CompartmentMembraneNetCurrent();
+		}
+		file.write(reinterpret_cast<char*>(data),
+				_numCompartments() * sizeof(float));
+	} else {
+		float data[numCompartments];
+		for (NTsize ll = 0; ll < numCompartments; ll++) {
+			if (index - 1 < compartmentVec[ll]->currentVec.size())
+				data[ll] = compartmentVec[ll]->AttachedCurrent(index);
+		}
+		file.write(reinterpret_cast<char*>(data),
+				_numCompartments() * sizeof(float));
+	}
 	return NT_SUCCESS;
 }
 
@@ -417,7 +467,8 @@ vector<NTreal> NTBP_membrane_compartment_sequence_o::ZadorPearlmutterSolveTriDia
 		vector<NTreal> rNewVec) const {
 	const NTsize n = lNewVec.size();
 	vector<NTreal> vNewVec(n);
-	NT_ASSERT( (lNewVec.size() == dNewVec.size()) && (dNewVec.size() == uNewVec.size()) && (uNewVec.size() == vNewVec.size()) && (vNewVec.size() == rNewVec.size()) );
+	NT_ASSERT(
+			(lNewVec.size() == dNewVec.size()) && (dNewVec.size() == uNewVec.size()) && (uNewVec.size() == vNewVec.size()) && (vNewVec.size() == rNewVec.size()));
 
 	vector<NTreal> Kl(n);
 	vector<NTreal> Kd(n);
@@ -437,15 +488,15 @@ vector<NTreal> NTBP_membrane_compartment_sequence_o::ZadorPearlmutterSolveTriDia
 
 	NTint j = 0;
 	for (j = n - 2; j > 0; j--) {
-		Kd[j] = 1 / BJd[j] + (Kd[j + 1] * lNewVec[j] * uNewVec[j]) / (BJd[j]
-				* BJd[j]);
+		Kd[j] = 1 / BJd[j]
+				+ (Kd[j + 1] * lNewVec[j] * uNewVec[j]) / (BJd[j] * BJd[j]);
 		Ku[j] = -Kd[j + 1] * uNewVec[j] / BJd[j];
 		Kl[j] = -Kd[j + 1] * lNewVec[j] / BJd[j];
 	}
 
 	for (ll = 1; ll < n - 1; ll++) {
-		vNewVec[ll] = Kl[ll] * vNewVec[ll - 1] + Kd[ll] * rNewVec[ll] + Ku[ll]
-				* vNewVec[ll + 1];
+		vNewVec[ll] = Kl[ll] * vNewVec[ll - 1] + Kd[ll] * rNewVec[ll]
+				+ Ku[ll] * vNewVec[ll + 1];
 	}
 
 	return vNewVec;
@@ -457,7 +508,8 @@ vector<NTreal> NTBP_membrane_compartment_sequence_o::MascagniSolveTriDiag(
 		vector<NTreal> rNewVec) const {
 	NTsize m = lNewVec.size();
 	vector<NTreal> vNewVec(m);
-	NT_ASSERT( (lNewVec.size() == dNewVec.size()) && (dNewVec.size() == uNewVec.size()) && (uNewVec.size() == vNewVec.size()) && (vNewVec.size() == rNewVec.size()) );
+	NT_ASSERT(
+			(lNewVec.size() == dNewVec.size()) && (dNewVec.size() == uNewVec.size()) && (uNewVec.size() == vNewVec.size()) && (vNewVec.size() == rNewVec.size()));
 
 	/*	Solution of tridiagonal system */
 	/* forward elimination */
@@ -470,8 +522,8 @@ vector<NTreal> NTBP_membrane_compartment_sequence_o::MascagniSolveTriDiag(
 		dNewVec[i] = dNewVec[i] - lNewVec[i] * vNewVec[i - 1];
 		rNewVec[i] = (rNewVec[i] - lNewVec[i] * vNewVec[i - 1]) / dNewVec[i];
 		uNewVec[i] = uNewVec[i] / dNewVec[i];
-		cout << i << " " << lNewVec[i] << " " << dNewVec[i] << " "
-				<< uNewVec[i] << " " << vNewVec[i] << " " << rNewVec[i] << endl;
+		cout << i << " " << lNewVec[i] << " " << dNewVec[i] << " " << uNewVec[i]
+				<< " " << vNewVec[i] << " " << rNewVec[i] << endl;
 	}
 	dNewVec[m - 1] = dNewVec[m - 1] - lNewVec[m - 1] * vNewVec[m - 1 - 1];
 	rNewVec[m - 1] = (rNewVec[m - 1] - lNewVec[m - 1] * vNewVec[m - 1 - 1])
@@ -510,11 +562,12 @@ vector<NTreal> NTBP_membrane_compartment_sequence_o::NumericalRecipesSolveTriDia
 		const vector<NTreal> & uNewVec, const vector<NTreal> & rNewVec) const {
 	NTsize n = lNewVec.size();
 	vector<NTreal> vNewVec(n);
-	NT_ASSERT( (n == dNewVec.size()) && (dNewVec.size() == uNewVec.size()) && (uNewVec.size() == vNewVec.size()) && (vNewVec.size() == rNewVec.size()) );
+	NT_ASSERT(
+			(n == dNewVec.size()) && (dNewVec.size() == uNewVec.size()) && (uNewVec.size() == vNewVec.size()) && (vNewVec.size() == rNewVec.size()));
 	NTreal bet;
 	vector<NTreal> gam(n);
 
-	// a is l	
+	// a is l
 	// b is d
 	// c is u
 	// u is v
@@ -592,8 +645,9 @@ bool NTBP_membrane_compartment_sequence_o::GillespieStep() {
 }
 
 //returns copy of compartment vector
-NTBP_cylindrical_compartment_o* NTBP_membrane_compartment_sequence_o::ReturnCompartmentVec (NTsize index) //TODO: added
-{
+NTBP_cylindrical_compartment_o* NTBP_membrane_compartment_sequence_o::ReturnCompartmentVec(
+		NTsize index) //TODO: added
+		{
 	NTBP_cylindrical_compartment_o* compVec = compartmentVec[index];
 	return compVec;
 }

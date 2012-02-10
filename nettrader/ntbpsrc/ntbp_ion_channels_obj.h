@@ -21,14 +21,14 @@
  */
 
 #ifndef _ntbp_ion_channels_obj_h_
-#define _ntbp_ion_channels_obj_h_ 
+#define _ntbp_ion_channels_obj_h_
 
 /* NT core includes */
-#include "nt_main.h" 
-#include "nt_types.h" 
-#include "nt_obj.h"  
+#include "nt_main.h"
+#include "nt_types.h"
+#include "nt_obj.h"
 /* Parent includes */
-#include "ntbp_object_obj.h" 
+#include "ntbp_object_obj.h"
 /* NT includes */
 #include "nt_error_obj.h"
 #include "nt_uniform_rnd_dist_obj.h"
@@ -40,7 +40,7 @@
 
 //#include "boost/multi_array.hpp"
 
-/** @short NTBP_ion_channels_o class 
+/** @short NTBP_ion_channels_o class
  \bug unknown
  \warning unknown
  */
@@ -84,27 +84,24 @@ public:
 		return ratesComputed;
 	}
 	/* ***  Data                 ***/
+
 protected:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
 	// TODO remove this
 	vector<NTreal> statePersistenceProbVec;
-	vector<NTsize> stateCounterVec;
+	vector<NTint> stateCounterVec;
 	static NT_uniform_rnd_dist_o uniformRnd; // [0,1] random number generation
 	static NT_binomial_rnd_dist_o binomRnd;
 
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-
-	//vector<boost::numeric::ublas::matrix<NTreal>*> ;
-//	typedef boost::multi_array<double, 3> matrix_array_type;
-//	matrix_array_type _probMatrices;
+	NTBP_transition_rate_matrix_o* _probMatrix;
 	vector<NTsize> openStates;
 	NTsize numStates;
 	NTsize numChannels;
 	bool ratesComputed;
-	NTBP_transition_rate_matrix_o* _probMatrix;
 };
 
 #endif /* _ntbp_ion_channels_obj_h_ */
