@@ -7,6 +7,51 @@
 
 #include "common_tools.h"
 
+/* Global */
+Json::Value hillock_parameters;
+Json::Value node_parameters;
+Json::Value paranode_parameters;
+Json::Value internode_parameters;
+Json::Value simulation_parameters;
+Json::Value config_root; // will contains the root value after parsing.
+/**
+ * Reads the parameters in the file given as argument.
+ * @param fileName Input file.
+ */
+void read_config(string fileName) {
+	// Remember that data file should have more lines than Num iterations.
+	Json::Reader config_reader;
+	ifstream config_doc;
+	config_doc.open(fileName.c_str(), ifstream::in);
+	bool parsingSuccessful = config_reader.parse(config_doc, config_root);
+	if (!parsingSuccessful) {
+		// report to the user the failure and their locations in the document.
+		std::cerr << "Failed to parse configuration\n"
+				<< config_reader.getFormatedErrorMessages();
+		exit(1);
+	}
+
+	/*Hillokc*/
+	if (config_root.get("hillock", false).asBool())
+		hillock_parameters = config_root["hillock_parameters"];
+
+	/* Nodes */
+	if (config_root.get("node", false).asBool()) {
+		node_parameters = config_root["node_parameters"];
+	}
+
+	/* Paranodes */
+	if (config_root.get("paranode", false).asBool())
+		paranode_parameters = config_root["paranode_parameters"];
+
+	/* Internodes */
+	if (config_root.get("internode", false).asBool())
+		internode_parameters = config_root["internode_parameters"];
+
+	simulation_parameters = config_root["simulation_parameters"];
+
+}
+
 /**
  * Creates a new folder in the output directory
  * and puts a timestamp in its name.
@@ -22,11 +67,15 @@ string createOutputFolder(string outputFolder) {
 	time(&rawtime);
 	timeinfo = localtime(&rawtime);
 	strftime(dateString, 80, "%b%d_%H%M%S", timeinfo);
-	ss << outputFolder << "/" << dateString;
+	ss << outputFolder << dateString;
 	string folderName;
 	ss >> folderName;
+	stringstream ss2(stringstream::in | stringstream::out);
+	ss2 << folderName << "/compartments/";
+	string temp_folder_name;
+	ss2 >> temp_folder_name;
 
-	boost::filesystem::create_directories(folderName);
+	boost::filesystem::create_directories(temp_folder_name);
 
 	return folderName;
 }
@@ -91,24 +140,7 @@ void printConfig(ofstream& out, Json::Value hillock_parameters,
 			<< paranode_parameters["length"].asDouble() << ";" << endl;
 	out << "paranode_numComp" << " = "
 			<< paranode_parameters["numComp"].asDouble() << ";" << endl;
-	out << "paranode_potassiumAlg" << " = "
-			<< paranode_parameters["chKAlg"].asUInt() << ";" << endl;
-	out << "paranode_potassiumConductance" << " = "
-			<< paranode_parameters["chKCond"].asDouble() << ";" << endl;
-	out << "paranode_potassiumDensity" << " = "
-			<< paranode_parameters["chKDen"].asDouble() << ";" << endl;
-	out << "paranode_potassiumReversalPotential" << " = "
-			<< paranode_parameters["chKRevPot"].asDouble() << ";" << endl;
-	out << "paranode_ra" << " = " << paranode_parameters["Ra"].asDouble() << ";"
-			<< endl;
-	out << "paranode_sodiumAlg" << " = "
-			<< paranode_parameters["chNaAlg"].asUInt() << ";" << endl;
-	out << "paranode_sodiumConductance" << " = "
-			<< paranode_parameters["chNaCond"].asDouble() << ";" << endl;
-	out << "paranode_sodiumDensity" << " = "
-			<< paranode_parameters["chNaDen"].asDouble() << ";" << endl;
-	out << "paranode_sodiumReversalPotential" << " = "
-			<< paranode_parameters["chNaRevPot"].asDouble() << ";" << endl;
+
 	out << "internode_cm" << " = " << internode_parameters["Cm"].asDouble()
 			<< ";" << endl;
 	out << "internode_gLeak" << " = "
@@ -117,31 +149,16 @@ void printConfig(ofstream& out, Json::Value hillock_parameters,
 			<< internode_parameters["length"].asDouble() << ";" << endl;
 	out << "internode_numComp" << " = "
 			<< internode_parameters["numComp"].asDouble() << ";" << endl;
-	out << "internode_potassiumAlg" << " = "
-			<< internode_parameters["chKAlg"].asUInt() << ";" << endl;
-	out << "internode_potassiumConductance" << " = "
-			<< internode_parameters["chKCond"].asDouble() << ";" << endl;
-	out << "internode_potassiumDensity" << " = "
-			<< internode_parameters["chKDen"].asDouble() << ";" << endl;
-	out << "internode_potassiumReversalPotential" << " = "
-			<< internode_parameters["chKRevPot"].asDouble() << ";" << endl;
-	out << "internode_ra" << " = " << internode_parameters["Ra"].asDouble()
-			<< ";" << endl;
-	out << "internode_sodiumAlg" << " = "
-			<< internode_parameters["chNaAlg"].asUInt() << ";" << endl;
-	out << "internode_sodiumConductance" << " = "
-			<< internode_parameters["chNaCond"].asDouble() << ";" << endl;
-	out << "internode_sodiumDensity" << " = "
-			<< internode_parameters["chNaDen"].asDouble() << ";" << endl;
-	out << "internode_sodiumReversalPotential" << " = "
-			<< internode_parameters["chNaRevPot"].asDouble() << ";" << endl;
+
 	out << "simulation_samplerate" << " = "
 			<< simulation_parameters["sampN"].asUInt() << ";" << endl;
 	out << "simulation_timestep_inms" << " = "
 			<< simulation_parameters["timeStep"].asDouble() << ";" << endl;
 	out << "simulation_number_of_iterations" << " = "
 			<< simulation_parameters["numIter"].asUInt() << ";" << endl;
-	out << "simulation_duration" << " = "
+	out
+			<< "simulation_duration"
+			<< " = "
 			<< simulation_parameters["timeStep"].asDouble()
 					* simulation_parameters["numIter"].asUInt() << ";" << endl;
 	out << "simulation_trials" << " = "
@@ -180,8 +197,8 @@ NTBP_custom_cylindrical_compartment_o* createCompartment(
 		if ("file" == current["type"].asString()) {
 			NTreal indDensity = NTBP_corrected_channel_density(
 					current["chDen"].asDouble(), tmpPtr->_area());
-			NTBP_file_based_multi_current_o * file_current =
-					new NTBP_file_based_multi_current_o(tmpPtr->_area(),
+			NTBP_file_based_stochastic_multi_current_o * file_current =
+					new NTBP_file_based_stochastic_multi_current_o(tmpPtr->_area(),
 							indDensity /* mum^-2 */,
 							current["chCond"].asDouble() * 1e-9 /* pS */,
 							config_root["vBase"].asDouble() /* mV */,
@@ -191,6 +208,22 @@ NTBP_custom_cylindrical_compartment_o* createCompartment(
 							current["chModel"].asString());
 			file_current->SetSimulationMode(NTBP_BINOMIALPOPULATION);
 			tmpPtr->AttachCurrent(file_current, NTBP_IONIC);
+		}
+
+		if ("lua" == current["type"].asString()) {
+			NTreal indDensity = NTBP_corrected_channel_density(
+					current["chDen"].asDouble(), tmpPtr->_area());
+			NTBP_lua_based_deterministic_multi_current_o * lua_current =
+					new NTBP_lua_based_deterministic_multi_current_o(tmpPtr->_area(),
+							indDensity /* mum^-2 */,
+							current["chCond"].asDouble() * 1e-9 /* pS */,
+							config_root["vBase"].asDouble() /* mV */,
+							current["chRevPot"].asDouble() /* mV */,
+							simulation_parameters["timeStep"].asDouble(),
+							config_root["temperature"].asDouble() /* C */,
+							current["chModel"].asString());
+			lua_current->SetSimulationMode(NTBP_DETERMINISTIC);
+			tmpPtr->AttachCurrent(lua_current, NTBP_IONIC);
 		}
 	}
 	return tmpPtr;
@@ -214,8 +247,32 @@ void openOutputFile(string outputFolder, string prefix, ofstream& outStream,
 
 	if (outStream.fail()) {
 		cerr << "Could not open output file " << prefix << endl;
-		exit(EXIT_IO_ERROR);
+		std::exit(EXIT_IO_ERROR);
 	}
+}
+
+/**
+ * Opens a new file in write mode.
+ * @param output Folder The folder in which to create the new file.
+ * @param prefix File name prefix
+ * @param outStream Will contain an ofstream pointing to the newly created file.
+ */
+ofstream* openOutputFile(string outputFolder, string prefix, int counter,
+		string extension) {
+	/* open files */
+	stringstream ss(stringstream::in | stringstream::out);
+	ss << outputFolder << "/compartments/" << prefix << "_" << counter
+			<< extension;
+	string temp_name;
+	ss >> temp_name;
+
+	ofstream* out_stream = new ofstream(temp_name.c_str(), ios::binary);
+
+	if (out_stream->fail()) {
+		cerr << "Could not open output file " << temp_name << endl;
+		std::exit(EXIT_IO_ERROR);
+	}
+	return out_stream;
 }
 
 NTBP_membrane_compartment_sequence_o create_axon(Json::Value config_root,
