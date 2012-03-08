@@ -42,15 +42,15 @@ NTBP_lua_based_deterministic_multi_current_o::NTBP_lua_based_deterministic_multi
 				original._area(), original._conductivity()) {
 	UpdateNumChannels();
 
-	setTimeStep(original.timeStep);
-	Set_temperature(newTemperature);
+	setTimeStep(original._timeStep());
+	Set_temperature(original._temperature());
 	lua_script = original.lua_script;
 	L = luaL_newstate();
 	luaL_openlibs(L);
 	luaL_dofile(L, lua_script.c_str());
 	lua_getglobal(L, "set_timestep");
 	/* the first argument */
-	lua_pushnumber(L, timeStep);
+	lua_pushnumber(L, _timeStep());
 
 	/* call the function with 1
 	 argument, return 0 result */
@@ -62,15 +62,15 @@ NTBP_lua_based_deterministic_multi_current_o::operator=(
 		const NTBP_lua_based_deterministic_multi_current_o & right) {
 	if (this == &right)
 		return *this; // Gracefully handle self assignment
-	setTimeStep(right.timeStep);
-	Set_temperature(newTemperature);
+	setTimeStep(right._timeStep());
+	Set_temperature(_temperature());
 	lua_script = right.lua_script;
 	L = luaL_newstate();
 	luaL_openlibs(L);
 	luaL_dofile(L, lua_script.c_str());
 	lua_getglobal(L, "set_timestep");
 	/* the first argument */
-	lua_pushnumber(L, timeStep);
+	lua_pushnumber(L, _timeStep());
 
 	/* call the function with 1
 	 argument, return 0 result */
