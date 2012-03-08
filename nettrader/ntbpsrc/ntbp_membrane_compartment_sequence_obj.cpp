@@ -69,7 +69,7 @@ NTBP_membrane_compartment_sequence_o::NTBP_membrane_compartment_sequence_o() :
 
 /* ***      COPY AND ASSIGNMENT	***/
 NTBP_membrane_compartment_sequence_o::NTBP_membrane_compartment_sequence_o(
-		const NTBP_membrane_compartment_sequence_o & original) {
+		const NTBP_membrane_compartment_sequence_o __attribute__((__unused__)) & original) {
 	cerr << "DO NOT COPY" << endl;
 	NT_ASSERT( 1 == 0);
 	// add assignment code here

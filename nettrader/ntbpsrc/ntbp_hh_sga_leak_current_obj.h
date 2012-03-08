@@ -64,7 +64,7 @@ public:
 			const NTBP_hh_sga_leak_current_o & right);
 	virtual ~NTBP_hh_sga_leak_current_o();
 	/* ***  Methods              ***/
-	void ComputeRateConstants(NTreal voltage /* in mV */) {
+	void ComputeRateConstants(NTreal __attribute__((__unused__)) voltage /* in mV */) {
 	}
 	/** in mSiemens */
 	NTreturn StepCurrent() {
@@ -97,7 +97,7 @@ public:
 		return 0.0;
 	}
 
-	virtual NTreal NumChannelsInState(NTsize state) const {
+	virtual NTreal NumChannelsInState(NTsize __attribute__((__unused__)) state) const {
 		return 0;
 	}
 	/* ***  Data                 ***/

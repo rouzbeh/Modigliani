@@ -153,7 +153,7 @@ public:
 		return -42;
 	}
 
-	virtual NTreal NumChannelsInState(NTsize state) const {
+	virtual NTreal NumChannelsInState(NTsize __attribute__((__unused__)) state) const {
 		cerr
 				<< "NTBP_membrane_current_o::NumChannels() - Error : Not Implemented."
 				<< endl;
