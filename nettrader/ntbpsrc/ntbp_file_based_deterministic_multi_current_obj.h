@@ -1,12 +1,12 @@
 /*
- * NTBP_file_based_multi_current_o.h
+ * NTBP_file_based_stochastic_multi_current_o.h
  *
  *  Created on: 28 Mar 2011
  *      Author: man210
  */
 
-#ifndef NTBP_FILE_BASED_MULTI_CURRENT_O_H_
-#define NTBP_FILE_BASED_MULTI_CURRENT_O_H_
+#ifndef NTBP_file_based_stochastic_MULTI_CURRENT_O_H_
+#define NTBP_file_based_stochastic_MULTI_CURRENT_O_H_
 
 
 #include "ntbp_multi_current_obj.h"
@@ -18,11 +18,11 @@
 using namespace std;
 
 
-class NTBP_file_based_multi_current_o: public NTBP_multi_current_o {
+class NTBP_file_based_stochastic_multi_current_o: public NTBP_multi_current_o {
 public:
-	NTBP_file_based_multi_current_o(NTreal newArea, NTreal newDensity, NTreal newConductivity,
+	NTBP_file_based_stochastic_multi_current_o(NTreal newArea, NTreal newDensity, NTreal newConductivity,
 			NTreal newVBase, NTreal reversalPotential, NTreal newTimeStep, NTreal newTemperature, string fileName);
-	virtual ~NTBP_file_based_multi_current_o();
+	virtual ~NTBP_file_based_stochastic_multi_current_o();
 
 	static void load_file(string fileName, double temperature, double time_step);
 	static map<string,NTBP_transition_rate_matrix_o*> probability_matrix_map;
@@ -51,4 +51,4 @@ private:
 
 };
 
-#endif /* NTBP_FILE_BASED_MULTI_CURRENT_O_H_ */
+#endif /* NTBP_file_based_stochastic_MULTI_CURRENT_O_H_ */
