@@ -1,22 +1,22 @@
 /*
- * NTBP_file_based_multi_current_o.cpp
+ * NTBP_file_based_stochastic_multi_current_o.cpp
  *
  *  Created on: 28 Mar 2011
  *      Author: man210
  */
 
-#include "ntbp_file_based_multi_current_obj.h"
+#include "ntbp_file_based_stochastic_multi_current_obj.h"
 
-bool NTBP_file_based_multi_current_o::initTableLookUp = false;
-map<string, NTBP_transition_rate_matrix_o*> NTBP_file_based_multi_current_o::probability_matrix_map;
-map<string, int> NTBP_file_based_multi_current_o::number_of_states_map;
-map<string, double> NTBP_file_based_multi_current_o::base_temperature_map;
-map<string, vector<int> > NTBP_file_based_multi_current_o::open_states_map;
+bool NTBP_file_based_stochastic_multi_current_o::initTableLookUp = false;
+map<string, NTBP_transition_rate_matrix_o*> NTBP_file_based_stochastic_multi_current_o::probability_matrix_map;
+map<string, int> NTBP_file_based_stochastic_multi_current_o::number_of_states_map;
+map<string, double> NTBP_file_based_stochastic_multi_current_o::base_temperature_map;
+map<string, vector<int> > NTBP_file_based_stochastic_multi_current_o::open_states_map;
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NTBP_hranvier_sodium_multi_current_o */
 
-NTBP_file_based_multi_current_o::NTBP_file_based_multi_current_o(NTreal newArea,
+NTBP_file_based_stochastic_multi_current_o::NTBP_file_based_stochastic_multi_current_o(NTreal newArea,
 		NTreal newDensity, NTreal newConductivity, NTreal newVBase,
 		NTreal newReversalPotential, NTreal newTimeStep, NTreal newTemperature,
 		string fileName) :
@@ -50,7 +50,7 @@ NTBP_file_based_multi_current_o::NTBP_file_based_multi_current_o(NTreal newArea,
 }
 //
 ///* ***      COPY AND ASSIGNMENT	***/
-//NTBP_file_based_multi_current_o::NTBP_file_based_multi_current_o(
+//NTBP_file_based_stochastic_multi_current_o::NTBP_file_based_stochastic_multi_current_o(
 //		const NTBP_hranvier_sodium_multi_current_o & original) :
 //	q10h(original.q10h), q10m(original.q10m), NTBP_multi_current_o(
 //			original._reversalPotential(), original._density(),
@@ -60,7 +60,7 @@ NTBP_file_based_multi_current_o::NTBP_file_based_multi_current_o(NTreal newArea,
 //}
 //
 //const NTBP_hranvier_sodium_multi_current_o&
-//NTBP_file_based_multi_current_o::operator=(
+//NTBP_file_based_stochastic_multi_current_o::operator=(
 //		const NTBP_hranvier_sodium_multi_current_o & right) {
 //	if (this == &right)
 //		return *this; // Gracefully handle self assignment
@@ -70,14 +70,15 @@ NTBP_file_based_multi_current_o::NTBP_file_based_multi_current_o(NTreal newArea,
 //}
 //
 /* ***      DESTRUCTOR		***/
-NTBP_file_based_multi_current_o::~NTBP_file_based_multi_current_o() {
+NTBP_file_based_stochastic_multi_current_o::~NTBP_file_based_stochastic_multi_current_o() {
 	delete channelsPtr;
 }
 
 /* ***  PUBLIC                                    ***   */
 
-void NTBP_file_based_multi_current_o::load_file(string fileName,
+void NTBP_file_based_stochastic_multi_current_o::load_file(string fileName,
 		double temperature, double time_step) {
+	cout << "Loading probabilities from " << fileName << endl;
 	Json::Value root; // will contains the root value after parsing.
 	Json::Reader reader;
 	ifstream config_doc;
@@ -134,7 +135,7 @@ void NTBP_file_based_multi_current_o::load_file(string fileName,
  \warning    unknown
  \bug        unknown
  */
-inline NTreturn NTBP_file_based_multi_current_o::StepCurrent() {
+inline NTreturn NTBP_file_based_stochastic_multi_current_o::StepCurrent() {
 	switch (_simulationMode()) {
 	case NTBP_BINOMIALPOPULATION: {
 		return (channelsPtr->BinomialStep(voltage));
@@ -151,7 +152,7 @@ inline NTreturn NTBP_file_based_multi_current_o::StepCurrent() {
 		break;
 	default:
 		cerr
-				<< "NTBP_file_based_multi_current_o::StepCurrent - ERROR : Unsupported simulation mode."
+				<< "NTBP_file_based_stochastic_multi_current_o::StepCurrent - ERROR : Unsupported simulation mode."
 				<< endl;
 		return NT_PARAM_UNSUPPORTED;
 		break;
@@ -161,33 +162,33 @@ inline NTreturn NTBP_file_based_multi_current_o::StepCurrent() {
 
 /**  */
 /** No descriptions */
-inline NTreal NTBP_file_based_multi_current_o::OpenChannels() const {
+inline NTreal NTBP_file_based_stochastic_multi_current_o::OpenChannels() const {
 	return channelsPtr->NumOpen();
 }
 
 /**  */
 /** No descriptions */
-inline NTreal NTBP_file_based_multi_current_o::OpenChannelsRatio() const {
+inline NTreal NTBP_file_based_stochastic_multi_current_o::OpenChannelsRatio() const {
 	NTreal open = OpenChannels();
 	return ((NTreal) (open * 100)) / NumChannels();
 }
 
 /**  */
 /** No descriptions */
-inline NTreal NTBP_file_based_multi_current_o::NumChannelsInState(
+inline NTreal NTBP_file_based_stochastic_multi_current_o::NumChannelsInState(
 		NTsize state) const {
 	return channelsPtr->numChannelsInState(state);
 }
 
-inline NTreal NTBP_file_based_multi_current_o::ComputeConductance() {
+inline NTreal NTBP_file_based_stochastic_multi_current_o::ComputeConductance() {
 	return Set_conductance(channelsPtr->NumOpen() * conductivity);
 }
 
-inline NTreal NTBP_file_based_multi_current_o::ComputeChannelStateTimeConstant() const {
+inline NTreal NTBP_file_based_stochastic_multi_current_o::ComputeChannelStateTimeConstant() const {
 	return channelsPtr->ComputeChannelStateTimeConstant(voltage);
 }
 
-void NTBP_file_based_multi_current_o::ShowParam() const {
+void NTBP_file_based_stochastic_multi_current_o::ShowParam() const {
 	cout << "Na channel parameters:" << endl;
 	cout << "Single channel conductivity [nA]" << _conductivity() << endl;
 	cout << "Channel density [1/muMeter^2]" << _area() << endl;
