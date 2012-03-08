@@ -20,14 +20,18 @@ using namespace std;
 
 class NTBP_lua_based_deterministic_multi_current_o: public NTBP_multi_current_o {
 public:
-	NTBP_lua_based_deterministic_multi_current_o(NTreal newArea, NTreal newDensity,
-			NTreal newConductivity, NTreal newVBase, NTreal reversalPotential,
-			NTreal newTimeStep, NTreal newTemperature, string fileName);
+	NTBP_lua_based_deterministic_multi_current_o(NTreal newArea,
+			NTreal newDensity, NTreal newConductivity, NTreal newVBase,
+			NTreal reversalPotential, NTreal newTimeStep, NTreal newTemperature,
+			string fileName);
+
+	NTBP_lua_based_deterministic_multi_current_o(
+			const NTBP_lua_based_deterministic_multi_current_o & original);
+
 	virtual ~NTBP_lua_based_deterministic_multi_current_o();
 
 	const NTBP_lua_based_deterministic_multi_current_o&
-	NTBP_lua_based_deterministic_multi_current_o::operator=(
-			const NTBP_lua_based_deterministic_multi_current_o & right);
+	operator=(const NTBP_lua_based_deterministic_multi_current_o & right);
 
 	NTreturn StepCurrent();
 	NTreal OpenChannels() const;
