@@ -60,7 +60,7 @@ NTBP_membrane_compartment_o::NTBP_membrane_compartment_o(NTreal newArea /* in mu
 }
 
 /* ***      COPY AND ASSIGNMENT	***/
-NTBP_membrane_compartment_o::NTBP_membrane_compartment_o(const NTBP_membrane_compartment_o & original)
+NTBP_membrane_compartment_o::NTBP_membrane_compartment_o(const NTBP_membrane_compartment_o __attribute__((__unused__)) & original)
 {
  // should not be used
 	cerr << "NTBP_membrane_compartment_o::NTBP_membrane_compartment_o(const .. & original)= - ERROR : Not implemented." << endl;

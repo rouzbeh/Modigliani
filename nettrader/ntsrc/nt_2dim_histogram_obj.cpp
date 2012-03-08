@@ -64,7 +64,7 @@ NT_2dim_histogram_o::NT_2dim_histogram_o(NTsize newNumBinsA, NTreal newMinA, NTr
 
 
 /* ***      COPY AND ASSIGNMENT	***/
-NT_2dim_histogram_o::NT_2dim_histogram_o(const NT_2dim_histogram_o & original)
+NT_2dim_histogram_o::NT_2dim_histogram_o(const NT_2dim_histogram_o __attribute__((__unused__)) & original)
 {
 // add assignment code here
 }
