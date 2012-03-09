@@ -19,7 +19,6 @@
  */
 
 #include "common_tools.h"
-
 /**
  * Let's go!
  *
@@ -331,12 +330,57 @@ int get_resting_potential(string fileName) {
 	return 0;
 }
 
+int test() {
+
+	NTBP_lua_based_stochastic_multi_current_o * lua_current =
+			new NTBP_lua_based_stochastic_multi_current_o(
+					0,
+					0 /* mum^-2 */,
+					0/* pS */,
+					0/* mV */,
+					0/* mV */,
+					0.1,
+					6.3/* C */,
+					"/home/man210/Dropbox/workspace/ChannelGenerators/src/lua/SGA_sodium.lua");
+	lua_current->SetSimulationMode(NTBP_DETERMINISTIC);
+
+	NTBP_file_based_stochastic_multi_current_o * file_current =
+			new NTBP_file_based_stochastic_multi_current_o(0, 0 /* mum^-2 */,
+					0/* pS */, 0/* mV */, 0/* mV */, 0.1, 6.3/* C */,
+					"/home/man210/thesis/channels/SGA_sodium.json");
+	file_current->SetSimulationMode(NTBP_BINOMIALPOPULATION);
+
+	NTsize length = floor(200 / 0.01 + 0.5) + 1;
+	for (NTsize i = 1; i <= 8; ++i) {
+		for (NTsize j = 1; j <= 8; ++j) {
+			for (NTsize k = 0; k < length; k++) {
+				NTreal diff =
+						NTBP_lua_based_stochastic_multi_current_o::probability_matrix_map["/home/man210/Dropbox/workspace/ChannelGenerators/src/lua/SGA_sodium.lua"]->getTransitionProbability(
+								k, i, j)
+								- NTBP_file_based_stochastic_multi_current_o::probability_matrix_map["/home/man210/thesis/channels/SGA_sodium.json"]->getTransitionProbability(
+										k, i, j);
+				if (diff > 0.01 || diff < -0.01) {
+					cout << "Merde "
+							<< NTBP_lua_based_stochastic_multi_current_o::probability_matrix_map["/home/man210/Dropbox/workspace/ChannelGenerators/src/lua/SGA_sodium.lua"]->getTransitionProbability(
+									k, i, j) << " =/= "
+							<< NTBP_file_based_stochastic_multi_current_o::probability_matrix_map["/home/man210/thesis/channels/SGA_sodium.json"]->getTransitionProbability(
+									k, i, j) << " from " << i << " to " << j << " at " << (-100 + 0.01*k) << endl;
+				}
+			}
+		}
+	}
+	return 0;
+}
+
 int main(int argc, char* argv[]) {
 	if (strcmp(argv[1], "resting") == 0) {
 		return get_resting_potential(argv[2]);
 	}
 	if (strcmp(argv[1], "simulate") == 0) {
 		return simulate(argv[2]);
+	}
+	if (strcmp(argv[1], "test") == 0) {
+		return test();
 	}
 	return 1;
 }
