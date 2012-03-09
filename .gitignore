@@ -66,3 +66,4 @@ nettrader-api/*
 Makefile.in
 autom4te.cache*
 configure
+config.h.in
