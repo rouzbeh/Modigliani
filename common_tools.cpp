@@ -198,8 +198,8 @@ NTBP_custom_cylindrical_compartment_o* createCompartment(
 			NTreal indDensity = NTBP_corrected_channel_density(
 					current["chDen"].asDouble(), tmpPtr->_area());
 			NTBP_file_based_stochastic_multi_current_o * file_current =
-					new NTBP_file_based_stochastic_multi_current_o(tmpPtr->_area(),
-							indDensity /* mum^-2 */,
+					new NTBP_file_based_stochastic_multi_current_o(
+							tmpPtr->_area(), indDensity /* mum^-2 */,
 							current["chCond"].asDouble() * 1e-9 /* pS */,
 							config_root["vBase"].asDouble() /* mV */,
 							current["chRevPot"].asDouble() /* mV */,
@@ -208,22 +208,41 @@ NTBP_custom_cylindrical_compartment_o* createCompartment(
 							current["chModel"].asString());
 			file_current->SetSimulationMode(NTBP_BINOMIALPOPULATION);
 			tmpPtr->AttachCurrent(file_current, NTBP_IONIC);
+			continue;
 		}
 
 		if ("lua" == current["type"].asString()) {
-			NTreal indDensity = NTBP_corrected_channel_density(
-					current["chDen"].asDouble(), tmpPtr->_area());
-			NTBP_lua_based_deterministic_multi_current_o * lua_current =
-					new NTBP_lua_based_deterministic_multi_current_o(tmpPtr->_area(),
-							indDensity /* mum^-2 */,
-							current["chCond"].asDouble() * 1e-9 /* pS */,
-							config_root["vBase"].asDouble() /* mV */,
-							current["chRevPot"].asDouble() /* mV */,
-							simulation_parameters["timeStep"].asDouble(),
-							config_root["temperature"].asDouble() /* C */,
-							current["chModel"].asString());
-			lua_current->SetSimulationMode(NTBP_DETERMINISTIC);
-			tmpPtr->AttachCurrent(lua_current, NTBP_IONIC);
+			if (1 == current["chAlg"].asInt()) {
+				NTreal indDensity = NTBP_corrected_channel_density(
+						current["chDen"].asDouble(), tmpPtr->_area());
+				NTBP_lua_based_deterministic_multi_current_o * lua_current =
+						new NTBP_lua_based_deterministic_multi_current_o(
+								tmpPtr->_area(), indDensity /* mum^-2 */,
+								current["chCond"].asDouble() * 1e-9 /* pS */,
+								config_root["vBase"].asDouble() /* mV */,
+								current["chRevPot"].asDouble() /* mV */,
+								simulation_parameters["timeStep"].asDouble(),
+								config_root["temperature"].asDouble() /* C */,
+								current["chModel"].asString());
+				lua_current->SetSimulationMode(NTBP_DETERMINISTIC);
+				tmpPtr->AttachCurrent(lua_current, NTBP_IONIC);
+				continue;
+			} else if (4 == current["chAlg"].asInt()) {
+				NTreal indDensity = NTBP_corrected_channel_density(
+						current["chDen"].asDouble(), tmpPtr->_area());
+				NTBP_lua_based_stochastic_multi_current_o * lua_current =
+						new NTBP_lua_based_stochastic_multi_current_o(
+								tmpPtr->_area(), indDensity /* mum^-2 */,
+								current["chCond"].asDouble() * 1e-9 /* pS */,
+								config_root["vBase"].asDouble() /* mV */,
+								current["chRevPot"].asDouble() /* mV */,
+								simulation_parameters["timeStep"].asDouble(),
+								config_root["temperature"].asDouble() /* C */,
+								current["chModel"].asString());
+				lua_current->SetSimulationMode(NTBP_BINOMIALPOPULATION);
+				tmpPtr->AttachCurrent(lua_current, NTBP_IONIC);
+				continue;
+			}
 		}
 	}
 	return tmpPtr;

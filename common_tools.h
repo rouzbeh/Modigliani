@@ -20,6 +20,7 @@
 
 #include <ntbp_membrane_compartment_sequence_obj.h>
 #include <ntbp_file_based_stochastic_multi_current_obj.h>
+#include <ntbp_lua_based_stochastic_multi_current_obj.h>
 #include <ntbp_lua_based_deterministic_multi_current_obj.h>
 #include <ntbp_custom_cylindrical_compartment_obj.h>
 #include <ntbp_hh_sga_leak_current_obj.h>
