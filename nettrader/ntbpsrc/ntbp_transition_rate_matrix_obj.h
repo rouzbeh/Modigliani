@@ -19,6 +19,8 @@ public:
 	virtual ~NTBP_transition_rate_matrix_o();
 	void setTransitionProbability(NTreal voltage, NTsize start, NTsize stop,
 			NTreal probability);
+	void setTransitionProbability(NTsize index, NTsize start, NTsize stop,
+				NTreal probability);
 	NTreal getTransitionProbability(NTreal voltage, NTsize start, NTsize stop);
 	NTreal getTransitionProbability(NTsize index, NTsize start, NTsize stop);
 	NTsize get_index(NTreal voltage);

@@ -26,6 +26,12 @@ void NTBP_transition_rate_matrix_o::setTransitionProbability(NTreal voltage,
 			+ (stop - 1)] = probability;
 }
 
+void NTBP_transition_rate_matrix_o::setTransitionProbability(NTsize index,
+		NTsize start, NTsize stop, NTreal probability) {
+	_probMatrices[index * num_states * num_states + (start - 1) * num_states
+			+ (stop - 1)] = probability;
+}
+
 NTsize NTBP_transition_rate_matrix_o::get_index(NTreal voltage){
 	return floor((voltage - min) / step +0.5);
 }
