@@ -54,7 +54,8 @@ NT3D_ambient_light_o::NT3D_ambient_light_o()
 
 
 /* ***      COPY AND ASSIGNMENT	***/
-NT3D_ambient_light_o::NT3D_ambient_light_o(const NT3D_ambient_light_o & original)
+NT3D_ambient_light_o::NT3D_ambient_light_o(const NT3D_ambient_light_o __attribute__((unused)) & original):
+		NT3D_light_o()
 {
 	cerr << "NT3D_ambient_light_o::NT3D_ambient_light_o - Talk : lightId copied too." << endl;
 }

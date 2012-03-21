@@ -18,43 +18,42 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */ 
-  
+ */
 
 /* $Id: nt3d_pixel_texture_obj.h,v 1.1.1.1 2004/12/16 01:38:36 face Exp $ 
-* $Log: nt3d_pixel_texture_obj.h,v $
-* Revision 1.1.1.1  2004/12/16 01:38:36  face
-* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
-*
-* Revision 1.1  2001/06/29 13:16:55  face
-* *** empty log message ***
-*
-* Revision 1.6  2000/06/13 20:10:26  face
-* *** empty log message ***
-*
-* Revision 1.5  2000/05/13 09:42:55  face
-* *** empty log message ***
-*
-* Revision 1.4  2000/05/11 12:42:08  face
-* removed nt3d_rainbow_o by intergrating it into nt3d_light_o
-*
-* Revision 1.3  2000/05/11 11:32:44  face
-* upgrade to NetTrader Version 0.5.
-* Common state of all files checkin (Versioon 0.5)
-* rearranged color and material classes...
-* texture class added
-*
-* Revision 1.2  2000/04/27 23:52:27  face
-* further corrections
-*
-* Revision 1.1  2000/04/27 18:20:48  face
-* loads of changes:
-* -static init. fiasco workaounrd
-* -texture objects have new structure
-* ...
-*
+ * $Log: nt3d_pixel_texture_obj.h,v $
+ * Revision 1.1.1.1  2004/12/16 01:38:36  face
+ * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+ *
+ * Revision 1.1  2001/06/29 13:16:55  face
+ * *** empty log message ***
+ *
+ * Revision 1.6  2000/06/13 20:10:26  face
+ * *** empty log message ***
+ *
+ * Revision 1.5  2000/05/13 09:42:55  face
+ * *** empty log message ***
+ *
+ * Revision 1.4  2000/05/11 12:42:08  face
+ * removed nt3d_rainbow_o by intergrating it into nt3d_light_o
+ *
+ * Revision 1.3  2000/05/11 11:32:44  face
+ * upgrade to NetTrader Version 0.5.
+ * Common state of all files checkin (Versioon 0.5)
+ * rearranged color and material classes...
+ * texture class added
+ *
+ * Revision 1.2  2000/04/27 23:52:27  face
+ * further corrections
+ *
+ * Revision 1.1  2000/04/27 18:20:48  face
+ * loads of changes:
+ * -static init. fiasco workaounrd
+ * -texture objects have new structure
+ * ...
+ *
 
-*/
+ */
 #ifndef _nt3d_pixel_texture_h_ 
 #define _nt3d_pixel_texture_h_ 
 
@@ -69,28 +68,42 @@
 /* other includes */
 
 /** @short NT3D_pixel_texture_o class 
-\bug unknown
-\warning unknown 
-*/
-class NT3D_pixel_texture_o : public NT3D_texture_o {
+ \bug unknown
+ \warning unknown
+ */
+class NT3D_pixel_texture_o: public NT3D_texture_o {
 public:
-/***   Constructors, Copy/Assignment and Destructor  ***/  
-NT3D_pixel_texture_o(NTsize newTextureWidth=64, NTsize newTextureHeight=64);
-NT3D_pixel_texture_o(const NT3D_pixel_texture_o & original);
-const NT3D_pixel_texture_o & operator= (const NT3D_pixel_texture_o & right);
-~NT3D_pixel_texture_o();
-/* ***  Methods              ***/ 
-/* ***  Data                 ***/  
+	/***   Constructors, Copy/Assignment and Destructor  ***/
+	NT3D_pixel_texture_o(NTsize newTextureWidth = 64, NTsize newTextureHeight =
+			64);
+	NT3D_pixel_texture_o(const NT3D_pixel_texture_o & original);
+	const NT3D_pixel_texture_o & operator=(const NT3D_pixel_texture_o & right);
+	~NT3D_pixel_texture_o();
+	/* ***  Methods              ***/
+	/* ***  Data                 ***/
 protected:
-/* ***  Methods              ***/  
-NTreturn AssignTexture() { return AssignPixelTexture();}
-virtual NTreturn AssignPixelTexture() {return NT_FAIL;}
-/** Make a colored point within the normalised texure area [0,1]x[0,1] */
-virtual NTreal* MakeRGBATexturePoint(NTreal* colorVec, NTreal coorX, NTreal coorY){cerr<<"NT3D_pixel_texture_o::MakeRGBATexturePoint - Warning : Not overriden in derived class. " << endl; return NULL;};
-/* ***  Data                 ***/  
+	/* ***  Methods              ***/
+	NTreturn AssignTexture() {
+		return AssignPixelTexture();
+	}
+	virtual NTreturn AssignPixelTexture() {
+		return NT_FAIL;
+	}
+	/** Make a colored point within the normalised texure area [0,1]x[0,1] */
+	virtual NTreal* MakeRGBATexturePoint(
+			NTreal __attribute__((unused)) *colorVec,
+			NTreal __attribute__((unused)) coorX,
+			NTreal __attribute__((unused)) coorY) {
+		cerr
+				<< "NT3D_pixel_texture_o::MakeRGBATexturePoint - Warning : Not overriden in derived class. "
+				<< endl;
+		return NULL;
+	}
+	;
+	/* ***  Data                 ***/
 private:
-/* ***  Methods              ***/  
-/* ***  Data                 ***/ 
+	/* ***  Methods              ***/
+	/* ***  Data                 ***/
 };
 #endif /* _nt3d_pixel_texture_h_ */ 
 

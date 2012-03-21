@@ -70,6 +70,7 @@ public:
     /** after resize states are reset to scratch */
     NTreturn Resize(NTsize newRingLength) {
         Init(newRingLength);
+        return NT_SUCCESS;
     }
     void Push( T value ) {
         bufferVec[IncreaseCounter()] = value;

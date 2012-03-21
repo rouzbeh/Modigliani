@@ -38,7 +38,7 @@
 /* NT includes */
 #include "nt_str2real_obj.h"
 /* other includes */
-#include <string>
+#include <cstring>
 #include <map>
 #include <fstream>
 

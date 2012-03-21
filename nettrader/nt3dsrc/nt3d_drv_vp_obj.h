@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */ 
+ */
 
 /* $Id: nt3d_drv_vp_obj.h,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
  * $Log: nt3d_drv_vp_obj.h,v $
@@ -59,10 +59,9 @@
  * Revision 1.1  1999/04/22 11:37:49  face
  * Initial revision
  *
-*/
+ */
 #ifndef _nt3d_drv_vp_h_
 #define _nt3d_drv_vp_h_
-
 
 #include "nt_main.h"
 #include "nt_types.h"
@@ -73,45 +72,81 @@
 #include "nt3d_vp_obj.h"
 #include "nt3d_bitmap_obj.h"
 
-
 /** @short NT3D_drv_vp_o class
-This viewport driver parent class provides the infrastructure for
-the NT3D_abstract_vp_o child classes which register with this class.
-In return this class dos not use its Draw() method so the draw method
-in the abstract class is called!
-\bug unknown
-\warning Do not override Draw() !
+ This viewport driver parent class provides the infrastructure for
+ the NT3D_abstract_vp_o child classes which register with this class.
+ In return this class dos not use its Draw() method so the draw method
+ in the abstract class is called!
+ \bug unknown
+ \warning Do not override Draw() !
  */
 
-class NT3D_drv_vp_o : public NT3D_vp_o {
+class NT3D_drv_vp_o: public NT3D_vp_o {
 public:
-  /***   Constructors, CopyAssignment and Destructor  ***/  
-  NT3D_drv_vp_o();
-  /*NT3D_drv_vp_o(const NT3D_drv_vp_o & original);
-  const NT3D_drv_vp_o & operator= (const NT3D_drv_vp_o & right);*/
-  virtual ~NT3D_drv_vp_o();
-  /* ***  Methods              ***/
-  virtual NTreturn Open(NT3D_vp_spec_o newWinSpec){NT_CERR(5,"NT3D_drv_vp_o::Open()");return NT_SUCCESS;};
-  virtual NTreturn Close(){NT_CERR(5,"NT3D_drv_vp_o::Close()");return NT_SUCCESS;}
-  virtual void Init(){};
-  virtual NTreturn Resize(NTsize width, NTsize height){NT_CERR(5,"NT3D_drv_vp_o::Resize()");return NT_FAIL;}
-  virtual void Redraw(){};
-  virtual NT3D_bitmap_o View2Bitmap(){NT_CERR(3,"NT3D_bitmap_o NT3D_drv_vp_o::View2Mem - Warning : Method should be implemented in derived class ."); 
-  										NT3D_bitmap_o oTmp; return oTmp;}
-  virtual NT3D_bitmap_o * View2BitmapPtr(NT3D_bitmap_o * bmpPtr){NT_CERR(3,"NT3D_bitmap_o * NT3D_drv_vp_o::View2Mem - Warning : Method should be implemented in derived class ."); 
-  										return bmpPtr;} //2DO implement code to handle continuos use of same allocated pointer
-  																	// take care that resize event are handled though!
-  virtual NTsize _width(){NT_CERR(1,"NT3D_drv_vp_o::_width() - Error : Should be implemented in derived class"); return 0;}
-  virtual NTsize _height(){NT_CERR(1,"NT3D_drv_vp_o::_height() - Error : Should be implemented in derived class"); return 0;}
+	/***   Constructors, CopyAssignment and Destructor  ***/
+	NT3D_drv_vp_o();
+	/*NT3D_drv_vp_o(const NT3D_drv_vp_o & original);
+	 const NT3D_drv_vp_o & operator= (const NT3D_drv_vp_o & right);*/
+	virtual ~NT3D_drv_vp_o();
+	/* ***  Methods              ***/
+	virtual NTreturn Open(NT3D_vp_spec_o __attribute__((unused)) newWinSpec) {
+		NT_CERR(5, "NT3D_drv_vp_o::Open()");
+		return NT_SUCCESS;
+	}
+	;
+	virtual NTreturn Close() {
+		NT_CERR(5, "NT3D_drv_vp_o::Close()");
+		return NT_SUCCESS;
+	}
+	virtual void Init() {
+	}
+	;
+	virtual NTreturn Resize(NTsize __attribute__((unused)) width,
+			NTsize __attribute__((unused)) height) {
+		NT_CERR(5, "NT3D_drv_vp_o::Resize()");
+		return NT_FAIL;
+	}
+	virtual void Redraw() {
+	}
+	;
+	virtual NT3D_bitmap_o View2Bitmap() {
+		NT_CERR(
+				3,
+				"NT3D_bitmap_o NT3D_drv_vp_o::View2Mem - Warning : Method should be implemented in derived class .");
+		NT3D_bitmap_o oTmp;
+		return oTmp;
+	}
+	virtual NT3D_bitmap_o * View2BitmapPtr(NT3D_bitmap_o * bmpPtr) {
+		NT_CERR(
+				3,
+				"NT3D_bitmap_o * NT3D_drv_vp_o::View2Mem - Warning : Method should be implemented in derived class .");
+		return bmpPtr;
+	} //2DO implement code to handle continuos use of same allocated pointer
+	  // take care that resize event are handled though!
+	virtual NTsize _width() {
+		NT_CERR(
+				1,
+				"NT3D_drv_vp_o::_width() - Error : Should be implemented in derived class");
+		return 0;
+	}
+	virtual NTsize _height() {
+		NT_CERR(
+				1,
+				"NT3D_drv_vp_o::_height() - Error : Should be implemented in derived class");
+		return 0;
+	}
 
-   /* ***  Data                 ***/  
-  protected:
-  /* ***  Methods              ***/  
-  /* ***  Data                 ***/  
-  private:
-  /* ***  Methods              ***/
-  void Draw() { pVP->Draw();};  
-  /* ***  Data                 ***/
+	/* ***  Data                 ***/
+protected:
+	/* ***  Methods              ***/
+	/* ***  Data                 ***/
+private:
+	/* ***  Methods              ***/
+	void Draw() {
+		pVP->Draw();
+	}
+	;
+	/* ***  Data                 ***/
 };
 #endif /* _nt3d_drv_vp_h_ */ 
 

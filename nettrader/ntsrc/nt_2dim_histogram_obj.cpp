@@ -64,7 +64,8 @@ NT_2dim_histogram_o::NT_2dim_histogram_o(NTsize newNumBinsA, NTreal newMinA, NTr
 
 
 /* ***      COPY AND ASSIGNMENT	***/
-NT_2dim_histogram_o::NT_2dim_histogram_o(const NT_2dim_histogram_o __attribute__((__unused__)) & original)
+NT_2dim_histogram_o::NT_2dim_histogram_o(const NT_2dim_histogram_o __attribute__((__unused__)) & original):
+		NT_o()
 {
 // add assignment code here
 }
@@ -101,10 +102,10 @@ NTsize NT_2dim_histogram_o::BinValue(NTreal valueA, NTreal valueB)
 {
     NTsize normValA = NTsize(floor(numBinsA*(valueA-minA)/rangeA));
     NTsize normValB = NTsize(floor(numBinsB*(valueB-minB)/rangeB));
-    if ( (normValA < 0) || (normValA >= numBinsA) ) {
+    if (normValA >= numBinsA) {
         numUnbinned++;
         return 1;
-    } else if ( (normValB < 0) || (normValB >= numBinsB) ) {
+    } else if (normValB >= numBinsB) {
         numUnbinned++;
         return 2;
     } else {

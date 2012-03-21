@@ -74,7 +74,8 @@ NT3D_pixel_texture_o(newTextureWidth, newTextureHeight)
 }
 
 /* ***      COPY AND ASSIGNMENT	***/ 
-NT3D_rainbow_texture_o::NT3D_rainbow_texture_o(const NT3D_rainbow_texture_o & original)
+NT3D_rainbow_texture_o::NT3D_rainbow_texture_o(const NT3D_rainbow_texture_o & original):
+		NT3D_pixel_texture_o(original.textureWidth, original.textureHeight)
 {
 }
 

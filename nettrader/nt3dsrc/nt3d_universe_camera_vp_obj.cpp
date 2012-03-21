@@ -18,126 +18,122 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */ 
-  
+ */
 
 /* $Id: nt3d_universe_camera_vp_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $ 
-* $Log: nt3d_universe_camera_vp_obj.cpp,v $
-* Revision 1.1.1.1  2004/12/16 01:38:36  face
-* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
-*
-* Revision 1.2  2003/06/23 10:06:51  face
-* Upgraded to gcc-3.3 compilability
-*
-* Revision 1.1  2001/06/29 13:16:55  face
-* *** empty log message ***
-*
-* Revision 1.4  2000/10/01 09:33:47  face
-* *** empty log message ***
-*
-* Revision 1.3  2000/06/26 19:14:06  face
-* finally found the error that caused solid object to disappear:
-* the scaling vector was not constructed in the 2nd constructor
-* of the solid bject thus resulting in a zero object
-* new demo file: showing some random graphics
-*
-* Revision 1.2  2000/06/13 20:10:26  face
-* *** empty log message ***
-*
-* Revision 1.1  1999/07/20 01:15:08  face
-* general debugging and clean up
-*
+ * $Log: nt3d_universe_camera_vp_obj.cpp,v $
+ * Revision 1.1.1.1  2004/12/16 01:38:36  face
+ * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+ *
+ * Revision 1.2  2003/06/23 10:06:51  face
+ * Upgraded to gcc-3.3 compilability
+ *
+ * Revision 1.1  2001/06/29 13:16:55  face
+ * *** empty log message ***
+ *
+ * Revision 1.4  2000/10/01 09:33:47  face
+ * *** empty log message ***
+ *
+ * Revision 1.3  2000/06/26 19:14:06  face
+ * finally found the error that caused solid object to disappear:
+ * the scaling vector was not constructed in the 2nd constructor
+ * of the solid bject thus resulting in a zero object
+ * new demo file: showing some random graphics
+ *
+ * Revision 1.2  2000/06/13 20:10:26  face
+ * *** empty log message ***
+ *
+ * Revision 1.1  1999/07/20 01:15:08  face
+ * general debugging and clean up
+ *
 
-*/
+ */
 
 #include "nt3d_universe_camera_vp_obj.h" 
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NT3D_universe_camera_vp_o */
-NT3D_universe_camera_vp_o::NT3D_universe_camera_vp_o()
-:
-NT3D_camera_vp_o()
-{
+NT3D_universe_camera_vp_o::NT3D_universe_camera_vp_o() :
+		NT3D_camera_vp_o() {
 	haveUniverse = false;
 }
 
-NT3D_universe_camera_vp_o::NT3D_universe_camera_vp_o(NT3D_universe_o * pNewUniverse)
-:
-NT3D_camera_vp_o()
-{
+NT3D_universe_camera_vp_o::NT3D_universe_camera_vp_o(
+		NT3D_universe_o * pNewUniverse) :
+		NT3D_camera_vp_o() {
 	pUniverse = pNewUniverse;
 	haveUniverse = true;
 }
 
-NT3D_universe_camera_vp_o::NT3D_universe_camera_vp_o(NT3D_camera_o * pNewCamera)
-:
-NT3D_camera_vp_o(pNewCamera)
-{
+NT3D_universe_camera_vp_o::NT3D_universe_camera_vp_o(NT3D_camera_o * pNewCamera) :
+		NT3D_camera_vp_o(pNewCamera) {
 	haveUniverse = false;
 }
 
-
-/* ***      COPY AND ASSIGNMENT	***/ 
-NT3D_universe_camera_vp_o::NT3D_universe_camera_vp_o(const NT3D_universe_camera_vp_o & original)
-{
+/* ***      COPY AND ASSIGNMENT	***/
+NT3D_universe_camera_vp_o::NT3D_universe_camera_vp_o(
+		const NT3D_universe_camera_vp_o __attribute__((unused)) & original) :
+		NT3D_camera_vp_o() {
 	// take care of camera and universe pointers and their deletability and new creation!
-	NT_CERR(1,"NT3D_universe_camera_vp_o::NT3D_universe_camera_vp_o(const ...) - Error, copy constructor not implemented .");
+	NT_CERR(
+			1,
+			"NT3D_universe_camera_vp_o::NT3D_universe_camera_vp_o(const ...) - Error, copy constructor not implemented .");
 }
 
-const NT3D_universe_camera_vp_o&  
-NT3D_universe_camera_vp_o::operator= (const NT3D_universe_camera_vp_o & right)
-{
- if (this == &right) return *this; // Gracefully handle self assignment
- // add assignment code here
- NT_CERR(1,"NT3D_universe_camera_vp_o::operator= - Error : operator= not implemented .");
-  return *this;
+const NT3D_universe_camera_vp_o&
+NT3D_universe_camera_vp_o::operator=(const NT3D_universe_camera_vp_o & right) {
+	if (this == &right)
+		return *this; // Gracefully handle self assignment
+	// add assignment code here
+	NT_CERR(
+			1,
+			"NT3D_universe_camera_vp_o::operator= - Error : operator= not implemented .");
+	return *this;
 }
 
 /* ***      DESTRUCTOR		***/
-NT3D_universe_camera_vp_o::~NT3D_universe_camera_vp_o()
-{
+NT3D_universe_camera_vp_o::~NT3D_universe_camera_vp_o() {
 }
 
-/* ***  PUBLIC                                    ***   */  
+/* ***  PUBLIC                                    ***   */
 /** @short       
-    @param      none
-    @return     none
-   \warning    unknown
-   \bug        unknown
+ @param      none
+ @return     none
+ \warning    unknown
+ \bug        unknown
  */
-inline void
-NT3D_universe_camera_vp_o::DrawScene() 
-{
+inline void NT3D_universe_camera_vp_o::DrawScene() {
 	if (false == haveUniverse) {
-		NT_CERR(3,"NT3D_universe_camera_vp_o::DrawScene - Warning : Universe was not added previously. Nothing drawn.");
+		NT_CERR(
+				3,
+				"NT3D_universe_camera_vp_o::DrawScene - Warning : Universe was not added previously. Nothing drawn.");
 		return;
-	} 
+	}
 	glEnable(GL_DEPTH_TEST);
-   	glEnable(GL_LIGHTING);
-   	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
-	glShadeModel (GL_SMOOTH);
+	glEnable(GL_LIGHTING);
+	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+	glShadeModel(GL_SMOOTH);
 	pUniverse->Draw();
 }
 
 /** @short       
-    @param      none
-    @return     none
-   \warning    unknown
-   \bug        unknown
+ @param      none
+ @return     none
+ \warning    unknown
+ \bug        unknown
  */
-NTreturn
-NT3D_universe_camera_vp_o::AddUniverse(NT3D_universe_o * pNewUniverse) 
-{
-		if (NT_TRUE == haveUniverse)
-			NT_CERR(3,"NT3D_universe_camera_vp_o::AddUniverse - warning : new universe is overwriting old universe pointer.");
-		pUniverse = pNewUniverse;
-		haveUniverse = true;
-		return NT_SUCCESS;
+NTreturn NT3D_universe_camera_vp_o::AddUniverse(
+		NT3D_universe_o * pNewUniverse) {
+	if (NT_TRUE == haveUniverse)
+		NT_CERR(
+				3,
+				"NT3D_universe_camera_vp_o::AddUniverse - warning : new universe is overwriting old universe pointer.");
+	pUniverse = pNewUniverse;
+	haveUniverse = true;
+	return NT_SUCCESS;
 }
-
 
 /* ***  PROTECTED                         ***   */
 /* ***  PRIVATE                           ***   */
-
 
 /* File skeleton generated by GenNTObj version 0.6. */

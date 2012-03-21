@@ -104,7 +104,9 @@ NT_uniform_vec_rnd_dist_o::NT_uniform_vec_rnd_dist_o(NT_vector_o newLowerBound, 
 }
 
 /* ***      COPY AND ASSIGNMENT	***/
-NT_uniform_vec_rnd_dist_o::NT_uniform_vec_rnd_dist_o(const NT_uniform_vec_rnd_dist_o & original)
+NT_uniform_vec_rnd_dist_o::NT_uniform_vec_rnd_dist_o(
+		const NT_uniform_vec_rnd_dist_o __attribute__((unused)) & original):
+		NT_vec_rnd_dist_o()
 {
 }
 

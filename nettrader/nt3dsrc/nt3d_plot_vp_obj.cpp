@@ -41,7 +41,8 @@ NT3D_abstract_vp_o()
 {
 }
 /* ***      COPY AND ASSIGNMENT	***/ 
-NT3D_plot_vp_o::NT3D_plot_vp_o(const NT3D_plot_vp_o & original)
+NT3D_plot_vp_o::NT3D_plot_vp_o(const NT3D_plot_vp_o __attribute__((unused)) & original):
+		NT3D_abstract_vp_o()
 {
  // add assignment code here
 }

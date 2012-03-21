@@ -38,7 +38,8 @@
 NT3D_plot_o::NT3D_plot_o(){
 }
 /* ***      COPY AND ASSIGNMENT	***/ 
-NT3D_plot_o::NT3D_plot_o(const NT3D_plot_o & original)
+NT3D_plot_o::NT3D_plot_o(const NT3D_plot_o __attribute__((unused)) & original):
+		NT_o()
 {
  // add assignment code here
 }

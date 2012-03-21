@@ -10,7 +10,7 @@
 NTBP_transition_rate_matrix_o::NTBP_transition_rate_matrix_o(
 		NTsize new_num_states, NTreal new_min, NTreal new_max, NTreal new_step) :
 		min(new_min), max(new_max), step(new_step), num_states(new_num_states) {
-	long long length = (floor((max - min) / step + 0.5) + 1)	* num_states * num_states;
+	int length = (floor((max - min) / step + 0.5) + 1)	* num_states * num_states;
 	_probMatrices = new NTreal[length];
 	for (int i = 0; i< length; i++){
 		_probMatrices[i]=0;

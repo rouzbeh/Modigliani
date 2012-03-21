@@ -61,7 +61,12 @@ height(newHeight)
 	
 }
 /* ***      COPY AND ASSIGNMENT	***/ 
-NT3D_open_box_o::NT3D_open_box_o(const NT3D_open_box_o & original)
+NT3D_open_box_o::NT3D_open_box_o(const NT3D_open_box_o & original):
+		NT3D_surfaced_object_o(),
+		oScaling(original.oScaling),
+		width(original.width),
+		depth(original.depth),
+		height(original.height)
 {
  // add assignment code here
 }
@@ -89,8 +94,6 @@ NT3D_open_box_o::~NT3D_open_box_o()
 void
 NT3D_open_box_o::DrawSurfacedObj() 
 {
-	static bool initDone = false;
-	
 	NTreal x = depth/2 * oScaling.x;
 	NTreal y = height/2 * oScaling.y;
 	NTreal z = width/2 * oScaling.z;

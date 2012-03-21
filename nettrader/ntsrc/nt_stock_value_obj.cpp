@@ -63,7 +63,6 @@
  *
  */
 
-
 #include "nt_stock_value_obj.h"
 #include "nt_date_obj.h"
 
@@ -76,13 +75,11 @@
 //	Input :
 //	Output :
 //
-NT_stock_value_o::NT_stock_value_o()
-{
-    stockExchangeId = NT_STKEXC_UNDEF;
-    currentBuyingPrice = 0.0;
-    currentSellingPrice = 0.0;
+NT_stock_value_o::NT_stock_value_o() {
+	stockExchangeId = NT_STKEXC_UNDEF;
+	currentBuyingPrice = 0.0;
+	currentSellingPrice = 0.0;
 }
-
 
 //
 //	Method name : NT_stock_value_o(const NT_stock_value_o &)
@@ -91,13 +88,10 @@ NT_stock_value_o::NT_stock_value_o()
 //	Input :
 //	Output :
 //
-NT_stock_value_o::NT_stock_value_o(const NT_stock_value_o &)
-{
+NT_stock_value_o::NT_stock_value_o(const NT_stock_value_o &) :
+		NT_value_o() {
 
 }
-
-
-
 
 //
 //	Method name : ~NT_stock_value_o
@@ -106,21 +100,17 @@ NT_stock_value_o::NT_stock_value_o(const NT_stock_value_o &)
 //	Input :
 //	Output :
 //
-NT_stock_value_o::~NT_stock_value_o()
-{
+NT_stock_value_o::~NT_stock_value_o() {
 
 }
 
+ostream & operator<<(ostream & os, const NT_stock_value_o & self) {
+	string tmpName = self._name();
+	os << "NT_stock_value_o" << NT_SEPARATOR << self._id() << NT_SEPARATOR
+	<< self._amount() << NT_SEPARATOR << tmpName << NT_SEPARATOR
+	<< self._value() << NT_SEPARATOR << self.currentBuyingPrice << NT_SEPARATOR
+	<< self.currentSellingPrice << NT_SEPARATOR << self.emissionDate << endl;
 
-ostream & operator<<(ostream & os, const NT_stock_value_o & self)
-{
-    string tmpName = self._name();
-    os << "NT_stock_value_o"  << NT_SEPARATOR << self._id() << NT_SEPARATOR
-    << self._amount() << NT_SEPARATOR  <<  tmpName << NT_SEPARATOR
-    << self._value() << NT_SEPARATOR << self.currentBuyingPrice << NT_SEPARATOR
-    << self.currentSellingPrice << NT_SEPARATOR << self.emissionDate
-    << endl;
-
-    return os;
+	return os;
 }
 

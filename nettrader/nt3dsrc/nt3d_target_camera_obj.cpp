@@ -57,7 +57,8 @@ NT3D_camera_o(oNewPosition,oNewTarget)
 }
 
 /* ***      COPY AND ASSIGNMENT	***/ 
-NT3D_target_camera_o::NT3D_target_camera_o(const NT3D_target_camera_o & original)
+NT3D_target_camera_o::NT3D_target_camera_o(const NT3D_target_camera_o __attribute__((unused)) & original):
+		NT3D_camera_o()
 {
 	NT_CERR(1,"NT3D_target_camera_o::NT3D_target_camera_o(const...) - Error : Not implemented.");
 }

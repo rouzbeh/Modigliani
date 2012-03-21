@@ -39,8 +39,8 @@
 
 /* other includes */
 #include <cmath>
-#include <limits.h>
-#include <float.h>
+#include <climits>
+#include <cfloat>
 
 /** @short NT_sequential_statistics_o class
 \bug unknown

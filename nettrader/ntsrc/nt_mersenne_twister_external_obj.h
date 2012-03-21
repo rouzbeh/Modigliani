@@ -51,8 +51,8 @@
 // its own MTRand object)
 
 #include <iostream>
-#include <limits.h>
-#include <stdio.h>
+#include <climits>
+#include <cstdio>
 
 
 class MTRand {
@@ -246,7 +246,7 @@ inline void MTRand::seed()
         register bool success = true;
         while ( success && i-- )
         {
-            success = fread( s, sizeof(uint32), 1, urandom );
+            success = fread(s, sizeof(uint32), (size_t) 1, urandom );
             *s++ &= 0xffffffff;  // filter in case uint32 > 32 bits
         }
         fclose(urandom);

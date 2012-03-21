@@ -146,7 +146,8 @@ information should be stored inside the ellipsoid object such that the
 state of that object can be reconstructed by copying the corresponding
 object data.  
 Note: The texturePointer is not copied BUT instead a new is generated based on the original.*/
-NT3D_solid_o::NT3D_solid_o(const NT3D_solid_o & original)
+NT3D_solid_o::NT3D_solid_o(const NT3D_solid_o & original):
+		NT3D_surfaced_object_o()
 {
   pQuadObj = gluNewQuadric();
   drawStyle = original.drawStyle;

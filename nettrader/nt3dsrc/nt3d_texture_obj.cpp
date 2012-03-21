@@ -132,15 +132,16 @@ cerr<< "NT3D_texture_o::NT3D_texture_o() - Talk : uniqId="<<_uniqId() << endl;
 
 /* ***      COPY AND ASSIGNMENT	***/ 
 /** The copy constructor copies all aspects of the texture, but binds it to a new, different textureId */
-NT3D_texture_o::NT3D_texture_o(const NT3D_texture_o & original)
+NT3D_texture_o::NT3D_texture_o(const NT3D_texture_o & original):
+		NT_o()
 {
  NT_CERR(7,"NT3D_texture_o::NT3D_texture_o - Talk : copy and assignment called.");
- textureImagePtr = new GLfloat[4*textureWidth*textureHeight];
+
 
  textureWidth = original.textureWidth;
  textureHeight = original.textureHeight;
  dim = original.dim;
-	
+ textureImagePtr = new GLfloat[4*textureWidth*textureHeight];
  for (NTsize ll = 0 ; ll < 4*textureWidth*textureHeight; ll++)
 	textureImagePtr[ll] = original.textureImagePtr[ll];
 

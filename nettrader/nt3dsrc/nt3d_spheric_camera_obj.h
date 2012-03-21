@@ -66,7 +66,7 @@ virtual ~NT3D_spheric_camera_o();
 /* ***  Methods              ***/
 void DrawChild();
 void RedrawChild(){}
-NTreturn ResizeChild(NTsize width, NTsize height){return NT_SUCCESS;}
+NTreturn ResizeChild(NTsize __attribute__((unused)) width, NTsize __attribute__((unused)) height){return NT_SUCCESS;}
 void InitChild(){}
 /* ***  Data                 ***/  
 NT3D_stub_o eye;

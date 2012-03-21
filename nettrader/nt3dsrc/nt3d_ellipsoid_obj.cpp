@@ -98,7 +98,8 @@ NT3D_ellipsoid_o::NT3D_ellipsoid_o(NT_vector3_o oNewTranslation, NT_vector3_o oN
  }
  
 /** \warning see corresponding note in NT3D_solid_o */
-NT3D_ellipsoid_o::NT3D_ellipsoid_o(const NT3D_ellipsoid_o & original)
+NT3D_ellipsoid_o::NT3D_ellipsoid_o(const NT3D_ellipsoid_o & original):
+		NT3D_solid_o()
 {
  	oHalfAxis = original.oHalfAxis;
 }

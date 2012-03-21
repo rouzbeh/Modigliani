@@ -61,7 +61,8 @@ NT3D_pixel_texture_o(newTextureWidth, newTextureHeight)
 }
 
 /* ***      COPY AND ASSIGNMENT	***/ 
-NT3D_noise_texture_o::NT3D_noise_texture_o(const NT3D_noise_texture_o & original)
+NT3D_noise_texture_o::NT3D_noise_texture_o(const NT3D_noise_texture_o & original):
+		NT3D_pixel_texture_o(original.textureWidth, original.textureHeight)
 {
 }
 
@@ -86,7 +87,7 @@ NT3D_noise_texture_o::~NT3D_noise_texture_o()
    \bug        unknown
  */
 NTreal *
-NT3D_noise_texture_o::MakeRGBATexturePoint(NTreal* colorVec, NTreal coorX, NTreal coorY) 
+NT3D_noise_texture_o::MakeRGBATexturePoint(NTreal* colorVec, NTreal __attribute__((unused)) coorX, NTreal __attribute__((unused)) coorY)
 {
 		
 	colorVec[0] = rRnd.RndVal();

@@ -21,14 +21,18 @@ main(int argc, char* argv[])
         exit(1);
     }
     string filename = argv[1];
-    int columns = atoi( argv[2]);
+    unsigned int columns = atoi( argv[2]);
     int every = atoi( argv[3]);
 
     if (every < 1) every = 1;
+    unsigned int number = 0;
 
-    if (argc > 4) selectColumns = true;
-    vector <unsigned int> selectVec(argc-4);
-    for (unsigned int ll =0 ;ll < argc-4; ll++) {
+    if (argc > 4) {
+    	selectColumns = true;
+    	number=argc-4;
+    }
+    vector <unsigned int> selectVec(number);
+    for (unsigned int ll =0 ;ll < number; ll++) {
         selectVec[ll] = atoi(argv[ll+4])-1;
     }
 
@@ -46,7 +50,7 @@ main(int argc, char* argv[])
 
         if (rows%every == 0) {
             if (true == selectColumns) {
-                for (unsigned int ll =0 ;ll < argc-4; ll++) {
+                for (unsigned int ll =0 ;ll < number; ll++) {
                     cout << buffer[selectVec[ll]] << "\t";
                 }
             } else {

@@ -1,6 +1,6 @@
 #include "../ntsrc/nt_ring_buffer_obj.h"
 
-int main(int argc, char * argv[])
+int main()
 {
     NT_ring_buffer_o <int> test(5);
 

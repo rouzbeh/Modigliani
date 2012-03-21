@@ -48,12 +48,14 @@ int main(int argc, char* argv[]) {
 		exit(1);
 	}
 	string filename = argv[1];
-	int columns = atoi(argv[2]);
+	unsigned int columns = atoi(argv[2]);
 	float upThreshold = atof(argv[3]);
 	float downThreshold = atof(argv[4]);
-
+	unsigned int number = 0;
 	if (argc > NUM_NON_COLUMN_PARAM
-		) selectColumns = true;
+		) {selectColumns = true;
+		number = argc - NUM_NON_COLUMN_PARAM;
+		}
 	vector<unsigned int> selectVec(argc - NUM_NON_COLUMN_PARAM);
 
 	vector<vector<float> > isiListVec;
@@ -61,7 +63,7 @@ int main(int argc, char* argv[]) {
 	vector<vector<float> >::iterator itVec;
 	vector<float>::iterator itList;
 	//unsigned	int ll;
-	for (unsigned int ll = 0; ll < argc - NUM_NON_COLUMN_PARAM; ll++) {
+	for (unsigned int ll = 0; ll < number; ll++) {
 		if (atoi(argv[ll + NUM_NON_COLUMN_PARAM]) == 1) {
 			cerr
 					<< "You selected the first column to be checked for spikes, it should contain the time."
@@ -105,7 +107,7 @@ int main(int argc, char* argv[]) {
 	while (file.eof() == 0) {
 		file.read(reinterpret_cast<char*>(buffer), columns * sizeof(float));
 		if (true == selectColumns) {
-			for (unsigned int ll = 0; ll < argc - NUM_NON_COLUMN_PARAM; ll++) {
+			for (unsigned int ll = 0; ll < number; ll++) {
 				if (1
 						== CheckForSpike(buffer[selectVec[ll]], upThreshold,
 								downThreshold, &(spiking[selectVec[ll]]))) {

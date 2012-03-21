@@ -20,7 +20,6 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-
 /* $Id: nt_gui_drv_obj.cpp,v 1.1 2001/06/11 13:18:56 face Exp $
  * $Log: nt_gui_drv_obj.cpp,v $
  * Revision 1.1  2001/06/11 13:18:56  face
@@ -49,61 +48,48 @@
 
 #include "nt_gui_drv_obj.h"
 
-
 /* 	CONSTRUCTORS 		*/
 /** Create a gui_drv from origin (0,0,0) to (1,1,1) */
-NT_gui_drv_o::NT_gui_drv_o()
-{
+NT_gui_drv_o::NT_gui_drv_o() {
 }
 
-
 /* 	COPY AND ASSIGNMENT 	*/
-NT_gui_drv_o::NT_gui_drv_o(const NT_gui_drv_o & original)
-{
+NT_gui_drv_o::NT_gui_drv_o(
+		const NT_gui_drv_o __attribute__((unused)) & original) :
+		NT_o() {
 }
 
 const NT_gui_drv_o&
-NT_gui_drv_o::operator= (const NT_gui_drv_o & right)
-{
-    if (this == &right) return *this; // Gracefully handle self assignment
-    // add assignment code here
-    return *this;
+NT_gui_drv_o::operator=(const NT_gui_drv_o & right) {
+	if (this == &right)
+		return *this; // Gracefully handle self assignment
+	// add assignment code here
+	return *this;
 }
-
 
 /* 	DESTRUCTOR 		*/
-NT_gui_drv_o::~NT_gui_drv_o()
-{
+NT_gui_drv_o::~NT_gui_drv_o() {
 }
-
 
 /* *** 	PUBLIC				          ***	*/
 /** @short
-    @param 	none
-    @return 	none
-    \warning 	unknown
-    \bug 	unknown
+ @param 	none
+ @return 	none
+ \warning 	unknown
+ \bug 	unknown
  */
-void
-NT_gui_drv_o::SwapBuffer() const
-{
+void NT_gui_drv_o::SwapBuffer() const {
 }
 
-void NT_gui_drv_o::MakeCurrent() const {}
+void NT_gui_drv_o::MakeCurrent() const {
+}
 
+void NT_gui_drv_o::Resize(NTsize __attribute__((unused)) width,
+		NTsize __attribute__((unused)) height) {
+}
 
-void NT_gui_drv_o::Resize(NTsize width, NTsize height) {}
-
-void NT_gui_drv_o::Redraw() {}
+void NT_gui_drv_o::Redraw() {
+}
 /* *** 	PROTECTED     	      		  ***	*/
 /* ***	PRIVATE               		  ***   */
-
-
-
-
-
-
-
-
-
 

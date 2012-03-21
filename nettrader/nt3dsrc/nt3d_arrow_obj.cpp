@@ -20,7 +20,6 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-
 /* $Id: nt3d_arrow_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
  * $Log: nt3d_arrow_obj.cpp,v $
  * Revision 1.1.1.1  2004/12/16 01:38:36  face
@@ -49,56 +48,39 @@
 
 #include "nt3d_arrow_obj.h"
 
-
 /* 	CONSTRUCTORS 		*/
 /** Create a arrow from origin (0,0,0) to (1,1,1) */
-NT3D_arrow_o::NT3D_arrow_o()
-{
+NT3D_arrow_o::NT3D_arrow_o() {
 }
-
 
 /* 	COPY AND ASSIGNMENT 	*/
-NT3D_arrow_o::NT3D_arrow_o(const NT3D_arrow_o & original)
-{
+NT3D_arrow_o::NT3D_arrow_o(
+		const NT3D_arrow_o __attribute__((unused)) & original) :
+		NT3D_solid_o() {
 }
 
-const NT3D_arrow_o&  
-NT3D_arrow_o::operator= (const NT3D_arrow_o & right)
-{
-  if (this == &right) return *this; // Gracefully handle self assignment
-  // add assignment code here
-  return *this;
+const NT3D_arrow_o&
+NT3D_arrow_o::operator=(const NT3D_arrow_o & right) {
+	if (this == &right)
+		return *this; // Gracefully handle self assignment
+	// add assignment code here
+	return *this;
 }
-
 
 /* 	DESTRUCTOR 		*/
-NT3D_arrow_o::~NT3D_arrow_o()
-{
+NT3D_arrow_o::~NT3D_arrow_o() {
 }
 
-
-/* *** 	PUBLIC				          ***	*/  
+/* *** 	PUBLIC				          ***	*/
 /** @short 	 
-    @param 	none
-    @return 	none
-    \warning 	unknown
-    \bug 	unknown
+ @param 	none
+ @return 	none
+ \warning 	unknown
+ \bug 	unknown
  */
-void 
-NT3D_arrow_o::Collinearize(const NT_vector3_o &)
-{
+void NT3D_arrow_o::Collinearize(const NT_vector3_o &) {
 }
-
 
 /* *** 	PROTECTED     	      		  ***	*/
 /* ***	PRIVATE               		  ***   */
-
-
-
-
-
-
-
-
-
 

@@ -70,9 +70,9 @@ virtual ~NT3D_open_box_o();
 protected:
 /* ***  Methods              ***/
 void DrawSurfacedObj();
-virtual void ControlObj(NT3Dcontroller cntrl , NTint value){cerr << "Not implemented" << endl;};
-virtual void ControlObj(NT3Dcontroller cntrl , NTreal value){cerr << "Not implemented" << endl;};
-virtual void ControlObj(NT3Dcontroller cntrl , NT_vector_o value){cerr << "Not implemented" << endl;};
+virtual void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl , NTint __attribute__((unused)) value){cerr << "Not implemented" << endl;};
+virtual void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl , NTreal __attribute__((unused)) value){cerr << "Not implemented" << endl;};
+virtual void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl , NT_vector_o __attribute__((unused)) value){cerr << "Not implemented" << endl;};
 /* ***  Data                 ***/  
 NT_vector3_o oScaling;
 private:

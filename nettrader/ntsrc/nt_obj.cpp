@@ -1,7 +1,6 @@
 /* nt_obj.cc - NT master object implementation */
 /* by Ahmed A. Faisal, 22. 5. 1998(c) */
 
-
 /*
  * NetTrader - finance management, analysis and simulation system
  * Version:  0.1
@@ -21,7 +20,6 @@
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
-
 
 /* $Id: nt_obj.cpp,v 1.4 2003/06/20 16:15:09 face Exp $
  * $Log: nt_obj.cpp,v $
@@ -80,8 +78,6 @@
  *
  */
 
-
-
 #include "nt_main.h"
 #include "nt_types.h"
 #include "nt_obj.h"
@@ -96,29 +92,20 @@ NTlong NT_o::runnId = 0;
 //	Input :
 //	Output :
 //
-NT_o::NT_o()
-{
+NT_o::NT_o() {
 #ifdef NT_DEBUG_OBJECT_ID
-    runnId++;
-    uniqId = runnId;
+	runnId++;
+	uniqId = runnId;
 #endif
 }
 
-
-NT_o::NT_o(NT_o const & right)
-{
+NT_o::NT_o(NT_o const __attribute__((unused)) & right) {
 #ifdef NT_DEBUG_OBJECT_ID
-    runnId++;
-    uniqId = runnId;
+	runnId++;
+	uniqId = runnId;
 #endif
 }
 
-NT_o::~NT_o()
-{
+NT_o::~NT_o() {
 }
-
-
-
-
-
 

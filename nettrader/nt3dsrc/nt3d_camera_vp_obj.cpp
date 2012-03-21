@@ -95,7 +95,8 @@ NT3D_camera_vp_o::NT3D_camera_vp_o(NT3D_camera_o * newCameraPtr)
 /* ***      COPY AND ASSIGNMENT	***/
 /** copy constructor
 The original pointer is used to create a new object .*/
-NT3D_camera_vp_o::NT3D_camera_vp_o(const NT3D_camera_vp_o & original) 
+NT3D_camera_vp_o::NT3D_camera_vp_o(const NT3D_camera_vp_o & original):
+		NT3D_abstract_vp_o()
 {
 	haveCamera = false;
 	NT3D_camera_o * tmpCameraPtr = new NT3D_camera_o(*(original.cameraPtr));

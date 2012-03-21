@@ -49,9 +49,10 @@ NT3D_texture_o(32, 32, 2)
 
 
 /* ***      COPY AND ASSIGNMENT	***/ 
-NT3D_file_texture_o::NT3D_file_texture_o(const NT3D_file_texture_o & original)
+NT3D_file_texture_o::NT3D_file_texture_o(const NT3D_file_texture_o & original):
+		NT3D_texture_o(original.textureWidth, original.textureHeight, original.dim)
 {
- // add assignment code here
+ 	filename = original.filename;
 }
 
 const NT3D_file_texture_o&  

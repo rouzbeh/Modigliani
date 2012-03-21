@@ -232,7 +232,7 @@ fstream sfout;
 /* #[ main : */
 
 int
-main(int argc, char* argv[])
+main(int __attribute__((unused)) argc, char __attribute__((unused)) *argv[])
 {
     cout << " GenNTObj - Utility to generate a .h and .cpp file for NetTrader" << endl;
     cout << " by Ahmed A. Faisal, 22.4.1999 (c)" << endl;

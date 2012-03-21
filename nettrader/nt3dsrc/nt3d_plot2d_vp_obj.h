@@ -18,19 +18,18 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */ 
-  
+ */
 
 /* $Id: nt3d_plot2d_vp_obj.h,v 1.1.1.1 2004/12/16 01:38:36 face Exp $ 
-* $Log: nt3d_plot2d_vp_obj.h,v $
-* Revision 1.1.1.1  2004/12/16 01:38:36  face
-* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
-*
-* Revision 1.1  2001/06/29 13:16:55  face
-* *** empty log message ***
-*
+ * $Log: nt3d_plot2d_vp_obj.h,v $
+ * Revision 1.1.1.1  2004/12/16 01:38:36  face
+ * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+ *
+ * Revision 1.1  2001/06/29 13:16:55  face
+ * *** empty log message ***
+ *
 
-*/
+ */
 #ifndef _nt3d_plot2d_vp_obj_h_ 
 #define _nt3d_plot2d_vp_obj_h_ 
 
@@ -48,42 +47,72 @@
 #include <GL/glu.h>
 
 /** @short NT3D_plot2d_vp_o class 
-\bug unknown
-\warning unknown 
-*/
-class NT3D_plot2d_vp_o : public NT3D_plot_vp_o {
+ \bug unknown
+ \warning unknown
+ */
+class NT3D_plot2d_vp_o: public NT3D_plot_vp_o {
 public:
-/***   Constructors, Copy/Assignment and Destructor  ***/  
-NT3D_plot2d_vp_o();
-NT3D_plot2d_vp_o(const NT3D_plot2d_vp_o & original);
-const NT3D_plot2d_vp_o & operator= (const NT3D_plot2d_vp_o & right);
-virtual ~NT3D_plot2d_vp_o();
-/* ***  Methods              ***/
-void Draw();
-void AutoRange (bool decision) { autoRange = decision; }
-NTreturn SetXRange(NTreal min, NTreal max){ NT_ASSERT( min < max); xMin = min; xMax = max; return NT_SUCCESS;}
-NTreturn SetYRange(NTreal min, NTreal max){ NT_ASSERT( min < max); yMin = min; yMax = max; return NT_SUCCESS;}
-/* ***  Data                 ***/  
+	/***   Constructors, Copy/Assignment and Destructor  ***/
+	NT3D_plot2d_vp_o();
+	NT3D_plot2d_vp_o(const NT3D_plot2d_vp_o & original);
+	const NT3D_plot2d_vp_o & operator=(const NT3D_plot2d_vp_o & right);
+	virtual ~NT3D_plot2d_vp_o();
+	/* ***  Methods              ***/
+	void Draw();
+	void AutoRange(bool decision) {
+		autoRange = decision;
+	}
+	NTreturn SetXRange(NTreal min, NTreal max) {
+		NT_ASSERT( min < max);
+		xMin = min;
+		xMax = max;
+		return NT_SUCCESS;
+	}
+	NTreturn SetYRange(NTreal min, NTreal max) {
+		NT_ASSERT( min < max);
+		yMin = min;
+		yMax = max;
+		return NT_SUCCESS;
+	}
+	/* ***  Data                 ***/
 protected:
-/* ***  Methods              ***/
-void InitChild() {};
-NTreturn ResizeChild(NTsize x, NTsize y){return NT_SUCCESS;}
-void RedrawChild(){ DrawCoordinateSystem(); DrawData();}
-virtual void DrawData() = 0;
-void NewXData(NTreal x){ if (x < dataXMin) dataXMin = x; else if (x > dataXMax) dataXMax = x; }
-void NewYData(NTreal y){ if (y < dataYMin) dataYMin = y; else if (y > dataYMax) dataYMax = y; }
-/* ***  Data                 ***/
-/**  */
-void DrawCoordinateSystem(/* 2DO to be optionalised */);
+	/* ***  Methods              ***/
+	void InitChild() {
+	}
+	;
+	NTreturn ResizeChild(NTsize __attribute__((__unused__)) x,
+			NTsize __attribute__((__unused__)) y) {
+		return NT_SUCCESS;
+	}
+	void RedrawChild() {
+		DrawCoordinateSystem();
+		DrawData();
+	}
+	virtual void DrawData() = 0;
+	void NewXData(NTreal x) {
+		if (x < dataXMin)
+			dataXMin = x;
+		else if (x > dataXMax)
+			dataXMax = x;
+	}
+	void NewYData(NTreal y) {
+		if (y < dataYMin)
+			dataYMin = y;
+		else if (y > dataYMax)
+			dataYMax = y;
+	}
+	/* ***  Data                 ***/
+	/**  */
+	void DrawCoordinateSystem(/* 2DO to be optionalised */);
 private:
-/* ***  Methods              ***/  
-/* ***  Data                 ***/ 
-NTreal dataXMin, dataXMax;
-NTreal dataYMin, dataYMax;
-NTreal xMin, xMax;
-NTreal yMin, yMax;
-bool autoRange;
-bool drawCoord;
+	/* ***  Methods              ***/
+	/* ***  Data                 ***/
+	NTreal dataXMin, dataXMax;
+	NTreal dataYMin, dataYMax;
+	NTreal xMin, xMax;
+	NTreal yMin, yMax;
+	bool autoRange;
+	bool drawCoord;
 };
 #endif /* _nt3d_plot2d_vp_obj_h_ */ 
 

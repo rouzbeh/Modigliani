@@ -40,7 +40,7 @@
 
 
 /* ***      COPY AND ASSIGNMENT	***/
-NT3D_trajectory_o::NT3D_trajectory_o(const NT3D_trajectory_o & original)
+NT3D_trajectory_o::NT3D_trajectory_o(const NT3D_trajectory_o __attribute__((unused)) & original)
 {
 }
 

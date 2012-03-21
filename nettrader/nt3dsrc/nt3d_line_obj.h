@@ -106,9 +106,9 @@ public:
   /*   Data                   */  
   private:
   /*   Methods                */  
-  void ControlObj(NT3Dcontroller cntrl , NTint value) {};
-  void ControlObj(NT3Dcontroller cntrl , NTreal value) {}; 
-  void ControlObj(NT3Dcontroller cntrl , NT_vector_o value){};
+  void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl , NTint __attribute__((unused)) value) {};
+  void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl , NTreal __attribute__((unused)) value) {};
+  void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl , NT_vector_o __attribute__((unused)) value){};
   /*   Data                   */
   NT_vector3_o startPnt;
   NT_vector3_o endPnt;
