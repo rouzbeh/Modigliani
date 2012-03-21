@@ -78,7 +78,7 @@ protected:
 void DrawObj() { DrawSurfacedObj(); }; 
 virtual void DrawSurfacedObj() {NT_CERR(1,"NT3D_surfaced_object_o::DrawSurfacedObj() - Error : This method not overridden by derived class");};
 void ControlObj(NT3Dcontroller cntrl , NTint value);
-virtual void ControlSurfacedObj(NT3Dcontroller cntrl , NTint value){NT_CERR(1,"NT3D_surfaced_object_o::ControlSurfacedObj() - Error : This method not overridden by derived class");};
+virtual void ControlSurfacedObj(NT3Dcontroller __attribute__((unused)) cntrl , __attribute__((unused)) NTint value){NT_CERR(1,"NT3D_surfaced_object_o::ControlSurfacedObj() - Error : This method not overridden by derived class");};
 /* ***  Data                 ***/
 NT3D_material_o oMaterial;
 NT3D_texture_o* oTexturePtr;

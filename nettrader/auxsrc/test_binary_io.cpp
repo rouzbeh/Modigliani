@@ -7,7 +7,6 @@ using namespace std;
 int main()
 {
     {
-        float val;
         float package[2];
         ofstream file("test.dat", ios::binary);
         for (int ll=0; ll < 100; ll++) {

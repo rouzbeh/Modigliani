@@ -53,7 +53,8 @@ NT_histogram_o::NT_histogram_o(NTreal minVal, NTreal maxVal, NTsize numberOfBins
 }
 
 /* ***      COPY AND ASSIGNMENT	***/
-NT_histogram_o::NT_histogram_o(const NT_histogram_o & original)
+NT_histogram_o::NT_histogram_o(const NT_histogram_o & original):
+		NT_o()
 {
     bins = original.bins;
     min = original.min;

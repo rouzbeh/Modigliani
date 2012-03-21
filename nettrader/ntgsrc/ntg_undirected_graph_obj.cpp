@@ -41,7 +41,8 @@ NTG_undirected_graph_o::NTG_undirected_graph_o()
 {
 }
 /* ***      COPY AND ASSIGNMENT	***/
-NTG_undirected_graph_o::NTG_undirected_graph_o(const NTG_undirected_graph_o & original)
+NTG_undirected_graph_o::NTG_undirected_graph_o(const NTG_undirected_graph_o __attribute__((unused)) & original):
+		NTG_graph_o()
 {
 // add assignment code here
 }

@@ -39,7 +39,9 @@ NT_sequential_statistics_o::NT_sequential_statistics_o()
 
 
 /* ***      COPY AND ASSIGNMENT	***/
-NT_sequential_statistics_o::NT_sequential_statistics_o(const NT_sequential_statistics_o & original)
+NT_sequential_statistics_o::NT_sequential_statistics_o(
+		const NT_sequential_statistics_o & original) :
+		NT_o()
 {
 // add assignment code here
     counter = original.counter;

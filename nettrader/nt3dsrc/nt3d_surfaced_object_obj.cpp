@@ -69,7 +69,8 @@ NT3D_hierarchic_object_o(oPosition)
 }
 
 /* ***      COPY AND ASSIGNMENT	***/ 
-NT3D_surfaced_object_o::NT3D_surfaced_object_o(const NT3D_surfaced_object_o & original)
+NT3D_surfaced_object_o::NT3D_surfaced_object_o(const NT3D_surfaced_object_o & original):
+		NT3D_hierarchic_object_o()
 {
   if (true == original.textureSet) {
   	NT3D_texture_o* tmpTexturePtr = new NT3D_texture_o(*(original.oTexturePtr));

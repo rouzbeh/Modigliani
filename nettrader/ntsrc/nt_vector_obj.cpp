@@ -142,8 +142,6 @@
 void
 NT_vector_o::Init(NTuint newDim)
 {
-    NT_ASSERT_PRECOND( newDim >= 0 );
-    //cerr << "NT_vector_o::Init(NTuint dim="<<dim<<")" << flush;
     dimension = newDim;
     elem = (NTreal*) new NTreal[dimension];
     for (NTuint ll=0; ll < dimension; ll++) elem[ll] = 0.0;
@@ -217,7 +215,8 @@ NT_vector_o::NT_vector_o(NTreal a, NTreal b, NTreal c, NTreal d) {
     elem[3] = d;
 }
 
-NT_vector_o::NT_vector_o(const NT_vector_o &right)
+NT_vector_o::NT_vector_o(const NT_vector_o &right):
+		NT_o()
 {
     dimension = right.dimension;
     elem = (NTreal*) new NTreal[dimension];

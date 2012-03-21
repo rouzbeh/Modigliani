@@ -20,7 +20,6 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-
 /* $Id: nt3d_cylinder_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
  * $Log: nt3d_cylinder_obj.cpp,v $
  * Revision 1.1.1.1  2004/12/16 01:38:36  face
@@ -80,96 +79,59 @@
  * Revision 1.1  1998/12/06 15:03:10  face
  * Initial revision
  *
- */ 
-
+ */
 
 #include "nt3d_cylinder_obj.h"
 #include <math.h>
 
-
-
 /* Constructor/Destructor */
 
-
-NT3D_cylinder_o::NT3D_cylinder_o()
-  : 
-  NT3D_solid_o()
-{
-   Init(1.0);
-}	
-
-
-NT3D_cylinder_o::NT3D_cylinder_o(NT_vector3_o oNewPosition)
-  :
-  NT3D_solid_o(oNewPosition) 
-{
-   Init(1.0);
+NT3D_cylinder_o::NT3D_cylinder_o() :
+		NT3D_solid_o() {
+	Init(1.0);
 }
 
-
-NT3D_cylinder_o::NT3D_cylinder_o(NT_vector3_o oBaseCenter, NTreal newHeight, NTreal newRadius)
-:
-NT3D_solid_o(oBaseCenter)
-{
-   Init(newRadius);
-   height = newHeight; 	
- //  cerr << "NT3D_cylinder_o::NT3D_cylinder_o " <<oRotation[0] << " "<<oRotation[1] << " "<<oRotation[2] <<endl;
+NT3D_cylinder_o::NT3D_cylinder_o(NT_vector3_o oNewPosition) :
+		NT3D_solid_o(oNewPosition) {
+	Init(1.0);
 }
- 
+
+NT3D_cylinder_o::NT3D_cylinder_o(NT_vector3_o oBaseCenter, NTreal newHeight,
+		NTreal newRadius) :
+		NT3D_solid_o(oBaseCenter) {
+	Init(newRadius);
+	height = newHeight;
+	//  cerr << "NT3D_cylinder_o::NT3D_cylinder_o " <<oRotation[0] << " "<<oRotation[1] << " "<<oRotation[2] <<endl;
+}
+
 /** \warning see corresponding note in NT3D_solid_o */
-NT3D_cylinder_o::NT3D_cylinder_o(const NT3D_cylinder_o & original)
-{
+NT3D_cylinder_o::NT3D_cylinder_o(const NT3D_cylinder_o & original) :
+		NT3D_solid_o() {
+	topRadius = original.topRadius;
+	baseRadius = original.baseRadius;
+	bHaveTopClosed = original.bHaveTopClosed;
+	bHaveBaseClosed = original.bHaveBaseClosed;
+	height = original.height;
 }
 
- 
-NT3D_cylinder_o::~NT3D_cylinder_o()
-{
+NT3D_cylinder_o::~NT3D_cylinder_o() {
 }
 
 /* Public */
 /**  */
-inline void
-NT3D_cylinder_o::DrawSolidObj() const
-{
-  glScalef(NT3D_solid_o::oScaling[0], NT3D_solid_o::oScaling[1], NT3D_solid_o::oScaling[2] );
-  gluCylinder( pQuadObj,  
-	      baseRadius, topRadius,
-	      height,
-	      slices, stacks);
+inline void NT3D_cylinder_o::DrawSolidObj() const {
+	glScalef(NT3D_solid_o::oScaling[0], NT3D_solid_o::oScaling[1],
+			NT3D_solid_o::oScaling[2]);
+	gluCylinder(pQuadObj, baseRadius, topRadius, height, slices, stacks);
 }
-
- 
-
 
 /* Protected */
 /* Private */
-void
-NT3D_cylinder_o::Init(NTreal radius)
-{
-  topRadius = radius;
-  baseRadius = radius;
-  height = 1.0;
-  bHaveTopClosed = NT_FALSE;
-  bHaveBaseClosed = NT_FALSE;
+void NT3D_cylinder_o::Init(NTreal radius) {
+	topRadius = radius;
+	baseRadius = radius;
+	height = 1.0;
+	bHaveTopClosed = NT_FALSE;
+	bHaveBaseClosed = NT_FALSE;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -76,7 +76,8 @@ NT3D_universe_vp_o::NT3D_universe_vp_o(NT3D_universe_o * pNewUniverse)
 }
 
 /* ***      COPY AND ASSIGNMENT	***/
-NT3D_universe_vp_o::NT3D_universe_vp_o(const NT3D_universe_vp_o & original)
+NT3D_universe_vp_o::NT3D_universe_vp_o(const NT3D_universe_vp_o __attribute__((unused)) & original):
+		NT3D_abstract_vp_o()
 {
 	NT_CERR(1,"NT3D_universe_vp_o::NT3D_universe_vp_o(...) - Error : copy constructor not implemented .");
 	

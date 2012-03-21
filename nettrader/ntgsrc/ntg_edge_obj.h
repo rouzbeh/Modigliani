@@ -20,23 +20,22 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-
 /* $Id: ntg_edge_obj.h,v 1.1 2001/06/29 13:16:58 face Exp $
-* $Log: ntg_edge_obj.h,v $
-* Revision 1.1  2001/06/29 13:16:58  face
-* *** empty log message ***
-*
-* Revision 1.3  2000/10/15 19:20:41  face
-* *** empty log message ***
-*
-* Revision 1.2  2000/10/03 08:30:01  face
-* *** empty log message ***
-*
-* Revision 1.1  2000/10/01 09:33:22  face
-* added for the first time
-*
+ * $Log: ntg_edge_obj.h,v $
+ * Revision 1.1  2001/06/29 13:16:58  face
+ * *** empty log message ***
+ *
+ * Revision 1.3  2000/10/15 19:20:41  face
+ * *** empty log message ***
+ *
+ * Revision 1.2  2000/10/03 08:30:01  face
+ * *** empty log message ***
+ *
+ * Revision 1.1  2000/10/01 09:33:22  face
+ * added for the first time
+ *
 
-*/
+ */
 #ifndef _ntg_edge_obj_h_
 #define _ntg_edge_obj_h_
 
@@ -50,46 +49,46 @@
 
 /** @short NTG_edge_o class
  ** This base class mimics <pair<NTid, NTid>>
-\bug unknown
-\warning unknown
-*/
-class NTG_edge_o  {
+ \bug unknown
+ \warning unknown
+ */
+class NTG_edge_o {
 public:
-    /***   Constructors, Copy/Assignment and Destructor  ***/
-    NTG_edge_o(NTid newSource = 0, NTid newTarget = 0);
-    NTG_edge_o(const NTG_edge_o & original);
-    const NTG_edge_o & operator= (const NTG_edge_o & right);
-    virtual ~NTG_edge_o();
-    /* ***  Methods              ***/
-    NTid first () const {
-        return Source();
-    }
-    NTid Source() const {
-        return source;
-    }
-    NTid second() const {
-        return Target();
-    }
-    NTid Target() const {
-        return target;
-    }
+	/***   Constructors, Copy/Assignment and Destructor  ***/
+	NTG_edge_o(NTid newSource = 0, NTid newTarget = 0);
+	NTG_edge_o(const NTG_edge_o & original);
+	const NTG_edge_o & operator=(const NTG_edge_o & right);
+	virtual ~NTG_edge_o();
+	/* ***  Methods              ***/
+	NTid first() const {
+		return Source();
+	}
+	NTid Source() const {
+		return source;
+	}
+	NTid second() const {
+		return Target();
+	}
+	NTid Target() const {
+		return target;
+	}
 
-    NTreturn SetSource(NTid newSource) {
-        return NT_NOT_IMPLEMENTED;
-    }
-    NTreturn SetTarget(NTid newTarget) {
-        return NT_NOT_IMPLEMENTED;
-    }
-    NTreturn SetConnection(NTid newSource, NTid newTarget);
-    /* ***  Data                 ***/
+	NTreturn SetSource(NTid __attribute__((unused)) newSource) {
+		return NT_NOT_IMPLEMENTED;
+	}
+	NTreturn SetTarget(NTid __attribute__((unused)) newTarget) {
+		return NT_NOT_IMPLEMENTED;
+	}
+	NTreturn SetConnection(NTid newSource, NTid newTarget);
+	/* ***  Data                 ***/
 protected:
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
+	/* ***  Methods              ***/
+	/* ***  Data                 ***/
 private:
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
-    NTid source;
-    NTid target;
+	/* ***  Methods              ***/
+	/* ***  Data                 ***/
+	NTid source;
+	NTid target;
 };
 #endif /* _ntg_edge_obj_h_ */
 

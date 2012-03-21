@@ -75,9 +75,10 @@ NTBP_object_o::NTBP_object_o()
 }
 
 /* ***      COPY AND ASSIGNMENT	***/ 
-NTBP_object_o::NTBP_object_o(const NTBP_object_o & original)
+NTBP_object_o::NTBP_object_o(const NTBP_object_o & original):
+		NT_o()
 {
- // add assignment code here
+	baseTimeStep = original.baseTimeStep;
 }
 
 const NTBP_object_o&  

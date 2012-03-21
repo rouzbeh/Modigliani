@@ -39,7 +39,7 @@
 NTBP_synaptic_background_o::NTBP_synaptic_background_o(
                            NTreal newAvgSynBkCond, /* in nS */
                            NTreal newESynBk,   /* Synaptic background reversal potential mV */
-                           NTreal newSynSigma, /* Synaptic noise "diffusion" nS */
+                           NTreal __attribute__((unused)) newSynSigma, /* Synaptic noise "diffusion" nS */
                            NTreal newSynTau,   /* Synaptic time constant ms */                        
                            NTreal newVBase /* in mV */
 )

@@ -91,7 +91,6 @@ main(int argc, char* argv[])
     NTsize select = atoi ( argv[6] );
 
     float buffer[columns];
-    unsigned int rows = 0;
 
     bool spike = false;
     bool spiking = false;

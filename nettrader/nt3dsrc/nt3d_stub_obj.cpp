@@ -44,7 +44,8 @@ NT3D_hierarchic_object_o()
 {
 }
 /* ***      COPY AND ASSIGNMENT	***/ 
-NT3D_stub_o::NT3D_stub_o(const NT3D_stub_o & original)
+NT3D_stub_o::NT3D_stub_o(const NT3D_stub_o __attribute__((unused)) & original):
+		NT3D_hierarchic_object_o()
 {
  // add assignment code here
 }

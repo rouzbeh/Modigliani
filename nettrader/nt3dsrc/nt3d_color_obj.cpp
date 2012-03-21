@@ -20,7 +20,6 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-
 /* $Id: nt3d_color_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
  * $Log: nt3d_color_obj.cpp,v $
  * Revision 1.1.1.1  2004/12/16 01:38:36  face
@@ -66,12 +65,12 @@
  * :wq!
  *
  * Revision 1.4  2000/04/26 17:10:34  face
-* minor bug fixed
+ * minor bug fixed
  * and upgrades:
  *
  * Revision 1.3  1999/07/17 18:21:51  face
  * imodified
-7 *
+ 7 *
  * Revision 1.2  1999/07/05 00:50:40  face
  * updated light color model
  *
@@ -113,247 +112,205 @@
 #include "nt_error_obj.h"
 #include <GL/gl.h>
 
-
 /** The following pre-defined color objects are helpfull speeding and
  * coding more complex computations 
  * However, there might be a "static initilization order fiasco"
  * as classes using them might be created before these are created.
-	const NT3D_color_o NT3D_alpha(0.0,0.0,0.0,1.0);
-	const NT3D_color_o NT3D_white(1.0,1.0,1.0,0.0);
-	const NT3D_color_o NT3D_red(1.0,0.0,0.0,0.0);
-	const NT3D_color_o NT3D_green(0.0,1.0,0.0,0.0);
-	const NT3D_color_o NT3D_blue(0.0,0.0,1.0,0.0);
-	const NT3D_color_o NT3D_black(0.0,0.0,0.0,0.0);
-*  to prevent this, the "Construct On First Use Idiom" is used
-*  instead of the objects, a function returning the identical
-*  object is used, but which prevents the fiasco as the - now -
-*  local static is constructed on the first sweep of the control flow
-*/
+ const NT3D_color_o NT3D_alpha(0.0,0.0,0.0,1.0);
+ const NT3D_color_o NT3D_white(1.0,1.0,1.0,0.0);
+ const NT3D_color_o NT3D_red(1.0,0.0,0.0,0.0);
+ const NT3D_color_o NT3D_green(0.0,1.0,0.0,0.0);
+ const NT3D_color_o NT3D_blue(0.0,0.0,1.0,0.0);
+ const NT3D_color_o NT3D_black(0.0,0.0,0.0,0.0);
+ *  to prevent this, the "Construct On First Use Idiom" is used
+ *  instead of the objects, a function returning the identical
+ *  object is used, but which prevents the fiasco as the - now -
+ *  local static is constructed on the first sweep of the control flow
+ */
 
-NT3D_color_o& NT3D_alpha()
-    {
-     // cerr << "NT3D_color_o& NT3D_alpha()";
-      static NT3D_color_o* vec = new NT3D_color_o(0.0,0.0,0.0,1.0);
-      return *vec;
-    } 
-    
-NT3D_color_o& NT3D_white()
-    {
-    //cerr << "NT3D_color_o& NT3D_white()";
-      static NT3D_color_o* vec = new NT3D_color_o(1.0,1.0,1.0,0.0);
-      return *vec;
-    } 
-    
-NT3D_color_o& NT3D_red()
-    {
-    //cerr << "NT3D_color_o& NT3D_red()";
-      static NT3D_color_o* vec = new NT3D_color_o(1.0,0.0,0.0,0.0);
-      return *vec;
-    } 
-    
-NT3D_color_o& NT3D_green()
-    {
-    //cerr << "NT3D_color_o& NT3D_green()";
-      static NT3D_color_o* vec = new NT3D_color_o(0.0,1.0,0.0,0.0);
-      return *vec;
-    } 
-    
-NT3D_color_o& NT3D_blue()
-    {
-    //cerr << "NT3D_color_o& NT3D_blue()";
-      static NT3D_color_o* vec = new NT3D_color_o(0.0,0.0,1.0,0.0);
-      return *vec;
-    }
-NT3D_color_o& NT3D_yellow()
-    {
-    //cerr << "NT3D_color_o& NT3D_yellow()";
-      static NT3D_color_o* vec = new NT3D_color_o(1.0,1.0,0.0,0.0);
-      return *vec;
-    } 
-    
-NT3D_color_o& NT3D_black()
-    {
-    //cerr << "NT3D_color_o& NT3D_black()";
-      static NT3D_color_o* vec = new NT3D_color_o(0.0,0.0,0.0,0.0);
-      return *vec;
-    } 
+NT3D_color_o& NT3D_alpha() {
+	// cerr << "NT3D_color_o& NT3D_alpha()";
+	static NT3D_color_o* vec = new NT3D_color_o(0.0, 0.0, 0.0, 1.0);
+	return *vec;
+}
 
+NT3D_color_o& NT3D_white() {
+	//cerr << "NT3D_color_o& NT3D_white()";
+	static NT3D_color_o* vec = new NT3D_color_o(1.0, 1.0, 1.0, 0.0);
+	return *vec;
+}
 
+NT3D_color_o& NT3D_red() {
+	//cerr << "NT3D_color_o& NT3D_red()";
+	static NT3D_color_o* vec = new NT3D_color_o(1.0, 0.0, 0.0, 0.0);
+	return *vec;
+}
+
+NT3D_color_o& NT3D_green() {
+	//cerr << "NT3D_color_o& NT3D_green()";
+	static NT3D_color_o* vec = new NT3D_color_o(0.0, 1.0, 0.0, 0.0);
+	return *vec;
+}
+
+NT3D_color_o& NT3D_blue() {
+	//cerr << "NT3D_color_o& NT3D_blue()";
+	static NT3D_color_o* vec = new NT3D_color_o(0.0, 0.0, 1.0, 0.0);
+	return *vec;
+}
+NT3D_color_o& NT3D_yellow() {
+	//cerr << "NT3D_color_o& NT3D_yellow()";
+	static NT3D_color_o* vec = new NT3D_color_o(1.0, 1.0, 0.0, 0.0);
+	return *vec;
+}
+
+NT3D_color_o& NT3D_black() {
+	//cerr << "NT3D_color_o& NT3D_black()";
+	static NT3D_color_o* vec = new NT3D_color_o(0.0, 0.0, 0.0, 0.0);
+	return *vec;
+}
 
 /* 	CONSTRUCTORS 		*/
-NT3D_color_o::NT3D_color_o()
-:
-colorRGBA(4)
-{
-  colorPtr = new GLfloat[4];
-  //cerr << "NT3D_color_o::NT3D_color_o()" << endl;
-  SetColor(1,0,0,1);
-  NT_ASSERT_DIM(4, colorRGBA.size());
+NT3D_color_o::NT3D_color_o() :
+		colorRGBA(4) {
+	colorPtr = new GLfloat[4];
+	//cerr << "NT3D_color_o::NT3D_color_o()" << endl;
+	SetColor(1, 0, 0, 1);
+	NT_ASSERT_DIM(4, colorRGBA.size());
 }
 
-NT3D_color_o::NT3D_color_o( GLfloat newR, GLfloat newG, GLfloat newB, GLfloat newAlpha)
-:
-colorRGBA(4)
-{
-  colorPtr = new GLfloat[4];
+NT3D_color_o::NT3D_color_o(GLfloat newR, GLfloat newG, GLfloat newB,
+		GLfloat newAlpha) :
+		colorRGBA(4) {
+	colorPtr = new GLfloat[4];
 
-  //cerr << "NT3D_color_o::NT3D_color_o(r,g,b,alpha)" << endl;
-  SetColor( newR, newG, newB, newAlpha);
-  NT_ASSERT_DIM(4, colorRGBA.size());
+	//cerr << "NT3D_color_o::NT3D_color_o(r,g,b,alpha)" << endl;
+	SetColor(newR, newG, newB, newAlpha);
+	NT_ASSERT_DIM(4, colorRGBA.size());
 }
 
-
-NT3D_color_o::NT3D_color_o( const valarray<GLfloat> & newColorRGBA)
-:
-colorRGBA(4)
-{
+NT3D_color_o::NT3D_color_o(const valarray<GLfloat> & newColorRGBA) :
+		colorRGBA(4) {
 	NT_ASSERT_DIM(4, newColorRGBA.size());
-	colorRGBA=newColorRGBA;
+	colorRGBA = newColorRGBA;
 	NT_ASSERT_DIM(4, colorRGBA.size());
 }
 
 /*
-NT3D_color_o::NT3D_color_o( const NT_vector_o & newColorRGBA)
-:
-colorRGBA(4)
-{
-    colorPtr = new GLfloat[4];
-  	NT_ASSERT_DIM( newColorRGBA.dim(), colorRGBA.dim() );
-	//cerr << "NT3D_color_o::NT3D_color_o( rgbaVec)" << endl;
-	colorRGBA = newColorRGBA;
-	Update();
-	NT_ASSERT_DIM(4, colorRGBA.dim());
-}
-*/
-
+ NT3D_color_o::NT3D_color_o( const NT_vector_o & newColorRGBA)
+ :
+ colorRGBA(4)
+ {
+ colorPtr = new GLfloat[4];
+ NT_ASSERT_DIM( newColorRGBA.dim(), colorRGBA.dim() );
+ //cerr << "NT3D_color_o::NT3D_color_o( rgbaVec)" << endl;
+ colorRGBA = newColorRGBA;
+ Update();
+ NT_ASSERT_DIM(4, colorRGBA.dim());
+ }
+ */
 
 /* 	COPY AND ASSIGNMENT 	*/
-NT3D_color_o::NT3D_color_o(const NT3D_color_o & original)
-:
-colorRGBA(4)
-{
+NT3D_color_o::NT3D_color_o(const NT3D_color_o & original) :
+		NT_o(), colorRGBA(4) {
 	colorPtr = new GLfloat[4];
-	NT_ASSERT_DIM( colorRGBA.size(), original.colorRGBA.size() );
+	NT_ASSERT_DIM( colorRGBA.size(), original.colorRGBA.size());
 	colorRGBA = original.colorRGBA;
 	Update();
 	NT_ASSERT_DIM(4, colorRGBA.size());
 }
 
-
-const NT3D_color_o&  
-NT3D_color_o::operator= (const NT3D_color_o & right)
-{
-  if (this == &right) return *this; // Gracefully handle self assignment
-  // add assignment code here
-  colorPtr = new GLfloat[4];
-  NT_ASSERT_DIM( colorRGBA.size(), right.colorRGBA.size());
-  colorRGBA = right.colorRGBA;
-  NT_ASSERT_DIM(4, colorRGBA.size());
-  return *this;
+const NT3D_color_o&
+NT3D_color_o::operator=(const NT3D_color_o & right) {
+	if (this == &right)
+		return *this; // Gracefully handle self assignment
+	// add assignment code here
+	colorPtr = new GLfloat[4];
+	NT_ASSERT_DIM( colorRGBA.size(), right.colorRGBA.size());
+	colorRGBA = right.colorRGBA;
+	NT_ASSERT_DIM(4, colorRGBA.size());
+	return *this;
 }
 
-
-/** 	DESTRUCTOR 	*/	
-NT3D_color_o::~NT3D_color_o()
-{
-	cerr << "NT3D_color_o::~NT3D_color_o() - Warning: colorPtr not deleted." << endl;
+/** 	DESTRUCTOR 	*/
+NT3D_color_o::~NT3D_color_o() {
+	cerr << "NT3D_color_o::~NT3D_color_o() - Warning: colorPtr not deleted."
+			<< endl;
 	NT_ASSERT_DIM(4, colorRGBA.size());
 	// 2DO Clarify why the color pointer cannot be delted : delete colorPtr;
 }
 
+/*   	PUBLIC                	*/
 
-/*   	PUBLIC                	*/  
-
- 
 /** @short  SetColor
-    @param 	none
-    @return 	none
-    \warning 	unknown
-    \bug 	unknown
+ @param 	none
+ @return 	none
+ \warning 	unknown
+ \bug 	unknown
  */
-void NT3D_color_o::SetColor( GLfloat newR, GLfloat newG, GLfloat newB, GLfloat newAlpha)
-{
-	colorRGBA[0]=newR;
-	colorRGBA[1]=newG;
-	colorRGBA[2]=newB;
-	colorRGBA[3]=newAlpha;
+void NT3D_color_o::SetColor(GLfloat newR, GLfloat newG, GLfloat newB,
+		GLfloat newAlpha) {
+	colorRGBA[0] = newR;
+	colorRGBA[1] = newG;
+	colorRGBA[2] = newB;
+	colorRGBA[3] = newAlpha;
 	Update();
 }
 
-
-  
 /** @short  SetColor
-    @param 	none
-    @return 	none
-    \warning 	unknown
-    \bug 	unknown
+ @param 	none
+ @return 	none
+ \warning 	unknown
+ \bug 	unknown
  */
-void NT3D_color_o::SetColor( const GLfloat newColor[] )
-{
+void NT3D_color_o::SetColor(const GLfloat newColor[]) {
 	NT_ASSERT_DIM(4, colorRGBA.size());
 	NTsize ll;
-	for (ll=0; ll < 5; ll++) colorRGBA[ll] = newColor[ll];
+	for (ll = 0; ll < 5; ll++)
+		colorRGBA[ll] = newColor[ll];
 	Update();
 }
 
 /** @short  SetColor
-    @param 	none
-    @return 	none
-    \warning 	unknown
-    \bug 	unknown
+ @param 	none
+ @return 	none
+ \warning 	unknown
+ \bug 	unknown
  */
-void NT3D_color_o::SetColor( const NT3D_color_o & newColor )
-{
+void NT3D_color_o::SetColor(const NT3D_color_o & newColor) {
 	colorRGBA = newColor.colorRGBA;
 	Update();
 	NT_ASSERT_DIM(4, colorRGBA.size());
 }
 
-
 // Arithmetics
-NT3D_color_o 
-NT3D_color_o::operator+(const NT3D_color_o &right) const
-{
-  return NT3D_color_o(colorRGBA + right.colorRGBA);
+NT3D_color_o NT3D_color_o::operator+(const NT3D_color_o &right) const {
+	return NT3D_color_o(colorRGBA + right.colorRGBA);
 }
 
-NT3D_color_o 
-NT3D_color_o::operator-(const NT3D_color_o &right) const
-{
-  return NT3D_color_o(colorRGBA - right.colorRGBA);
+NT3D_color_o NT3D_color_o::operator-(const NT3D_color_o &right) const {
+	return NT3D_color_o(colorRGBA - right.colorRGBA);
 }
 
 // scalar multiplication from the RIGHT side
-NT3D_color_o 
-NT3D_color_o::operator*(NTreal alpha) const
-{
-  NT3D_color_o tmp(colorRGBA);
-  tmp.colorRGBA *= alpha;
-  NT_ASSERT_DIM(4, colorRGBA.size());
-  return tmp;
+NT3D_color_o NT3D_color_o::operator*(NTreal alpha) const {
+	NT3D_color_o tmp(colorRGBA);
+	tmp.colorRGBA *= alpha;
+	NT_ASSERT_DIM(4, colorRGBA.size());
+	return tmp;
 }
 
 /*   	PROTECTED     	      	*/
 /** @short 	Update
-    @param 	none
-    @return 	none
-    \warning 	unknown
-    \bug 	unknown
+ @param 	none
+ @return 	none
+ \warning 	unknown
+ \bug 	unknown
  */
-void NT3D_color_o::Update()
-{
+void NT3D_color_o::Update() {
 	NTsize ll;
-	for (ll=0; ll < 5; ll++) colorPtr[ll] = colorRGBA[ll];
+	for (ll = 0; ll < 5; ll++)
+		colorPtr[ll] = colorRGBA[ll];
 }
 
 /* 	PRIVATE               	*/
-
-
-
-
-
-
-
-
-
 

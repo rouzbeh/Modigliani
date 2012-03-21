@@ -69,7 +69,8 @@ NTBP_membrane_compartment_sequence_o::NTBP_membrane_compartment_sequence_o() :
 
 /* ***      COPY AND ASSIGNMENT	***/
 NTBP_membrane_compartment_sequence_o::NTBP_membrane_compartment_sequence_o(
-		const NTBP_membrane_compartment_sequence_o __attribute__((__unused__)) & original) {
+		const NTBP_membrane_compartment_sequence_o __attribute__((__unused__)) & original) :
+		NTBP_membrane_o() {
 	cerr << "DO NOT COPY" << endl;
 	NT_ASSERT( 1 == 0);
 	// add assignment code here
@@ -299,10 +300,11 @@ vector<NTreal> NTBP_membrane_compartment_sequence_o::OpenChannelsRatio(
 		NTsize currIndex) const {
 	vector<NTreal> tmp(_numCompartments());
 	for (NTsize ll = 0; ll < _numCompartments(); ll++) {
-		if(currIndex-1<compartmentVec[ll]->currentVec.size())
-					tmp[ll] = compartmentVec[ll]->Current(currIndex)->OpenChannelsRatio();
-				else
-					tmp[ll] = 0;
+		if (currIndex - 1 < compartmentVec[ll]->currentVec.size())
+			tmp[ll] =
+					compartmentVec[ll]->Current(currIndex)->OpenChannelsRatio();
+		else
+			tmp[ll] = 0;
 	}
 	return tmp;
 }

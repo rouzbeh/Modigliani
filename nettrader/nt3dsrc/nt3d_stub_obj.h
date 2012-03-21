@@ -18,22 +18,21 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */ 
-  
+ */
 
 /* $Id: nt3d_stub_obj.h,v 1.1.1.1 2004/12/16 01:38:36 face Exp $ 
-* $Log: nt3d_stub_obj.h,v $
-* Revision 1.1.1.1  2004/12/16 01:38:36  face
-* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
-*
-* Revision 1.1  2001/06/29 13:16:55  face
-* *** empty log message ***
-*
-* Revision 1.1  2000/06/13 20:10:26  face
-* *** empty log message ***
-*
+ * $Log: nt3d_stub_obj.h,v $
+ * Revision 1.1.1.1  2004/12/16 01:38:36  face
+ * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+ *
+ * Revision 1.1  2001/06/29 13:16:55  face
+ * *** empty log message ***
+ *
+ * Revision 1.1  2000/06/13 20:10:26  face
+ * *** empty log message ***
+ *
 
-*/
+ */
 #ifndef _nt3d_stub_obj_h_ 
 #define _nt3d_stub_obj_h_ 
 
@@ -48,28 +47,39 @@
 /* other includes */
 
 /** @short NT3D_stub_o class 
-\bug unknown
-\warning unknown 
-*/
-class NT3D_stub_o : public NT3D_hierarchic_object_o {
+ \bug unknown
+ \warning unknown
+ */
+class NT3D_stub_o: public NT3D_hierarchic_object_o {
 public:
-/***   Constructors, Copy/Assignment and Destructor  ***/  
-NT3D_stub_o();
-NT3D_stub_o(const NT3D_stub_o & original);
-const NT3D_stub_o & operator= (const NT3D_stub_o & right);
-virtual ~NT3D_stub_o();
-/* ***  Methods              ***/
-void DrawObj() {};
-/* ***  Data                 ***/  
+	/***   Constructors, Copy/Assignment and Destructor  ***/
+	NT3D_stub_o();
+	NT3D_stub_o(const NT3D_stub_o & original);
+	const NT3D_stub_o & operator=(const NT3D_stub_o & right);
+	virtual ~NT3D_stub_o();
+	/* ***  Methods              ***/
+	void DrawObj() {
+	}
+	;
+	/* ***  Data                 ***/
 protected:
-/* ***  Methods              ***/
-virtual void ControlObj(NT3Dcontroller cntrl , NTint value){cerr << "Not implemented" << endl;};
-virtual void ControlObj(NT3Dcontroller cntrl , NTreal value){cerr << "Not implemented" << endl;};
-virtual void ControlObj(NT3Dcontroller cntrl , NT_vector_o value){cerr << "Not implemented" << endl;};
-/* ***  Data                 ***/  
+	/* ***  Methods              ***/
+	virtual void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl,
+			NTint __attribute__((unused)) value) {
+		cerr << "Not implemented" << endl;
+	}
+	virtual void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl,
+			NTreal __attribute__((unused)) value) {
+		cerr << "Not implemented" << endl;
+	}
+	virtual void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl,
+			NT_vector_o __attribute__((unused)) value) {
+		cerr << "Not implemented" << endl;
+	}
+	/* ***  Data                 ***/
 private:
-/* ***  Methods              ***/  
-/* ***  Data                 ***/ 
+	/* ***  Methods              ***/
+	/* ***  Data                 ***/
 };
 #endif /* _nt3d_stub_obj_h_ */ 
 

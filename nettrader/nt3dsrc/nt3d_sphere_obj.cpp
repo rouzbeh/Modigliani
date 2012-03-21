@@ -56,7 +56,8 @@ radius(newRadius)
 
 
 /* ***      COPY AND ASSIGNMENT	***/
-NT3D_sphere_o::NT3D_sphere_o(const NT3D_sphere_o & original)
+NT3D_sphere_o::NT3D_sphere_o(const NT3D_sphere_o & original):
+		NT3D_solid_o()
 {
   oTranslation = original.oTranslation;
   radius = original.radius;

@@ -54,7 +54,8 @@ NT3D_universe_vp_o()
 
 
 /* ***      COPY AND ASSIGNMENT	***/ 
-NT3D_spheric_camera_o::NT3D_spheric_camera_o(const NT3D_spheric_camera_o & original)
+NT3D_spheric_camera_o::NT3D_spheric_camera_o(const NT3D_spheric_camera_o __attribute__((unused)) & original):
+		NT3D_universe_vp_o()
 {
  NT_CERR(1,"NT3D_spheric_camera_o::NT3D_spheric_camera_o(...) - Error : Const contructor not implemented."); // add assignment code here
 }

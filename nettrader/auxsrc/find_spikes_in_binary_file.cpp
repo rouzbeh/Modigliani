@@ -76,12 +76,15 @@ int main(int argc, char* argv[]) {
 
 	cerr << "Processing file " << filename << " ..." << endl;
 
-	if (argc > NUM_NON_COLUMN_PARAM
-		) selectColumns = true;
+	unsigned int number = 0;
+	if (argc > NUM_NON_COLUMN_PARAM) {
+		selectColumns = true;
+		number = argc - NUM_NON_COLUMN_PARAM;
+	}
 	vector<unsigned int> selectVec(argc - NUM_NON_COLUMN_PARAM);
 
 	unsigned int ll;
-	for (ll = 0; ll < argc - NUM_NON_COLUMN_PARAM; ll++) {
+	for (ll = 0; ll < number; ll++) {
 		if (atoi(argv[ll + NUM_NON_COLUMN_PARAM]) == 1)
 			cerr
 					<< "You selected the first column to be checked for spikes, it should contain the time and no voltage trace."
@@ -113,7 +116,7 @@ int main(int argc, char* argv[]) {
 		file.read(reinterpret_cast<char*>(buffer), columns * sizeof(float));
 		if (true == selectColumns) {
 			// cout << buffer[0] << "\t";
-			for (ll = 0; ll < argc - NUM_NON_COLUMN_PARAM; ll++) {
+			for (ll = 0; ll < number; ll++) {
 				v = buffer[selectVec[ll]];
 				if (NTAUXisnan(v))
 					cerr << "Warning - Column " << selectVec[ll] << " is NaN."

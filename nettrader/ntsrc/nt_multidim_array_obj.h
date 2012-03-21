@@ -54,7 +54,6 @@
 /* other includes */
 #include <vector>
 #include <cstdarg>
-//#include <limits>
 
 /** @short NT_multidim_array_o class
 Implements a regular - multidimensional, i.e.
@@ -96,7 +95,7 @@ public:
         try {
             dataVec.resize(powerSeriesCacheVec[dim]);
         }
-        catch (bad_alloc) {
+        catch (bad_alloc& ba) {
             cerr << "NT_multidim_array_o::NT_multidim_array_o - Error : Memory exhausted by allocation of multidimensional array."
                  << ">" << powerSeriesCacheVec[dim] * sizeof(T) << " bytes of memory are necessary for this object."
                  << endl;
@@ -153,7 +152,7 @@ public:
     const T &
     ElemByIndex(NTsize index) const
     {
-        NT_ASSERT( (index >= 0) && (index < TotalNumElem()) );
+        NT_ASSERT((index < TotalNumElem()) );
         return dataVec[index];
     }
 

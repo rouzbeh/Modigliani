@@ -79,8 +79,15 @@ colorEmission()
 
 
 /* ***      COPY AND ASSIGNMENT	***/
-NT3D_material_o::NT3D_material_o(const NT3D_material_o & original)
+NT3D_material_o::NT3D_material_o(const NT3D_material_o & original):
+		NT_o(),
+		colorAmbient(original.colorAmbient),
+		colorDiffuse(original.colorDiffuse),
+		colorSpecular(original.colorSpecular),
+		colorShininess(original.colorShininess),
+		colorEmission(original.colorEmission)
 {
+	Init();
 }
 
 const NT3D_material_o&  

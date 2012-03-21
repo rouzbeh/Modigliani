@@ -48,9 +48,10 @@ NT3D_abstract_vp_o()
 
 
 /* ***      COPY AND ASSIGNMENT	***/ 
-NT3D_bitmap_vp_o::NT3D_bitmap_vp_o(const NT3D_bitmap_vp_o & original)
+NT3D_bitmap_vp_o::NT3D_bitmap_vp_o(const NT3D_bitmap_vp_o & original):
+		NT3D_abstract_vp_o()
 {
- // add assignment code here
+	bmpPtr = original.bmpPtr;
 }
 
 const NT3D_bitmap_vp_o&  

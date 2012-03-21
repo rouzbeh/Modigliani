@@ -118,7 +118,7 @@ NT_multidim_histogram_o::BinValue( const vector <NTreal>  & valueVec)
 
     for (NTsize ld = 0; ld < dim; ld++) {
         coor = NTsize(numBins*(valueVec[ld] - min)/range);
-        if ((coor >= 0) && (coor < numBins)) {
+        if (coor < numBins) {
             coorVec[ld] = coor;
         } else {
             outsideBinVec[ld] += 1;

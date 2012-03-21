@@ -58,7 +58,11 @@ steps(newSteps)
 
 
 /* ***      COPY AND ASSIGNMENT	***/ 
-NT3D_rectangle_o::NT3D_rectangle_o(const NT3D_rectangle_o & original)
+NT3D_rectangle_o::NT3D_rectangle_o(const NT3D_rectangle_o & original):
+		NT3D_surfaced_object_o(),
+		width(original.width),
+		height(original.height),
+		steps(original.steps)
 {
  // add assignment code here
 }

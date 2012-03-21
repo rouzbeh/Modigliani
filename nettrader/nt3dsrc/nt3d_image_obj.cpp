@@ -53,7 +53,8 @@ NT_image_o()
 
 }
 /* ***      COPY AND ASSIGNMENT	***/ 
-NT3D_image_o::NT3D_image_o(const NT3D_image_o & original)
+NT3D_image_o::NT3D_image_o(const NT3D_image_o __attribute__((unused)) & original):
+		NT_image_o()
 {
 	 // add assignment code here
 	

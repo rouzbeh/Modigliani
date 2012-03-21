@@ -57,16 +57,17 @@
 #define NT_LOGGAMMATABLEMAX 10000001
 
 /*vector<NTreal> NT_make_vector_func(NTsize dim) {
-	vector<NTreal> tmpVec;
-	tmpVec.resize(dim);
-	return tmpVec;
-}*/
+ vector<NTreal> tmpVec;
+ tmpVec.resize(dim);
+ return tmpVec;
+ }*/
 
 NT_binomial_rnd_dist_o::Initializer NT_binomial_rnd_dist_o::static_table;
 
 NT_binomial_rnd_dist_o::Initializer::Initializer() {
 	logGammaTable = vector<NTreal>(NT_LOGGAMMATABLEMAX);
-	cerr << "NT_binomial_rnd_dist_o::NT_binomial_rnd_dist_o - Talk : This may take a while, populating LogGamma(0.."
+	cerr
+			<< "NT_binomial_rnd_dist_o::NT_binomial_rnd_dist_o - Talk : This may take a while, populating LogGamma(0.."
 			<< NT_LOGGAMMATABLEMAX - 1 << ") tables." << endl;
 	for (NTsize ll = 0; ll < NT_LOGGAMMATABLEMAX; ll++) {
 		logGammaTable[ll] = NTLogGammaFunction(NTreal(ll));
@@ -87,7 +88,8 @@ NT_binomial_rnd_dist_o::NT_binomial_rnd_dist_o(NTreal pp, NTsize num) :
 
 /* ***      COPY AND ASSIGNMENT	***/
 NT_binomial_rnd_dist_o::NT_binomial_rnd_dist_o(
-		const NT_binomial_rnd_dist_o & original) {
+		const NT_binomial_rnd_dist_o __attribute__((unused)) & original) :
+		NT_rnd_dist_o() {
 // add assignment code here
 }
 
@@ -381,44 +383,44 @@ inline NTreal NT_binomial_rnd_dist_o::RndVal() const {
 
 }
 
-NTreal NT_binomial_rnd_dist_o::Binomial(float pp, int n) const {
+NTreal NT_binomial_rnd_dist_o::Binomial(float pp, int new_n) const {
 	if (0 == n)
 		return 0;
 
 	int j;
 	static int nold = (-1);
-	float am, em, g, angle, p, bnl, sq, t, y;
+	float am, em, g, angle, new_p, bnl, sq, t, y;
 	static float pold = (-1.0);
 	static float pc, plog, pclog, en, oldg;
 
-	p = (pp <= 0.5 ? pp : 1.0 - pp);
+	new_p = (pp <= 0.5 ? pp : 1.0 - pp);
 
-	am = n * p;
-	if (n < 25) {
+	am = new_n * new_p;
+	if (new_n < 25) {
 		bnl = 0.0;
-		for (j = 1; j <= n; j++)
-			if (uniformMT() < p)
+		for (j = 1; j <= new_n; j++)
+			if (uniformMT() < new_p)
 				++bnl;
 	} else if (am < 1.0) {
 		g = exp(-am);
 		t = 1.0;
-		for (j = 0; j <= n; j++) {
+		for (j = 0; j <= new_n; j++) {
 			t *= uniformMT();
 			if (t < g)
 				break;
 		}
-		bnl = (j <= n ? j : n);
+		bnl = (j <= new_n ? j : new_n);
 	} else {
-		if (n != nold) {
-			en = n;
+		if (new_n != nold) {
+			en = new_n;
 			oldg = LogGamma(en + 1.0);
-			nold = n;
+			nold = new_n;
 		}
-		if (p != pold) {
-			pc = 1.0 - p;
-			plog = log(p);
+		if (new_p != pold) {
+			pc = 1.0 - new_p;
+			plog = log(new_p);
 			pclog = log(pc);
-			pold = p;
+			pold = new_p;
 		}
 		sq = sqrt(2.0 * am * pc);
 		do {
@@ -435,8 +437,8 @@ NTreal NT_binomial_rnd_dist_o::Binomial(float pp, int n) const {
 		} while (uniformMT() > t);
 		bnl = em;
 	}
-	if (p != pp)
-		bnl = n - bnl;
+	if (new_p != pp)
+		bnl = new_n - bnl;
 	return bnl;
 }
 

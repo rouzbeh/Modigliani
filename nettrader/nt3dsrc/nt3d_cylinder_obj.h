@@ -20,7 +20,6 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-
 /* $Id: nt3d_cylinder_obj.h,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
  * $Log: nt3d_cylinder_obj.h,v $
  * Revision 1.1.1.1  2004/12/16 01:38:36  face
@@ -68,7 +67,6 @@
 #ifndef _nt3d_cylinder_h_
 #define _nt3d_cylinder_h_
 
-
 #include "nt_main.h"
 #include "nt_types.h"
 #include "nt3d_object_obj.h"
@@ -77,48 +75,47 @@
 #include <GL/glu.h>
 
 /** @short NT3D_cylinder_o class
-  Draws a cylinder with its height pointed towards Z-Axis 
-\bug unknown
-\warning unknown 
+ Draws a cylinder with its height pointed towards Z-Axis
+ \bug unknown
+ \warning unknown
  */
-class NT3D_cylinder_o : public NT3D_solid_o {
+class NT3D_cylinder_o: public NT3D_solid_o {
 public:
-  NT3D_cylinder_o();
-  NT3D_cylinder_o(NT_vector3_o oNewPosition);
-  NT3D_cylinder_o(NT_vector3_o oBaseCenter, NTreal newHeight, NTreal newRadius);
-  NT3D_cylinder_o(const NT3D_cylinder_o & original);
-  const NT3D_cylinder_o & operator= (const NT3D_cylinder_o & right);
-  ~NT3D_cylinder_o();
-  /*   Methods                */  
-  void DrawSolidObj() const;
-  /*   Data                   */  
+	NT3D_cylinder_o();
+	NT3D_cylinder_o(NT_vector3_o oNewPosition);
+	NT3D_cylinder_o(NT_vector3_o oBaseCenter, NTreal newHeight,
+			NTreal newRadius);
+	NT3D_cylinder_o(const NT3D_cylinder_o & original);
+	const NT3D_cylinder_o & operator=(const NT3D_cylinder_o & right);
+	~NT3D_cylinder_o();
+	/*   Methods                */
+	void DrawSolidObj() const;
+	/*   Data                   */
 protected:
-  /*   Methods                */
-  virtual void ControlObj(NT3Dcontroller cntrl , NTint value){};
-  virtual void ControlObj(NT3Dcontroller cntrl , NTreal value){};
-  virtual void ControlObj(NT3Dcontroller cntrl , NT_vector_o value){};
-  /*   Data                   */  
+	/*   Methods                */
+	virtual void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl,
+			NTint __attribute__((unused)) value) {
+	}
+	;
+	virtual void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl,
+			NTreal __attribute__((unused)) value) {
+	}
+	;
+	virtual void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl,
+			NT_vector_o __attribute__((unused)) value) {
+	}
+	;
+	/*   Data                   */
 private:
-  /*   Methods                */  
-  void Init(NTreal radius);
-  /*   Data                   */
-  NTreal topRadius;
-  NTreal baseRadius;
-  NTreal height;
-  NTbool bHaveTopClosed;
-  NTbool bHaveBaseClosed;
+	/*   Methods                */
+	void Init(NTreal radius);
+	/*   Data                   */
+	NTreal topRadius;
+	NTreal baseRadius;
+	NTreal height;
+	NTbool bHaveTopClosed;
+	NTbool bHaveBaseClosed;
 };
 
-
-
-
 #endif /* _nt3d_cylinder_h_ */
-
-
-
-
-
-
-
-
 

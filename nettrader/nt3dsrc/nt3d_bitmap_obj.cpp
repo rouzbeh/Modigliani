@@ -18,31 +18,27 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */ 
-  
+ */
 
 /* $Id: nt3d_bitmap_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $ 
-* $Log: nt3d_bitmap_obj.cpp,v $
-* Revision 1.1.1.1  2004/12/16 01:38:36  face
-* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
-*
-* Revision 1.1  2001/06/29 13:16:55  face
-* *** empty log message ***
-*
-* Revision 1.2  2000/11/04 10:32:16  face
-* *** empty log message ***
-*
+ * $Log: nt3d_bitmap_obj.cpp,v $
+ * Revision 1.1.1.1  2004/12/16 01:38:36  face
+ * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
+ *
+ * Revision 1.1  2001/06/29 13:16:55  face
+ * *** empty log message ***
+ *
+ * Revision 1.2  2000/11/04 10:32:16  face
+ * *** empty log message ***
+ *
 
-*/
+ */
 #include "nt3d_bitmap_obj.h" 
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NT3D_bitmap_o */
-NT3D_bitmap_o::NT3D_bitmap_o(NTsize newWidth, NTsize newHeight, NTimageDataFormat newFormat)
-{
-	NT_ASSERT_PRECOND(newWidth > 0);
-	NT_ASSERT_PRECOND(newHeight >= 0);
-
+NT3D_bitmap_o::NT3D_bitmap_o(NTsize newWidth, NTsize newHeight,
+		NTimageDataFormat newFormat) {
 	width = newWidth;
 	height = newHeight;
 	format = newFormat;
@@ -50,109 +46,102 @@ NT3D_bitmap_o::NT3D_bitmap_o(NTsize newWidth, NTsize newHeight, NTimageDataForma
 	pIm = new GLshort[width * height * (int) format * sizeof(GLshort)];
 }
 
-
-/* ***      COPY AND ASSIGNMENT	***/ 
-NT3D_bitmap_o::NT3D_bitmap_o(const NT3D_bitmap_o & original)
-{
- // add assignment code here
+/* ***      COPY AND ASSIGNMENT	***/
+NT3D_bitmap_o::NT3D_bitmap_o(const NT3D_bitmap_o & original) :
+		NT3D_o(), width(original.width), height(original.height), format(
+				original.format) {
+	pIm = new GLshort[width * height * (int) format * sizeof(GLshort)];
 }
 
-const NT3D_bitmap_o&  
-NT3D_bitmap_o::operator= (const NT3D_bitmap_o & right)
-{
- if (this == &right) return *this; // Gracefully handle self assignment
- // add assignment code here
-  return *this;
+const NT3D_bitmap_o&
+NT3D_bitmap_o::operator=(const NT3D_bitmap_o & right) {
+	if (this == &right)
+		return *this; // Gracefully handle self assignment
+	// add assignment code here
+	return *this;
 }
 
 /* ***      DESTRUCTOR		***/
-NT3D_bitmap_o::~NT3D_bitmap_o()
-{
+NT3D_bitmap_o::~NT3D_bitmap_o() {
 
 }
 
-/* ***  PUBLIC                                    ***   */  
+/* ***  PUBLIC                                    ***   */
 /** @short       
-    @param      none
-    @return     none
-   \warning    unknown
-   \bug        unknown
-   Ideas for possible extension of single channel code:
-   	- give possibility to get each of the three channels;
-   	- give possibility to get a grey (RGB) image;
+ @param      none
+ @return     none
+ \warning    unknown
+ \bug        unknown
+ Ideas for possible extension of single channel code:
+ - give possibility to get each of the three channels;
+ - give possibility to get a grey (RGB) image;
  */
-void
-NT3D_bitmap_o::Draw() 
-{
+void NT3D_bitmap_o::Draw() {
 	GLenum tmpFormat;
 
 	switch (format) {
-		case NT_RGB :
-			 tmpFormat = GL_RGB;
-			break;
-		case NT_RGBA :
-			 tmpFormat = GL_RGBA;
-			break;
-		default :
-			  NT_CERR(3,"NT3D_bitmap_o::Draw() - Error : Unsupported format yet.");
-			break;
+	case NT_RGB:
+		tmpFormat = GL_RGB;
+		break;
+	case NT_RGBA:
+		tmpFormat = GL_RGBA;
+		break;
+	default:
+		NT_CERR(3, "NT3D_bitmap_o::Draw() - Error : Unsupported format yet.");
+		break;
 	}
-	glRasterPos2f(0,0);
-	glDrawPixels( width, height, tmpFormat, GL_SHORT, pIm);
+	glRasterPos2f(0, 0);
+	glDrawPixels(width, height, tmpFormat, GL_SHORT, pIm);
 }
 
 /** @short       
-    @param      none
-    @return     none
-   \warning    unknown
-   \bug        unknown
-	Cut and save image from current view port
+ @param      none
+ @return     none
+ \warning    unknown
+ \bug        unknown
+ Cut and save image from current view port
 
-		 _  (x2,y2)
-		  |
+ _  (x2,y2)
+ |
 
 
-	|_ (x1,y1)
-   
-   Ideas for possible extension of single channel code:
-   	- give possibility to get each of the three channels;
-   	- give possibility to get a grey (RGB) image;
+ |_ (x1,y1)
+
+ Ideas for possible extension of single channel code:
+ - give possibility to get each of the three channels;
+ - give possibility to get a grey (RGB) image;
  */
 
-void 
-NT3D_bitmap_o::GetBitmap(NTsize x1, NTsize y1, NTsize x2, NTsize y2, NTimageDataFormat newFormat)
-{
+void NT3D_bitmap_o::GetBitmap(NTsize x1, NTsize y1, NTsize x2, NTsize y2,
+		NTimageDataFormat newFormat) {
 	NTsize tWidth = x2 - x1;
 	NTsize tHeight = y2 - y1;
-	NT_ASSERT_PRECOND( (tWidth > 0) || (tHeight > 0) );
+	NT_ASSERT_PRECOND( (tWidth > 0) || (tHeight > 0));
 
-	
 	if ((tWidth != width) || (tHeight != height) || (format != newFormat)) {
-	width = tWidth;
-	height = tHeight;
-	format = newFormat;
-	delete[] pIm;
-	pIm = new GLshort[width * height * (int) format * sizeof(GL_SHORT)];
+		width = tWidth;
+		height = tHeight;
+		format = newFormat;
+		delete[] pIm;
+		pIm = new GLshort[width * height * (int) format * sizeof(GL_SHORT)];
 	}
-	
+
 	GLenum tmpFormat;
 	switch (format) {
-		case NT_RGB :
-			 tmpFormat = GL_RGB;
-			break;
-		case NT_RGBA :
-			 tmpFormat = GL_RGBA;
-			break;
-		default :
-			  NT_CERR(3,"NT3D_bitmap_o::Draw() - Error : Unsupported format yet.");
-			break;
+	case NT_RGB:
+		tmpFormat = GL_RGB;
+		break;
+	case NT_RGBA:
+		tmpFormat = GL_RGBA;
+		break;
+	default:
+		NT_CERR(3, "NT3D_bitmap_o::Draw() - Error : Unsupported format yet.");
+		break;
 	}
-	glReadPixels( x1, y1, width, height, tmpFormat, GL_SHORT, pIm);
+	glReadPixels(x1, y1, width, height, tmpFormat, GL_SHORT, pIm);
 }
-
 
 /* ***  PROTECTED                         ***   */
 /* ***  PRIVATE                           ***   */
-
 
 /* File skeleton generated by GenNTObj version 0.7. */

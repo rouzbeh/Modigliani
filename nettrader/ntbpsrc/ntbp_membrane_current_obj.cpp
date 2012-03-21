@@ -34,8 +34,9 @@
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NTBP_membrane_current_o */
-NTBP_membrane_current_o::NTBP_membrane_current_o(NTreal newReversalPotential /* in mV */) :
-	NTBP_object_o() {
+NTBP_membrane_current_o::NTBP_membrane_current_o(
+		NTreal newReversalPotential /* in mV */) :
+		NTBP_object_o() {
 	simulationMode = NTBP_DETERMINISTIC;
 	reversalPotential = newReversalPotential; //in mV
 	current = 0.0; // nanoAmpere
@@ -45,7 +46,8 @@ NTBP_membrane_current_o::NTBP_membrane_current_o(NTreal newReversalPotential /* 
 
 /* ***      COPY AND ASSIGNMENT	***/
 NTBP_membrane_current_o::NTBP_membrane_current_o(
-		const NTBP_membrane_current_o & original) {
+		const NTBP_membrane_current_o __attribute__((unused)) & original) :
+		NTBP_object_o() {
 	// add assignment code here
 }
 
