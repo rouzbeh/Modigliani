@@ -23,7 +23,6 @@ main(int argc, char* argv[])
     string filename = argv[1];
     unsigned int columns = atoi( argv[2]);
     int every = atoi( argv[3]);
-
     if (every < 1) every = 1;
     unsigned int number = 0;
 
