@@ -92,8 +92,11 @@ vector<NTreal> NTBP_tridiag_solver_o::Solve(vector<NTreal> dVec,
 	vector<NTreal> lVec;
 	vector<NTreal> uVec;
 	NT_ASSERT( true == initialised);
-	NT_ASSERT(
-			lVec.size() == dVec.size() == uVec.size() == vVec.size() == rVec.size() == numCompartments);
+	NT_ASSERT(lVec.size() == numCompartments);
+	NT_ASSERT(dVec.size() == numCompartments);
+	NT_ASSERT(uVec.size() == numCompartments);
+	NT_ASSERT(vVec.size() == numCompartments);
+	NT_ASSERT(rVec.size() == numCompartments);
 	NTsize m = numCompartments;
 	/* forward elimination */
 	//dVec[0] = dVec[0];
