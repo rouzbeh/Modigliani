@@ -34,7 +34,7 @@ AC_PATH_X
 AC_FUNC_ALLOCA
 AC_HEADER_DIRENT
 AC_HEADER_STDC
-AC_CHECK_HEADERS([OS.h fcntl.h fenv.h float.h inttypes.h limits.h malloc.h memory.h nl_types.h stddef.h stdint.h cstdlib map cmath cstring sys/file.h sys/param.h sys/time.h unistd.h values.h wchar.h wctype.h])
+AC_CHECK_HEADERS([OS.h fcntl.h fenv.h float.h inttypes.h climits malloc.h memory.h nl_types.h cstddef cstdint cstdlib map cmath cstring sys/file.h sys/param.h sys/time.h unistd.h values.h wchar.h wctype.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_HEADER_STDBOOL
