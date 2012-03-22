@@ -53,13 +53,16 @@
 									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/nt3dsrc"/>
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.6/x86_64-linux-gnu"/>
 									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/nt3dsrc"/>
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.0/include"/>
 									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.2/include"/>
+									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.0/include"/>
+									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/modigliani/ntsrc"/>
 									<listOptionValue builtIn="false" value="/home/amadeus/Dropbox/workspace/nettrader/nettrader/tnt"/>
 									<listOptionValue builtIn="false" value="/usr/include/x86_64-linux-gnu"/>
 									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/tnt"/>
 									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/ntbpsrc"/>
+									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/modigliani"/>
 									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/ntsrc"/>
+									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/modigliani/tnt"/>
 									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader"/>
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.3/x86_64-unknown-linux-gnu"/>
 									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.3/include"/>
@@ -73,13 +76,16 @@
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.0"/>
 									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include-fixed"/>
 									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/ntgsrc"/>
+									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/modigliani/auxsrc"/>
+									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/modigliani/ntgsrc"/>
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.5/backward"/>
-									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/ntgsrc"/>
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.2/x86_64-unknown-linux-gnu"/>
+									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/ntgsrc"/>
 									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader/ntbpsrc"/>
 									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.4.5/include-fixed"/>
 									<listOptionValue builtIn="false" value="/home/amadeus/Dropbox/workspace/nettrader/nettrader/ntgsrc"/>
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.1/backward"/>
+									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/modigliani/ntbpsrc"/>
 									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader/auxsrc"/>
 									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader/ntsrc"/>
 									<listOptionValue builtIn="false" value="/usr/local/include"/>
@@ -89,8 +95,8 @@
 									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/ntbpsrc"/>
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.3/backward"/>
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.6"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.5"/>
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.5/x86_64-linux-gnu"/>
+									<listOptionValue builtIn="false" value="/usr/include/c++/4.5"/>
 									<listOptionValue builtIn="false" value="/usr/include"/>
 									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader"/>
 									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/examples"/>
@@ -99,13 +105,14 @@
 									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/ntsrc"/>
 									<listOptionValue builtIn="false" value="/usr/lib/x86_64-linux-gnu/gcc/x86_64-linux-gnu/4.5.2/include"/>
 									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader"/>
+									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/modigliani/nt3dsrc"/>
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.2/backward"/>
 									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader"/>
 									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/auxsrc"/>
 									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.2/include-fixed"/>
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.1/x86_64-unknown-linux-gnu"/>
 								</option>
-								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.265370088" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath"/>
+								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.265370088" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths"/>
 								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.265827724" languageId="org.eclipse.cdt.core.assembly" languageName="Assembly" sourceContentType="org.eclipse.cdt.core.asmSource" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
 							</tool>
 							<tool id="org.eclipse.cdt.build.core.settings.holder.814005803" name="GNU C++" superClass="org.eclipse.cdt.build.core.settings.holder">
@@ -136,11 +143,14 @@
 									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/nt3dsrc"/>
 									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.2/include"/>
 									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.0/include"/>
+									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/modigliani/ntsrc"/>
 									<listOptionValue builtIn="false" value="/home/amadeus/Dropbox/workspace/nettrader/nettrader/tnt"/>
 									<listOptionValue builtIn="false" value="/usr/include/x86_64-linux-gnu"/>
 									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/tnt"/>
 									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/ntbpsrc"/>
+									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/modigliani"/>
 									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/ntsrc"/>
+									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/modigliani/tnt"/>
 									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader"/>
 									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.3/include"/>
 									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/auxsrc"/>
@@ -152,13 +162,16 @@
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.0"/>
 									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include-fixed"/>
 									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/ntgsrc"/>
+									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/modigliani/auxsrc"/>
+									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/modigliani/ntgsrc"/>
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.5/backward"/>
 									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/ntgsrc"/>
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.2/x86_64-unknown-linux-gnu"/>
 									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader/ntbpsrc"/>
 									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.4.5/include-fixed"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.1/backward"/>
 									<listOptionValue builtIn="false" value="/home/amadeus/Dropbox/workspace/nettrader/nettrader/ntgsrc"/>
+									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.1/backward"/>
+									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/modigliani/ntbpsrc"/>
 									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader/auxsrc"/>
 									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader/ntsrc"/>
 									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.6.1/include-fixed"/>
@@ -175,6 +188,7 @@
 									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/ntsrc"/>
 									<listOptionValue builtIn="false" value="/usr/lib/x86_64-linux-gnu/gcc/x86_64-linux-gnu/4.5.2/include"/>
 									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader"/>
+									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/modigliani/nt3dsrc"/>
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.2/backward"/>
 									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader"/>
 									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/auxsrc"/>
@@ -182,13 +196,13 @@
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.1/x86_64-unknown-linux-gnu"/>
 								</option>
 								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.1123365528" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nettrader/nettrader/auxsrc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nettrader/nettrader/ntsrc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nettrader/nettrader/nt3dsrc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nettrader/nettrader/ntgsrc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nettrader/nettrader/ntbpsrc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nettrader/nettrader}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nettrader/nettrader/tnt}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nettrader/modigliani/auxsrc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nettrader/modigliani/ntsrc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nettrader/modigliani/nt3dsrc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nettrader/modigliani/ntgsrc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nettrader/modigliani/ntbpsrc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nettrader/modigliani}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nettrader/modigliani/tnt}&quot;"/>
 								</option>
 								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.1277859289" languageId="org.eclipse.cdt.core.g++" languageName="GNU C++" sourceContentType="org.eclipse.cdt.core.cxxSource,org.eclipse.cdt.core.cxxHeader" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
 							</tool>
@@ -202,10 +216,11 @@
 									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/examples"/>
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.4/backward"/>
 									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.4.5/include"/>
+									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.3/include-fixed"/>
 									<listOptionValue builtIn="false" value="/home/amadeus/Dropbox/workspace/nettrader/nettrader/nt3dsrc"/>
 									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/tnt"/>
-									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader/tnt"/>
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.6/backward"/>
+									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader/tnt"/>
 									<listOptionValue builtIn="false" value="/home/amadeus/Dropbox/workspace/nettrader/nettrader/ntbpsrc"/>
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.4/x86_64-linux-gnu"/>
 									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.0/include-fixed"/>
@@ -220,38 +235,49 @@
 									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/nt3dsrc"/>
 									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.2/include"/>
 									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.0/include"/>
+									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/modigliani/ntsrc"/>
 									<listOptionValue builtIn="false" value="/home/amadeus/Dropbox/workspace/nettrader/nettrader/tnt"/>
 									<listOptionValue builtIn="false" value="/usr/include/x86_64-linux-gnu"/>
 									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/tnt"/>
 									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/ntbpsrc"/>
+									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/modigliani"/>
 									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/ntsrc"/>
+									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/modigliani/tnt"/>
 									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader"/>
+									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.3/x86_64-unknown-linux-gnu"/>
 									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.3/include"/>
 									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/auxsrc"/>
 									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader/examples"/>
 									<listOptionValue builtIn="false" value="/home/amadeus/Dropbox/workspace/nettrader/nettrader"/>
+									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.3"/>
 									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader"/>
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.2"/>
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.1"/>
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.0"/>
 									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include-fixed"/>
 									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/ntgsrc"/>
+									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/modigliani/auxsrc"/>
+									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/modigliani/ntgsrc"/>
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.5/backward"/>
-									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/ntgsrc"/>
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.2/x86_64-unknown-linux-gnu"/>
+									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/ntgsrc"/>
 									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader/ntbpsrc"/>
 									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.4.5/include-fixed"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.1/backward"/>
 									<listOptionValue builtIn="false" value="/home/amadeus/Dropbox/workspace/nettrader/nettrader/ntgsrc"/>
+									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.1/backward"/>
+									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/modigliani/ntbpsrc"/>
 									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader/auxsrc"/>
 									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader/ntsrc"/>
+									<listOptionValue builtIn="false" value="/usr/local/include"/>
 									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.6.1/include-fixed"/>
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.0/x86_64-unknown-linux-gnu"/>
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.4"/>
 									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/ntbpsrc"/>
+									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.3/backward"/>
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.6"/>
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.5/x86_64-linux-gnu"/>
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.5"/>
+									<listOptionValue builtIn="false" value="/usr/include"/>
 									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader"/>
 									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/examples"/>
 									<listOptionValue builtIn="false" value="/home/amadeus/Dropbox/workspace/nettrader/nettrader/ntsrc"/>
@@ -259,180 +285,15 @@
 									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/ntsrc"/>
 									<listOptionValue builtIn="false" value="/usr/lib/x86_64-linux-gnu/gcc/x86_64-linux-gnu/4.5.2/include"/>
 									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader"/>
+									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/modigliani/nt3dsrc"/>
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.2/backward"/>
 									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader"/>
 									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/auxsrc"/>
 									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.2/include-fixed"/>
 									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.1/x86_64-unknown-linux-gnu"/>
 								</option>
-								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.1332498432" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nettrader/nettrader/auxsrc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nettrader/nettrader/ntsrc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nettrader/nettrader/nt3dsrc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nettrader/nettrader/ntgsrc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nettrader/nettrader/ntbpsrc}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nettrader/nettrader}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/nettrader/nettrader/tnt}&quot;"/>
-								</option>
+								<option id="org.eclipse.cdt.build.core.settings.holder.incpaths.1332498432" name="Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.incpaths" valueType="includePath"/>
 								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.1035510564" languageId="org.eclipse.cdt.core.gcc" languageName="GNU C" sourceContentType="org.eclipse.cdt.core.cSource,org.eclipse.cdt.core.cHeader" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
-							</tool>
-						</toolChain>
-					</folderInfo>
-					<folderInfo id="0.1300622393.910256357" name="/" resourcePath="nettrader">
-						<toolChain id="org.eclipse.cdt.build.core.prefbase.toolchain.1124826719" name="No ToolChain" superClass="org.eclipse.cdt.build.core.prefbase.toolchain" unusedChildren="">
-							<tool id="org.eclipse.cdt.build.core.settings.holder.libs.1631478681" name="holder for library settings" superClass="org.eclipse.cdt.build.core.settings.holder.libs.1699104316"/>
-							<tool id="org.eclipse.cdt.build.core.settings.holder.993759342" name="Assembly" superClass="org.eclipse.cdt.build.core.settings.holder.1627975051">
-								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.365902750" languageId="org.eclipse.cdt.core.assembly" languageName="Assembly" sourceContentType="org.eclipse.cdt.core.asmSource" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
-							</tool>
-							<tool id="org.eclipse.cdt.build.core.settings.holder.531706758" name="GNU C++" superClass="org.eclipse.cdt.build.core.settings.holder.1627975051">
-								<option id="org.eclipse.cdt.build.core.settings.holder.undef.incpaths.1103501205" name="Undefined Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.undef.incpaths" valueType="undefIncludePath">
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.5.2/include"/>
-									<listOptionValue builtIn="false" value="/home/amadeus/Dropbox/workspace/nettrader/nettrader/examples"/>
-									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader/nt3dsrc"/>
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.6.1/include"/>
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.5.2/include-fixed"/>
-									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/examples"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.4/backward"/>
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.4.5/include"/>
-									<listOptionValue builtIn="false" value="/home/amadeus/Dropbox/workspace/nettrader/nettrader/nt3dsrc"/>
-									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/tnt"/>
-									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader/tnt"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.6/backward"/>
-									<listOptionValue builtIn="false" value="/home/amadeus/Dropbox/workspace/nettrader/nettrader/ntbpsrc"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.4/x86_64-linux-gnu"/>
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.0/include-fixed"/>
-									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader/ntgsrc"/>
-									<listOptionValue builtIn="false" value="/home/amadeus/Dropbox/workspace/nettrader"/>
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.0/backward"/>
-									<listOptionValue builtIn="false" value="/home/amadeus/Dropbox/workspace/nettrader/nettrader/auxsrc"/>
-									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader"/>
-									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/nt3dsrc"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.6/x86_64-linux-gnu"/>
-									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/nt3dsrc"/>
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.2/include"/>
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.0/include"/>
-									<listOptionValue builtIn="false" value="/home/amadeus/Dropbox/workspace/nettrader/nettrader/tnt"/>
-									<listOptionValue builtIn="false" value="/usr/include/x86_64-linux-gnu"/>
-									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/tnt"/>
-									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/ntbpsrc"/>
-									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/ntsrc"/>
-									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader"/>
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.3/include"/>
-									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/auxsrc"/>
-									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader/examples"/>
-									<listOptionValue builtIn="false" value="/home/amadeus/Dropbox/workspace/nettrader/nettrader"/>
-									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.2"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.1"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.0"/>
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include-fixed"/>
-									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/ntgsrc"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.5/backward"/>
-									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/ntgsrc"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.2/x86_64-unknown-linux-gnu"/>
-									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader/ntbpsrc"/>
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.4.5/include-fixed"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.1/backward"/>
-									<listOptionValue builtIn="false" value="/home/amadeus/Dropbox/workspace/nettrader/nettrader/ntgsrc"/>
-									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader/auxsrc"/>
-									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader/ntsrc"/>
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.6.1/include-fixed"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.0/x86_64-unknown-linux-gnu"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.4"/>
-									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/ntbpsrc"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.6"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.5/x86_64-linux-gnu"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.5"/>
-									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader"/>
-									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/examples"/>
-									<listOptionValue builtIn="false" value="/home/amadeus/Dropbox/workspace/nettrader/nettrader/ntsrc"/>
-									<listOptionValue builtIn="false" value="/usr/lib/x86_64-linux-gnu/gcc/x86_64-linux-gnu/4.5.2/include-fixed"/>
-									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/ntsrc"/>
-									<listOptionValue builtIn="false" value="/usr/lib/x86_64-linux-gnu/gcc/x86_64-linux-gnu/4.5.2/include"/>
-									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.2/backward"/>
-									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader"/>
-									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/auxsrc"/>
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.2/include-fixed"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.1/x86_64-unknown-linux-gnu"/>
-								</option>
-								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.2060846605" languageId="org.eclipse.cdt.core.g++" languageName="GNU C++" sourceContentType="org.eclipse.cdt.core.cxxSource,org.eclipse.cdt.core.cxxHeader" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
-							</tool>
-							<tool id="org.eclipse.cdt.build.core.settings.holder.1510254020" name="GNU C" superClass="org.eclipse.cdt.build.core.settings.holder.1627975051">
-								<option id="org.eclipse.cdt.build.core.settings.holder.undef.incpaths.220551175" name="Undefined Include Paths" superClass="org.eclipse.cdt.build.core.settings.holder.undef.incpaths" valueType="undefIncludePath">
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.5.2/include"/>
-									<listOptionValue builtIn="false" value="/home/amadeus/Dropbox/workspace/nettrader/nettrader/examples"/>
-									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader/nt3dsrc"/>
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.6.1/include"/>
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.5.2/include-fixed"/>
-									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/examples"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.4/backward"/>
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.4.5/include"/>
-									<listOptionValue builtIn="false" value="/home/amadeus/Dropbox/workspace/nettrader/nettrader/nt3dsrc"/>
-									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/tnt"/>
-									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader/tnt"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.6/backward"/>
-									<listOptionValue builtIn="false" value="/home/amadeus/Dropbox/workspace/nettrader/nettrader/ntbpsrc"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.4/x86_64-linux-gnu"/>
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.0/include-fixed"/>
-									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader/ntgsrc"/>
-									<listOptionValue builtIn="false" value="/home/amadeus/Dropbox/workspace/nettrader"/>
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.0/backward"/>
-									<listOptionValue builtIn="false" value="/home/amadeus/Dropbox/workspace/nettrader/nettrader/auxsrc"/>
-									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader"/>
-									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/nt3dsrc"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.6/x86_64-linux-gnu"/>
-									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/nt3dsrc"/>
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.2/include"/>
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.0/include"/>
-									<listOptionValue builtIn="false" value="/home/amadeus/Dropbox/workspace/nettrader/nettrader/tnt"/>
-									<listOptionValue builtIn="false" value="/usr/include/x86_64-linux-gnu"/>
-									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/tnt"/>
-									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/ntbpsrc"/>
-									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/ntsrc"/>
-									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader"/>
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.3/include"/>
-									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/auxsrc"/>
-									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader/examples"/>
-									<listOptionValue builtIn="false" value="/home/amadeus/Dropbox/workspace/nettrader/nettrader"/>
-									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.2"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.1"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.0"/>
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.1/include-fixed"/>
-									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/ntgsrc"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.5/backward"/>
-									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/ntgsrc"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.2/x86_64-unknown-linux-gnu"/>
-									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader/ntbpsrc"/>
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.4.5/include-fixed"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.1/backward"/>
-									<listOptionValue builtIn="false" value="/home/amadeus/Dropbox/workspace/nettrader/nettrader/ntgsrc"/>
-									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader/auxsrc"/>
-									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader/ntsrc"/>
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-linux-gnu/4.6.1/include-fixed"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.0/x86_64-unknown-linux-gnu"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.4"/>
-									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/ntbpsrc"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.6"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.5/x86_64-linux-gnu"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.5"/>
-									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader"/>
-									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/examples"/>
-									<listOptionValue builtIn="false" value="/home/amadeus/Dropbox/workspace/nettrader/nettrader/ntsrc"/>
-									<listOptionValue builtIn="false" value="/usr/lib/x86_64-linux-gnu/gcc/x86_64-linux-gnu/4.5.2/include-fixed"/>
-									<listOptionValue builtIn="false" value="/home/rouzbeh/Dropbox/workspace/nettrader/nettrader/ntsrc"/>
-									<listOptionValue builtIn="false" value="/usr/lib/x86_64-linux-gnu/gcc/x86_64-linux-gnu/4.5.2/include"/>
-									<listOptionValue builtIn="false" value="/home/man210/Dropbox/workspace/nettrader/nettrader"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.2/backward"/>
-									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader"/>
-									<listOptionValue builtIn="false" value="/home/man210/workspace/nettrader/nettrader/auxsrc"/>
-									<listOptionValue builtIn="false" value="/usr/lib/gcc/x86_64-unknown-linux-gnu/4.6.2/include-fixed"/>
-									<listOptionValue builtIn="false" value="/usr/include/c++/4.6.1/x86_64-unknown-linux-gnu"/>
-								</option>
-								<inputType id="org.eclipse.cdt.build.core.settings.holder.inType.578323892" languageId="org.eclipse.cdt.core.gcc" languageName="GNU C" sourceContentType="org.eclipse.cdt.core.cSource,org.eclipse.cdt.core.cHeader" superClass="org.eclipse.cdt.build.core.settings.holder.inType"/>
 							</tool>
 						</toolChain>
 					</folderInfo>
