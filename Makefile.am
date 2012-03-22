@@ -1,8 +1,8 @@
 ####### kdevelop will overwrite this part!!! (begin)##########
 
-SUBDIRS = nettrader
+SUBDIRS = modigliani
 
-EXTRA_DIST = nettrader.kdevprj AUTHORS COPYING ChangeLog INSTALL README TODO nettrader.lsm NTBP_BNF.txt nettrader.doxygen 
+EXTRA_DIST = nettrader.kdevprj AUTHORS COPYING ChangeLog INSTALL README TODO modigliani.lsm NTBP_BNF.txt modigliani.doxygen 
 
 ####### kdevelop will overwrite this part!!! (end)############
 # not a GNU package. You can remove this line, if

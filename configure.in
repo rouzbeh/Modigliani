@@ -1,9 +1,9 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.57)
-AC_INIT(NetTrader, 2.0 , ali@neishabouri.net)
+AC_INIT(Modigliani, 2.0 , ali@neishabouri.net)
 AM_INIT_AUTOMAKE
-AC_CONFIG_SRCDIR([nettrader.lsm])
+AC_CONFIG_SRCDIR([modigliani.lsm])
 AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.
@@ -62,12 +62,9 @@ AC_FUNC_STRFTIME
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([alarm clock_gettime fesetround floor ftime getcwd gettimeofday memchr memmove memset pathconf pow regcomp rint select setlocale sqrt strchr strcspn strerror strpbrk strrchr strspn strstr strtol strtoul uname])
 
-dnl CXXFLAGS="-Ofast -march=native -mtune=native -ffast-math -ansi -pedantic -Wshadow"
+dnl CXXFLAGS="-Ofast -march=native -mtune=native -ffast-math -ansi -pedantic -Wshadow -Wno-vla -malign-double"
 dnl CXXFLAGS="-O3 -march=pentium4 -malign-double -fomit-frame-pointer -mfpmath=sse"
-dnl CXXFLAGS="-O3 -malign-double -fomit-frame-pointer -ansi -pedantic "
-dnl CXXFLAGS="-O3 -n32 "
-CXXFLAGS="-g -Wall -W -Wundef -Wshadow -ansi -pedantic"
-dnl CXXFLAGS="-O2"
+CXXFLAGS="-g -Wall -W -Wundef -Wshadow -ansi -pedantic -std=c++0x -Wno-vla"
 
 all_includes="$all_includes -I../ntsrc -I../nt3dsrc -I../ntgsrc -I../ntbpsrc -I.. -I../tnt"
 all_includes="$all_includes $USER_INCLUDES"
@@ -77,12 +74,12 @@ all_libraries="$all_libraries $USER_LDFLAGS"
 AC_SUBST(all_libraries)
 
 AC_CONFIG_FILES([Makefile
-                 nettrader/Makefile
-                 nettrader/auxsrc/Makefile
-                 nettrader/nt3dsrc/Makefile
-                 nettrader/ntbpsrc/Makefile
-                 nettrader/ntgsrc/Makefile
-                 nettrader/ntsrc/Makefile
-                 nettrader/tnt/Makefile])
+                 modigliani/Makefile
+                 modigliani/auxsrc/Makefile
+                 modigliani/nt3dsrc/Makefile
+                 modigliani/ntbpsrc/Makefile
+                 modigliani/ntgsrc/Makefile
+                 modigliani/ntsrc/Makefile
+                 modigliani/tnt/Makefile])
 
 AC_OUTPUT
