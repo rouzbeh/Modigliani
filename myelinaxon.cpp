@@ -18,7 +18,58 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include "common_tools.h"
+#include <ntbp_auxfunc.h>
+#include <plplot/plplot.h>
+#include <plplot/plstream.h>
+
+using namespace std;
+
+/* Global */
+Json::Value hillock_parameters;
+Json::Value node_parameters;
+Json::Value paranode_parameters;
+Json::Value internode_parameters;
+Json::Value simulation_parameters;
+Json::Value config_root; // will contains the root value after parsing.
+
+/**
+ * Reads the parameters in the file given as argument.
+ * @param fileName Input file.
+ */
+void read_config(string fileName) {
+	// Remember that data file should have more lines than Num iterations.
+	Json::Reader config_reader;
+	ifstream config_doc;
+	config_doc.open(fileName.c_str(), ifstream::in);
+	bool parsingSuccessful = config_reader.parse(config_doc, config_root);
+	if (!parsingSuccessful) {
+		// report to the user the failure and their locations in the document.
+		std::cerr << "Failed to parse configuration\n"
+				<< config_reader.getFormatedErrorMessages();
+		exit(1);
+	}
+
+	/*Hillokc*/
+	if (config_root.get("hillock", false).asBool())
+		hillock_parameters = config_root["hillock_parameters"];
+
+	/* Nodes */
+	if (config_root.get("node", false).asBool()) {
+		node_parameters = config_root["node_parameters"];
+	}
+
+	/* Paranodes */
+	if (config_root.get("paranode", false).asBool())
+		paranode_parameters = config_root["paranode_parameters"];
+
+	/* Internodes */
+	if (config_root.get("internode", false).asBool())
+		internode_parameters = config_root["internode_parameters"];
+
+	simulation_parameters = config_root["simulation_parameters"];
+
+}
+
 /**
  * Let's go!
  *
@@ -60,9 +111,8 @@ int simulate(string fileName) {
 		openOutputFile(timedOutputFolder, "LengthPerCompartment",
 				LengthPerCompartmentFile);
 		openOutputFile(timedOutputFolder, "ConfigUsed", ConfigUsedFile, ".m");
-		printConfig(ConfigUsedFile, hillock_parameters, node_parameters,
-				paranode_parameters, internode_parameters,
-				simulation_parameters, config_root);
+		printConfig(ConfigUsedFile, node_parameters, paranode_parameters,
+				internode_parameters, simulation_parameters, config_root);
 		TimeFile << "% in ms" << endl;
 
 		int counter = 0;
@@ -75,9 +125,6 @@ int simulate(string fileName) {
 
 	cout << "Eleak set to " << config_root.get("eLeak", 0).asDouble() << " mV."
 			<< endl;
-
-	//NT_uniform_rnd_dist_o testRnd; // DO NOT DELETE, otherwise linker problems occur!
-	//NT_gaussian_rnd_dist_o gaussianRnd; // DO NOT DELETE, otherwise linker problems occur !
 
 	// Read input file only once. Store its content in memory.
 	ifstream dataFile(simulation_parameters["inputFile"].asString().c_str(),
@@ -143,32 +190,14 @@ int simulate(string fileName) {
 		vector<NTreal> kCurrVec(numCompartments);
 
 		/* Graphics init */
-		NT3D_plot2d_vec_vp_o plotXY(numCompartments);
-		NT3D_plot2d_vec_vp_o plotChanNa(numCompartments);
-		NT3D_plot2d_vec_vp_o plotChanK(numCompartments);
+		plstream* pls = new plstream();
 
 		if (simulation_parameters["useVis"].asInt() > 0) {
-			NT3D_glx_drv_o* drvVP = new NT3D_glx_drv_o(1000, 120);
-			drvVP->SetWindowTitle("Voltage-Compartment-Plot");
-			if (NT_FAIL == plotXY.Connect(drvVP))
-				return (EXIT_GRAPHIC_ERROR);
-			plotXY.AutoRange(false);
-			plotXY.SetXRange(0, numCompartments);
-			plotXY.SetYRange(-100, 100);
-
-			/*NT3D_glx_drv_o* drv2VP = new NT3D_glx_drv_o(1000, 100);
-			 drv2VP->SetWindowTitle("NaOpenChannelRatio-Compartment-Plot");
-			 if (NT_FAIL == plotChanNa.Connect(drv2VP))
-			 return (EXIT_GRAPHIC_ERROR);
-			 plotChanNa.SetXRange(0, numCompartments);
-			 plotChanNa.SetYRange(0, 100);
-
-			 NT3D_glx_drv_o* drv3VP = new NT3D_glx_drv_o(1000, 100);
-			 drv3VP->SetWindowTitle("KOpenChannelRatio-Compartment-Plot");
-			 if (NT_FAIL == plotChanK.Connect(drv3VP))
-			 return (EXIT_GRAPHIC_ERROR);
-			 plotChanK.SetXRange(0, numCompartments);
-			 plotChanK.SetYRange(0, 100);*/
+			// Initialize plplot.
+			pls->sdev("wxwidgets");
+			pls->scolbg(255,255,255);
+			pls->scol0(1, 0, 0, 0);
+			pls->init();
 		}
 
 		/* *** SIMULATION ITERATION LOOP *** */
@@ -178,15 +207,23 @@ int simulate(string fileName) {
 
 		NT_uniform_rnd_dist_o uniformRnd;
 
-		vector<NTreal> voltVec;
-		//vector<NTreal>::iterator maxVoltPos;
-		//vector<NTreal>::iterator maxVoltOldPos;
 		NTreal timeInMS = 0;
 		int dataRead = 0;
 		for (NTsize lt = 0; lt < simulation_parameters["numIter"].asUInt();
 				lt++) {
 			timeInMS += oModel._timeStep();
 			timeVar = timeInMS;
+			// Write number of columns
+			if (simulation_parameters["sampN"].asInt() > 0 && lt == 0
+					&& lTrials == 0) {
+				for (unsigned int ll = 0; ll < numCompartments; ++ll) {
+					NTsize number_of_currents =
+							oModel.compartmentVec[ll]->currentVec.size() + 1;
+					pot_current_files[ll]->write(
+							reinterpret_cast<char*>(&number_of_currents),
+							sizeof(NTsize));
+				}
+			}
 			/* the "sampling ratio" used for "measurement" to disk */
 			if (simulation_parameters["sampN"].asInt() > 0
 					&& lt % simulation_parameters["sampN"].asInt() == 0) {
@@ -195,11 +232,23 @@ int simulate(string fileName) {
 				}
 				TimeFile << timeVar << endl;
 			}
+
+			PLFLT voltVec[oModel._numCompartments()];
+			PLFLT x[oModel._numCompartments()];
+			x[0]=0;
+
 			if (simulation_parameters["useVis"].asInt() > 0) {
+				if(lt == 0){
+					for (NTsize lc = 1; lc < numCompartments; lc++) {
+						x[lc]=x[lc-1]+oModel.compartmentVec[lc]->_length();
+					}
+					pls->env(0, x[numCompartments-1], -100, 100, 0, 0);
+				}
 				if (lt % simulation_parameters["useVis"].asInt() == 0) {
-					voltVec.clear();
+					pls->clear();
+					pls->box("abcnt", 0, 0, "anvbct", 0, 0);
 					for (NTsize ll = 0; ll < oModel._numCompartments(); ll++) {
-						voltVec.push_back(oModel.compartmentVec[ll]->_vM());
+						voltVec[ll] = oModel.compartmentVec[ll]->_vM();
 					}
 					for (NTsize lc = 0; lc < numCompartments; lc++) {
 						if (NTisnan(voltVec[lc])) {
@@ -214,15 +263,8 @@ int simulate(string fileName) {
 							return (EXIT_V_TOO_HIGH);
 						}
 					}
-
-					plotXY.SetData(voltVec);
-					plotXY.Draw();
-					//plotChanNa.SetData(oModel.OpenChannelsRatio(2));
-					//plotChanNa.SetData(oModel.NumChannelsInState(2,5));
-					//plotChanNa.Draw();
-					//plotChanK.SetData(oModel.OpenChannelsRatio(3));
-					//plotChanK.SetData(oModel.NumChannelsInState(3,5));
-					//plotChanK.Draw();
+					pls->line((PLINT) oModel._numCompartments(), x, voltVec);
+					pls->flush();
 				}
 			}
 			if (lt % simulation_parameters["readN"].asInt() == 0) {
@@ -333,14 +375,8 @@ int get_resting_potential(string fileName) {
 int test() {
 
 	NTBP_lua_based_stochastic_multi_current_o * lua_current =
-			new NTBP_lua_based_stochastic_multi_current_o(
-					0,
-					0 /* mum^-2 */,
-					0/* pS */,
-					0/* mV */,
-					0/* mV */,
-					0.1,
-					6.3/* C */,
+			new NTBP_lua_based_stochastic_multi_current_o(0, 0 /* mum^-2 */,
+					0/* pS */, 0/* mV */, 0/* mV */, 0.1, 6.3/* C */,
 					"/home/man210/Dropbox/workspace/ChannelGenerators/src/lua/SGA_sodium.lua");
 	lua_current->SetSimulationMode(NTBP_DETERMINISTIC);
 
@@ -364,7 +400,8 @@ int test() {
 							<< NTBP_lua_based_stochastic_multi_current_o::probability_matrix_map["/home/man210/Dropbox/workspace/ChannelGenerators/src/lua/SGA_sodium.lua"]->getTransitionProbability(
 									k, i, j) << " =/= "
 							<< NTBP_file_based_stochastic_multi_current_o::probability_matrix_map["/home/man210/thesis/channels/SGA_sodium.json"]->getTransitionProbability(
-									k, i, j) << " from " << i << " to " << j << " at " << (-100 + 0.01*k) << endl;
+									k, i, j) << " from " << i << " to " << j
+							<< " at " << (-100 + 0.01 * k) << endl;
 				}
 			}
 		}
