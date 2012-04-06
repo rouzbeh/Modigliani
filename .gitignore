@@ -67,3 +67,5 @@ Makefile.in
 autom4te.cache*
 configure
 config.h.in
+
+/aclocal.m4
