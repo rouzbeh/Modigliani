@@ -30,6 +30,7 @@
 #ifndef _ntbp_auxfunc_h_ 
 #define _ntbp_auxfunc_h_ 
 #include <cstring>
+#include <ctime>
 #include <fstream>
 #include <iostream>
 #include <cstdlib>

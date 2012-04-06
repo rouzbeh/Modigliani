@@ -30,7 +30,7 @@
 #include "ntbp_auxfunc.h"
 using namespace std;
 
-NTreal NTBP_corrected_channel_density(NTreal chDensity, NTreal compArea) {
+NTreal corrected_channel_density(NTreal chDensity, NTreal compArea) {
 	NTreal chPerCompartment = compArea * chDensity;
 	NTreal pChFloor = (ceil(chPerCompartment) - chPerCompartment);
 
@@ -41,7 +41,7 @@ NTreal NTBP_corrected_channel_density(NTreal chDensity, NTreal compArea) {
 					ceil(chPerCompartment) / compArea :
 					floor(chPerCompartment) / compArea);
 
-	return indChDensity;
+	return (indChDensity);
 }
 
 /**
@@ -71,7 +71,7 @@ string createOutputFolder(string outputFolder) {
 
 	boost::filesystem::create_directories(temp_folder_name);
 
-	return folderName;
+	return (folderName);
 }
 
 /**
@@ -188,7 +188,7 @@ NTBP_custom_cylindrical_compartment_o* createCompartment(
 		}
 
 		if ("file" == current["type"].asString()) {
-			NTreal indDensity = NTBP_corrected_channel_density(
+			NTreal indDensity = corrected_channel_density(
 					current["chDen"].asDouble(), tmpPtr->_area());
 			NTBP_file_based_stochastic_multi_current_o * file_current =
 					new NTBP_file_based_stochastic_multi_current_o(
@@ -206,7 +206,7 @@ NTBP_custom_cylindrical_compartment_o* createCompartment(
 
 		if ("lua" == current["type"].asString()) {
 			if (1 == current["chAlg"].asInt()) {
-				NTreal indDensity = NTBP_corrected_channel_density(
+				NTreal indDensity = corrected_channel_density(
 						current["chDen"].asDouble(), tmpPtr->_area());
 				NTBP_lua_based_deterministic_multi_current_o * lua_current =
 						new NTBP_lua_based_deterministic_multi_current_o(
@@ -221,7 +221,7 @@ NTBP_custom_cylindrical_compartment_o* createCompartment(
 				tmpPtr->AttachCurrent(lua_current, NTBP_IONIC);
 				continue;
 			} else if (4 == current["chAlg"].asInt()) {
-				NTreal indDensity = NTBP_corrected_channel_density(
+				NTreal indDensity = corrected_channel_density(
 						current["chDen"].asDouble(), tmpPtr->_area());
 				NTBP_lua_based_stochastic_multi_current_o * lua_current =
 						new NTBP_lua_based_stochastic_multi_current_o(
@@ -238,7 +238,7 @@ NTBP_custom_cylindrical_compartment_o* createCompartment(
 			}
 		}
 	}
-	return tmpPtr;
+	return (tmpPtr);
 }
 
 /**
@@ -284,7 +284,7 @@ ofstream* openOutputFile(string outputFolder, string prefix, int counter,
 		cerr << "Could not open output file " << temp_name << endl;
 		std::exit(EXIT_IO_ERROR);
 	}
-	return out_stream;
+	return (out_stream);
 }
 
 NTBP_membrane_compartment_sequence_o create_axon(Json::Value config_root,
@@ -397,5 +397,5 @@ NTBP_membrane_compartment_sequence_o create_axon(Json::Value config_root,
 
 	}
 
-	return oModel;
+	return (oModel);
 }
