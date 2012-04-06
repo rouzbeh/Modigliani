@@ -170,6 +170,9 @@ int simulate(string fileName) {
 			LengthPerCompartmentFile.close();
 		}
 		oModel.Init();
+		PLFLT voltVec[oModel._numCompartments()];
+		PLFLT x[oModel._numCompartments()];
+		x[0]=0;
 
 		/* Information measurement init */
 		numCompartments = hillock_parameters["numComp"].asUInt()
@@ -190,12 +193,13 @@ int simulate(string fileName) {
 		vector<NTreal> kCurrVec(numCompartments);
 
 		/* Graphics init */
-		plstream* pls = new plstream();
+		plstream* pls = 0;
 
 		if (simulation_parameters["useVis"].asInt() > 0) {
+			pls = new plstream();
 			// Initialize plplot.
 			pls->sdev("wxwidgets");
-			pls->scolbg(255,255,255);
+			pls->scolbg(255, 255, 255);
 			pls->scol0(1, 0, 0, 0);
 			pls->init();
 		}
@@ -232,17 +236,13 @@ int simulate(string fileName) {
 				}
 				TimeFile << timeVar << endl;
 			}
-
-			PLFLT voltVec[oModel._numCompartments()];
-			PLFLT x[oModel._numCompartments()];
-			x[0]=0;
-
 			if (simulation_parameters["useVis"].asInt() > 0) {
-				if(lt == 0){
+				if (lt == 0) {
 					for (NTsize lc = 1; lc < numCompartments; lc++) {
-						x[lc]=x[lc-1]+oModel.compartmentVec[lc]->_length();
+						x[lc] = x[lc - 1]
+								+ oModel.compartmentVec[lc]->_length();
 					}
-					pls->env(0, x[numCompartments-1], -100, 100, 0, 0);
+					pls->env(0, x[numCompartments - 1], -100, 100, 0, 0);
 				}
 				if (lt % simulation_parameters["useVis"].asInt() == 0) {
 					pls->clear();
@@ -278,7 +278,8 @@ int simulate(string fileName) {
 
 			oModel.Step();
 		}
-
+		if(pls)
+			delete pls;
 	} // lTrials
 	cerr << "Simulation completed." << endl;
 	cerr << "Number of compartments=" << numCompartments << endl;
@@ -291,7 +292,7 @@ int simulate(string fileName) {
 		delete file;
 	}
 
-	return 0;
+	return (0);
 }
 
 int get_resting_potential(string fileName) {
@@ -369,7 +370,7 @@ int get_resting_potential(string fileName) {
 		}
 	}
 	cerr << "Simulation completed. Found " << current_guess << endl;
-	return 0;
+	return (0);
 }
 
 int test() {
@@ -406,18 +407,18 @@ int test() {
 			}
 		}
 	}
-	return 0;
+	return (0);
 }
 
 int main(int argc, char* argv[]) {
 	if (strcmp(argv[1], "resting") == 0) {
-		return get_resting_potential(argv[2]);
+		return (get_resting_potential(argv[2]));
 	}
 	if (strcmp(argv[1], "simulate") == 0) {
-		return simulate(argv[2]);
+		return (simulate(argv[2]));
 	}
 	if (strcmp(argv[1], "test") == 0) {
-		return test();
+		return (test());
 	}
-	return 1;
+	return (1);
 }
