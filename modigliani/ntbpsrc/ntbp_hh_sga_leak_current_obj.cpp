@@ -59,9 +59,9 @@ NTBP_hh_current_o(original._reversalPotential(), original._maxConductivity(), or
 const NTBP_hh_sga_leak_current_o&  
 NTBP_hh_sga_leak_current_o::operator= (const NTBP_hh_sga_leak_current_o & right)
 {
- if (this == &right) return *this; // Gracefully handle self assignment
+ if (this == &right) return (*this); // Gracefully handle self assignment
  // add assignment code here
-  return *this;
+  return (*this);
 }
 
 /* ***      DESTRUCTOR		***/
