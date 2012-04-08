@@ -53,7 +53,7 @@
 #include <iostream>
 #include <climits>
 #include <cstdio>
-
+#include <ctime>
 
 class MTRand {
 // Data
