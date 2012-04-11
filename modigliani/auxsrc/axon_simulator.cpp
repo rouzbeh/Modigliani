@@ -267,7 +267,7 @@ int get_resting_potential(string fileName) {
 		vector<NTsize> nodes_vec, nodes_paranodes_vec;
 		/* Model setup */
 		NTBP_membrane_compartment_sequence_o oModel = create_axon(config_root,
-				temp, temp, nodes_vec, nodes_paranodes_vec);
+				temp, temp);
 
 		oModel.Init();
 
