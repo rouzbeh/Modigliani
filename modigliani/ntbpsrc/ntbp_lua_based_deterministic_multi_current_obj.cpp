@@ -61,7 +61,7 @@ const NTBP_lua_based_deterministic_multi_current_o&
 NTBP_lua_based_deterministic_multi_current_o::operator=(
 		const NTBP_lua_based_deterministic_multi_current_o & right) {
 	if (this == &right)
-		return *this; // Gracefully handle self assignment
+		return (*this); // Gracefully handle self assignment
 	setTimeStep(right._timeStep());
 	Set_temperature(_temperature());
 	lua_script = right.lua_script;
@@ -75,7 +75,7 @@ NTBP_lua_based_deterministic_multi_current_o::operator=(
 	/* call the function with 1
 	 argument, return 0 result */
 	lua_call(L, 1, 0);
-	return *this;
+	return (*this);
 }
 
 /* ***      DESTRUCTOR		***/
@@ -100,7 +100,7 @@ inline NTreturn NTBP_lua_based_deterministic_multi_current_o::StepCurrent() {
 		 argument, return 0 result */
 		lua_call(L, 1, 0);
 
-		return NT_SUCCESS;
+		return (NT_SUCCESS);
 	}
 
 		break;
@@ -108,10 +108,10 @@ inline NTreturn NTBP_lua_based_deterministic_multi_current_o::StepCurrent() {
 		cerr
 				<< "NTBP_lua_based_deterministic_multi_current_o::StepCurrent - ERROR : Unsupported simulation mode."
 				<< endl;
-		return NT_PARAM_UNSUPPORTED;
+		return (NT_PARAM_UNSUPPORTED);
 		break;
 	}
-	return NT_FAIL;
+	return (NT_FAIL);
 }
 
 /**  */
@@ -125,7 +125,7 @@ inline NTreal NTBP_lua_based_deterministic_multi_current_o::OpenChannels() const
 	NTreal count = lua_tonumber(L, -1);
 	lua_pop(L, 1);
 
-	return count * NumChannels();
+	return (count * NumChannels());
 }
 
 /**  */
@@ -133,14 +133,14 @@ inline NTreal NTBP_lua_based_deterministic_multi_current_o::OpenChannels() const
 NTreal NTBP_lua_based_deterministic_multi_current_o::NumChannelsInState(
 		NTsize __attribute__((__unused__)) state) const {
 	cerr << "Deterministic channel does not have states" << endl;
-	return 0;
+	return (0);
 }
 
 /**  */
 /** No descriptions */
 inline NTreal NTBP_lua_based_deterministic_multi_current_o::OpenChannelsRatio() const {
 	NTreal open = OpenChannels();
-	return ((NTreal) (open * 100)) / NumChannels();
+	return (((NTreal) (open * 100)) / NumChannels());
 }
 
 inline NTreal NTBP_lua_based_deterministic_multi_current_o::ComputeConductance() {
@@ -152,8 +152,8 @@ inline NTreal NTBP_lua_based_deterministic_multi_current_o::ComputeConductance()
 	NTreal conduc = lua_tonumber(L, -1);
 	lua_pop(L, 1);
 	NT_ASSERT(conduc == conduc);
-	return Set_conductance(
-			conduc * _maxConductivity() * _area() /* muMeter^2 */* 1.0e-8);
+	return (Set_conductance(
+			conduc * _maxConductivity() * _area() /* muMeter^2 */* 1.0e-8));
 }
 
 void NTBP_lua_based_deterministic_multi_current_o::ShowParam() const {

@@ -56,9 +56,9 @@ const NTBP_cylindrical_compartment_o&
 NTBP_cylindrical_compartment_o::operator=(
 		const NTBP_cylindrical_compartment_o & right) {
 	if (this == &right)
-		return *this; // Gracefully handle self assignment
+		return (*this); // Gracefully handle self assignment
 	// add assignment code here
-	return *this;
+	return (*this);
 }
 
 /* ***      DESTRUCTOR		***/
