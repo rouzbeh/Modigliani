@@ -40,6 +40,12 @@
 #include <json/json.h>
 #include <boost/filesystem.hpp>
 
+extern "C" {
+#include "lua.h"
+#include "lualib.h"
+#include "lauxlib.h"
+}
+
 #include "ntbp_membrane_compartment_sequence_obj.h"
 #include "ntbp_file_based_stochastic_multi_current_obj.h"
 #include "ntbp_lua_based_stochastic_multi_current_obj.h"
@@ -49,7 +55,7 @@
 #include "ntbp_auxfunc.h"
 
 #include <nt_error_obj.h>
-#include <nt_vector_obj.h>
+#include <nt_vecto	r_obj.h>
 
 #include <tnt.h>
 #include <nt3d_plot2d_vec_vp_obj.h>
@@ -100,7 +106,6 @@ ofstream* openOutputFile(string outputFolder, string prefix, int counter,
 		string extension = ".txt");
 
 NTBP_membrane_compartment_sequence_o create_axon(Json::Value config_root,
-		ofstream& TypePerCompartmentFile, ofstream& LengthPerCompartmentFile,
-		vector<NTsize>& nodes_vec, vector<NTsize>& nodes_paranodes_vec);
+		ofstream& TypePerCompartmentFile, ofstream& LengthPerCompartmentFile);
 
 #endif /* _ntbp_auxfunc_h_ */
