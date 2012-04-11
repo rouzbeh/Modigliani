@@ -54,9 +54,9 @@ const NTBP_custom_cylindrical_compartment_o&
 NTBP_custom_cylindrical_compartment_o::operator=(
 		const NTBP_custom_cylindrical_compartment_o & right) {
 	if (this == &right)
-		return *this; // Gracefully handle self assignment
+		return (*this); // Gracefully handle self assignment
 	// add assignment code here
-	return *this;
+	return (*this);
 }
 
 /* ***      DESTRUCTOR		***/
@@ -77,7 +77,7 @@ NTBP_custom_cylindrical_compartment_o::~NTBP_custom_cylindrical_compartment_o() 
  */
 
 NTreal NTBP_custom_cylindrical_compartment_o::getVoltage() {
-	return voltage;
+	return (voltage);
 }
 
 void NTBP_custom_cylindrical_compartment_o::setVoltage(NTreal newVoltage) {

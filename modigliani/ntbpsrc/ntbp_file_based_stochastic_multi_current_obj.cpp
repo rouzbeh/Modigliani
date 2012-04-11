@@ -154,38 +154,38 @@ inline NTreturn NTBP_file_based_stochastic_multi_current_o::StepCurrent() {
 		cerr
 				<< "NTBP_file_based_stochastic_multi_current_o::StepCurrent - ERROR : Unsupported simulation mode."
 				<< endl;
-		return NT_PARAM_UNSUPPORTED;
+		return (NT_PARAM_UNSUPPORTED);
 		break;
 	}
-	return NT_FAIL;
+	return (NT_FAIL);
 }
 
 /**  */
 /** No descriptions */
 inline NTreal NTBP_file_based_stochastic_multi_current_o::OpenChannels() const {
-	return channelsPtr->NumOpen();
+	return (channelsPtr->NumOpen());
 }
 
 /**  */
 /** No descriptions */
 inline NTreal NTBP_file_based_stochastic_multi_current_o::OpenChannelsRatio() const {
 	NTreal open = OpenChannels();
-	return ((NTreal) (open * 100)) / NumChannels();
+	return (((NTreal) (open * 100)) / NumChannels());
 }
 
 /**  */
 /** No descriptions */
 inline NTreal NTBP_file_based_stochastic_multi_current_o::NumChannelsInState(
 		NTsize state) const {
-	return channelsPtr->numChannelsInState(state);
+	return (channelsPtr->numChannelsInState(state));
 }
 
 inline NTreal NTBP_file_based_stochastic_multi_current_o::ComputeConductance() {
-	return Set_conductance(channelsPtr->NumOpen() * conductivity);
+	return (Set_conductance(channelsPtr->NumOpen() * conductivity));
 }
 
 inline NTreal NTBP_file_based_stochastic_multi_current_o::ComputeChannelStateTimeConstant() const {
-	return channelsPtr->ComputeChannelStateTimeConstant(voltage);
+	return (channelsPtr->ComputeChannelStateTimeConstant(voltage));
 }
 
 void NTBP_file_based_stochastic_multi_current_o::ShowParam() const {
