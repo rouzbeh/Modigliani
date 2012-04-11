@@ -53,8 +53,6 @@
 
 #include <tnt.h>
 #include <nt3d_plot2d_vec_vp_obj.h>
-#include <nt3d_glx_drv_obj.h>
-#include <nt_config_file_parser_obj.h>
 
 const int EXIT_V_TOO_HIGH = 1;
 const int EXIT_GRAPHIC_ERROR = 2;

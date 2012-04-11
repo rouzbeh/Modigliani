@@ -8,7 +8,6 @@ AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.
 AC_PROG_CXX
-AC_PROG_YACC
 AC_PROG_CC
 AC_PROG_CPP
 AC_PROG_LEX
@@ -48,19 +47,25 @@ AC_STRUCT_TM
 AC_C_VOLATILE
 AC_CHECK_TYPES([ptrdiff_t])
 
+# Are we cross compiling?
+AM_CONDITIONAL(MINGW, test "$host" = i486-mingw32)
+
 # Checks for library functions.
 AC_FUNC_CLOSEDIR_VOID
 AC_FUNC_ERROR_AT_LINE
 AC_FUNC_FORK
-AC_FUNC_MALLOC
 AC_FUNC_MEMCMP
+if -n $MINGW; then
+AC_FUNC_MALLOC
 AC_FUNC_REALLOC
+fi
 AC_FUNC_SELECT_ARGTYPES
 AC_TYPE_SIGNAL
 AC_FUNC_STAT
 AC_FUNC_STRFTIME
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([alarm clock_gettime fesetround floor ftime getcwd gettimeofday memchr memmove memset pathconf pow regcomp rint select setlocale sqrt strchr strcspn strerror strpbrk strrchr strspn strstr strtol strtoul uname])
+  
 
 dnl CXXFLAGS="-Ofast -march=native -mtune=native -ffast-math -ansi -pedantic -Wshadow -Wno-vla -malign-double"
 dnl CXXFLAGS="-O3 -march=pentium4 -malign-double -fomit-frame-pointer -mfpmath=sse"
