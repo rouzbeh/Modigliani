@@ -19,8 +19,10 @@
  */
 
 #include <ntbp_auxfunc.h>
+#ifdef WITH_PLPLOT
 #include <plplot/plplot.h>
 #include <plplot/plstream.h>
+#endif
 
 using namespace std;
 
@@ -134,9 +136,12 @@ int simulate(string fileName) {
 			LengthPerCompartmentFile.close();
 		}
 		oModel.Init();
+		
+		#ifdef WITH_PLPLOT
 		PLFLT voltVec[oModel._numCompartments()];
 		PLFLT x[oModel._numCompartments()];
 		x[0]=0;
+		#endif
 
 		numCompartments = oModel._numCompartments();
 		cerr << "Total number of compartments(in oModel)"
@@ -145,9 +150,9 @@ int simulate(string fileName) {
 		vector<NTreal> naCurrVec(numCompartments);
 		vector<NTreal> kCurrVec(numCompartments);
 
+		#ifdef WITH_PLPLOT
 		/* Graphics init */
 		plstream* pls = 0;
-
 		if (config_root["simulation_parameters"]["useVis"].asInt() > 0) {
 			pls = new plstream();
 			// Initialize plplot.
@@ -156,6 +161,7 @@ int simulate(string fileName) {
 			pls->scol0(1, 0, 0, 0);
 			pls->init();
 		}
+		#endif
 
 		/* *** SIMULATION ITERATION LOOP *** */
 		cerr << "MainLoop started" << endl;
@@ -189,6 +195,7 @@ int simulate(string fileName) {
 				}
 				TimeFile << timeVar << endl;
 			}
+			#ifdef WITH_PLPLOT
 			if (config_root["simulation_parameters"]["useVis"].asInt() > 0) {
 				if (lt == 0) {
 					for (NTsize lc = 1; lc < numCompartments; lc++) {
@@ -220,6 +227,7 @@ int simulate(string fileName) {
 					pls->flush();
 				}
 			}
+			#endif
 			if (lt % config_root["simulation_parameters"]["readN"].asInt() == 0) {
 				inpCurrent = (inputData[dataRead]
 						* config_root["simulation_parameters"]["inpISDV"].asDouble())
@@ -231,8 +239,10 @@ int simulate(string fileName) {
 
 			oModel.Step();
 		}
+		#ifdef WITH_PLPLOT
 		if(pls)
 			delete pls;
+		#endif
 	} // lTrials
 	cerr << "Simulation completed." << endl;
 	cerr << "Number of compartments=" << numCompartments << endl;

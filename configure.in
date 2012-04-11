@@ -71,6 +71,29 @@ dnl CXXFLAGS="-Ofast -march=native -mtune=native -ffast-math -ansi -pedantic -Ws
 dnl CXXFLAGS="-O3 -march=pentium4 -malign-double -fomit-frame-pointer -mfpmath=sse"
 CXXFLAGS="-g -Wall -W -Wundef -Wshadow -ansi -pedantic -std=c++0x -Wno-vla"
 
+# This adds the option of compiling without using the PLPlot library,
+# which has proved troublesome for compilation on windows
+AC_ARG_ENABLE(plplot,
+  [ --disable-plplot   Disable compilation with PlPlot],
+  [case "${enableval}" in
+     yes | no ) WITH_PLPLOT="${enableval}" ;;
+     *) AC_MSG_ERROR(bad value ${enableval} for --disable-plplot) ;;
+   esac],
+  [WITH_PLPLOT="yes"]
+)
+
+dnl Make sure we register this option with Automake, so we know whether to
+dnl descend into ctemplate for more configuration or not
+AM_CONDITIONAL([WITH_PLPLOT], [test "x$WITH_PLPLOT" = "xyes"])
+
+# Define CTEMPLATE in config.h if we're going to compile against it
+if test "x$WITH_PLPLOT" = "xyes"; then
+    AC_DEFINE([PLPLOT], [], ["build using PLPlot library"])
+    AC_MSG_NOTICE([PLPlot will be used])
+else
+    AC_MSG_NOTICE([PLPlot will not be used])
+fi
+
 all_includes="$all_includes -I../ntsrc -I../nt3dsrc -I../ntgsrc -I../ntbpsrc -I.. -I../tnt"
 all_includes="$all_includes $USER_INCLUDES"
 AC_SUBST(all_includes)
