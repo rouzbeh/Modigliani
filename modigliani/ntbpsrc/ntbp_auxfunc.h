@@ -54,11 +54,11 @@ extern "C" {
 #include "ntbp_hh_sga_leak_current_obj.h"
 #include "ntbp_auxfunc.h"
 
-#include <nt_error_obj.h>
-#include <nt_vector_obj.h>
+#include <ntsrc/nt_error_obj.h>
+#include <ntsrc/nt_vector_obj.h>
 
-#include <tnt.h>
-#include <nt3d_plot2d_vec_vp_obj.h>
+#include <tnt/tnt.h>
+#include <nt3dsrc/nt3d_plot2d_vec_vp_obj.h>
 
 const int EXIT_V_TOO_HIGH = 1;
 const int EXIT_GRAPHIC_ERROR = 2;
