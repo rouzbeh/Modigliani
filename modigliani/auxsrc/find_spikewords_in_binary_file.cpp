@@ -4,9 +4,9 @@
 /* compile with: g++ -o find_spikes_in_binary_file find_spikes_in_binary_file.cpp
  */
 
-#include "nt_main.h"
-#include "nt_types.h"
-#include "nt_obj.h"
+#include "ntsrc/nt_main.h"
+#include "ntsrc/nt_types.h"
+#include "ntsrc/nt_obj.h"
 
 #include <string>
 #include <fstream>
@@ -14,7 +14,7 @@
 #include <vector>
 #include <cmath>
 
-#include "nt_ring_buffer_obj.h"
+#include "ntsrc/nt_ring_buffer_obj.h"
 #define NUM_NON_COLUMN_PARAM 5 // including argv[0] ==  executable
 
 

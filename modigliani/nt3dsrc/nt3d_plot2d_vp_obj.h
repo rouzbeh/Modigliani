@@ -34,13 +34,13 @@
 #define _nt3d_plot2d_vp_obj_h_ 
 
 /* NT core includes */
-#include "nt_main.h" 
-#include "nt_types.h" 
-#include "nt_obj.h"  
+#include "ntsrc/nt_main.h" 
+#include "ntsrc/nt_types.h" 
+#include "ntsrc/nt_obj.h"  
 /* Parent includes */
 #include "nt3d_plot_vp_obj.h"
 /* NT includes */
-#include "nt_error_obj.h"
+#include "ntsrc/nt_error_obj.h"
 
 /* other includes */
 #include <GL/gl.h>

@@ -38,9 +38,9 @@
 #define _nt3d_universe_cylindric_camera_obj_h_ 
 
 /* NT core includes */
-#include "nt_main.h" 
-#include "nt_types.h" 
-#include "nt_obj.h"  
+#include "ntsrc/nt_main.h" 
+#include "ntsrc/nt_types.h" 
+#include "ntsrc/nt_obj.h"  
 /* Parent includes */
 #include "nt3d_universe_camera_vp_obj.h" 
 /* NT includes */

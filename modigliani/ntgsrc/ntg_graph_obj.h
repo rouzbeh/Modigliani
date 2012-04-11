@@ -50,15 +50,15 @@
 #define _ntg_graph_obj_h_
 
 /* NT core includes */
-#include "nt_main.h"
-#include "nt_types.h"
-#include "nt_obj.h"
+#include "ntsrc/nt_main.h"
+#include "ntsrc/nt_types.h"
+#include "ntsrc/nt_obj.h"
 /* NT includes */
-#include "nt_id_management_obj.h"
+#include "ntsrc/nt_id_management_obj.h"
 #include "ntg_node_obj.h"
 #include "ntg_edge_obj.h"
-#include "nt_uniform_rnd_dist_obj.h"
-#include "nt_sequential_statistics_obj.h"
+#include "ntsrc/nt_uniform_rnd_dist_obj.h"
+#include "ntsrc/nt_sequential_statistics_obj.h"
 /* other includes */
 #include <vector>
 #include <algorithm>

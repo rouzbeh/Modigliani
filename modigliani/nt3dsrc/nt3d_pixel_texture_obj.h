@@ -58,9 +58,9 @@
 #define _nt3d_pixel_texture_h_ 
 
 /* NT core includes */
-#include "nt_main.h" 
-#include "nt_types.h" 
-#include "nt_obj.h"  
+#include "ntsrc/nt_main.h" 
+#include "ntsrc/nt_types.h" 
+#include "ntsrc/nt_obj.h"  
 /* Parent includes */
 #include "nt3d_texture_obj.h" 
 /* NT includes */

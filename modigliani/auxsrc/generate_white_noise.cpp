@@ -10,8 +10,8 @@
 
 #include <vector>
 
-#include "nt_gaussian_rnd_dist_obj.h"
-#include "nt_sequential_statistics_obj.h"
+#include "ntsrc/nt_gaussian_rnd_dist_obj.h"
+#include "ntsrc/nt_sequential_statistics_obj.h"
 
 #define NUM_NON_COLUMN_PARAM 3
 

@@ -49,9 +49,9 @@
 #define _nt3d_position_lamp_h_
 
 
-#include "nt_main.h"
-#include "nt_types.h"
-#include "nt_obj.h"
+#include "ntsrc/nt_main.h"
+#include "ntsrc/nt_types.h"
+#include "ntsrc/nt_obj.h"
 
 #include "nt3d_hierarchic_object_obj.h"
 #include "nt3d_lamp_obj.h"

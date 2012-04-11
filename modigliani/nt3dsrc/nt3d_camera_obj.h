@@ -83,13 +83,13 @@
 #ifndef _nt3d_camera_h_
 #define _nt3d_camera_h_
 
-#include "nt_main.h"
-#include "nt_types.h"
-#include "nt_obj.h"
+#include "ntsrc/nt_main.h"
+#include "ntsrc/nt_types.h"
+#include "ntsrc/nt_obj.h"
 
 #include "nt3d_object_obj.h"
 
-#include "nt_vector3_obj.h"
+#include "ntsrc/nt_vector3_obj.h"
 /** @short NT3D_camera_o class
  The class provides a freely movable imaginary camera
  in a three dimensional universe.

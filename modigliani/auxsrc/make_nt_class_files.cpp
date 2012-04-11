@@ -87,9 +87,9 @@ void writeHeaderFileMain(ostream& fout) {
     "#ifndef _"<<filePrefix<<classnameStem<< fileSuffix << "_h_ "<< endl <<
     "#define _"<<filePrefix<<classnameStem<< fileSuffix << "_h_ "<< endl << endl <<
     "/"<<"* NT core includes *"<<"/" << endl <<
-    "#include \"nt_main.h\" " <<endl <<
-    "#include \"nt_types.h\" "<<endl <<
-    "#include \"nt_obj.h\"  "<< endl;
+    "#include \"ntsrc/nt_main.h\" " <<endl <<
+    "#include \"ntsrc/nt_types.h\" "<<endl <<
+    "#include \"ntsrc/nt_obj.h\"  "<< endl;
 
     if (true == derivedClass) {
         fout << "/"<<"* Parent includes *"<<"/" << endl;

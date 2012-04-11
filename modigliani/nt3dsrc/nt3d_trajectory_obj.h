@@ -42,9 +42,9 @@
 #include "nt3d_obj.h"
 #include "nt3d_hierarchic_object_obj.h"
 
-#include "nt_main.h"
-#include "nt_types.h"
-#include "nt_obj.h"
+#include "ntsrc/nt_main.h"
+#include "ntsrc/nt_types.h"
+#include "ntsrc/nt_obj.h"
 
 /** @short NT3D_trajectory_o class
 Abstract trajectory unit that moves a projectile (any NT3D_object_o)

@@ -61,9 +61,9 @@
 #define _nt3d_universe_vp_h_
 
 
-#include "nt_main.h"
-#include "nt_types.h"
-#include "nt_obj.h"
+#include "ntsrc/nt_main.h"
+#include "ntsrc/nt_types.h"
+#include "ntsrc/nt_obj.h"
 
 #include "nt3d_abstract_vp_obj.h"
 

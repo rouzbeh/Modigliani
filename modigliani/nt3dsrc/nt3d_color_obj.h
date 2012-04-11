@@ -64,10 +64,10 @@
 #define _nt3d_color_h_
 
 
-#include "nt_main.h"
-#include "nt_types.h"
+#include "ntsrc/nt_main.h"
+#include "ntsrc/nt_types.h"
 #include "nt3d_obj.h"
-#include "nt_vector_obj.h"
+#include "ntsrc/nt_vector_obj.h"
 
 #include <GL/gl.h>
 
