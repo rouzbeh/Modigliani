@@ -46,13 +46,13 @@
 #define NTBP_TIMESTEP 0.001 /* in msec */
 
 /* NT core includes */
-#include "nt_main.h" 
-#include "nt_types.h" 
-#include "nt_obj.h"  
+#include "../ntsrc/nt_main.h" 
+#include "../ntsrc/nt_types.h" 
+#include "../ntsrc/nt_obj.h"  
 /* NT includes */
-#include "nt_error_obj.h"
+#include "../ntsrc/nt_error_obj.h"
 /* other includes */
-#include "nt_physical_constants.h"
+#include "../ntsrc/nt_physical_constants.h"
 
 enum NTBPKineticFunctionType {NTBP_CONSTANT, NTBP_LINEAR, NTBP, NTBP_FERMI, NTBP_GAUSSIAN};
 enum NTBPcurrentType {NTBP_LEAK, NTBP_IONIC, NTBP_EXTERNAL};
