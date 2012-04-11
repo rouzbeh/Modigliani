@@ -122,7 +122,7 @@
 #define _NT_TYPES_H_
 
 #include "nt_main.h"
-#include <string>
+#include <cstring>
 #include <cmath>
 #include <iostream>
 
