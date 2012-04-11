@@ -28,6 +28,7 @@
  */
 
 #include "ntbp_auxfunc.h"
+#include <ctime>
 using namespace std;
 
 NTreal corrected_channel_density(NTreal chDensity, NTreal compArea) {
@@ -149,9 +150,7 @@ void printConfig(ofstream& out, Json::Value node_parameters,
 			<< simulation_parameters["timeStep"].asDouble() << ";" << endl;
 	out << "simulation_number_of_iterations" << " = "
 			<< simulation_parameters["numIter"].asUInt() << ";" << endl;
-	out
-			<< "simulation_duration"
-			<< " = "
+	out << "simulation_duration" << " = "
 			<< simulation_parameters["timeStep"].asDouble()
 					* simulation_parameters["numIter"].asUInt() << ";" << endl;
 	out << "simulation_trials" << " = "
@@ -288,114 +287,43 @@ ofstream* openOutputFile(string outputFolder, string prefix, int counter,
 }
 
 NTBP_membrane_compartment_sequence_o create_axon(Json::Value config_root,
-		ofstream& TypePerCompartmentFile, ofstream& LengthPerCompartmentFile,
-		vector<NTsize>& nodes_vec, vector<NTsize>& nodes_paranodes_vec) {
+		ofstream& TypePerCompartmentFile, ofstream& LengthPerCompartmentFile) {
 
-	Json::Value hillock_parameters;
-	Json::Value node_parameters;
-	Json::Value paranode_parameters;
-	Json::Value internode_parameters;
-	Json::Value simulation_parameters;
+	string lua_script = config_root["anatomy_lua"].asString();
+	lua_State* L = luaL_newstate();
+	luaL_openlibs(L);
+	luaL_dostring(L, lua_script.c_str());
 
-	/*Hillokc*/
-	if (config_root.get("hillock", false).asBool())
-		hillock_parameters = config_root["hillock_parameters"];
-
-	/* Nodes */
-	if (config_root.get("node", false).asBool()) {
-		node_parameters = config_root["node_parameters"];
+	auto compartment_types = vector<int>();
+	lua_getglobal(L, "compartments");
+	/* table is in the stack at index 't' */
+	lua_pushnil(L); /* first key */
+	while (lua_next(L, -2) != 0) {
+		/* uses 'key' (at index -2) and 'value' (at index -1) */
+		int found = lua_tonumber(L, -1);
+		compartment_types.push_back(found);
+		lua_pop(L, 1);
 	}
+	lua_close(L);
 
-	/* Paranodes */
-	if (config_root.get("paranode", false).asBool())
-		paranode_parameters = config_root["paranode_parameters"];
-
-	/* Internodes */
-	if (config_root.get("internode", false).asBool())
-		internode_parameters = config_root["internode_parameters"];
-
-	simulation_parameters = config_root["simulation_parameters"];
 	NTBP_membrane_compartment_sequence_o oModel;
 	oModel.UpdateTimeStep(
-			simulation_parameters["timeStep"].asDouble() /* mSec */);
+			config_root["simulation_parameters"]["timeStep"].asDouble() /* mSec */);
 	oModel.StepNTBP();
 
-	NTsize compartmentCounter = 1;
-	/* *** MODEL CREATION LOOP *** */
+	Json::Value compartments_parameters =
+			config_root["compartments_parameters"];
 
-	// Generate an axon hillock
-	if (config_root.get("hillock", false).asBool()) {
-		for (NTsize lcomp = 0; lcomp < hillock_parameters["numComp"].asUInt();
-				lcomp++) {
-			TypePerCompartmentFile << compartmentCounter++ << " 0" << endl;
-			LengthPerCompartmentFile << hillock_parameters["length"].asDouble()
-					<< endl;
-			oModel.PushBack(
-					createCompartment(config_root, simulation_parameters,
-							hillock_parameters));
-		}
-	}
-
-	/* Create a Node, followed by Paranode, Internode, Paranode */
-	for (NTsize lnd = 0; lnd < node_parameters["numNd"].asUInt(); lnd++) {
-		/* Create a Node compartment */
-		for (NTsize lcomp = 0; lcomp < node_parameters["numComp"].asUInt();
-				lcomp++) {
-			TypePerCompartmentFile << compartmentCounter++ << " 1" << endl;
-			LengthPerCompartmentFile << node_parameters["length"].asDouble()
-					<< endl;
-			nodes_vec.push_back(compartmentCounter - 2);
-			nodes_paranodes_vec.push_back(compartmentCounter - 2);
-			oModel.PushBack(
-					createCompartment(config_root, simulation_parameters,
-							node_parameters));
-		}
-
-		/* Create a Paranode compartment */
-		if (config_root.get("paranode", false).asBool()) {
-			for (NTsize lcomp = 0;
-					lcomp < paranode_parameters["numComp"].asUInt(); lcomp++) {
-				TypePerCompartmentFile << compartmentCounter++ << " 2" << endl;
-				LengthPerCompartmentFile
-						<< paranode_parameters["length"].asDouble() << endl;
-				nodes_paranodes_vec.push_back(compartmentCounter - 2);
-				oModel.PushBack(
-						createCompartment(config_root, simulation_parameters,
-								paranode_parameters));
-			}
-		}
-
-		if ((node_parameters["numNd"].asUInt() - 1) == lnd) {
-			break;
-		}
-
-		/* Create an Internode compartment */
-		if (config_root.get("internode", false).asBool()) {
-			for (NTsize lcomp = 0;
-					lcomp < internode_parameters["numComp"].asUInt(); lcomp++) {
-				TypePerCompartmentFile << compartmentCounter++ << " 3" << endl;
-				LengthPerCompartmentFile
-						<< internode_parameters["length"].asDouble() << endl;
-				oModel.PushBack(
-						createCompartment(config_root, simulation_parameters,
-								internode_parameters));
-			}
-		}
-
-		if (config_root.get("paranode", false).asBool()) {
-			for (NTsize lcomp = 0;
-					lcomp < paranode_parameters["numComp"].asUInt(); lcomp++) {
-				TypePerCompartmentFile << compartmentCounter++ << " 2" << endl;
-				LengthPerCompartmentFile
-						<< paranode_parameters["length"].asDouble() << endl;
-				nodes_paranodes_vec.push_back(compartmentCounter - 2);
-				oModel.PushBack(
-						createCompartment(config_root, simulation_parameters,
-								paranode_parameters));
-			}
-		}
-
+	for (vector<int>::iterator it = compartment_types.begin(); it != compartment_types.end();
+			it++) {
+		TypePerCompartmentFile << *it << endl;
+		LengthPerCompartmentFile << compartments_parameters[*it]["length"].asDouble()
+				<< endl;
+		oModel.PushBack(
+				createCompartment(config_root, config_root["simulation_parameters"],
+						compartments_parameters[*it]));
 	}
 
 	return (oModel);
+
 }
