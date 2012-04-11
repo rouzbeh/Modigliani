@@ -24,12 +24,6 @@
 
 using namespace std;
 
-/* Global */
-Json::Value hillock_parameters;
-Json::Value node_parameters;
-Json::Value paranode_parameters;
-Json::Value internode_parameters;
-Json::Value simulation_parameters;
 Json::Value config_root; // will contains the root value after parsing.
 
 /**
@@ -48,26 +42,6 @@ void read_config(string fileName) {
 				<< config_reader.getFormatedErrorMessages();
 		exit(1);
 	}
-
-	/*Hillokc*/
-	if (config_root.get("hillock", false).asBool())
-		hillock_parameters = config_root["hillock_parameters"];
-
-	/* Nodes */
-	if (config_root.get("node", false).asBool()) {
-		node_parameters = config_root["node_parameters"];
-	}
-
-	/* Paranodes */
-	if (config_root.get("paranode", false).asBool())
-		paranode_parameters = config_root["paranode_parameters"];
-
-	/* Internodes */
-	if (config_root.get("internode", false).asBool())
-		internode_parameters = config_root["internode_parameters"];
-
-	simulation_parameters = config_root["simulation_parameters"];
-
 }
 
 /**
@@ -77,24 +51,17 @@ void read_config(string fileName) {
  * @return
  */
 int simulate(string fileName) {
+	NTsize numCompartments;
 	read_config(fileName);
 	string timedOutputFolder;
-
-	NTsize numCompartments = hillock_parameters["numComp"].asUInt()
-			+ (node_parameters["numNd"].asUInt() - 1)
-					* (node_parameters["numComp"].asUInt()
-							+ 2 * paranode_parameters["numComp"].asUInt()
-							+ internode_parameters["numComp"].asUInt())
-			+ node_parameters["numComp"].asUInt()
-			+ paranode_parameters["numComp"].asUInt();
 
 	// We write each compartment's potential and currents into a single file.
 	ofstream TimeFile, LengthPerCompartmentFile, TypePerCompartmentFile,
 			ConfigUsedFile;
-	vector<ofstream*> pot_current_files(numCompartments);
-	if (simulation_parameters.get("sampN", 0).asUInt() > 0) {
+	vector<ofstream*> pot_current_files(3010);
+	if (config_root["simulation_parameters"].get("sampN", 0).asUInt() > 0) {
 		timedOutputFolder = createOutputFolder(
-				simulation_parameters["outputFolder"].asString());
+				config_root["simulation_parameters"]["outputFolder"].asString());
 
 		std::ifstream ifs(fileName, std::ios::binary);
 		string temp_string = timedOutputFolder;
@@ -111,8 +78,6 @@ int simulate(string fileName) {
 		openOutputFile(timedOutputFolder, "LengthPerCompartment",
 				LengthPerCompartmentFile);
 		openOutputFile(timedOutputFolder, "ConfigUsed", ConfigUsedFile, ".m");
-		printConfig(ConfigUsedFile, node_parameters, paranode_parameters,
-				internode_parameters, simulation_parameters, config_root);
 		TimeFile << "% in ms" << endl;
 
 		int counter = 0;
@@ -127,11 +92,11 @@ int simulate(string fileName) {
 			<< endl;
 
 	// Read input file only once. Store its content in memory.
-	ifstream dataFile(simulation_parameters["inputFile"].asString().c_str(),
+	ifstream dataFile(config_root["simulation_parameters"]["inputFile"].asString().c_str(),
 			ios::binary);
 	if (dataFile.fail()) {
 		cerr << "Could not open input file "
-				<< simulation_parameters["inputFile"].asString().c_str()
+				<< config_root["simulation_parameters"]["inputFile"].asString().c_str()
 				<< endl;
 		exit(EXIT_IO_ERROR);
 	}
@@ -143,7 +108,7 @@ int simulate(string fileName) {
 		if (index < count) {
 			char tmp[100];
 			dataFile.getline(tmp, 100);
-			std::sscanf(tmp, "%f", &inputData[index]);
+			sscanf(tmp, "%f", &inputData[index]);
 			index++;
 		} else {
 			count += 1000000;
@@ -157,13 +122,12 @@ int simulate(string fileName) {
 	vector<NTsize> nodes_paranodes_vec(0);
 	/* *** Trials loop *** */
 	for (NTsize lTrials = 0;
-			lTrials < simulation_parameters["numTrials"].asUInt(); lTrials++) {
+			lTrials < config_root["simulation_parameters"]["numTrials"].asUInt(); lTrials++) {
 		/* Model setup */
 		nodes_vec.clear();
 		nodes_paranodes_vec.clear();
 		NTBP_membrane_compartment_sequence_o oModel = create_axon(config_root,
-				TypePerCompartmentFile, LengthPerCompartmentFile, nodes_vec,
-				nodes_paranodes_vec);
+				TypePerCompartmentFile, LengthPerCompartmentFile);
 
 		if (!lTrials) {
 			TypePerCompartmentFile.close();
@@ -174,20 +138,9 @@ int simulate(string fileName) {
 		PLFLT x[oModel._numCompartments()];
 		x[0]=0;
 
-		/* Information measurement init */
-		numCompartments = hillock_parameters["numComp"].asUInt()
-				+ (node_parameters["numNd"].asUInt() - 1)
-						* (node_parameters["numComp"].asUInt()
-								+ 2 * paranode_parameters["numComp"].asUInt()
-								+ internode_parameters["numComp"].asUInt())
-				+ node_parameters["numComp"].asUInt()
-				+ paranode_parameters["numComp"].asUInt();
-		cerr << "Total number of compartments(computed)" << numCompartments
-				<< endl;
-		//cerr << "Total number of compartments(assembled)" << compartmentCounter
-		//	<< endl;
+		numCompartments = oModel._numCompartments();
 		cerr << "Total number of compartments(in oModel)"
-				<< oModel._numCompartments() << endl;
+				<< numCompartments << endl;
 		vector<NTreal> leakCurrVec(numCompartments);
 		vector<NTreal> naCurrVec(numCompartments);
 		vector<NTreal> kCurrVec(numCompartments);
@@ -195,7 +148,7 @@ int simulate(string fileName) {
 		/* Graphics init */
 		plstream* pls = 0;
 
-		if (simulation_parameters["useVis"].asInt() > 0) {
+		if (config_root["simulation_parameters"]["useVis"].asInt() > 0) {
 			pls = new plstream();
 			// Initialize plplot.
 			pls->sdev("wxwidgets");
@@ -213,12 +166,12 @@ int simulate(string fileName) {
 
 		NTreal timeInMS = 0;
 		int dataRead = 0;
-		for (NTsize lt = 0; lt < simulation_parameters["numIter"].asUInt();
+		for (NTsize lt = 0; lt < config_root["simulation_parameters"]["numIter"].asUInt();
 				lt++) {
 			timeInMS += oModel._timeStep();
 			timeVar = timeInMS;
 			// Write number of columns
-			if (simulation_parameters["sampN"].asInt() > 0 && lt == 0
+			if (config_root["simulation_parameters"]["sampN"].asInt() > 0 && lt == 0
 					&& lTrials == 0) {
 				for (unsigned int ll = 0; ll < numCompartments; ++ll) {
 					NTsize number_of_currents =
@@ -229,14 +182,14 @@ int simulate(string fileName) {
 				}
 			}
 			/* the "sampling ratio" used for "measurement" to disk */
-			if (simulation_parameters["sampN"].asInt() > 0
-					&& lt % simulation_parameters["sampN"].asInt() == 0) {
+			if (config_root["simulation_parameters"]["sampN"].asInt() > 0
+					&& lt % config_root["simulation_parameters"]["sampN"].asInt() == 0) {
 				for (unsigned int ll = 0; ll < numCompartments; ++ll) {
 					oModel.WriteCompartmentData(pot_current_files[ll], ll);
 				}
 				TimeFile << timeVar << endl;
 			}
-			if (simulation_parameters["useVis"].asInt() > 0) {
+			if (config_root["simulation_parameters"]["useVis"].asInt() > 0) {
 				if (lt == 0) {
 					for (NTsize lc = 1; lc < numCompartments; lc++) {
 						x[lc] = x[lc - 1]
@@ -244,7 +197,7 @@ int simulate(string fileName) {
 					}
 					pls->env(0, x[numCompartments - 1], -100, 100, 0, 0);
 				}
-				if (lt % simulation_parameters["useVis"].asInt() == 0) {
+				if (lt % config_root["simulation_parameters"]["useVis"].asInt() == 0) {
 					pls->clear();
 					pls->box("abcnt", 0, 0, "anvbct", 0, 0);
 					for (NTsize ll = 0; ll < oModel._numCompartments(); ll++) {
@@ -255,22 +208,22 @@ int simulate(string fileName) {
 							cerr << "ERROR at t=" << timeVar
 									<< " voltage in compartment " << lc
 									<< " is NaN." << endl;
-							return (EXIT_V_TOO_HIGH);
+							return (1);
 						} else if (voltVec[lc] > 200.0 /* mV */) {
 							cerr << "ERROR at t=" << timeVar
 									<< " voltage in compartment " << lc
 									<< " is " << voltVec[lc] << "." << endl;
-							return (EXIT_V_TOO_HIGH);
+							return (1);
 						}
 					}
 					pls->line((PLINT) oModel._numCompartments(), x, voltVec);
 					pls->flush();
 				}
 			}
-			if (lt % simulation_parameters["readN"].asInt() == 0) {
+			if (lt % config_root["simulation_parameters"]["readN"].asInt() == 0) {
 				inpCurrent = (inputData[dataRead]
-						* simulation_parameters["inpISDV"].asDouble())
-						+ simulation_parameters["inpI"].asDouble();
+						* config_root["simulation_parameters"]["inpISDV"].asDouble())
+						+ config_root["simulation_parameters"]["inpI"].asDouble();
 				dataRead++;
 				cout << lt << "\t" << inpCurrent << endl;
 			}
@@ -318,18 +271,6 @@ int get_resting_potential(string fileName) {
 
 		oModel.Init();
 
-		/* Information measurement init */
-		NTsize numCompartments = hillock_parameters["numComp"].asUInt()
-				+ (node_parameters["numNd"].asUInt() - 1)
-						* (node_parameters["numComp"].asUInt()
-								+ 2 * paranode_parameters["numComp"].asUInt()
-								+ internode_parameters["numComp"].asUInt())
-				+ node_parameters["numComp"].asUInt()
-				+ paranode_parameters["numComp"].asUInt();
-		cerr << "Total number of compartments(computed)" << numCompartments
-				<< endl;
-		//cerr << "Total number of compartments(assembled)" << compartmentCounter
-		//	<< endl;
 		cerr << "Total number of compartments(in oModel)"
 				<< oModel._numCompartments() << endl;
 
@@ -337,7 +278,7 @@ int get_resting_potential(string fileName) {
 		cerr << "MainLoop started" << endl;
 
 		double sum = 0;
-		for (NTsize lt = 0; lt < simulation_parameters["numIter"].asUInt();
+		for (NTsize lt = 0; lt < config_root["simulation_parameters"]["numIter"].asUInt();
 				lt++) {
 
 			/* the "sampling ratio" used for "measurement" to disk */
@@ -352,8 +293,8 @@ int get_resting_potential(string fileName) {
 
 			if (lt == 10000) {
 				NTreal inpCurrent = (5
-						* simulation_parameters["inpISDV"].asDouble())
-						+ simulation_parameters["inpI"].asDouble();
+						* config_root["simulation_parameters"]["inpISDV"].asDouble())
+						+ config_root["simulation_parameters"]["inpI"].asDouble();
 				oModel.InjectCurrent(inpCurrent, 1);
 			} else {
 				oModel.InjectCurrent(0, 1);
