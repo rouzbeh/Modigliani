@@ -55,7 +55,7 @@ extern "C" {
 #include "ntbp_auxfunc.h"
 
 #include <nt_error_obj.h>
-#include <nt_vecto	r_obj.h>
+#include <nt_vector_obj.h>
 
 #include <tnt.h>
 #include <nt3d_plot2d_vec_vp_obj.h>
