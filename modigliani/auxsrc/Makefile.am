@@ -35,8 +35,19 @@ generate_white_noise_LDADD = ../ntsrc/libntsrc.a
 measure_mutual_information_in_binary_file_SOURCES = measure_mutual_information_in_binary_file.cpp
 measure_mutual_information_in_binary_file_LDADD = ../ntsrc/libntsrc.a 
 
+if WITH_PLPLOT
+  MAYBE_PLPLOT = -lplplotcxxd -lplplotd
+  PLPLOTCPPFLAGS = -DWITH_PLPLOT
+endif
+
 axon_simulator_SOURCES = axon_simulator.cpp
-axon_simulator_LDADD = ../ntbpsrc/libntbpsrc.a ../ntsrc/libntsrc.a -lboost_filesystem -lboost_system -ljson -lm -llua -ldl -lplplotcxxd -lplplotd 
+
+if MINGW
+  axon_simulator_LDADD = ../ntbpsrc/libntbpsrc.a ../ntsrc/libntsrc.a -lboost_filesystem-mt -lboost_system-mt -ljsoncpp -lm -llua
+else
+  axon_simulator_LDADD = ../ntbpsrc/libntbpsrc.a ../ntsrc/libntsrc.a -lboost_filesystem -lboost_system -ljson -lm -llua -ldl $(MAYBE_PLPLOT)
+endif
+axon_simulator_CPPFLAGS = $(PLPLOTCPPFLAGS)
 
 # set the include path found by configure
 INCLUDES= $(all_includes)
