@@ -48,12 +48,12 @@
 #include <iostream>
 #include <vector>
 
-#include "nt_error_obj.h"
-#include "nt_vector_obj.h"
-#include "nt_histogram_obj.h"
-#include "nt_2dim_histogram_obj.h"
+#include "ntsrc/nt_error_obj.h"
+#include "ntsrc/nt_vector_obj.h"
+#include "ntsrc/nt_histogram_obj.h"
+#include "ntsrc/nt_2dim_histogram_obj.h"
 
-#include "nt_sequential_statistics_obj.h"
+#include "ntsrc/nt_sequential_statistics_obj.h"
 #include "tnt/tnt.h"
 #include "tnt/cmat.h"
 

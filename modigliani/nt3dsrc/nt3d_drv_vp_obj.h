@@ -63,9 +63,9 @@
 #ifndef _nt3d_drv_vp_h_
 #define _nt3d_drv_vp_h_
 
-#include "nt_main.h"
-#include "nt_types.h"
-#include "nt_obj.h"
+#include "ntsrc/nt_main.h"
+#include "ntsrc/nt_types.h"
+#include "ntsrc/nt_obj.h"
 
 #include "nt3d_vp_spec_obj.h"
 

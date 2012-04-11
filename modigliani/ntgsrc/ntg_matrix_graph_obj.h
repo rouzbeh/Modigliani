@@ -38,9 +38,9 @@
 #define _ntg_matrix_graph_obj_h_
 
 /* NT core includes */
-/*#include "nt_main.h"
-#include "nt_types.h"
-#include "nt_obj.h"  */
+/*#include "ntsrc/nt_main.h"
+#include "ntsrc/nt_types.h"
+#include "ntsrc/nt_obj.h"  */
 /* NT includes */
 #include "ntg_node_obj.h"
 #include "ntg_edge_obj.h"

@@ -21,8 +21,7 @@ EXTRA_DIST = ntbp_channels_current_obj.cpp ntbp_channels_current_obj.h ntbp_cust
 
 ####### kdevelop will overwrite this part!!! (end)############
 # set the include path found by configure
-INCLUDES= $(all_includes)
-
+INCLUDES= $(all_includes) -I$(top_srcdir)/modigliani
 
 
 noinst_HEADERS = ntbp_auxfunc.h

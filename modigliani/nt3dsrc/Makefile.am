@@ -11,5 +11,5 @@ EXTRA_DIST = nt3d_abstract_vp_obj.cpp nt3d_abstract_vp_obj.h nt3d_ambient_lamp_o
 ####### kdevelop will overwrite this part!!! (end)############
 
 # set the include path found by configure
-INCLUDES= $(all_includes)
+INCLUDES= $(all_includes)  -I$(top_srcdir)/modigliani
 

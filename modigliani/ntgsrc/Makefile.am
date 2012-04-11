@@ -8,6 +8,6 @@ EXTRA_DIST = ntg_edge_obj.cpp ntg_edge_obj.h ntg_graph_obj.cpp ntg_graph_obj.h n
 
 ####### kdevelop will overwrite this part!!! (end)############
 # set the include path found by configure
-INCLUDES= $(all_includes)
+INCLUDES= $(all_includes) -I$(top_srcdir)/modigliani
 
 

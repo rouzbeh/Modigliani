@@ -58,13 +58,13 @@
 #define _nt3d_light_h_
 
 
-#include "nt_main.h"
-#include "nt_types.h"
-#include "nt_obj.h"
+#include "ntsrc/nt_main.h"
+#include "ntsrc/nt_types.h"
+#include "ntsrc/nt_obj.h"
 
 #include "nt3d_object_obj.h"
 #include "nt3d_color_obj.h"
-#include "nt_id_management_obj.h"
+#include "ntsrc/nt_id_management_obj.h"
 
 
 /** @short NT3D_light_o class

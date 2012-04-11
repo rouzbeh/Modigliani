@@ -40,9 +40,9 @@
 #define _ntbp_hh_sga_leak_current_obj_h_ 
 
 /* NT core includes */
-#include "nt_main.h" 
-#include "nt_types.h" 
-#include "nt_obj.h"  
+#include "ntsrc/nt_main.h" 
+#include "ntsrc/nt_types.h" 
+#include "ntsrc/nt_obj.h"  
 /* Parent includes */
 #include "ntbp_hh_current_obj.h" 
 /* NT includes */

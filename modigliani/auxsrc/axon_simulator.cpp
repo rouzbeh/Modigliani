@@ -18,7 +18,7 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include <ntbp_auxfunc.h>
+#include <ntbpsrc/ntbp_auxfunc.h>
 #ifdef WITH_PLPLOT
 #include <plplot/plplot.h>
 #include <plplot/plstream.h>
