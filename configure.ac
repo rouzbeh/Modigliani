@@ -25,8 +25,8 @@ AC_PROG_RANLIB
 #AC_CHECK_LIB([X11], [main])
 # FIXME: Replace `main' with a function in `-lXext':
 #AC_CHECK_LIB([Xext], [main])
-# FIXME: Replace `main' with a function in `-lm':
-#AC_CHECK_LIB([m], [main])
+AC_CHECK_LIB([lua],[luaL_dofile])
+AC_CHECK_LIB([m], [sqrt])
 
 # Checks for header files.
 AC_PATH_X
