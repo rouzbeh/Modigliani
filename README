@@ -1,1 +1,12 @@
-later...
+Build instruction
+
+Run :
+	aclocal
+	autoconf
+	autoheader
+	automake
+
+Create a folder somewhere. Compiled binaries will go there.
+Go to the newly created folder.
+Run the configure script.
+Run make -j.
