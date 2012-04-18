@@ -28,8 +28,8 @@
 #define REGION1D_H
 
 
-#include "subscript.h"
-#include "index.h"
+#include "tnt/subscript.h"
+#include "tnt/index.h"
 #include <iostream>
 #include <cassert>
 
@@ -52,14 +52,14 @@ protected:
 
 public:
     const Array1D & array()  const {
-        return A_;
+        return (A_);
     }
 
     Subscript offset() const {
-        return offset_;
+        return (offset_);
     }
     Subscript dim() const {
-        return dim_;
+        return (dim_);
     }
 
     Subscript offset(Subscript i) const
@@ -67,7 +67,7 @@ public:
 #ifdef TNT_BOUNDS_CHECK
         assert(i==TNT_BASE_OFFSET);
 #endif
-        return offset_;
+        return (offset_);
     }
 
     Subscript dim(Subscript i) const
@@ -75,7 +75,7 @@ public:
 #ifdef TNT_BOUNDS_CHECK
         assert(i== TNT_BASE_OFFSET);
 #endif
-        return offset_;
+        return (offset_);
     }
 
 
@@ -125,8 +125,8 @@ public:
         // offset_ is 0-based, so no need for
         //  ( - TNT_BASE_OFFSET)
         //
-        return Region1D<Array1D>(A_, i1+offset_,
-                                 offset_ + i2);
+        return (Region1D<Array1D>(A_, i1+offset_,
+                                 offset_ + i2));
     }
 
 
@@ -159,7 +159,7 @@ public:
         assert(TNT_BASE_OFFSET <= i);
         assert(i <= dim() + (TNT_BASE_OFFSET-1));
 #endif
-        return A_(i+offset_);
+        return (A_(i+offset_));
     }
 
 
@@ -276,7 +276,7 @@ public:
 #ifdef TNT_BOUNDS_CHECK
         assert(i==TNT_BASE_OFFSET);
 #endif
-        return offset_;
+        return (offset_);
     }
 
     Subscript dim(Subscript i) const
@@ -284,7 +284,7 @@ public:
 #ifdef TNT_BOUNDS_CHECK
         assert(i== TNT_BASE_OFFSET);
 #endif
-        return offset_;
+        return (offset_);
     }
 
 
@@ -334,8 +334,8 @@ public:
         // offset_ is 0-based, so no need for
         //  ( - TNT_BASE_OFFSET)
         //
-        return const_Region1D<Array1D>(A_, i1+offset_,
-                                       offset_ + i2);
+        return (const_Region1D<Array1D>(A_, i1+offset_,
+                                       offset_ + i2));
     }
 
 

@@ -31,9 +31,9 @@
 // This file incomplete and included here to only demonstrate the
 // basic framework for linking with the Fortran Lapack routines.
 
-#include "fortran.h"
-#include "vec.h"
-#include "fmat.h"
+#include "tnt/fortran.h"
+#include "tnt/vec.h"
+#include "tnt/fmat.h"
 
 
 #define F77_DGESV   dgesv_
