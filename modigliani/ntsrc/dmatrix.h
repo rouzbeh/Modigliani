@@ -80,10 +80,9 @@
 
 #include <iostream>
 #include <cstdlib>
-#include <iomanip>
 
 //   needed for memcpy:
-#include <string>
+#include <cstring>
 //   i know, it`s not very nice
 //   actually memory.h would be
 //   nicer, though I don`t know
@@ -122,11 +121,11 @@ public:
     double &operator()(int,int); //!< Access matrix components
     double &operator()(int); //!< Access vector components
 
-    void Print();
-    double Sum();
-    double QuadSum();
+    void print();
+    double sum();
+    double quadSum();
     DMatrix operator~();
-    friend istream &operator>>(istream &,DMatrix &);
+    friend std::istream &operator>>(std::istream &,DMatrix &);
 
 };
 
@@ -159,7 +158,7 @@ DMatrix DMatrix::operator+(DMatrix &right)
     DMatrix left(*this);
     for (int i = 1; i <= row*col; i++)
         left.elements[i] = left.elements[i] + right.elements[i];
-    return left;
+    return (left);
 }
 
 DMatrix DMatrix::operator-(DMatrix &right)
@@ -169,7 +168,7 @@ DMatrix DMatrix::operator-(DMatrix &right)
     {
         left.elements[i] = left.elements[i] - right.elements[i];
     }
-    return left;
+    return (left);
 }
 
 DMatrix DMatrix::operator*(DMatrix &right)
@@ -184,7 +183,7 @@ DMatrix DMatrix::operator*(DMatrix &right)
                 prod(i,j) = prod(i,j) + (*this)(i,k)*right(k,j);
         }
     }
-    return prod;
+    return (prod);
 }
 
 
@@ -197,19 +196,19 @@ DMatrix DMatrix::operator*(double factor)
             (*this)(i,j) =  (*this)(i,j) * factor;
         }
     }
-    return *this;
+    return (*this);
 }
 
 
 DMatrix &DMatrix::operator=(DMatrix &right)
 {
-    if (this == &right) return *this;
+    if (this == &right) return (*this);
     else
     {
         delete elements;
         elements = new double[row*col+1];
         memcpy(elements,right.elements,(row*col+1)*sizeof(double));
-        return *this;
+        return (*this);
     }
 }
 
@@ -217,48 +216,49 @@ DMatrix &DMatrix::operator=(DMatrix &right)
 
 double &DMatrix::operator()(int r,int c)
 {
-    return elements[(r-1)*col+c];
+    return (elements[(r-1)*col+c]);
 }
 
 
 
 double &DMatrix::operator()(int r)
 {
-    return elements[r];
+    return (elements[r]);
 }
 
 
 
-void DMatrix::Print()
+void DMatrix::print()
 {
-    cout.setf(ios::fixed);
-    cout << setprecision(4);
+    std::cout.setf(std::ios::fixed);
+    std::cout.precision(4);
+    std::cout.width(8);
     for (int i = 1; i <= row; i++)
     {
         for (int j = 1; j <= col; j++)
-            cout << setw(8) << (*this)(i,j);
-        cout << endl;
+            std::cout << (*this)(i,j);
+        std::cout << std::endl;
     }
 }
 
 
 
-double DMatrix::Sum()
+double DMatrix::sum()
 {
     double temp = 0.0;
     for (int i = 1; i <= row; i++)
         for (int j = 1; j <= col; j++)
             temp += (*this)(i,j);
-    return temp;
+    return (temp);
 }
 
-double DMatrix::QuadSum()
+double DMatrix::quadSum()
 {
     double temp = 0.0;
     for (int i = 1; i <= row; i++)
         for (int j = 1; j <= col; j++)
             temp += (*this)(i,j)*(*this)(i,j);
-    return temp;
+    return (temp);
 }
 
 
@@ -290,7 +290,7 @@ DMatrix DMatrix::operator~()
             }
             if (pivelt == 0)
             {
-                cerr << "dmatrix : ERROR - Inversion attempted, but matrix is singular!";
+                std::cerr << "dmatrix : ERROR - Inversion attempted, but matrix is singular!";
                 exit(1);
             }
         }
@@ -319,17 +319,17 @@ DMatrix DMatrix::operator~()
     for (i = 1; i <= n; i++)
         for (j = n+1; j <= aug.col; j++)
             inverse(i,j-n) = aug(i,j);
-    return inverse;
+    return (inverse);
 }
 
 
 
-istream &operator>>(istream &is,DMatrix &m)
+std::istream &operator>>(std::istream &is,DMatrix &m)
 {
     for (int i = 1; i <= m.row; i++)
         for (int j = 1; j <= m.col; j++)
             is >> m(i,j);
-    return is;
+    return (is);
 }
 
 

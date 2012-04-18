@@ -45,9 +45,9 @@ NT_file_o::NT_file_o(const NT_file_o __attribute__((unused)) & original) :
 const NT_file_o&
 NT_file_o::operator=(const NT_file_o & right) {
 	if (this == &right)
-		return *this; // Gracefully handle self assignment
+		return (*this); // Gracefully handle self assignment
 // add assignment code here
-	return *this;
+	return (*this);
 }
 
 /* ***      DESTRUCTOR		***/

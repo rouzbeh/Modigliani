@@ -341,7 +341,7 @@ NT_vector_o &
 NT_vector_o::operator=(NT_vector_o const &right)
 {
     NT_ASSERT_DIM( dimension, right.dimension );
-    if (this == &right) return *this;
+    if (this == &right) return (*this);
     else
     {
         if (dimension == 1) delete elem;
@@ -351,7 +351,7 @@ NT_vector_o::operator=(NT_vector_o const &right)
 
         memcpy(elem,right.elem,dimension * sizeof(NTreal));
 
-        return *this;
+        return (*this);
     }
 }
 

@@ -73,9 +73,9 @@ NT_2dim_histogram_o::NT_2dim_histogram_o(const NT_2dim_histogram_o __attribute__
 const NT_2dim_histogram_o&
 NT_2dim_histogram_o::operator= (const NT_2dim_histogram_o & right)
 {
-    if (this == &right) return *this; // Gracefully handle self assignment
+    if (this == &right) return (*this); // Gracefully handle self assignment
 // add assignment code here
-    return *this;
+    return (*this);
 }
 
 /* ***      DESTRUCTOR		***/
@@ -114,7 +114,7 @@ NTsize NT_2dim_histogram_o::BinValue(NTreal valueA, NTreal valueB)
         numBinned++;
     }
 
-    return 0;
+    return (0);
 }
 
 
@@ -127,7 +127,7 @@ NTsize NT_2dim_histogram_o::BinValue(NTreal valueA, NTreal valueB)
 NTsize NT_2dim_histogram_o::BinValue ( vector <NTreal> valueVec)
 {
     NT_ASSERT(valueVec.size() == 2);
-    return BinValue(valueVec[0],valueVec[1]);
+    return (BinValue(valueVec[0],valueVec[1]));
 }
 
 /** Resets counters and histogram */
@@ -138,7 +138,7 @@ NTreturn NT_2dim_histogram_o::Reset()
 
     table = Matrix <NTsize> (numBinsA, numBinsB);
 
-    return NT_SUCCESS;
+    return (NT_SUCCESS);
 }
 
 /** No descriptions */
@@ -146,7 +146,7 @@ Matrix <NTreal> NT_2dim_histogram_o::PDF() const {
     Matrix <NTreal> tmpMtr(numBinsA, numBinsB, 0.0);
     if (0 == numBinned) {
         cerr << "NT_2dim_histogram_o::PDF - Error : PDF cannot be computed on empty histograms. Returning 0.0 matrix." << endl;
-        return tmpMtr;
+        return (tmpMtr);
     }
 
     NTreal sum = 0;

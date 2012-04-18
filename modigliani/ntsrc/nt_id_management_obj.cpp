@@ -84,13 +84,13 @@ NT_id_management_o::NT_id_management_o(const NT_id_management_o & original) :
 const NT_id_management_o&
 NT_id_management_o::operator=(const NT_id_management_o & right) {
 	if (this == &right)
-		return *this; // Gracefully handle self assignment
+		return (*this); // Gracefully handle self assignment
 	// add assignment code here
 	lowestId = right.lowestId;
 	highestId = right.highestId;
 	range = right.range;
 	usedIdList = right.usedIdList;
-	return *this;
+	return (*this);
 }
 
 /* ***      DESTRUCTOR		***/

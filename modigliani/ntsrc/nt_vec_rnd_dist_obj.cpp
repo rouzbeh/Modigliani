@@ -68,9 +68,9 @@ NT_vec_rnd_dist_o::NT_vec_rnd_dist_o(
 const NT_vec_rnd_dist_o&
 NT_vec_rnd_dist_o::operator=(const NT_vec_rnd_dist_o & right) {
 	if (this == &right)
-		return *this; // Gracefully handle self assignment
+		return (*this); // Gracefully handle self assignment
 	// add assignment code here
-	return *this;
+	return (*this);
 }
 
 /* ***      DESTRUCTOR		***/

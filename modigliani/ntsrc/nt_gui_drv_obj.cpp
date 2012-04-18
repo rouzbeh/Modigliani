@@ -62,9 +62,9 @@ NT_gui_drv_o::NT_gui_drv_o(
 const NT_gui_drv_o&
 NT_gui_drv_o::operator=(const NT_gui_drv_o & right) {
 	if (this == &right)
-		return *this; // Gracefully handle self assignment
+		return (*this); // Gracefully handle self assignment
 	// add assignment code here
-	return *this;
+	return (*this);
 }
 
 /* 	DESTRUCTOR 		*/
