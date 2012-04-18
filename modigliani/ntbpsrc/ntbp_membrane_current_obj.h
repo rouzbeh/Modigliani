@@ -77,11 +77,11 @@ public:
 	virtual NTreal _maxConductivity() const = 0;
 	/** momentary current in nA */
 	NTreal _current() const { /*cerr << "Current in nA" << current << endl;*/
-		return current;
+		return (current);
 	}
 	/** momentary conductance in muFarad */
 	NTreal _conductance() const {
-		return conductance;
+		return (conductance);
 	}
 	/** reversal potential in mV */
 	void Set_reversalPotential(NTreal eRev /* mV */) {
@@ -89,82 +89,77 @@ public:
 	}
 	/** reversal potential in mV */
 	NTreal _reversalPotential() const {
-		return reversalPotential;
+		return (reversalPotential);
 	}
 	/** temperature in Celsius */
 	NTreal _temperature() const {
-		return temperature;
+		return (temperature);
 	}
 	/** Set temperature in Celsius */
 	NTreturn Set_temperature(NTreal newTemp) {
 		NT_ASSERT(newTemp > NT_0_KELVIN);
 		temperature = newTemp;
-		return NT_SUCCESS;
+		return (NT_SUCCESS);
 	}
 	/** Q10  */
 	NTreal _q10() const {
-		return q10;
+		return (q10);
 	}
 	/** Set Q10 */
 	virtual NTreturn Set_q10(NTreal newQ10) {
 		q10 = newQ10;
-		return NT_SUCCESS;
+		return (NT_SUCCESS);
 	}
 	/** Simulation mode */
 	enum NTBPstochasticType _simulationMode() const {
-		return simulationMode;
+		return (simulationMode);
 	}
 	/** Set simulation mode */
 	virtual void SetSimulationMode(enum NTBPstochasticType newMode) {
 		simulationMode = newMode;
 	}
 
-	NTreturn Step(NTreal newVm /* in mV */) {
+	NTreturn step(NTreal newVm /* in mV */) {
 		//ComputeRateConstants(newVm); /* UpdateRateConstantsAND*/
 		voltage = newVm;
-		StepCurrent();
-		ComputeConductance();
-		ComputeCurrent(newVm);
-		return NT_SUCCESS;
+		step_current();
+		compute_conductance();
+		compute_current(newVm);
+		return (NT_SUCCESS);
 	}
 	/* in nA */
-	NTreal ComputeCurrent(NTreal vM /* in mV */) {
-		return Set_current(
+	NTreal compute_current(NTreal vM /* in mV */) {
+		return (Set_current(
 				_conductance() /* mSiemens */* 1000.0 /* mA/nA */* (vM
-				/* mV */- _reversalPotential()/* mV */));
+				/* mV */- _reversalPotential()/* mV */)));
 	}
-	virtual NTreturn StepCurrent() = 0;
+	virtual NTreturn step_current() = 0;
 	/** compute and return conductance in mSiemens */
-	virtual NTreal ComputeConductance() = 0;
+	virtual NTreal compute_conductance() = 0;
 	/** compute the rate constants ( in ms^-1 ) */
 	//virtual void ComputeRateConstants(NTreal vM /* in mV */) = 0;
 	/** Number of open ionic channels */
-	virtual NTreal OpenChannels() const {
-		cerr
-				<< "NTBP_membrane_current_o::OpenChannels() - Error : Not Implemented."
-				<< endl;
-		return -42;
-	}
+	virtual NTreal open_channels() const = 0;
 	/** Total number of ionic channels */
 	virtual NTreal NumChannels() const {
 		cerr
 				<< "NTBP_membrane_current_o::NumChannels() - Error : Not Implemented."
 				<< endl;
-		return -42;
+		return (-42);
 	}
 
 	virtual NTreal NumChannelsInState(NTsize __attribute__((__unused__)) state) const {
 		cerr
 				<< "NTBP_membrane_current_o::NumChannels() - Error : Not Implemented."
 				<< endl;
-		return -42;
+		return (-42);
 	}
 	/** Number of open over total number of channels */
 	virtual NTreal OpenChannelsRatio() const {
 		cerr
 				<< "NTBP_membrane_current_o::OpenChannelsRatio() - Error : Not Implemented."
 				<< endl;
-		return -42;
+		return (-42);
 	}
 	virtual void ShowParam() const {
 		cerr
@@ -176,24 +171,24 @@ public:
 		cerr
 				<< "NTBP_membrane_current_o::ComputeChannelStateTimeConstant - Error : Method should be overridden by a stochastic current class or not be called for a deterministic current class."
 				<< endl;
-		return 0;
+		return (0);
 	}
 	NTreal ChannelStateTimeConstant() const {
-		return ComputeChannelStateTimeConstant();
+		return (ComputeChannelStateTimeConstant());
 	}
 	bool GillespieStep() {/*2DO is this necessary here*/
-		StepCurrent();
-		return ComputeGillespieStep();
+		step_current();
+		return (ComputeGillespieStep());
 	}
 	virtual bool ComputeGillespieStep() {
 		cerr
 				<< "NTBP_membrane_current_o::ComputeGillespieStep- Error : Method should be overridden by a stochastic current class or not be called for a deterministic current class."
 				<< endl;
-		return NT_NOT_DERIVED;
+		return (NT_NOT_DERIVED);
 	}
 
 	NTreal Get_voltage() {
-		return voltage;
+		return (voltage);
 	}
 	void Set_voltage(NTreal newVoltage) {
 		voltage = newVoltage;
@@ -204,10 +199,10 @@ public:
 protected:
 	/* ***  Methods              ***/
 	NTreal Set_current(NTreal newVal /* in nA */) {
-		return current = newVal;
+		return (current = newVal);
 	}
 	NTreal Set_conductance(NTreal newVal /* in mSiemens */) {
-		return conductance = newVal;
+		return (conductance = newVal);
 	}
 	/* ***  Data                 ***/
 	NT_uniform_rnd_dist_o uniform;

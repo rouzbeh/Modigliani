@@ -53,24 +53,24 @@ public:
 	virtual ~NTBP_ion_channels_o();
 	/* ***  Methods              ***/
 	NTsize _numChannels() const {
-		return numChannels;
+		return (numChannels);
 	}
 	NTsize _numStates() const {
-		return numStates;
+		return (numStates);
 	}
 	NTreturn GillespieStep(NTreal voltage);
 	void setAsOpenState(NTsize newOpenState);
 	NTreturn BinomialStep(NTreal voltage);
 	NTreturn DeterministicStep(NTreal voltage);
-	NTreturn Step(NTreal voltage);
+	NTreturn step(NTreal voltage);
 	NTreturn ComputeGillespieStep(NTsize channelStateId, NTreal voltage);
 	void ShowStates() const;
 	NTsize NumOpen() const;
 	NTsize numChannelsInState(NTsize state) const {
-		return stateCounterVec[state];
+		return (stateCounterVec[state]);
 	}
 	NTsize NumClosed() const {
-		return _numChannels() - NumOpen();
+		return (_numChannels() - NumOpen());
 	}
 	virtual NTreturn SteadyStateDistribution(NTreal voltage);
 	/** Sum of escape rates from current state [1/s] */
@@ -81,7 +81,7 @@ public:
 		ratesComputed = newValue;
 	}
 	bool getRatesComputed() {
-		return ratesComputed;
+		return (ratesComputed);
 	}
 	/* ***  Data                 ***/
 

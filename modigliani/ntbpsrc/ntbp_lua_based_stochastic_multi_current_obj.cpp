@@ -63,10 +63,10 @@ NTBP_lua_based_stochastic_multi_current_o::NTBP_lua_based_stochastic_multi_curre
 //NTBP_lua_based_stochastic_multi_current_o::operator=(
 //		const NTBP_hranvier_sodium_multi_current_o & right) {
 //	if (this == &right)
-//		return *this; // Gracefully handle self assignment
+//		return (*this); // Gracefully handle self assignment
 //	channelsPtr = new NTBP_ion_channels_o(right._numChannels(), 8);
 //	channelsPtr->setAsOpenState(4);
-//	return *this;
+//	return (*this);
 //}
 //
 /* ***      DESTRUCTOR		***/
@@ -125,7 +125,7 @@ void NTBP_lua_based_stochastic_multi_current_o::load_file(string fileName,
 				lua_call(L, 2, 1);
 				double prob_q10 = lua_tonumber(L, -1);
 				lua_pop(L, 1);
-				double probability = NTBP_TemperatureRateRelation(temperature,
+				double probability = NTBP_temperature_rate_relation(temperature,
 						base_temperature_map[fileName] /* C */, prob_q10)
 						* base_probability * time_step;
 				probability_matrix_map[fileName]->setTransitionProbability(voltage,
@@ -142,7 +142,7 @@ void NTBP_lua_based_stochastic_multi_current_o::load_file(string fileName,
  \warning    unknown
  \bug        unknown
  */
-inline NTreturn NTBP_lua_based_stochastic_multi_current_o::StepCurrent() {
+inline NTreturn NTBP_lua_based_stochastic_multi_current_o::step_current() {
 	switch (_simulationMode()) {
 	case NTBP_BINOMIALPOPULATION: {
 		return (channelsPtr->BinomialStep(voltage));
@@ -169,15 +169,8 @@ inline NTreturn NTBP_lua_based_stochastic_multi_current_o::StepCurrent() {
 
 /**  */
 /** No descriptions */
-inline NTreal NTBP_lua_based_stochastic_multi_current_o::OpenChannels() const {
+inline NTreal NTBP_lua_based_stochastic_multi_current_o::open_channels() const {
 	return (channelsPtr->NumOpen());
-}
-
-/**  */
-/** No descriptions */
-inline NTreal NTBP_lua_based_stochastic_multi_current_o::OpenChannelsRatio() const {
-	NTreal open = OpenChannels();
-	return (((NTreal) (open * 100)) / NumChannels());
 }
 
 /**  */
@@ -187,7 +180,7 @@ inline NTreal NTBP_lua_based_stochastic_multi_current_o::NumChannelsInState(
 	return (channelsPtr->numChannelsInState(state));
 }
 
-inline NTreal NTBP_lua_based_stochastic_multi_current_o::ComputeConductance() {
+inline NTreal NTBP_lua_based_stochastic_multi_current_o::compute_conductance() {
 	return (Set_conductance(channelsPtr->NumOpen() * conductivity));
 }
 

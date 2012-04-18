@@ -307,7 +307,7 @@ NTBP_membrane_compartment_sequence_o create_axon(Json::Value config_root,
 	lua_close(L);
 
 	NTBP_membrane_compartment_sequence_o oModel;
-	oModel.UpdateTimeStep(
+	oModel.update_timeStep(
 			config_root["simulation_parameters"]["timeStep"].asDouble() /* mSec */);
 	oModel.StepNTBP();
 

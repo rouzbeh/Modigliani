@@ -47,9 +47,9 @@ NTBP_membrane_o::NTBP_membrane_o(
 const NTBP_membrane_o&
 NTBP_membrane_o::operator=(const NTBP_membrane_o & right) {
 	if (this == &right)
-		return *this; // Gracefully handle self assignment
+		return (*this); // Gracefully handle self assignment
 	// add assignment code here
-	return *this;
+	return (*this);
 }
 
 /* ***      DESTRUCTOR		***/

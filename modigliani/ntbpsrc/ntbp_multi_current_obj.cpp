@@ -69,9 +69,9 @@ NTBP_membrane_current_o(original._reversalPotential())
 const NTBP_multi_current_o&
 NTBP_multi_current_o::operator= (const NTBP_multi_current_o & right)
 {
- if (this == &right) return *this; // Gracefully handle self assignment
+ if (this == &right) return (*this); // Gracefully handle self assignment
  // add assignment code here
-  return *this;
+  return (*this);
 }
 
 /* ***      DESTRUCTOR		***/

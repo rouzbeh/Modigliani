@@ -80,15 +80,18 @@ const NTBP_membrane_compartment_sequence_o&
 NTBP_membrane_compartment_sequence_o::operator=(
 		const NTBP_membrane_compartment_sequence_o & right) {
 	if (this == &right)
-		return *this; // Gracefully handle self assignment
+		return (*this); // Gracefully handle self assignment
 	// add assignment code here
 	cerr << "DO NOT ASSIGN" << endl;
 	NT_ASSERT( 1 == 0);
-	return *this;
+	return (*this);
 }
 
 /* ***      DESTRUCTOR		***/
 NTBP_membrane_compartment_sequence_o::~NTBP_membrane_compartment_sequence_o() {
+	for (auto it = compartmentVec.begin(); it!=compartmentVec.end(); it++){
+		delete *it;
+	}
 }
 
 /* ***  PUBLIC                                    ***   */
@@ -107,8 +110,8 @@ NTreturn NTBP_membrane_compartment_sequence_o::PushBack(
 	initialised = false;
 
 	if (compartmentVec.size() != numCompartments)
-		return NT_FAIL;
-	return NT_SUCCESS;
+		return (NT_FAIL);
+	return (NT_SUCCESS);
 }
 
 /** @short Execute one time step on the compartments.      
@@ -117,7 +120,7 @@ NTreturn NTBP_membrane_compartment_sequence_o::PushBack(
  \warning    identical axo-geometric properties required for all compartments !
  \bug
  */
-NTreturn NTBP_membrane_compartment_sequence_o::Step() {
+NTreturn NTBP_membrane_compartment_sequence_o::step() {
 	//	cerr << "NTBP_membrane_compartment_sequence_o::Step()" << endl;
 	if (true != initialised) {
 		cerr
@@ -127,7 +130,7 @@ NTreturn NTBP_membrane_compartment_sequence_o::Step() {
 			cerr
 					<< "NTBP_membrane_compartment_sequence_o::Step() - Error : Call to Init failed (No compartments present ?)."
 					<< endl;
-			return NT_FAIL;
+			return (NT_FAIL);
 		}
 	}
 
@@ -150,9 +153,9 @@ NTreturn NTBP_membrane_compartment_sequence_o::Step() {
 	/* set new voltage */
 
 	for (ll = 0; ll < numCompartments; ll++) {
-		compartmentVec[ll]->Step(vVec[ll]); // Step also advances the voltage -> ignore by using vVec
+		compartmentVec[ll]->step(vVec[ll]); // Step also advances the voltage -> ignore by using vVec
 	}
-	return NT_SUCCESS;
+	return (NT_SUCCESS);
 }
 
 /** @short       
@@ -167,7 +170,7 @@ NTreturn NTBP_membrane_compartment_sequence_o::Init() {
 				<< "NTBPCompartmentMembraneNetCurrent()_membrane_compartment_sequence_o::Init - ERROR : No compartments present."
 				<< endl;
 		initialised = false;
-		return NT_FAIL;
+		return (NT_FAIL);
 	}
 
 	lVec.resize(numCompartments);
@@ -231,7 +234,7 @@ NTreturn NTBP_membrane_compartment_sequence_o::Init() {
 	/* completed initialisation */
 	initialised = true;
 
-	return NT_SUCCESS;
+	return (NT_SUCCESS);
 }
 
 /** @short Setup staggering PDE integration of compartments
@@ -245,28 +248,28 @@ NTreturn NTBP_membrane_compartment_sequence_o::Init() {
 NTreturn NTBP_membrane_compartment_sequence_o::InitialStep() {
 
 	swCrankNicholson = true;
-	UpdateTimeStep(_timeStep() / 2.0);
+	update_timeStep(_timeStep() / 2.0);
 	StepNTBP();
 	for (NTsize ll = 0; ll < numCompartments; ll++) {
-		compartmentVec[ll]->Step(compartmentVec[ll]->_vM()); // Step also advances the voltage -> ignore by using vVec
+		compartmentVec[ll]->step(compartmentVec[ll]->_vM()); // Step also advances the voltage -> ignore by using vVec
 		// TODO why
 	}
 
-	UpdateTimeStep(_timeStep() * 2.0);
+	update_timeStep(_timeStep() * 2.0);
 	StepNTBP();
 	cerr
 			<< "NTBP_membrane_compartment_sequence_o::InitialStep() - ERROR : not correctly implemented ? untested."
 			<< endl;
-	return NT_SUCCESS;
+	return (NT_SUCCESS);
 }
 
-vector<NTreal> NTBP_membrane_compartment_sequence_o::OpenChannels(
+vector<NTreal> NTBP_membrane_compartment_sequence_o::open_channels(
 		NTsize currIndex) const {
 	vector<NTreal> tmp(_numCompartments());
 	for (NTsize ll = 0; ll < _numCompartments(); ll++) {
-		tmp[ll] = compartmentVec[ll]->Current(currIndex)->OpenChannels();
+		tmp[ll] = compartmentVec[ll]->Current(currIndex)->open_channels();
 	}
-	return tmp;
+	return (tmp);
 }
 
 vector<NTreal> NTBP_membrane_compartment_sequence_o::_vVec() const {
@@ -274,7 +277,7 @@ vector<NTreal> NTBP_membrane_compartment_sequence_o::_vVec() const {
 	for (NTsize ll = 0; ll < _numCompartments(); ll++) {
 		out.push_back(compartmentVec[ll]->_vM());
 	}
-	return out;
+	return (out);
 }
 
 vector<NTreal> NTBP_membrane_compartment_sequence_o::NumChannels(
@@ -283,7 +286,7 @@ vector<NTreal> NTBP_membrane_compartment_sequence_o::NumChannels(
 	for (NTsize ll = 0; ll < _numCompartments(); ll++) {
 		tmp[ll] = compartmentVec[ll]->Current(currIndex)->NumChannels();
 	}
-	return tmp;
+	return (tmp);
 }
 
 vector<NTreal> NTBP_membrane_compartment_sequence_o::NumChannelsInState(
@@ -293,7 +296,7 @@ vector<NTreal> NTBP_membrane_compartment_sequence_o::NumChannelsInState(
 		tmp[ll] = compartmentVec[ll]->Current(currIndex)->NumChannelsInState(
 				state);
 	}
-	return tmp;
+	return (tmp);
 }
 
 vector<NTreal> NTBP_membrane_compartment_sequence_o::OpenChannelsRatio(
@@ -306,7 +309,7 @@ vector<NTreal> NTBP_membrane_compartment_sequence_o::OpenChannelsRatio(
 		else
 			tmp[ll] = 0;
 	}
-	return tmp;
+	return (tmp);
 }
 
 NTreturn NTBP_membrane_compartment_sequence_o::WriteMembranePotentialASCII(
@@ -316,7 +319,7 @@ NTreturn NTBP_membrane_compartment_sequence_o::WriteMembranePotentialASCII(
 		file << compartmentVec[ll]->_vM() << " ";
 	}
 	file << endl;
-	return NT_SUCCESS;
+	return (NT_SUCCESS);
 }
 
 /** @short  Write compartment currents into a ascii file
@@ -339,7 +342,7 @@ NTreturn NTBP_membrane_compartment_sequence_o::WriteCurrentAscii(ostream & file,
 	}
 	file << endl;
 
-	return NT_SUCCESS;
+	return (NT_SUCCESS);
 }
 
 NTreturn NTBP_membrane_compartment_sequence_o::WriteMembranePotential(
@@ -349,7 +352,7 @@ NTreturn NTBP_membrane_compartment_sequence_o::WriteMembranePotential(
 		data[ll] = compartmentVec[ll]->_vM();
 	}
 	file.write(reinterpret_cast<char*>(data), numCompartments * sizeof(float));
-	return NT_SUCCESS;
+	return (NT_SUCCESS);
 }
 
 NTreturn NTBP_membrane_compartment_sequence_o::WriteCompartmentData(
@@ -362,7 +365,7 @@ NTreturn NTBP_membrane_compartment_sequence_o::WriteCompartmentData(
 	}
 	file->write(reinterpret_cast<char*>(data),
 			(1 + number_of_currents) * sizeof(float));
-	return NT_SUCCESS;
+	return (NT_SUCCESS);
 }
 
 /** @short  Write compartment currents into a binary file
@@ -389,7 +392,7 @@ NTreturn NTBP_membrane_compartment_sequence_o::WriteCurrent(ostream & file,
 		file.write(reinterpret_cast<char*>(data),
 				_numCompartments() * sizeof(float));
 	}
-	return NT_SUCCESS;
+	return (NT_SUCCESS);
 }
 
 /** @short  Give compartment currents
@@ -410,7 +413,7 @@ vector<NTreal> NTBP_membrane_compartment_sequence_o::GiveCurrent(NTsize index) {
 		}
 	}
 
-	return data;
+	return (data);
 }
 
 /* ***  PROTECTED                         ***   */
@@ -424,8 +427,8 @@ vector<NTreal> NTBP_membrane_compartment_sequence_o::GiveCurrent(NTsize index) {
 NTreturn NTBP_membrane_compartment_sequence_o::InjectCurrent(
 		NTreal current /* in nA */, NTsize compartmentId) {
 	if ((compartmentId < 1) || (compartmentId > _numCompartments()))
-		return NT_PARAM_OUT_OF_RANGE;
-	return compartmentVec[compartmentId - 1]->InjectCurrent(current);
+		return (NT_PARAM_OUT_OF_RANGE);
+	return (compartmentVec[compartmentId - 1]->InjectCurrent(current));
 }
 
 /**
@@ -501,7 +504,7 @@ vector<NTreal> NTBP_membrane_compartment_sequence_o::ZadorPearlmutterSolveTriDia
 				+ Ku[ll] * vNewVec[ll + 1];
 	}
 
-	return vNewVec;
+	return (vNewVec);
 }
 
 // NOT WORKING
@@ -541,7 +544,7 @@ vector<NTreal> NTBP_membrane_compartment_sequence_o::MascagniSolveTriDiag(
 				<< uNewVec[ll] << " " << vNewVec[ll] << " " << rNewVec[ll]
 				<< endl;
 	}
-	return vNewVec;
+	return (vNewVec);
 }
 
 /**  Compute sum of escape rates over current state in [kHz] */
@@ -555,7 +558,7 @@ NTreal NTBP_membrane_compartment_sequence_o::CompartmentSequenceChannelStateTime
 		sum += compartmentVec[ll]->CompartmentChannelStateTimeConstant();
 		//		cout << "SEQ " << endl;
 	}
-	return sum;
+	return (sum);
 }
 
 /**  */
@@ -591,7 +594,7 @@ vector<NTreal> NTBP_membrane_compartment_sequence_o::NumericalRecipesSolveTriDia
 		vNewVec[i] -= gam[i + 1] * vNewVec[i + 1];
 	}
 
-	return vNewVec;
+	return (vNewVec);
 }
 
 /**  */
@@ -631,19 +634,19 @@ bool NTBP_membrane_compartment_sequence_o::GillespieStep() {
 		if (newDeltaT > maxDeltaT) {
 			newDeltaT = maxDeltaT;
 		}
-		UpdateTimeStep(newDeltaT);
+		update_timeStep(newDeltaT);
 		StepNTBP();
 		tStar += newDeltaT;
 		/** BLOCK 1 */
 	} while (integrateStep == false);
 
 	cerr << "INTEGRATOR STEP WITH T_STAR=" << tStar << endl;
-	UpdateTimeStep(tStar);
+	update_timeStep(tStar);
 	StepNTBP();
-	Step();
+	step();
 	ShowVoltage();
 
-	return NT_SUCCESS;
+	return (NT_SUCCESS);
 }
 
 //returns copy of compartment vector
@@ -651,6 +654,6 @@ NTBP_cylindrical_compartment_o* NTBP_membrane_compartment_sequence_o::ReturnComp
 		NTsize index) //TODO: added
 		{
 	NTBP_cylindrical_compartment_o* compVec = compartmentVec[index];
-	return compVec;
+	return (compVec);
 }
 

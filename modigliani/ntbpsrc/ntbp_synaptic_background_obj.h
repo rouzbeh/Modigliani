@@ -64,9 +64,9 @@ NTBP_synaptic_background_o(NTreal avgSynBkCond, /* in nS */
 NTBP_synaptic_background_o(const NTBP_synaptic_background_o & original);
 const NTBP_synaptic_background_o & operator= (const NTBP_synaptic_background_o & right);
 
-NTreturn StepCurrent();
+NTreturn step_current();
 /** compute and return conductance in mSiemens */
-NTreal ComputeConductance();
+NTreal compute_conductance();
 virtual ~NTBP_synaptic_background_o();
 /* ***  Methods              ***/  
 /* ***  Data                 ***/  

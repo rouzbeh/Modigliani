@@ -33,13 +33,13 @@ public:
 	static map<string,NTsize> number_of_states_map;
 	static map<string,double> base_temperature_map;
 	static map<string,vector<int> > open_states_map;
-	NTreturn StepCurrent();
-	NTreal OpenChannels() const;
-	NTreal OpenChannelsRatio() const;
-	NTreal NumChannelsInState(NTsize state) const;
-	NTreal ComputeConductance();
-	NTreal ComputeChannelStateTimeConstant() const;
-	void ShowParam() const;
+	NTreal NumChannelsInState(NTsize state) const override;
+	NTreal ComputeChannelStateTimeConstant() const override;
+
+	virtual NTreturn step_current() override;
+	virtual NTreal open_channels() const override;
+	virtual NTreal compute_conductance() override;
+	void ShowParam() const override;
 	void printProb(string fileName){
 		for (NTreal v =20; v<130; v+=0.005){
 			cout << probability_matrix_map[fileName]->getTransitionProbability(v, 2, 1) << endl;

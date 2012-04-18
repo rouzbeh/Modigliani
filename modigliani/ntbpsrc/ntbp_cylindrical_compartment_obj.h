@@ -60,23 +60,23 @@ public:
 	/* ***  Methods              ***/
 	/** length constant in muMeter for instantenous membrane conductance */
 	NTreal ActiveLengthConstant() {
-		return _diameter() / (4.0 * _rA() * 1.0e4 * TotalConductance());
+		return (_diameter() / (4.0 * _rA() * 1.0e4 * total_conductance()));
 	}
 	/* in muMeter^2 */
 	NTreal _CrosssectionalArea() const {
-		return _radius() * _radius() * M_PI;
+		return (_radius() * _radius() * M_PI);
 	}
 	/* in muMeter */
 	NTreal _diameter() const {
-		return diameter;
+		return (diameter);
 	}
 	/* in muMeter */
 	NTreal _radius() const {
-		return _diameter() / 2.0;
+		return (_diameter() / 2.0);
 	}
 	/* in muMeter */
 	NTreal _length() const {
-		return length;
+		return (length);
 	}
 	/* ***  Data                 ***/
 protected:

@@ -89,7 +89,7 @@ NTBP_lua_based_deterministic_multi_current_o::~NTBP_lua_based_deterministic_mult
  \warning    unknown
  \bug        unknown
  */
-inline NTreturn NTBP_lua_based_deterministic_multi_current_o::StepCurrent() {
+inline NTreturn NTBP_lua_based_deterministic_multi_current_o::step_current() {
 	switch (_simulationMode()) {
 	case NTBP_DETERMINISTIC: {
 		lua_getglobal(L, "step_current");
@@ -116,7 +116,7 @@ inline NTreturn NTBP_lua_based_deterministic_multi_current_o::StepCurrent() {
 
 /**  */
 /** No descriptions */
-inline NTreal NTBP_lua_based_deterministic_multi_current_o::OpenChannels() const {
+inline NTreal NTBP_lua_based_deterministic_multi_current_o::open_channels() const {
 	lua_getglobal(L, "open_channels");
 
 	/* call the function with 0
@@ -136,14 +136,7 @@ NTreal NTBP_lua_based_deterministic_multi_current_o::NumChannelsInState(
 	return (0);
 }
 
-/**  */
-/** No descriptions */
-inline NTreal NTBP_lua_based_deterministic_multi_current_o::OpenChannelsRatio() const {
-	NTreal open = OpenChannels();
-	return (((NTreal) (open * 100)) / NumChannels());
-}
-
-inline NTreal NTBP_lua_based_deterministic_multi_current_o::ComputeConductance() {
+inline NTreal NTBP_lua_based_deterministic_multi_current_o::compute_conductance() {
 	lua_getglobal(L, "compute_conductance");
 
 	/* call the function with 0

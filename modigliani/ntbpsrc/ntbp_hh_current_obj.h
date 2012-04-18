@@ -57,11 +57,11 @@ NTBP_hh_current_o(const NTBP_hh_current_o & original);
 const NTBP_hh_current_o & operator= (const NTBP_hh_current_o & right);
 virtual ~NTBP_hh_current_o();
 /* ***  Methods              ***/
-NTreal ComputeChannelStateTimeConstant() const {return 0; /* no stochasticity */ }
+NTreal ComputeChannelStateTimeConstant() const {return (0); /* no stochasticity */ }
 /** in mSiemens/cm^2 */
-NTreal _maxConductivity() const {return maxConductivity;}
+NTreal _maxConductivity() const {return (maxConductivity);}
 /** in muMeter^2 */
-NTreal _area() const { return area; }
+NTreal _area() const { return (area); }
 /* ***  Data                 ***/
 virtual void Show() = 0;
 protected:

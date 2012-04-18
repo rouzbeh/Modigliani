@@ -67,38 +67,38 @@ public:
 	void ComputeRateConstants(NTreal __attribute__((__unused__)) _voltage /* in mV */) {
 	}
 	/** in mSiemens */
-	NTreturn StepCurrent() {
-		return NT_SUCCESS;
+	NTreturn step_current() {
+		return (NT_SUCCESS);
 	}
 	/** compute and return conductance in mSiemens */
 	void UpdateConductance() {
 		Set_conductance(_maxConductivity() * _area() * 1.0e-8);
 	}
 	/** Return leak conductance in mSiemens  (note: function return constant value (leak!) set in constructor) */
-	NTreal ComputeConductance() {
-		return _conductance();
+	NTreal compute_conductance() {
+		return (_conductance());
 	}
 	NTreturn DeterministicStepCurrent() {
-		return NT_SUCCESS;
+		return (NT_SUCCESS);
 	}
 	void Show() {
 		cout << "g_Leak [mSiemens]=" << _conductance();
 	}
 	/** Number of open ionic channels */
-	virtual NTreal OpenChannels() const {
-		return 0.0;
+	virtual NTreal open_channels() const {
+		return (0.0);
 	}
 	/** Total number of ionic channels */
 	virtual NTreal NumChannels() const {
-		return 0.0;
+		return (0.0);
 	}
 	/** Number of open over total number of channels */
 	virtual NTreal OpenChannelsRatio() const {
-		return 0.0;
+		return (0.0);
 	}
 
 	virtual NTreal NumChannelsInState(NTsize __attribute__((__unused__)) state) const {
-		return 0;
+		return (0);
 	}
 	/* ***  Data                 ***/
 protected:

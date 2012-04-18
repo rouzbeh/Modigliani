@@ -67,9 +67,9 @@ NTBP_membrane_current_o(original._reversalPotential())
 const NTBP_synaptic_background_o&  
 NTBP_synaptic_background_o::operator= (const NTBP_synaptic_background_o & right)
 {
- if (this == &right) return *this; // Gracefully handle self assignment
+ if (this == &right) return (*this); // Gracefully handle self assignment
  // add assignment code here
-  return *this;
+  return (*this);
 }
 
 /* ***      DESTRUCTOR		***/
@@ -87,14 +87,14 @@ NTBP_synaptic_background_o::~NTBP_synaptic_background_o()
  */
 
 NTreal
-NTBP_synaptic_background_o::ComputeConductance()
+NTBP_synaptic_background_o::compute_conductance()
 {
-  return Set_conductance( 0.001 /* mS/nS */ * gT /* nS */ );
+  return (Set_conductance( 0.001 /* mS/nS */ * gT /* nS */ ));
 }
 
 
 NTreturn
-NTBP_synaptic_background_o::StepCurrent()
+NTBP_synaptic_background_o::step_current()
 {
   amplitude = sqrt( (synVar * synTau / 2.0 ) * (1.0 - exp(-2.0*_timeStep()/synTau)) );
   
@@ -102,7 +102,7 @@ NTBP_synaptic_background_o::StepCurrent()
         (gT - avgSynBkCond) * exp(-_timeStep()/synTau) +
         amplitude * normRnd.RndVal();
   
-  return NT_SUCCESS;
+  return (NT_SUCCESS);
 }
 
 

@@ -55,10 +55,10 @@ NTBP_membrane_compartment_o(original)
 const NTBP_membrane_patch_o&  
 NTBP_membrane_patch_o::operator= (const NTBP_membrane_patch_o & right)
 {
- if (this == &right) return *this; // Gracefully handle self assignment
+ if (this == &right) return (*this); // Gracefully handle self assignment
  // add assignment code here
   cerr << "NTBP_membrane_patch_o::operator= - Error : Assignment operator not defined. Undefined behaviour." <<endl;
-  return *this;
+  return (*this);
 }
 
 /* ***      DESTRUCTOR		***/
@@ -97,8 +97,8 @@ NTBP_membrane_patch_o::Step()
 //	cerr << vM << endl;
 	//cerr << CompartmentMembraneNetCurrent() << endl;
 //	cerr <<	CompartmentMembraneCapacitance() << endl;
-	NTBP_membrane_compartment_o::Step(vM);
-	return NT_SUCCESS;
+	NTBP_membrane_compartment_o::step(vM);
+	return (NT_SUCCESS);
 }
 
 /** No descriptions */
@@ -111,14 +111,14 @@ NTBP_membrane_patch_o::Step()
 NTreturn
 NTBP_membrane_patch_o::InitialStep()
 {
-	UpdateTimeStep(_timeStep()/2.0);
+	update_timeStep(_timeStep()/2.0);
 	StepNTBP();
 	Step();
 		
-	UpdateTimeStep(_timeStep()*2.0);
+	update_timeStep(_timeStep()*2.0);
 	StepNTBP();
 	cerr <<"NTBP_membrane_compartment_sequence_o::InitialStep() - ERROR : not correctly implemented ? untested." << endl;
-	return NT_SUCCESS;
+	return (NT_SUCCESS);
 }
 
 

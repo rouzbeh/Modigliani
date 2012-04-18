@@ -29,11 +29,10 @@ public:
 	static map<string,int> number_of_states_map;
 	static map<string,double> base_temperature_map;
 	static map<string,vector<int> > open_states_map;
-	NTreturn StepCurrent();
-	NTreal OpenChannels() const;
-	NTreal OpenChannelsRatio() const;
+	virtual NTreturn step_current() override;
+	virtual NTreal open_channels() const override;
+	virtual NTreal compute_conductance() override;
 	NTreal NumChannelsInState(NTsize state) const;
-	NTreal ComputeConductance();
 	NTreal ComputeChannelStateTimeConstant() const;
 	void ShowParam() const;
 	void printProb(string fileName){

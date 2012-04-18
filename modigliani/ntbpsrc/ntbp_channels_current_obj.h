@@ -72,16 +72,16 @@ const NTBP_channels_current_o & operator= (const NTBP_channels_current_o & right
 virtual ~NTBP_channels_current_o();
 /* ***  Methods              ***/
 /* mementary total conductance */
-NTreal _density() const { return density;}
-NTreal _area()  const { return area; }
+NTreal _density() const { return (density);}
+NTreal _area()  const { return (area); }
 /* conductivity per channel */
-NTreal _conductivity() const { return conductivity; } /* in mSiemens per channel */
+NTreal _conductivity() const { return (conductivity); } /* in mSiemens per channel */
 /* conductivity if all channels open in mSiemens/cm^2 */
-NTreal _maxConductivity() const {return density*conductivity*1e-8;}
+NTreal _maxConductivity() const {return (density*conductivity*1e-8);}
  /**  */
 
-bool ComputeGillespieStep() { return channelsPtr->GillespieStep(voltage);}
-NTreal ComputeConductance(){ return Set_conductance( channelsPtr->NumOpen() * conductivity);}
+bool ComputeGillespieStep() { return (channelsPtr->GillespieStep(voltage));}
+NTreal ComputeConductance(){ return (Set_conductance( channelsPtr->NumOpen() * conductivity));}
 /* ***  Data                 ***/
 protected:
 /* ***  Methods              ***/
