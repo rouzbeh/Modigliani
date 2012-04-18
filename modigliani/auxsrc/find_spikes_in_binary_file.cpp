@@ -12,44 +12,44 @@
 #include "ntsrc/nt_aux_math_func.h"
 
 #define NUM_NON_COLUMN_PARAM 5 // including argv[0] ==  executable
-int CheckForSpike(float v, float upThreshold, float downThreshold,
+int check_for_spike(float v, float upThreshold, float downThreshold,
 		bool* spiking) {
 	if (v > upThreshold) {
 		if (*spiking == true) {
 			*spiking = true;
-			return 0;
+			return (0);
 		} else {
 			*spiking = true;
-			return 1;
+			return (1);
 		}
 	} else if (v < downThreshold) {
 		if (*spiking == true) {
 			*spiking = false;
-			return -1;
+			return (-1);
 		} else {
 			*spiking = false;
-			return 0;
+			return (0);
 		}
 
 	}
-	return 0;
+	return (0);
 }
 
-int NTAUXisnan(double value) {
+int ntaux_isnan(double value) {
 	int status = (value != value);
-	return status;
+	return (status);
 }
 
-int NTAUXisinf(const double x) {
+int ntaux_isinf(const double x) {
 	double y = x - x;
 	int s = (y != y);
 
 	if (s && x > 0)
-		return +1;
+		return (+1);
 	else if (s && x < 0)
-		return -1;
+		return (-1);
 	else
-		return 0;
+		return (0);
 }
 
 int main(int argc, char* argv[]) {
@@ -118,28 +118,28 @@ int main(int argc, char* argv[]) {
 			// cout << buffer[0] << "\t";
 			for (ll = 0; ll < number; ll++) {
 				v = buffer[selectVec[ll]];
-				if (NTAUXisnan(v))
+				if (ntaux_isnan(v))
 					cerr << "Warning - Column " << selectVec[ll] << " is NaN."
 							<< endl;
-				else if (NTAUXisinf(v))
+				else if (ntaux_isinf(v))
 					cerr << "Warning - Column " << selectVec[ll] << " is inf."
 							<< endl;
 				else
 					cout
-							<< CheckForSpike(v, upThreshold, downThreshold,
+							<< check_for_spike(v, upThreshold, downThreshold,
 									&(spiking[selectVec[ll]])) << "\t";
 			}
 		} else {
 			// cout << buffer[0] << "\t";
 			for (ll = 1; ll < columns; ll++) {
 				v = buffer[ll];
-				if (NTAUXisnan(v))
+				if (ntaux_isnan(v))
 					cerr << "Warning - Column " << ll << " is NaN." << endl;
-				else if (NTAUXisinf(v))
+				else if (ntaux_isinf(v))
 					cerr << "Warning - Column " << ll << " is +/- inf." << endl;
 				else
 					cout
-							<< CheckForSpike(v, upThreshold, downThreshold,
+							<< check_for_spike(v, upThreshold, downThreshold,
 									&(spiking[ll])) << "\t";
 			}
 		}
@@ -149,6 +149,6 @@ int main(int argc, char* argv[]) {
 
 	cerr << "Completed and printed (float) " << rows << " rows with " << columns
 			<< " columns from file " << filename << "." << endl;
-	return 0;
+	return (0);
 }
 

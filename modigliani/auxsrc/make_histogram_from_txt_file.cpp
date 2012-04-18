@@ -13,27 +13,27 @@
 using namespace std;
 
 #define NUM_NON_COLUMN_PARAM 5 // including argv[0] ==  executable
-int CheckForSpike(float v, float upThreshold, float downThreshold,
+int check_for_spike(float v, float upThreshold, float downThreshold,
 		bool* spiking) {
 	if (v > upThreshold) {
 		if (*spiking == true) {
 			*spiking = true;
-			return 0;
+			return (0);
 		} else {
 			*spiking = true;
-			return 1;
+			return (1);
 		}
 	} else if (v < downThreshold) {
 		if (*spiking == true) {
 			*spiking = false;
-			return -1;
+			return (-1);
 		} else {
 			*spiking = false;
-			return 0;
+			return (0);
 		}
 
 	}
-	return 0;
+	return (0);
 }
 
 int main(int argc, char* argv[]) {
@@ -109,7 +109,7 @@ int main(int argc, char* argv[]) {
 		if (true == selectColumns) {
 			for (unsigned int ll = 0; ll < number; ll++) {
 				if (1
-						== CheckForSpike(buffer[selectVec[ll]], upThreshold,
+						== check_for_spike(buffer[selectVec[ll]], upThreshold,
 								downThreshold, &(spiking[selectVec[ll]]))) {
 					(isiListVec[ll]).push_back(
 							buffer[0] - spikeTime[selectVec[ll]]);
@@ -119,7 +119,7 @@ int main(int argc, char* argv[]) {
 		} else {
 			for (unsigned int ll = 1; ll < columns; ll++) {
 				if (1
-						== CheckForSpike(buffer[ll], upThreshold, downThreshold,
+						== check_for_spike(buffer[ll], upThreshold, downThreshold,
 								&(spiking[ll]))) {
 					(isiListVec[ll]).push_back(buffer[0] - spikeTime[ll]);
 					spikeTime[ll] = buffer[0];
@@ -142,6 +142,6 @@ int main(int argc, char* argv[]) {
 	cerr << "Completed and printed (float) " << rows
 			<< " rows  columns from file " << filename << " with " << columns
 			<< "." << endl;
-	return 0;
+	return (0);
 }
 

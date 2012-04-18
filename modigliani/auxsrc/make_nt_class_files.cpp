@@ -290,7 +290,7 @@ main(int __attribute__((unused)) argc, char __attribute__((unused)) *argv[])
     writeSourceFileMain(sfout);
     writeFooter(sfout);
     sfout.close();
-    return 0;
+    return (0);
 }
 
 /* #]  : */
