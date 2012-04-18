@@ -63,7 +63,7 @@
 #include <vector>
 #include <algorithm>
 #include "tnt/tnt.h"
-#include "tnt/cmat.h"
+#include "tnt/tnt_cmat.h"
 #include <cstring>
 
 using namespace TNT;
@@ -130,7 +130,7 @@ NTG_NodeDistanceMatrix NodeDistanceMatrixConditioning(const Matrix<T> & aMtr)
         }
     }
 
-    return dMtr;
+    return (dMtr);
 }
 
 
@@ -148,7 +148,7 @@ public:
     NTbool IsConnected(NTid source, NTid target) const;
     NTbool IsSymmetricConnected(NTid a, NTid b) const;
     NTbool GraphConsistency() {
-        return NT_TRUE;
+        return (NT_TRUE);
     }
     NTsize NumNodes() const;
     NTsize NumEdges() const;

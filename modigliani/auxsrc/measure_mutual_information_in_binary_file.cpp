@@ -55,7 +55,7 @@
 
 #include "ntsrc/nt_sequential_statistics_obj.h"
 #include "tnt/tnt.h"
-#include "tnt/cmat.h"
+#include "tnt/tnt_cmat.h"
 
 int main(int argc, char* argv[]) {
 	if (argc != 12) {

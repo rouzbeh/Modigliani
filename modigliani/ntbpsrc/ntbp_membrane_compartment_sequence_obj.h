@@ -61,7 +61,7 @@
 /* other includes */
 #include <fstream>
 #include <vector>
-#include <tnt/cmat.h>
+#include <tnt/tnt_cmat.h>
 /** @short NTBP_membrane_compartment_sequence_o class 
  \bug unknown
  \warning unknown
