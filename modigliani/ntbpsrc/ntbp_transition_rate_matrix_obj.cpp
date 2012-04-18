@@ -17,7 +17,9 @@ NTBP_transition_rate_matrix_o::NTBP_transition_rate_matrix_o(
 	}
 }
 
-NTBP_transition_rate_matrix_o::~NTBP_transition_rate_matrix_o() = default;
+NTBP_transition_rate_matrix_o::~NTBP_transition_rate_matrix_o(){
+	delete[] _probMatrices;
+}
 
 void NTBP_transition_rate_matrix_o::setTransitionProbability(NTreal voltage,
 		NTsize start, NTsize stop, NTreal probability) {
@@ -33,17 +35,17 @@ void NTBP_transition_rate_matrix_o::setTransitionProbability(NTsize index,
 }
 
 NTsize NTBP_transition_rate_matrix_o::get_index(NTreal voltage){
-	return floor((voltage - min) / step +0.5);
+	return (floor((voltage - min) / step +0.5));
 }
 
 NTreal NTBP_transition_rate_matrix_o::getTransitionProbability(NTreal voltage,
 		NTsize start, NTsize stop) {
-	return _probMatrices[get_index(voltage) * num_states * num_states
-			+ (start - 1) * num_states + (stop - 1)];
+	return (_probMatrices[get_index(voltage) * num_states * num_states
+			+ (start - 1) * num_states + (stop - 1)]);
 }
 
 NTreal NTBP_transition_rate_matrix_o::getTransitionProbability(NTsize index,
 		NTsize start, NTsize stop) {
-	return _probMatrices[index * num_states * num_states
-			+ (start - 1) * num_states + (stop - 1)];
+	return (_probMatrices[index * num_states * num_states
+			+ (start - 1) * num_states + (stop - 1)]);
 }
