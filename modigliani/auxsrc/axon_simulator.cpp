@@ -237,7 +237,7 @@ int simulate(string fileName) {
 			}
 			oModel.InjectCurrent(inpCurrent, 1);
 
-			oModel.Step();
+			oModel.step();
 		}
 		#ifdef WITH_PLPLOT
 		if(pls)
@@ -310,7 +310,7 @@ int get_resting_potential(string fileName) {
 				oModel.InjectCurrent(0, 1);
 			}
 
-			oModel.Step();
+			oModel.step();
 		}
 		current_result = sum / oModel._numCompartments();
 		if (current_result > -80) {
