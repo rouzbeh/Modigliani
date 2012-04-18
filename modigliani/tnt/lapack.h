@@ -31,9 +31,9 @@
 // This file incomplete and included here to only demonstrate the
 // basic framework for linking with the Fortran Lapack routines.
 
-#include "tnt/fortran.h"
-#include "tnt/vec.h"
-#include "tnt/fmat.h"
+#include "fortran.h"
+#include "vec.h"
+#include "fmat.h"
 
 
 #define F77_DGESV   dgesv_
@@ -86,9 +86,9 @@ Vector<double> Lapack_LU_linear_solve(const Fortran_Matrix<double> &A,
 
     F77_DGESV(&N, &one, &Tmp(1,1), &M, &index(1), &x(1), &M, &info);
 
-    if (info != 0) return Vector<double>(0);
+    if (info != 0) return (Vector<double>(0));
     else
-        return x;
+        return (x);
 }
 
 // solve linear least squares problem using QR factorization
@@ -111,9 +111,9 @@ Vector<double> Lapack_LLS_QR_linear_solve(const Fortran_Matrix<double> &A,
     F77_DGELS(&transp, &M, &N, &one, &Tmp(1,1), &M, &x(1), &M,  &work(1),
               &lwork, &info);
 
-    if (info != 0) return Vector<double>(0);
+    if (info != 0) return (Vector<double>(0));
     else
-        return x;
+        return (x);
 }
 
 // *********************** Eigenvalue problems *******************
@@ -156,7 +156,7 @@ int eigenvalue_solve(const Fortran_Matrix<double> &A,
 
     assert(N == A.num_cols());
 
-    if (N<1) return 1;
+    if (N<1) return (1);
 
     Fortran_Matrix<double> vl(1,N);  /* should be NxN ? **** */
     Fortran_Matrix<double> vr(1,N);

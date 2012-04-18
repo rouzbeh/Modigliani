@@ -82,32 +82,32 @@ public:
 
 
     T &      val(Subscript i) {
-        return val_(i);
+        return (val_(i));
     }
     const T &      val(Subscript i) const {
-        return val_(i);
+        return (val_(i));
     }
 
     Subscript &   row_ind(Subscript i) {
-        return rowind_(i);
+        return (rowind_(i));
     }
     const Subscript &   row_ind(Subscript i) const {
-        return rowind_(i);
+        return (rowind_(i));
     }
 
     Subscript    col_ptr(Subscript i) {
-        return colptr_(i);
+        return (colptr_(i));
     }
     const Subscript    col_ptr(Subscript i) const {
-        return colptr_(i);
+        return (colptr_(i));
     }
 
 
     Subscript    num_cols() const {
-        return m_;
+        return (m_);
     }
     Subscript    num_rows() const {
-        return n_;
+        return (n_);
     }
 
     Subscript          dim(Subscript i) const
@@ -116,16 +116,16 @@ public:
         assert( 1 <= i );
         assert( i <= 2 );
 #endif
-        if (i==1) return m_;
-        else if (i==2) return m_;
-        else return 0;
+        if (i==1) return (m_);
+        else if (i==2) return (m_);
+        else return (0);
     }
 
     Subscript          num_nonzeros() const {
-        return nz_;
+        return (nz_);
     };
     Subscript          lbound() const {
-        return 1;
+        return (1);
     }
 
 
@@ -140,7 +140,7 @@ public:
         m_ = C.m_;
         n_ = C.n_;
 
-        return *this;
+        return (*this);
     }
 
     Fortran_Sparse_Col_Matrix& newsize(Subscript M, Subscript N,
@@ -149,7 +149,7 @@ public:
         val_.newsize(nz);
         rowind_.newsize(nz);
         colptr_.newsize(N+1);
-        return *this;
+        return (*this);
     }
 };
 
@@ -173,7 +173,7 @@ ostream& operator<<(ostream &s, const Fortran_Sparse_Col_Matrix<T> &A)
         }
     }
 
-    return s;
+    return (s);
 }
 
 

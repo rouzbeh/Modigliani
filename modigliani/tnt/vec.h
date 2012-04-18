@@ -54,7 +54,7 @@ public:
     typedef const   T&  const_reference;
 
     Subscript lbound() const {
-        return 1;
+        return (1);
     }
 
 protected:
@@ -150,16 +150,16 @@ public:
     // access
 
     iterator begin() {
-        return v_;
+        return (v_);
     }
     iterator end()   {
-        return v_ + n_;
+        return (v_ + n_);
     }
     iterator begin() const {
-        return v_;
+        return (v_);
     }
     iterator end() const  {
-        return v_ + n_;
+        return (v_ + n_);
     }
 
     // destructor
@@ -207,12 +207,12 @@ public:
     //
     Vector<T>& newsize(Subscript N)
     {
-        if (n_ == N) return *this;
+        if (n_ == N) return (*this);
 
         destroy();
         initialize(N);
 
-        return *this;
+        return (*this);
     }
 
 
@@ -221,7 +221,7 @@ public:
     Vector<T>& operator=(const Vector<T> &A)
     {
         if (v_ == A.v_)
-            return *this;
+            return (*this);
 
         if (n_ == A.n_)         // no need to re-alloc
             copy(A.v_);
@@ -233,23 +233,23 @@ public:
             copy(A.v_);
         }
 
-        return *this;
+        return (*this);
     }
 
     Vector<T>& operator=(const T& scalar)
     {
         set(scalar);
-        return *this;
+        return (*this);
     }
 
     inline Subscript dim() const
     {
-        return  n_;
+        return  (n_);
     }
 
     inline Subscript size() const
     {
-        return  n_;
+        return  (n_);
     }
 
 
@@ -259,7 +259,7 @@ public:
         assert(1<=i);
         assert(i <= n_) ;
 #endif
-        return vm1_[i];
+        return (vm1_[i]);
     }
 
     inline const_reference operator() (Subscript i) const
@@ -268,7 +268,7 @@ public:
         assert(1<=i);
         assert(i <= n_) ;
 #endif
-        return vm1_[i];
+        return (vm1_[i]);
     }
 
     inline reference operator[](Subscript i)
@@ -277,7 +277,7 @@ public:
         assert(0<=i);
         assert(i < n_) ;
 #endif
-        return v_[i];
+        return (v_[i]);
     }
 
     inline const_reference operator[](Subscript i) const
@@ -292,7 +292,7 @@ public:
 
         assert(i < n_) ;
 #endif
-        return v_[i];
+        return (v_[i]);
     }
 
 
@@ -313,7 +313,7 @@ std::ostream& operator<<(std::ostream &s, const Vector<T> &A)
         s   << A[i] << " " << endl;
     s << endl;
 
-    return s;
+    return (s);
 }
 
 template <class T>
@@ -334,7 +334,7 @@ std::istream & operator>>(std::istream &s, Vector<T> &A)
         s >>  A[i];
 
 
-    return s;
+    return (s);
 }
 
 // *******************[ basic matrix algorithms ]***************************
@@ -354,7 +354,7 @@ Vector<T> operator+(const Vector<T> &A,
     for (i=0; i<N; i++)
         tmp[i] = A[i] + B[i];
 
-    return tmp;
+    return (tmp);
 }
 
 template <class T>
@@ -371,7 +371,7 @@ Vector<T> operator-(const Vector<T> &A,
     for (i=0; i<N; i++)
         tmp[i] = A[i] - B[i];
 
-    return tmp;
+    return (tmp);
 }
 
 template <class T>
@@ -388,7 +388,7 @@ Vector<T> operator*(const Vector<T> &A,
     for (i=0; i<N; i++)
         tmp[i] = A[i] * B[i];
 
-    return tmp;
+    return (tmp);
 }
 
 
@@ -404,7 +404,7 @@ T dot_prod(const Vector<T> &A, const Vector<T> &B)
     for (i=0; i<N; i++)
         sum += A[i] * B[i];
 
-    return sum;
+    return (sum);
 }
 
 }   /* namespace TNT */

@@ -72,7 +72,7 @@ public:
     typedef const   T&  const_reference;
 
     Subscript lbound() const {
-        return 1;
+        return (1);
     }
 
 protected:
@@ -102,7 +102,7 @@ public:
     //const_iterator end()  const { return &v_[0] + v_.size(); }
 
     BBVec& getVector() {
-        return v_;
+        return (v_);
     }
     Subscript dim() const {
         return v_.size();
@@ -164,7 +164,7 @@ public:
     {
         v_ = A.v_ ;
         vm1_ = ( v_.size() > 0 ? &(v_[0]) -1 : NULL);
-        return *this;
+        return (*this);
     }
 
     Vector_Adaptor<BBVec>& newsize(Subscript N)
@@ -185,12 +185,12 @@ public:
         for (i=0; i<N; i++)
             v_[i] = a;
 
-        return *this;
+        return (*this);
     }
 
     Vector_Adaptor<BBVec>& resize(Subscript N)
     {
-        if (N == size()) return *this;
+        if (N == size()) return (*this);
 
         Vector_Adaptor<BBVec> tmp(N);
         Subscript n =  (N < size() ? N : size());  // min(N, size());
@@ -281,10 +281,10 @@ std::ostream& operator<<(std::ostream &s, const Vector_Adaptor<BBVec> &A)
 {
     Subscript M=A.size();
 
-    s << M << endl;
+    s << M << std::endl;
     for (Subscript i=1; i<=M; i++)
-        s << A(i) << endl;
-    return s;
+        s << A(i) << std::endl;
+    return (s);
 }
 
 template <class BBVec>
@@ -299,7 +299,7 @@ std::istream& operator>>(std::istream &s, Vector_Adaptor<BBVec> &A)
     for (Subscript i=1; i<=N; i++)
         s >> A(i);
 
-    return s;
+    return (s);
 }
 
 } // namespace TNT

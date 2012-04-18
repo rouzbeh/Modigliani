@@ -28,8 +28,8 @@
 #define REGION1D_H
 
 
-#include "tnt/subscript.h"
-#include "tnt/index.h"
+#include "subscript.h"
+#include "index.h"
 #include <iostream>
 #include <cassert>
 
@@ -176,7 +176,7 @@ public:
         for (i=istart; i<=iend; i++)
             (*this)(i) = R(i);
 
-        return *this;
+        return (*this);
     }
 
 
@@ -194,7 +194,7 @@ public:
         for (i=istart; i<=iend; i++)
             (*this)(i) = R(i);
 
-        return *this;
+        return (*this);
 
     }
 
@@ -209,7 +209,7 @@ public:
         for (i=istart; i<= iend; i++)
             (*this)(i) = t;
 
-        return *this;
+        return (*this);
 
     }
 
@@ -227,7 +227,7 @@ public:
         for (i=istart; i<=iend; i++)
             (*this)(i) = R(i);
 
-        return *this;
+        return (*this);
 
     }
 
@@ -241,9 +241,9 @@ std::ostream& operator<<(std::ostream &s, Region1D<Array1D> &A)
     Subscript iend = N - 1 + TNT_BASE_OFFSET;
 
     for (Subscript i=istart; i<=iend; i++)
-        s << A(i) << endl;
+        s << A(i) << std::endl;
 
-    return s;
+    return (s);
 }
 
 
@@ -371,9 +371,9 @@ std::ostream& operator<<(std::ostream &s, const_Region1D<Array1D> &A)
     Subscript N=A.dim();
 
     for (Subscript i=1; i<=N; i++)
-        s << A(i) << endl;
+        s << A(i) << std::endl;
 
-    return s;
+    return (s);
 }
 
 

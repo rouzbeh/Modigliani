@@ -48,7 +48,9 @@
 
 
 #include <cmath>      //for sqrt() & fabs()
-#include "tnt/tntmath.h"  // for sign()
+#include <cassert>
+#include <iostream>
+#include "tntmath.h"  // for sign()
 
 // Classical QR factorization, based on Stewart[1973].
 //
@@ -114,8 +116,8 @@ int QR_factor(MaTRiX &A, Vector& C, Vector &D)
 
         if (eta == 0)           // matrix is singular
         {
-            cerr << "QR: k=" << k << "\n";
-            return 1;
+            std::cerr << "QR: k=" << k << "\n";
+            return (1);
         }
 
         // form Qk and premiltiply M by it
@@ -147,7 +149,7 @@ int QR_factor(MaTRiX &A, Vector& C, Vector &D)
         D(N) = A(N,N);
     }
 
-    return 0;
+    return (0);
 }
 
 // modified form of upper triangular solve, except that the main diagonal
@@ -170,7 +172,7 @@ int R_solve(const MaTRiX &A, /*const*/ Vector &D, Vector &b)
     typename MaTRiX::element_type sum;
 
     if (D(N) == 0)
-        return 1;
+        return (1);
 
     b(N) = b(N) /
            D(N);
@@ -178,7 +180,7 @@ int R_solve(const MaTRiX &A, /*const*/ Vector &D, Vector &b)
     for (i=N-1; i>=1; i--)
     {
         if (D(i) == 0)
-            return 1;
+            return (1);
         sum = 0;
         for (j=i+1; j<=N; j++)
             sum = sum + A(i,j)*b(j);
@@ -186,7 +188,7 @@ int R_solve(const MaTRiX &A, /*const*/ Vector &D, Vector &b)
                D(i);
     }
 
-    return 0;
+    return (0);
 }
 
 
@@ -215,12 +217,12 @@ int QR_solve(const MaTRiX &A, const Vector &c, /*const*/ Vector &d,
         for (i=j; i<=N; i++)
             sum = sum + A(i,j)*b(i);
         if (c(j) == 0)
-            return 1;
+            return (1);
         tau = sum / c(j);
         for (i=j; i<=N; i++)
             b(i) = b(i) - tau * A(i,j);
     }
-    return R_solve(A, d, b);        // solve Rx = Q'b
+    return (R_solve(A, d, b));        // solve Rx = Q'b
 }
 
 } // namespace TNT

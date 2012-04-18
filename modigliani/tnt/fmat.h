@@ -59,7 +59,7 @@ public:
     typedef const   T&  const_reference;
 
     Subscript lbound() const {
-        return 1;
+        return (1);
     }
 
 protected:
@@ -167,17 +167,17 @@ protected:
 public:
 
     T* begin() {
-        return v_;
+        return (v_);
     }
     const T* begin() const {
-        return v_;
+        return (v_);
     }
 
     T* end() {
-        return v_ + m_*n_;
+        return (v_ + m_*n_);
     }
     const T* end() const {
-        return v_ + m_*n_;
+        return (v_ + m_*n_);
     }
 
 
@@ -206,7 +206,7 @@ public:
     Fortran_Matrix(Subscript M, Subscript N, char *s)
     {
         initialize(M,N);
-        std::istrstream ins(s);
+        std::stringstream ins(s);
 
         Subscript i, j;
 
@@ -227,7 +227,7 @@ public:
     Fortran_Matrix<T>& operator=(const Fortran_Matrix<T> &A)
     {
         if (v_ == A.v_)
-            return *this;
+            return (*this);
 
         if (m_ == A.m_  && n_ == A.n_)      // no need to re-alloc
             copy(A.v_);
@@ -239,13 +239,13 @@ public:
             copy(A.v_);
         }
 
-        return *this;
+        return (*this);
     }
 
     Fortran_Matrix<T>& operator=(const T& scalar)
     {
         set(scalar);
-        return *this;
+        return (*this);
     }
 
 
@@ -255,25 +255,25 @@ public:
         assert( d >= 1);
         assert( d <= 2);
 #endif
-        return (d==1) ? m_ : ((d==2) ? n_ : 0);
+        return ((d==1) ? m_ : ((d==2) ? n_ : 0));
     }
 
     Subscript num_rows() const {
-        return m_;
+        return (m_);
     }
     Subscript num_cols() const {
-        return n_;
+        return (n_);
     }
 
     Fortran_Matrix<T>& newsize(Subscript M, Subscript N)
     {
         if (num_rows() == M && num_cols() == N)
-            return *this;
+            return (*this);
 
         destroy();
         initialize(M,N);
 
-        return *this;
+        return (*this);
     }
 
 
@@ -288,7 +288,7 @@ public:
         assert(1<=j);
         assert(j <= n_);
 #endif
-        return col_[j][i];
+        return (col_[j][i]);
     }
 
     inline const_reference operator() (Subscript i, Subscript j) const
@@ -299,7 +299,7 @@ public:
         assert(1<=j);
         assert(j <= n_);
 #endif
-        return col_[j][i];
+        return (col_[j][i]);
     }
 
 
@@ -344,7 +344,7 @@ std::ostream& operator<<(std::ostream &s, const Fortran_Matrix<T> &A)
     }
 
 
-    return s;
+    return (s);
 }
 
 template <class T>
@@ -368,7 +368,7 @@ std::istream& operator>>(std::istream &s, Fortran_Matrix<T> &A)
         }
 
 
-    return s;
+    return (s);
 }
 
 // *******************[ basic matrix algorithms ]***************************
@@ -391,7 +391,7 @@ Fortran_Matrix<T> operator+(const Fortran_Matrix<T> &A,
         for (j=1; j<=N; j++)
             tmp(i,j) = A(i,j) + B(i,j);
 
-    return tmp;
+    return (tmp);
 }
 
 template <class T>
@@ -411,7 +411,7 @@ Fortran_Matrix<T> operator-(const Fortran_Matrix<T> &A,
         for (j=1; j<=N; j++)
             tmp(i,j) = A(i,j) - B(i,j);
 
-    return tmp;
+    return (tmp);
 }
 
 // element-wise multiplication  (use matmult() below for matrix
@@ -435,7 +435,7 @@ Fortran_Matrix<T> mult_element(const Fortran_Matrix<T> &A,
         for (j=1; j<=N; j++)
             tmp(i,j) = A(i,j) * B(i,j);
 
-    return tmp;
+    return (tmp);
 }
 
 
@@ -452,7 +452,7 @@ Fortran_Matrix<T> transpose(const Fortran_Matrix<T> &A)
         for (j=1; j<=N; j++)
             S(j,i) = A(i,j);
 
-    return S;
+    return (S);
 }
 
 
@@ -483,14 +483,14 @@ inline Fortran_Matrix<T> matmult(const Fortran_Matrix<T>  &A,
             tmp(i,k) = sum;
         }
 
-    return tmp;
+    return (tmp);
 }
 
 template <class T>
 inline Fortran_Matrix<T> operator*(const Fortran_Matrix<T> &A,
                                    const Fortran_Matrix<T> &B)
 {
-    return matmult(A,B);
+    return (matmult(A,B));
 }
 
 template <class T>
@@ -531,7 +531,7 @@ inline int matmult(Fortran_Matrix<T>& C, const Fortran_Matrix<T>  &A,
 
     }
 
-    return 0;
+    return (0);
 }
 
 
@@ -558,13 +558,13 @@ Vector<T> matmult(const Fortran_Matrix<T>  &A, const Vector<T> &x)
         tmp(i) = sum;
     }
 
-    return tmp;
+    return (tmp);
 }
 
 template <class T>
 inline Vector<T> operator*(const Fortran_Matrix<T>  &A, const Vector<T> &x)
 {
-    return matmult(A,x);
+    return (matmult(A,x));
 }
 
 template <class T>
@@ -583,7 +583,7 @@ inline Fortran_Matrix<T> operator*(const Fortran_Matrix<T>  &A, const T &x)
     for (t=res.begin(); t < tend; t++, a++)
         *t = *a * x;
 
-    return res;
+    return (res);
 }
 
 }  // namespace TNT

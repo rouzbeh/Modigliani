@@ -57,7 +57,7 @@ VecToR Lower_triangular_solve(/*const*/ MaTriX &A, /*const*/ VecToR &b)
         x(i) =  (b(i) - tmp)/ A(i,i);
     }
 
-    return x;
+    return (x);
 }
 
 
@@ -85,7 +85,7 @@ VecToR Unit_lower_triangular_solve(/*const*/ MaTriX &A, /*const*/ VecToR &b)
         x(i) =  b(i) - tmp;
     }
 
-    return x;
+    return (x);
 }
 
 
@@ -93,17 +93,15 @@ template <class MaTriX, class VecToR>
 VecToR linear_solve(/*const*/ LowerTriangularView<MaTriX> &A,
                               /*const*/ VecToR &b)
 {
-    return Lower_triangular_solve(A, b);
+    return (Lower_triangular_solve(A, b));
 }
 
 template <class MaTriX, class VecToR>
 VecToR linear_solve(/*const*/ UnitLowerTriangularView<MaTriX> &A,
                               /*const*/ VecToR &b)
 {
-    return Unit_lower_triangular_solve(A, b);
+    return (Unit_lower_triangular_solve(A, b));
 }
-
-
 
 //********************** Upper triangular section ****************
 
@@ -131,7 +129,7 @@ VecToR Upper_triangular_solve(/*const*/ MaTriX &A, /*const*/ VecToR &b)
         x(i) =  (b(i) - tmp)/ A(i,i);
     }
 
-    return x;
+    return (x);
 }
 
 
@@ -159,7 +157,7 @@ VecToR Unit_upper_triangular_solve(/*const*/ MaTriX &A, /*const*/ VecToR &b)
         x(i) =  b(i) - tmp;
     }
 
-    return x;
+    return (x);
 }
 
 
@@ -167,14 +165,14 @@ template <class MaTriX, class VecToR>
 VecToR linear_solve(/*const*/ UpperTriangularView<MaTriX> &A,
                               /*const*/ VecToR &b)
 {
-    return Upper_triangular_solve(A, b);
+    return (Upper_triangular_solve(A, b));
 }
 
 template <class MaTriX, class VecToR>
 VecToR linear_solve(/*const*/ UnitUpperTriangularView<MaTriX> &A,
                               /*const*/ VecToR &b)
 {
-    return Unit_upper_triangular_solve(A, b);
+    return (Unit_upper_triangular_solve(A, b));
 }
 
 
