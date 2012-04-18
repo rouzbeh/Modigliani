@@ -48,8 +48,8 @@
 /* other includes */
 #include <vector>
 #include "tnt/tnt.h"
-#include "tnt/vec.h"
-#include "tnt/cmat.h"
+#include "tnt/tnt_vec.h"
+#include "tnt/tnt_cmat.h"
 
 using namespace TNT;
 using namespace std;
