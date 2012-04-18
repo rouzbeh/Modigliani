@@ -54,9 +54,9 @@ NT_image_o::NT_image_o(const NT_image_o & original) :
 const NT_image_o&
 NT_image_o::operator=(const NT_image_o & right) {
 	if (this == &right)
-		return *this; // Gracefully handle self assignment
+		return (*this); // Gracefully handle self assignment
 // add assignment code here
-	return *this;
+	return (*this);
 }
 
 /* ***      DESTRUCTOR		***/
@@ -79,31 +79,31 @@ NTreturn NT_image_o::Load(string filename, NTimageFileType fileType) {
 				<< filename
 				<< " a wrong filetype format or unsupported filetype was specified."
 				<< endl;
-		return NT_WRONG_FILE_TYPE;
+		return (NT_WRONG_FILE_TYPE);
 	}
 
 	switch (fileType) {
 	case NT_BMP:
-		return LoadBMP(filename);
+		return (LoadBMP(filename));
 		break;
 	case NT_PPM:
-		return LoadPPM(filename);
+		return (LoadPPM(filename));
 		break;
 	case NT_TGA:
-		return LoadTGA(filename);
+		return (LoadTGA(filename));
 		break;
 	default:
 		cerr << "NT_image_o::Load - Error : In filename=" << filename
 				<< "Unsupported filetype "
 				<< filename.substr(filename.length() - 3, 3) << " specified."
 				<< endl;
-		return NT_WRONG_FILE_TYPE;
+		return (NT_WRONG_FILE_TYPE);
 	}
 
 	cerr
 			<< "NT_image_o::Load - Error : Oops, program flow should not arrive here."
 			<< endl;
-	return NT_FAIL;
+	return (NT_FAIL);
 }
 
 /* ***  PROTECTED                         ***   */
@@ -127,29 +127,29 @@ NTimageFileType NT_image_o::Filename2Filetype(string filename) {
 				<< "not match rule , that last four characters should be of format .??? (no match in '"
 				<< filename.substr(length - 4, 1) << "'). Returned NT_UNKOWN "
 				<< "instead." << endl;
-		return NT_UNKNOWN;
+		return (NT_UNKNOWN);
 	}
 
 	string fnSuffix = filename.substr(length - 3, 3);
 
 	if (fnSuffix == "bmp")
-		return NT_BMP;
+		return (NT_BMP);
 	if (fnSuffix == "BMP")
-		return NT_BMP;
+		return (NT_BMP);
 	if (fnSuffix == "tga")
-		return NT_TGA;
+		return (NT_TGA);
 	if (fnSuffix == "TGA")
-		return NT_TGA;
+		return (NT_TGA);
 	if (fnSuffix == "ppm")
-		return NT_PPM;
+		return (NT_PPM);
 	if (fnSuffix == "PPM")
-		return NT_PPM;
+		return (NT_PPM);
 	if (fnSuffix == "jpg")
-		return NT_JPG;
+		return (NT_JPG);
 	if (fnSuffix == "JPG")
-		return NT_JPG;
+		return (NT_JPG);
 
-	return NT_UNKNOWN;
+	return (NT_UNKNOWN);
 }
 
 /* Reads in RGBA data for a 32bit image. */
@@ -162,17 +162,17 @@ unsigned char *getTGARGBA(FILE *s, int size) {
 	rgba = new unsigned char[size * 4];
 
 	if (rgba == NULL)
-		return 0;
+		return (0);
 
 	bread = fread(rgba, sizeof(unsigned char), size * 4, s);
 
 	/* TGA is stored in BGRA, make it RGBA */
 	if (bread != size * 4) {
-		free(rgba);
+		delete[] rgba;
 		cerr << "NT_image_o::LoadTGA->getTGARGBA - Warning, read " << bread
 				<< " bytes instead of " << size * 4
 				<< " picture data is missing or incomplete." << endl;
-		return 0;
+		return (0);
 	}
 
 	for (i = 0; i < size * 4; i += 4) {
@@ -181,7 +181,7 @@ unsigned char *getTGARGBA(FILE *s, int size) {
 		rgba[i + 2] = temp;
 	}
 
-	return rgba;
+	return (rgba);
 }
 
 /* Reads in RGB data for a 24bit image.  */
@@ -194,16 +194,16 @@ unsigned char *getTGARGB(FILE *s, int size) {
 	rgb = new unsigned char[size * 3];
 
 	if (rgb == NULL)
-		return 0;
+		return (0);
 
 	bread = fread(rgb, sizeof(unsigned char), size * 3, s);
 
 	if (bread != size * 3) {
-		free(rgb);
+		delete[] rgb;
 		cerr << "NT_image_o::LoadTGA->getTGARGB - Warning, read " << bread
 				<< " bytes instead of " << size * 3
 				<< " picture data is missing or incomplete." << endl;
-		return 0;
+		return (0);
 	}
 
 	/* TGA is stored in BGR, make it RGB */
@@ -213,7 +213,7 @@ unsigned char *getTGARGB(FILE *s, int size) {
 		rgb[i + 2] = temp;
 	}
 
-	return rgb;
+	return (rgb);
 }
 
 /* Gets the grayscale image data.  */
@@ -224,35 +224,35 @@ unsigned char *getTGAGray(FILE *s, int size) {
 	grayData = new unsigned char[size];
 
 	if (grayData == NULL)
-		return 0;
+		return (0);
 
 	bread = fread(grayData, sizeof(unsigned char), size, s);
 
 	if (bread != size) {
-		free(grayData);
+		delete[] grayData;
 		cerr << "NT_image_o::LoadTGA->getTGAGray - Warning, read " << bread
 				<< " bytes instead of " << size * 3
 				<< " picture data is missing or incomplete." << endl;
 
-		return 0;
+		return (0);
 	}
 
-	return grayData;
+	return (grayData);
 }
 
 /** Choose correct TGA file loader */
 unsigned char *getTGAData(FILE *s, int sz, int mode) {
 	if (mode == 32)
-		return getTGARGBA(s, sz);
+		return (getTGARGBA(s, sz));
 	else if (mode == 24)
-		return getTGARGB(s, sz);
+		return (getTGARGB(s, sz));
 	else if (mode == 8)
-		return getTGAGray(s, sz);
+		return (getTGAGray(s, sz));
 	else {
 		cerr
 				<< "NT_image_o::LoadTGA( filename )-getTGAData : Unsupported data mode="
 				<< mode << " . NULL image pointer returned." << endl;
-		return NULL;
+		return (NULL);
 	}
 
 }
@@ -274,7 +274,7 @@ NTreturn NT_image_o::LoadTGA(string filename) {
 	FILE *s;
 
 	if (!(s = fopen(filename.c_str(), "r+bt")))
-		return NT_FILE_NOT_FOUND;
+		return (NT_FILE_NOT_FOUND);
 
 	fread(&type, sizeof(char), 3, s); // read in colormap info and image type, byte 0 ignored
 	fseek(s, 12, SEEK_SET); // seek past the header and useless info
@@ -283,7 +283,8 @@ NTreturn NT_image_o::LoadTGA(string filename) {
 	if (type[1] != 0 || (type[2] != 2 && type[2] != 3)) {
 		cerr << "NT_image_o::LoadTGA(" << filename
 				<< ") - Error : Bad image type." << endl;
-		return NT_BAD_FILE;
+		fclose(s);
+		return (NT_BAD_FILE);
 	}
 
 	width = info[0] + info[1] * 256;
@@ -304,7 +305,8 @@ NTreturn NT_image_o::LoadTGA(string filename) {
 		cerr
 				<< "NT_image_o::LoadTGA( string filename ) - Error : Unknown data mode, neither SINGLE_CHANNEL, nor RGB, nor RGBA. Is this a valid tga file ?."
 				<< endl;
-		return NT_BAD_DATA;
+		fclose(s);
+		return (NT_BAD_DATA);
 	}
 
 	size = width * height;
@@ -316,7 +318,7 @@ NTreturn NT_image_o::LoadTGA(string filename) {
 	if (imageData == NULL) {
 		cerr << "NT_image_o::LoadTGA - Error : Bad data in image file "
 				<< filename << "." << endl;
-		return NT_BAD_DATA;
+		return (NT_BAD_DATA);
 	}
 
 	imageVec.resize(width * height * (int) dataFormat);
@@ -333,8 +335,8 @@ NTreturn NT_image_o::LoadTGA(string filename) {
 	cerr << "delete[] imageData" << endl;
 	delete[] imageData;
 	cerr << "deleted imageData" << endl;
-
-	return NT_SUCCESS;
+	fclose(s);
+	return (NT_SUCCESS);
 }
 
 /* File skeleton generated by GenNTObj version 0.7. */
