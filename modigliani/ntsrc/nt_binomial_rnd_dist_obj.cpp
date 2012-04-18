@@ -96,9 +96,9 @@ NT_binomial_rnd_dist_o::NT_binomial_rnd_dist_o(
 const NT_binomial_rnd_dist_o&
 NT_binomial_rnd_dist_o::operator=(const NT_binomial_rnd_dist_o & right) {
 	if (this == &right)
-		return *this; // Gracefully handle self assignment
+		return (*this); // Gracefully handle self assignment
 // add assignment code here
-	return *this;
+	return (*this);
 }
 
 /* ***      DESTRUCTOR		***/
@@ -385,7 +385,7 @@ inline NTreal NT_binomial_rnd_dist_o::RndVal() const {
 
 NTreal NT_binomial_rnd_dist_o::Binomial(float pp, int new_n) const {
 	if (0 == n)
-		return 0;
+		return (0);
 
 	int j;
 	static int nold = (-1);

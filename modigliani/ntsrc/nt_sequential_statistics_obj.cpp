@@ -55,7 +55,7 @@ NT_sequential_statistics_o::NT_sequential_statistics_o(
 const NT_sequential_statistics_o&
 NT_sequential_statistics_o::operator= (const NT_sequential_statistics_o & right)
 {
-    if (this == &right) return *this; // Gracefully handle self assignment
+    if (this == &right) return (*this); // Gracefully handle self assignment
 // add assignment code here
     counter = right.counter;
     average = right.average;
@@ -63,7 +63,7 @@ NT_sequential_statistics_o::operator= (const NT_sequential_statistics_o & right)
     variance = right.variance;
     min = right.min;
     max = right.max;
-    return *this;
+    return (*this);
 }
 
 /* ***      DESTRUCTOR		***/

@@ -73,10 +73,10 @@ NT_multidim_histogram_o::NT_multidim_histogram_o(const NT_multidim_histogram_o &
 const NT_multidim_histogram_o&
 NT_multidim_histogram_o::operator= (const NT_multidim_histogram_o & right)
 {
-    if (this == &right) return *this; // Gracefully handle self assignment
+    if (this == &right) return (*this); // Gracefully handle self assignment
     // add assignment code here
     cerr <<"NT_multidim_histogram_o::operator= - Error : Not implemented. Not to be supported ?" << endl;
-    return *this;
+    return (*this);
 }
 
 /* ***      DESTRUCTOR		***/
@@ -130,7 +130,7 @@ NT_multidim_histogram_o::BinValue( const vector <NTreal>  & valueVec)
 
     numBinned++;
 
-    return 0;
+    return (0);
 }
 
 

@@ -46,7 +46,7 @@
 
 /* other includes */
 #include <vector>
-#include <tnt/cmat.h>
+#include <tnt/tnt_cmat.h>
 
 using namespace TNT;
 using TNT::Matrix;
@@ -79,10 +79,10 @@ public:
     NTsize BinValue ( vector <NTreal> valueVec);
     /** No descriptions */
     NTsize _numBinned() {
-        return numBinned;
+        return (numBinned);
     }
     NTsize _numUnbinned() {
-        return numUnbinned;
+        return (numUnbinned);
     }
     /** No descriptions */
     /** No descriptions */

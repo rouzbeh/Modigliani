@@ -87,6 +87,6 @@ void pr2(NT_list_o<int> list)
  a.next();
  }
  pr(a);
- return 0;
+ return (0);
  }
  */

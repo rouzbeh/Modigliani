@@ -68,7 +68,7 @@ NT_histogram_o::NT_histogram_o(const NT_histogram_o & original):
 const NT_histogram_o&
 NT_histogram_o::operator= (const NT_histogram_o & right)
 {
-    if (this == &right) return *this; // Gracefully handle self assignment
+    if (this == &right) return (*this); // Gracefully handle self assignment
     bins = right.bins;
     min = right.min;
     max = right.max;
@@ -76,7 +76,7 @@ NT_histogram_o::operator= (const NT_histogram_o & right)
     binWidth = right.binWidth;
     numDataPoints = right.numDataPoints;
     numOutliers = right.numOutliers;
-    return *this;
+    return (*this);
 }
 
 /* ***      DESTRUCTOR		***/

@@ -55,7 +55,7 @@ NT_str2real_o::NT_str2real_o(NT_str2real_o const& other) :
 /* ***      COPY AND ASSIGNMENT	***/
 NT_str2real_o& NT_str2real_o::operator=(NT_str2real_o const& other) {
 	value_ = other.value_;
-	return *this;
+	return (*this);
 }
 
 /* ***      DESTRUCTOR		***/
@@ -73,12 +73,12 @@ NT_str2real_o& NT_str2real_o::operator=(double i) {
 	std::stringstream s;
 	s << i;
 	value_ = s.str();
-	return *this;
+	return (*this);
 }
 
 NT_str2real_o& NT_str2real_o::operator=(std::string const& s) {
 	value_ = s;
-	return *this;
+	return (*this);
 }
 
 NT_str2real_o::operator std::string() const {

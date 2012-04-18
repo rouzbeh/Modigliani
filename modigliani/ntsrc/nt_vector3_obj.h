@@ -158,12 +158,12 @@ public:
     const NT_vector3_o&
     operator= (const NT_vector3_o & right)
     {
-        if (this == &right) return *this; // Gracefully handle self assignment
+        if (this == &right) return (*this); // Gracefully handle self assignment
         // add assignment code here
         x = right.x;
         y = right.y;
         z = right.z;
-        return *this;
+        return (*this);
     }
 
 
@@ -192,7 +192,7 @@ public:
         x+=pV.x;
         y+=pV.y;
         z+=pV.z;
-        return *this;
+        return (*this);
     }
 
     NT_vector3_o& operator-=(const NT_vector3_o & pV)
@@ -200,7 +200,7 @@ public:
         x-=pV.x;
         y-=pV.y;
         z-=pV.z;
-        return *this;
+        return (*this);
     }
 
     /** cross product with another vector (returns a scalar) */
@@ -273,7 +273,7 @@ public:
             return x;
             break;
         }
-        return 0;
+        return (0);
     }
 
     NT_vector3_o Cross( const NT_vector3_o & pV ) const
@@ -322,7 +322,7 @@ public:
         x*=pR;
         y*=pR;
         z*=pR;
-        return *this;
+        return (*this);
     }
 
     /** Return a vector rotated around X, Y and then Z axis.

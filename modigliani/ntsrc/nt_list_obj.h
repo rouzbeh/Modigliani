@@ -205,7 +205,7 @@ template<class T> const NT_list_o<T>& NT_list_o<T>::operator=(
 		free();
 		copy(b);
 	}
-	return *this;
+	return (*this);
 }
 
 //............................................................................

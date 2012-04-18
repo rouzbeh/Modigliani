@@ -113,9 +113,9 @@ public:
     const NT_multidim_array_o&
     operator= (const NT_multidim_array_o & right)
     {
-        if (this == &right) return *this; // Gracefully handle self assignment
+        if (this == &right) return (*this); // Gracefully handle self assignment
         cerr <<"NT_multidim_array_o::operator= - Error : Not implemented. Not to be supported ?" << endl;
-        return *this;
+        return (*this);
     }
 
     /* ***      DESTRUCTOR		***/
