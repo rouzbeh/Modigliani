@@ -53,6 +53,7 @@
 // for fabs()
 //
 #include <cmath>
+#include <cassert>
 
 // right-looking LU factorization algorithm (unblocked)
 //
@@ -89,7 +90,7 @@ int LU_factor( MaTRiX &A, VecToRSubscript &indx)
     Subscript M = A.num_rows();
     Subscript N = A.num_cols();
 
-    if (M == 0 || N==0) return 0;
+    if (M == 0 || N==0) return (0);
     if (indx.dim() != M)
         indx.newsize(M);
 
@@ -120,7 +121,7 @@ int LU_factor( MaTRiX &A, VecToRSubscript &indx)
         // of column j, below the diagonal
 
         if ( A(jp,j) == 0 )
-            return 1;       // factorization failed because of zero pivot
+            return (1);       // factorization failed because of zero pivot
 
 
         if (jp != j)            // swap rows j and jp
@@ -159,7 +160,7 @@ int LU_factor( MaTRiX &A, VecToRSubscript &indx)
         }
     }
 
-    return 0;
+    return (0);
 }
 
 
@@ -195,7 +196,7 @@ int LU_solve(const MaTRiX &A, const VecToRSubscripts &indx, VecToR &b)
         b(i)=sum/A(i,i);
     }
 
-    return 0;
+    return (0);
 }
 
 } // namespace TNT

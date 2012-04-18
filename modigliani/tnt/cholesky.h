@@ -27,6 +27,7 @@
 #define CHOLESKY_H
 
 #include <cmath>
+#include <cassert>
 
 // index method
 
@@ -74,7 +75,7 @@ int Cholesky_upper_factorization(SPDMatrix &A, SymmMatrix &L)
             L(i,j) = A(j,i) - dot;
         }
 
-        if (L(j,j) <= 0.0) return 1;
+        if (L(j,j) <= 0.0) return (1);
 
         L(j,j) = sqrt( L(j,j) );
 
@@ -83,7 +84,7 @@ int Cholesky_upper_factorization(SPDMatrix &A, SymmMatrix &L)
 
     }
 
-    return 0;
+    return (0);
 }
 
 

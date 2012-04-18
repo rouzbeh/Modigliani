@@ -30,7 +30,7 @@
 
 #include <iostream>
 #include <cassert>
-#include "tnt/vec.h"
+#include "vec.h"
 
 namespace TNT
 {
@@ -55,16 +55,16 @@ public:
 
 
     const Array2D & array()  const {
-        return A_;
+        return (A_);
     }
     Subscript num_rows() const {
-        return A_.num_cols();
+        return (A_.num_cols());
     }
     Subscript num_cols() const {
-        return A_.num_rows();
+        return (A_.num_rows());
     }
     Subscript lbound() const {
-        return A_.lbound();
+        return (A_.lbound());
     }
     Subscript dim(Subscript i) const
     {
@@ -73,9 +73,9 @@ public:
         assert( i<= A_.lbound()+1);
 #endif
         if (i== A_.lbound())
-            return num_rows();
+            return (num_rows());
         else
-            return num_cols();
+            return (num_cols());
     }
 
 
@@ -93,7 +93,7 @@ public:
         assert(j<=A_.num_rows() + lbound() - 1);
 #endif
 
-        return A_(j,i);
+        return (A_(j,i));
     }
 
 
@@ -102,7 +102,7 @@ public:
 template <class Matrix>
 Transpose_View<Matrix> Transpose_view(const Matrix &A)
 {
-    return Transpose_View<Matrix>(A);
+    return (Transpose_View<Matrix>(A));
 }
 
 template <class Matrix, class T>
@@ -128,13 +128,13 @@ Vector<T> matmult(
         x(i) = tmp;
     }
 
-    return x;
+    return (x);
 }
 
 template <class Matrix, class T>
 inline Vector<T> operator*(const Transpose_View<Matrix> & A, const Vector<T> &B)
 {
-    return matmult(A,B);
+    return (matmult(A,B));
 }
 
 
@@ -148,18 +148,17 @@ std::ostream& operator<<(std::ostream &s, const Transpose_View<Matrix> &A)
     Subscript Mend = M + A.lbound() - 1;
     Subscript Nend = N + A.lbound() - 1;
 
-    s << M << "  " << N << endl;
+    s << M << "  " << N << std::endl;
     for (Subscript i=start; i<=Mend; i++)
     {
         for (Subscript j=start; j<=Nend; j++)
         {
             s << A(i,j) << " ";
         }
-        s << endl;
+        s << std::endl;
     }
 
-
-    return s;
+    return (s);
 }
 
 } // namespace TNT

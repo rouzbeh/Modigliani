@@ -220,7 +220,7 @@ public:
             for (Subscript j=start; j<=Nend; j++)
                 (*this)(i,j) = R(i,j);
 
-        return *this;
+        return (*this);
     }
 
     Region2D<Array2D> & operator=(const const_Region2D<Array2D> &R)
@@ -240,7 +240,7 @@ public:
             for (Subscript j=start; j<=Nend; j++)
                 (*this)(i,j) = R(i,j);
 
-        return *this;
+        return (*this);
     }
 
     Region2D<Array2D> & operator=(const Array2D &R)
@@ -260,7 +260,7 @@ public:
             for (Subscript j=start; j<=Nend; j++)
                 (*this)(i,j) = R(i,j);
 
-        return *this;
+        return (*this);
     }
 
     Region2D<Array2D> & operator=(const  T &scalar)
@@ -274,7 +274,7 @@ public:
             for (Subscript j=start; j<=Nend; j++)
                 (*this)(i,j) = scalar;
 
-        return *this;
+        return (*this);
     }
 
 };
@@ -453,7 +453,7 @@ std::ostream& operator<<(std::ostream &s, const const_Region2D<Array2D> &A)
     }
 
 
-    return s;
+    return (s);
 }
 
 template <class Array2D>
@@ -475,7 +475,7 @@ std::ostream& operator<<(std::ostream &s, const Region2D<Array2D> &A)
     }
 
 
-    return s;
+    return (s);
 
 }
 

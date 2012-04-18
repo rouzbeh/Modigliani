@@ -44,7 +44,7 @@ namespace TNT
 inline double seconds(void)
 {
     static const double secs_per_tick = 1.0 / CLOCKS_PER_SEC;
-    return ( (double) clock() ) * secs_per_tick;
+    return (((double) clock() ) * secs_per_tick);
 }
 
 
@@ -73,7 +73,7 @@ public:
             total += seconds() - last_time;
             running = 0;
         }
-        return total;
+        return (total);
     }
     double read()   {
         if (running)
@@ -81,7 +81,7 @@ public:
             total+= seconds() - last_time;
             last_time = seconds();
         }
-        return total;
+        return (total);
     }
 
 };

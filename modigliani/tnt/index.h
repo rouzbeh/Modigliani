@@ -41,10 +41,10 @@ class Index1D
 public:
 
     Subscript lbound() const {
-        return lbound_;
+        return (lbound_);
     }
     Subscript ubound() const {
-        return ubound_;
+        return (ubound_);
     }
 
     Index1D(const Index1D &D) : lbound_(D.lbound_), ubound_(D.ubound_) {}
@@ -54,31 +54,31 @@ public:
     {
         lbound_ = D.lbound_;
         ubound_ = D.ubound_;
-        return *this;
+        return (*this);
     }
 
 };
 
 inline Index1D operator+(const Index1D &D, Subscript i)
 {
-    return Index1D(i+D.lbound(), i+D.ubound());
+    return (Index1D(i+D.lbound(), i+D.ubound()));
 }
 
 inline Index1D operator+(Subscript i, const Index1D &D)
 {
-    return Index1D(i+D.lbound(), i+D.ubound());
+    return (Index1D(i+D.lbound(), i+D.ubound()));
 }
 
 
 
 inline Index1D operator-(Index1D &D, Subscript i)
 {
-    return Index1D(D.lbound()-i, D.ubound()-i);
+    return (Index1D(D.lbound()-i, D.ubound()-i));
 }
 
 inline Index1D operator-(Subscript i, Index1D &D)
 {
-    return Index1D(i-D.lbound(), i-D.ubound());
+    return (Index1D(i-D.lbound(), i-D.ubound()));
 }
 
 } // namespace TNT

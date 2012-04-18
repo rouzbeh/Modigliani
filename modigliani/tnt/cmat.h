@@ -55,7 +55,7 @@ public:
     typedef const   T*  const_iterator;
     typedef const   T&  const_reference;
     Subscript lbound() const {
-        return 1;
+        return (1);
     }
 protected:
     Subscript m_;
@@ -163,15 +163,15 @@ protected:
 public:
 
     operator T**() {
-        return  row_;
+        return (row_);
     }
     operator T**() const {
-        return row_;
+        return (row_);
     }
 
 
     Subscript size() const {
-        return mn_;
+        return (mn_);
     }
 
     // constructors
@@ -221,12 +221,12 @@ public:
     Matrix<T>& newsize(Subscript M, Subscript N)
     {
         if (num_rows() == M && num_cols() == N)
-            return *this;
+            return (*this);
 
         destroy();
         initialize(M,N);
 
-        return *this;
+        return (*this);
     }
 
 
@@ -237,7 +237,7 @@ public:
     Matrix<T>& operator=(const Matrix<T> &A)
     {
         if (v_ == A.v_)
-            return *this;
+            return (*this);
 
         if (m_ == A.m_  && n_ == A.n_)      // no need to re-alloc
             copy(A.v_);
@@ -249,13 +249,13 @@ public:
             copy(A.v_);
         }
 
-        return *this;
+        return (*this);
     }
 
     Matrix<T>& operator=(const T& scalar)
     {
         set(scalar);
-        return *this;
+        return (*this);
     }
 
 
@@ -265,14 +265,14 @@ public:
         assert( d >= 1);
         assert( d <= 2);
 #endif
-        return (d==1) ? m_ : ((d==2) ? n_ : 0);
+        return ((d==1) ? m_ : ((d==2) ? n_ : 0));
     }
 
     Subscript num_rows() const {
-        return m_;
+        return (m_);
     }
     Subscript num_cols() const {
-        return n_;
+        return (n_);
     }
 
 
@@ -284,7 +284,7 @@ public:
         assert(0<=i);
         assert(i < m_) ;
 #endif
-        return row_[i];
+        return (row_[i]);
     }
 
     inline const T* operator[](Subscript i) const
@@ -293,7 +293,7 @@ public:
         assert(0<=i);
         assert(i < m_) ;
 #endif
-        return row_[i];
+        return (row_[i]);
     }
 
     inline reference operator()(Subscript i)
@@ -302,7 +302,7 @@ public:
         assert(1<=i);
         assert(i <= mn_) ;
 #endif
-        return vm1_[i];
+        return (vm1_[i]);
     }
 
     inline const_reference operator()(Subscript i) const
@@ -311,7 +311,7 @@ public:
         assert(1<=i);
         assert(i <= mn_) ;
 #endif
-        return vm1_[i];
+        return (vm1_[i]);
     }
 
 
@@ -324,7 +324,7 @@ public:
         assert(1<=j);
         assert(j <= n_);
 #endif
-        return  rowm1_[i][j];
+        return (rowm1_[i][j]);
     }
 
 
@@ -337,7 +337,7 @@ public:
         assert(1<=j);
         assert(j <= n_);
 #endif
-        return rowm1_[i][j];
+        return (rowm1_[i][j]);
     }
 
 
@@ -385,7 +385,7 @@ std::ostream& operator<<(std::ostream &s, const Matrix<T> &A)
     }
 
 
-    return s;
+    return (s);
 }
 
 template <class T>
@@ -409,7 +409,7 @@ std::istream& operator>>(std::istream &s, Matrix<T> &A)
         }
 
 
-    return s;
+    return (s);
 }
 
 // *******************[ basic matrix algorithms ]***************************
@@ -432,7 +432,7 @@ Matrix<T> operator+(const Matrix<T> &A,
         for (j=0; j<N; j++)
             tmp[i][j] = A[i][j] + B[i][j];
 
-    return tmp;
+    return (tmp);
 }
 
 template <class T>
@@ -452,7 +452,7 @@ Matrix<T> operator-(const Matrix<T> &A,
         for (j=0; j<N; j++)
             tmp[i][j] = A[i][j] - B[i][j];
 
-    return tmp;
+    return (tmp);
 }
 
 template <class T>
@@ -472,7 +472,7 @@ Matrix<T> mult_element(const Matrix<T> &A,
         for (j=0; j<N; j++)
             tmp[i][j] = A[i][j] * B[i][j];
 
-    return tmp;
+    return (tmp);
 }
 
 
@@ -489,7 +489,7 @@ Matrix<T> transpose(const Matrix<T> &A)
         for (j=0; j<N; j++)
             S[j][i] = A[i][j];
 
-    return S;
+    return (S);
 }
 
 
@@ -520,14 +520,14 @@ inline Matrix<T> matmult(const Matrix<T>  &A,
             tmp[i][k] = sum;
         }
 
-    return tmp;
+    return (tmp);
 }
 
 template <class T>
 inline Matrix<T> operator*(const Matrix<T>  &A,
                            const Matrix<T> &B)
 {
-    return matmult(A,B);
+    return (matmult(A,B));
 }
 
 template <class T>
@@ -563,7 +563,7 @@ inline int matmult(Matrix<T>& C, const Matrix<T>  &A,
             C[i][k] = sum;
         }
 
-    return 0;
+    return (0);
 }
 
 
@@ -591,13 +591,13 @@ Vector<T> matmult(const Matrix<T>  &A, const Vector<T> &x)
         tmp[i] = sum;
     }
 
-    return tmp;
+    return (tmp);
 }
 
 template <class T>
 inline Vector<T> operator*(const Matrix<T>  &A, const Vector<T> &x)
 {
-    return matmult(A,x);
+    return (matmult(A,x));
 }
 
 } // namespace TNT

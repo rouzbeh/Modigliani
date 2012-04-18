@@ -21,7 +21,10 @@
 *
 */
 
+#include <cassert.h>
+#include <iostream>
 
+using namespace std;
 
 // Triangular Matrices (Views and Adpators)
 
@@ -52,16 +55,16 @@ public:
     typedef element_type T;
 
     Subscript dim(Subscript d) const {
-        return A_.dim(d);
+        return (A_.dim(d));
     }
     Subscript lbound() const {
-        return A_.lbound();
+        return (A_.lbound());
     }
     Subscript num_rows() const {
-        return A_.num_rows();
+        return (A_.num_rows());
     }
     Subscript num_cols() const {
-        return A_.num_cols();
+        return (A_.num_cols());
     }
 
 
@@ -79,9 +82,9 @@ public:
         assert(j<=A_.num_cols() + lbound() - 1);
 #endif
         if (i<j)
-            return zero_;
+            return (zero_);
         else
-            return A_(i,j);
+            return (A_(i,j));
     }
 
 
@@ -94,9 +97,9 @@ public:
         assert(j<=A_.num_cols() + lbound() - 1);
 #endif
         if (i<j)
-            return zero_;
+            return (zero_);
         else
-            return A_(i,j);
+            return (A_(i,j));
     }
 
 #ifdef TNT_USE_REGIONS
@@ -123,7 +126,6 @@ public:
 
 };
 
-
 /* *********** Lower_triangular_view() algorithms ****************** */
 
 template <class MaTRiX, class VecToR>
@@ -149,13 +151,13 @@ VecToR matmult(/*const*/ LowerTriangularView<MaTRiX> &A, VecToR &x)
         result(i) = sum;
     }
 
-    return result;
+    return (result);
 }
 
 template <class MaTRiX, class VecToR>
 inline VecToR operator*(/*const*/ LowerTriangularView<MaTRiX> &A, VecToR &x)
 {
-    return matmult(A,x);
+    return (matmult(A,x));
 }
 
 template <class MaTRiX>
@@ -175,16 +177,16 @@ public:
     typedef element_type T;
 
     Subscript lbound() const {
-        return 1;
+        return (1);
     }
     Subscript dim(Subscript d) const {
-        return A_.dim(d);
+        return (A_.dim(d));
     }
     Subscript num_rows() const {
-        return A_.num_rows();
+        return (A_.num_rows());
     }
     Subscript num_cols() const {
-        return A_.num_cols();
+        return (A_.num_cols());
     }
 
 
@@ -203,11 +205,11 @@ public:
         assert(0<=i && i<A_.dim(0) && 0<=j && j<A_.dim(1));
 #endif
         if (i>j)
-            return A_(i,j);
+            return (A_(i,j));
         else if (i==j)
-            return one;
+            return (one);
         else
-            return zero;
+            return (zero);
     }
 
 
@@ -220,11 +222,11 @@ public:
         assert(j<=A_.dim(2));
 #endif
         if (i>j)
-            return A_(i,j);
+            return (A_(i,j));
         else if (i==j)
-            return one;
+            return (one);
         else
-            return zero;
+            return (zero);
     }
 
 
@@ -253,7 +255,7 @@ template <class MaTRiX>
 LowerTriangularView<MaTRiX> Lower_triangular_view(
     /*const*/ MaTRiX &A)
 {
-    return LowerTriangularView<MaTRiX>(A);
+    return (LowerTriangularView<MaTRiX>(A));
 }
 
 
@@ -261,7 +263,7 @@ template <class MaTRiX>
 UnitLowerTriangularView<MaTRiX> Unit_lower_triangular_view(
     /*const*/ MaTRiX &A)
 {
-    return UnitLowerTriangularView<MaTRiX>(A);
+    return (UnitLowerTriangularView<MaTRiX>(A));
 }
 
 template <class MaTRiX, class VecToR>
@@ -287,13 +289,13 @@ VecToR matmult(/*const*/ UnitLowerTriangularView<MaTRiX> &A, VecToR &x)
         result(i) = sum + x(i);
     }
 
-    return result;
+    return (result);
 }
 
 template <class MaTRiX, class VecToR>
 inline VecToR operator*(/*const*/ UnitLowerTriangularView<MaTRiX> &A, VecToR &x)
 {
-    return matmult(A,x);
+    return (matmult(A,x));
 }
 
 
@@ -319,7 +321,7 @@ std::ostream& operator<<(std::ostream &s, const LowerTriangularView<MaTRiX>&A)
     }
 
 
-    return s;
+    return (s);
 }
 
 template <class MaTRiX>
@@ -341,7 +343,7 @@ std::ostream& operator<<(std::ostream &s,
     }
 
 
-    return s;
+    return (s);
 }
 
 
@@ -368,16 +370,16 @@ public:
     typedef element_type T;
 
     Subscript dim(Subscript d) const {
-        return A_.dim(d);
+        return (A_.dim(d));
     }
     Subscript lbound() const {
-        return A_.lbound();
+        return (A_.lbound());
     }
     Subscript num_rows() const {
-        return A_.num_rows();
+        return (A_.num_rows());
     }
     Subscript num_cols() const {
-        return A_.num_cols();
+        return (A_.num_cols());
     }
 
 
@@ -395,9 +397,9 @@ public:
         assert(j<=A_.num_cols() + lbound() - 1);
 #endif
         if (i>j)
-            return zero_;
+            return (zero_);
         else
-            return A_(i,j);
+            return (A_(i,j));
     }
 
 
@@ -410,9 +412,9 @@ public:
         assert(j<=A_.num_cols() + lbound() - 1);
 #endif
         if (i>j)
-            return zero_;
+            return (zero_);
         else
-            return A_(i,j);
+            return (A_(i,j));
     }
 
 #ifdef TNT_USE_REGIONS
@@ -465,13 +467,13 @@ VecToR matmult(/*const*/ UpperTriangularView<MaTRiX> &A, VecToR &x)
         result(i) = sum;
     }
 
-    return result;
+    return (result);
 }
 
 template <class MaTRiX, class VecToR>
 inline VecToR operator*(/*const*/ UpperTriangularView<MaTRiX> &A, VecToR &x)
 {
-    return matmult(A,x);
+    return (matmult(A,x));
 }
 
 template <class MaTRiX>
@@ -491,16 +493,16 @@ public:
     typedef element_type T;
 
     Subscript lbound() const {
-        return 1;
+        return (1);
     }
     Subscript dim(Subscript d) const {
-        return A_.dim(d);
+        return (A_.dim(d));
     }
     Subscript num_rows() const {
-        return A_.num_rows();
+        return (A_.num_rows());
     }
     Subscript num_cols() const {
-        return A_.num_cols();
+        return (A_.num_cols());
     }
 
 
@@ -519,11 +521,11 @@ public:
         assert(0<=i && i<A_.dim(0) && 0<=j && j<A_.dim(1));
 #endif
         if (i<j)
-            return A_(i,j);
+            return (A_(i,j));
         else if (i==j)
-            return one;
+            return (one);
         else
-            return zero;
+            return (zero);
     }
 
 
@@ -536,11 +538,11 @@ public:
         assert(j<=A_.dim(2));
 #endif
         if (i<j)
-            return A_(i,j);
+            return (A_(i,j));
         else if (i==j)
-            return one;
+            return (one);
         else
-            return zero;
+            return (zero);
     }
 
 
@@ -569,7 +571,7 @@ template <class MaTRiX>
 UpperTriangularView<MaTRiX> Upper_triangular_view(
     /*const*/ MaTRiX &A)
 {
-    return UpperTriangularView<MaTRiX>(A);
+    return (UpperTriangularView<MaTRiX>(A));
 }
 
 
@@ -577,7 +579,7 @@ template <class MaTRiX>
 UnitUpperTriangularView<MaTRiX> Unit_upper_triangular_view(
     /*const*/ MaTRiX &A)
 {
-    return UnitUpperTriangularView<MaTRiX>(A);
+    return (UnitUpperTriangularView<MaTRiX>(A));
 }
 
 template <class MaTRiX, class VecToR>
@@ -603,13 +605,13 @@ VecToR matmult(/*const*/ UnitUpperTriangularView<MaTRiX> &A, VecToR &x)
         result(i) = sum + x(i);
     }
 
-    return result;
+    return (result);
 }
 
 template <class MaTRiX, class VecToR>
 inline VecToR operator*(/*const*/ UnitUpperTriangularView<MaTRiX> &A, VecToR &x)
 {
-    return matmult(A,x);
+    return (matmult(A,x));
 }
 
 
@@ -636,7 +638,7 @@ std::ostream& operator<<(std::ostream &s,
     }
 
 
-    return s;
+    return (s);
 }
 
 template <class MaTRiX>
@@ -658,7 +660,7 @@ std::ostream& operator<<(std::ostream &s,
     }
 
 
-    return s;
+    return (s);
 }
 
 } // namespace TNT

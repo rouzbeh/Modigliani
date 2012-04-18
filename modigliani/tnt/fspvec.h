@@ -58,7 +58,7 @@ public:
     typedef const   T&  const_reference;
 
     Subscript lbound() const {
-        return 1;
+        return (1);
     }
 
 protected:
@@ -72,26 +72,26 @@ public:
     // size and shape information
 
     Subscript dim() const {
-        return dim_;
+        return (dim_);
     }
     Subscript num_nonzeros() const {
-        return val_.dim();
+        return (val_.dim());
     }
 
     // access
 
     T& val(Subscript i) {
-        return val_(i);
+        return (val_(i));
     }
     const T& val(Subscript i) const {
-        return val_(i);
+        return (val_(i));
     }
 
     Subscript &index(Subscript i) {
-        return index_(i);
+        return (index_(i));
     }
     const Subscript &index(Subscript i) const {
-        return index_(i);
+        return (index_(i));
     }
 
     // constructors
@@ -120,7 +120,7 @@ public:
         val_.newsize(nz);
         index_.newsize(nz);
         dim_ = N;
-        return *this;
+        return (*this);
     }
 
     Fortran_Sparse_Vector<T> & operator=( const Fortran_Sparse_Vector<T> &A)
@@ -129,7 +129,7 @@ public:
         index_ = A.index_;
         dim_ = A.dim_;
 
-        return *this;
+        return (*this);
     }
 
     // methods
@@ -153,9 +153,8 @@ ostream& operator<<(ostream &s, const Fortran_Sparse_Vector<T> &A)
         s   << A.val(i) << "  " << A.index(i) << endl;
     s << endl;
 
-    return s;
+    return (s);
 }
-
 
 template <class T>
 istream& operator>>(istream &s, Fortran_Sparse_Vector<T> &A)
@@ -173,7 +172,7 @@ istream& operator>>(istream &s, Fortran_Sparse_Vector<T> &A)
         s >>  A.val(i) >> A.index(i);
 
 
-    return s;
+    return (s);
 }
 
 } // namespace TNT
