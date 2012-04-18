@@ -56,5 +56,5 @@ main(int argc, char* argv[])
     cout << "In "<< stats._counter() << " values." << endl;
     file.close();
 
-    return 0;
+    return (0);
 }

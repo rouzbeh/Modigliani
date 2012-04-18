@@ -29,7 +29,7 @@ int main(int argc, char* argv[]) {
 
 	if (every < 1)
 		every = 1;
-	unsigned int number;
+	unsigned int number = 0;
 	if (argc > 4) {
 		selectColumns = true;
 		number = argc - 4;

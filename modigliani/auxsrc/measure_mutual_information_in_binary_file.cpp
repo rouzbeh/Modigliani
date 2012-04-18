@@ -120,6 +120,6 @@ int main(int argc, char* argv[]) {
 			<< " rows  columns from file " << filename << " with " << columns
 			<< "." << endl;
 
-	return 0;
+	return (0);
 }
 

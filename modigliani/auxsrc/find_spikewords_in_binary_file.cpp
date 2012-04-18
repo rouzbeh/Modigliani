@@ -18,19 +18,19 @@
 #define NUM_NON_COLUMN_PARAM 5 // including argv[0] ==  executable
 
 
-NTreal ComputeEntropyElement(NTreal prob)
+NTreal compute_entropy_element(NTreal prob)
 {
 
-    if (0.0 == prob) return 0;
+    if (0.0 == prob) return (0);
     else if (prob < 0.0) {
         cerr << "ComputeEntropyElement - Error : Negative probability encountered." << endl;
         exit(1);
     } else {
-        return prob*log(prob)/0.69314718055994530942 /* log(2) */;
+        return (prob*log(prob)/0.69314718055994530942 /* log(2) */);
     }
 }
 
-NTsize BinaryWord2HashIndex(vector <bool> word)
+NTsize binary_Word2HashIndex(vector <bool> word)
 {
     NTsize tmpVal = 0;
     NTsize base = 1;
@@ -41,31 +41,31 @@ NTsize BinaryWord2HashIndex(vector <bool> word)
         base *= 2;
     }
 
-    return tmpVal;
+    return (tmpVal);
 }
 
 
-int CheckForSpike(float v, float upThreshold, float downThreshold, bool* spiking)
+int check_for_spike(float v, float upThreshold, float downThreshold, bool* spiking)
 {
     if (v > upThreshold) {
         if (*spiking == true) {
             *spiking = true;
-            return 0;
+            return (0);
         } else {
             *spiking = true;
-            return 1;
+            return (1);
         }
     } else if ( v < downThreshold ) {
         if (*spiking == true) {
             *spiking = false;
-            return -1;
+            return (-1);
         } else {
             *spiking = false;
-            return 0;
+            return (0);
         }
 
     }
-    return 0;
+    return (0);
 }
 
 
@@ -120,11 +120,11 @@ main(int argc, char* argv[])
         if (analysisInterval == counter) {
             currentSpikeWord.Push(spike);
 //		currentSpikeWord.Show();
-            wordHistogram[BinaryWord2HashIndex(currentSpikeWord.Buffer())] += 1;
+            wordHistogram[binary_Word2HashIndex(currentSpikeWord.Buffer())] += 1;
             counter = 0;
             spike = false;
         }
-        if (1 == CheckForSpike(buffer[select], upThreshold, downThreshold, &spiking)) {
+        if (1 == check_for_spike(buffer[select], upThreshold, downThreshold, &spiking)) {
             spike = true;
         }
 
@@ -141,7 +141,7 @@ main(int argc, char* argv[])
     for (ll = 0; ll < wordHistogram.size(); ll++) {
 //	cout << ll << "\t" << wordProbHistogram[ll] << endl;
         p += wordProbHistogram[ll];
-        entropy -= ComputeEntropyElement(wordProbHistogram[ll]);
+        entropy -= compute_entropy_element(wordProbHistogram[ll]);
     }
     cout << endl;
     cout << "Input text file had resolution of " << 1000/resolutionOfDataFile << " Hz." << endl;
@@ -151,7 +151,7 @@ main(int argc, char* argv[])
     cout << "Entropy in bits:" << entropy << endl;
     cout << "Entropy rate (bits/s):" << 1000 * /* mSec/Sec */ entropy/wordLength*resolutionOfDataFile*analysisInterval << endl;
 
-    return 0;
+    return (0);
 }
 
 
