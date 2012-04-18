@@ -59,9 +59,9 @@ NTBP_membrane_compartment_o( original._area() )
 const NTBP_spherical_compartment_o&  
 NTBP_spherical_compartment_o::operator= (const NTBP_spherical_compartment_o & right)
 {
- if (this == &right) return *this; // Gracefully handle self assignment
+ if (this == &right) return (*this); // Gracefully handle self assignment
  // add assignment code here
-  return *this;
+  return (*this);
 }
 
 /* ***      DESTRUCTOR		***/

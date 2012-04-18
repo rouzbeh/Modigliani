@@ -69,10 +69,10 @@ enum NTBPdelayedPotassiumRectifierType {NTBP_SGA_K_CONTI, // squid giant axon by
 
 const NTreal NTBP_STD_TEMPERATURE = 6.3; // Celsius (NOT TO BE CHANGED)
 
-NTreal NTBP_TemperatureRateRelation(NTreal temp /* C */, NTreal q10);
-NTreal NTBP_TemperatureRateRelation(NTreal temp /* C */, NTreal baseTemp /* C */, NTreal q10);
+NTreal NTBP_temperature_rate_relation(NTreal temp /* C */, NTreal q10);
+NTreal NTBP_temperature_rate_relation(NTreal temp /* C */, NTreal baseTemp /* C */, NTreal q10);
 /** Compute length constant in muMeter */
-NTreal NTBP_LengthConstantPassiveCable(NTreal diameter /* mu */, NTreal rAxoplasmic /* Ohm cm */, NTreal gLeak /* mSiemens/cm^2 */);
+NTreal NTBP_length_constant_passive_cable(NTreal diameter /* mu */, NTreal rAxoplasmic /* Ohm cm */, NTreal gLeak /* mSiemens/cm^2 */);
 																
 /** @short NTBP_object_o class
 \bug unknown
@@ -90,7 +90,7 @@ NTBP_object_o(const NTBP_object_o & original);
 const NTBP_object_o & operator= (const NTBP_object_o & right);
 virtual ~NTBP_object_o();
 /* ***  Methods              ***/  
-NTreal _timeStep() const { return timeStep; }
+NTreal _timeStep() const { return (timeStep); }
 /** @short  update of explicitly time dependent variables using a deltaT = timeStep, NO update
   	of dependent variables     
     @param      none
@@ -98,11 +98,11 @@ NTreal _timeStep() const { return timeStep; }
    \warning    indirectly time dependent variables NOT updated
    \bug        unknown
 */
-NTreal UpdateTimeStep(NTreal newSuggestedTimeStep) { /* if (suggestedTimeStep > newSuggestedTimeStep) */ suggestedTimeStep = newSuggestedTimeStep; return newSuggestedTimeStep; }
-virtual NTreturn Step() { cerr << "NTBP_object_o:Step() - Warning : Non-overriden base method () called by derived class." << endl; return NT_NOT_IMPLEMENTED; }
-NTreturn StepNTBP() { timeStep = suggestedTimeStep; return NT_SUCCESS;}
-NTreal _timeStep() { return timeStep;}
-NTreal _baseTimeStep(){ return baseTimeStep;}
+NTreal update_timeStep(NTreal newSuggestedTimeStep) { /* if (suggestedTimeStep > newSuggestedTimeStep) */ suggestedTimeStep = newSuggestedTimeStep; return (newSuggestedTimeStep); }
+virtual NTreturn step() { cerr << "NTBP_object_o:Step() - Warning : Non-overriden base method () called by derived class." << endl; return (NT_NOT_IMPLEMENTED); }
+NTreturn StepNTBP() { timeStep = suggestedTimeStep; return (NT_SUCCESS);}
+NTreal _timeStep() { return (timeStep);}
+NTreal _baseTimeStep(){ return (baseTimeStep);}
 void setTimeStep(NTreal newTimeStep){
 	timeStep = newTimeStep;
 }

@@ -63,6 +63,9 @@ NTBP_cylindrical_compartment_o::operator=(
 
 /* ***      DESTRUCTOR		***/
 NTBP_cylindrical_compartment_o::~NTBP_cylindrical_compartment_o() {
+	for (auto it=currentVec.begin(); it!=currentVec.end(); ++it){
+		delete *it;
+	}
 }
 
 /* ***  PUBLIC                                    ***   */

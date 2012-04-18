@@ -55,7 +55,7 @@ NTBP_membrane_patch_o(const NTBP_membrane_patch_o & original);
 const NTBP_membrane_patch_o & operator= (const NTBP_membrane_patch_o & right);
 virtual ~NTBP_membrane_patch_o();
 /* ***  Methods              ***/
-NTreal MembranePotential() const {return _vM();}
+NTreal MembranePotential() const {return (_vM());}
 /** No descriptions */
 NTreturn Step();
 /** No descriptions */
@@ -63,7 +63,7 @@ NTreturn InitialStep();
 /** Current [nA]  */
 NTreal MembraneCurrent(NTsize currentIndex) const {
 						NT_ASSERT((currentIndex > 0) && (currentIndex-1 < currentVec.size()));
-						return currentVec[currentIndex-1]->_current();}
+						return (currentVec[currentIndex-1]->_current());}
 /* in muMeter^2 */
 
 /* ***  Data                 ***/

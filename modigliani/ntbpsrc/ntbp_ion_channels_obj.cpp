@@ -93,9 +93,9 @@ NTBP_ion_channels_o::NTBP_ion_channels_o(const NTBP_ion_channels_o & original) :
 const NTBP_ion_channels_o&
 NTBP_ion_channels_o::operator=(const NTBP_ion_channels_o & right) {
 	if (this == &right)
-		return *this; // Gracefully handle self assignment
+		return (*this); // Gracefully handle self assignment
 	// add assignment code here
-	return *this;
+	return (*this);
 }
 
 /* ***      DESTRUCTOR		***/
@@ -128,20 +128,20 @@ NTreturn NTBP_ion_channels_o::GillespieStep(NTreal voltage) {
 		sum += (stateChangeProbability / deltaT) * stateCounterVec[ll];
 		cerr << "p=" << sum / (channelTau) << " val=" << val << endl;
 		if (val < sum / channelTau) {
-			return ComputeGillespieStep(ll, voltage);
+			return (ComputeGillespieStep(ll, voltage));
 		}
 	}
 	cerr
 			<< "NTBP_ion_channels_o::GillespieStep - Error : Control flow should not have reach here. No channel transition done."
 			<< endl;
-	return NT_FAIL;
+	return (NT_FAIL);
 }
 
 /**
  *
  * @return
  */
-NTreturn NTBP_ion_channels_o::Step(NTreal voltage) {
+NTreturn NTBP_ion_channels_o::step(NTreal voltage) {
 	NTreal rv = 0;
 	vector<NTint> oldStateCounterVec = stateCounterVec;
 	NTsize matrix_index = _probMatrix->get_index(voltage);
@@ -167,12 +167,12 @@ NTreturn NTBP_ion_channels_o::Step(NTreal voltage) {
 				}
 				// Something went wrong. The sum of all those probabilities
 				// should have reached one.
-				return NT_FAIL;
+				return (NT_FAIL);
 			}
 
 		}
 	}
-	return NT_SUCCESS;
+	return (NT_SUCCESS);
 }
 
 void NTBP_ion_channels_o::ShowStates() const {
@@ -192,7 +192,7 @@ NTsize NTBP_ion_channels_o::NumOpen() const {
 		NTsize state = *it;
 		count += stateCounterVec[state];
 	}
-	return count;
+	return (count);
 }
 
 /** Sum of escape rates [1/s] */
@@ -211,7 +211,7 @@ NTreal NTBP_ion_channels_o::ComputeChannelStateTimeConstant(
 		}
 		sum += (stateChangeProbability / deltaT) * stateCounterVec[ll];
 	}
-	return sum;
+	return (sum);
 }
 
 /**
@@ -270,9 +270,9 @@ NTreturn NTBP_ion_channels_o::ComputeGillespieStep(NTsize stateId,
 	NT_ASSERT((unsigned int) check == _numChannels());
 
 	if (NumOpen() == oldOpen)
-		return NT_FAIL;
+		return (NT_FAIL);
 	else
-		return NT_SUCCESS;
+		return (NT_SUCCESS);
 }
 
 NTreturn NTBP_ion_channels_o::BinomialStep(NTreal voltage) {
@@ -315,7 +315,7 @@ NTreturn NTBP_ion_channels_o::BinomialStep(NTreal voltage) {
 		} while ((true == loop) && (loopCounter < 100));
 	if (loopCounter >= 100) {
 		cerr << "ERROR: Binominal step loop counter limit reached." << endl;
-		return NT_SUCCESS;
+		return (NT_SUCCESS);
 	}
 	stateCounterVec = newStateCounterVec;
 	//	else {}
@@ -325,7 +325,7 @@ NTreturn NTBP_ion_channels_o::BinomialStep(NTreal voltage) {
 	//		cerr << ll << ": " << stateCounterVec[ll] << "\t";
 	//	}
 	//	cerr << "\n" << endl;
-	return NT_SUCCESS;
+	return (NT_SUCCESS);
 }
 
 NTreturn NTBP_ion_channels_o::DeterministicStep(NTreal voltage) {
@@ -381,7 +381,7 @@ NTreturn NTBP_ion_channels_o::DeterministicStep(NTreal voltage) {
 		}
 	}
 	stateCounterVec = newStateCounterVec;
-	return NT_SUCCESS;
+	return (NT_SUCCESS);
 }
 
 /** Do not call before rate constants were set. */
@@ -391,7 +391,7 @@ NTreturn NTBP_ion_channels_o::SteadyStateDistribution(NTreal voltage) {
 	for (NTsize ll = 0; ll < 1000; ll++) {
 		BinomialStep(voltage); //much faster then having to wait for Step()
 	}
-	return NT_SUCCESS;
+	return (NT_SUCCESS);
 }
 
 /* ***  PROTECTED                         ***   */

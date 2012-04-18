@@ -64,7 +64,7 @@ NTBP_spherical_compartment_o(const NTBP_spherical_compartment_o & original);
 const NTBP_spherical_compartment_o & operator= (const NTBP_spherical_compartment_o & right);
 virtual ~NTBP_spherical_compartment_o();
 /* ***  Methods              ***/  
-NTreal _radius() const { return radius;}
+NTreal _radius() const { return (radius);}
 /* ***  Data                 ***/  
 protected:
 /* ***  Methods              ***/  

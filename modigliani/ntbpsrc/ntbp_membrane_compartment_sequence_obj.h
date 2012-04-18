@@ -85,7 +85,7 @@ public:
 	NTreturn PushBack(NTBP_cylindrical_compartment_o * compartPtr);
 	NTreturn Init();
 	NTreturn InitialStep();
-	NTreturn Step();
+	NTreturn step();
 	void ShowVoltage() {
 		cerr << "Voltage [";
 		for (NTsize ll = 0; ll < _numCompartments(); ll++) {
@@ -95,11 +95,11 @@ public:
 		cerr << "]" << endl;
 	}
 	NTreal MembraneVoltage(NTsize compartmentId /* 1..numCompartments*/) {
-		return compartmentVec[compartmentId - 1]->_vM();
+		return (compartmentVec[compartmentId - 1]->_vM());
 	}
 	NTreturn InjectCurrent(NTreal current /* in nA */, NTsize compartmentId);
 	NTsize _numCompartments() const {
-		return numCompartments;
+		return (numCompartments);
 	}
 	/**  */
 	/**  */
@@ -107,9 +107,9 @@ public:
 	void ShowHinesMatrix();
 	NTreal AttachedCurrent(NTsize compIndex, NTsize currIndex) {
 		NT_ASSERT(compIndex > 0);
-		return compartmentVec[compIndex - 1]->AttachedCurrent(currIndex);
+		return (compartmentVec[compIndex - 1]->AttachedCurrent(currIndex));
 	}
-	vector<NTreal> OpenChannels(NTsize currIndex) const;
+	vector<NTreal> open_channels(NTsize currIndex) const;
 	vector<NTreal> OpenChannelsRatio(NTsize currIndex) const;
 	vector<NTreal> NumChannels(NTsize currIndex) const;
 	vector<NTreal> NumChannelsInState(NTsize currIndex, NTsize state) const;

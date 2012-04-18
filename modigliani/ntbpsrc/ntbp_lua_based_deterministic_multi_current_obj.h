@@ -33,12 +33,11 @@ public:
 	const NTBP_lua_based_deterministic_multi_current_o&
 	operator=(const NTBP_lua_based_deterministic_multi_current_o & right);
 
-	NTreturn StepCurrent();
-	NTreal OpenChannels() const;
-	NTreal OpenChannelsRatio() const;
-	NTreal ComputeConductance();
-	virtual NTreal NumChannelsInState(NTsize state) const;
-	void ShowParam() const;
+	virtual NTreturn step_current() override;
+	virtual NTreal open_channels() const override;
+	virtual NTreal compute_conductance() override;
+	virtual NTreal NumChannelsInState(NTsize state) const override;
+	void ShowParam() const override;
 
 	string lua_script;
 private:

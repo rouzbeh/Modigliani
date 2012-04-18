@@ -63,10 +63,10 @@ NTBP_file_based_stochastic_multi_current_o::NTBP_file_based_stochastic_multi_cur
 //NTBP_file_based_stochastic_multi_current_o::operator=(
 //		const NTBP_hranvier_sodium_multi_current_o & right) {
 //	if (this == &right)
-//		return *this; // Gracefully handle self assignment
+//		return (*this); // Gracefully handle self assignment
 //	channelsPtr = new NTBP_ion_channels_o(right._numChannels(), 8);
 //	channelsPtr->setAsOpenState(4);
-//	return *this;
+//	return (*this);
 //}
 //
 /* ***      DESTRUCTOR		***/
@@ -115,7 +115,7 @@ void NTBP_file_based_stochastic_multi_current_o::load_file(string fileName,
 		double q10 = transitions[index].get("q10", 1).asDouble();
 		double base_probability =
 				transitions[index].get("probability", 0).asDouble();
-		double probability = NTBP_TemperatureRateRelation(temperature,
+		double probability = NTBP_temperature_rate_relation(temperature,
 				base_temperature_map[fileName] /* C */, q10) * base_probability
 				* time_step;
 
@@ -135,7 +135,7 @@ void NTBP_file_based_stochastic_multi_current_o::load_file(string fileName,
  \warning    unknown
  \bug        unknown
  */
-inline NTreturn NTBP_file_based_stochastic_multi_current_o::StepCurrent() {
+inline NTreturn NTBP_file_based_stochastic_multi_current_o::step_current() {
 	switch (_simulationMode()) {
 	case NTBP_BINOMIALPOPULATION: {
 		return (channelsPtr->BinomialStep(voltage));
@@ -162,15 +162,8 @@ inline NTreturn NTBP_file_based_stochastic_multi_current_o::StepCurrent() {
 
 /**  */
 /** No descriptions */
-inline NTreal NTBP_file_based_stochastic_multi_current_o::OpenChannels() const {
+inline NTreal NTBP_file_based_stochastic_multi_current_o::open_channels() const {
 	return (channelsPtr->NumOpen());
-}
-
-/**  */
-/** No descriptions */
-inline NTreal NTBP_file_based_stochastic_multi_current_o::OpenChannelsRatio() const {
-	NTreal open = OpenChannels();
-	return (((NTreal) (open * 100)) / NumChannels());
 }
 
 /**  */
@@ -180,7 +173,7 @@ inline NTreal NTBP_file_based_stochastic_multi_current_o::NumChannelsInState(
 	return (channelsPtr->numChannelsInState(state));
 }
 
-inline NTreal NTBP_file_based_stochastic_multi_current_o::ComputeConductance() {
+inline NTreal NTBP_file_based_stochastic_multi_current_o::compute_conductance() {
 	return (Set_conductance(channelsPtr->NumOpen() * conductivity));
 }
 

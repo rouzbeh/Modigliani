@@ -52,10 +52,10 @@ NTBP_tridiag_solver_o::NTBP_tridiag_solver_o(
 const NTBP_tridiag_solver_o&
 NTBP_tridiag_solver_o::operator=(const NTBP_tridiag_solver_o & right) {
 	if (this == &right)
-		return *this; // Gracefully handle self assignment
+		return (*this); // Gracefully handle self assignment
 	// add assignment code here
 	cerr << "OBSOLETE code called";
-	return *this;
+	return (*this);
 }
 
 /* ***      DESTRUCTOR		***/
@@ -76,7 +76,7 @@ NTBP_tridiag_solver_o::~NTBP_tridiag_solver_o() {
  uOrigVec = newUVec;
 
  initialised = true;
- return NT_SUCCESS;
+ return (NT_SUCCESS);
  }
  */
 
@@ -118,7 +118,7 @@ vector<NTreal> NTBP_tridiag_solver_o::Solve(vector<NTreal> dVec,
 		vVec[i] = rVec[i] - uVec[i] * vVec[i + 1];
 	}
 
-	return vVec;
+	return (vVec);
 }
 
 /* ***  PROTECTED                         ***   */
@@ -129,5 +129,5 @@ vector<NTreal> NTBP_tridiag_solver_o::Solve(vector<NTreal> dVec,
 NTreturn NTBP_tridiag_solver_o::Resize(NTsize numNewCompartments) {
 	NT_ASSERT(numNewCompartments > 0);
 	numCompartments = numNewCompartments;
-	return NT_SUCCESS;
+	return (NT_SUCCESS);
 }

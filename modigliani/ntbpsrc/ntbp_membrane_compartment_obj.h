@@ -77,33 +77,33 @@ const NTBP_membrane_compartment_o & operator= (const NTBP_membrane_compartment_o
 virtual ~NTBP_membrane_compartment_o();
 /* ***  Methods              ***/
 NTreturn AttachCurrent(NTBP_membrane_current_o * currentPtr, NTBPcurrentType type);
-NTreturn Step(NTreal newVM /* mV */ );
+NTreturn step(NTreal newVM /* mV */ );
 NTreturn InjectCurrent(NTreal current /* in nA */);
-NTreal AttachedCurrent(NTsize currentIndex){NT_ASSERT((currentIndex > 0) && (currentIndex-1 < currentVec.size())); return currentVec[currentIndex-1]->_current();}
-NTreal AttachedConductance(NTsize currentIndex){NT_ASSERT((currentIndex > 0) && (currentIndex-1 < currentVec.size())); return currentVec[currentIndex-1]->_conductance();}
-NTreal AttachedReversalPotential(NTsize currentIndex){NT_ASSERT((currentIndex > 0) && (currentIndex-1 < currentVec.size())); return currentVec[currentIndex-1]->_reversalPotential();}
+NTreal AttachedCurrent(NTsize currentIndex){NT_ASSERT((currentIndex > 0) && (currentIndex-1 < currentVec.size())); return (currentVec[currentIndex-1]->_current());}
+NTreal AttachedConductance(NTsize currentIndex){NT_ASSERT((currentIndex > 0) && (currentIndex-1 < currentVec.size())); return (currentVec[currentIndex-1]->_conductance());}
+NTreal AttachedReversalPotential(NTsize currentIndex){NT_ASSERT((currentIndex > 0) && (currentIndex-1 < currentVec.size())); return (currentVec[currentIndex-1]->_reversalPotential());}
 /**  membrane time constant at instaneous membrane conductivity in ms */
-NTreal TimeConstant(){ return (_cM()/TotalConductance())*_area()*1.0e8; }
-const NTBP_membrane_current_o * Current(NTsize currentIndex){NT_ASSERT((currentIndex > 0) && (currentIndex-1 < currentVec.size())); return currentVec[currentIndex-1];}
+NTreal TimeConstant(){ return ((_cM()/total_conductance())*_area()*1.0e8); }
+const NTBP_membrane_current_o * Current(NTsize currentIndex){NT_ASSERT((currentIndex > 0) && (currentIndex-1 < currentVec.size())); return (currentVec[currentIndex-1]);}
 /* in muMeter^2 */
-NTreal _area()  /* in muMeter^2 */const { return area; }
+NTreal _area()  /* in muMeter^2 */const { return (area); }
 /* in mV */
-NTreal _vM() /* in mV muMeter */ const { return vM; }
+NTreal _vM() /* in mV muMeter */ const { return (vM); }
 void Set_vM(NTreal newVoltage) { vM = newVoltage;}
 /** Set specific membrane capacitance in muF / cm^2 */
 void Set_cM( NTreal newCm /* in muF / cm^2 */ ) { cM = newCm;  compartmentMembraneCapacitance = CompartmentMembraneCapacitance(); }
 /* in muF / cm^2 */
-NTreal _cM() const { return cM; }
+NTreal _cM() const { return (cM); }
 /** Set specific axoplasmic resistivity in Ohm cm */
 void Set_rA( NTreal newRa /* in Ohm cm */ ) { rA = newRa;}
 /* in Ohm cm */
-NTreal _rA() const { return rA; }
+NTreal _rA() const { return (rA); }
 /* Set temperature [Celsius] in compartment and for all currents within compartment (affects future attached ones also) */
-NTreturn Set_temperature(NTreal newTemp /* in Celsius */) { temperature = newTemp; for (NTsize i = 0; i < currentVec.size(); i++) currentVec[i]->Set_temperature(newTemp); return NT_SUCCESS;}
+NTreturn Set_temperature(NTreal newTemp /* in Celsius */) { temperature = newTemp; for (NTsize i = 0; i < currentVec.size(); i++) currentVec[i]->Set_temperature(newTemp); return (NT_SUCCESS);}
 /* in Celsius */
-NTreal _temperature() const { return temperature;}
+NTreal _temperature() const { return (temperature);}
 /* in muF */
-NTreal _compartmentMembraneCapacitance() const { return compartmentMembraneCapacitance; }
+NTreal _compartmentMembraneCapacitance() const { return (compartmentMembraneCapacitance); }
 /* in muF */
 NTreal CompartmentMembraneCapacitance() const;
 /* in nA */
@@ -121,7 +121,7 @@ vector< NTBP_membrane_current_o * > ReturnCurrentVec (); //TODO: added
 
 protected:
 /* ***  Methods              ***/
-NTreal  TotalConductance() const;
+NTreal  total_conductance() const;
 NTreal  WeightedConductance() const;// OBSOLETE?
 /* ***  Data                 ***/
 NTreal vM; // membrane voltage in mV

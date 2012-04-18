@@ -42,20 +42,20 @@
 */
 #include "ntbp_object_obj.h" 
 
-NTreal NTBP_TemperatureRateRelation(NTreal temp, NTreal q10)
+NTreal NTBP_temperature_rate_relation(NTreal temp, NTreal q10)
 {
-	return pow(q10,(temp-NTBP_STD_TEMPERATURE)/10.0);
+	return (pow(q10,(temp-NTBP_STD_TEMPERATURE)/10.0));
 }
 		
-NTreal NTBP_TemperatureRateRelation(NTreal temp, NTreal baseTemp, NTreal q10)
+NTreal NTBP_temperature_rate_relation(NTreal temp, NTreal baseTemp, NTreal q10)
 {
-	return pow(q10,(temp-baseTemp)/10.0);
+	return (pow(q10,(temp-baseTemp)/10.0));
 }
 		
 
 
 /** Compute length constant in muMeter */
-NTreal NTBP_LengthConstantPassiveCable(NTreal diameter /* muM */,
+NTreal NTBP_length_constant_passive_cable(NTreal diameter /* muM */,
 									   NTreal rAxoplasmic /* Ohm cm */,
 									   NTreal gLeak /* mSiemens/cm^2 */)
 {
@@ -84,9 +84,9 @@ NTBP_object_o::NTBP_object_o(const NTBP_object_o & original):
 const NTBP_object_o&  
 NTBP_object_o::operator= (const NTBP_object_o & right)
 {
- if (this == &right) return *this; // Gracefully handle self assignment
+ if (this == &right) return (*this); // Gracefully handle self assignment
  // add assignment code here
-  return *this;
+  return (*this);
 }
 
 /* ***      DESTRUCTOR		***/
