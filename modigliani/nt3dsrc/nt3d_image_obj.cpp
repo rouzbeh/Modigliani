@@ -63,10 +63,10 @@ NT3D_image_o::NT3D_image_o(const NT3D_image_o __attribute__((unused)) & original
 const NT3D_image_o&  
 NT3D_image_o::operator= (const NT3D_image_o & right)
 {
- if (this == &right) return *this; // Gracefully handle self assignment
+ if (this == &right) return (*this); // Gracefully handle self assignment
  
  // add assignment code here
-  return *this;
+  return (*this);
 }
 
 /* ***      DESTRUCTOR		***/
@@ -112,9 +112,10 @@ NT3D_image_o::RGBImagePtr() const
 			break;
 		default : 
 			cerr << "NT3D_image_o::getRGBAImagePtr - Error : Unimplmented/Unsupported data format, dataFormat="<<dataFormat<<"." <<endl;
-			return NULL;
+			delete[] imagePtr;
+			return (NULL);
 	}
-	return imagePtr;
+	return (imagePtr);
 }
 
 /** @short       
@@ -154,11 +155,12 @@ NT3D_image_o::RGBAImagePtr() const
 			break;
 		default : 
 			cerr << "NT3D_image_o::getRGBAImagePtr - Error : Unimplmented/Unsupported data format, dataFormat="<<dataFormat<<"." <<endl;
-			return NULL;
+			delete[] imagePtr;
+			return (NULL);
 	}
 
 	cerr <<"NT3D_image_o::RGBAImagePtr() completed."<<endl;
-	return imagePtr;
+	return (imagePtr);
 }
 
 /* ***  PROTECTED                         ***   */
