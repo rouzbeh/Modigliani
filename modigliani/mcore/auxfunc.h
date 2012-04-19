@@ -75,12 +75,6 @@ NTBP_create_na_channel_ptr(NTsize sodiumModel, NTsize algorithm,
 		NTreal chDensity /* mum^-2 */, NTreal chConductance /* pS */,
 		NTreal q10, NTreal temperature /* C */, NTreal compArea /* mum^2 */);
 
-/**
- * Reads the parameters in the file given as argument.
- * @param fileName Input file.
- */
-void read_config(string fileName);
-
 string createOutputFolder(string outputFolder);
 
 /**

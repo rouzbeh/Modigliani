@@ -18,7 +18,7 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include <ntbpsrc/ntbp_auxfunc.h>
+#include <mcore/auxfunc.h>
 #ifdef WITH_PLPLOT
 #include <plplot/plplot.h>
 #include <plplot/plstream.h>
@@ -62,8 +62,9 @@ int simulate(string fileName) {
 			ConfigUsedFile;
 	vector<ofstream*> pot_current_files(3010);
 	if (config_root["simulation_parameters"].get("sampN", 0).asUInt() > 0) {
-		timedOutputFolder = createOutputFolder(
-				config_root["simulation_parameters"]["outputFolder"].asString());
+		timedOutputFolder =
+				mcore::createOutputFolder(
+						config_root["simulation_parameters"]["outputFolder"].asString());
 
 		std::ifstream ifs(fileName, std::ios::binary);
 		string temp_string = timedOutputFolder;
@@ -74,19 +75,20 @@ int simulate(string fileName) {
 		ofs.close();
 		ifs.close();
 
-		openOutputFile(timedOutputFolder, "Time", TimeFile);
-		openOutputFile(timedOutputFolder, "TypePerCompartment",
+		mcore::openOutputFile(timedOutputFolder, "Time", TimeFile);
+		mcore::openOutputFile(timedOutputFolder, "TypePerCompartment",
 				TypePerCompartmentFile);
-		openOutputFile(timedOutputFolder, "LengthPerCompartment",
+		mcore::openOutputFile(timedOutputFolder, "LengthPerCompartment",
 				LengthPerCompartmentFile);
-		openOutputFile(timedOutputFolder, "ConfigUsed", ConfigUsedFile, ".m");
+		mcore::openOutputFile(timedOutputFolder, "ConfigUsed", ConfigUsedFile,
+				".m");
 		TimeFile << "% in ms" << endl;
 
 		int counter = 0;
 		for (auto ci = pot_current_files.begin(); ci != pot_current_files.end();
 				++ci) {
-			*ci = openOutputFile(timedOutputFolder, "compartment", counter++,
-					".bin");
+			*ci = mcore::openOutputFile(timedOutputFolder, "compartment",
+					counter++, ".bin");
 		}
 	}
 
@@ -94,13 +96,14 @@ int simulate(string fileName) {
 			<< endl;
 
 	// Read input file only once. Store its content in memory.
-	ifstream dataFile(config_root["simulation_parameters"]["inputFile"].asString().c_str(),
+	ifstream dataFile(
+			config_root["simulation_parameters"]["inputFile"].asString().c_str(),
 			ios::binary);
 	if (dataFile.fail()) {
 		cerr << "Could not open input file "
 				<< config_root["simulation_parameters"]["inputFile"].asString().c_str()
 				<< endl;
-		exit(EXIT_IO_ERROR);
+		exit (1);
 	}
 	int count = 1000000;
 	vector<float> inputData(count);
@@ -124,33 +127,34 @@ int simulate(string fileName) {
 	vector<NTsize> nodes_paranodes_vec(0);
 	/* *** Trials loop *** */
 	for (NTsize lTrials = 0;
-			lTrials < config_root["simulation_parameters"]["numTrials"].asUInt(); lTrials++) {
+			lTrials < config_root["simulation_parameters"]["numTrials"].asUInt();
+			lTrials++) {
 		/* Model setup */
 		nodes_vec.clear();
 		nodes_paranodes_vec.clear();
-		NTBP_membrane_compartment_sequence_o oModel = create_axon(config_root,
-				TypePerCompartmentFile, LengthPerCompartmentFile);
+		mcore::Membrane_compartment_sequence oModel = mcore::create_axon(
+				config_root, TypePerCompartmentFile, LengthPerCompartmentFile);
 
 		if (!lTrials) {
 			TypePerCompartmentFile.close();
 			LengthPerCompartmentFile.close();
 		}
 		oModel.Init();
-		
-		#ifdef WITH_PLPLOT
+
+#ifdef WITH_PLPLOT
 		PLFLT voltVec[oModel._numCompartments()];
 		PLFLT x[oModel._numCompartments()];
-		x[0]=0;
-		#endif
+		x[0] = 0;
+#endif
 
 		numCompartments = oModel._numCompartments();
-		cerr << "Total number of compartments(in oModel)"
-				<< numCompartments << endl;
+		cerr << "Total number of compartments(in oModel)" << numCompartments
+				<< endl;
 		vector<NTreal> leakCurrVec(numCompartments);
 		vector<NTreal> naCurrVec(numCompartments);
 		vector<NTreal> kCurrVec(numCompartments);
 
-		#ifdef WITH_PLPLOT
+#ifdef WITH_PLPLOT
 		/* Graphics init */
 		plstream* pls = 0;
 		if (config_root["simulation_parameters"]["useVis"].asInt() > 0) {
@@ -161,7 +165,7 @@ int simulate(string fileName) {
 			pls->scol0(1, 0, 0, 0);
 			pls->init();
 		}
-		#endif
+#endif
 
 		/* *** SIMULATION ITERATION LOOP *** */
 		cerr << "MainLoop started" << endl;
@@ -172,13 +176,14 @@ int simulate(string fileName) {
 
 		NTreal timeInMS = 0;
 		int dataRead = 0;
-		for (NTsize lt = 0; lt < config_root["simulation_parameters"]["numIter"].asUInt();
+		for (NTsize lt = 0;
+				lt < config_root["simulation_parameters"]["numIter"].asUInt();
 				lt++) {
 			timeInMS += oModel._timeStep();
 			timeVar = timeInMS;
 			// Write number of columns
-			if (config_root["simulation_parameters"]["sampN"].asInt() > 0 && lt == 0
-					&& lTrials == 0) {
+			if (config_root["simulation_parameters"]["sampN"].asInt() > 0
+					&& lt == 0 && lTrials == 0) {
 				for (unsigned int ll = 0; ll < numCompartments; ++ll) {
 					NTsize number_of_currents =
 							oModel.compartmentVec[ll]->currentVec.size() + 1;
@@ -189,13 +194,15 @@ int simulate(string fileName) {
 			}
 			/* the "sampling ratio" used for "measurement" to disk */
 			if (config_root["simulation_parameters"]["sampN"].asInt() > 0
-					&& lt % config_root["simulation_parameters"]["sampN"].asInt() == 0) {
+					&& lt
+							% config_root["simulation_parameters"]["sampN"].asInt()
+							== 0) {
 				for (unsigned int ll = 0; ll < numCompartments; ++ll) {
 					oModel.WriteCompartmentData(pot_current_files[ll], ll);
 				}
 				TimeFile << timeVar << endl;
 			}
-			#ifdef WITH_PLPLOT
+#ifdef WITH_PLPLOT
 			if (config_root["simulation_parameters"]["useVis"].asInt() > 0) {
 				if (lt == 0) {
 					for (NTsize lc = 1; lc < numCompartments; lc++) {
@@ -204,7 +211,8 @@ int simulate(string fileName) {
 					}
 					pls->env(0, x[numCompartments - 1], -100, 100, 0, 0);
 				}
-				if (lt % config_root["simulation_parameters"]["useVis"].asInt() == 0) {
+				if (lt % config_root["simulation_parameters"]["useVis"].asInt()
+						== 0) {
 					pls->clear();
 					pls->box("abcnt", 0, 0, "anvbct", 0, 0);
 					for (NTsize ll = 0; ll < oModel._numCompartments(); ll++) {
@@ -227,11 +235,13 @@ int simulate(string fileName) {
 					pls->flush();
 				}
 			}
-			#endif
-			if (lt % config_root["simulation_parameters"]["readN"].asInt() == 0) {
-				inpCurrent = (inputData[dataRead]
-						* config_root["simulation_parameters"]["inpISDV"].asDouble())
-						+ config_root["simulation_parameters"]["inpI"].asDouble();
+#endif
+			if (lt % config_root["simulation_parameters"]["readN"].asInt()
+					== 0) {
+				inpCurrent =
+						(inputData[dataRead]
+								* config_root["simulation_parameters"]["inpISDV"].asDouble())
+								+ config_root["simulation_parameters"]["inpI"].asDouble();
 				dataRead++;
 				cout << lt << "\t" << inpCurrent << endl;
 			}
@@ -239,10 +249,10 @@ int simulate(string fileName) {
 
 			oModel.step();
 		}
-		#ifdef WITH_PLPLOT
-		if(pls)
+#ifdef WITH_PLPLOT
+		if (pls)
 			delete pls;
-		#endif
+#endif
 	} // lTrials
 	cerr << "Simulation completed." << endl;
 	cerr << "Number of compartments=" << numCompartments << endl;
@@ -276,8 +286,8 @@ int get_resting_potential(string fileName) {
 		config_root["node_parameters"]["numNd"] = 5;
 		vector<NTsize> nodes_vec, nodes_paranodes_vec;
 		/* Model setup */
-		NTBP_membrane_compartment_sequence_o oModel = create_axon(config_root,
-				temp, temp);
+		mcore::Membrane_compartment_sequence oModel = mcore::create_axon(
+				config_root, temp, temp);
 
 		oModel.Init();
 
@@ -288,7 +298,8 @@ int get_resting_potential(string fileName) {
 		cerr << "MainLoop started" << endl;
 
 		double sum = 0;
-		for (NTsize lt = 0; lt < config_root["simulation_parameters"]["numIter"].asUInt();
+		for (NTsize lt = 0;
+				lt < config_root["simulation_parameters"]["numIter"].asUInt();
 				lt++) {
 
 			/* the "sampling ratio" used for "measurement" to disk */
@@ -302,9 +313,10 @@ int get_resting_potential(string fileName) {
 			}
 
 			if (lt == 10000) {
-				NTreal inpCurrent = (5
-						* config_root["simulation_parameters"]["inpISDV"].asDouble())
-						+ config_root["simulation_parameters"]["inpI"].asDouble();
+				NTreal inpCurrent =
+						(5
+								* config_root["simulation_parameters"]["inpISDV"].asDouble())
+								+ config_root["simulation_parameters"]["inpI"].asDouble();
 				oModel.InjectCurrent(inpCurrent, 1);
 			} else {
 				oModel.InjectCurrent(0, 1);
@@ -326,14 +338,14 @@ int get_resting_potential(string fileName) {
 
 int test() {
 
-	NTBP_lua_based_stochastic_multi_current_o * lua_current =
-			new NTBP_lua_based_stochastic_multi_current_o(0, 0 /* mum^-2 */,
+	mcore::Lua_based_stochastic_multi_current * lua_current =
+			new mcore::Lua_based_stochastic_multi_current(0, 0 /* mum^-2 */,
 					0/* pS */, 0/* mV */, 0/* mV */, 0.1, 6.3/* C */,
 					"/home/man210/Dropbox/workspace/ChannelGenerators/src/lua/SGA_sodium.lua");
 	lua_current->SetSimulationMode(NTBP_DETERMINISTIC);
 
-	NTBP_file_based_stochastic_multi_current_o * file_current =
-			new NTBP_file_based_stochastic_multi_current_o(0, 0 /* mum^-2 */,
+	mcore::File_based_stochastic_multi_current * file_current =
+			new mcore::File_based_stochastic_multi_current(0, 0 /* mum^-2 */,
 					0/* pS */, 0/* mV */, 0/* mV */, 0.1, 6.3/* C */,
 					"/home/man210/thesis/channels/SGA_sodium.json");
 	file_current->SetSimulationMode(NTBP_BINOMIALPOPULATION);
@@ -343,15 +355,15 @@ int test() {
 		for (NTsize j = 1; j <= 8; ++j) {
 			for (NTsize k = 0; k < length; k++) {
 				NTreal diff =
-						NTBP_lua_based_stochastic_multi_current_o::probability_matrix_map["/home/man210/Dropbox/workspace/ChannelGenerators/src/lua/SGA_sodium.lua"]->getTransitionProbability(
+						mcore::Lua_based_stochastic_multi_current::probability_matrix_map["/home/man210/Dropbox/workspace/ChannelGenerators/src/lua/SGA_sodium.lua"]->getTransitionProbability(
 								k, i, j)
-								- NTBP_file_based_stochastic_multi_current_o::probability_matrix_map["/home/man210/thesis/channels/SGA_sodium.json"]->getTransitionProbability(
+								- mcore::File_based_stochastic_multi_current::probability_matrix_map["/home/man210/thesis/channels/SGA_sodium.json"]->getTransitionProbability(
 										k, i, j);
 				if (diff > 0.01 || diff < -0.01) {
 					cout << "Merde "
-							<< NTBP_lua_based_stochastic_multi_current_o::probability_matrix_map["/home/man210/Dropbox/workspace/ChannelGenerators/src/lua/SGA_sodium.lua"]->getTransitionProbability(
+							<< mcore::Lua_based_stochastic_multi_current::probability_matrix_map["/home/man210/Dropbox/workspace/ChannelGenerators/src/lua/SGA_sodium.lua"]->getTransitionProbability(
 									k, i, j) << " =/= "
-							<< NTBP_file_based_stochastic_multi_current_o::probability_matrix_map["/home/man210/thesis/channels/SGA_sodium.json"]->getTransitionProbability(
+							<< mcore::File_based_stochastic_multi_current::probability_matrix_map["/home/man210/thesis/channels/SGA_sodium.json"]->getTransitionProbability(
 									k, i, j) << " from " << i << " to " << j
 							<< " at " << (-100 + 0.01 * k) << endl;
 				}
