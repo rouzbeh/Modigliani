@@ -103,7 +103,7 @@ AC_CONFIG_FILES([Makefile
                  modigliani/Makefile
                  modigliani/auxsrc/Makefile
                  modigliani/nt3dsrc/Makefile
-                 modigliani/ntbpsrc/Makefile
+                 modigliani/mcore/Makefile
                  modigliani/ntgsrc/Makefile
                  modigliani/ntsrc/Makefile])
 

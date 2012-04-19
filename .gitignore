@@ -13,6 +13,7 @@ config.log
 .deps/*
 *.a
 modigliani/auxsrc/compute_derivative_from_column
+modigliani/auxsrc/axon-simulator
 modigliani/auxsrc/find_spikes_in_binary_file
 modigliani/auxsrc/find_spikewords_in_binary_file
 modigliani/auxsrc/generate_white_noise

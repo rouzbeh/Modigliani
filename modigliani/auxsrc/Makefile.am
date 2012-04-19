@@ -43,9 +43,9 @@ endif
 axon_simulator_SOURCES = axon_simulator.cpp
 
 if MINGW
-  axon_simulator_LDADD = $(top_builddir)/modigliani/ntbpsrc/libntbpsrc.a $(top_builddir)/modigliani/ntsrc/libntsrc.a -lboost_filesystem-mt -lboost_system-mt -ljsoncpp -lm -llua $(MAYBE_PLPLOT)
+  axon_simulator_LDADD = $(top_builddir)/modigliani/mcore/libmcore.a $(top_builddir)/modigliani/ntsrc/libntsrc.a -lboost_filesystem-mt -lboost_system-mt -ljsoncpp -lm -llua $(MAYBE_PLPLOT)
 else
-  axon_simulator_LDADD = $(top_builddir)/modigliani/ntbpsrc/libntbpsrc.a $(top_builddir)/modigliani/ntsrc/libntsrc.a -lboost_filesystem -lboost_system -ljson -lm -llua -ldl $(MAYBE_PLPLOT)
+  axon_simulator_LDADD = $(top_builddir)/modigliani/mcore/libmcore.a $(top_builddir)/modigliani/ntsrc/libntsrc.a -lboost_filesystem -lboost_system -ljson -lm -llua -ldl $(MAYBE_PLPLOT)
 endif
 axon_simulator_CPPFLAGS = $(PLPLOTCPPFLAGS)
 
