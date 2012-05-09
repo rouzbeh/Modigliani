@@ -31,7 +31,7 @@
 using namespace mcore;
 
 NT_uniform_rnd_dist_o Ion_channels::uniformRnd;
-NT_binomial_rnd_dist_o Ion_channels::binomRnd(0.0, 1);
+mmath::Binomial_rnd_dist Ion_channels::binomRnd(0.0, 1);
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NTBP_ion_channels_o */
@@ -52,7 +52,7 @@ Ion_channels::Ion_channels(NTsize numNewChannels,
 				<< endl;
 		tmpNumChannels = 1;
 	}
-	binomRnd = NT_binomial_rnd_dist_o(0.0, tmpNumChannels);
+	binomRnd = mmath::Binomial_rnd_dist(0.0, tmpNumChannels);
 	stateCounterVec[0] = _numChannels();
 	stateCounterVec[1] = _numChannels();
 	// Distribute channels evenly
@@ -80,7 +80,7 @@ Ion_channels::Ion_channels(const Ion_channels & original) :
 				<< endl;
 		tmpNumChannels = 1;
 	}
-	this->binomRnd = NT_binomial_rnd_dist_o(0.0, tmpNumChannels);
+	this->binomRnd = mmath::Binomial_rnd_dist(0.0, tmpNumChannels);
 	stateCounterVec[0] = original.numChannels;
 	stateCounterVec[1] = original.numChannels;
 	// Distribute channels evenly
