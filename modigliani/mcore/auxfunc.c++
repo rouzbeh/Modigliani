@@ -1,5 +1,5 @@
-/**\file ntbp_auxfunc.cpp - NTBP auxiliary function implementation for heterogeneous object creation
- * by Ahmed Aldo Faisal &copy; created 22.4.2005  
+/**\file auxfunc.cpp -  Auxiliary function implementation for heterogeneous object creation
+ * by Ahmed Ali Neishabouri &copy; created 01.4.2012
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
  * Version:  0.5
@@ -18,13 +18,6 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- */
-
-/* $Id: ntbp_auxfunc.cpp,v 1.1 2005/04/25 13:55:27 face Exp $
- * $Log: ntbp_auxfunc.cpp,v $
- * Revision 1.1  2005/04/25 13:55:27  face
- * *** empty log message ***
- *
  */
 
 #include "auxfunc.h"
@@ -204,11 +197,10 @@ Custom_cylindrical_compartment* createCompartment(Json::Value config_root,
 
 		if ("lua" == current["type"].asString()) {
 			if (1 == current["chAlg"].asInt()) {
-				NTreal indDensity = corrected_channel_density(
-						current["chDen"].asDouble(), tmpPtr->_area());
 				Lua_based_deterministic_multi_current * lua_current =
 						new Lua_based_deterministic_multi_current(
-								tmpPtr->_area(), indDensity /* mum^-2 */,
+								tmpPtr->_area(),
+								current["chDen"].asDouble() /* mum^-2 */,
 								current["chCond"].asDouble() * 1e-9 /* pS */,
 								config_root["vBase"].asDouble() /* mV */,
 								current["chRevPot"].asDouble() /* mV */,
