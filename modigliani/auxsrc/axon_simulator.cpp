@@ -18,11 +18,12 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include <mcore/auxfunc.h>
 #ifdef WITH_PLPLOT
 #include <plplot/plplot.h>
 #include <plplot/plstream.h>
 #endif
+
+#include <mcore/auxfunc.h>
 
 using namespace std;
 
@@ -47,7 +48,7 @@ void read_config(string fileName) {
 }
 
 /**
- * Let's go!
+ * Runs a simulation using parameters in the given json file.
  *
  * @param filename
  * @return
@@ -103,7 +104,7 @@ int simulate(string fileName) {
 		cerr << "Could not open input file "
 				<< config_root["simulation_parameters"]["inputFile"].asString().c_str()
 				<< endl;
-		exit (1);
+		exit(1);
 	}
 	int count = 1000000;
 	vector<float> inputData(count);
