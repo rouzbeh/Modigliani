@@ -1,4 +1,4 @@
-/**\file nt_binomial_rnd_dist_obj.cpp - NT_binomial_rnd_dist_o class implementation
+/**\file nt_binomial_rnd_dist_obj.cpp - Binomial_rnd_dist class implementation
  * by Ahmed Aldo Faisal &copy; created 19.6.2001
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
@@ -20,39 +20,8 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-/* $Id: nt_binomial_rnd_dist_obj.cpp,v 1.8 2003/06/20 16:42:55 face Exp $
- * $Log: nt_binomial_rnd_dist_obj.cpp,v $
- * Revision 1.8  2003/06/20 16:42:55  face
- * *** empty log message ***
- *
- * Revision 1.7  2003/01/30 17:13:50  face
- * *** empty log message ***
- *
- * Revision 1.6  2002/12/12 15:32:52  face
- *
- * CHANGED IN LINE 329 pow(q,(double)en) TO pow((double)q,(double)en)
- * SINCE GCC 3.0.2 (OSF1) complained about ambiuity.
- * hope it does not have side effects
- *
- * Revision 1.5  2002/03/13 19:23:30  face
- * *** empty log message ***
- *
- * Revision 1.4  2001/11/06 16:28:15  face
- * *** empty log message ***
- *
- * Revision 1.3  2001/10/12 09:18:39  face
- * *** empty log message ***
- *
- * Revision 1.2  2001/10/08 11:01:45  face
- * *** empty log message ***
- *
- * Revision 1.1  2001/06/29 13:14:44  face
- * adding vraious addtions
- * mainly in ntsrc (multidim_array)
- *
-
- */
-#include "nt_binomial_rnd_dist_obj.h"
+#include "Binomial_rnd_dist.h"
+using namespace mmath;
 
 #define NT_LOGGAMMATABLEMAX 10000001
 
@@ -62,23 +31,23 @@
  return tmpVec;
  }*/
 
-NT_binomial_rnd_dist_o::Initializer NT_binomial_rnd_dist_o::static_table;
+Binomial_rnd_dist::Initializer Binomial_rnd_dist::static_table;
 
-NT_binomial_rnd_dist_o::Initializer::Initializer() {
+Binomial_rnd_dist::Initializer::Initializer() {
 	logGammaTable = vector<NTreal>(NT_LOGGAMMATABLEMAX);
 	cerr
-			<< "NT_binomial_rnd_dist_o::NT_binomial_rnd_dist_o - Talk : This may take a while, populating LogGamma(0.."
+			<< "Binomial_rnd_dist::Binomial_rnd_dist - Talk : This may take a while, populating LogGamma(0.."
 			<< NT_LOGGAMMATABLEMAX - 1 << ") tables." << endl;
 	for (NTsize ll = 0; ll < NT_LOGGAMMATABLEMAX; ll++) {
 		logGammaTable[ll] = NTLogGammaFunction(NTreal(ll));
 	}
 }
 
-//bool NT_binomial_rnd_dist_o::init = false;
+//bool Binomial_rnd_dist::init = false;
 
 /* ***      CONSTRUCTORS	***/
-/** Create a NT_binomial_rnd_dist_o */
-NT_binomial_rnd_dist_o::NT_binomial_rnd_dist_o(NTreal pp, NTsize num) :
+/** Create a Binomial_rnd_dist */
+Binomial_rnd_dist::Binomial_rnd_dist(NTreal pp, NTsize num) :
 		NT_rnd_dist_o() {
 	NT_ASSERT( (pp >= 0) && (pp <= 1));
 	p = pp;
@@ -87,14 +56,14 @@ NT_binomial_rnd_dist_o::NT_binomial_rnd_dist_o(NTreal pp, NTsize num) :
 }
 
 /* ***      COPY AND ASSIGNMENT	***/
-NT_binomial_rnd_dist_o::NT_binomial_rnd_dist_o(
-		const NT_binomial_rnd_dist_o __attribute__((unused)) & original) :
+Binomial_rnd_dist::Binomial_rnd_dist(
+		const Binomial_rnd_dist __attribute__((unused)) & original) :
 		NT_rnd_dist_o() {
 // add assignment code here
 }
 
-const NT_binomial_rnd_dist_o&
-NT_binomial_rnd_dist_o::operator=(const NT_binomial_rnd_dist_o & right) {
+const Binomial_rnd_dist&
+Binomial_rnd_dist::operator=(const Binomial_rnd_dist & right) {
 	if (this == &right)
 		return (*this); // Gracefully handle self assignment
 // add assignment code here
@@ -102,7 +71,7 @@ NT_binomial_rnd_dist_o::operator=(const NT_binomial_rnd_dist_o & right) {
 }
 
 /* ***      DESTRUCTOR		***/
-NT_binomial_rnd_dist_o::~NT_binomial_rnd_dist_o() {
+Binomial_rnd_dist::~Binomial_rnd_dist() {
 }
 
 /* ***  PUBLIC                                    ***   */
@@ -112,8 +81,7 @@ NT_binomial_rnd_dist_o::~NT_binomial_rnd_dist_o() {
  \warning    unknown
  \bug        unknown
  */
-inline NTreal NT_binomial_rnd_dist_o::RndVal() const {
-//	return Binomial(p,n);
+inline NTreal Binomial_rnd_dist::RndVal() const {
 	/*    This is algorithm BTPE from:
 	 Kachitvichyanukul, V. and Schmeiser, B. W.
 	 Binomial Random Variate Generation.
@@ -379,12 +347,12 @@ inline NTreal NT_binomial_rnd_dist_o::RndVal() const {
 	S170: if (psave > 0.5)
 		ix = n - ix;
 	ignbin = ix;
-	return ignbin;
+	return (ignbin);
 
 }
 
-NTreal NT_binomial_rnd_dist_o::Binomial(float pp, int new_n) const {
-	if (0 == n)
+NTreal Binomial_rnd_dist::Binomial(float pp, int new_n) const {
+	if (0 == new_n)
 		return (0);
 
 	int j;
@@ -439,15 +407,15 @@ NTreal NT_binomial_rnd_dist_o::Binomial(float pp, int new_n) const {
 	}
 	if (new_p != pp)
 		bnl = new_n - bnl;
-	return bnl;
+	return (bnl);
 }
 
-inline NTreal NT_binomial_rnd_dist_o::LogGamma(NTreal val) const {
+inline NTreal Binomial_rnd_dist::LogGamma(NTreal val) const {
 	NTint rVal = (NTint) val;
 	if ((val == (NTreal) rVal) && (rVal < NT_LOGGAMMATABLEMAX)) {
-		return static_table.logGammaTable[rVal];
+		return (static_table.logGammaTable[rVal]);
 	} else {
-		return NTLogGammaFunction(val);
+		return (NTLogGammaFunction(val));
 	}
 }
 

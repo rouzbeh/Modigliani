@@ -32,7 +32,7 @@
 /* NT includes */
 #include "../ntsrc/nt_error_obj.h"
 #include "../ntsrc/nt_uniform_rnd_dist_obj.h"
-#include "../ntsrc/nt_binomial_rnd_dist_obj.h"
+#include "../ntsrc/Binomial_rnd_dist.h"
 #include "Transition_rate_matrix.h"
 /* other includes */
 #include <vector>
@@ -93,7 +93,7 @@ protected:
 	vector<NTreal> statePersistenceProbVec;
 	vector<NTint> stateCounterVec;
 	static NT_uniform_rnd_dist_o uniformRnd; // [0,1] random number generation
-	static NT_binomial_rnd_dist_o binomRnd;
+	static mmath::Binomial_rnd_dist binomRnd;
 
 private:
 	/* ***  Methods              ***/
