@@ -9,7 +9,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <vector>
-#include "ntsrc/aux_math_func.h"
+#include "mbase/aux_math_func.h"
 
 #define NUM_NON_COLUMN_PARAM 5 // including argv[0] ==  executable
 int check_for_spike(float v, float upThreshold, float downThreshold,

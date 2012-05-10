@@ -37,9 +37,9 @@
 #define _nt3d_stub_obj_h_ 
 
 /* NT core includes */
-#include "ntsrc/nt_main.h" 
-#include "ntsrc/nt_types.h" 
-#include "ntsrc/nt_obj.h"  
+#include "mbase/nt_main.h" 
+#include "mbase/nt_types.h" 
+#include "mbase/nt_obj.h"  
 /* Parent includes */
 #include "nt3d_hierarchic_object_obj.h" 
 /* NT includes */

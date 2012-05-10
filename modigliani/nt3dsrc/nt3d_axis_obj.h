@@ -48,9 +48,9 @@
 #define _nt3d_axis_h_
 
 
-#include "ntsrc/nt_main.h"
-#include "ntsrc/nt_types.h"
-#include "ntsrc/nt_obj.h"
+#include "mbase/nt_main.h"
+#include "mbase/nt_types.h"
+#include "mbase/nt_obj.h"
 
 #include "nt3d_solid_obj.h"
 

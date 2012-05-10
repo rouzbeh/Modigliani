@@ -38,13 +38,13 @@
 #define _ntg_neighbour_ring_graph_obj_h_
 
 /* M core includes */
-#include "ntsrc/main.h"
-#include "ntsrc/types.h"
-#include "ntsrc/Obj.h"
+#include "mbase/main.h"
+#include "mbase/types.h"
+#include "mbase/Obj.h"
 /* Parent includes */
 #include "ntg_undirected_graph_obj.h"
 /* M includes */
-#include "ntsrc/Error.h"
+#include "mbase/Error.h"
 
 /* other includes */
 #include <vector>

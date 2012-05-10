@@ -30,13 +30,13 @@
 #ifndef _nt3d_hierarchic_object_h_
 #define _nt3d_hierarchic_object_h_
 
-#include "ntsrc/nt_main.h"
-#include "ntsrc/nt_types.h"
+#include "mbase/nt_main.h"
+#include "mbase/nt_types.h"
 
-#include "ntsrc/nt_std::vector_obj.h"
-#include "ntsrc/nt_std::vector3_obj.h"
+#include "mbase/nt_std::vector_obj.h"
+#include "mbase/nt_std::vector3_obj.h"
 #include <deque>
-//#include "ntsrc/nt_data_obj.h"
+//#include "mbase/nt_data_obj.h"
 
 #include "nt3d_obj.h"
 #include "nt3d_object_obj.h"

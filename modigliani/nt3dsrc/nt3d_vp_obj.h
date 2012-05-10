@@ -24,7 +24,7 @@
 #define _nt3d_vp_h_
 
 
-#include "ntsrc/Obj.h"
+#include "mbase/Obj.h"
 
 #include "nt3d_obj.h"
 #include "nt3d_bitmap_obj.h"

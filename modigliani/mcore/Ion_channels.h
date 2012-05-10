@@ -26,8 +26,8 @@
 /* Parent includes */
 #include "Object.h"
 /* NT includes */
-#include "ntsrc/Uniform_rnd_dist.h"
-#include "ntsrc/Binomial_rnd_dist.h"
+#include "mbase/Uniform_rnd_dist.h"
+#include "mbase/Binomial_rnd_dist.h"
 #include "Transition_rate_matrix.h"
 /* other includes */
 #include <vector>

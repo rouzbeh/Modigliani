@@ -41,13 +41,13 @@
 #define _nt3d_open_box_obj_h_ 
 
 /* NT core includes */
-#include "ntsrc/nt_main.h" 
-#include "ntsrc/nt_types.h" 
-#include "ntsrc/nt_obj.h"  
+#include "mbase/nt_main.h" 
+#include "mbase/nt_types.h" 
+#include "mbase/nt_obj.h"  
 /* Parent includes */
 #include "nt3d_surfaced_object_obj.h" 
 /* NT includes */
-#include "ntsrc/nt_std::vector3_obj.h"
+#include "mbase/nt_std::vector3_obj.h"
 #include "nt3d_material_obj.h"
 #include "nt3d_texture_obj.h"
 /* other includes */

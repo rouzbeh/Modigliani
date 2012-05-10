@@ -4,7 +4,7 @@
 /* compile with: g++ -o find_spikes_in_binary_file find_spikes_in_binary_file.cpp
  */
 
-#include "ntsrc/Obj.h"
+#include "mbase/Obj.h"
 
 #include <string>
 #include <fstream>
@@ -12,7 +12,7 @@
 #include <vector>
 #include <cmath>
 
-#include "ntsrc/Ring_buffer.h"
+#include "mbase/Ring_buffer.h"
 #define NUM_NON_COLUMN_PARAM 5 // including argv[0] ==  executable
 
 

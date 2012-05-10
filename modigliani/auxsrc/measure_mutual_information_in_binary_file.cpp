@@ -31,10 +31,10 @@
 #include <iostream>
 #include <vector>
 
-#include "ntsrc/Error.h"
-#include "ntsrc/Histogram.h"
-#include "ntsrc/Two_dim_histogram.h"
-#include "ntsrc/Sequential_statistics.h"
+#include "mbase/Error.h"
+#include "mbase/Histogram.h"
+#include "mbase/Two_dim_histogram.h"
+#include "mbase/Sequential_statistics.h"
 
 #include "tnt/tnt.h"
 #include "tnt/tnt_cmat.h"

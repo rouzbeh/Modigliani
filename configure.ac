@@ -105,6 +105,6 @@ AC_CONFIG_FILES([Makefile
                  modigliani/nt3dsrc/Makefile
                  modigliani/mcore/Makefile
                  modigliani/ntgsrc/Makefile
-                 modigliani/ntsrc/Makefile])
+                 modigliani/mbase/Makefile])
 
 AC_OUTPUT

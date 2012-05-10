@@ -70,8 +70,8 @@
 #ifndef _nt3d_ellipsoid_h_
 #define _nt3d_ellipsoid_h_
 
-#include "ntsrc/nt_main.h"
-#include "ntsrc/nt_types.h"
+#include "mbase/nt_main.h"
+#include "mbase/nt_types.h"
 
 #include "nt3d_solid_obj.h"
 

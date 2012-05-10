@@ -50,13 +50,13 @@
 #define _nt3d_noise_texture_h_ 
 
 /* NT core includes */
-#include "ntsrc/nt_main.h" 
-#include "ntsrc/nt_types.h" 
-#include "ntsrc/nt_obj.h"  
+#include "mbase/nt_main.h" 
+#include "mbase/nt_types.h" 
+#include "mbase/nt_obj.h"  
 /* Parent includes */
 #include "nt3d_pixel_texture_obj.h" 
 /* NT includes */
-#include "ntsrc/nt_gaussian_rnd_dist_obj.h"
+#include "mbase/nt_gaussian_rnd_dist_obj.h"
 /* other includes */
 
 /** @short NT3D_noise_texture_o class 

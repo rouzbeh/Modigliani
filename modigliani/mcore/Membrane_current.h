@@ -24,12 +24,12 @@
 #define _mcore_membrane_current_h_
 
 /* NT core includes */
-#include "ntsrc/main.h"
-#include "ntsrc/types.h"
+#include "mbase/main.h"
+#include "mbase/types.h"
 /* Parent includes */
 #include "Object.h"
 /* NT includes */
-#include "ntsrc/Uniform_rnd_dist.h"
+#include "mbase/Uniform_rnd_dist.h"
 /* other includes */
 
 /** @short membrane_current_o class
