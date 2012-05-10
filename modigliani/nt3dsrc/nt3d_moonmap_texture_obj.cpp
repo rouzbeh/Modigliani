@@ -85,12 +85,12 @@ NT3D_moonmap_texture_o::~NT3D_moonmap_texture_o()
    \warning    unknown
    \bug        unknown
  */
-NTreturn
+mbase::Mreturn
 NT3D_moonmap_texture_o::AssignTexture() 
 {
 	unsigned int * tmpPtr = NT_moonmap_RGB_uByte_128_64_image;
-	NTsize i;
-   	NTsize val;
+	mbase::Msize i;
+   	mbase::Msize val;
 	 for (i = 0; i < 3*textureWidth*textureHeight; i += 3) {
 			                           
 			val = i + (int) floor(i/3.0);
@@ -102,7 +102,7 @@ NT3D_moonmap_texture_o::AssignTexture()
     }
     
     
-    return NT_SUCCESS;
+    return mbase::M_SUCCESS;
 }
 
 /* ***  PROTECTED                         ***   */

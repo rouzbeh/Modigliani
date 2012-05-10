@@ -40,11 +40,11 @@ int main(int argc, char* argv[]) {
 	bool selectColumns = false;
 
 	if (argc < NUM_NON_COLUMN_PARAM || atoi(argv[2])<0) {
-		cerr
+		std::cerr
 				<< "First columns is time. Invalid command line."
 				<< argv[0]
 				<< "  <number of columns> <binary float data file> <upstroke threshold> <down stroke threshold> [<column index to print 2...>] [<column index to print 3...>] [...] "
-				<< endl;
+				<< std::endl;
 		exit(1);
 	}
 	string filename = argv[1];
@@ -58,19 +58,19 @@ int main(int argc, char* argv[]) {
 		number = argc - NUM_NON_COLUMN_PARAM;
 	}
 
-	vector<unsigned int> selectVec(argc - NUM_NON_COLUMN_PARAM);
+	std::vector<unsigned int> selectVec(argc - NUM_NON_COLUMN_PARAM);
 
-	vector<vector<float> > isiListVec;
+	std::vector<std::vector<float> > isiListVec;
 
-	vector<vector<float> >::iterator itVec;
-	vector<float>::iterator itList;
+	std::vector<std::vector<float> >::iterator itVec;
+	std::vector<float>::iterator itList;
 
 	//unsigned int ll;
 	for (unsigned int ll = 0; ll < number; ll++) {
 		if (atoi(argv[ll + NUM_NON_COLUMN_PARAM]) == 1) {
-			cerr
+			std::cerr
 					<< "You selected the first column to be checked for spikes, it should contain the time."
-					<< endl;
+					<< std::endl;
 		}
 		selectVec[ll] = atoi(argv[ll + NUM_NON_COLUMN_PARAM]) - 1;
 	}
@@ -93,7 +93,7 @@ int main(int argc, char* argv[]) {
 
 	int rows = 0;
 
-	vector<int> indexVec;
+	std::vector<int> indexVec;
 
 	if (true == selectColumns) {
 		isiListVec.resize(argc - NUM_NON_COLUMN_PARAM);
@@ -101,9 +101,9 @@ int main(int argc, char* argv[]) {
 		isiListVec.resize(columns);
 	}
 
-	ifstream file(filename.c_str(), ios::binary);
+	ifstream file(filename.c_str(), std::ios::binary);
 	if (!file.good()) {
-		cerr << "Something is bad with reading from file " << filename << endl;
+		std::cerr << "Something is bad with reading from file " << filename << std::endl;
 		exit(2);
 	}
 
@@ -129,22 +129,22 @@ int main(int argc, char* argv[]) {
 				}
 			}
 		}
-		cerr << "Analysing row " << rows << endl;
+		std::cerr << "Analysing row " << rows << std::endl;
 		rows++;
 	}
 
-	cerr << "Data output" << endl;
+	std::cerr << "Data output" << std::endl;
 
 	for (itVec = isiListVec.begin(); itVec != isiListVec.end(); itVec++) {
 		for (itList = itVec->begin(); itList != itVec->end(); itList++) {
-			cout << *itList << endl;
+			std::cout << *itList << std::endl;
 		}
-		cout << endl << endl;
+		std::cout << std::endl << std::endl;
 	}
 
-	cerr << "Completed and printed (float) " << rows
+	std::cerr << "Completed and printed (float) " << rows
 			<< " rows  columns from file " << filename << " with " << columns
-			<< "." << endl;
+			<< "." << std::endl;
 
 	return (0);
 

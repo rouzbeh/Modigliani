@@ -36,7 +36,7 @@
  *
  * Revision 1.3  2000/06/26 19:14:06  face
  * finally found the error that caused solid object to disappear:
- * the scaling vector was not constructed in the 2nd constructor
+ * the scaling std::vector was not constructed in the 2nd constructor
  * of the solid bject thus resulting in a zero object
  * new demo file: showing some random graphics
  *
@@ -122,7 +122,7 @@ inline void NT3D_universe_camera_vp_o::DrawScene() {
  \warning    unknown
  \bug        unknown
  */
-NTreturn NT3D_universe_camera_vp_o::AddUniverse(
+mbase::Mreturn NT3D_universe_camera_vp_o::AddUniverse(
 		NT3D_universe_o * pNewUniverse) {
 	if (NT_TRUE == haveUniverse)
 		NT_CERR(
@@ -130,7 +130,7 @@ NTreturn NT3D_universe_camera_vp_o::AddUniverse(
 				"NT3D_universe_camera_vp_o::AddUniverse - warning : new universe is overwriting old universe pointer.");
 	pUniverse = pNewUniverse;
 	haveUniverse = true;
-	return NT_SUCCESS;
+	return mbase::M_SUCCESS;
 }
 
 /* ***  PROTECTED                         ***   */

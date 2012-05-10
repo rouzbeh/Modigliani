@@ -114,38 +114,38 @@
 class NT3D_glx_drv_o : public NT3D_drv_vp_o {
 public:
   /***   Constructors, CopyAssignment and Destructor  ***/  
-  NT3D_glx_drv_o(NTsize windowWidth = 200 , NTsize windowHeight = 200, bool useCommonContext = false);
+  NT3D_glx_drv_o(mbase::Msize windowWidth = 200 , mbase::Msize windowHeight = 200, bool useCommonContext = false);
   NT3D_glx_drv_o(const NT3D_glx_drv_o & original);
   const NT3D_glx_drv_o & operator= (const NT3D_glx_drv_o & right);
   virtual ~NT3D_glx_drv_o();
   /* ***  Methods              ***/  
-  NTreturn Open(NT3D_vp_spec_o newWinSpec);
-  NTreturn Close();
+  mbase::Mreturn Open(NT3D_vp_spec_o newWinSpec);
+  mbase::Mreturn Close();
   /** makes the window associated with this object the current rendering context */
   void MakeCurrent() { /*cerr << "NT3D_glx_drv_o : "<<_uniqId() <<"MC"<<endl;*/
   					   if (NT_FALSE == glXMakeCurrent (dpy, win, ctx )) NT_CERR(1,"NT3D_glx_drv_o::MakeCurrent - error : unable to comply. Current rendering context not changed.");
-  					   //else cerr << dpy << " "<< win <<" " << ctx << " "/*"NT3D_glx_drv_o::MakeCurrent - talk : Made windowNumber "*/<< windowNumber <<" current rendering context." << endl;
+  					   //else cerr << dpy << " "<< win <<" " << ctx << " "/*"NT3D_glx_drv_o::MakeCurrent - talk : Made windowNumber "*/<< windowNumber <<" current rendering context." << std::endl;
   					   }
   /** call instead of glXSwapBuffers */
   void SwapBuffer() { /*cerr << "NT3D_glx_drv_o : "<<_uniqId() <<"SB"<<endl;*/
                       glXSwapBuffers (dpy, win);}
-  NTreturn Resize(NTsize width, NTsize height);
-  NTreturn SetWindowTitle(string newTitle);
+  mbase::Mreturn Resize(mbase::Msize width, mbase::Msize height);
+  mbase::Mreturn SetWindowTitle(string newTitle);
 
   /** Make sure that the method is called directly after a Draw() to the VP,
    ** as neither a MakeCurrent() nor a Draw()  is executed by this method */
   NT3D_bitmap_o   View2Bitmap();
   NT3D_bitmap_o * View2BitmapPtr(NT3D_bitmap_o * bmpPtr);
 
-  NTsize _width(){return width;}
-  NTsize _height(){return height;}
+  mbase::Msize _width(){return width;}
+  mbase::Msize _height(){return height;}
 
   protected:
   private:
   /* Create a window of given size and return its unique window number */
   NTint CreateWindow(NTint windowWidth, NTint windowHeight);
   /** Low level  and GLX call to open a RGBA double buffered window */
-  NTreturn MakeRGBDBWindow(NTint windowWidth, NTint windowHeight);
+  mbase::Mreturn MakeRGBDBWindow(NTint windowWidth, NTint windowHeight);
 
   static NTint initCount;
   static NTint windowCount;

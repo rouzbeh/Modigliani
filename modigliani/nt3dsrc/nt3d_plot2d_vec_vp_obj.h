@@ -34,10 +34,6 @@
 #ifndef _nt3d_plot2d_vec_vp_obj_h_ 
 #define _nt3d_plot2d_vec_vp_obj_h_ 
 
-/* NT core includes */
-#include "ntsrc/nt_main.h" 
-#include "ntsrc/nt_types.h" 
-#include "ntsrc/nt_obj.h"  
 /* Parent includes */
 #include "nt3d_plot2d_vp_obj.h" 
 /* NT includes */
@@ -52,24 +48,24 @@
 class NT3D_plot2d_vec_vp_o : public NT3D_plot2d_vp_o {
 public:
 /***   Constructors, Copy/Assignment and Destructor  ***/  
-NT3D_plot2d_vec_vp_o(NTsize dim = 0);
+NT3D_plot2d_vec_vp_o(mbase::Msize dim = 0);
 NT3D_plot2d_vec_vp_o(const NT3D_plot2d_vec_vp_o & original);
 const NT3D_plot2d_vec_vp_o & operator= (const NT3D_plot2d_vec_vp_o & right);
 virtual ~NT3D_plot2d_vec_vp_o();
 /* ***  Methods              ***/
-NTreturn SetData( const vector <NTreal> & dataVec );
+mbase::Mreturn SetData( const std::vector <mbase::Mreal> & dataVec );
 /* ***  Data                 ***/
 protected:
 /* ***  Methods              ***/
-NTreturn set_dim(NTsize newDim) {dim = newDim; positionVec.resize(dim); dataVec.resize(dim); return NT_SUCCESS;}
+mbase::Mreturn set_dim(mbase::Msize newDim) {dim = newDim; positionVec.resize(dim); dataVec.resize(dim); return mbase::M_SUCCESS;}
 void DrawData();
 /* ***  Data                 ***/
-vector <NTreal> positionVec;
-vector <NTreal> dataVec;
+std::vector <mbase::Mreal> positionVec;
+std::vector <mbase::Mreal> dataVec;
 private:
 /* ***  Methods              ***/  
 /* ***  Data                 ***/
-NTsize dim;
+mbase::Msize dim;
 };
 #endif /* _nt3d_plot2d_vec_vp_obj_h_ */ 
 

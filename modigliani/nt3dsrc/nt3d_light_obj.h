@@ -106,7 +106,7 @@ public:
   NTid CreateLight(); 
   void DeleteLight(); 
   /* ***  Data                 ***/
-  NTbool lightOn;
+  mbase::Mbool lightOn;
   static NT_id_management_o idManager;
 };
 #endif /* _nt3d_light_h_ */ 

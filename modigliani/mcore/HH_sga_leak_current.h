@@ -39,10 +39,7 @@
 #ifndef _mcore_hh_sga_leak_current_h_
 #define _mcore_hh_sga_leak_current_h_
 
-/* NT core includes */
-#include "ntsrc/nt_main.h" 
-#include "ntsrc/nt_types.h" 
-#include "ntsrc/nt_obj.h"  
+#include "Object.h"
 /* Parent includes */
 #include "HH_current.h"
 /* NT includes */
@@ -57,48 +54,48 @@ namespace mcore{
 class HH_sga_leak_current: public HH_current {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	HH_sga_leak_current(NTreal newArea /* in mu^2 */,
-			NTreal newLeakConductance = 0.3 /* mS/cm^2 */,
-			NTreal newReversalPotential = 10.613 /* mV */);
+	HH_sga_leak_current(mbase::Mreal newArea /* in mu^2 */,
+			mbase::Mreal newLeakConductance = 0.3 /* mS/cm^2 */,
+			mbase::Mreal newReversalPotential = 10.613 /* mV */);
 	HH_sga_leak_current(const HH_sga_leak_current & original);
 	const HH_sga_leak_current & operator=(
 			const HH_sga_leak_current & right);
 	virtual ~HH_sga_leak_current();
 	/* ***  Methods              ***/
-	void ComputeRateConstants(NTreal __attribute__((__unused__)) _voltage /* in mV */) {
+	void ComputeRateConstants(mbase::Mreal __attribute__((__unused__)) _voltage /* in mV */) {
 	}
 	/** in mSiemens */
-	NTreturn step_current() {
-		return (NT_SUCCESS);
+	mbase::Mreturn step_current() {
+		return (mbase::M_SUCCESS);
 	}
 	/** compute and return conductance in mSiemens */
 	void UpdateConductance() {
 		Set_conductance(_maxConductivity() * _area() * 1.0e-8);
 	}
 	/** Return leak conductance in mSiemens  (note: function return constant value (leak!) set in constructor) */
-	NTreal compute_conductance() {
+	mbase::Mreal compute_conductance() {
 		return (_conductance());
 	}
-	NTreturn DeterministicStepCurrent() {
-		return (NT_SUCCESS);
+	mbase::Mreturn DeterministicStepCurrent() {
+		return (mbase::M_SUCCESS);
 	}
 	void Show() {
-		cout << "g_Leak [mSiemens]=" << _conductance();
+		std::cout << "g_Leak [mSiemens]=" << _conductance();
 	}
 	/** Number of open ionic channels */
-	virtual NTreal open_channels() const {
+	virtual mbase::Mreal open_channels() const {
 		return (0.0);
 	}
 	/** Total number of ionic channels */
-	virtual NTreal NumChannels() const {
+	virtual mbase::Mreal NumChannels() const {
 		return (0.0);
 	}
 	/** Number of open over total number of channels */
-	virtual NTreal OpenChannelsRatio() const {
+	virtual mbase::Mreal OpenChannelsRatio() const {
 		return (0.0);
 	}
 
-	virtual NTreal NumChannelsInState(NTsize __attribute__((__unused__)) state) const {
+	virtual mbase::Mreal NumChannelsInState(mbase::Msize __attribute__((__unused__)) state) const {
 		return (0);
 	}
 	/* ***  Data                 ***/

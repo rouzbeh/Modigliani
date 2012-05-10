@@ -31,7 +31,7 @@
 *
 * Revision 1.2  2000/06/26 19:14:06  face
 * finally found the error that caused solid object to disappear:
-* the scaling vector was not constructed in the 2nd constructor
+* the scaling std::vector was not constructed in the 2nd constructor
 * of the solid bject thus resulting in a zero object
 * new demo file: showing some random graphics
 *
@@ -63,7 +63,7 @@
 class NT3D_rectangle_o : public NT3D_surfaced_object_o {
 public:
 /***   Constructors, Copy/Assignment and Destructor  ***/  
-NT3D_rectangle_o(NTreal width = 1.0, NTreal height = 1.0, NTsize steps = 2);
+NT3D_rectangle_o(mbase::Mreal width = 1.0, mbase::Mreal height = 1.0, mbase::Msize steps = 2);
 NT3D_rectangle_o(const NT3D_rectangle_o & original);
 const NT3D_rectangle_o & operator= (const NT3D_rectangle_o & right);
 virtual ~NT3D_rectangle_o();
@@ -78,9 +78,9 @@ private:
 void DrawSurfacedObj(); 
 void ConstructRectanlge();
 /* ***  Data                 ***/ 
-NTreal width;
-NTreal height;
-NTsize steps;
+mbase::Mreal width;
+mbase::Mreal height;
+mbase::Msize steps;
 };
 #endif /* _nt3d_rectangle_obj_h_ */ 
 

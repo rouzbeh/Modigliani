@@ -76,15 +76,15 @@ NT3D_file_texture_o::~NT3D_file_texture_o()
    \warning    unknown
    \bug        unknown
  */
-NTreturn
+mbase::Mreturn
 NT3D_file_texture_o::AssignTexture() 
 {
 	
 	NT3D_image_o image;
-	NTreturn tmp = image.Load(filename);
+	mbase::Mreturn tmp = image.Load(filename);
 
 	/* first check that the texture data is ok */
-	if (tmp != NT_SUCCESS) return tmp;
+	if (tmp != mbase::M_SUCCESS) return tmp;
 	
 	cerr << textureWidth  << textureHeight<<endl;
 	if 
@@ -114,14 +114,14 @@ NT3D_file_texture_o::AssignTexture()
 	textureImagePtr = new GLfloat[4*textureWidth*textureHeight];
 
 	GLfloat* tmpPtr = image.RGBAImagePtr();
-	for (NTsize ll = 0; ll < textureWidth*textureHeight*4; ll++){
+	for (mbase::Msize ll = 0; ll < textureWidth*textureHeight*4; ll++){
 		textureImagePtr[ll] = tmpPtr[ll];
 		//cerr << textureImagePtr[ll] << "\t" << flush;
 	}
 	
 	
 
-	return NT_SUCCESS;
+	return mbase::M_SUCCESS;
 }
 	
 

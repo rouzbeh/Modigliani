@@ -34,7 +34,7 @@
 *
 * Revision 1.2  2000/06/26 19:14:06  face
 * finally found the error that caused solid object to disappear:
-* the scaling vector was not constructed in the 2nd constructor
+* the scaling std::vector was not constructed in the 2nd constructor
 * of the solid bject thus resulting in a zero object
 * new demo file: showing some random graphics
 *
@@ -58,7 +58,7 @@ NT3D_surfaced_object_o::NT3D_surfaced_object_o()
 }
 
 /** Create a NT3D_surfaced_object_o */
-NT3D_surfaced_object_o::NT3D_surfaced_object_o(const NT_vector3_o & oPosition)
+NT3D_surfaced_object_o::NT3D_surfaced_object_o(const NT_std::vector3_o & oPosition)
 :
 NT3D_hierarchic_object_o(oPosition)
 {
@@ -79,7 +79,7 @@ NT3D_surfaced_object_o::NT3D_surfaced_object_o(const NT3D_surfaced_object_o & or
   	textureSet = false;
   }
   
-  // cerr << "NT3D_surfaced_object_o::NT3D_surfaced_object_o(const ...) - Talk : oTexturePtr->RunningId="<< oTexturePtr->_uniqId() << "." << endl;
+  // cerr << "NT3D_surfaced_object_o::NT3D_surfaced_object_o(const ...) - Talk : oTexturePtr->RunningId="<< oTexturePtr->_uniqId() << "." << std::endl;
 }
 
 const NT3D_surfaced_object_o&  
@@ -107,24 +107,24 @@ NT3D_surfaced_object_o::~NT3D_surfaced_object_o()
 
 /* ***  PUBLIC                                    ***   */  
 
-NTreturn 
+mbase::Mreturn 
 NT3D_surfaced_object_o::SetTexture( NT3D_texture_o* newTexturePointer )
 {
   // 2DO fix LEAK but delete works badly here	if (true == textureSet) delete oTexturePtr;
 	oTexturePtr = newTexturePointer;
 	textureSet = true;
-	return NT_SUCCESS;
+	return mbase::M_SUCCESS;
 }
 
 /* ***  PROTECTED                         ***   */
-NTreturn 
+mbase::Mreturn 
 NT3D_surfaced_object_o::ResetTexture()
 {
   // 2DO fix LEAK but delete works badly here	if (true == textureSet) delete oTexturePtr;
 
 	oTexturePtr = new NT3D_rainbow_texture_o;
 	textureSet = true;
-	return NT_SUCCESS;
+	return mbase::M_SUCCESS;
 }
 
 void 

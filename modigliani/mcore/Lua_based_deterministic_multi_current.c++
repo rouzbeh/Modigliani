@@ -12,9 +12,9 @@ using namespace mcore;
 /* ***      CONSTRUCTORS	***/
 /** Create a NTBP_hranvier_sodium_multi_current_o */
 
-Lua_based_deterministic_multi_current::Lua_based_deterministic_multi_current(NTreal newArea,
-		NTreal newDensity, NTreal newConductivity, NTreal newVBase,
-		NTreal newReversalPotential, NTreal newTimeStep, NTreal newTemperature,
+Lua_based_deterministic_multi_current::Lua_based_deterministic_multi_current(mbase::Mreal newArea,
+		mbase::Mreal newDensity, mbase::Mreal newConductivity, mbase::Mreal newVBase,
+		mbase::Mreal newReversalPotential, mbase::Mreal newTimeStep, mbase::Mreal newTemperature,
 		string new_lua_script) :
 		Multi_current(newReversalPotential /* in mV */,
 				newDensity /* channels per mu^2 */, newArea /* in mu^2 */,
@@ -91,7 +91,7 @@ Lua_based_deterministic_multi_current::~Lua_based_deterministic_multi_current() 
  \warning    unknown
  \bug        unknown
  */
-inline NTreturn Lua_based_deterministic_multi_current::step_current() {
+inline mbase::Mreturn Lua_based_deterministic_multi_current::step_current() {
 	switch (_simulationMode()) {
 	case NTBP_DETERMINISTIC: {
 		lua_getglobal(L, "step_current");
@@ -102,29 +102,29 @@ inline NTreturn Lua_based_deterministic_multi_current::step_current() {
 		 argument, return 0 result */
 		lua_call(L, 1, 0);
 
-		return (NT_SUCCESS);
+		return (mbase::M_SUCCESS);
 	}
 
 		break;
 	default:
-		cerr
+		std::cerr
 				<< "Lua_based_deterministic_multi_current::StepCurrent - ERROR : Unsupported simulation mode."
-				<< endl;
-		return (NT_PARAM_UNSUPPORTED);
+				<< std::endl;
+		return (mbase::M_PARAM_UNSUPPORTED);
 		break;
 	}
-	return (NT_FAIL);
+	return (mbase::M_FAIL);
 }
 
 /**  */
 /** No descriptions */
-inline NTreal Lua_based_deterministic_multi_current::open_channels() const {
+inline mbase::Mreal Lua_based_deterministic_multi_current::open_channels() const {
 	lua_getglobal(L, "open_channels");
 
 	/* call the function with 0
 	 argument, return 1 result */
 	lua_call(L, 0, 1);
-	NTreal count = lua_tonumber(L, -1);
+	mbase::Mreal count = lua_tonumber(L, -1);
 	lua_pop(L, 1);
 
 	return (count * NumChannels());
@@ -132,30 +132,30 @@ inline NTreal Lua_based_deterministic_multi_current::open_channels() const {
 
 /**  */
 /** No descriptions */
-NTreal Lua_based_deterministic_multi_current::NumChannelsInState(
-		NTsize __attribute__((__unused__)) state) const {
-	cerr << "Deterministic channel does not have states" << endl;
+mbase::Mreal Lua_based_deterministic_multi_current::NumChannelsInState(
+		mbase::Msize __attribute__((__unused__)) state) const {
+	std::cerr << "Deterministic channel does not have states" << std::endl;
 	return (0);
 }
 
-inline NTreal Lua_based_deterministic_multi_current::compute_conductance() {
+inline mbase::Mreal Lua_based_deterministic_multi_current::compute_conductance() {
 	lua_getglobal(L, "compute_conductance");
 
 	/* call the function with 0
 	 argument, return 1 result */
 	lua_call(L, 0, 1);
-	NTreal conduc = lua_tonumber(L, -1);
+	mbase::Mreal conduc = lua_tonumber(L, -1);
 	lua_pop(L, 1);
-	NT_ASSERT(conduc == conduc);
+	M_ASSERT(conduc == conduc);
 	return (Set_conductance(
 			conduc * _maxConductivity() * _area() /* muMeter^2 */* 1.0e-8));
 }
 
 void Lua_based_deterministic_multi_current::ShowParam() const {
-	cout << "Na channel parameters:" << endl;
-	cout << "Single channel conductivity [nA]" << _conductivity() << endl;
-	cout << "Channel density [1/muMeter^2]" << _area() << endl;
+	cout << "Na channel parameters:" << std::endl;
+	cout << "Single channel conductivity [nA]" << _conductivity() << std::endl;
+	cout << "Channel density [1/muMeter^2]" << _area() << std::endl;
 	cout << "MaxConductivity (all channels open) mSiemens/cm^2"
-			<< _maxConductivity() << endl;
+			<< _maxConductivity() << std::endl;
 }
 

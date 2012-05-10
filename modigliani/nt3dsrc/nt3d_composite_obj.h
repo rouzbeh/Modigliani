@@ -76,8 +76,8 @@ public:
 protected:
   /*   Methods                */  
  void ControlObj(NT3Dcontroller cntrl , NTint value) {};
-  void ControlObj(NT3Dcontroller cntrl , NTreal value) {}; 
-  void ControlObj(NT3Dcontroller cntrl , NT_vector_o value){};
+  void ControlObj(NT3Dcontroller cntrl , mbase::Mreal value) {}; 
+  void ControlObj(NT3Dcontroller cntrl , NT_std::vector_o value){};
    /*   Data                   */  
     private:
   /*   Methods                */  

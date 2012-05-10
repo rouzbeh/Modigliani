@@ -79,11 +79,11 @@ class NT3D_arrow_o : public NT3D_solid_o {
 public:
   NT3D_arrow_o();
   NT3D_arrow_o(const NT3D_arrow_o & original);
-  NT3D_arrow_o(const NT_vector3_o & newBase, const NT_vector3_o & newTip);
+  NT3D_arrow_o(const NT_std::vector3_o & newBase, const NT_std::vector3_o & newTip);
   const NT3D_arrow_o & operator= (const NT3D_arrow_o & right);
   virtual ~NT3D_arrow_o();
   /*   Methods                */  
-  void Collinearize(const NT_vector3_o &);
+  void Collinearize(const NT_std::vector3_o &);
   void DrawSolidObject() const{};
   /*   Data                   */  
 	protected:

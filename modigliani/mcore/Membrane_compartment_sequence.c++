@@ -44,8 +44,8 @@ Membrane_compartment_sequence::Membrane_compartment_sequence() :
 Membrane_compartment_sequence::Membrane_compartment_sequence(
 		const Membrane_compartment_sequence __attribute__((__unused__)) & original) :
 		Membrane() {
-	cerr << "DO NOT COPY" << endl;
-	NT_ASSERT( 1 == 0);
+	std::cerr << "DO NOT COPY" << std::endl;
+	M_ASSERT( 1 == 0);
 	// add assignment code here
 }
 
@@ -55,8 +55,8 @@ Membrane_compartment_sequence::operator=(
 	if (this == &right)
 		return (*this); // Gracefully handle self assignment
 	// add assignment code here
-	cerr << "DO NOT ASSIGN" << endl;
-	NT_ASSERT( 1 == 0);
+	std::cerr << "DO NOT ASSIGN" << std::endl;
+	M_ASSERT( 1 == 0);
 	return (*this);
 }
 
@@ -74,7 +74,7 @@ Membrane_compartment_sequence::~Membrane_compartment_sequence() {
  \warning    no update of SOLVER dimensionality or SOVLER INIT done
  \bug        unknown
  */
-NTreturn Membrane_compartment_sequence::PushBack(
+mbase::Mreturn Membrane_compartment_sequence::PushBack(
 		Cylindrical_compartment * compartPtr) {
 	compartPtr->setTimeStep(_timeStep());
 	compartmentVec.push_back(compartPtr);
@@ -83,8 +83,8 @@ NTreturn Membrane_compartment_sequence::PushBack(
 	initialised = false;
 
 	if (compartmentVec.size() != numCompartments)
-		return (NT_FAIL);
-	return (NT_SUCCESS);
+		return (mbase::M_FAIL);
+	return (mbase::M_SUCCESS);
 }
 
 /** @short Execute one time step on the compartments.      
@@ -93,25 +93,25 @@ NTreturn Membrane_compartment_sequence::PushBack(
  \warning    identical axo-geometric properties required for all compartments !
  \bug
  */
-NTreturn Membrane_compartment_sequence::step() {
-	//	cerr << "Membrane_compartment_sequence::Step()" << endl;
+mbase::Mreturn Membrane_compartment_sequence::step() {
+	//	std::cerr << "Membrane_compartment_sequence::Step()" << std::endl;
 	if (true != initialised) {
-		cerr
+		std::cerr
 				<< "Membrane_compartment_sequence::Step() - Warning : Called method without Init() beeing called after instantiation or AddCompartment. Calling Init() now"
-				<< endl;
-		if (Init() != NT_SUCCESS) {
-			cerr
+				<< std::endl;
+		if (Init() != mbase::M_SUCCESS) {
+			std::cerr
 					<< "Membrane_compartment_sequence::Step() - Error : Call to Init failed (No compartments present ?)."
-					<< endl;
-			return (NT_FAIL);
+					<< std::endl;
+			return (mbase::M_FAIL);
 		}
 	}
 
-	vector<NTreal> tmpVVec;
-	NTreal omega = 0.0;
-	NTsize ll = 0;
+	std::vector<mbase::Mreal> tmpVVec;
+	mbase::Mreal omega = 0.0;
+	mbase::Msize ll = 0;
 
-	/* load voltage vector and rhs-vector */
+	/* load voltage std::vector and rhs-std::vector */
 
 	for (ll = 0; ll < numCompartments; ll++) {
 		/* omega should have units of mV : mSec nA / muF = muV */
@@ -122,13 +122,13 @@ NTreturn Membrane_compartment_sequence::step() {
 		// TODO it appears to be correct, but why is omega ADDED and not subtracted ?
 	}
 
-	vector<NTreal> vVec = NumericalRecipesSolveTriDiag(lVec, dVec, uVec, rVec);
+	std::vector<mbase::Mreal> vVec = NumericalRecipesSolveTriDiag(lVec, dVec, uVec, rVec);
 	/* set new voltage */
 
 	for (ll = 0; ll < numCompartments; ll++) {
 		compartmentVec[ll]->step(vVec[ll]); // Step also advances the voltage -> ignore by using vVec
 	}
-	return (NT_SUCCESS);
+	return (mbase::M_SUCCESS);
 }
 
 /** @short       
@@ -137,13 +137,13 @@ NTreturn Membrane_compartment_sequence::step() {
  \warning    CONSTANT AXON diameter and axoplasmic RESISTANCE required
  \bug        unknown
  */
-NTreturn Membrane_compartment_sequence::Init() {
+mbase::Mreturn Membrane_compartment_sequence::Init() {
 	if (compartmentVec.size() <= 0) {
-		cerr
+		std::cerr
 				<< "NTBPCompartmentMembraneNetCurrent()_membrane_compartment_sequence_o::Init - ERROR : No compartments present."
-				<< endl;
+				<< std::endl;
 		initialised = false;
-		return (NT_FAIL);
+		return (mbase::M_FAIL);
 	}
 
 	lVec.resize(numCompartments);
@@ -151,22 +151,22 @@ NTreturn Membrane_compartment_sequence::Init() {
 	dVec.resize(numCompartments);
 	rVec.resize(numCompartments);
 
-	NTreal sigma = 0;
-	NTreal radius = compartmentVec[0]->_radius(); // should be constant with present solution method
-	NTreal axoplasmicR = compartmentVec[0]->_rA(); // (specific!) should be constant with present solution method
-	NTreal deltaT = _timeStep();
-	NTreal deltaXX = 0;
+	mbase::Mreal sigma = 0;
+	mbase::Mreal radius = compartmentVec[0]->_radius(); // should be constant with present solution method
+	mbase::Mreal axoplasmicR = compartmentVec[0]->_rA(); // (specific!) should be constant with present solution method
+	mbase::Mreal deltaT = _timeStep();
+	mbase::Mreal deltaXX = 0;
 
-	/* initialisation of left band l and right band u "vectors" */
+	/* initialisation of left band l and right band u "std::vectors" */
 	//vVec[0] = 0;
 	compartmentVec[0]->Set_vM(0);
-	NTsize ll = 1;
+	mbase::Msize ll = 1;
 	for (ll = 1; ll < numCompartments; ll++) {
 		compartmentVec[ll]->Set_vM(0);
 		/* testing requirement for constant axo-geometric properties */
-		NT_ASSERT(
+		M_ASSERT(
 				compartmentVec[ll]->_radius() == compartmentVec[ll-1]->_radius());
-		NT_ASSERT(compartmentVec[ll]->_rA() == compartmentVec[ll-1]->_rA());
+		M_ASSERT(compartmentVec[ll]->_rA() == compartmentVec[ll-1]->_rA());
 	}
 	compartmentVec[numCompartments - 1]->Set_vM(0);
 
@@ -207,7 +207,7 @@ NTreturn Membrane_compartment_sequence::Init() {
 	/* completed initialisation */
 	initialised = true;
 
-	return (NT_SUCCESS);
+	return (mbase::M_SUCCESS);
 }
 
 /** @short Setup staggering PDE integration of compartments
@@ -218,64 +218,64 @@ NTreturn Membrane_compartment_sequence::Init() {
  \warning    Calling method activates Crank-Nicholson algorithm in Step()
  \bug        !unknown!
  */
-NTreturn Membrane_compartment_sequence::InitialStep() {
+mbase::Mreturn Membrane_compartment_sequence::InitialStep() {
 
 	swCrankNicholson = true;
 	update_timeStep(_timeStep() / 2.0);
 	StepNTBP();
-	for (NTsize ll = 0; ll < numCompartments; ll++) {
+	for (mbase::Msize ll = 0; ll < numCompartments; ll++) {
 		compartmentVec[ll]->step(compartmentVec[ll]->_vM()); // Step also advances the voltage -> ignore by using vVec
 		// TODO why
 	}
 
 	update_timeStep(_timeStep() * 2.0);
 	StepNTBP();
-	cerr
+	std::cerr
 			<< "Membrane_compartment_sequence::InitialStep() - ERROR : not correctly implemented ? untested."
-			<< endl;
-	return (NT_SUCCESS);
+			<< std::endl;
+	return (mbase::M_SUCCESS);
 }
 
-vector<NTreal> Membrane_compartment_sequence::open_channels(
-		NTsize currIndex) const {
-	vector<NTreal> tmp(_numCompartments());
-	for (NTsize ll = 0; ll < _numCompartments(); ll++) {
+std::vector<mbase::Mreal> Membrane_compartment_sequence::open_channels(
+		mbase::Msize currIndex) const {
+	std::vector<mbase::Mreal> tmp(_numCompartments());
+	for (mbase::Msize ll = 0; ll < _numCompartments(); ll++) {
 		tmp[ll] = compartmentVec[ll]->Current(currIndex)->open_channels();
 	}
 	return (tmp);
 }
 
-vector<NTreal> Membrane_compartment_sequence::_vVec() const {
-	vector<NTreal> out;
-	for (NTsize ll = 0; ll < _numCompartments(); ll++) {
+std::vector<mbase::Mreal> Membrane_compartment_sequence::_vVec() const {
+	std::vector<mbase::Mreal> out;
+	for (mbase::Msize ll = 0; ll < _numCompartments(); ll++) {
 		out.push_back(compartmentVec[ll]->_vM());
 	}
 	return (out);
 }
 
-vector<NTreal> Membrane_compartment_sequence::NumChannels(
-		NTsize currIndex) const {
-	vector<NTreal> tmp(_numCompartments());
-	for (NTsize ll = 0; ll < _numCompartments(); ll++) {
+std::vector<mbase::Mreal> Membrane_compartment_sequence::NumChannels(
+		mbase::Msize currIndex) const {
+	std::vector<mbase::Mreal> tmp(_numCompartments());
+	for (mbase::Msize ll = 0; ll < _numCompartments(); ll++) {
 		tmp[ll] = compartmentVec[ll]->Current(currIndex)->NumChannels();
 	}
 	return (tmp);
 }
 
-vector<NTreal> Membrane_compartment_sequence::NumChannelsInState(
-		NTsize currIndex, NTsize state) const {
-	vector<NTreal> tmp(_numCompartments());
-	for (NTsize ll = 0; ll < _numCompartments(); ll++) {
+std::vector<mbase::Mreal> Membrane_compartment_sequence::NumChannelsInState(
+		mbase::Msize currIndex, mbase::Msize state) const {
+	std::vector<mbase::Mreal> tmp(_numCompartments());
+	for (mbase::Msize ll = 0; ll < _numCompartments(); ll++) {
 		tmp[ll] = compartmentVec[ll]->Current(currIndex)->NumChannelsInState(
 				state);
 	}
 	return (tmp);
 }
 
-vector<NTreal> Membrane_compartment_sequence::OpenChannelsRatio(
-		NTsize currIndex) const {
-	vector<NTreal> tmp(_numCompartments());
-	for (NTsize ll = 0; ll < _numCompartments(); ll++) {
+std::vector<mbase::Mreal> Membrane_compartment_sequence::OpenChannelsRatio(
+		mbase::Msize currIndex) const {
+	std::vector<mbase::Mreal> tmp(_numCompartments());
+	for (mbase::Msize ll = 0; ll < _numCompartments(); ll++) {
 		if (currIndex - 1 < compartmentVec[ll]->currentVec.size())
 			tmp[ll] =
 					compartmentVec[ll]->Current(currIndex)->OpenChannelsRatio();
@@ -285,14 +285,14 @@ vector<NTreal> Membrane_compartment_sequence::OpenChannelsRatio(
 	return (tmp);
 }
 
-NTreturn Membrane_compartment_sequence::WriteMembranePotentialASCII(
-		ostream & file) const {
-	for (NTsize ll = 0; ll < _numCompartments(); ll++) {
-		//for (NTsize i =0; i<compartmentVec[ll]->_length(); i++)
+mbase::Mreturn Membrane_compartment_sequence::WriteMembranePotentialASCII(
+		std::ostream & file) const {
+	for (mbase::Msize ll = 0; ll < _numCompartments(); ll++) {
+		//for (mbase::Msize i =0; i<compartmentVec[ll]->_length(); i++)
 		file << compartmentVec[ll]->_vM() << " ";
 	}
-	file << endl;
-	return (NT_SUCCESS);
+	file << std::endl;
+	return (mbase::M_SUCCESS);
 }
 
 /** @short  Write compartment currents into a ascii file
@@ -301,44 +301,44 @@ NTreturn Membrane_compartment_sequence::WriteMembranePotentialASCII(
  @return     none
  \warning    unknown
  \bug        unknown  */
-NTreturn Membrane_compartment_sequence::WriteCurrentAscii(ostream & file,
-		NTsize index) const {
+mbase::Mreturn Membrane_compartment_sequence::WriteCurrentAscii(std::ostream & file,
+		mbase::Msize index) const {
 	if (0 == index) {
-		for (NTsize ll = 0; ll < _numCompartments(); ll++) {
+		for (mbase::Msize ll = 0; ll < _numCompartments(); ll++) {
 			file << compartmentVec[ll]->CompartmentMembraneNetCurrent() << " ";
 		}
 	} else {
-		for (NTsize ll = 0; ll < _numCompartments(); ll++) {
+		for (mbase::Msize ll = 0; ll < _numCompartments(); ll++) {
 			if (index - 1 < compartmentVec[ll]->currentVec.size())
 				file << compartmentVec[ll]->AttachedCurrent(index) << " ";
 		}
 	}
-	file << endl;
+	file << std::endl;
 
-	return (NT_SUCCESS);
+	return (mbase::M_SUCCESS);
 }
 
-NTreturn Membrane_compartment_sequence::WriteMembranePotential(
-		ostream & file) const {
+mbase::Mreturn Membrane_compartment_sequence::WriteMembranePotential(
+		std::ostream & file) const {
 	float data[numCompartments];
-	for (NTsize ll = 0; ll < numCompartments; ll++) {
+	for (mbase::Msize ll = 0; ll < numCompartments; ll++) {
 		data[ll] = compartmentVec[ll]->_vM();
 	}
 	file.write(reinterpret_cast<char*>(data), numCompartments * sizeof(float));
-	return (NT_SUCCESS);
+	return (mbase::M_SUCCESS);
 }
 
-NTreturn Membrane_compartment_sequence::WriteCompartmentData(
-		ostream* file, NTsize to_print) const {
-	NTsize number_of_currents = compartmentVec[to_print]->currentVec.size();
+mbase::Mreturn Membrane_compartment_sequence::WriteCompartmentData(
+		std::ostream* file, mbase::Msize to_print) const {
+	mbase::Msize number_of_currents = compartmentVec[to_print]->currentVec.size();
 	float data[1 + number_of_currents];
 	data[0] = compartmentVec[to_print]->_vM();
-	for (NTsize ll = 1; ll - 1 < number_of_currents; ++ll) {
+	for (mbase::Msize ll = 1; ll - 1 < number_of_currents; ++ll) {
 		data[ll] = compartmentVec[to_print]->AttachedCurrent(ll);
 	}
 	file->write(reinterpret_cast<char*>(data),
 			(1 + number_of_currents) * sizeof(float));
-	return (NT_SUCCESS);
+	return (mbase::M_SUCCESS);
 }
 
 /** @short  Write compartment currents into a binary file
@@ -347,25 +347,25 @@ NTreturn Membrane_compartment_sequence::WriteCompartmentData(
  @return     none
  \warning    unknown
  \bug        unknown  */
-NTreturn Membrane_compartment_sequence::WriteCurrent(ostream & file,
-		NTsize index) const {
+mbase::Mreturn Membrane_compartment_sequence::WriteCurrent(std::ostream & file,
+		mbase::Msize index) const {
 	if (0 == index) {
 		float data[numCompartments];
-		for (NTsize ll = 0; ll < _numCompartments(); ll++) {
+		for (mbase::Msize ll = 0; ll < _numCompartments(); ll++) {
 			data[ll] = compartmentVec[ll]->CompartmentMembraneNetCurrent();
 		}
 		file.write(reinterpret_cast<char*>(data),
 				_numCompartments() * sizeof(float));
 	} else {
 		float data[numCompartments];
-		for (NTsize ll = 0; ll < numCompartments; ll++) {
+		for (mbase::Msize ll = 0; ll < numCompartments; ll++) {
 			if (index - 1 < compartmentVec[ll]->currentVec.size())
 				data[ll] = compartmentVec[ll]->AttachedCurrent(index);
 		}
 		file.write(reinterpret_cast<char*>(data),
 				_numCompartments() * sizeof(float));
 	}
-	return (NT_SUCCESS);
+	return (mbase::M_SUCCESS);
 }
 
 /** @short  Give compartment currents
@@ -374,14 +374,14 @@ NTreturn Membrane_compartment_sequence::WriteCurrent(ostream & file,
  @return     none
  \warning    unknown
  \bug        unknown  */
-vector<NTreal> Membrane_compartment_sequence::GiveCurrent(NTsize index) {
-	vector<NTreal> data(_numCompartments());
+std::vector<mbase::Mreal> Membrane_compartment_sequence::GiveCurrent(mbase::Msize index) {
+	std::vector<mbase::Mreal> data(_numCompartments());
 	if (0 == index) {
-		for (NTsize ll = 0; ll < _numCompartments(); ll++) {
+		for (mbase::Msize ll = 0; ll < _numCompartments(); ll++) {
 			data[ll] = compartmentVec[ll]->CompartmentMembraneNetCurrent();
 		}
 	} else {
-		for (NTsize ll = 0; ll < _numCompartments(); ll++) {
+		for (mbase::Msize ll = 0; ll < _numCompartments(); ll++) {
 			data[ll] = compartmentVec[ll]->AttachedCurrent(index);
 		}
 	}
@@ -397,10 +397,10 @@ vector<NTreal> Membrane_compartment_sequence::GiveCurrent(NTsize index) {
  @return     none
  \warning    unknown
  \bug        unknown  */
-NTreturn Membrane_compartment_sequence::InjectCurrent(
-		NTreal current /* in nA */, NTsize compartmentId) {
+mbase::Mreturn Membrane_compartment_sequence::InjectCurrent(
+		mbase::Mreal current /* in nA */, mbase::Msize compartmentId) {
 	if ((compartmentId < 1) || (compartmentId > _numCompartments()))
-		return (NT_PARAM_OUT_OF_RANGE);
+		return (mbase::M_PARAM_OUT_OF_RANGE);
 	return (compartmentVec[compartmentId - 1]->InjectCurrent(current));
 }
 
@@ -412,15 +412,15 @@ NTreturn Membrane_compartment_sequence::InjectCurrent(
  */
 void Membrane_compartment_sequence::ShowHinesMatrix() {
 	using namespace TNT;
-	NTsize n = _numCompartments();
+	mbase::Msize n = _numCompartments();
 
-	Matrix<NTreal> hinesMtr(n, n + 2);
+	Matrix<mbase::Mreal> hinesMtr(n, n + 2);
 
-	/* reconstruct tridiagonal matrix from band vectors */
+	/* reconstruct tridiagonal matrix from band std::vectors */
 	hinesMtr[0][0] = dVec[0];
 	hinesMtr[0][1] = uVec[0];
 
-	NTsize ll = 0;
+	mbase::Msize ll = 0;
 	for (ll = 1; ll < _numCompartments() - 1; ll++) {
 		hinesMtr[ll][ll - 1] = lVec[ll];
 		hinesMtr[ll][ll] = dVec[ll];
@@ -435,26 +435,26 @@ void Membrane_compartment_sequence::ShowHinesMatrix() {
 		hinesMtr[ll][n + 1] = rVec[ll];
 	}
 
-	cerr << hinesMtr;
+	std::cerr << hinesMtr;
 
 }
 
 // NOT WORKING
-vector<NTreal> Membrane_compartment_sequence::ZadorPearlmutterSolveTriDiag(
-		vector<NTreal> lNewVec, vector<NTreal> dNewVec, vector<NTreal> uNewVec,
-		vector<NTreal> rNewVec) const {
-	const NTsize n = lNewVec.size();
-	vector<NTreal> vNewVec(n);
-	NT_ASSERT(
+std::vector<mbase::Mreal> Membrane_compartment_sequence::ZadorPearlmutterSolveTriDiag(
+		std::vector<mbase::Mreal> lNewVec, std::vector<mbase::Mreal> dNewVec, std::vector<mbase::Mreal> uNewVec,
+		std::vector<mbase::Mreal> rNewVec) const {
+	const mbase::Msize n = lNewVec.size();
+	std::vector<mbase::Mreal> vNewVec(n);
+	M_ASSERT(
 			(lNewVec.size() == dNewVec.size()) && (dNewVec.size() == uNewVec.size()) && (uNewVec.size() == vNewVec.size()) && (vNewVec.size() == rNewVec.size()));
 
-	vector<NTreal> Kl(n);
-	vector<NTreal> Kd(n);
-	vector<NTreal> Ku(n);
+	std::vector<mbase::Mreal> Kl(n);
+	std::vector<mbase::Mreal> Kd(n);
+	std::vector<mbase::Mreal> Ku(n);
 
-	vector<NTreal> BJd(n);
+	std::vector<mbase::Mreal> BJd(n);
 
-	NTsize ll = 0;
+	mbase::Msize ll = 0;
 	for (ll = 0; ll < n; ll++) {
 		BJd[ll] = 1;
 	}
@@ -464,7 +464,7 @@ vector<NTreal> Membrane_compartment_sequence::ZadorPearlmutterSolveTriDiag(
 
 	Kd[n - 1] = 1 / BJd[n - 1];
 
-	NTint j = 0;
+	mbase::Mint j = 0;
 	for (j = n - 2; j > 0; j--) {
 		Kd[j] = 1 / BJd[j]
 				+ (Kd[j + 1] * lNewVec[j] * uNewVec[j]) / (BJd[j] * BJd[j]);
@@ -481,12 +481,12 @@ vector<NTreal> Membrane_compartment_sequence::ZadorPearlmutterSolveTriDiag(
 }
 
 // NOT WORKING
-vector<NTreal> Membrane_compartment_sequence::MascagniSolveTriDiag(
-		vector<NTreal> lNewVec, vector<NTreal> dNewVec, vector<NTreal> uNewVec,
-		vector<NTreal> rNewVec) const {
-	NTsize m = lNewVec.size();
-	vector<NTreal> vNewVec(m);
-	NT_ASSERT(
+std::vector<mbase::Mreal> Membrane_compartment_sequence::MascagniSolveTriDiag(
+		std::vector<mbase::Mreal> lNewVec, std::vector<mbase::Mreal> dNewVec, std::vector<mbase::Mreal> uNewVec,
+		std::vector<mbase::Mreal> rNewVec) const {
+	mbase::Msize m = lNewVec.size();
+	std::vector<mbase::Mreal> vNewVec(m);
+	M_ASSERT(
 			(lNewVec.size() == dNewVec.size()) && (dNewVec.size() == uNewVec.size()) && (uNewVec.size() == vNewVec.size()) && (vNewVec.size() == rNewVec.size()));
 
 	/*	Solution of tridiagonal system */
@@ -495,13 +495,13 @@ vector<NTreal> Membrane_compartment_sequence::MascagniSolveTriDiag(
 	//dNewVec[0] = dNewVec[0];
 	uNewVec[0] = uNewVec[0] / dNewVec[0];
 	rNewVec[0] = rNewVec[0] / dNewVec[0];
-	NTsize i = 1;
+	mbase::Msize i = 1;
 	for (i = 1; i < m - 1; i++) {
 		dNewVec[i] = dNewVec[i] - lNewVec[i] * vNewVec[i - 1];
 		rNewVec[i] = (rNewVec[i] - lNewVec[i] * vNewVec[i - 1]) / dNewVec[i];
 		uNewVec[i] = uNewVec[i] / dNewVec[i];
-		cout << i << " " << lNewVec[i] << " " << dNewVec[i] << " " << uNewVec[i]
-				<< " " << vNewVec[i] << " " << rNewVec[i] << endl;
+		std::cout << i << " " << lNewVec[i] << " " << dNewVec[i] << " " << uNewVec[i]
+				<< " " << vNewVec[i] << " " << rNewVec[i] << std::endl;
 	}
 	dNewVec[m - 1] = dNewVec[m - 1] - lNewVec[m - 1] * vNewVec[m - 1 - 1];
 	rNewVec[m - 1] = (rNewVec[m - 1] - lNewVec[m - 1] * vNewVec[m - 1 - 1])
@@ -510,40 +510,40 @@ vector<NTreal> Membrane_compartment_sequence::MascagniSolveTriDiag(
 
 	/* backward substitution */
 	vNewVec[m - 1] = rNewVec[m - 1];
-	NTint ll = 0; // INT as NTsize cannot be compared to a negative number
+	mbase::Mint ll = 0; // INT as mbase::Msize cannot be compared to a negative number
 	for (ll = m - 2; ll > -1; ll--) {
 		vNewVec[ll] = rNewVec[ll] - uNewVec[ll] * vNewVec[ll + 1];
-		cout << ll << " " << lNewVec[ll] << " " << dNewVec[ll] << " "
+		std::cout << ll << " " << lNewVec[ll] << " " << dNewVec[ll] << " "
 				<< uNewVec[ll] << " " << vNewVec[ll] << " " << rNewVec[ll]
-				<< endl;
+				<< std::endl;
 	}
 	return (vNewVec);
 }
 
 /**  Compute sum of escape rates over current state in [kHz] */
-NTreal Membrane_compartment_sequence::CompartmentSequenceChannelStateTimeConstant() const {
-	cerr
+mbase::Mreal Membrane_compartment_sequence::CompartmentSequenceChannelStateTimeConstant() const {
+	std::cerr
 			<< "Membrane_compartment_sequence::CompartmentSequenceChannelStateTimeConstant()"
-			<< endl;
-	NTreal sum = 0.0;
-	for (NTsize ll = 0; ll < numCompartments; ll++) {
-		//		cout <<"Membrane_compartment_sequence::CompartmentSequenceChannelStateTimeConstant  SEQ" << endl;
+			<< std::endl;
+	mbase::Mreal sum = 0.0;
+	for (mbase::Msize ll = 0; ll < numCompartments; ll++) {
+		//		cout <<"Membrane_compartment_sequence::CompartmentSequenceChannelStateTimeConstant  SEQ" << std::endl;
 		sum += compartmentVec[ll]->CompartmentChannelStateTimeConstant();
-		//		cout << "SEQ " << endl;
+		//		cout << "SEQ " << std::endl;
 	}
 	return (sum);
 }
 
 /**  */
-vector<NTreal> Membrane_compartment_sequence::NumericalRecipesSolveTriDiag(
-		const vector<NTreal> & lNewVec, const vector<NTreal> & dNewVec,
-		const vector<NTreal> & uNewVec, const vector<NTreal> & rNewVec) const {
-	NTsize n = lNewVec.size();
-	vector<NTreal> vNewVec(n);
-	NT_ASSERT(
+std::vector<mbase::Mreal> Membrane_compartment_sequence::NumericalRecipesSolveTriDiag(
+		const std::vector<mbase::Mreal> & lNewVec, const std::vector<mbase::Mreal> & dNewVec,
+		const std::vector<mbase::Mreal> & uNewVec, const std::vector<mbase::Mreal> & rNewVec) const {
+	mbase::Msize n = lNewVec.size();
+	std::vector<mbase::Mreal> vNewVec(n);
+	M_ASSERT(
 			(n == dNewVec.size()) && (dNewVec.size() == uNewVec.size()) && (uNewVec.size() == vNewVec.size()) && (vNewVec.size() == rNewVec.size()));
-	NTreal bet;
-	vector<NTreal> gam(n);
+	mbase::Mreal bet;
+	std::vector<mbase::Mreal> gam(n);
 
 	// a is l
 	// b is d
@@ -552,17 +552,17 @@ vector<NTreal> Membrane_compartment_sequence::NumericalRecipesSolveTriDiag(
 	// r is r
 
 	vNewVec[0] = rNewVec[0] / (bet = dNewVec[0]);
-	NTsize j = 0;
+	mbase::Msize j = 0;
 	for (j = 1; j < n; j++) {
 		gam[j] = uNewVec[j - 1] / bet;
 		bet = dNewVec[j] - lNewVec[j] * gam[j];
 		if (0 == bet)
-			cerr
+			std::cerr
 					<< "Membrane_compartment_sequence::NumericalRecipesSolveTriDiag - solver failed, zero pivot element ? is the matrix diagonally domininat ?)."
-					<< endl;
+					<< std::endl;
 		vNewVec[j] = (rNewVec[j] - lNewVec[j] * vNewVec[j - 1]) / bet;
 	}
-	NTint i = 0;
+	mbase::Mint i = 0;
 	for (i = (n - 2); i > -1; i--) {
 		vNewVec[i] -= gam[i + 1] * vNewVec[i + 1];
 	}
@@ -572,28 +572,28 @@ vector<NTreal> Membrane_compartment_sequence::NumericalRecipesSolveTriDiag(
 
 /**  */
 bool Membrane_compartment_sequence::GillespieStep() {
-	cerr << "Membrane_compartment_sequence::GillespieStep()" << endl;
-	vector<NTreal> compartmentTauVec(_numCompartments());
-	NT_uniform_rnd_dist_o rnd;
-	NTreal val;
-	NTreal sum;
-	NTreal sequenceTau;
+	std::cerr << "Membrane_compartment_sequence::GillespieStep()" << std::endl;
+	std::vector<mbase::Mreal> compartmentTauVec(_numCompartments());
+	mbase::Uniform_rnd_dist rnd;
+	mbase::Mreal val;
+	mbase::Mreal sum;
+	mbase::Mreal sequenceTau;
 	bool integrateStep = false;
-	NTreal newDeltaT;
-	NTreal maxDeltaT;
+	mbase::Mreal newDeltaT;
+	mbase::Mreal maxDeltaT;
 
-	NTreal tStar = 0.0;
+	mbase::Mreal tStar = 0.0;
 
 	do {
 		/** BLOCK 2 */
-		cerr << "GILLESPIE STEP" << endl;
+		std::cerr << "GILLESPIE STEP" << std::endl;
 		sequenceTau = CompartmentSequenceChannelStateTimeConstant();
 		sum = 0.0;
 		val = rnd.RndVal();
-		for (NTsize ll = 0; ll < _numCompartments(); ll++) {
+		for (mbase::Msize ll = 0; ll < _numCompartments(); ll++) {
 			sum += compartmentVec[ll]->CompartmentChannelStateTimeConstant();
 			if (val < sum / sequenceTau) {
-				cerr << "STEPING COMPARTMENT " << ll << endl;
+				std::cerr << "STEPING COMPARTMENT " << ll << std::endl;
 				integrateStep = compartmentVec[ll]->GillespieStep();
 				break;
 			}
@@ -602,7 +602,7 @@ bool Membrane_compartment_sequence::GillespieStep() {
 		/** BLOCK 1 */
 		// this is a sum of rate constants !
 		newDeltaT = log(1 / rnd.RndVal()) / sequenceTau; //sequenceTau in [kHz] while newDeltaT in [ms]
-		cerr << "NEW DELTA T=" << newDeltaT << endl;
+		std::cerr << "NEW DELTA T=" << newDeltaT << std::endl;
 		maxDeltaT = 1; // maximumTimeStep ought to be 1 ms
 		if (newDeltaT > maxDeltaT) {
 			newDeltaT = maxDeltaT;
@@ -613,18 +613,18 @@ bool Membrane_compartment_sequence::GillespieStep() {
 		/** BLOCK 1 */
 	} while (integrateStep == false);
 
-	cerr << "INTEGRATOR STEP WITH T_STAR=" << tStar << endl;
+	std::cerr << "INTEGRATOR STEP WITH T_STAR=" << tStar << std::endl;
 	update_timeStep(tStar);
 	StepNTBP();
 	step();
 	ShowVoltage();
 
-	return (NT_SUCCESS);
+	return (mbase::M_SUCCESS);
 }
 
-//returns copy of compartment vector
+//returns copy of compartment std::vector
 Cylindrical_compartment* Membrane_compartment_sequence::ReturnCompartmentVec(
-		NTsize index) //TODO: added
+		mbase::Msize index) //TODO: added
 		{
 	Cylindrical_compartment* compVec = compartmentVec[index];
 	return (compVec);

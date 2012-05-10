@@ -88,8 +88,8 @@ public:
 
   void DrawObj() {Illuminate();}
   void ControlObj(enum NT3Dcontroller, NTint){}; 
-  void ControlObj(enum NT3Dcontroller, NTreal){};
-  void ControlObj(enum NT3Dcontroller, class NT_vector_o){};
+  void ControlObj(enum NT3Dcontroller, mbase::Mreal){};
+  void ControlObj(enum NT3Dcontroller, class NT_std::vector_o){};
 
   /* 1.0 = positional , 0.0 = directional */
   NTfloat wFactor;

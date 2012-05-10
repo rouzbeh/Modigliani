@@ -23,10 +23,6 @@
 #ifndef _mcore_cylindrical_compartment_h_
 #define _mcore_cylindrical_compartment_h_
 
-/* NT core includes */
-#include "ntsrc/nt_main.h" 
-#include "ntsrc/nt_types.h" 
-#include "ntsrc/nt_obj.h"
 /* Parent includes */
 #include "Membrane_compartment.h"
 /* NT includes */
@@ -41,8 +37,8 @@ namespace mcore{
 class Cylindrical_compartment: public Membrane_compartment {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Cylindrical_compartment(NTreal length /* in muMeter */,
-			NTreal diameter /* in muMeter */, NTreal newTemperature = 6.3);
+	Cylindrical_compartment(mbase::Mreal length /* in muMeter */,
+			mbase::Mreal diameter /* in muMeter */, mbase::Mreal newTemperature = 6.3);
 	Cylindrical_compartment(
 			const Cylindrical_compartment & original);
 	const Cylindrical_compartment & operator=(
@@ -50,23 +46,23 @@ public:
 	virtual ~Cylindrical_compartment();
 	/* ***  Methods              ***/
 	/** length constant in muMeter for instantenous membrane conductance */
-	NTreal ActiveLengthConstant() {
+	mbase::Mreal ActiveLengthConstant() {
 		return (_diameter() / (4.0 * _rA() * 1.0e4 * total_conductance()));
 	}
 	/* in muMeter^2 */
-	NTreal _CrosssectionalArea() const {
+	mbase::Mreal _CrosssectionalArea() const {
 		return (_radius() * _radius() * M_PI);
 	}
 	/* in muMeter */
-	NTreal _diameter() const {
+	mbase::Mreal _diameter() const {
 		return (diameter);
 	}
 	/* in muMeter */
-	NTreal _radius() const {
+	mbase::Mreal _radius() const {
 		return (_diameter() / 2.0);
 	}
 	/* in muMeter */
-	NTreal _length() const {
+	mbase::Mreal _length() const {
 		return (length);
 	}
 	/* ***  Data                 ***/
@@ -75,8 +71,8 @@ protected:
 	/* ***  Data                 ***/
 private:
 	/* ***  Methods              ***/
-	NTreal diameter; // in muMeter
-	NTreal length; // in muMeter
+	mbase::Mreal diameter; // in muMeter
+	mbase::Mreal length; // in muMeter
 	/* ***  Data                 ***/
 };
 }

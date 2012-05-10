@@ -44,7 +44,7 @@
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NT3D_spheric_camera_o */
-NT3D_spheric_camera_o::NT3D_spheric_camera_o(NTsize azimutalSteps, NTsize altitudalSteps)
+NT3D_spheric_camera_o::NT3D_spheric_camera_o(mbase::Msize azimutalSteps, mbase::Msize altitudalSteps)
 :
 NT3D_universe_vp_o()
 {
@@ -85,21 +85,21 @@ NT3D_spheric_camera_o::DrawChild()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	NTsize width = pVP->_width();
-	NTsize height = pVP->_height();
+	mbase::Msize width = pVP->_width();
+	mbase::Msize height = pVP->_height();
 
-	NTsize degX = 360/aziSteps;
-	NTsize degY = 180/altSteps;
+	mbase::Msize degX = 360/aziSteps;
+	mbase::Msize degY = 180/altSteps;
 
-	NTsize deltaX = width/aziSteps;
-	NTsize deltaY = height/altSteps;
+	mbase::Msize deltaX = width/aziSteps;
+	mbase::Msize deltaY = height/altSteps;
 
-	NT_vector3_o pos = eye._oTranslation();
+	NT_std::vector3_o pos = eye._oTranslation();
 		
-	for (NTsize llx=0; llx < aziSteps; llx++){
-		for (NTsize lly=0; lly < altSteps; lly++){
-			NTsize llxCounter = llx - floor(aziSteps/2.0);
-			NTsize llyCounter = lly - floor(altSteps/2.0);
+	for (mbase::Msize llx=0; llx < aziSteps; llx++){
+		for (mbase::Msize lly=0; lly < altSteps; lly++){
+			mbase::Msize llxCounter = llx - floor(aziSteps/2.0);
+			mbase::Msize llyCounter = lly - floor(altSteps/2.0);
 			glViewport(llx*deltaX,lly*deltaY, deltaX, deltaY);
 			glMatrixMode(GL_PROJECTION);
 			glLoadIdentity();

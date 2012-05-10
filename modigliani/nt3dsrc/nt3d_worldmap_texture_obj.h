@@ -62,7 +62,7 @@ virtual ~NT3D_worldmap_texture_o();
 /* ***  Data                 ***/  
 protected:
 /* ***  Methods              ***/  
-NTreturn AssignTexture();
+mbase::Mreturn AssignTexture();
 
 /* ***  Data                 ***/  
 private:

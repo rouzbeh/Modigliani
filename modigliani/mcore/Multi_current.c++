@@ -27,11 +27,11 @@ using namespace mcore;
 /* ***      CONSTRUCTORS	***/
 /** Create a Multi_current */
 Multi_current::Multi_current(
-	NTreal newReversalPotential, //in mV
-	NTreal newDensity, // channels per mumeter^2
-	NTreal newArea, // in mumeter^2
-	NTreal newConductivity, // in mSiemens per channel
-	NTreal newVBase // mV
+	mbase::Mreal newReversalPotential, //in mV
+	mbase::Mreal newDensity, // channels per mumeter^2
+	mbase::Mreal newArea, // in mumeter^2
+	mbase::Mreal newConductivity, // in mSiemens per channel
+	mbase::Mreal newVBase // mV
 )
 :
 Membrane_current(newReversalPotential)

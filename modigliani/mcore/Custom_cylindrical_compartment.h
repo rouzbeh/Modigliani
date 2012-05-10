@@ -23,10 +23,6 @@
 #ifndef _mcore_custom_cylindrical_compartment_h_
 #define _mcore_custom_cylindrical_compartment_h_
 
-/* NT core includes */
-#include "ntsrc/nt_main.h" 
-#include "ntsrc/nt_types.h" 
-#include "ntsrc/nt_obj.h"
 /* Parent includes */
 #include "Cylindrical_compartment.h"
 /* other includes */
@@ -39,15 +35,15 @@ namespace mcore {
 class Custom_cylindrical_compartment: public Cylindrical_compartment {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Custom_cylindrical_compartment(NTreal length /* muMeter */,
-			NTreal diameter /* muMeter */, NTreal cM /* muFarad/cm^2 */,
-			NTreal rA /* ohm cm */, NTreal newTemperature = 6.3);
+	Custom_cylindrical_compartment(mbase::Mreal length /* muMeter */,
+			mbase::Mreal diameter /* muMeter */, mbase::Mreal cM /* muFarad/cm^2 */,
+			mbase::Mreal rA /* ohm cm */, mbase::Mreal newTemperature = 6.3);
 	Custom_cylindrical_compartment(
 			const Custom_cylindrical_compartment & original);
 	const Custom_cylindrical_compartment & operator=(
 			const Custom_cylindrical_compartment & right);
-	NTreal getVoltage();
-	void setVoltage(NTreal newVoltage);
+	mbase::Mreal getVoltage();
+	void setVoltage(mbase::Mreal newVoltage);
 	virtual ~Custom_cylindrical_compartment();
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
@@ -57,7 +53,7 @@ protected:
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	NTreal voltage;
+	mbase::Mreal voltage;
 };
 }
 #endif /* _ntbp_custom_cylindrical_compartment.h_ */ 

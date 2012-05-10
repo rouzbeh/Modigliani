@@ -19,37 +19,16 @@
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */ 
-  
-
-/* $Id: ntbp_object_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $ 
-* $Log: ntbp_object_obj.cpp,v $
-* Revision 1.1.1.1  2004/12/16 01:38:36  face
-* Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
-*
-* Revision 1.4  2003/08/14 16:43:27  face
-* *** empty log message ***
-*
-* Revision 1.3  2002/03/08 15:13:26  face
-* *** empty log message ***
-*
-* Revision 1.2  2001/10/12 09:18:36  face
-* *** empty log message ***
-*
-* Revision 1.1  2001/10/03 14:37:52  face
-* *** empty log message ***
-*
-
-*/
 #include "Object.h"
 
 using namespace mcore;
 
-NTreal NTBP_temperature_rate_relation(NTreal temp, NTreal q10)
+mbase::Mreal NTBP_temperature_rate_relation(mbase::Mreal temp, mbase::Mreal q10)
 {
 	return (pow(q10,(temp-NTBP_STD_TEMPERATURE)/10.0));
 }
 		
-NTreal NTBP_temperature_rate_relation(NTreal temp, NTreal baseTemp, NTreal q10)
+mbase::Mreal NTBP_temperature_rate_relation(mbase::Mreal temp, mbase::Mreal baseTemp, mbase::Mreal q10)
 {
 	return (pow(q10,(temp-baseTemp)/10.0));
 }
@@ -57,16 +36,16 @@ NTreal NTBP_temperature_rate_relation(NTreal temp, NTreal baseTemp, NTreal q10)
 
 
 /** Compute length constant in muMeter */
-NTreal NTBP_length_constant_passive_cable(NTreal diameter /* muM */,
-									   NTreal rAxoplasmic /* Ohm cm */,
-									   NTreal gLeak /* mSiemens/cm^2 */)
+mbase::Mreal NTBP_length_constant_passive_cable(mbase::Mreal diameter /* muM */,
+									   mbase::Mreal rAxoplasmic /* Ohm cm */,
+									   mbase::Mreal gLeak /* mSiemens/cm^2 */)
 {
 	return ( 1.0e6 /* muMeter/m */ * sqrt( 1.0e-5 /*  m/muMeter/ ((mSiemens/cm^2) Ohm cm) */ * diameter /* muMeter */ / (gLeak * rAxoplasmic * 4.0) ) );
 }
 
 
-NTreal Object::timeStep = NTBP_TIMESTEP; //in msec
-NTreal Object::suggestedTimeStep = NTBP_TIMESTEP; //in msec
+mbase::Mreal Object::timeStep = NTBP_TIMESTEP; //in msec
+mbase::Mreal Object::suggestedTimeStep = NTBP_TIMESTEP; //in msec
 
 /* ***      CONSTRUCTORS	***/
 /** Create a Object */
@@ -78,7 +57,7 @@ Object::Object()
 
 /* ***      COPY AND ASSIGNMENT	***/ 
 Object::Object(const Object & original):
-		NT_o()
+		mbase::Obj()
 {
 	baseTimeStep = original.baseTimeStep;
 }

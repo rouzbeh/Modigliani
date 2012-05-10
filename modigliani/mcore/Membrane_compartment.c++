@@ -26,9 +26,9 @@ using namespace mcore;
 
 /* ***      CONSTRUCTORS	***/
 /** Create a Membrane_compartment */
-Membrane_compartment::Membrane_compartment(NTreal newArea /* in muMeter^2 */, NTreal newTemperature)
+Membrane_compartment::Membrane_compartment(mbase::Mreal newArea /* in muMeter^2 */, mbase::Mreal newTemperature)
 {
-	NT_ASSERT( newArea > 0 );
+	M_ASSERT( newArea > 0 );
 	area = newArea;
 
 	cM = 0;
@@ -43,7 +43,7 @@ Membrane_compartment::Membrane_compartment(const Membrane_compartment __attribut
 		Object()
 {
  // should not be used
-	cerr << "Membrane_compartment::Membrane_compartment(const .. & original)= - ERROR : Not implemented." << endl;
+	std::cerr << "Membrane_compartment::Membrane_compartment(const .. & original)= - ERROR : Not implemented." << std::endl;
 }
 
 const Membrane_compartment&
@@ -51,7 +51,7 @@ Membrane_compartment::operator= (const Membrane_compartment & right)
 {
  if (this == &right) return (*this); // Gracefully handle self assignment
  // should not be used
- cerr << "Membrane_compartment::operator= - ERROR : Not implemented." << endl;
+ std::cerr << "Membrane_compartment::operator= - ERROR : Not implemented." << std::endl;
   return (*this);
 }
 
@@ -85,17 +85,17 @@ Membrane_compartment::~Membrane_compartment()
    \warning    Voltage is updated at Step
    \bug        unknown
 */
-NTreturn
-Membrane_compartment::step(NTreal newVM)
+mbase::Mreturn
+Membrane_compartment::step(mbase::Mreal newVM)
 {
 	vM = newVM;
 	
 	//for every current
-	for (NTsize it = 0; it < currentVec.size(); it++) {
+	for (mbase::Msize it = 0; it < currentVec.size(); it++) {
 		(currentVec[it])->step(vM);
 	}
 	
-	return (NT_SUCCESS);
+	return (mbase::M_SUCCESS);
 }
 
 
@@ -105,11 +105,11 @@ Membrane_compartment::step(NTreal newVM)
    \warning    OBSOLETE
    \bug        unknown
 */
-NTreal
+mbase::Mreal
 Membrane_compartment::total_conductance() const
 {
-	NTreal result = 0.0;
-	vector< Membrane_current * >::const_iterator it = currentVec.begin();
+	mbase::Mreal result = 0.0;
+	std::vector< Membrane_current * >::const_iterator it = currentVec.begin();
 	for (it = currentVec.begin(); it != currentVec.end(); it++) {
 		result += (*it)->_conductance();
 	}
@@ -122,12 +122,12 @@ Membrane_compartment::total_conductance() const
    \warning    OBSOLETE ?
    \bug        unknown
 */
-NTreal
+mbase::Mreal
 Membrane_compartment::WeightedConductance() const
 {
-	NTreal result = 0.0;
+	mbase::Mreal result = 0.0;
 	
-	vector< Membrane_current * >::const_iterator it = currentVec.begin();
+	std::vector< Membrane_current * >::const_iterator it = currentVec.begin();
 	for (it = currentVec.begin(); it != currentVec.end(); it++) {
 		result += ( (*it)->_conductance() ) * ( (*it)->_reversalPotential() );
 	}
@@ -140,7 +140,7 @@ Membrane_compartment::WeightedConductance() const
    \warning    unknown
    \bug        unknown
 */
-NTreturn
+mbase::Mreturn
 Membrane_compartment::AttachCurrent(Membrane_current * currentPtr, NTBPcurrentType type = NTBP_IONIC)
 {
 	currentPtr->Set_voltage(vM);
@@ -154,25 +154,25 @@ Membrane_compartment::AttachCurrent(Membrane_current * currentPtr, NTBPcurrentTy
 			currentVec.push_back(currentPtr);
 			break;
 		default:
-			cerr <<"Membrane_compartment::AttachCurrent - Error : Unsupported current type "<< type <<"specified." << endl;
-			return (NT_PARAM_UNSUPPORTED);
+			std::cerr <<"Membrane_compartment::AttachCurrent - Error : Unsupported current type "<< type <<"specified." << std::endl;
+			return (mbase::M_PARAM_UNSUPPORTED);
 	}
 
-	return (NT_SUCCESS);
+	return (mbase::M_SUCCESS);
 }
 
-NTreturn
-Membrane_compartment::InjectCurrent(NTreal current /* in nA */)
+mbase::Mreturn
+Membrane_compartment::InjectCurrent(mbase::Mreal current /* in nA */)
 {
-//	NT_ASSERT(current >=0 ); 2DO is this necessary
+//	M_ASSERT(current >=0 ); 2DO is this necessary
 	iInj = current;
-	return (NT_SUCCESS);	
+	return (mbase::M_SUCCESS);	
 }
 
 /** The total membrane capacitance of the compartment
 	@return muF
 */
-NTreal Membrane_compartment::CompartmentMembraneCapacitance() const
+mbase::Mreal Membrane_compartment::CompartmentMembraneCapacitance() const
 {
 	return (cM /* muF/cm^2 */ * area /* muMeter^2 */ * 1.0e-8 /* cm^2/muMeter^2 */);
 }
@@ -180,27 +180,27 @@ NTreal Membrane_compartment::CompartmentMembraneCapacitance() const
 /** The net flowing current through the membrane of the compartment
 	@return ?
 */
-NTreal Membrane_compartment::CompartmentMembraneNetCurrent() const
+mbase::Mreal Membrane_compartment::CompartmentMembraneNetCurrent() const
 {
-	NTreal sumDeltaI = 0.0;
-	for (NTsize it = 0; it < currentVec.size(); it++) {
+	mbase::Mreal sumDeltaI = 0.0;
+	for (mbase::Msize it = 0; it < currentVec.size(); it++) {
 			sumDeltaI -= (currentVec[it])->_current();	// i.e. ionic current is subtracted (modern  current convention)
 	}
-//	cerr << "\t Membrane capacitance [muF]"<< CompartmentMembraneCapacitance() << "\t Injected current [nA] "<< iInj <<  "\tionicCurrent="<<sumDeltaI << endl;	
+//	std::cerr << "\t Membrane capacitance [muF]"<< CompartmentMembraneCapacitance() << "\t Injected current [nA] "<< iInj <<  "\tionicCurrent="<<sumDeltaI << std::endl;	
 	sumDeltaI += iInj; // the is  sign correct
 	return (sumDeltaI);
 }
 
 /** Sum of escape rates from current state [1/kHz] */
-NTreal Membrane_compartment::CompartmentChannelStateTimeConstant() const
+mbase::Mreal Membrane_compartment::CompartmentChannelStateTimeConstant() const
 {
-  cerr <<"Membrane_compartment::CompartmentChannelStateTimeConstant" << endl;
-	NTreal sum = 0;
-	vector< Membrane_current * >::const_iterator it = currentVec.begin();
+  std::cerr <<"Membrane_compartment::CompartmentChannelStateTimeConstant" << std::endl;
+	mbase::Mreal sum = 0;
+	std::vector< Membrane_current * >::const_iterator it = currentVec.begin();
 	for (it = currentVec.begin(); it != currentVec.end(); it++) {
 			//(*it)->ComputeRateConstants(_vM());
 			sum += (*it)->ChannelStateTimeConstant();
-			cerr << "Compartment Time constant sum=" << sum << endl;
+			std::cerr << "Compartment Time constant sum=" << sum << std::endl;
 	}
 
 
@@ -210,42 +210,42 @@ NTreal Membrane_compartment::CompartmentChannelStateTimeConstant() const
 
 bool Membrane_compartment::GillespieStep()
 {
-	cerr << "Membrane_compartment::GillespieStep()" << endl;
-	NT_uniform_rnd_dist_o rnd;
-	NTreal val = rnd.RndVal();
-	NTreal sum = 0.0;		
+	std::cerr << "Membrane_compartment::GillespieStep()" << std::endl;
+	mbase::Uniform_rnd_dist rnd;
+	mbase::Mreal val = rnd.RndVal();
+	mbase::Mreal sum = 0.0;		
 	
   // 2DO this might be actually called more then once in one total iteration time step
-	NTreal	compartmentTau = CompartmentChannelStateTimeConstant();
+	mbase::Mreal	compartmentTau = CompartmentChannelStateTimeConstant();
 	
-	cerr << "COMPARTMENT -> compartmentTau=" << compartmentTau << endl;
-	vector< Membrane_current * >::iterator it = currentVec.begin();
+	std::cerr << "COMPARTMENT -> compartmentTau=" << compartmentTau << std::endl;
+	std::vector< Membrane_current * >::iterator it = currentVec.begin();
 	for (it = currentVec.begin(); it != currentVec.end(); it++) {
 				sum += (*it)->ChannelStateTimeConstant();
-				cerr << "COMPARTMENT -> SUM=" << sum  << " VAL=" << val <<  endl;
+				std::cerr << "COMPARTMENT -> SUM=" << sum  << " VAL=" << val <<  std::endl;
 				if (val < sum/compartmentTau){
 					return ((*it)->GillespieStep());
 					break;
 				}
 	}
-	cerr <<"Membrane_compartment::GillespieStep - Error : Control flow should not reach here." << endl;
-	return (NT_FAIL);
+	std::cerr <<"Membrane_compartment::GillespieStep - Error : Control flow should not reach here." << std::endl;
+	return (mbase::M_FAIL);
 }
 
 void Membrane_compartment::ShowParam() const
 {
-	cout << "Compartment paramters:" << endl;
-	cout << "Specific membrane capacitance [muF/cm^2] " << _cM() << endl;
-	cout << "Axoplasmic resitance [Ohm cm] " << _rA() << endl;
-	cout << "Membrane surface area [muMeter^2] " << _area() << endl;
-	cout << "Compartment currents paramters:" << endl;
-	vector< Membrane_current * >::const_iterator it = currentVec.begin();
+	std::cout << "Compartment paramters:" << std::endl;
+	std::cout << "Specific membrane capacitance [muF/cm^2] " << _cM() << std::endl;
+	std::cout << "Axoplasmic resitance [Ohm cm] " << _rA() << std::endl;
+	std::cout << "Membrane surface area [muMeter^2] " << _area() << std::endl;
+	std::cout << "Compartment currents paramters:" << std::endl;
+	std::vector< Membrane_current * >::const_iterator it = currentVec.begin();
 	for (it = currentVec.begin(); it != currentVec.end(); it++) {
 		(*it)->ShowParam();	
 	}
 }
 
-vector< Membrane_current * > Membrane_compartment::ReturnCurrentVec ()
+std::vector< Membrane_current * > Membrane_compartment::ReturnCurrentVec ()
 {
 	auto cV = currentVec;
 	return (cV);

@@ -9,7 +9,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <vector>
-#include "ntsrc/nt_aux_math_func.h"
+#include "ntsrc/aux_math_func.h"
 
 #define NUM_NON_COLUMN_PARAM 5 // including argv[0] ==  executable
 int check_for_spike(float v, float upThreshold, float downThreshold,
@@ -56,43 +56,43 @@ int main(int argc, char* argv[]) {
 	bool selectColumns = false;
 
 	if (argc < NUM_NON_COLUMN_PARAM) {
-		cerr
+		std::cerr
 				<< "Invalid command line."
 				<< argv[0]
 				<< "  <binary float data file> <number of columns in data file> <upstroke threshold> <down stroke threshold> [<compartment index 1 to print ...>] [<compartment index 2 to print ...>] [...] "
-				<< endl;
-		cerr
+				<< std::endl;
+		std::cerr
 				<< "NOTE: Usually the first two columns of every data file are time and current data."
-				<< endl;
-		cerr
+				<< std::endl;
+		std::cerr
 				<< "      and then the index ought to beg reater or equal 3, whith 3 designating the first voltage column"
-				<< endl;
+				<< std::endl;
 		exit(1);
 	}
-	string filename = argv[1];
+	std::string filename = argv[1];
 	unsigned int columns = atoi(argv[2]);
 	float upThreshold = atof(argv[3]);
 	float downThreshold = atof(argv[4]);
 
-	cerr << "Processing file " << filename << " ..." << endl;
+	std::cerr << "Processing file " << filename << " ..." << std::endl;
 
 	unsigned int number = 0;
 	if (argc > NUM_NON_COLUMN_PARAM) {
 		selectColumns = true;
 		number = argc - NUM_NON_COLUMN_PARAM;
 	}
-	vector<unsigned int> selectVec(argc - NUM_NON_COLUMN_PARAM);
+	std::vector<unsigned int> selectVec(argc - NUM_NON_COLUMN_PARAM);
 
 	unsigned int ll;
 	for (ll = 0; ll < number; ll++) {
 		if (atoi(argv[ll + NUM_NON_COLUMN_PARAM]) == 1)
-			cerr
+			std::cerr
 					<< "You selected the first column to be checked for spikes, it should contain the time and no voltage trace."
-					<< endl;
+					<< std::endl;
 		if (atoi(argv[ll + NUM_NON_COLUMN_PARAM]) == 2)
-			cerr
+			std::cerr
 					<< "You selected the second column to be checked for spikes, it may contain current data and no voltage trace."
-					<< endl;
+					<< std::endl;
 		selectVec[ll] = atoi(argv[ll + NUM_NON_COLUMN_PARAM]) - 1;
 	}
 
@@ -105,9 +105,9 @@ int main(int argc, char* argv[]) {
 		spiking[ll] = false;
 	}
 
-	ifstream file(filename.c_str(), ios::binary);
+	std::ifstream file(filename.c_str(), std::ios::binary);
 	if (!file.good()) {
-		cerr << "Something is bad with reading from file " << filename << endl;
+		std::cerr << "Something is bad with reading from file " << filename << std::endl;
 		exit(2);
 	}
 
@@ -115,40 +115,40 @@ int main(int argc, char* argv[]) {
 	while (file.eof() == 0) {
 		file.read(reinterpret_cast<char*>(buffer), columns * sizeof(float));
 		if (true == selectColumns) {
-			// cout << buffer[0] << "\t";
+			// std::cout << buffer[0] << "\t";
 			for (ll = 0; ll < number; ll++) {
 				v = buffer[selectVec[ll]];
 				if (ntaux_isnan(v))
-					cerr << "Warning - Column " << selectVec[ll] << " is NaN."
-							<< endl;
+					std::cerr << "Warning - Column " << selectVec[ll] << " is NaN."
+							<< std::endl;
 				else if (ntaux_isinf(v))
-					cerr << "Warning - Column " << selectVec[ll] << " is inf."
-							<< endl;
+					std::cerr << "Warning - Column " << selectVec[ll] << " is inf."
+							<< std::endl;
 				else
-					cout
+					std::cout
 							<< check_for_spike(v, upThreshold, downThreshold,
 									&(spiking[selectVec[ll]])) << "\t";
 			}
 		} else {
-			// cout << buffer[0] << "\t";
+			// std::cout << buffer[0] << "\t";
 			for (ll = 1; ll < columns; ll++) {
 				v = buffer[ll];
 				if (ntaux_isnan(v))
-					cerr << "Warning - Column " << ll << " is NaN." << endl;
+					std::cerr << "Warning - Column " << ll << " is NaN." << std::endl;
 				else if (ntaux_isinf(v))
-					cerr << "Warning - Column " << ll << " is +/- inf." << endl;
+					std::cerr << "Warning - Column " << ll << " is +/- inf." << std::endl;
 				else
-					cout
+					std::cout
 							<< check_for_spike(v, upThreshold, downThreshold,
 									&(spiking[ll])) << "\t";
 			}
 		}
-		cout << endl;
+		std::cout << std::endl;
 		rows++;
 	}
 
-	cerr << "Completed and printed (float) " << rows << " rows with " << columns
-			<< " columns from file " << filename << "." << endl;
+	std::cerr << "Completed and printed (float) " << rows << " rows with " << columns
+			<< " columns from file " << filename << "." << std::endl;
 	return (0);
 }
 

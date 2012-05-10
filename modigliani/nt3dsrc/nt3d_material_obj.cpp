@@ -30,7 +30,7 @@
 *
 * Revision 1.8  2000/06/26 19:14:06  face
 * finally found the error that caused solid object to disappear:
-* the scaling vector was not constructed in the 2nd constructor
+* the scaling std::vector was not constructed in the 2nd constructor
 * of the solid bject thus resulting in a zero object
 * new demo file: showing some random graphics
 *
@@ -102,7 +102,7 @@ NT3D_material_o::operator= (const NT3D_material_o & right)
 /* ***      DESTRUCTOR		***/
 NT3D_material_o::~NT3D_material_o()
 {
-	// cerr << "NT3D_material_o::~NT3D_material_o()" << endl;
+	// cerr << "NT3D_material_o::~NT3D_material_o()" << std::endl;
 }
 
 /* ***  PUBLIC                                    ***   */  
@@ -126,7 +126,7 @@ NT3D_material_o::Paint()
     }else{
     colorAmbient.Paint();
    }
-  	//cerr << "...completed" << endl;
+  	//cerr << "...completed" << std::endl;
 }
 
 /* ***  PROTECTED                         ***   */

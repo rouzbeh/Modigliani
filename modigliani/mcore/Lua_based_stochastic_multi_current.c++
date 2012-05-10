@@ -11,17 +11,17 @@ using namespace mcore;
 
 bool Lua_based_stochastic_multi_current::initTableLookUp = false;
 map<string, NTBP_transition_rate_matrix_o*> Lua_based_stochastic_multi_current::probability_matrix_map;
-map<string, NTsize> Lua_based_stochastic_multi_current::number_of_states_map;
+map<string, mbase::Msize> Lua_based_stochastic_multi_current::number_of_states_map;
 map<string, double> Lua_based_stochastic_multi_current::base_temperature_map;
-map<string, vector<int> > Lua_based_stochastic_multi_current::open_states_map;
+map<string, std::vector<int> > Lua_based_stochastic_multi_current::open_states_map;
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NTBP_hranvier_sodium_multi_current_o */
 
 Lua_based_stochastic_multi_current::Lua_based_stochastic_multi_current(
-		NTreal newArea, NTreal newDensity, NTreal newConductivity,
-		NTreal newVBase, NTreal newReversalPotential, NTreal newTimeStep,
-		NTreal newTemperature, string fileName) :
+		mbase::Mreal newArea, mbase::Mreal newDensity, mbase::Mreal newConductivity,
+		mbase::Mreal newVBase, mbase::Mreal newReversalPotential, mbase::Mreal newTimeStep,
+		mbase::Mreal newTemperature, string fileName) :
 		Multi_current(newReversalPotential /* in mV */,
 				newDensity /* channels per mu^2 */, newArea /* in mu^2 */,
 				newConductivity /* in mS per channel  */, newVBase /* mV */
@@ -36,7 +36,7 @@ Lua_based_stochastic_multi_current::Lua_based_stochastic_multi_current(
 	}
 	baseTemp = base_temperature_map[fileName];
 
-	NT_ASSERT(number_of_states_map[fileName]>0);
+	M_ASSERT(number_of_states_map[fileName]>0);
 
 	if (false == initTableLookUp) {
 		initTableLookUp = true;
@@ -79,7 +79,7 @@ Lua_based_stochastic_multi_current::~Lua_based_stochastic_multi_current() {
 /* ***  PUBLIC                                    ***   */
 void Lua_based_stochastic_multi_current::load_file(string fileName,
 		double temperature, double time_step) {
-	cout << "Getting probabilities from " << fileName << endl;
+	cout << "Getting probabilities from " << fileName << std::endl;
 	lua_State* L = luaL_newstate();
 	luaL_openlibs(L);
 	luaL_dofile(L, fileName.c_str());
@@ -88,7 +88,7 @@ void Lua_based_stochastic_multi_current::load_file(string fileName,
 
 	number_of_states_map[fileName] = lua_get_ntreal(L, "number_states");
 
-	open_states_map[fileName] = vector<int>();
+	open_states_map[fileName] = std::vector<int>();
 
 	lua_getglobal(L, "open_states");
 	/* table is in the stack at index 't' */
@@ -109,11 +109,11 @@ void Lua_based_stochastic_multi_current::load_file(string fileName,
 	probability_matrix_map[fileName] = new NTBP_transition_rate_matrix_o(
 			number_of_states_map[fileName], minV, maxV, step);
 
-	NTreal length = floor((maxV - minV) / step + 0.5) + 1;
-	for (NTsize i = 1; i <= number_of_states_map[fileName]; ++i) {
-		for (NTsize j = 1; j <= number_of_states_map[fileName]; ++j) {
-			for (NTsize k = 0; k < length; k++) {
-				NTreal voltage = minV + step * k;
+	mbase::Mreal length = floor((maxV - minV) / step + 0.5) + 1;
+	for (mbase::Msize i = 1; i <= number_of_states_map[fileName]; ++i) {
+		for (mbase::Msize j = 1; j <= number_of_states_map[fileName]; ++j) {
+			for (mbase::Msize k = 0; k < length; k++) {
+				mbase::Mreal voltage = minV + step * k;
 				lua_getglobal(L, "get_probability");
 				lua_pushnumber(L, i);
 				lua_pushnumber(L, j);
@@ -144,7 +144,7 @@ void Lua_based_stochastic_multi_current::load_file(string fileName,
  \warning    unknown
  \bug        unknown
  */
-inline NTreturn Lua_based_stochastic_multi_current::step_current() {
+inline mbase::Mreturn Lua_based_stochastic_multi_current::step_current() {
 	switch (_simulationMode()) {
 	case NTBP_BINOMIALPOPULATION: {
 		return (channelsPtr->BinomialStep(voltage));
@@ -160,48 +160,48 @@ inline NTreturn Lua_based_stochastic_multi_current::step_current() {
 
 		break;
 	default:
-		cerr
+		std::cerr
 				<< "Lua_based_stochastic_multi_current::StepCurrent - ERROR : Unsupported simulation mode."
-				<< endl;
-		return (NT_PARAM_UNSUPPORTED);
+				<< std::endl;
+		return (mbase::M_PARAM_UNSUPPORTED);
 		break;
 	}
-	return (NT_FAIL);
+	return (mbase::M_FAIL);
 }
 
 /**  */
 /** No descriptions */
-inline NTreal Lua_based_stochastic_multi_current::open_channels() const {
+inline mbase::Mreal Lua_based_stochastic_multi_current::open_channels() const {
 	return (channelsPtr->NumOpen());
 }
 
 /**  */
 /** No descriptions */
-inline NTreal Lua_based_stochastic_multi_current::NumChannelsInState(
-		NTsize state) const {
+inline mbase::Mreal Lua_based_stochastic_multi_current::NumChannelsInState(
+		mbase::Msize state) const {
 	return (channelsPtr->numChannelsInState(state));
 }
 
-inline NTreal Lua_based_stochastic_multi_current::compute_conductance() {
+inline mbase::Mreal Lua_based_stochastic_multi_current::compute_conductance() {
 	return (Set_conductance(channelsPtr->NumOpen() * conductivity));
 }
 
-inline NTreal Lua_based_stochastic_multi_current::ComputeChannelStateTimeConstant() const {
+inline mbase::Mreal Lua_based_stochastic_multi_current::ComputeChannelStateTimeConstant() const {
 	return (channelsPtr->ComputeChannelStateTimeConstant(voltage));
 }
 
 void Lua_based_stochastic_multi_current::ShowParam() const {
-	cout << "Na channel parameters:" << endl;
-	cout << "Single channel conductivity [nA]" << _conductivity() << endl;
-	cout << "Channel density [1/muMeter^2]" << _area() << endl;
+	cout << "Na channel parameters:" << std::endl;
+	cout << "Single channel conductivity [nA]" << _conductivity() << std::endl;
+	cout << "Channel density [1/muMeter^2]" << _area() << std::endl;
 	cout << "MaxConductivity (all channels open) mSiemens/cm^2"
-			<< _maxConductivity() << endl;
+			<< _maxConductivity() << std::endl;
 }
 
-NTreal Lua_based_stochastic_multi_current::lua_get_ntreal(lua_State* L,
+mbase::Mreal Lua_based_stochastic_multi_current::lua_get_ntreal(lua_State* L,
 		string name) {
 	lua_getglobal(L, name.c_str());
-	NTreal ret = lua_tonumber(L, -1);
+	mbase::Mreal ret = lua_tonumber(L, -1);
 	lua_pop(L, 1);
 	return (ret);
 }

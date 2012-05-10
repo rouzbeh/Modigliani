@@ -23,10 +23,6 @@
 #ifndef _mcore_channels_current_h_
 #define _mcore_channels_current_h_
 
-/* NT core includes */
-#include "ntsrc/nt_main.h" 
-#include "ntsrc/nt_types.h" 
-#include "ntsrc/nt_obj.h"  
 /* Parent includes */
 #include "Membrane_current.h"
 /* NT includes */
@@ -42,28 +38,28 @@ namespace mcore {
 class Channels_current: public Membrane_current {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Channels_current(NTreal reversalPotential, // in mV
-			NTreal density, // channels per mumeter^2
-			NTreal area, // in mumeter^2
-			NTreal conductivity // in mSiemens per channel
+	Channels_current(mbase::Mreal reversalPotential, // in mV
+			mbase::Mreal density, // channels per mumeter^2
+			mbase::Mreal area, // in mumeter^2
+			mbase::Mreal conductivity // in mSiemens per channel
 			);
 	Channels_current(const Channels_current & original);
 	const Channels_current & operator=(const Channels_current & right);
 	virtual ~Channels_current();
 	/* ***  Methods              ***/
 	/* mementary total conductance */
-	NTreal _density() const {
+	mbase::Mreal _density() const {
 		return (density);
 	}
-	NTreal _area() const {
+	mbase::Mreal _area() const {
 		return (area);
 	}
 	/* conductivity per channel */
-	NTreal _conductivity() const {
+	mbase::Mreal _conductivity() const {
 		return (conductivity);
 	} /* in mSiemens per channel */
 	/* conductivity if all channels open in mSiemens/cm^2 */
-	NTreal _maxConductivity() const {
+	mbase::Mreal _maxConductivity() const {
 		return (density * conductivity * 1e-8);
 	}
 	/**  */
@@ -71,7 +67,7 @@ public:
 	bool ComputeGillespieStep() {
 		return (channelsPtr->GillespieStep(voltage));
 	}
-	NTreal ComputeConductance() {
+	mbase::Mreal ComputeConductance() {
 		return (Set_conductance(channelsPtr->NumOpen() * conductivity));
 	}
 	/* ***  Data                 ***/
@@ -79,9 +75,9 @@ protected:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
 	Ion_channels * channelsPtr;
-	NTreal density; // channels per mumeter^2
-	NTreal area; // in mumeter^2
-	NTreal conductivity; // in mSiemens per channel
+	mbase::Mreal density; // channels per mumeter^2
+	mbase::Mreal area; // in mumeter^2
+	mbase::Mreal conductivity; // in mSiemens per channel
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/

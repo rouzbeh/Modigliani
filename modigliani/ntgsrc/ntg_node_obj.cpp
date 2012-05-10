@@ -42,7 +42,7 @@
  \warning    unknown
  \bug        unknown
  */
-NTG_node_o::NTG_node_o(NTid newUniqId) {
+NTG_node_o::NTG_node_o(mbase::Mid newUniqId) {
 	nodeId = newUniqId;
 }
 
@@ -54,9 +54,9 @@ NTG_node_o::NTG_node_o(const NTG_node_o __attribute__((unused)) & original) {
 const NTG_node_o&
 NTG_node_o::operator=(const NTG_node_o & right) {
 	if (this == &right)
-		return *this; // Gracefully handle self assignment
+		return (*this); // Gracefully handle self assignment
 // add assignment code here
-	return *this;
+	return (*this);
 }
 
 /* ***      DESTRUCTOR		***/

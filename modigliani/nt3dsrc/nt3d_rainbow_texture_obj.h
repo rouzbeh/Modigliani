@@ -53,8 +53,8 @@
 * Revision 1.2  2000/04/27 09:57:08  face
 * switched to float based colors
 * texture is RGBA color value,
-* corrected nasty bug in nt3d_color_o, where the color bearing vector
-* was initialised as 3 and not as 4-vector (RGBA!)NT3D_texture_o::CreateTexture
+* corrected nasty bug in nt3d_color_o, where the color bearing std::vector
+* was initialised as 3 and not as 4-std::vector (RGBA!)NT3D_texture_o::CreateTexture
 * :wq!
 *
 * Revision 1.1  2000/04/26 22:57:45  face
@@ -82,7 +82,7 @@
 class NT3D_rainbow_texture_o : public NT3D_pixel_texture_o {
 public:
 /***   Constructors, Copy/Assignment and Destructor  ***/  
-NT3D_rainbow_texture_o(NTsize newTextureWidth=64, NTsize newTextureHeight=64);
+NT3D_rainbow_texture_o(mbase::Msize newTextureWidth=64, mbase::Msize newTextureHeight=64);
 NT3D_rainbow_texture_o(const NT3D_rainbow_texture_o & original);
 const NT3D_rainbow_texture_o & operator= (const NT3D_rainbow_texture_o & right);
 ~NT3D_rainbow_texture_o();
@@ -90,9 +90,9 @@ const NT3D_rainbow_texture_o & operator= (const NT3D_rainbow_texture_o & right);
 /* ***  Data                 ***/  
 protected:
 /* ***  Methods              ***/ 
-NTreturn AssignPixelTexture();
+mbase::Mreturn AssignPixelTexture();
 /** Make a colored point within the normalised texure area [0,1]x[0,1] */
-NTreal* MakeRGBATexturePoint(NTreal* colorVec, NTreal coorX, NTreal coorY);
+mbase::Mreal* MakeRGBATexturePoint(mbase::Mreal* colorVec, mbase::Mreal coorX, mbase::Mreal coorY);
 /* ***  Data                 ***/  
 private:
 /* ***  Methods              ***/  

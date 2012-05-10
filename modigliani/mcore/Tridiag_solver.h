@@ -34,12 +34,8 @@
 #ifndef _mcore_tridiag_solver_h_
 #define _mcore_tridiag_solver_h_
 
-/* NT core includes */
-#include "../ntsrc/nt_main.h" 
-#include "../ntsrc/nt_types.h" 
-#include "../ntsrc/nt_obj.h"
 /* NT includes */
-#include "../ntsrc/nt_error_obj.h"
+#include "Object.h"
 
 /* other includes */
 #include <vector>
@@ -47,26 +43,26 @@
 /** @short NTBP_tridiag_solver_o class 
  Solve tridiangonal sequence of multi-compartment cable equations
  using the Thomas algorithm
-cerr << "OBSOLETE code called";
+std::cerr << "OBSOLETE code called";
 
 OBSOLETE CODE
 
 \bug unknown
 \warning unknown 
 */
-class NTBP_tridiag_solver_o : public NT_o {
+class NTBP_tridiag_solver_o : public mbase::Obj {
 public:
 /***   Constructors, Copy/Assignment and Destructor  ***/  
-NTBP_tridiag_solver_o(NTsize numCompartments);
+NTBP_tridiag_solver_o(mbase::Msize numCompartments);
 NTBP_tridiag_solver_o(const NTBP_tridiag_solver_o & original);
 const NTBP_tridiag_solver_o & operator= (const NTBP_tridiag_solver_o & right);
 virtual ~NTBP_tridiag_solver_o();
 /* ***  Methods              ***/  
-NTreturn Setup(vector <NTreal> newLVec, vector <NTreal> newUVec);
-vector <NTreal> Solve( vector <NTreal> dVec,  vector <NTreal> vVec, vector <NTreal> rVec);
+mbase::Mreturn Setup(std::vector <mbase::Mreal> newLVec, std::vector <mbase::Mreal> newUVec);
+std::vector <mbase::Mreal> Solve( std::vector <mbase::Mreal> dVec,  std::vector <mbase::Mreal> vVec, std::vector <mbase::Mreal> rVec);
   /**  */
-NTreturn Resize(NTsize numCompartment);
-// vector <NTreal> Solve(vector <NTreal> dVec, vector <NTreal> vVec, vector <NTreal> rVec);
+mbase::Mreturn Resize(mbase::Msize numCompartment);
+// std::vector <mbase::Mreal> Solve(std::vector <mbase::Mreal> dVec, std::vector <mbase::Mreal> vVec, std::vector <mbase::Mreal> rVec);
 /* ***  Data                 ***/  
 protected:
 /* ***  Methods              ***/  
@@ -74,7 +70,7 @@ protected:
 
 private:
 /* ***  Methods              ***/  
-NTsize numCompartments;
+mbase::Msize numCompartments;
 bool initialised;
 /* ***  Data                 ***/ 
 };

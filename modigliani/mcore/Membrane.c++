@@ -65,11 +65,11 @@ Membrane::~Membrane() {
  \warning    unknown
  \bug        unknown
  
- NTreturn
+ mbase::Mreturn
  Membrane::Step()
  {
- cerr <<"Membrane::Step - ERROR : Not implemented." << endl;
- return NT_NOT_IMPLEMENTED;
+ std::cerr <<"Membrane::Step - ERROR : Not implemented." << std::endl;
+ return mbase::M_NOT_IMPLEMENTED;
  }
  */
 /* ***  PROTECTED                         ***   */

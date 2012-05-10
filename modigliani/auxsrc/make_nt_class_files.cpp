@@ -80,52 +80,52 @@ string filenameSource;
 /* #[ writeHeaderFileMain : */
 
 void writeHeaderFileMain(ostream& fout) {
-    fout << endl  << "/"<<"* $"<<"Id:"<<"$ "<< endl
-    << "* $"<<"Log:" <<"$" << endl
-    << endl <<
-    "*"<<"/"<<endl<<
-    "#ifndef _"<<filePrefix<<classnameStem<< fileSuffix << "_h_ "<< endl <<
-    "#define _"<<filePrefix<<classnameStem<< fileSuffix << "_h_ "<< endl << endl <<
-    "/"<<"* NT core includes *"<<"/" << endl <<
-    "#include \"ntsrc/nt_main.h\" " <<endl <<
-    "#include \"ntsrc/nt_types.h\" "<<endl <<
-    "#include \"ntsrc/nt_obj.h\"  "<< endl;
+    fout << std::endl  << "/"<<"* $"<<"Id:"<<"$ "<< std::endl
+    << "* $"<<"Log:" <<"$" << std::endl
+    << std::endl <<
+    "*"<<"/"<<std::endl<<
+    "#ifndef _"<<filePrefix<<classnameStem<< fileSuffix << "_h_ "<< std::endl <<
+    "#define _"<<filePrefix<<classnameStem<< fileSuffix << "_h_ "<< std::endl << std::endl <<
+    "/"<<"* NT core includes *"<<"/" << std::endl <<
+    "#include \"ntsrc/nt_main.h\" " <<std::endl <<
+    "#include \"ntsrc/nt_types.h\" "<<std::endl <<
+    "#include \"ntsrc/nt_obj.h\"  "<< std::endl;
 
     if (true == derivedClass) {
-        fout << "/"<<"* Parent includes *"<<"/" << endl;
-        fout << "#include \""<<filePrefix<<parentClassNameStem<<fileSuffix<<filetype_extension <<"\" "<<endl;
+        fout << "/"<<"* Parent includes *"<<"/" << std::endl;
+        fout << "#include \""<<filePrefix<<parentClassNameStem<<fileSuffix<<filetype_extension <<"\" "<<std::endl;
     }
 
-    fout << "/"<<"* NT includes *"<<"/" << endl << endl;
-    fout << "/"<<"* other includes *"<<"/" << endl << endl;
+    fout << "/"<<"* NT includes *"<<"/" << std::endl << std::endl;
+    fout << "/"<<"* other includes *"<<"/" << std::endl << std::endl;
 
 
 
-    fout << "/"<<"** @short "<<classname<<" class "<< endl <<
+    fout << "/"<<"** @short "<<classname<<" class "<< std::endl <<
 
-    "\\bug unknown" << endl <<
-    "\\warning unknown " << endl <<
-    "*"<<"/"<<endl;
+    "\\bug unknown" << std::endl <<
+    "\\warning unknown " << std::endl <<
+    "*"<<"/"<<std::endl;
     if (true == derivedClass)
-        fout  <<"class "<<classname<<" : public "<< namePrefix << parentClassNameStem <<nameSuffix <<" {"<< endl ;
+        fout  <<"class "<<classname<<" : public "<< namePrefix << parentClassNameStem <<nameSuffix <<" {"<< std::endl ;
     else
-        fout  <<"class "<<classname<<" : public NT_o {"<< endl;
+        fout  <<"class "<<classname<<" : public NT_o {"<< std::endl;
 
-    fout <<"public:"<< endl <<
-    "/"<<"***   Constructors, Copy/Assignment and Destructor  ***"<<"/  " <<endl <<
-    classname<<"();"<<endl<<
-    classname<<"(const "<<classname<<" & original);" << endl <<
-    "const "<<classname<<" & operator= (const "<<classname<<" & right);" << endl <<
-    "virtual ~"<<classname<<"();" << endl <<
-    "/"<<"* ***  Methods              ***"<<"/  " << endl <<
-    "/"<<"* ***  Data                 ***"<<"/  " << endl <<
-    "protected:" << endl <<
-    "/"<<"* ***  Methods              ***"<<"/  " << endl <<
-    "/"<<"* ***  Data                 ***"<<"/  " << endl <<
-    "private:" << endl <<
-    "/"<<"* ***  Methods              ***"<<"/  " << endl <<
-    "/"<<"* ***  Data                 ***"<<"/ " << endl <<
-    "};"   << endl;
+    fout <<"public:"<< std::endl <<
+    "/"<<"***   Constructors, Copy/Assignment and Destructor  ***"<<"/  " <<std::endl <<
+    classname<<"();"<<std::endl<<
+    classname<<"(const "<<classname<<" & original);" << std::endl <<
+    "const "<<classname<<" & operator= (const "<<classname<<" & right);" << std::endl <<
+    "virtual ~"<<classname<<"();" << std::endl <<
+    "/"<<"* ***  Methods              ***"<<"/  " << std::endl <<
+    "/"<<"* ***  Data                 ***"<<"/  " << std::endl <<
+    "protected:" << std::endl <<
+    "/"<<"* ***  Methods              ***"<<"/  " << std::endl <<
+    "/"<<"* ***  Data                 ***"<<"/  " << std::endl <<
+    "private:" << std::endl <<
+    "/"<<"* ***  Methods              ***"<<"/  " << std::endl <<
+    "/"<<"* ***  Data                 ***"<<"/ " << std::endl <<
+    "};"   << std::endl;
 
 }
 
@@ -135,52 +135,52 @@ void writeHeaderFileMain(ostream& fout) {
 
 void writeSourceFileMain(ostream& fout) {
 
-    fout << endl  << "/"<<"* $"<<"Id:"<<"$ "<< endl
-    << "* $"<<"Log:" <<"$" << endl
-    << endl <<
-    "*"<<"/"<< endl <<
-    "#" <<   "include \""<<filenameHeader<<"\" "<<endl<<endl
-    <<"/"<<"* ***      CONSTRUCTORS	***"<<"/"<<endl
-    <<"/"<<"** Create a "<<classname<<" *"<<"/"<<endl
+    fout << std::endl  << "/"<<"* $"<<"Id:"<<"$ "<< std::endl
+    << "* $"<<"Log:" <<"$" << std::endl
+    << std::endl <<
+    "*"<<"/"<< std::endl <<
+    "#" <<   "include \""<<filenameHeader<<"\" "<<std::endl<<std::endl
+    <<"/"<<"* ***      CONSTRUCTORS	***"<<"/"<<std::endl
+    <<"/"<<"** Create a "<<classname<<" *"<<"/"<<std::endl
     <<classname<<"::"<<classname<<"()";
-    if (true == derivedClass) fout << "\n:\n"<<namePrefix<<parentClassNameStem<<nameSuffix<<"()"<< endl;
-    fout << "{" << endl << "}" << endl <<
+    if (true == derivedClass) fout << "\n:\n"<<namePrefix<<parentClassNameStem<<nameSuffix<<"()"<< std::endl;
+    fout << "{" << std::endl << "}" << std::endl <<
 
-    "/"<<"* ***      COPY AND ASSIGNMENT	***"<<"/ "<< endl <<
-    ""<<classname<<"::"<<classname<<"(const "<<classname<<" & original)"<< endl <<
-    "{"<< endl <<
-    " // add assignment code here"<< endl <<
-    "}"<< endl <<
-    endl <<
-    "const "<<classname<<"&  "<< endl <<
-    ""<<classname<<"::operator= (const "<<classname<<" & right)"<< endl <<
-    "{"<< endl <<
-    " if (this == &right) return *this; // Gracefully handle self assignment"<< endl <<
-    " // add assignment code here"<< endl <<
-    "  return *this;"<< endl <<
-    "}"<< endl <<
-    endl <<
+    "/"<<"* ***      COPY AND ASSIGNMENT	***"<<"/ "<< std::endl <<
+    ""<<classname<<"::"<<classname<<"(const "<<classname<<" & original)"<< std::endl <<
+    "{"<< std::endl <<
+    " // add assignment code here"<< std::endl <<
+    "}"<< std::endl <<
+    std::endl <<
+    "const "<<classname<<"&  "<< std::endl <<
+    ""<<classname<<"::operator= (const "<<classname<<" & right)"<< std::endl <<
+    "{"<< std::endl <<
+    " if (this == &right) return *this; // Gracefully handle self assignment"<< std::endl <<
+    " // add assignment code here"<< std::endl <<
+    "  return *this;"<< std::endl <<
+    "}"<< std::endl <<
+    std::endl <<
 
-    "/"<<"* ***      DESTRUCTOR		***"<<"/"<< endl <<
-    ""<<classname<<"::~"<<classname<<"()"<< endl <<
-    "{"<< endl <<
-    "}"<< endl <<
-    endl <<
-    "/"<<"* ***  PUBLIC                                    ***   */  "<< endl <<
-    "/"<<"** @short       "<< endl <<
-    "    @param      none"<< endl <<
-    "    @return     none"<< endl <<
-    "   \\warning    unknown"<< endl <<
-    "   \\bug        unknown"<< endl <<
-    " */"<< endl <<
-    "void"<< endl <<
-    ""<<classname<<"::() const"<< endl <<
-    "{"<< endl <<
-    "}"<< endl <<
-    endl <<
-    "/"<<"* ***  PROTECTED                         ***   */"<< endl <<
-    "/"<<"* ***  PRIVATE                           ***   */"<< endl <<
-    "" << endl;
+    "/"<<"* ***      DESTRUCTOR		***"<<"/"<< std::endl <<
+    ""<<classname<<"::~"<<classname<<"()"<< std::endl <<
+    "{"<< std::endl <<
+    "}"<< std::endl <<
+    std::endl <<
+    "/"<<"* ***  PUBLIC                                    ***   */  "<< std::endl <<
+    "/"<<"** @short       "<< std::endl <<
+    "    @param      none"<< std::endl <<
+    "    @return     none"<< std::endl <<
+    "   \\warning    unknown"<< std::endl <<
+    "   \\bug        unknown"<< std::endl <<
+    " */"<< std::endl <<
+    "void"<< std::endl <<
+    ""<<classname<<"::() const"<< std::endl <<
+    "{"<< std::endl <<
+    "}"<< std::endl <<
+    std::endl <<
+    "/"<<"* ***  PROTECTED                         ***   */"<< std::endl <<
+    "/"<<"* ***  PRIVATE                           ***   */"<< std::endl <<
+    "" << std::endl;
 }
 
 /* #]  : */
@@ -190,40 +190,40 @@ void writeSourceFileMain(ostream& fout) {
 void
 writePreamble(ostream& fout, string nameOfPreambleFile, string filetypeName)
 {
-    fout << "/"<<"**"<<"\\"<<"file "<<nameOfPreambleFile<<" - "<<classname<<" class "<<filetypeName<<" \n * by Ahmed Aldo Faisal &copy; created "<<creationDate<<"  \n *"<<"/"<< endl;
+    fout << "/"<<"**"<<"\\"<<"file "<<nameOfPreambleFile<<" - "<<classname<<" class "<<filetypeName<<" \n * by Ahmed Aldo Faisal &copy; created "<<creationDate<<"  \n *"<<"/"<< std::endl;
 
-    fout <<"/"<<"* NetTrader - visualisation, scientific and financial analysis and simulation system" << endl;
-    fout <<" * Version:  "<<versionMajor<<"."<<versionMinor<<endl;
-    fout <<" * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    "<< endl <<
-    " *"<< endl <<
-    " * This library is free software; you can redistribute it and/or"<< endl <<
-    " * modify it under the terms of the GNU Library General Public"<< endl <<
-    " * License as published by the Free Software Foundation; either"<< endl <<
-    " * version 2 of the License, or (at your option) any later version."<< endl <<
-    " *"<< endl <<
-    " * This library is distributed in the hope that it will be useful,"<< endl <<
-    " * but WITHOUT ANY WARRANTY; without even the implied warranty of"<< endl <<
-    " * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU"<< endl <<
-    " * Library General Public License for more details."<< endl <<
-    " *"<< endl <<
-    " * You should have received a copy of the GNU Library General Public"<< endl <<
-    " * License along with this library; if not, write to the Free"<< endl <<
-    " * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."<< endl <<
-    " */ " << endl <<
-    "  "<< endl;
+    fout <<"/"<<"* NetTrader - visualisation, scientific and financial analysis and simulation system" << std::endl;
+    fout <<" * Version:  "<<versionMajor<<"."<<versionMinor<<std::endl;
+    fout <<" * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    "<< std::endl <<
+    " *"<< std::endl <<
+    " * This library is free software; you can redistribute it and/or"<< std::endl <<
+    " * modify it under the terms of the GNU Library General Public"<< std::endl <<
+    " * License as published by the Free Software Foundation; either"<< std::endl <<
+    " * version 2 of the License, or (at your option) any later version."<< std::endl <<
+    " *"<< std::endl <<
+    " * This library is distributed in the hope that it will be useful,"<< std::endl <<
+    " * but WITHOUT ANY WARRANTY; without even the implied warranty of"<< std::endl <<
+    " * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU"<< std::endl <<
+    " * Library General Public License for more details."<< std::endl <<
+    " *"<< std::endl <<
+    " * You should have received a copy of the GNU Library General Public"<< std::endl <<
+    " * License along with this library; if not, write to the Free"<< std::endl <<
+    " * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA."<< std::endl <<
+    " */ " << std::endl <<
+    "  "<< std::endl;
 }
 /* #]  : */
 
 void writeHeaderFooter(ostream& fout)
 {
-    fout << "#endif /* _"<<filePrefix<<classnameStem << fileSuffix <<"_h_ */ "<< endl;
+    fout << "#endif /* _"<<filePrefix<<classnameStem << fileSuffix <<"_h_ */ "<< std::endl;
 
-    fout << endl <<"/"<<"* File skeleton generated by GenNTObj version "<<GENNTOBJ_MAJOR_VERSION<<"."<<GENNTOBJ_MINOR_VERSION<<". */" <<endl;
+    fout << std::endl <<"/"<<"* File skeleton generated by GenNTObj version "<<GENNTOBJ_MAJOR_VERSION<<"."<<GENNTOBJ_MINOR_VERSION<<". */" <<std::endl;
 }
 
 void writeFooter(ostream& fout)
 {
-    fout << endl <<"/"<<"* File skeleton generated by GenNTObj version "<<GENNTOBJ_MAJOR_VERSION<<"."<<GENNTOBJ_MINOR_VERSION<<". */" <<endl;
+    fout << std::endl <<"/"<<"* File skeleton generated by GenNTObj version "<<GENNTOBJ_MAJOR_VERSION<<"."<<GENNTOBJ_MINOR_VERSION<<". */" <<std::endl;
 }
 
 fstream hfout;
@@ -234,33 +234,33 @@ fstream sfout;
 int
 main(int __attribute__((unused)) argc, char __attribute__((unused)) *argv[])
 {
-    cout << " GenNTObj - Utility to generate a .h and .cpp file for NetTrader" << endl;
-    cout << " by Ahmed A. Faisal, 22.4.1999 (c)" << endl;
-    cout << " Version "<<GENNTOBJ_MAJOR_VERSION<<"."<<GENNTOBJ_MINOR_VERSION<<" ."<<endl;
-    cout << endl << "Please enter the class name prefix (e.g. NT or NT3D)" << endl;
+    std::cout << " GenNTObj - Utility to generate a .h and .cpp file for NetTrader" << std::endl;
+    std::cout << " by Ahmed A. Faisal, 22.4.1999 (c)" << std::endl;
+    std::cout << " Version "<<GENNTOBJ_MAJOR_VERSION<<"."<<GENNTOBJ_MINOR_VERSION<<" ."<<std::endl;
+    std::cout << std::endl << "Please enter the class name prefix (e.g. NT or NT3D)" << std::endl;
     cin >> namePrefix;
     namePrefix += "_";
     {
         string answer = "n";
         do {
-            cout << "Is this a new class (n,N) or a derived class (d,D) ?" ;
+            std::cout << "Is this a new class (n,N) or a derived class (d,D) ?" ;
             cin >> answer;
         } while ((answer != "n")&&(answer != "N")&&(answer != "d")&&(answer != "D"));
         if ((answer == "d")||(answer == "D")) {
             derivedClass = true;
-            cout << "Please enter the parent class name stem (e.g. parent NT3D_matrix_o -> matrix)" <<endl;
+            std::cout << "Please enter the parent class name stem (e.g. parent NT3D_matrix_o -> matrix)" <<std::endl;
             cin >> parentClassNameStem;
         }
         else derivedClass = false;
     }
-    cout << endl << "Please enter the stem of the full class name"<<endl
-         <<"(e.g. flexible_matrix for a class with name NT3D_flexible_matrix_o" << endl;
+    std::cout << std::endl << "Please enter the stem of the full class name"<<std::endl
+         <<"(e.g. flexible_matrix for a class with name NT3D_flexible_matrix_o" << std::endl;
     cin >> classnameStem;
-    cout << endl << "Please enter the current major version of NetTrader when this class is added"<<endl;
+    std::cout << std::endl << "Please enter the current major version of NetTrader when this class is added"<<std::endl;
     cin >> versionMajor;
-    cout << endl << "Please enter the current minor version of NetTrader when this class is added"<<endl;
+    std::cout << std::endl << "Please enter the current minor version of NetTrader when this class is added"<<std::endl;
     cin >> versionMinor;
-    cout << endl << "Please enter the creation date (e.g. 3.7.1999) "<<endl;
+    std::cout << std::endl << "Please enter the creation date (e.g. 3.7.1999) "<<std::endl;
     cin >> creationDate;
 
     /* generate the file prefix */

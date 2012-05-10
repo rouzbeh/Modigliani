@@ -66,18 +66,18 @@ public:
   /* ***  Methods              ***/  
   /* ***  Data                 ***/
   /** heading of object */
-  NT_vector3_o h;
-  /** velocity vector */  
-  NT_vector3_o v;
-  /** position vector, synch with projectile.oPosition */
-  NT_vector3_o x;
+  NT_std::vector3_o h;
+  /** velocity std::vector */  
+  NT_std::vector3_o v;
+  /** position std::vector, synch with projectile.oPosition */
+  NT_std::vector3_o x;
   /** mass (unused!) */
-  NTreal m;
+  mbase::Mreal m;
   /** timestep */
   NTlong timestep;
   /** Time resolution, how many seconds does a time step correspond. 
       This is not the actual computational duration of a timesteo */
-  NTreal stepDuration;
+  mbase::Mreal stepDuration;
   private:
   /* ***  Methods              ***/  
   /* ***  Data                 ***/

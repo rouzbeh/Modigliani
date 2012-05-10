@@ -85,7 +85,7 @@
 
 /* ***      CONSTRUCTORS	***/
 /**  */
-NT3D_camera_o::NT3D_camera_o(const NT_vector3_o & oNewPosition) :
+NT3D_camera_o::NT3D_camera_o(const NT_std::vector3_o & oNewPosition) :
 		NT3D_object_o(oNewPosition), oUp(0, 1, 0) {
 	oTarget = NT_UnitXVec3() + oNewPosition;
 	cameraChanged = true;
@@ -94,8 +94,8 @@ NT3D_camera_o::NT3D_camera_o(const NT_vector3_o & oNewPosition) :
 }
 
 /** 2DO TARGET unused, rotation used instead !*/
-NT3D_camera_o::NT3D_camera_o(const NT_vector3_o & oNewPosition,
-		const NT_vector3_o & oNewTarget) :
+NT3D_camera_o::NT3D_camera_o(const NT_std::vector3_o & oNewPosition,
+		const NT_std::vector3_o & oNewTarget) :
 		NT3D_object_o(oNewPosition), oUp(0, 1, 0) {
 	oTarget = oNewTarget;
 	cameraChanged = true;

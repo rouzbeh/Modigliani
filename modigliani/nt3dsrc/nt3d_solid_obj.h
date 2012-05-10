@@ -34,7 +34,7 @@
  *
  * Revision 1.12  2000/06/26 19:14:06  face
  * finally found the error that caused solid object to disappear:
- * the scaling vector was not constructed in the 2nd constructor
+ * the scaling std::vector was not constructed in the 2nd constructor
  * of the solid bject thus resulting in a zero object
  * new demo file: showing some random graphics
  *
@@ -144,17 +144,17 @@
  */
 class NT3D_solid_o : public NT3D_surfaced_object_o {
 public:
-  NT3D_solid_o(const NT_vector3_o & oNewPosition = NT_OriginVec3());
+  NT3D_solid_o(const NT_std::vector3_o & oNewPosition = NT_OriginVec3());
   NT3D_solid_o(const NT3D_solid_o & original);
   const NT3D_solid_o & operator= (const NT3D_solid_o & right);
   ~NT3D_solid_o();
   /*   Methods                */  
-  void Scale( NT_vector3_o oDeltaScaling );
-  void ScaleX ( NTreal deltaSclX);
-  void ScaleY ( NTreal deltaSclY);
-  void ScaleZ ( NTreal deltaSclZ);
-  void ScaleXYZ ( NTreal deltaSclXYZ );
-  void ScaleUnit(){ oScaling = NT_vector3_o(1.0,1.0,1.0);}
+  void Scale( NT_std::vector3_o oDeltaScaling );
+  void ScaleX ( mbase::Mreal deltaSclX);
+  void ScaleY ( mbase::Mreal deltaSclY);
+  void ScaleZ ( mbase::Mreal deltaSclZ);
+  void ScaleXYZ ( mbase::Mreal deltaSclXYZ );
+  void ScaleUnit(){ oScaling = NT_std::vector3_o(1.0,1.0,1.0);}
   
   /*   Data                   */  
   protected:
@@ -167,7 +167,7 @@ public:
   GLUquadricObj * pQuadObj;
   GLint slices;
   GLint stacks;
-  NT_vector3_o oScaling;
+  NT_std::vector3_o oScaling;
   NTint drawStyle;
   private:
   /*   Methods                */  

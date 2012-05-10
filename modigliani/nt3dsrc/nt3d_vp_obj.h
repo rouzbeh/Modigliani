@@ -20,49 +20,11 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */ 
 
-/* $Id: nt3d_vp_obj.h,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
- * $Log: nt3d_vp_obj.h,v $
- * Revision 1.1.1.1  2004/12/16 01:38:36  face
- * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
- *
- * Revision 1.1  2001/06/29 13:16:55  face
- * *** empty log message ***
- *
- * Revision 1.3  2000/10/03 08:29:59  face
- * *** empty log message ***
- *
- * Revision 1.2  2000/06/13 20:10:26  face
- * *** empty log message ***
- *
- * Revision 1.1.1.1  1999/07/03 15:17:20  face
- * Switching from RCS to CVS to improve
- * the handling of the new src code subdirectory
- * structure. aaf
- *
- *
- * Revision 1.3  1999/06/19 16:15:49  face
- * *** empty log message ***
- *
- * Revision 1.2  1999/06/06 23:51:28  face
- * *** empty log message ***
- *
- * Revision 1.1  1999/05/13 11:34:59  face
- * Initial revision
- *
- * Revision 1.2  1999/05/09 09:34:15  face
- * corrected output
- *
- * Revision 1.1  1999/04/22 11:37:49  face
- * Initial revision
- *
-*/
 #ifndef _nt3d_vp_h_
 #define _nt3d_vp_h_
 
 
-#include "ntsrc/nt_main.h"
-#include "ntsrc/nt_types.h"
-#include "ntsrc/nt_obj.h"
+#include "ntsrc/Obj.h"
 
 #include "nt3d_obj.h"
 #include "nt3d_bitmap_obj.h"
@@ -95,14 +57,14 @@ public:
   virtual void Init()=0;
   virtual void MakeCurrent()=0;
   virtual void SwapBuffer(){};
-  virtual NTreturn Resize(NTsize width, NTsize height)=0;
+  virtual mbase::Mreturn Resize(mbase::Msize width, mbase::Msize height)=0;
   virtual void Redraw()=0;
-  NTreturn Connect(NT3D_vp_o * connectingVP);
-  NTreturn Disconnect();
+  mbase::Mreturn Connect(NT3D_vp_o * connectingVP);
+  mbase::Mreturn Disconnect();
   virtual NT3D_bitmap_o View2Bitmap()=0;
   virtual NT3D_bitmap_o * View2BitmapPtr(NT3D_bitmap_o * bmpPtr)=0;
-  virtual NTsize _width()=0;
-  virtual NTsize _height()=0;
+  virtual mbase::Msize _width()=0;
+  virtual mbase::Msize _height()=0;
   /* ***  Data                 ***/  
   protected:
   /* ***  Methods              ***/  
@@ -111,7 +73,7 @@ public:
   private:
   /* ***  Methods              ***/  
   /* ***  Data                 ***/
-  NTbool bConnected;
+  mbase::Mbool bConnected;
  
 };
 #endif /* _nt3d_vp_h_ */ 

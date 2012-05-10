@@ -66,8 +66,8 @@
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NT3D_rainbow_texture_o */
-NT3D_rainbow_texture_o::NT3D_rainbow_texture_o(NTsize newTextureWidth, 
-							                   NTsize newTextureHeight)
+NT3D_rainbow_texture_o::NT3D_rainbow_texture_o(mbase::Msize newTextureWidth, 
+							                   mbase::Msize newTextureHeight)
 :
 NT3D_pixel_texture_o(newTextureWidth, newTextureHeight)
 {
@@ -90,7 +90,7 @@ NT3D_rainbow_texture_o::operator= (const NT3D_rainbow_texture_o & right)
 /* ***      DESTRUCTOR		***/
 NT3D_rainbow_texture_o::~NT3D_rainbow_texture_o()
 {
-	cerr << "NT3D_rainbow_texture_o::~NT3D_rainbow_texture_o()" << endl;
+	cerr << "NT3D_rainbow_texture_o::~NT3D_rainbow_texture_o()" << std::endl;
 }
 
 /* ***  PUBLIC                                    ***   */  
@@ -104,8 +104,8 @@ NT3D_rainbow_texture_o::~NT3D_rainbow_texture_o()
 
 /* ***  PROTECTED                         ***   */
 /** Make a colored point within the normalised texure area [0,1]x[0,1] */
-NTreal *
-NT3D_rainbow_texture_o::MakeRGBATexturePoint(NTreal* colorVec, NTreal coorX, NTreal coorY)
+mbase::Mreal *
+NT3D_rainbow_texture_o::MakeRGBATexturePoint(mbase::Mreal* colorVec, mbase::Mreal coorX, mbase::Mreal coorY)
 {
     colorVec[0] = (0.5+0.5*sin( coorX * 0.9));
 	colorVec[1] = (0.5+0.5*cos(1.3 * coorY + 2));
@@ -115,13 +115,13 @@ NT3D_rainbow_texture_o::MakeRGBATexturePoint(NTreal* colorVec, NTreal coorX, NTr
 	return colorVec;
 }
 
-NTreturn
+mbase::Mreturn
 NT3D_rainbow_texture_o::AssignPixelTexture()
 {
-	NTsize i, j;
-    NTreal ti, tj;
-	NTsize tmp;
-	NTreal* tmpColor = new NTreal[4];
+	mbase::Msize i, j;
+    mbase::Mreal ti, tj;
+	mbase::Msize tmp;
+	mbase::Mreal* tmpColor = new mbase::Mreal[4];
 
     for (i = 0; i < textureWidth; i++) {
         ti = 2.0*M_PI*i/textureWidth;
@@ -137,7 +137,7 @@ NT3D_rainbow_texture_o::AssignPixelTexture()
     }
     delete[] tmpColor;
     
-    return NT_SUCCESS;
+    return mbase::M_SUCCESS;
 }
 
 /* ***  PRIVATE                           ***   */

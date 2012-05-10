@@ -23,16 +23,11 @@
 #ifndef _mcore_membrane_compartment_sequence_h_
 #define _mcore_membrane_compartment_sequence_h_
 
-/* NT core includes */
-#include "ntsrc/nt_main.h" 
-#include "ntsrc/nt_types.h" 
-#include "ntsrc/nt_obj.h"
 /* Parent includes */
 #include "Membrane.h"
 /* NT includes */
 #include "Tridiag_solver.h"
 #include "Cylindrical_compartment.h"
-#include "ntsrc/nt_error_obj.h"
 /* other includes */
 #include <fstream>
 #include <vector>
@@ -57,83 +52,83 @@ public:
 			const Membrane_compartment_sequence & right);
 	virtual ~Membrane_compartment_sequence();
 	/* ***  Methods              ***/
-	NTreturn PushBack(Cylindrical_compartment * compartPtr);
-	NTreturn Init();
-	NTreturn InitialStep();
-	NTreturn step();
+	mbase::Mreturn PushBack(Cylindrical_compartment * compartPtr);
+	mbase::Mreturn Init();
+	mbase::Mreturn InitialStep();
+	mbase::Mreturn step();
 	void ShowVoltage() {
-		cerr << "Voltage [";
-		for (NTsize ll = 0; ll < _numCompartments(); ll++) {
-			cout << compartmentVec[ll]->_vM() << "\t";
-			cerr << compartmentVec[ll]->_vM() << " ";
+		std::cerr << "Voltage [";
+		for (mbase::Msize ll = 0; ll < _numCompartments(); ll++) {
+			std::cout << compartmentVec[ll]->_vM() << "\t";
+			std::cerr << compartmentVec[ll]->_vM() << " ";
 		}
-		cerr << "]" << endl;
+		std::cerr << "]" << std::endl;
 	}
-	NTreal MembraneVoltage(NTsize compartmentId /* 1..numCompartments*/) {
+	mbase::Mreal MembraneVoltage(mbase::Msize compartmentId /* 1..numCompartments*/) {
 		return (compartmentVec[compartmentId - 1]->_vM());
 	}
-	NTreturn InjectCurrent(NTreal current /* in nA */, NTsize compartmentId);
-	NTsize _numCompartments() const {
+	mbase::Mreturn InjectCurrent(mbase::Mreal current /* in nA */, mbase::Msize compartmentId);
+	mbase::Msize _numCompartments() const {
 		return (numCompartments);
 	}
 	/**  */
 	/**  */
-	NTreal CompartmentSequenceChannelStateTimeConstant() const;
+	mbase::Mreal CompartmentSequenceChannelStateTimeConstant() const;
 	void ShowHinesMatrix();
-	NTreal AttachedCurrent(NTsize compIndex, NTsize currIndex) {
-		NT_ASSERT(compIndex > 0);
+	mbase::Mreal AttachedCurrent(mbase::Msize compIndex, mbase::Msize currIndex) {
+		M_ASSERT(compIndex > 0);
 		return (compartmentVec[compIndex - 1]->AttachedCurrent(currIndex));
 	}
-	vector<NTreal> open_channels(NTsize currIndex) const;
-	vector<NTreal> OpenChannelsRatio(NTsize currIndex) const;
-	vector<NTreal> NumChannels(NTsize currIndex) const;
-	vector<NTreal> NumChannelsInState(NTsize currIndex, NTsize state) const;
-	vector<NTreal> _vVec() const;
-	NTreturn WriteMembranePotential(ostream & file) const;
-	NTreturn WriteCompartmentData(ostream* file, NTsize to_print) const;
-	NTreturn WriteCurrent(ostream & file,
-			NTsize currentIndex /* 1..numCurrents in compartment */) const;
-	NTreturn WriteCurrent(ostream & file,
-			NTsize currentIndex /* 1..numCurrents in compartment */,
-			vector<NTsize> to_print) const;
-	NTreturn WriteMembranePotentialASCII(ostream & file) const;
-	NTreturn WriteCurrentAscii(ostream & file,
-			NTsize currentIndex /* 1..numCurrents in compartment */) const;
-	Cylindrical_compartment* ReturnCompartmentVec(NTsize index);
+	std::vector<mbase::Mreal> open_channels(mbase::Msize currIndex) const;
+	std::vector<mbase::Mreal> OpenChannelsRatio(mbase::Msize currIndex) const;
+	std::vector<mbase::Mreal> NumChannels(mbase::Msize currIndex) const;
+	std::vector<mbase::Mreal> NumChannelsInState(mbase::Msize currIndex, mbase::Msize state) const;
+	std::vector<mbase::Mreal> _vVec() const;
+	mbase::Mreturn WriteMembranePotential(std::ostream & file) const;
+	mbase::Mreturn WriteCompartmentData(std::ostream* file, mbase::Msize to_print) const;
+	mbase::Mreturn WriteCurrent(std::ostream & file,
+			mbase::Msize currentIndex /* 1..numCurrents in compartment */) const;
+	mbase::Mreturn WriteCurrent(std::ostream & file,
+			mbase::Msize currentIndex /* 1..numCurrents in compartment */,
+			std::vector<mbase::Msize> to_print) const;
+	mbase::Mreturn WriteMembranePotentialASCII(std::ostream & file) const;
+	mbase::Mreturn WriteCurrentAscii(std::ostream & file,
+			mbase::Msize currentIndex /* 1..numCurrents in compartment */) const;
+	Cylindrical_compartment* ReturnCompartmentVec(mbase::Msize index);
 	/**  */
 	bool GillespieStep();
 	/**  */
-	vector<NTreal> GiveCurrent(NTsize index);
+	std::vector<mbase::Mreal> GiveCurrent(mbase::Msize index);
 	/* ***  Data                 ***/
-	vector<Cylindrical_compartment*> compartmentVec;
+	std::vector<Cylindrical_compartment*> compartmentVec;
 
 protected:
 	/* ***  Methods              ***/
 	/** CRAP not working */
-	vector<NTreal> ZadorPearlmutterSolveTriDiag(vector<NTreal> lNewVec,
-			vector<NTreal> dNewVec, vector<NTreal> uNewVec,
-			vector<NTreal> rNewVec) const;
+	std::vector<mbase::Mreal> ZadorPearlmutterSolveTriDiag(std::vector<mbase::Mreal> lNewVec,
+			std::vector<mbase::Mreal> dNewVec, std::vector<mbase::Mreal> uNewVec,
+			std::vector<mbase::Mreal> rNewVec) const;
 	/** CRAP not working */
-	vector<NTreal> MascagniSolveTriDiag(vector<NTreal> lNewVec,
-			vector<NTreal> dNewVec, vector<NTreal> uNewVec,
-			vector<NTreal> rNewVec) const;
+	std::vector<mbase::Mreal> MascagniSolveTriDiag(std::vector<mbase::Mreal> lNewVec,
+			std::vector<mbase::Mreal> dNewVec, std::vector<mbase::Mreal> uNewVec,
+			std::vector<mbase::Mreal> rNewVec) const;
 	/** WORKING ! */
-	vector<NTreal> NumericalRecipesSolveTriDiag(const vector<NTreal> & l,
-			const vector<NTreal> & d, const vector<NTreal> & u,
-			const vector<NTreal> & r) const;
+	std::vector<mbase::Mreal> NumericalRecipesSolveTriDiag(const std::vector<mbase::Mreal> & l,
+			const std::vector<mbase::Mreal> & d, const std::vector<mbase::Mreal> & u,
+			const std::vector<mbase::Mreal> & r) const;
 	/* ***  Data                 ***/
 
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	vector<NTreal> lVec;
-	vector<NTreal> dVec;
-	vector<NTreal> uVec;
+	std::vector<mbase::Mreal> lVec;
+	std::vector<mbase::Mreal> dVec;
+	std::vector<mbase::Mreal> uVec;
 
 //This should be in each compartment
-//vector <NTreal> vVec;
-	vector<NTreal> rVec;
-	NTsize numCompartments;
+//std::vector <mbase::Mreal> vVec;
+	std::vector<mbase::Mreal> rVec;
+	mbase::Msize numCompartments;
 	bool initialised;
 	bool swCrankNicholson;
 };

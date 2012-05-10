@@ -37,7 +37,7 @@ using namespace mcore;
 /* ***      CONSTRUCTORS	***/
 /** Create a Membrane_current */
 Membrane_current::Membrane_current(
-		NTreal newReversalPotential /* in mV */) :
+		mbase::Mreal newReversalPotential /* in mV */) :
 		Object() {
 	simulationMode = NTBP_DETERMINISTIC;
 	reversalPotential = newReversalPotential; //in mV

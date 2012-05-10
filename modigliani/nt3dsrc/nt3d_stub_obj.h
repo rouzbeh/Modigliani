@@ -66,15 +66,15 @@ protected:
 	/* ***  Methods              ***/
 	virtual void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl,
 			NTint __attribute__((unused)) value) {
-		cerr << "Not implemented" << endl;
+		cerr << "Not implemented" << std::endl;
 	}
 	virtual void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl,
-			NTreal __attribute__((unused)) value) {
-		cerr << "Not implemented" << endl;
+			mbase::Mreal __attribute__((unused)) value) {
+		cerr << "Not implemented" << std::endl;
 	}
 	virtual void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl,
-			NT_vector_o __attribute__((unused)) value) {
-		cerr << "Not implemented" << endl;
+			NT_std::vector_o __attribute__((unused)) value) {
+		cerr << "Not implemented" << std::endl;
 	}
 	/* ***  Data                 ***/
 private:

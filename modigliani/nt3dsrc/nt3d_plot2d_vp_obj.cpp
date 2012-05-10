@@ -105,18 +105,18 @@ void NT3D_plot2d_vp_o::Draw() {
 }
 
 void NT3D_plot2d_vp_o::DrawCoordinateSystem(/* to be optionalised */) {
-	NTreal x, y;
-	NTreal xLen = fabs(xMax - xMin);
-	NTreal yLen = fabs(yMax - yMin);
+	mbase::Mreal x, y;
+	mbase::Mreal xLen = fabs(xMax - xMin);
+	mbase::Mreal yLen = fabs(yMax - yMin);
 
-	NTreal minorXTickLength = 0.01 * yLen;
-	NTreal majorXTickLength = 0.02 * yLen;
-	NTreal minorXTickSpacing = 1.0;
-	NTsize minor2MajorXTickRatio = 10.0;
-	NTreal minorYTickLength = 0.01 * xLen;
-	NTreal majorYTickLength = 0.02 * xLen;
-	NTreal minorYTickSpacing = 1.0;
-	NTsize minor2MajorYTickRatio = 10.0;
+	mbase::Mreal minorXTickLength = 0.01 * yLen;
+	mbase::Mreal majorXTickLength = 0.02 * yLen;
+	mbase::Mreal minorXTickSpacing = 1.0;
+	mbase::Msize minor2MajorXTickRatio = 10.0;
+	mbase::Mreal minorYTickLength = 0.01 * xLen;
+	mbase::Mreal majorYTickLength = 0.02 * xLen;
+	mbase::Mreal minorYTickSpacing = 1.0;
+	mbase::Msize minor2MajorYTickRatio = 10.0;
 
 	glColor3f(1.0, 1.0, 1.0);
 	glBegin(GL_POINTS);
@@ -132,7 +132,7 @@ void NT3D_plot2d_vp_o::DrawCoordinateSystem(/* to be optionalised */) {
 
 	/* x axis ticks */
 	y = yMin;
-	NTsize ll;
+	mbase::Msize ll;
 	for (ll = 0; ll < (float) xLen / minorXTickSpacing; ll++) {
 		x = ll * minorXTickSpacing
 				+ minorXTickSpacing * floor(xMin / minorXTickSpacing);

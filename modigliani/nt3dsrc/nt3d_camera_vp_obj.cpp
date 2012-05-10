@@ -151,14 +151,14 @@ NT3D_camera_vp_o::Draw()
 }
 
 
-NTbool 
+mbase::Mbool 
 NT3D_camera_vp_o::SetCamera(NT3D_camera_o * newCameraPtr)
 {
 		if (NT_TRUE == haveCamera)
 			NT_CERR(3,"NT3D_camera_vp_o::AddCamera - warning : new universe is overwriting old universe pointer.");
 		cameraPtr = newCameraPtr;
 		haveCamera = true;
-		return NT_SUCCESS;
+		return mbase::M_SUCCESS;
 
 }
 
@@ -179,11 +179,11 @@ NT3D_camera_vp_o::InitChild()
 }
 
 /* ***  PROTECTED                         ***   */
-NTreturn 
-NT3D_camera_vp_o::ResizeChild(NTsize width, NTsize height)
+mbase::Mreturn 
+NT3D_camera_vp_o::ResizeChild(mbase::Msize width, mbase::Msize height)
 {
-	cameraPtr->Set_aspectRatio(width/(NTreal)height);
-	return NT_SUCCESS;
+	cameraPtr->Set_aspectRatio(width/(mbase::Mreal)height);
+	return mbase::M_SUCCESS;
 }
 
 

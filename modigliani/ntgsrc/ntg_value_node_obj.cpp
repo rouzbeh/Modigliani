@@ -34,7 +34,7 @@
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NTG_value_node_o */
-NTG_value_node_o::NTG_value_node_o(NTid newNodeId) :
+NTG_value_node_o::NTG_value_node_o(mbase::Mid newNodeId) :
 		NTG_node_o(newNodeId) {
 }
 
@@ -49,9 +49,9 @@ NTG_value_node_o::NTG_value_node_o(
 const NTG_value_node_o&
 NTG_value_node_o::operator=(const NTG_value_node_o & right) {
 	if (this == &right)
-		return *this; // Gracefully handle self assignment
+		return (*this); // Gracefully handle self assignment
 // add assignment code here
-	return *this;
+	return (*this);
 }
 
 /* ***      DESTRUCTOR		***/

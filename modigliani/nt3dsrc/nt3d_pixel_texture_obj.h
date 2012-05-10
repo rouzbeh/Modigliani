@@ -74,7 +74,7 @@
 class NT3D_pixel_texture_o: public NT3D_texture_o {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	NT3D_pixel_texture_o(NTsize newTextureWidth = 64, NTsize newTextureHeight =
+	NT3D_pixel_texture_o(mbase::Msize newTextureWidth = 64, mbase::Msize newTextureHeight =
 			64);
 	NT3D_pixel_texture_o(const NT3D_pixel_texture_o & original);
 	const NT3D_pixel_texture_o & operator=(const NT3D_pixel_texture_o & right);
@@ -83,20 +83,20 @@ public:
 	/* ***  Data                 ***/
 protected:
 	/* ***  Methods              ***/
-	NTreturn AssignTexture() {
+	mbase::Mreturn AssignTexture() {
 		return AssignPixelTexture();
 	}
-	virtual NTreturn AssignPixelTexture() {
-		return NT_FAIL;
+	virtual mbase::Mreturn AssignPixelTexture() {
+		return mbase::M_FAIL;
 	}
 	/** Make a colored point within the normalised texure area [0,1]x[0,1] */
-	virtual NTreal* MakeRGBATexturePoint(
-			NTreal __attribute__((unused)) *colorVec,
-			NTreal __attribute__((unused)) coorX,
-			NTreal __attribute__((unused)) coorY) {
+	virtual mbase::Mreal* MakeRGBATexturePoint(
+			mbase::Mreal __attribute__((unused)) *colorVec,
+			mbase::Mreal __attribute__((unused)) coorX,
+			mbase::Mreal __attribute__((unused)) coorY) {
 		cerr
 				<< "NT3D_pixel_texture_o::MakeRGBATexturePoint - Warning : Not overriden in derived class. "
-				<< endl;
+				<< std::endl;
 		return NULL;
 	}
 	;

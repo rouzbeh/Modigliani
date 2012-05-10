@@ -34,7 +34,7 @@
 *
 * Revision 1.2  2000/06/26 19:14:06  face
 * finally found the error that caused solid object to disappear:
-* the scaling vector was not constructed in the 2nd constructor
+* the scaling std::vector was not constructed in the 2nd constructor
 * of the solid bject thus resulting in a zero object
 * new demo file: showing some random graphics
 *
@@ -49,7 +49,7 @@
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NT3D_open_box_o */
-NT3D_open_box_o::NT3D_open_box_o(NTreal newWidth, NTreal newDepth, NTreal newHeight)
+NT3D_open_box_o::NT3D_open_box_o(mbase::Mreal newWidth, mbase::Mreal newDepth, mbase::Mreal newHeight)
 :
 NT3D_surfaced_object_o(),
 oScaling(1,1,1),
@@ -94,9 +94,9 @@ NT3D_open_box_o::~NT3D_open_box_o()
 void
 NT3D_open_box_o::DrawSurfacedObj() 
 {
-	NTreal x = depth/2 * oScaling.x;
-	NTreal y = height/2 * oScaling.y;
-	NTreal z = width/2 * oScaling.z;
+	mbase::Mreal x = depth/2 * oScaling.x;
+	mbase::Mreal y = height/2 * oScaling.y;
+	mbase::Mreal z = width/2 * oScaling.z;
 	
 	oMaterial.Paint();
     oTexturePtr->Paint();

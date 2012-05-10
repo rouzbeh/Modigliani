@@ -13,8 +13,8 @@
  * version 2 of the License, or (at your option) any later version.
  *
  * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * but WITHOUT ANY WARRAMY; without even the implied warranty of
+ * MERCHAMABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Library General Public License for more details.
  *
  * You should have received a copy of the GNU Library General Public
@@ -24,7 +24,7 @@
 
 /**
  Genuine double matrix class
- IMPORTANT : INDICES in Matrix START with (1,1)
+ IMPORTAM : INDICES in Matrix START with (1,1)
  and end with (row,col) !
 
  NOTE :
@@ -33,8 +33,8 @@
  might modify the (*this) object and some generate a new
  one
  */
-#ifndef _mmath_dmatrix_h_
-#define _mmath_dmatrix_h_
+#ifndef _mbase_dmatrix_h_
+#define _mbase_dmatrix_h_
 
 #include <iostream>
 #include <cstdlib>
@@ -53,7 +53,7 @@
 #include <mset.h>
 #endif
 
-namespace mmath {
+namespace mbase {
 class DMatrix {
 private:
 	int row, col;
@@ -86,44 +86,44 @@ public:
 };
 }
 
-mmath::DMatrix::DMatrix(int r, int c) {
+mbase::DMatrix::DMatrix(int r, int c) {
 	elements = new double[r * c + 1];
 	memset(elements, ' ', (r * c + 1) * sizeof(double));
 	row = r;
 	col = c;
 }
 
-mmath::DMatrix::DMatrix(int r) {
+mbase::DMatrix::DMatrix(int r) {
 	elements = new double[r + 1];
 	memset(elements, ' ', (r + 1) * sizeof(double));
 	row = r;
 	col = 1;
 }
 
-mmath::DMatrix::DMatrix(mmath::DMatrix &copy) {
+mbase::DMatrix::DMatrix(mbase::DMatrix &copy) {
 	row = copy.row;
 	col = copy.col;
 	elements = new double[row * col + 1];
 	memcpy(elements, copy.elements, (row * col + 1) * sizeof(double));
 }
 
-mmath::DMatrix mmath::DMatrix::operator+(mmath::DMatrix &right) {
-	mmath::DMatrix left(*this);
+mbase::DMatrix mbase::DMatrix::operator+(mbase::DMatrix &right) {
+	mbase::DMatrix left(*this);
 	for (int i = 1; i <= row * col; i++)
 		left.elements[i] = left.elements[i] + right.elements[i];
 	return (left);
 }
 
-mmath::DMatrix mmath::DMatrix::operator-(mmath::DMatrix &right) {
-	mmath::DMatrix left(*this);
+mbase::DMatrix mbase::DMatrix::operator-(mbase::DMatrix &right) {
+	mbase::DMatrix left(*this);
 	for (int i = 1; i <= row * col; i++) {
 		left.elements[i] = left.elements[i] - right.elements[i];
 	}
 	return (left);
 }
 
-mmath::DMatrix mmath::DMatrix::operator*(mmath::DMatrix &right) {
-	mmath::DMatrix prod(row, right.col);
+mbase::DMatrix mbase::DMatrix::operator*(mbase::DMatrix &right) {
+	mbase::DMatrix prod(row, right.col);
 	for (int i = 1; i <= row; i++) {
 		for (int j = 1; j <= right.col; j++) {
 			prod(i, j) = 0;
@@ -134,7 +134,7 @@ mmath::DMatrix mmath::DMatrix::operator*(mmath::DMatrix &right) {
 	return (prod);
 }
 
-mmath::DMatrix mmath::DMatrix::operator*(double factor) {
+mbase::DMatrix mbase::DMatrix::operator*(double factor) {
 	for (int i = 1; i <= row; i++) {
 		for (int j = 1; j <= col; j++) {
 			(*this)(i, j) = (*this)(i, j) * factor;
@@ -143,7 +143,7 @@ mmath::DMatrix mmath::DMatrix::operator*(double factor) {
 	return (*this);
 }
 
-mmath::DMatrix &mmath::DMatrix::operator=(mmath::DMatrix &right) {
+mbase::DMatrix &mbase::DMatrix::operator=(mbase::DMatrix &right) {
 	if (this == &right)
 		return (*this);
 	else {
@@ -154,15 +154,15 @@ mmath::DMatrix &mmath::DMatrix::operator=(mmath::DMatrix &right) {
 	}
 }
 
-double &mmath::DMatrix::operator()(int r, int c) {
+double &mbase::DMatrix::operator()(int r, int c) {
 	return (elements[(r - 1) * col + c]);
 }
 
-double &mmath::DMatrix::operator()(int r) {
+double &mbase::DMatrix::operator()(int r) {
 	return (elements[r]);
 }
 
-void mmath::DMatrix::print() {
+void mbase::DMatrix::print() {
 	std::cout.setf(std::ios::fixed);
 	std::cout.precision(4);
 	std::cout.width(8);
@@ -173,7 +173,7 @@ void mmath::DMatrix::print() {
 	}
 }
 
-double mmath::DMatrix::sum() {
+double mbase::DMatrix::sum() {
 	double temp = 0.0;
 	for (int i = 1; i <= row; i++)
 		for (int j = 1; j <= col; j++)
@@ -181,7 +181,7 @@ double mmath::DMatrix::sum() {
 	return (temp);
 }
 
-double mmath::DMatrix::quadSum() {
+double mbase::DMatrix::quadSum() {
 	double temp = 0.0;
 	for (int i = 1; i <= row; i++)
 		for (int j = 1; j <= col; j++)
@@ -190,13 +190,13 @@ double mmath::DMatrix::quadSum() {
 }
 
 /** compute inverse with  Gauss-elimination including Pivotizing */
-mmath::DMatrix mmath::DMatrix::operator~() {
+mbase::DMatrix mbase::DMatrix::operator~() {
 	int i, j, k, n;
 	int pivrow, tarrow;
 	double pivelt, tarelt;
 	n = row; // Zahl d.Gleich.
-	mmath::DMatrix aug(n, 2 * col);
-	mmath::DMatrix inverse(n, col);
+	mbase::DMatrix aug(n, 2 * col);
+	mbase::DMatrix inverse(n, col);
 	for (i = 1; i <= n; i++)
 		for (j = 1; j <= col; j++)
 			aug(i, j) = (*this)(i, j);
@@ -219,7 +219,7 @@ mmath::DMatrix mmath::DMatrix::operator~() {
 			}
 		} else {
 			k--;
-			mmath::DMatrix dum(2 * col);
+			mbase::DMatrix dum(2 * col);
 			for (i = 1; i <= 2 * col; i++)
 				dum(i) = aug(pivrow, i);
 			for (i = 1; i <= 2 * col; i++)
@@ -243,12 +243,12 @@ mmath::DMatrix mmath::DMatrix::operator~() {
 	return (inverse);
 }
 
-std::istream &operator>>(std::istream &is, mmath::DMatrix &m) {
+std::istream &operator>>(std::istream &is, mbase::DMatrix &m) {
 	for (int i = 1; i <= m.row; i++)
 		for (int j = 1; j <= m.col; j++)
 			is >> m(i, j);
 	return (is);
 }
 
-#endif  /* _mmath_dmatrix_h_ */
+#endif  /* _mbase_dmatrix_h_ */
 

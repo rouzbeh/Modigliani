@@ -79,7 +79,7 @@
 #include "ntsrc/nt_types.h"
 #include "nt3d_hierarchic_object_obj.h"
 #include "nt3d_material_obj.h"
-#include "ntsrc/nt_vector3_obj.h"
+#include "ntsrc/nt_std::vector3_obj.h"
 
 /** @short NT3D_line_o class
   Line representation between to arbitraty positions in space.
@@ -93,7 +93,7 @@ class NT3D_line_o : public NT3D_hierarchic_object_o
 {
 public:
   NT3D_line_o();
-  NT3D_line_o(NT_vector3_o newStartPnt, NT_vector3_o newEndPnt);
+  NT3D_line_o(NT_std::vector3_o newStartPnt, NT_std::vector3_o newEndPnt);
   NT3D_line_o(const NT3D_line_o & original);
   const NT3D_line_o& operator= (const NT3D_line_o & right);
   ~NT3D_line_o();
@@ -107,11 +107,11 @@ public:
   private:
   /*   Methods                */  
   void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl , NTint __attribute__((unused)) value) {};
-  void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl , NTreal __attribute__((unused)) value) {};
-  void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl , NT_vector_o __attribute__((unused)) value){};
+  void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl , mbase::Mreal __attribute__((unused)) value) {};
+  void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl , NT_std::vector_o __attribute__((unused)) value){};
   /*   Data                   */
-  NT_vector3_o startPnt;
-  NT_vector3_o endPnt;
+  NT_std::vector3_o startPnt;
+  NT_std::vector3_o endPnt;
 };
 
 

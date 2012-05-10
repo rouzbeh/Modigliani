@@ -23,14 +23,10 @@
 #ifndef _mcore_synaptic_background_h_
 #define _mcore_synaptic_background_h_
 
-/* NT core includes */
-#include "ntsrc/nt_main.h" 
-#include "ntsrc/nt_types.h" 
-#include "ntsrc/nt_obj.h"  
 /* Parent includes */
 #include "Membrane_current.h"
 /* NT includes */
-#include "ntsrc/nt_gaussian_rnd_dist_obj.h"
+#include "ntsrc/Gaussian_rnd_dist.h"
 
 /* other includes */
 
@@ -42,19 +38,19 @@ namespace mcore {
 class Synaptic_background: public Membrane_current {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Synaptic_background(NTreal avgSynBkCond, /* in nS */
-	NTreal eSynBk, /* Synaptic background reversal potentialin mV (with vRest = vBase */
-	NTreal synSigma, /* Synaptic noise "diffusion" nS */
-	NTreal synTau, /* Synaptic time constant */
-	NTreal vBase = -65.0 /* in mV */
+	Synaptic_background(mbase::Mreal avgSynBkCond, /* in nS */
+	mbase::Mreal eSynBk, /* Synaptic background reversal potentialin mV (with vRest = vBase */
+	mbase::Mreal synSigma, /* Synaptic noise "diffusion" nS */
+	mbase::Mreal synTau, /* Synaptic time constant */
+	mbase::Mreal vBase = -65.0 /* in mV */
 	);
 	Synaptic_background(const Synaptic_background & original);
 	const Synaptic_background & operator=(const Synaptic_background & right);
 
-	NTreturn step_current()
+	mbase::Mreturn step_current()
 override	;
 	/** compute and return conductance in mSiemens */
-	NTreal compute_conductance() override;
+	mbase::Mreal compute_conductance() override;
 	virtual ~Synaptic_background();
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
@@ -64,14 +60,14 @@ protected:
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	NTreal avgSynBkCond; /* ns */
-	NTreal synSigma; /* ns */
-	NTreal synVar; /* ns^2 */
-	NTreal synTau; /* ms */
-	NTreal vBase; /* mV */
-	NTreal gT; /* nS */
-	NTreal amplitude;/* nS */
-	NT_gaussian_rnd_dist_o normRnd;
+	mbase::Mreal avgSynBkCond; /* ns */
+	mbase::Mreal synSigma; /* ns */
+	mbase::Mreal synVar; /* ns^2 */
+	mbase::Mreal synTau; /* ms */
+	mbase::Mreal vBase; /* mV */
+	mbase::Mreal gT; /* nS */
+	mbase::Mreal amplitude;/* nS */
+	mbase::Gaussian_rnd_dist normRnd;
 };}
 #endif /* _mcore_synaptic_background.h_ */
 

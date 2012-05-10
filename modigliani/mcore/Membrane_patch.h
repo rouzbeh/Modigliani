@@ -23,10 +23,6 @@
 #ifndef _mcore_membrane_patch_h_
 #define _mcore_membrane_patch_h_
 
-/* NT core includes */
-#include "ntsrc/nt_main.h" 
-#include "ntsrc/nt_types.h" 
-#include "ntsrc/nt_obj.h"  
 /* NT includes */
 #include "Membrane_compartment.h"
 #include "Object.h"
@@ -40,21 +36,21 @@ namespace mcore {
 class Membrane_patch: public Membrane_compartment {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Membrane_patch(NTreal area /* [muM^2] */, NTreal newCM /* muF/cm^2 */);
+	Membrane_patch(mbase::Mreal area /* [muM^2] */, mbase::Mreal newCM /* muF/cm^2 */);
 	Membrane_patch(const Membrane_patch & original);
 	const Membrane_patch & operator=(const Membrane_patch & right);
 	virtual ~Membrane_patch();
 	/* ***  Methods              ***/
-	NTreal MembranePotential() const {
+	mbase::Mreal MembranePotential() const {
 		return (_vM());
 	}
 	/** No descriptions */
-	NTreturn Step();
+	mbase::Mreturn Step();
 	/** No descriptions */
-	NTreturn InitialStep();
+	mbase::Mreturn InitialStep();
 	/** Current [nA]  */
-	NTreal MembraneCurrent(NTsize currentIndex) const {
-		NT_ASSERT((currentIndex > 0) && (currentIndex-1 < currentVec.size()));
+	mbase::Mreal MembraneCurrent(mbase::Msize currentIndex) const {
+		M_ASSERT((currentIndex > 0) && (currentIndex-1 < currentVec.size()));
 		return (currentVec[currentIndex - 1]->_current());
 	}
 	/* in muMeter^2 */

@@ -49,9 +49,9 @@ NTG_matrix_graph_o::NTG_matrix_graph_o(
 const NTG_matrix_graph_o&
 NTG_matrix_graph_o::operator=(const NTG_matrix_graph_o & right) {
 	if (this == &right)
-		return *this; // Gracefully handle self assignment
+		return (*this); // Gracefully handle self assignment
 // add assignment code here
-	return *this;
+	return (*this);
 }
 
 /* ***      DESTRUCTOR		***/

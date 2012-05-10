@@ -78,7 +78,7 @@ NT3D_universe_spheric_camera_o::~NT3D_universe_spheric_camera_o() {
  void
  NT3D_universe_spheric_camera_o::Draw()
  {
- cerr <<"2DO NT3D_universe_spheric_camera_o::Draw - Warning : 2DO apparently nonsense code was commented out here."<< endl;
+ cerr <<"2DO NT3D_universe_spheric_camera_o::Draw - Warning : 2DO apparently nonsense code was commented out here."<< std::endl;
  width = pVP_width();
  height = pVP_height();
 

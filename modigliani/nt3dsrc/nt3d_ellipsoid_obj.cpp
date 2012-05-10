@@ -91,7 +91,7 @@ NT3D_ellipsoid_o::NT3D_ellipsoid_o()
 {
 }	
 
-NT3D_ellipsoid_o::NT3D_ellipsoid_o(NT_vector3_o oNewTranslation, NT_vector3_o oNewHalfAxis)
+NT3D_ellipsoid_o::NT3D_ellipsoid_o(NT_std::vector3_o oNewTranslation, NT_std::vector3_o oNewHalfAxis)
  {
    oTranslation = oNewTranslation;
    oHalfAxis = oNewHalfAxis;

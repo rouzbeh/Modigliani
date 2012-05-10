@@ -54,9 +54,6 @@ extern "C" {
 #include "Custom_cylindrical_compartment.h"
 #include "HH_sga_leak_current.h"
 
-#include <ntsrc/nt_error_obj.h>
-#include <ntsrc/nt_vector_obj.h>
-
 #include <tnt/tnt.h>
 #include <nt3dsrc/nt3d_plot2d_vec_vp_obj.h>
 
@@ -66,14 +63,14 @@ const int EXIT_V_TOO_HIGH = 1;
 const int EXIT_GRAPHIC_ERROR = 2;
 const int EXIT_IO_ERROR = 3;
 
-NTreal /* mum^-2 */
-NTBP_corrected_channel_density(NTreal chDensity /* mum^-2 */,
-		NTreal compArea /* mum^-2 */);
+mbase::Mreal /* mum^-2 */
+NTBP_corrected_channel_density(mbase::Mreal chDensity /* mum^-2 */,
+		mbase::Mreal compArea /* mum^-2 */);
 
 mcore::Membrane_current *
-NTBP_create_na_channel_ptr(NTsize sodiumModel, NTsize algorithm,
-		NTreal chDensity /* mum^-2 */, NTreal chConductance /* pS */,
-		NTreal q10, NTreal temperature /* C */, NTreal compArea /* mum^2 */);
+NTBP_create_na_channel_ptr(mbase::Msize sodiumModel, mbase::Msize algorithm,
+		mbase::Mreal chDensity /* mum^-2 */, mbase::Mreal chConductance /* pS */,
+		mbase::Mreal q10, mbase::Mreal temperature /* C */, mbase::Mreal compArea /* mum^2 */);
 
 string createOutputFolder(string outputFolder);
 

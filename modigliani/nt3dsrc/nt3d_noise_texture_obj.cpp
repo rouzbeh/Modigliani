@@ -53,8 +53,8 @@
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NT3D_noise_texture_o */
-NT3D_noise_texture_o::NT3D_noise_texture_o(NTsize newTextureWidth, 
-							               NTsize newTextureHeight)
+NT3D_noise_texture_o::NT3D_noise_texture_o(mbase::Msize newTextureWidth, 
+							               mbase::Msize newTextureHeight)
 :
 NT3D_pixel_texture_o(newTextureWidth, newTextureHeight)
 {
@@ -86,8 +86,8 @@ NT3D_noise_texture_o::~NT3D_noise_texture_o()
    \warning    unknown
    \bug        unknown
  */
-NTreal *
-NT3D_noise_texture_o::MakeRGBATexturePoint(NTreal* colorVec, NTreal __attribute__((unused)) coorX, NTreal __attribute__((unused)) coorY)
+mbase::Mreal *
+NT3D_noise_texture_o::MakeRGBATexturePoint(mbase::Mreal* colorVec, mbase::Mreal __attribute__((unused)) coorX, mbase::Mreal __attribute__((unused)) coorY)
 {
 		
 	colorVec[0] = rRnd.RndVal();
@@ -99,13 +99,13 @@ NT3D_noise_texture_o::MakeRGBATexturePoint(NTreal* colorVec, NTreal __attribute_
 
 /* ***  PROTECTED                         ***   */
 
-NTreturn
+mbase::Mreturn
 NT3D_noise_texture_o::AssignPixelTexture()
 {
-	NTsize i, j;
-    NTreal ti, tj;
-	NTsize tmp;
-	NTreal* tmpColor = new NTreal[4];
+	mbase::Msize i, j;
+    mbase::Mreal ti, tj;
+	mbase::Msize tmp;
+	mbase::Mreal* tmpColor = new mbase::Mreal[4];
 
     for (i = 0; i < textureWidth; i++) {
         ti = 2.0*M_PI*i/textureWidth;
@@ -121,7 +121,7 @@ NT3D_noise_texture_o::AssignPixelTexture()
     }
     delete[] tmpColor;
     
-    return NT_SUCCESS;
+    return mbase::M_SUCCESS;
 }
 
 
