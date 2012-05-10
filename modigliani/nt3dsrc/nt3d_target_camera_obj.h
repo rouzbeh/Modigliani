@@ -71,25 +71,25 @@ pointing at the target coordinates.
 class NT3D_target_camera_o : public NT3D_camera_o {
 public:
 /***   Constructors, Copy/Assignment and Destructor  ***/  
-NT3D_target_camera_o(const NT_vector3_o & oNewPosition = NT_OriginVec3(),
-					 const NT_vector3_o & oNewTarget = NT_UnitXVec3());
+NT3D_target_camera_o(const NT_std::vector3_o & oNewPosition = NT_OriginVec3(),
+					 const NT_std::vector3_o & oNewTarget = NT_UnitXVec3());
 NT3D_target_camera_o(const NT3D_target_camera_o & original);
 const NT3D_target_camera_o & operator= (const NT3D_target_camera_o & right);
  ~NT3D_target_camera_o();
 /* ***  Methods              ***/  
 void Draw();
 /* NOT NEEDED 
-void Translate( const NT_vector3_o & oDeltaTranslation ) { NT3D_object_o::Translate(oDeltaTranslation); oTarget += oDeltaTranslation; }
-void TranslateX ( const NTreal deltaTraX) { NT3D_object_o::TranslateX(deltaTraX); oTarget.x += deltaTraX; }
-void TranslateY ( const NTreal deltaTraY) { NT3D_object_o::TranslateY(deltaTraY); oTarget.y += deltaTraY; }
-void TranslateZ ( const NTreal deltaTraZ) { NT3D_object_o::TranslateZ(deltaTraZ); oTarget.z += deltaTraZ; }
-void TranslateXYZ ( const NT_vector3_o & oDeltaTra ) { NT3D_object_o::TranslateXYZ(oDeltaTra); oTarget += oDeltaTra;}
-void TranslateXYZ ( const NTreal deltaTra[3]) { NT3D_object_o::TranslateXYZ(deltaTra); for(NTsize ll=0; ll<3; ll++) oTarget[ll] += deltaTra[ll];}
+void Translate( const NT_std::vector3_o & oDeltaTranslation ) { NT3D_object_o::Translate(oDeltaTranslation); oTarget += oDeltaTranslation; }
+void TranslateX ( const mbase::Mreal deltaTraX) { NT3D_object_o::TranslateX(deltaTraX); oTarget.x += deltaTraX; }
+void TranslateY ( const mbase::Mreal deltaTraY) { NT3D_object_o::TranslateY(deltaTraY); oTarget.y += deltaTraY; }
+void TranslateZ ( const mbase::Mreal deltaTraZ) { NT3D_object_o::TranslateZ(deltaTraZ); oTarget.z += deltaTraZ; }
+void TranslateXYZ ( const NT_std::vector3_o & oDeltaTra ) { NT3D_object_o::TranslateXYZ(oDeltaTra); oTarget += oDeltaTra;}
+void TranslateXYZ ( const mbase::Mreal deltaTra[3]) { NT3D_object_o::TranslateXYZ(deltaTra); for(mbase::Msize ll=0; ll<3; ll++) oTarget[ll] += deltaTra[ll];}
 void TranslateNull () { oTarget -= _oTranslation(); NT3D_object_o::TranslateNull();}
-void SetTranslationX ( const NTreal traX){ NT3D_object_o::SetTranslationX(traX); oTarget.x = traX ; } //2DO
-void SetTranslationY ( const NTreal traY){ NT3D_object_o::SetTranslationY(traY); oTarget.y = traY ; } //2DO
-void SetTranslationZ ( const NTreal traZ){ NT3D_object_o::SetTranslationZ(traZ); oTarget.z = traZ ; } //2DO
-void SetTranslationXYZ ( const NT_vector3_o & oTra ) { oTranslation = oTra; oTarget = oTra ;} //2DO
+void SetTranslationX ( const mbase::Mreal traX){ NT3D_object_o::SetTranslationX(traX); oTarget.x = traX ; } //2DO
+void SetTranslationY ( const mbase::Mreal traY){ NT3D_object_o::SetTranslationY(traY); oTarget.y = traY ; } //2DO
+void SetTranslationZ ( const mbase::Mreal traZ){ NT3D_object_o::SetTranslationZ(traZ); oTarget.z = traZ ; } //2DO
+void SetTranslationXYZ ( const NT_std::vector3_o & oTra ) { oTranslation = oTra; oTarget = oTra ;} //2DO
 */
 /* ***  Data                 ***/  
 protected:
@@ -98,9 +98,9 @@ protected:
 private:
 /* ***  Methods              ***/  
 /* ***  Data                 ***/
-NT_vector3_o oldPosition;
-NT_vector3_o tmpDirection;
-NT_vector3_o oldDirection;
+NT_std::vector3_o oldPosition;
+NT_std::vector3_o tmpDirection;
+NT_std::vector3_o oldDirection;
 };
 
 #endif /* _nt3d_target_camera_h_ */ 

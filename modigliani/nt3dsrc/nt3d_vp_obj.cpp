@@ -98,7 +98,7 @@ NT3D_vp_o::operator= (const NT3D_vp_o & right)
     \warning    unknown
     \bug        unknown
  */
-NTreturn
+mbase::Mreturn
 NT3D_vp_o::Connect(NT3D_vp_o * pConnectingVP)
 {
 	/* 2DO thorugh checking of pConnectingVP */
@@ -107,18 +107,18 @@ NT3D_vp_o::Connect(NT3D_vp_o * pConnectingVP)
 		/*0*/
 		pVP=pConnectingVP;
 		bConnected = NT_TRUE; /* assume succes to attempt connection */
-		/*1*/if (pVP->Connect(this) == NT_SUCCESS){ /* connect them with us */
+		/*1*/if (pVP->Connect(this) == mbase::M_SUCCESS){ /* connect them with us */
 			/* might cause circular deadlock, therefore we assumed successful connection */
-			return NT_SUCCESS;
+			return mbase::M_SUCCESS;
 		/*2*/} else {
 			bConnected = NT_FALSE; /* if failed, reset assumption */
-			return NT_FAIL;
+			return mbase::M_FAIL;
 		}
 	} else /* (bConnected == NT_TRUE) */{
 		/*3*/if  (pConnectingVP == pVP) /* if this is true they are ringing us back,
 			as their pointer must correspond to the one we called */
-		return NT_SUCCESS;
-		/*4*/else return NT_FAIL; /* sombody tried to connect to a connected link*/
+		return mbase::M_SUCCESS;
+		/*4*/else return mbase::M_FAIL; /* sombody tried to connect to a connected link*/
 	}
 }
 
@@ -128,14 +128,14 @@ NT3D_vp_o::Connect(NT3D_vp_o * pConnectingVP)
     \warning    unknown
     \bug        unknown
  */
-NTreturn
+mbase::Mreturn
 NT3D_vp_o::Disconnect()
 {
 	if (NT_TRUE == bConnected){
 	bConnected = NT_FALSE;
 	pVP->Disconnect();
 	}else {}
-	return NT_SUCCESS;
+	return mbase::M_SUCCESS;
 }
 /* ***  PROTECTED                         ***   */
 /* ***  PRIVATE                           ***   */

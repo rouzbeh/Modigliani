@@ -82,7 +82,7 @@ NT_id_management_o NT3D_light_o::idManager = NT_id_management_o(0,
 /* ***      CONSTRUCTORS	***/
 /** Create a NT3D_light_o */
 NT3D_light_o::NT3D_light_o() {
-	cerr << "NT3D_light_o::NT3D_light_o()" << endl;
+	cerr << "NT3D_light_o::NT3D_light_o()" << std::endl;
 	InitLights();
 	lightOn = NT_TRUE;
 	lightId = CreateLight();
@@ -155,7 +155,7 @@ NTid NT3D_light_o::CreateLight() {
 	if (-1 == number)
 		cerr
 				<< "NT3D_light_o::NT3D_light_o() - warning : no new lightID issued. Possibly number of maximally "
-				<< (int) NT3D_MAX_LIGHTS<<" lights exceeded." << endl;
+				<< (int) NT3D_MAX_LIGHTS<<" lights exceeded." << std::endl;
 
 	switch (number) {
 	case 0:

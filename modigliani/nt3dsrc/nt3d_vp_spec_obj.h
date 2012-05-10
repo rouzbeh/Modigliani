@@ -71,8 +71,8 @@ public:
   virtual ~NT3D_vp_spec_o();
   /* ***  Methods              ***/  
   /* ***  Data                 ***/
-  NTsize width;
-  NTsize height;
+  mbase::Msize width;
+  mbase::Msize height;
   string windowName;
   protected:
   /* ***  Methods              ***/  

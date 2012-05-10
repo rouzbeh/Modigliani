@@ -51,7 +51,7 @@
 class NT3D_sphere_o : public NT3D_solid_o {
 public:
   /***   Constructors, Copy/Assignment and Destructor  ***/  
-  NT3D_sphere_o(const NT_vector3_o & oNewPosition = NT_OriginVec3(), const NTreal newRadius = 1.0);
+  NT3D_sphere_o(const NT_std::vector3_o & oNewPosition = NT_OriginVec3(), const mbase::Mreal newRadius = 1.0);
   NT3D_sphere_o(const NT3D_sphere_o & original);
   const NT3D_sphere_o & operator= (const NT3D_sphere_o & right);
   virtual ~NT3D_sphere_o();
@@ -64,7 +64,7 @@ public:
   private:
   /* ***  Methods              ***/  
   /* ***  Data                 ***/
-  NTreal radius;
+  mbase::Mreal radius;
 };
 #endif /* _nt3d_sphere_h_ */ 
 

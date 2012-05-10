@@ -20,117 +20,113 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-
-/* $Id: ntg_random_ring_graph_obj.cpp,v 1.1 2001/06/29 13:16:58 face Exp $
-* $Log: ntg_random_ring_graph_obj.cpp,v $
-* Revision 1.1  2001/06/29 13:16:58  face
-* *** empty log message ***
-*
-* Revision 1.3  2000/11/04 10:32:18  face
-* *** empty log message ***
-*
-
-*/
 #include "ntg_random_ring_graph_obj.h"
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NTG_random_ring_graph_o */
-NTG_random_ring_graph_o::NTG_random_ring_graph_o(NTsize nodes, NTsize neighbourhoodRange, NTreal reconnectProbability, bool deterministic, const NTG_node_o & nodeProto, const NTG_edge_o & edgeProto)
-        :
-        NTG_neighbour_ring_graph_o(nodes, neighbourhoodRange, nodeProto, edgeProto)
-{
-    NT_uniform_rnd_dist_o rndGen(0, 1);
+NTG_random_ring_graph_o::NTG_random_ring_graph_o(mbase::Msize nodes,
+		mbase::Msize neighbourhoodRange, mbase::Mreal reconnectProbability,
+		bool deterministic, const NTG_node_o & nodeProto,
+		const NTG_edge_o & edgeProto) :
+		NTG_neighbour_ring_graph_o(nodes, neighbourhoodRange, nodeProto,
+				edgeProto) {
+	mbase::Uniform_rnd_dist rndGen(0, 1);
 
-    reconnectionP = reconnectProbability;
-    NTG_EdgeContainer edgeList = EdgeList();
-    NTsize numDelEdges = 0;
+	reconnectionP = reconnectProbability;
+	NTG_EdgeContainer edgeList = EdgeList();
+	mbase::Msize numDelEdges = 0;
 
-    determDeletion = deterministic;
+	determDeletion = deterministic;
 
-    if (true == determDeletion) {
-        /* This code defines a deterministic rewiring of randomly selected edges,
-         * thus p is the fraction of nodes which are rewired (which are choson randomly) */
-        numDelEdges = (NTsize) NTround(NumEdges() * reconnectionP / 2.0);
-        random_shuffle(edgeList.begin(), edgeList.end());
-        NTG_EdgeContainer::const_iterator edgeIter = edgeList.begin();
-        for (NTsize ll=0; ll < numDelEdges; ll++) {
-            //			cerr << (*edgeIter).Source() <<  " "<< (*edgeIter).Target() << endl;
-            if (true == IsConnected((*edgeIter).Source(), (*edgeIter).Target())) {
-                SymmetricDisconnect((*edgeIter).Source(), (*edgeIter).Target());
-            } else {
-                ll--;
-            }
-            edgeIter++;
-        }
-    } else {
-        /* This code determines for each edge if it should be deleted according to a probability
-         * law */
-        numDelEdges = 0;
-        NTG_EdgeContainer::const_iterator edgeIter;
-        for (edgeIter = edgeList.begin(); edgeIter != edgeList.end(); edgeIter++) {
-            if (rndGen.RndVal() < reconnectionP/2.0) {
-                if (true == IsConnected((*edgeIter).Source(), (*edgeIter).Target())) {
-                    SymmetricDisconnect((*edgeIter).Source(), (*edgeIter).Target());
-                    numDelEdges++;
-                }
-            }
-        }
-    }
+	if (true == determDeletion) {
+		/* This code defines a deterministic rewiring of randomly selected edges,
+		 * thus p is the fraction of nodes which are rewired (which are choson randomly) */
+		numDelEdges = (mbase::Msize) mbase::Mround(NumEdges() * reconnectionP / 2.0);
+		random_shuffle(edgeList.begin(), edgeList.end());
+		NTG_EdgeContainer::const_iterator edgeIter = edgeList.begin();
+		for (mbase::Msize ll = 0; ll < numDelEdges; ll++) {
+			//			cerr << (*edgeIter).Source() <<  " "<< (*edgeIter).Target() << std::endl;
+			if (true
+					== IsConnected((*edgeIter).Source(),
+							(*edgeIter).Target())) {
+				SymmetricDisconnect((*edgeIter).Source(), (*edgeIter).Target());
+			} else {
+				ll--;
+			}
+			edgeIter++;
+		}
+	} else {
+		/* This code determines for each edge if it should be deleted according to a probability
+		 * law */
+		numDelEdges = 0;
+		NTG_EdgeContainer::const_iterator edgeIter;
+		for (edgeIter = edgeList.begin(); edgeIter != edgeList.end();
+				edgeIter++) {
+			if (rndGen.RndVal() < reconnectionP / 2.0) {
+				if (true
+						== IsConnected((*edgeIter).Source(),
+								(*edgeIter).Target())) {
+					SymmetricDisconnect((*edgeIter).Source(),
+							(*edgeIter).Target());
+					numDelEdges++;
+				}
+			}
+		}
+	}
 
-    NTsize counter = 0;
-    NTid a,b;
+	mbase::Msize counter = 0;
+	mbase::Mid a, b;
 
-    while (counter < numDelEdges) {
-        do {
-            do {
-                a = RandomNodeId();
-                b = RandomNodeId();
-                // cerr << " " << a << " " << b << endl;
-            } while (a == b);
-        } while (true == IsConnected(a,b));
+	while (counter < numDelEdges) {
+		do {
+			do {
+				a = RandomNodeId();
+				b = RandomNodeId();
+				// cerr << " " << a << " " << b << std::endl;
+			} while (a == b);
+		} while (true == IsConnected(a, b));
 
-        if (NT_SUCCESS != SymmetricConnect(a,b)) cerr << "NTG_random_ring_graph_o::NTG_random_ring_graph_o - Error : Random reconnection failed." << endl;
-        counter++;
-    }
+		if (mbase::M_SUCCESS != SymmetricConnect(a, b))
+			std::cerr
+					<< "NTG_random_ring_graph_o::NTG_random_ring_graph_o - Error : Random reconnection failed."
+					<< std::endl;
+		counter++;
+	}
 }
 
-
 /* ***      COPY AND ASSIGNMENT	***/
-NTG_random_ring_graph_o::NTG_random_ring_graph_o(const NTG_random_ring_graph_o & original)
-        :
-        NTG_neighbour_ring_graph_o(original)
-{
+NTG_random_ring_graph_o::NTG_random_ring_graph_o(
+		const NTG_random_ring_graph_o & original) :
+		NTG_neighbour_ring_graph_o(original) {
 // add assignment code here
 }
 
 const NTG_random_ring_graph_o&
-NTG_random_ring_graph_o::operator= (const NTG_random_ring_graph_o & right)
-{
-    if (this == &right) return *this; // Gracefully handle self assignment
+NTG_random_ring_graph_o::operator=(const NTG_random_ring_graph_o & right) {
+	if (this == &right)
+		return (*this); // Gracefully handle self assignment
 // add assignment code here
-    return *this;
+	return (*this);
 }
 
 /* ***      DESTRUCTOR		***/
-NTG_random_ring_graph_o::~NTG_random_ring_graph_o()
-{
+NTG_random_ring_graph_o::~NTG_random_ring_graph_o() {
 }
 
 /* ***  PUBLIC                                    ***   */
 /** @short
-    @param      none
-    @return     none
-   \warning    unknown
-   \bug        unknown
+ @param      none
+ @return     none
+ \warning    unknown
+ \bug        unknown
 
-void
-NTG_random_ring_graph_o::() const
-{
-}
-*/
+ void
+ NTG_random_ring_graph_o::() const
+ {
+ }
+ */
 
 /* ***  PROTECTED                         ***   */
 /* ***  PRIVATE                           ***   */
-
 
 /* File skeleton generated by GenNTObj version 0.7. */

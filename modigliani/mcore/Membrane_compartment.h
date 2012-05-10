@@ -22,11 +22,7 @@
 #ifndef _mcore_membrane_compartment_h_
 #define _mcore_membrane_compartment_h_
 
-/* NT core includes */
-#include "ntsrc/nt_main.h" 
-#include "ntsrc/nt_types.h" 
-#include "ntsrc/nt_obj.h"
-/* NT includes */
+#include "Object.h"
 #include "Membrane_current.h"
 /* other includes */
 #include <vector>
@@ -44,109 +40,109 @@ namespace mcore {
 class Membrane_compartment: public Object {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Membrane_compartment(NTreal area /* in muMeter^2 */, NTreal newTemperature =
+	Membrane_compartment(mbase::Mreal area /* in muMeter^2 */, mbase::Mreal newTemperature =
 			6.3);
 	Membrane_compartment(const Membrane_compartment & original);
 	const Membrane_compartment & operator=(const Membrane_compartment & right);
 	virtual ~Membrane_compartment();
 	/* ***  Methods              ***/
-	NTreturn AttachCurrent(Membrane_current * currentPtr,
+	mbase::Mreturn AttachCurrent(Membrane_current * currentPtr,
 			NTBPcurrentType type);
-	NTreturn step(NTreal newVM /* mV */);
-	NTreturn InjectCurrent(NTreal current /* in nA */);
-	NTreal AttachedCurrent(NTsize currentIndex) {
-		NT_ASSERT((currentIndex > 0) && (currentIndex - 1 < currentVec.size()));
+	mbase::Mreturn step(mbase::Mreal newVM /* mV */);
+	mbase::Mreturn InjectCurrent(mbase::Mreal current /* in nA */);
+	mbase::Mreal AttachedCurrent(mbase::Msize currentIndex) {
+		M_ASSERT((currentIndex > 0) && (currentIndex - 1 < currentVec.size()));
 		return (currentVec[currentIndex - 1]->_current());
 	}
-	NTreal AttachedConductance(NTsize currentIndex) {
-		NT_ASSERT((currentIndex > 0) && (currentIndex - 1 < currentVec.size()));
+	mbase::Mreal AttachedConductance(mbase::Msize currentIndex) {
+		M_ASSERT((currentIndex > 0) && (currentIndex - 1 < currentVec.size()));
 		return (currentVec[currentIndex - 1]->_conductance());
 	}
-	NTreal AttachedReversalPotential(NTsize currentIndex) {
-		NT_ASSERT((currentIndex > 0) && (currentIndex - 1 < currentVec.size()));
+	mbase::Mreal AttachedReversalPotential(mbase::Msize currentIndex) {
+		M_ASSERT((currentIndex > 0) && (currentIndex - 1 < currentVec.size()));
 		return (currentVec[currentIndex - 1]->_reversalPotential());
 	}
 	/**  membrane time constant at instaneous membrane conductivity in ms */
-	NTreal TimeConstant() {
+	mbase::Mreal TimeConstant() {
 		return ((_cM() / total_conductance()) * _area() * 1.0e8);
 	}
-	const Membrane_current * Current(NTsize currentIndex) {
-		NT_ASSERT((currentIndex > 0) && (currentIndex - 1 < currentVec.size()));
+	const Membrane_current * Current(mbase::Msize currentIndex) {
+		M_ASSERT((currentIndex > 0) && (currentIndex - 1 < currentVec.size()));
 		return (currentVec[currentIndex - 1]);
 	}
 	/* in muMeter^2 */
-	NTreal _area() /* in muMeter^2 */const {
+	mbase::Mreal _area() /* in muMeter^2 */const {
 		return (area);
 	}
 	/* in mV */
-	NTreal _vM() /* in mV muMeter */const {
+	mbase::Mreal _vM() /* in mV muMeter */const {
 		return (vM);
 	}
-	void Set_vM(NTreal newVoltage) {
+	void Set_vM(mbase::Mreal newVoltage) {
 		vM = newVoltage;
 	}
 	/** Set specific membrane capacitance in muF / cm^2 */
-	void Set_cM(NTreal newCm /* in muF / cm^2 */) {
+	void Set_cM(mbase::Mreal newCm /* in muF / cm^2 */) {
 		cM = newCm;
 		compartmentMembraneCapacitance = CompartmentMembraneCapacitance();
 	}
 	/* in muF / cm^2 */
-	NTreal _cM() const {
+	mbase::Mreal _cM() const {
 		return (cM);
 	}
 	/** Set specific axoplasmic resistivity in Ohm cm */
-	void Set_rA(NTreal newRa /* in Ohm cm */) {
+	void Set_rA(mbase::Mreal newRa /* in Ohm cm */) {
 		rA = newRa;
 	}
 	/* in Ohm cm */
-	NTreal _rA() const {
+	mbase::Mreal _rA() const {
 		return (rA);
 	}
 	/* Set temperature [Celsius] in compartment and for all currents within compartment (affects future attached ones also) */
-	NTreturn Set_temperature(NTreal newTemp /* in Celsius */) {
+	mbase::Mreturn Set_temperature(mbase::Mreal newTemp /* in Celsius */) {
 		temperature = newTemp;
-		for (NTsize i = 0; i < currentVec.size(); i++)
+		for (mbase::Msize i = 0; i < currentVec.size(); i++)
 			currentVec[i]->Set_temperature(newTemp);
-		return (NT_SUCCESS);
+		return (mbase::M_SUCCESS);
 	}
 	/* in Celsius */
-	NTreal _temperature() const {
+	mbase::Mreal _temperature() const {
 		return (temperature);
 	}
 	/* in muF */
-	NTreal _compartmentMembraneCapacitance() const {
+	mbase::Mreal _compartmentMembraneCapacitance() const {
 		return (compartmentMembraneCapacitance);
 	}
 	/* in muF */
-	NTreal CompartmentMembraneCapacitance() const;
+	mbase::Mreal CompartmentMembraneCapacitance() const;
 	/* in nA */
-	NTreal CompartmentMembraneNetCurrent() const;
+	mbase::Mreal CompartmentMembraneNetCurrent() const;
 	/** in 1/mSec or 1 kHz*/
-	NTreal CompartmentChannelStateTimeConstant() const;
+	mbase::Mreal CompartmentChannelStateTimeConstant() const;
 	/**  */
 	bool GillespieStep();
 	/**  */
 	void ShowParam() const;
 	/* ***  Data                 ***/
-	vector<Membrane_current *> currentVec;
+	std::vector<Membrane_current *> currentVec;
 
-	vector<Membrane_current *> ReturnCurrentVec(); //TODO: added
+	std::vector<Membrane_current *> ReturnCurrentVec(); //TODO: added
 
 protected:
 	/* ***  Methods              ***/
-	NTreal total_conductance() const;
-	NTreal WeightedConductance() const; // OBSOLETE?
+	mbase::Mreal total_conductance() const;
+	mbase::Mreal WeightedConductance() const; // OBSOLETE?
 	/* ***  Data                 ***/
-	NTreal vM; // membrane voltage in mV
-	NTreal iInj; // injected current into compartment in nA
+	mbase::Mreal vM; // membrane voltage in mV
+	mbase::Mreal iInj; // injected current into compartment in nA
 
 private:
 	/* ***  Methods              ***/
-	NTreal cM; // membrane capacity in muFarad/cm^2
-	NTreal rA; // axoplasmatic resistance in Ohm cm
-	NTreal area; // in muMeter^2
-	NTreal temperature; // in Celsius
-	NTreal compartmentMembraneCapacitance; // in muFarad
+	mbase::Mreal cM; // membrane capacity in muFarad/cm^2
+	mbase::Mreal rA; // axoplasmatic resistance in Ohm cm
+	mbase::Mreal area; // in muMeter^2
+	mbase::Mreal temperature; // in Celsius
+	mbase::Mreal compartmentMembraneCapacitance; // in muFarad
 	/* ***  Data                 ***/
 };
 }

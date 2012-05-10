@@ -39,10 +39,6 @@
 #ifndef _mcore_spherical_compartment_h_
 #define _mcore_spherical_compartment_h_
 
-/* NT core includes */
-#include "ntsrc/nt_main.h" 
-#include "ntsrc/nt_types.h" 
-#include "ntsrc/nt_obj.h"
 /* Parent includes */
 #include "Membrane_compartment.h"
 /* NT includes */
@@ -59,14 +55,14 @@ namespace mcore {
 class Spherical_compartment: public Membrane_compartment {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Spherical_compartment(NTreal radius /* muMeter */,
-			NTreal cM /* muFarad/cm^2 */);
+	Spherical_compartment(mbase::Mreal radius /* muMeter */,
+			mbase::Mreal cM /* muFarad/cm^2 */);
 	Spherical_compartment(const Spherical_compartment & original);
 	const Spherical_compartment & operator=(
 			const Spherical_compartment & right);
 	virtual ~Spherical_compartment();
 	/* ***  Methods              ***/
-	NTreal _radius() const {
+	mbase::Mreal _radius() const {
 		return (radius);
 	}
 	/* ***  Data                 ***/
@@ -76,7 +72,7 @@ protected:
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	NTreal radius; // in
+	mbase::Mreal radius; // in
 };
 }
 #endif /* _mcore_spherical_compartment.h_ */

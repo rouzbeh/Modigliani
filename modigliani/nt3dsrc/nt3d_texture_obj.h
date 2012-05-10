@@ -31,7 +31,7 @@
 *
 * Revision 1.10  2000/06/26 19:14:06  face
 * finally found the error that caused solid object to disappear:
-* the scaling vector was not constructed in the 2nd constructor
+* the scaling std::vector was not constructed in the 2nd constructor
 * of the solid bject thus resulting in a zero object
 * new demo file: showing some random graphics
 *
@@ -69,8 +69,8 @@
 * Revision 1.2  2000/04/27 09:57:08  face
 * switched to float based colors
 * texture is RGBA color value,
-* corrected nasty bug in nt3d_color_o, where the color bearing vector
-* was initialised as 3 and not as 4-vector (RGBA!)
+* corrected nasty bug in nt3d_color_o, where the color bearing std::vector
+* was initialised as 3 and not as 4-std::vector (RGBA!)
 * :wq!
 *
 * Revision 1.1  2000/04/26 22:57:45  face
@@ -110,9 +110,9 @@ Paint() -> DrawXYZ() -> Painted()
 class NT3D_texture_o : public NT_o {
 public:
 /***   Constructors, Copy/Assignment and Destructor  ***/  
-NT3D_texture_o(NTsize newTextureWidth=64, 
-			   NTsize newTextureHeight=64, 
-			   NTsize newDim=2,
+NT3D_texture_o(mbase::Msize newTextureWidth=64, 
+			   mbase::Msize newTextureHeight=64, 
+			   mbase::Msize newDim=2,
 			   bool newMakeTextureCoord=false);		   
 NT3D_texture_o(const NT3D_texture_o & original);
 const NT3D_texture_o & operator= (const NT3D_texture_o & right);
@@ -129,12 +129,12 @@ void TextureCoord ( bool bSwitch) { makeTextureCoord = bSwitch;}
 
 protected:
 /* ***  Methods              ***/  
-virtual NTreturn AssignTexture() { NT_CERR(1,"NT3D_texture_o::AssignTexture - Error : Not overridden in derived class."); return NT_FAIL;};
+virtual mbase::Mreturn AssignTexture() { NT_CERR(1,"NT3D_texture_o::AssignTexture - Error : Not overridden in derived class."); return mbase::M_FAIL;};
 /* ***  Data                 ***/  
 GLfloat *textureImagePtr;
 GLuint textureId;
-NTsize textureWidth;
-NTsize textureHeight;
+mbase::Msize textureWidth;
+mbase::Msize textureHeight;
 GLenum dim;
 
 private:

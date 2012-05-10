@@ -91,13 +91,13 @@ NT3D_cylinder_o::NT3D_cylinder_o() :
 	Init(1.0);
 }
 
-NT3D_cylinder_o::NT3D_cylinder_o(NT_vector3_o oNewPosition) :
+NT3D_cylinder_o::NT3D_cylinder_o(NT_std::vector3_o oNewPosition) :
 		NT3D_solid_o(oNewPosition) {
 	Init(1.0);
 }
 
-NT3D_cylinder_o::NT3D_cylinder_o(NT_vector3_o oBaseCenter, NTreal newHeight,
-		NTreal newRadius) :
+NT3D_cylinder_o::NT3D_cylinder_o(NT_std::vector3_o oBaseCenter, mbase::Mreal newHeight,
+		mbase::Mreal newRadius) :
 		NT3D_solid_o(oBaseCenter) {
 	Init(newRadius);
 	height = newHeight;
@@ -127,7 +127,7 @@ inline void NT3D_cylinder_o::DrawSolidObj() const {
 
 /* Protected */
 /* Private */
-void NT3D_cylinder_o::Init(NTreal radius) {
+void NT3D_cylinder_o::Init(mbase::Mreal radius) {
 	topRadius = radius;
 	baseRadius = radius;
 	height = 1.0;

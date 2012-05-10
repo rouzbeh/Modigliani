@@ -47,7 +47,7 @@
 /* Parent includes */
 #include "nt3d_surfaced_object_obj.h" 
 /* NT includes */
-#include "ntsrc/nt_vector3_obj.h"
+#include "ntsrc/nt_std::vector3_obj.h"
 #include "nt3d_material_obj.h"
 #include "nt3d_texture_obj.h"
 /* other includes */
@@ -61,7 +61,7 @@
 class NT3D_open_box_o : public NT3D_surfaced_object_o {
 public:
 /***   Constructors, Copy/Assignment and Destructor  ***/  
-NT3D_open_box_o(NTreal width = 1.0, NTreal depth = 1.0, NTreal height = 1.0);
+NT3D_open_box_o(mbase::Mreal width = 1.0, mbase::Mreal depth = 1.0, mbase::Mreal height = 1.0);
 NT3D_open_box_o(const NT3D_open_box_o & original);
 const NT3D_open_box_o & operator= (const NT3D_open_box_o & right);
 virtual ~NT3D_open_box_o();
@@ -70,17 +70,17 @@ virtual ~NT3D_open_box_o();
 protected:
 /* ***  Methods              ***/
 void DrawSurfacedObj();
-virtual void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl , NTint __attribute__((unused)) value){cerr << "Not implemented" << endl;};
-virtual void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl , NTreal __attribute__((unused)) value){cerr << "Not implemented" << endl;};
-virtual void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl , NT_vector_o __attribute__((unused)) value){cerr << "Not implemented" << endl;};
+virtual void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl , NTint __attribute__((unused)) value){cerr << "Not implemented" << std::endl;};
+virtual void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl , mbase::Mreal __attribute__((unused)) value){cerr << "Not implemented" << std::endl;};
+virtual void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl , NT_std::vector_o __attribute__((unused)) value){cerr << "Not implemented" << std::endl;};
 /* ***  Data                 ***/  
-NT_vector3_o oScaling;
+NT_std::vector3_o oScaling;
 private:
 /* ***  Methods              ***/  
 /* ***  Data                 ***/ 
-NTreal width;
-NTreal depth;
-NTreal height;
+mbase::Mreal width;
+mbase::Mreal depth;
+mbase::Mreal height;
 
 };
 #endif /* _nt3d_open_box_obj_h_ */ 

@@ -41,8 +41,8 @@ using namespace mcore;
 
 /* ***      CONSTRUCTORS	***/
 /** Create a HH_sga_leak_current */
-HH_sga_leak_current::HH_sga_leak_current(NTreal newArea,
-		NTreal newLeakConductance, NTreal newReversalPotential /* mV */) :
+HH_sga_leak_current::HH_sga_leak_current(mbase::Mreal newArea,
+		mbase::Mreal newLeakConductance, mbase::Mreal newReversalPotential /* mV */) :
 		HH_current(newReversalPotential /* mV */,
 				newLeakConductance /* in mSiemens/cm^2 */,
 				newArea /* in muMeter^2 */) {

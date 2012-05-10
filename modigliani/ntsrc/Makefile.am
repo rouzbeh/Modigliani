@@ -1,9 +1,88 @@
 noinst_LIBRARIES = libntsrc.a
 
-libntsrc_a_SOURCES = nt_2dim_histogram_obj.cpp nt_multidim_histogram_obj.cpp Binomial_rnd_dist.cpp nt_vector_obj.cpp nt_vector3_obj.cpp nt_vec_rnd_dist_obj.cpp nt_value_obj.cpp nt_uniform_vec_rnd_dist_obj.cpp nt_uniform_rnd_dist_obj.cpp nt_stock_value_obj.cpp nt_sequential_statistics_obj.cpp nt_rnd_dist_obj.cpp nt_obj.cpp nt_list_obj.cpp nt_image_obj.cpp nt_id_management_obj.cpp nt_histogram_obj.cpp nt_gui_drv_obj.cpp nt_gaussian_vec_rnd_dist_obj.cpp nt_gaussian_rnd_dist_obj.cpp nt_error_obj.cpp nt_date_obj.cpp nt_currency_obj.cpp nt_aux_math_func.cpp nt_config_file_parser_obj.cpp nt_str2real_obj.cpp
+libntsrc_a_SOURCES = Two_dim_histogram.c++ \
+Multidim_histogram.c++ \
+Binomial_rnd_dist.c++ \
+Vector.c++ \
+Vector3.c++ \
+Vec_rnd_dist.c++ \
+Value.c++ \
+Uniform_vec_rnd_dist.c++ \
+Uniform_rnd_dist.c++ \
+Stock_value.c++ \
+Sequential_statistics.c++ \
+Rnd_dist.c++ \
+Obj.c++ \
+List.c++ \
+Image.c++ \
+Id_management.c++ \
+Histogram.c++ \
+Gui_drv.c++ \
+Gaussian_vec_rnd_dist.c++ \
+Gaussian_rnd_dist.c++ \
+Error.c++ \
+Date.c++ \
+Currency.c++ \
+aux_math_func.c++ \
+Config_file_parser.c++ \
+Str2real.cpp
 
-EXTRA_DIST = Dmatrix.h nt_aux_math_func.cpp nt_aux_math_func.h nt_codes.h nt_currency_obj.cpp nt_currency_obj.h nt_date_obj.cpp nt_date_obj.h nt_error_obj.cpp nt_error_obj.h nt_gaussian_rnd_dist_obj.cpp nt_gaussian_rnd_dist_obj.h nt_gaussian_vec_rnd_dist_obj.cpp nt_gaussian_vec_rnd_dist_obj.h nt_gui_drv_obj.cpp nt_gui_drv_obj.h nt_header_string_obj.h nt_histogram_obj.cpp nt_histogram_obj.h nt_id_management_obj.cpp nt_id_management_obj.h nt_image_obj.cpp nt_image_obj.h nt_list_obj.cpp nt_list_obj.h nt_main.h nt_moonmap_image_data.h nt_obj.cpp nt_obj.h nt_rnd_dist_obj.cpp nt_rnd_dist_obj.h nt_sequential_statistics_obj.cpp nt_sequential_statistics_obj.h nt_simple_markov_obj.h nt_stock_value_obj.cpp nt_stock_value_obj.h nt_timing_obj.h nt_types.h nt_uniform_rnd_dist_obj.cpp nt_uniform_rnd_dist_obj.h nt_uniform_vec_rnd_dist_obj.cpp nt_uniform_vec_rnd_dist_obj.h nt_value_obj.cpp nt_value_obj.h nt_vec_rnd_dist_obj.cpp nt_vec_rnd_dist_obj.h nt_vector3_obj.cpp nt_vector3_obj.h nt_vector_obj.cpp nt_vector_obj.h nt_worldmap_image_data.h Binomial_rnd_dist.cpp Binomial_rnd_dist.h nt_multidim_array_obj.h nt_multidim_histogram_obj.cpp nt_multidim_histogram_obj.h nt_ring_buffer_obj.h nt_2dim_histogram_obj.cpp nt_2dim_histogram_obj.h nt_mersenne_twister_external_obj.h nt_physical_constants.h nt_config_file_parser_obj.cpp nt_config_file_parser_obj.h nt_str2real_obj.cpp nt_str2real_obj.h
+EXTRA_DIST= Dmatrix.h\
+aux_math_func.c++ aux_math_func.h\
+codes.h\
+Currency.c++ Currency.h\
+Date.c++ Date.h\
+Error.c++ Error.h\
+Gaussian_rnd_dist.c++\
+Gaussian_rnd_dist.h\
+Gaussian_vec_rnd_dist.c++\
+Gaussian_vec_rnd_dist.h\
+Gui_drv.c++ Gui_drv.h\
+header_string.h\
+Histogram.c++\
+Histogram.h\
+Id_management.c++\
+Id_management.h\
+Image.c++\
+Image.h\
+List.c++\
+List.h\
+main.h\
+moonmap_image_data.h\
+Obj.c++\
+Obj.h\
+Rnd_dist.c++ Rnd_dist.h\
+Sequential_statistics.c++\
+Sequential_statistics.h\
+Simple_markov.h\
+Stock_value.c++\
+Stock_value.h\
+Timing.h\
+types.h\
+Uniform_rnd_dist.c++ Uniform_rnd_dist.h\
+Uniform_vec_rnd_dist.c++ Uniform_vec_rnd_dist.h\
+Value.c++\
+Value.h\
+Vec_rnd_dist.c++ Vec_rnd_dist.h\
+Vector3.c++\
+Vector3.h\
+Vector.c++\
+Vector.h\
+worldmap_image_data.h\
+Binomial_rnd_dist.c++\
+Binomial_rnd_dist.h\
+Multidim_array.h\
+Multidim_histogram.c++\
+Multidim_histogram.h\
+Ring_buffer.h\
+Two_dim_histogram.c++\
+Two_dim_histogram.h\
+MTrand.h\
+physical_constants.h\
+Config_file_parser.c++\
+Config_file_parser.h\
+Str2real.c++\
+Str2real.h
 
 # set the include path found by configure
 INCLUDES= $(all_includes) -I$(top_srcdir)/modigliani
-

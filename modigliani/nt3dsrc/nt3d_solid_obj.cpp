@@ -34,7 +34,7 @@
  *
  * Revision 1.12  2000/06/26 19:14:06  face
  * finally found the error that caused solid object to disappear:
- * the scaling vector was not constructed in the 2nd constructor
+ * the scaling std::vector was not constructed in the 2nd constructor
  * of the solid bject thus resulting in a zero object
  * new demo file: showing some random graphics
  *
@@ -127,7 +127,7 @@
 
 
 /* 	CONSTRUCTORS 		*/
-NT3D_solid_o::NT3D_solid_o(const NT_vector3_o & oNewPosition)
+NT3D_solid_o::NT3D_solid_o(const NT_std::vector3_o & oNewPosition)
 :
 NT3D_surfaced_object_o(oNewPosition),
 oScaling(1.0, 1.0, 1.0)
@@ -179,7 +179,7 @@ NT3D_solid_o::operator= (const NT3D_solid_o & right)
 /** Everything (also the oTexturePtr) is cleaned up */
 NT3D_solid_o::~NT3D_solid_o()
 {
-	// cerr <<"NT3D_solid_o::~NT3D_solid_o() - Warning : gluQuadric not deleted." << endl;
+	// cerr <<"NT3D_solid_o::~NT3D_solid_o() - Warning : gluQuadric not deleted." << std::endl;
 	gluDeleteQuadric(pQuadObj);
 }
 
@@ -187,31 +187,31 @@ NT3D_solid_o::~NT3D_solid_o()
 /*   	PUBLIC                	*/  
 
 void 
-NT3D_solid_o::Scale(  NT_vector3_o oDeltaScaling )
+NT3D_solid_o::Scale(  NT_std::vector3_o oDeltaScaling )
 {
 	oScaling = oScaling + oDeltaScaling;
 }
 
 void
-NT3D_solid_o::ScaleX ( NTreal deltaSclX)
+NT3D_solid_o::ScaleX ( mbase::Mreal deltaSclX)
 {
 	oScaling[0] += deltaSclX;
 }
 
 void
-NT3D_solid_o::ScaleY ( NTreal deltaSclY)
+NT3D_solid_o::ScaleY ( mbase::Mreal deltaSclY)
 {
 	oScaling[1] += deltaSclY;
 }
 
 void
-NT3D_solid_o::ScaleZ ( NTreal deltaSclZ)
+NT3D_solid_o::ScaleZ ( mbase::Mreal deltaSclZ)
 {
 	oScaling[2] += deltaSclZ;
 }
 
 void
-NT3D_solid_o::ScaleXYZ ( NTreal deltaSclXYZ)
+NT3D_solid_o::ScaleXYZ ( mbase::Mreal deltaSclXYZ)
 {
 	oScaling = oScaling * deltaSclXYZ;
 }

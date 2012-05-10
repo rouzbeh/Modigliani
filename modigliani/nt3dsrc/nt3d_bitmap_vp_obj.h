@@ -63,8 +63,8 @@ protected:
 	/* ***  Methods              ***/
 	void RedrawChild() {
 	}
-	NTreturn ResizeChild(NTsize __attribute__((unused)) newWidth,
-			NTsize __attribute__((unused)) newHeight) {
+	mbase::Mreturn ResizeChild(mbase::Msize __attribute__((unused)) newWidth,
+			mbase::Msize __attribute__((unused)) newHeight) {
 		return NT_NOT_IMPLEMENTED;
 	}
 	void InitChild() {
@@ -74,8 +74,8 @@ private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
 	NT3D_bitmap_o * bmpPtr;
-	NTsize width; // bitmap , not screen size
-	NTsize height; // bitmap , not screen size
+	mbase::Msize width; // bitmap , not screen size
+	mbase::Msize height; // bitmap , not screen size
 };
 #endif /* _nt3d_bitmap_vp_obj_h_ */ 
 

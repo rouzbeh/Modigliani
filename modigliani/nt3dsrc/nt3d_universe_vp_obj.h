@@ -86,8 +86,8 @@ public:
   void Draw();
   void DrawUniverse(){ pUniverse->Draw(); }
   virtual void DrawChild() = 0;
-  NTreturn SetUniverse(NT3D_universe_o * pNewUniverse);
-  NTbool HasUniverse() {return haveUniverse;}
+  mbase::Mreturn SetUniverse(NT3D_universe_o * pNewUniverse);
+  mbase::Mbool HasUniverse() {return haveUniverse;}
   /* ***  Data                 ***/  
   protected:
   /* ***  Methods              ***/  
@@ -95,7 +95,7 @@ public:
   private:
   /* ***  Methods              ***/  
   /* ***  Data                 ***/
-  NTbool haveUniverse;
+  mbase::Mbool haveUniverse;
   NT3D_universe_o * pUniverse;
 };
 #endif /* _nt3d_universe_vp_h_ */ 

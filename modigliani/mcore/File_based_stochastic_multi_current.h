@@ -18,28 +18,28 @@
 namespace mcore {
 class File_based_stochastic_multi_current: public Multi_current {
 public:
-	File_based_stochastic_multi_current(NTreal newArea,
-			NTreal newDensity, NTreal newConductivity, NTreal newVBase,
-			NTreal reversalPotential, NTreal newTimeStep, NTreal newTemperature,
-			string fileName);
+	File_based_stochastic_multi_current(mbase::Mreal newArea,
+			mbase::Mreal newDensity, mbase::Mreal newConductivity, mbase::Mreal newVBase,
+			mbase::Mreal reversalPotential, mbase::Mreal newTimeStep, mbase::Mreal newTemperature,
+			std::string fileName);
 	virtual ~File_based_stochastic_multi_current();
 
-	static void load_file(string fileName, double temperature,
+	static void load_file(std::string fileName, double temperature,
 			double time_step);
-	static map<string, NTBP_transition_rate_matrix_o*> probability_matrix_map;
-	static map<string, int> number_of_states_map;
-	static map<string, double> base_temperature_map;
-	static map<string, vector<int> > open_states_map;
-	virtual NTreturn step_current()
+	static std::map<std::string, NTBP_transition_rate_matrix_o*> probability_matrix_map;
+	static std::map<std::string, int> number_of_states_map;
+	static std::map<std::string, double> base_temperature_map;
+	static std::map<std::string, std::vector<int> > open_states_map;
+	virtual mbase::Mreturn step_current()
 override	;
-	virtual NTreal open_channels() const override;
-	virtual NTreal compute_conductance() override;
-	NTreal NumChannelsInState(NTsize state) const;
-	NTreal ComputeChannelStateTimeConstant() const;
+	virtual mbase::Mreal open_channels() const override;
+	virtual mbase::Mreal compute_conductance() override;
+	mbase::Mreal NumChannelsInState(mbase::Msize state) const;
+	mbase::Mreal ComputeChannelStateTimeConstant() const;
 	void ShowParam() const;
-	void printProb(string fileName) {
-		for (NTreal v =20; v<130; v+=0.005) {
-			cout << probability_matrix_map[fileName]->getTransitionProbability(v, 2, 1) << endl;
+	void printProb(std::string fileName) {
+		for (mbase::Mreal v =20; v<130; v+=0.005) {
+			std::cout << probability_matrix_map[fileName]->getTransitionProbability(v, 2, 1) << std::endl;
 		}
 	}
 
@@ -47,8 +47,8 @@ override	;
 
 private:
 	static bool initTableLookUp;
-	static vector<string> initialised_probability_matrices;
-	NTreal baseTemp;
+	static std::vector<std::string> initialised_probability_matrices;
+	mbase::Mreal baseTemp;
 
 };}
 #endif /* NTBP_file_based_stochastic_MULTI_CURRENT_O_H_ */

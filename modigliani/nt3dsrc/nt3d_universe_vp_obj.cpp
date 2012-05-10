@@ -123,13 +123,13 @@ NT3D_universe_vp_o::Draw()
     \warning    unknown
     \bug        unknown
  */
-NTreturn NT3D_universe_vp_o::SetUniverse(NT3D_universe_o * pNewUniverse)
+mbase::Mreturn NT3D_universe_vp_o::SetUniverse(NT3D_universe_o * pNewUniverse)
 {
 	if (NT_TRUE == haveUniverse)
 			NT_CERR(3,"NT3D_universe_camera_vp_o::AddUniverse - warning : new universe is overwriting old universe pointer.");
 		pUniverse = pNewUniverse;
 		haveUniverse = true;
-		return NT_SUCCESS;
+		return mbase::M_SUCCESS;
 }
 
 /* ***  PROTECTED                         ***   */

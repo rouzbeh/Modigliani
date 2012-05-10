@@ -37,7 +37,7 @@
  *
  * Revision 1.9  2000/06/26 19:14:06  face
  * finally found the error that caused solid object to disappear:
- * the scaling vector was not constructed in the 2nd constructor
+ * the scaling std::vector was not constructed in the 2nd constructor
  * of the solid bject thus resulting in a zero object
  * new demo file: showing some random graphics
  *
@@ -125,8 +125,8 @@
 #include "ntsrc/nt_main.h"
 #include "ntsrc/nt_types.h"
 
-#include "ntsrc/nt_vector_obj.h"
-#include "ntsrc/nt_vector3_obj.h"
+#include "ntsrc/nt_std::vector_obj.h"
+#include "ntsrc/nt_std::vector3_obj.h"
 #include <deque>
 //#include "ntsrc/nt_data_obj.h"
 
@@ -152,42 +152,42 @@ enum NT3Dcontroller { NT3D_DrawStyle = 1000,
 class NT3D_object_o : public NT3D_o {
 public:
   NT3D_object_o();
-  NT3D_object_o(const NT_vector3_o & oNewPosition);
+  NT3D_object_o(const NT_std::vector3_o & oNewPosition);
   NT3D_object_o(const NT3D_object_o & original);
    
   virtual ~NT3D_object_o();
   /*                         */  
-  void Rotate( const NT_vector3_o & oDeltaRotation );
-  void RotateX ( NTreal deltaRotX);
-  void RotateY ( NTreal deltaRotY);
-  void RotateZ ( NTreal deltaRotZ);
-  void RotateXYZ ( NT_vector3_o oDeltaRot ) { oRotation += oDeltaRot; }
-  void RotateXYZ ( const NTreal deltaRot[3] );
+  void Rotate( const NT_std::vector3_o & oDeltaRotation );
+  void RotateX ( mbase::Mreal deltaRotX);
+  void RotateY ( mbase::Mreal deltaRotY);
+  void RotateZ ( mbase::Mreal deltaRotZ);
+  void RotateXYZ ( NT_std::vector3_o oDeltaRot ) { oRotation += oDeltaRot; }
+  void RotateXYZ ( const mbase::Mreal deltaRot[3] );
   void RotateNull () { oRotation = NT_OriginVec3();};
-  void SetRotationX ( const NTreal rotX){ oRotation.x= rotX; }
-  void SetRotationY ( const NTreal rotY){ oRotation.y= rotY; }
-  void SetRotationZ ( const NTreal rotZ){ oRotation.z= rotZ; }
-  void SetRotationXYZ ( const NT_vector3_o & oRot ) { oTranslation = oRot; }
+  void SetRotationX ( const mbase::Mreal rotX){ oRotation.x= rotX; }
+  void SetRotationY ( const mbase::Mreal rotY){ oRotation.y= rotY; }
+  void SetRotationZ ( const mbase::Mreal rotZ){ oRotation.z= rotZ; }
+  void SetRotationXYZ ( const NT_std::vector3_o & oRot ) { oTranslation = oRot; }
   
-  virtual void Translate( const NT_vector3_o & oDeltaTranslation ); 
-  virtual void TranslateX ( const NTreal deltaTraX);
-  virtual void TranslateY ( const NTreal deltaTraY);
-  virtual void TranslateZ ( const NTreal deltaTraZ);
-  virtual void TranslateXYZ ( const NT_vector3_o & oDeltaTra ) { oTranslation += oDeltaTra; }
-  virtual void TranslateXYZ ( const NTreal deltaTra[3]);
+  virtual void Translate( const NT_std::vector3_o & oDeltaTranslation ); 
+  virtual void TranslateX ( const mbase::Mreal deltaTraX);
+  virtual void TranslateY ( const mbase::Mreal deltaTraY);
+  virtual void TranslateZ ( const mbase::Mreal deltaTraZ);
+  virtual void TranslateXYZ ( const NT_std::vector3_o & oDeltaTra ) { oTranslation += oDeltaTra; }
+  virtual void TranslateXYZ ( const mbase::Mreal deltaTra[3]);
   virtual void TranslateNull () { oTranslation = NT_OriginVec3();};
-  virtual void SetTranslationX ( const NTreal traX){ oTranslation.x= traX; }
-  virtual void SetTranslationY ( const NTreal traY){ oTranslation.y= traY; }
-  virtual void SetTranslationZ ( const NTreal traZ){ oTranslation.z= traZ; }
-  virtual void SetTranslationXYZ ( const NT_vector3_o & oTra ) { oTranslation = oTra; }
+  virtual void SetTranslationX ( const mbase::Mreal traX){ oTranslation.x= traX; }
+  virtual void SetTranslationY ( const mbase::Mreal traY){ oTranslation.y= traY; }
+  virtual void SetTranslationZ ( const mbase::Mreal traZ){ oTranslation.z= traZ; }
+  virtual void SetTranslationXYZ ( const NT_std::vector3_o & oTra ) { oTranslation = oTra; }
 
-  /** rotate the object such that its (oRotation vector would rotate 
-      a vector on the) x-axis in the direction of oRelativeVector */ 
-  void Collinearize (const NT_vector3_o & oRelativeVector);
+  /** rotate the object such that its (oRotation std::vector would rotate 
+      a std::vector on the) x-axis in the direction of oRelativeVector */ 
+  void Collinearize (const NT_std::vector3_o & oRelativeVector);
 
 
-  NT_vector3_o _oTranslation() const { return oTranslation; }
-  NT_vector3_o _oRotation() const { return oRotation; }
+  NT_std::vector3_o _oTranslation() const { return oTranslation; }
+  NT_std::vector3_o _oRotation() const { return oRotation; }
 
 
  /** The Draw() method is the invocation method to use for users.
@@ -195,19 +195,19 @@ public:
   virtual void Draw() = 0;
   /** Set any control/state variables in the object and in the child tree */
   void Control(NT3Dcontroller cntrl , NTint value){ControlImpl(cntrl , value);}
-  void Control(NT3Dcontroller cntrl , NTreal value){ControlImpl(cntrl , value);}
-  void Control(NT3Dcontroller cntrl , NT_vector_o value){ControlImpl(cntrl , value);}
+  void Control(NT3Dcontroller cntrl , mbase::Mreal value){ControlImpl(cntrl , value);}
+  void Control(NT3Dcontroller cntrl , NT_std::vector_o value){ControlImpl(cntrl , value);}
  
   protected:
-  NT_vector3_o oTranslation;
-  NT_vector3_o oRotation;
+  NT_std::vector3_o oTranslation;
+  NT_std::vector3_o oRotation;
 
  /** Set the control/state variable in *this object.
     ControlImpl() should be overridden by derived classes ONLY if control/state
     are to be applied to *this object !*/
   virtual void ControlImpl(NT3Dcontroller cntrl , NTint value) = 0;
-  virtual void ControlImpl(NT3Dcontroller cntrl , NTreal value) = 0; 
-  virtual void ControlImpl(NT3Dcontroller cntrl , NT_vector_o value) = 0;
+  virtual void ControlImpl(NT3Dcontroller cntrl , mbase::Mreal value) = 0; 
+  virtual void ControlImpl(NT3Dcontroller cntrl , NT_std::vector_o value) = 0;
 
   private:
   double padding;

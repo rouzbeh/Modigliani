@@ -20,38 +20,17 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-/* $Id: Object.h,v 1.1.1.1 2004/12/16 01:38:36 face Exp $ /home/face/PRJ/NetTrader/src/ntbpsrc/ntbp_membrane_current_obj.cpp
- * $Log: Object.h,v $
- * Revision 1.1.1.1  2004/12/16 01:38:36  face
- * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
- *
- * Revision 1.4  2003/01/17 16:53:13  face
- * *** empty log message ***
- *
- * Revision 1.3  2002/03/08 15:13:26  face
- * *** empty log message ***
- *
- * Revision 1.2  2001/10/12 09:18:36  face
- * *** empty log message ***
- *
- * Revision 1.1  2001/10/03 14:37:52  face
- * *** empty log message ***
- *
-
- */
 #ifndef _Object_h_
 #define _Object_h_
 
 #define NTBP_TIMESTEP 0.001 /* in msec */
 
 /* NT core includes */
-#include "../ntsrc/nt_main.h" 
-#include "../ntsrc/nt_types.h" 
-#include "../ntsrc/nt_obj.h"
+#include "ntsrc/Obj.h"
 /* NT includes */
-#include "../ntsrc/nt_error_obj.h"
+#include "../ntsrc/Error.h"
 /* other includes */
-#include "../ntsrc/nt_physical_constants.h"
+#include "../ntsrc/physical_constants.h"
 
 enum NTBPKineticFunctionType {
 	NTBP_CONSTANT, NTBP_LINEAR, NTBP, NTBP_FERMI, NTBP_GAUSSIAN
@@ -78,14 +57,14 @@ enum NTBPdelayedPotassiumRectifierType {
 	NTBP_FROG_MUSCLE // frog skeletal muscle by Standen et al. (1985)
 };
 
-const NTreal NTBP_STD_TEMPERATURE = 6.3; // Celsius (NOT TO BE CHANGED)
+const mbase::Mreal NTBP_STD_TEMPERATURE = 6.3; // Celsius (NOT TO BE CHANGED)
 
-NTreal NTBP_temperature_rate_relation(NTreal temp /* C */, NTreal q10);
-NTreal NTBP_temperature_rate_relation(NTreal temp /* C */,
-		NTreal baseTemp /* C */, NTreal q10);
+mbase::Mreal NTBP_temperature_rate_relation(mbase::Mreal temp /* C */, mbase::Mreal q10);
+mbase::Mreal NTBP_temperature_rate_relation(mbase::Mreal temp /* C */,
+		mbase::Mreal baseTemp /* C */, mbase::Mreal q10);
 /** Compute length constant in muMeter */
-NTreal NTBP_length_constant_passive_cable(NTreal diameter /* mu */,
-		NTreal rAxoplasmic /* Ohm cm */, NTreal gLeak /* mSiemens/cm^2 */);
+mbase::Mreal NTBP_length_constant_passive_cable(mbase::Mreal diameter /* mu */,
+		mbase::Mreal rAxoplasmic /* Ohm cm */, mbase::Mreal gLeak /* mSiemens/cm^2 */);
 
 /** @short Object class
  \bug unknown
@@ -95,7 +74,7 @@ NTreal NTBP_length_constant_passive_cable(NTreal diameter /* mu */,
 
 #define NTBP_DEBUG 1
 namespace mcore {
-class Object: public NT_o {
+class Object: public mbase::Obj {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
 	Object();
@@ -103,7 +82,7 @@ public:
 	const Object & operator=(const Object & right);
 	virtual ~Object();
 	/* ***  Methods              ***/
-	NTreal _timeStep() const {
+	mbase::Mreal _timeStep() const {
 		return (timeStep);
 	}
 	/** @short  update of explicitly time dependent variables using a deltaT = timeStep, NO update
@@ -113,27 +92,27 @@ public:
 	 \warning    indirectly time dependent variables NOT updated
 	 \bug        unknown
 	 */
-	NTreal update_timeStep(NTreal newSuggestedTimeStep) { /* if (suggestedTimeStep > newSuggestedTimeStep) */
+	mbase::Mreal update_timeStep(mbase::Mreal newSuggestedTimeStep) { /* if (suggestedTimeStep > newSuggestedTimeStep) */
 		suggestedTimeStep = newSuggestedTimeStep;
 		return (newSuggestedTimeStep);
 	}
-	virtual NTreturn step() {
-		cerr
+	virtual mbase::Mreturn step() {
+		std::cerr
 				<< "Object:Step() - Warning : Non-overriden base method () called by derived class."
-				<< endl;
-		return (NT_NOT_IMPLEMENTED);
+				<< std::endl;
+		return (mbase::M_NOT_IMPLEMENTED);
 	}
-	NTreturn StepNTBP() {
+	mbase::Mreturn StepNTBP() {
 		timeStep = suggestedTimeStep;
-		return (NT_SUCCESS);
+		return (mbase::M_SUCCESS);
 	}
-	NTreal _timeStep() {
+	mbase::Mreal _timeStep() {
 		return (timeStep);
 	}
-	NTreal _baseTimeStep() {
+	mbase::Mreal _baseTimeStep() {
 		return (baseTimeStep);
 	}
-	void setTimeStep(NTreal newTimeStep) {
+	void setTimeStep(mbase::Mreal newTimeStep) {
 		timeStep = newTimeStep;
 	}
 	/* ***  Data                 ***/
@@ -143,9 +122,9 @@ protected:
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	NTreal baseTimeStep; // time step size in msec;
-	static NTreal timeStep; // time step size in msec;
-	static NTreal suggestedTimeStep; // time step size in msec;
+	mbase::Mreal baseTimeStep; // time step size in msec;
+	static mbase::Mreal timeStep; // time step size in msec;
+	static mbase::Mreal suggestedTimeStep; // time step size in msec;
 };
 }
 #endif /* _Object.h_ */ 

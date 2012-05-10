@@ -23,10 +23,7 @@
 #ifndef _mcore_hh_current_h_
 #define _mcore_hh_current_h_
 
-/* NT core includes */
-#include "../ntsrc/nt_main.h" 
-#include "../ntsrc/nt_types.h" 
-#include "../ntsrc/nt_obj.h"  
+#include "Object.h"
 /* Parent includes */
 #include "Membrane_current.h"
 /* NT includes */
@@ -42,20 +39,20 @@ namespace mcore {
 class HH_current: public Membrane_current {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	HH_current(NTreal reversalPotential, NTreal maxConductivity, NTreal area);
+	HH_current(mbase::Mreal reversalPotential, mbase::Mreal maxConductivity, mbase::Mreal area);
 	HH_current(const HH_current & original);
 	const HH_current & operator=(const HH_current & right);
 	virtual ~HH_current();
 	/* ***  Methods              ***/
-	NTreal ComputeChannelStateTimeConstant() const {
+	mbase::Mreal ComputeChannelStateTimeConstant() const {
 		return (0); /* no stochasticity */
 	}
 	/** in mSiemens/cm^2 */
-	NTreal _maxConductivity() const {
+	mbase::Mreal _maxConductivity() const {
 		return (maxConductivity);
 	}
 	/** in muMeter^2 */
-	NTreal _area() const {
+	mbase::Mreal _area() const {
 		return (area);
 	}
 	/* ***  Data                 ***/
@@ -66,10 +63,10 @@ protected:
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	NTreal maxConductivity; // in mSiemens / muMeter^2
-	NTreal density; // channels per mumeter^2
-	NTreal area; // in mumeter^2
-	NTreal conductivity; // in mSiemens per channel
+	mbase::Mreal maxConductivity; // in mSiemens / muMeter^2
+	mbase::Mreal density; // channels per mumeter^2
+	mbase::Mreal area; // in mumeter^2
+	mbase::Mreal conductivity; // in mSiemens per channel
 };
 }
 #endif /* _mcore_hh_current.h_ */

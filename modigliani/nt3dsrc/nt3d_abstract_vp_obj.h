@@ -20,53 +20,9 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */ 
 
-/* $Id: nt3d_abstract_vp_obj.h,v 1.1.1.1 2004/12/16 01:38:36 face Exp $
- * $Log: nt3d_abstract_vp_obj.h,v $
- * Revision 1.1.1.1  2004/12/16 01:38:36  face
- * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
- *
- * Revision 1.1  2001/06/29 13:16:55  face
- * *** empty log message ***
- *
- * Revision 1.4  2000/10/03 08:29:59  face
- * *** empty log message ***
- *
- * Revision 1.3  2000/06/13 20:10:25  face
- * *** empty log message ***
- *
- * Revision 1.2  2000/04/26 17:10:34  face
- * minor bug fixed
- * and upgrades:
- *
- * Revision 1.1.1.1  1999/07/03 15:17:20  face
- * Switching from RCS to CVS to improve
- * the handling of the new src code subdirectory
- * structure. aaf
- *
- *
- * Revision 1.3  1999/06/19 16:15:49  face
- * *** empty log message ***
- *
- * Revision 1.2  1999/06/06 23:51:28  face
- * *** empty log message ***
- *
- * Revision 1.1  1999/05/13 11:34:59  face
- * Initial revision
- *
- * Revision 1.2  1999/05/09 09:34:15  face
- * corrected output
- *
- * Revision 1.1  1999/04/22 11:37:49  face
- * Initial revision
- *
-*/
 #ifndef _nt3d_abstract_vp_h_
 #define _nt3d_abstract_vp_h_
 
-
-#include "ntsrc/nt_main.h"
-#include "ntsrc/nt_types.h"
-#include "ntsrc/nt_obj.h"
 
 #include "nt3d_vp_obj.h"
 /** @short NT3D_abstract_vp_o class
@@ -91,20 +47,20 @@ public:
   virtual void Draw() = 0; 
   /** These methods call child and drv implementations */
   void Init() {InitChild();pVP->Init();}
-  NTreturn Resize(NTsize newWidth, NTsize newHeight) {ResizeChild(newWidth,newHeight); return pVP->Resize(newWidth,newHeight);}
+  mbase::Mreturn Resize(mbase::Msize newWidth, mbase::Msize newHeight) {ResizeChild(newWidth,newHeight); return pVP->Resize(newWidth,newHeight);}
   void Redraw() {RedrawChild(); pVP->Redraw();}
   /* These methods call drv implemetnations only */
   void MakeCurrent() {pVP->MakeCurrent();}
   void SwapBuffer() {pVP->SwapBuffer();}
   NT3D_bitmap_o View2Bitmap() {return (NT3D_bitmap_o) pVP->View2Bitmap();}
   NT3D_bitmap_o * View2BitmapPtr(NT3D_bitmap_o * bmpPtr) {return pVP->View2BitmapPtr(bmpPtr);}
-  NTsize _width(){return pVP->_width();}
-  NTsize _height(){return pVP->_height();}
+  mbase::Msize _width(){return pVP->_width();}
+  mbase::Msize _height(){return pVP->_height();}
   /* ***  Data                 ***/
   protected:
   /* ***  Methods              ***/
   virtual void InitChild() = 0;
-  virtual NTreturn ResizeChild(NTsize width, NTsize height) = 0;
+  virtual mbase::Mreturn ResizeChild(mbase::Msize width, mbase::Msize height) = 0;
   /* ***  Data                 ***/
   virtual void RedrawChild() = 0;
   /* ***  Data                 ***/  

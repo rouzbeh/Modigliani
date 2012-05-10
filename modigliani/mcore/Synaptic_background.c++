@@ -26,11 +26,11 @@ using namespace mcore;
 
 /* ***      CONSTRUCTORS	***/
 /** Create a Synaptic_background */
-Synaptic_background::Synaptic_background(NTreal newAvgSynBkCond, /* in nS */
-NTreal newESynBk, /* Synaptic background reversal potential mV */
-NTreal __attribute__((unused)) newSynSigma, /* Synaptic noise "diffusion" nS */
-NTreal newSynTau, /* Synaptic time constant ms */
-NTreal newVBase /* in mV */
+Synaptic_background::Synaptic_background(mbase::Mreal newAvgSynBkCond, /* in nS */
+mbase::Mreal newESynBk, /* Synaptic background reversal potential mV */
+mbase::Mreal __attribute__((unused)) newSynSigma, /* Synaptic noise "diffusion" nS */
+mbase::Mreal newSynTau, /* Synaptic time constant ms */
+mbase::Mreal newVBase /* in mV */
 ) :
 		Membrane_current(newESynBk - newVBase) {
 	avgSynBkCond = newAvgSynBkCond;
@@ -69,18 +69,18 @@ Synaptic_background::~Synaptic_background() {
  \bug        unknown
  */
 
-NTreal Synaptic_background::compute_conductance() {
+mbase::Mreal Synaptic_background::compute_conductance() {
 	return (Set_conductance(0.001 /* mS/nS */* gT /* nS */));
 }
 
-NTreturn Synaptic_background::step_current() {
+mbase::Mreturn Synaptic_background::step_current() {
 	amplitude = sqrt(
 			(synVar * synTau / 2.0) * (1.0 - exp(-2.0 * _timeStep() / synTau)));
 
 	gT += avgSynBkCond + (gT - avgSynBkCond) * exp(-_timeStep() / synTau)
 			+ amplitude * normRnd.RndVal();
 
-	return (NT_SUCCESS);
+	return (mbase::M_SUCCESS);
 }
 
 /* ***  PROTECTED                         ***   */

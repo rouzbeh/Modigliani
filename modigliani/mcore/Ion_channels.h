@@ -23,16 +23,11 @@
 #ifndef _mcore_ion_channels_h_
 #define _mcore_ion_channels_h_
 
-/* NT core includes */
-#include "../ntsrc/nt_main.h"
-#include "../ntsrc/nt_types.h"
-#include "../ntsrc/nt_obj.h"
 /* Parent includes */
 #include "Object.h"
 /* NT includes */
-#include "../ntsrc/nt_error_obj.h"
-#include "../ntsrc/nt_uniform_rnd_dist_obj.h"
-#include "../ntsrc/Binomial_rnd_dist.h"
+#include "ntsrc/Uniform_rnd_dist.h"
+#include "ntsrc/Binomial_rnd_dist.h"
 #include "Transition_rate_matrix.h"
 /* other includes */
 #include <vector>
@@ -48,35 +43,35 @@ namespace mcore{
 class Ion_channels: public Object {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Ion_channels(NTsize numNewChannels, NTsize numNewStates, NTBP_transition_rate_matrix_o* probMatrix, NTreal newTimeStep=0.1);
+	Ion_channels(mbase::Msize numNewChannels, mbase::Msize numNewStates, NTBP_transition_rate_matrix_o* probMatrix, mbase::Mreal newTimeStep=0.1);
 	Ion_channels(const Ion_channels & original);
 	const Ion_channels & operator=(const Ion_channels & right);
 	virtual ~Ion_channels();
 	/* ***  Methods              ***/
-	NTsize _numChannels() const {
+	mbase::Msize _numChannels() const {
 		return (numChannels);
 	}
-	NTsize _numStates() const {
+	mbase::Msize _numStates() const {
 		return (numStates);
 	}
-	NTreturn GillespieStep(NTreal voltage);
-	void setAsOpenState(NTsize newOpenState);
-	NTreturn BinomialStep(NTreal voltage);
-	NTreturn DeterministicStep(NTreal voltage);
-	NTreturn step(NTreal voltage);
-	NTreturn ComputeGillespieStep(NTsize channelStateId, NTreal voltage);
+	mbase::Mreturn GillespieStep(mbase::Mreal voltage);
+	void setAsOpenState(mbase::Msize newOpenState);
+	mbase::Mreturn BinomialStep(mbase::Mreal voltage);
+	mbase::Mreturn DeterministicStep(mbase::Mreal voltage);
+	mbase::Mreturn step(mbase::Mreal voltage);
+	mbase::Mreturn ComputeGillespieStep(mbase::Msize channelStateId, mbase::Mreal voltage);
 	void ShowStates() const;
-	NTsize NumOpen() const;
-	NTsize numChannelsInState(NTsize state) const {
+	mbase::Msize NumOpen() const;
+	mbase::Msize numChannelsInState(mbase::Msize state) const {
 		return (stateCounterVec[state]);
 	}
-	NTsize NumClosed() const {
+	mbase::Msize NumClosed() const {
 		return (_numChannels() - NumOpen());
 	}
-	virtual NTreturn SteadyStateDistribution(NTreal voltage);
+	virtual mbase::Mreturn SteadyStateDistribution(mbase::Mreal voltage);
 	/** Sum of escape rates from current state [1/s] */
-	virtual NTreal ComputeChannelStateTimeConstant(NTreal voltage) const;
-	//virtual NTreturn UpdateStateProb(vector <NTreal> rateConstVec /* in mSec^-1 */) = 0;
+	virtual mbase::Mreal ComputeChannelStateTimeConstant(mbase::Mreal voltage) const;
+	//virtual mbase::Mreturn UpdateStateProb(std::vector <mbase::Mreal> rateConstVec /* in mSec^-1 */) = 0;
 	/**  */
 	void setRatesComputed(bool newValue) {
 		ratesComputed = newValue;
@@ -90,18 +85,18 @@ protected:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
 	// TODO remove this
-	vector<NTreal> statePersistenceProbVec;
-	vector<NTint> stateCounterVec;
-	static NT_uniform_rnd_dist_o uniformRnd; // [0,1] random number generation
-	static mmath::Binomial_rnd_dist binomRnd;
+	std::vector<mbase::Mreal> statePersistenceProbVec;
+	std::vector<mbase::Mint> stateCounterVec;
+	static mbase::Uniform_rnd_dist uniformRnd; // [0,1] random number generation
+	static mbase::Binomial_rnd_dist binomRnd;
 
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
 	NTBP_transition_rate_matrix_o* _probMatrix;
-	vector<NTsize> openStates;
-	NTsize numStates;
-	NTsize numChannels;
+	std::vector<mbase::Msize> openStates;
+	mbase::Msize numStates;
+	mbase::Msize numChannels;
 	bool ratesComputed;
 };
 }

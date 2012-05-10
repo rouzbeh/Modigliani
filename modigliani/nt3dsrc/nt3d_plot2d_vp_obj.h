@@ -33,14 +33,8 @@
 #ifndef _nt3d_plot2d_vp_obj_h_ 
 #define _nt3d_plot2d_vp_obj_h_ 
 
-/* NT core includes */
-#include "ntsrc/nt_main.h" 
-#include "ntsrc/nt_types.h" 
-#include "ntsrc/nt_obj.h"  
 /* Parent includes */
 #include "nt3d_plot_vp_obj.h"
-/* NT includes */
-#include "ntsrc/nt_error_obj.h"
 
 /* other includes */
 #include <GL/gl.h>
@@ -62,17 +56,17 @@ public:
 	void AutoRange(bool decision) {
 		autoRange = decision;
 	}
-	NTreturn SetXRange(NTreal min, NTreal max) {
-		NT_ASSERT( min < max);
+	mbase::Mreturn SetXRange(mbase::Mreal min, mbase::Mreal max) {
+		M_ASSERT( min < max);
 		xMin = min;
 		xMax = max;
-		return NT_SUCCESS;
+		return mbase::M_SUCCESS;
 	}
-	NTreturn SetYRange(NTreal min, NTreal max) {
-		NT_ASSERT( min < max);
+	mbase::Mreturn SetYRange(mbase::Mreal min, mbase::Mreal max) {
+		M_ASSERT( min < max);
 		yMin = min;
 		yMax = max;
-		return NT_SUCCESS;
+		return mbase::M_SUCCESS;
 	}
 	/* ***  Data                 ***/
 protected:
@@ -80,22 +74,22 @@ protected:
 	void InitChild() {
 	}
 	;
-	NTreturn ResizeChild(NTsize __attribute__((__unused__)) x,
-			NTsize __attribute__((__unused__)) y) {
-		return NT_SUCCESS;
+	mbase::Mreturn ResizeChild(mbase::Msize __attribute__((__unused__)) x,
+			mbase::Msize __attribute__((__unused__)) y) {
+		return mbase::M_SUCCESS;
 	}
 	void RedrawChild() {
 		DrawCoordinateSystem();
 		DrawData();
 	}
 	virtual void DrawData() = 0;
-	void NewXData(NTreal x) {
+	void NewXData(mbase::Mreal x) {
 		if (x < dataXMin)
 			dataXMin = x;
 		else if (x > dataXMax)
 			dataXMax = x;
 	}
-	void NewYData(NTreal y) {
+	void NewYData(mbase::Mreal y) {
 		if (y < dataYMin)
 			dataYMin = y;
 		else if (y > dataYMax)
@@ -107,10 +101,10 @@ protected:
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	NTreal dataXMin, dataXMax;
-	NTreal dataYMin, dataYMax;
-	NTreal xMin, xMax;
-	NTreal yMin, yMax;
+	mbase::Mreal dataXMin, dataXMax;
+	mbase::Mreal dataYMin, dataYMax;
+	mbase::Mreal xMin, xMax;
+	mbase::Mreal yMin, yMax;
 	bool autoRange;
 	bool drawCoord;
 };

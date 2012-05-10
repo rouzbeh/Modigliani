@@ -78,7 +78,7 @@ NT3D_arrow_o::~NT3D_arrow_o() {
  \warning 	unknown
  \bug 	unknown
  */
-void NT3D_arrow_o::Collinearize(const NT_vector3_o &) {
+void NT3D_arrow_o::Collinearize(const NT_std::vector3_o &) {
 }
 
 /* *** 	PROTECTED     	      		  ***	*/

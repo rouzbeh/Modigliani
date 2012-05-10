@@ -89,13 +89,13 @@
 
 #include "nt3d_object_obj.h"
 
-#include "ntsrc/nt_vector3_obj.h"
+#include "ntsrc/nt_std::vector3_obj.h"
 /** @short NT3D_camera_o class
  The class provides a freely movable imaginary camera
  in a three dimensional universe.
 
  Idea: Its position in space is
- determined by the translation vector of the parent class.
+ determined by the translation std::vector of the parent class.
  The camera is rotated and moved like any NT3D_object_o object,
  where the rotation describes the direction in which the imaginary
  lens is pointed (default the positive X axis). Under all rotations
@@ -112,9 +112,9 @@
 class NT3D_camera_o: public NT3D_object_o {
 public:
 	/***   Constructors, CopyAssignment and Destructor  ***/
-	NT3D_camera_o(const NT_vector3_o & oNewPosition = NT_OriginVec3());
-	NT3D_camera_o(const NT_vector3_o & oNewPosition,
-			const NT_vector3_o & oNewTarget);
+	NT3D_camera_o(const NT_std::vector3_o & oNewPosition = NT_OriginVec3());
+	NT3D_camera_o(const NT_std::vector3_o & oNewPosition,
+			const NT_std::vector3_o & oNewTarget);
 	NT3D_camera_o(const NT3D_camera_o & original);
 	const NT3D_camera_o & operator=(const NT3D_camera_o & right);
 	virtual ~NT3D_camera_o();
@@ -122,16 +122,16 @@ public:
 	/** set the camera position, i.e. set the projection and viewing transformation,
 	 ** The method is virtual such that derived classes can overwrite it */
 	virtual void Draw();
-	NTreal _aspectRatio() const {
+	mbase::Mreal _aspectRatio() const {
 		return aspectRatio;
 	}
-	void Set_aspectRatio(NTreal newRatio) {
+	void Set_aspectRatio(mbase::Mreal newRatio) {
 		aspectRatio = newRatio;
 	}
-	void SetTarget(const NT_vector3_o & oNewTarget) {
+	void SetTarget(const NT_std::vector3_o & oNewTarget) {
 		oTarget = oNewTarget;
 	}
-	NT_vector3_o _oTarget() {
+	NT_std::vector3_o _oTarget() {
 		return oTarget;
 	}
 	/* ***  Data                 ***/
@@ -142,27 +142,27 @@ protected:
 	}
 	;
 	void ControlImpl(NT3Dcontroller __attribute__((unused)) cntrl,
-			NTreal __attribute__((unused)) value) {
+			mbase::Mreal __attribute__((unused)) value) {
 	}
 	;
 	void ControlImpl(NT3Dcontroller __attribute__((unused)) cntrl,
-			NT_vector_o __attribute__((unused)) value) {
+			NT_std::vector_o __attribute__((unused)) value) {
 	}
 	;
 	/** change the value of the aspectRatio, not observable until Draw() call */
 	/* ***  Data                 ***/
 	/** where to look at */
-	NT_vector3_o oTarget;
+	NT_std::vector3_o oTarget;
 	/** where the up, i.e. the upper edge of the camera "picture" is */
-	NT_vector3_o oUp;
+	NT_std::vector3_o oUp;
 	/* was the camera object changed since the last Draw() ? */
 	bool cameraChanged;
 	/** The ascpect ratio determines the ratio of width to height of
 	 the "film" which is recorded from the camera. It usually corresponds
 	 to the aspect ratio of a (rendering) viewport. */
-	NTreal aspectRatio;
+	mbase::Mreal aspectRatio;
 	/** The camera Field Of View (FOV) is an angle in ]0,180[ */
-	NTreal fov;
+	mbase::Mreal fov;
 
 private:
 	/* ***  Methods              ***/

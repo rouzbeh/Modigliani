@@ -31,7 +31,7 @@
  *
  * Revision 1.5  2000/06/26 19:14:06  face
  * finally found the error that caused solid object to disappear:
- * the scaling vector was not constructed in the 2nd constructor
+ * the scaling std::vector was not constructed in the 2nd constructor
  * of the solid bject thus resulting in a zero object
  * new demo file: showing some random graphics
  *
@@ -101,10 +101,10 @@ NT3D_line_o::NT3D_line_o()
   endPnt = NT_UnitXYZVec3();
 }
 
-NT3D_line_o::NT3D_line_o(NT_vector3_o newStartPnt, NT_vector3_o newEndPnt)
+NT3D_line_o::NT3D_line_o(NT_std::vector3_o newStartPnt, NT_std::vector3_o newEndPnt)
 {
-  NT_ASSERT( 3 == newStartPnt._dimension());
-  NT_ASSERT( 3 == newEndPnt._dimension());
+  M_ASSERT( 3 == newStartPnt._dimension());
+  M_ASSERT( 3 == newEndPnt._dimension());
   startPnt = newStartPnt;
   endPnt = newEndPnt;
 }

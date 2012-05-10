@@ -24,36 +24,36 @@ using namespace std;
 namespace mcore{
 class Lua_based_stochastic_multi_current: public Multi_current {
 public:
-	Lua_based_stochastic_multi_current(NTreal newArea, NTreal newDensity, NTreal newConductivity,
-			NTreal newVBase, NTreal reversalPotential, NTreal newTimeStep, NTreal newTemperature, string fileName);
+	Lua_based_stochastic_multi_current(mbase::Mreal newArea, mbase::Mreal newDensity, mbase::Mreal newConductivity,
+			mbase::Mreal newVBase, mbase::Mreal reversalPotential, mbase::Mreal newTimeStep, mbase::Mreal newTemperature, string fileName);
 	virtual ~Lua_based_stochastic_multi_current();
 
 	static void load_file(string fileName, double temperature, double time_step);
 	static map<string,NTBP_transition_rate_matrix_o*> probability_matrix_map;
-	static map<string,NTsize> number_of_states_map;
+	static map<string,mbase::Msize> number_of_states_map;
 	static map<string,double> base_temperature_map;
-	static map<string,vector<int> > open_states_map;
-	NTreal NumChannelsInState(NTsize state) const override;
-	NTreal ComputeChannelStateTimeConstant() const override;
+	static map<string,std::vector<int> > open_states_map;
+	mbase::Mreal NumChannelsInState(mbase::Msize state) const override;
+	mbase::Mreal ComputeChannelStateTimeConstant() const override;
 
-	virtual NTreturn step_current() override;
-	virtual NTreal open_channels() const override;
-	virtual NTreal compute_conductance() override;
+	virtual mbase::Mreturn step_current() override;
+	virtual mbase::Mreal open_channels() const override;
+	virtual mbase::Mreal compute_conductance() override;
 	void ShowParam() const override;
 	void printProb(string fileName){
-		for (NTreal v =20; v<130; v+=0.005){
-			cout << probability_matrix_map[fileName]->getTransitionProbability(v, 2, 1) << endl;
+		for (mbase::Mreal v =20; v<130; v+=0.005){
+			cout << probability_matrix_map[fileName]->getTransitionProbability(v, 2, 1) << std::endl;
 		}
 	}
 
 	Ion_channels * channelsPtr;
 
 private:
-	static NTreal lua_get_ntreal(lua_State* L, string name);
+	static mbase::Mreal lua_get_ntreal(lua_State* L, string name);
 	static bool initTableLookUp;
-	static vector<string> initialised_probability_matrices;
-	NTreal lua_get_ntreal(string method);
-	NTreal baseTemp;
+	static std::vector<string> initialised_probability_matrices;
+	mbase::Mreal lua_get_ntreal(string method);
+	mbase::Mreal baseTemp;
 
 };
 }

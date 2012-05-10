@@ -20,22 +20,6 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-/* $Id: ntg_random_graph_obj.cpp,v 1.1 2001/06/29 13:16:58 face Exp $
- * $Log: ntg_random_graph_obj.cpp,v $
- * Revision 1.1  2001/06/29 13:16:58  face
- * *** empty log message ***
- *
- * Revision 1.4  2000/11/06 10:37:37  face
- * *** empty log message ***
- *
- * Revision 1.3  2000/11/04 10:32:18  face
- * *** empty log message ***
- *
- * Revision 1.1  2000/10/15 19:21:38  face
- * *** empty log message ***
- *
-
- */
 #include "ntg_random_graph_obj.h"
 
 /* 2DO revise NT uniform dist class to do the job */
@@ -50,19 +34,19 @@ public:
 	}
 
 	int abs(int x) {
-		return x & 0x7fffffff;
+		return (x & 0x7fffffff);
 	}
 	static double max() {
-		return 2147483648.0;
+		return (2147483648.0);
 	}
 	int draw() {
-		return randx = randx * 1103515245 + 12345;
+		return (randx = randx * 1103515245 + 12345);
 	}
 	double fdraw() {
-		return abs(draw()) / max();
+		return (abs(draw()) / max());
 	}
 	int operator()() {
-		return abs(draw());
+		return (abs(draw()));
 	}
 };
 
@@ -75,21 +59,21 @@ public:
 	}
 	int operator()() {
 		int r = (int) n * fdraw();
-		return (r == n) ? n - 1 : r;
+		return ((r == n) ? n - 1 : r);
 	}
 };
 
 /* ***      CONSTRUCTORS	***/
 
-void NTG_random_graph_o::InitFullyConnectedGraph(NTsize numInitialNodes,
+void NTG_random_graph_o::InitFullyConnectedGraph(mbase::Msize numInitialNodes,
 		const NTG_node_o & nodeProto,
 		const NTG_edge_o __attribute__((unused)) & edgeProto) {
 
-	for (NTsize ll = 0; ll < numInitialNodes; ll++) {
+	for (mbase::Msize ll = 0; ll < numInitialNodes; ll++) {
 		if (AddNode(nodeProto) == 0)
-			cerr
+			std::cerr
 					<< "NTG_random_graph_o::NTG_random_graph_o - Error: An error occured while adding the nodes to the graph."
-					<< endl;
+					<< std::endl;
 	}
 
 	NTG_NodeIdList idList = NodeIdList();
@@ -100,10 +84,10 @@ void NTG_random_graph_o::InitFullyConnectedGraph(NTsize numInitialNodes,
 		for (listIterTarget = idList.begin(); listIterTarget != idList.end();
 				listIterTarget++) {
 			if ((*listIter) != (*listIterTarget)) {
-				if (Connect(*listIter, *listIterTarget) != NT_SUCCESS)
-					cerr
+				if (Connect(*listIter, *listIterTarget) != mbase::M_SUCCESS)
+					std::cerr
 							<< "NTG_random_graph_o::NTG_random_graph_o - Error: An error occured while connecting the graph."
-							<< endl;
+							<< std::endl;
 			}
 		}
 	}
@@ -112,7 +96,7 @@ void NTG_random_graph_o::InitFullyConnectedGraph(NTsize numInitialNodes,
 
 /** Create a NTG_random_graph_o */
 /** @short Generate fully connected graph */
-NTG_random_graph_o::NTG_random_graph_o(NTsize numInitialNodes,
+NTG_random_graph_o::NTG_random_graph_o(mbase::Msize numInitialNodes,
 		const NTG_node_o & nodeProto, const NTG_edge_o & edgeProto) :
 		NTG_graph_o() {
 	p = 1;
@@ -123,8 +107,8 @@ NTG_random_graph_o::NTG_random_graph_o(NTsize numInitialNodes,
 }
 
 /** Create a NTG_random_graph_o */
-NTG_random_graph_o::NTG_random_graph_o(NTsize numInitialNodes,
-		NTreal connectivityProbability, const NTG_node_o & nodeProto,
+NTG_random_graph_o::NTG_random_graph_o(mbase::Msize numInitialNodes,
+		mbase::Mreal connectivityProbability, const NTG_node_o & nodeProto,
 		const NTG_edge_o & edgeProto) :
 		NTG_graph_o() {
 	/* init */
@@ -133,11 +117,12 @@ NTG_random_graph_o::NTG_random_graph_o(NTsize numInitialNodes,
 		return;
 
 	InitFullyConnectedGraph(numInitialNodes, nodeProto, edgeProto);
-	//cerr << "NumNodes="<< NumNodes() <<" NumEdges="<< NumEdges() << endl;
+	//std::cerr << "NumNodes="<< NumNodes() <<" NumEdges="<< NumEdges() << std::endl;
 
 	/* dilute fully connected graph */
-	NT_uniform_rnd_dist_o connectRndGen(1, NumEdges());
-	NTsize numDel = (NTsize) (NumEdges() * (1 - connectivityProbability));
+	mbase::Uniform_rnd_dist connectRndGen(1, NumEdges());
+	mbase::Msize numDel = (mbase::Msize) (NumEdges()
+			* (1 - connectivityProbability));
 
 	NTG_EdgeContainer edgeList = EdgeList();
 
@@ -146,9 +131,9 @@ NTG_random_graph_o::NTG_random_graph_o(NTsize numInitialNodes,
 	random_shuffle(edgeList.begin(), edgeList.end());
 
 	if (edgeList.size() != numDel)
-		cerr
+		std::cerr
 				<< "NTG_random_graph_o::NTG_random_graph_o - Error : Delete list size not equal 	to number of edges to be deleted."
-				<< endl;
+				<< std::endl;
 	NTG_EdgeContainer::const_iterator delListIter;
 	for (delListIter = edgeList.begin(); delListIter != edgeList.end();
 			delListIter++) {
@@ -167,9 +152,9 @@ NTG_random_graph_o::NTG_random_graph_o(
 const NTG_random_graph_o&
 NTG_random_graph_o::operator=(const NTG_random_graph_o & right) {
 	if (this == &right)
-		return *this; // Gracefully handle self assignment
+		return (*this); // Gracefully handle self assignment
 // add assignment code here
-	return *this;
+	return (*this);
 }
 
 /* ***      DESTRUCTOR		***/
@@ -183,10 +168,10 @@ NTG_random_graph_o::~NTG_random_graph_o() {
  \warning    unknown
  \bug        unknown
  */
-NTreturn NTG_random_graph_o::AddRandomNode(
+mbase::Mreturn NTG_random_graph_o::AddRandomNode(
 		const NTG_node_o __attribute__((unused)) & nodeProto) {
-	cerr << "NOT IMPLEMENTED" << endl;
-	return NT_SUCCESS;
+	std::cerr << "NOT IMPLEMENTED" << std::endl;
+	return (mbase::M_SUCCESS);
 }
 
 /** @short
@@ -195,9 +180,10 @@ NTreturn NTG_random_graph_o::AddRandomNode(
  \warning    unknown
  \bug        unknown
  */
-NTreturn NTG_random_graph_o::AddRandomEdge(const NTG_edge_o __attribute__((unused)) & edgeProto) {
-	cerr << "NOT IMPLEMENTED" << endl;
-	return NT_SUCCESS;
+mbase::Mreturn NTG_random_graph_o::AddRandomEdge(
+		const NTG_edge_o __attribute__((unused)) & edgeProto) {
+	std::cerr << "NOT IMPLEMENTED" << std::endl;
+	return (mbase::M_SUCCESS);
 }
 
 /* ***  PROTECTED                         ***   */

@@ -10,18 +10,18 @@
 using namespace mcore;
 
 bool File_based_stochastic_multi_current::initTableLookUp = false;
-map<string, NTBP_transition_rate_matrix_o*> File_based_stochastic_multi_current::probability_matrix_map;
-map<string, int> File_based_stochastic_multi_current::number_of_states_map;
-map<string, double> File_based_stochastic_multi_current::base_temperature_map;
-map<string, vector<int> > File_based_stochastic_multi_current::open_states_map;
+std::map<std::string, NTBP_transition_rate_matrix_o*> File_based_stochastic_multi_current::probability_matrix_map;
+std::map<std::string, int> File_based_stochastic_multi_current::number_of_states_map;
+std::map<std::string, double> File_based_stochastic_multi_current::base_temperature_map;
+std::map<std::string, std::vector<int> > File_based_stochastic_multi_current::open_states_map;
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NTBP_hranvier_sodium_multi_current_o */
 
-File_based_stochastic_multi_current::File_based_stochastic_multi_current(NTreal newArea,
-		NTreal newDensity, NTreal newConductivity, NTreal newVBase,
-		NTreal newReversalPotential, NTreal newTimeStep, NTreal newTemperature,
-		string fileName) :
+File_based_stochastic_multi_current::File_based_stochastic_multi_current(mbase::Mreal newArea,
+		mbase::Mreal newDensity, mbase::Mreal newConductivity, mbase::Mreal newVBase,
+		mbase::Mreal newReversalPotential, mbase::Mreal newTimeStep, mbase::Mreal newTemperature,
+		std::string fileName) :
 		Multi_current(newReversalPotential /* in mV */,
 				newDensity /* channels per mu^2 */, newArea /* in mu^2 */,
 				newConductivity /* in mS per channel  */, newVBase /* mV */
@@ -36,7 +36,7 @@ File_based_stochastic_multi_current::File_based_stochastic_multi_current(NTreal 
 	}
 	baseTemp = base_temperature_map[fileName];
 
-	NT_ASSERT(number_of_states_map[fileName]>0);
+	M_ASSERT(number_of_states_map[fileName]>0);
 
 	if (false == initTableLookUp) {
 		initTableLookUp = true;
@@ -78,13 +78,13 @@ File_based_stochastic_multi_current::~File_based_stochastic_multi_current() {
 
 /* ***  PUBLIC                                    ***   */
 
-void File_based_stochastic_multi_current::load_file(string fileName,
+void File_based_stochastic_multi_current::load_file(std::string fileName,
 		double temperature, double time_step) {
-	cout << "Loading probabilities from " << fileName << endl;
+	std::cout << "Loading probabilities from " << fileName << std::endl;
 	Json::Value root; // will contains the root value after parsing.
 	Json::Reader reader;
-	ifstream config_doc;
-	config_doc.open(fileName.c_str(), ifstream::in);
+	std::ifstream config_doc;
+	config_doc.open(fileName.c_str(), std::ifstream::in);
 	bool parsingSuccessful = reader.parse(config_doc, root);
 	if (!parsingSuccessful) {
 		// report to the user the failure and their locations in the document.
@@ -97,7 +97,7 @@ void File_based_stochastic_multi_current::load_file(string fileName,
 			root.get("base_temperature", 20).asDouble();
 	number_of_states_map[fileName] = root.get("number_of_states", 0).asInt();
 
-	open_states_map[fileName] = vector<int>();
+	open_states_map[fileName] = std::vector<int>();
 	const Json::Value open_states = root["open_states"];
 	for (unsigned int index = 0; index < open_states.size(); ++index) { // Iterates over the sequence elements.
 		open_states_map[fileName].push_back(open_states[index].asInt());
@@ -121,7 +121,7 @@ void File_based_stochastic_multi_current::load_file(string fileName,
 				base_temperature_map[fileName] /* C */, q10) * base_probability
 				* time_step;
 
-		//NT_ASSERT(probability>0 && probability<=1);
+		//M_ASSERT(probability>0 && probability<=1);
 		// Converted voltage is real_voltage
 		double converted_voltage =
 				transitions[index].get("voltage", 0).asDouble();
@@ -137,7 +137,7 @@ void File_based_stochastic_multi_current::load_file(string fileName,
  \warning    unknown
  \bug        unknown
  */
-inline NTreturn File_based_stochastic_multi_current::step_current() {
+inline mbase::Mreturn File_based_stochastic_multi_current::step_current() {
 	switch (_simulationMode()) {
 	case NTBP_BINOMIALPOPULATION: {
 		return (channelsPtr->BinomialStep(voltage));
@@ -153,41 +153,41 @@ inline NTreturn File_based_stochastic_multi_current::step_current() {
 
 		break;
 	default:
-		cerr
+		std::cerr
 				<< "File_based_stochastic_multi_current::StepCurrent - ERROR : Unsupported simulation mode."
-				<< endl;
-		return (NT_PARAM_UNSUPPORTED);
+				<< std::endl;
+		return (mbase::M_PARAM_UNSUPPORTED);
 		break;
 	}
-	return (NT_FAIL);
+	return (mbase::M_FAIL);
 }
 
 /**  */
 /** No descriptions */
-inline NTreal File_based_stochastic_multi_current::open_channels() const {
+inline mbase::Mreal File_based_stochastic_multi_current::open_channels() const {
 	return (channelsPtr->NumOpen());
 }
 
 /**  */
 /** No descriptions */
-inline NTreal File_based_stochastic_multi_current::NumChannelsInState(
-		NTsize state) const {
+inline mbase::Mreal File_based_stochastic_multi_current::NumChannelsInState(
+		mbase::Msize state) const {
 	return (channelsPtr->numChannelsInState(state));
 }
 
-inline NTreal File_based_stochastic_multi_current::compute_conductance() {
+inline mbase::Mreal File_based_stochastic_multi_current::compute_conductance() {
 	return (Set_conductance(channelsPtr->NumOpen() * conductivity));
 }
 
-inline NTreal File_based_stochastic_multi_current::ComputeChannelStateTimeConstant() const {
+inline mbase::Mreal File_based_stochastic_multi_current::ComputeChannelStateTimeConstant() const {
 	return (channelsPtr->ComputeChannelStateTimeConstant(voltage));
 }
 
 void File_based_stochastic_multi_current::ShowParam() const {
-	cout << "Na channel parameters:" << endl;
-	cout << "Single channel conductivity [nA]" << _conductivity() << endl;
-	cout << "Channel density [1/muMeter^2]" << _area() << endl;
-	cout << "MaxConductivity (all channels open) mSiemens/cm^2"
-			<< _maxConductivity() << endl;
+	std::cout << "Na channel parameters:" << std::endl;
+	std::cout << "Single channel conductivity [nA]" << _conductivity() << std::endl;
+	std::cout << "Channel density [1/muMeter^2]" << _area() << std::endl;
+	std::cout << "MaxConductivity (all channels open) mSiemens/cm^2"
+			<< _maxConductivity() << std::endl;
 }
 

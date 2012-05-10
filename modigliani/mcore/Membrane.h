@@ -33,10 +33,6 @@
 #ifndef _mcore_membrane_h_
 #define _mcore_membrane_h_
 
-/* NT core includes */
-#include "ntsrc/nt_main.h"
-#include "ntsrc/nt_types.h"
-#include "ntsrc/nt_obj.h"
 /* Parent includes */
 #include "Object.h"
 /* NT includes */
@@ -60,7 +56,7 @@ public:
 protected:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	vector<mcore::Membrane_compartment> membCompVec;
+	std::vector<mcore::Membrane_compartment> membCompVec;
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/

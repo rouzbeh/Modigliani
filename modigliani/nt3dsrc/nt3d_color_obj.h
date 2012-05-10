@@ -44,8 +44,8 @@
  * Revision 1.4  2000/04/27 09:57:08  face
  * switched to float based colors
  * texture is RGBA color value,
- * corrected nasty bug in nt3d_color_o, where the color bearing vector
- * was initialised as 3 and not as 4-vector (RGBA!)
+ * corrected nasty bug in nt3d_color_o, where the color bearing std::vector
+ * was initialised as 3 and not as 4-std::vector (RGBA!)
  * :wq!
  *
  * Revision 1.3  1999/07/17 18:21:52  face
@@ -67,7 +67,7 @@
 #include "ntsrc/nt_main.h"
 #include "ntsrc/nt_types.h"
 #include "nt3d_obj.h"
-#include "ntsrc/nt_vector_obj.h"
+#include "ntsrc/nt_std::vector_obj.h"
 
 #include <GL/gl.h>
 
@@ -86,7 +86,7 @@ public:
   NT3D_color_o();
   NT3D_color_o(GLfloat newR, GLfloat newG, GLfloat newB, GLfloat newAlpha);
   NT3D_color_o(const valarray<GLfloat> & newColorRGBA);
-  //NT3D_color_o(const NT_vector_o & newColorRGBA);
+  //NT3D_color_o(const NT_std::vector_o & newColorRGBA);
   NT3D_color_o(const NT3D_color_o & original);
   const NT3D_color_o& operator= (const NT3D_color_o & right);
   ~NT3D_color_o();
@@ -95,13 +95,13 @@ public:
   void SetColor( GLfloat newR, GLfloat newG, GLfloat newB, GLfloat newAlpha);
   void SetColor( const GLfloat newColor[] );
   void SetColor( const NT3D_color_o & newColor);
-  NTreal _R(){ return colorRGBA[0];}
-  NTreal _G(){ return colorRGBA[1];}
-  NTreal _B(){ return colorRGBA[2];}
-  NTreal _Alpha(){ return colorRGBA[3];}
+  mbase::Mreal _R(){ return colorRGBA[0];}
+  mbase::Mreal _G(){ return colorRGBA[1];}
+  mbase::Mreal _B(){ return colorRGBA[2];}
+  mbase::Mreal _Alpha(){ return colorRGBA[3];}
   NT3D_color_o operator+(const NT3D_color_o &right) const;
   NT3D_color_o operator-(const NT3D_color_o &right) const;
-  NT3D_color_o operator*(NTreal alpha) const;
+  NT3D_color_o operator*(mbase::Mreal alpha) const;
   /* return the pointer to the color Cache (for OpenGL draws) */
   const GLfloat * _colorPtr() {Update(); return (const GLfloat*) colorPtr;}
    /*   Data                   */  

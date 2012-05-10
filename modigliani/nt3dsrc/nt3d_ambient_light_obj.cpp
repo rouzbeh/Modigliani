@@ -57,14 +57,14 @@ NT3D_ambient_light_o::NT3D_ambient_light_o()
 NT3D_ambient_light_o::NT3D_ambient_light_o(const NT3D_ambient_light_o __attribute__((unused)) & original):
 		NT3D_light_o()
 {
-	cerr << "NT3D_ambient_light_o::NT3D_ambient_light_o - Talk : lightId copied too." << endl;
+	cerr << "NT3D_ambient_light_o::NT3D_ambient_light_o - Talk : lightId copied too." << std::endl;
 }
 
 const NT3D_ambient_light_o&  
 NT3D_ambient_light_o::operator= (const NT3D_ambient_light_o & right)
 {
   if (this == &right) return *this; // Gracefully handle self assignment
-  cerr << "NT3D_ambient_light_o::operator= - Talk : lightId copied too." << endl;
+  cerr << "NT3D_ambient_light_o::operator= - Talk : lightId copied too." << std::endl;
   // add assignment code here
   return *this;
 }

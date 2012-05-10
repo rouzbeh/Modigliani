@@ -72,9 +72,7 @@
 #define _nt3d_h_
 
 
-#include "ntsrc/nt_main.h"
-#include "ntsrc/nt_types.h"
-#include "ntsrc/nt_obj.h"
+#include "ntsrc/Obj.h"
 
 #include <GL/gl.h>
 #define NT3D_MAX_LIGHTS GL_MAX_LIGHTS
@@ -85,7 +83,7 @@
 \warning unknown 
 \bug unknown
  */
-class NT3D_o : public NT_o {
+class NT3D_o : public mbase::Obj {
 public:
   /*   Methods                */  
   virtual void Draw() = 0;

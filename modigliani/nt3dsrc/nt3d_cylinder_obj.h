@@ -82,9 +82,9 @@
 class NT3D_cylinder_o: public NT3D_solid_o {
 public:
 	NT3D_cylinder_o();
-	NT3D_cylinder_o(NT_vector3_o oNewPosition);
-	NT3D_cylinder_o(NT_vector3_o oBaseCenter, NTreal newHeight,
-			NTreal newRadius);
+	NT3D_cylinder_o(NT_std::vector3_o oNewPosition);
+	NT3D_cylinder_o(NT_std::vector3_o oBaseCenter, mbase::Mreal newHeight,
+			mbase::Mreal newRadius);
 	NT3D_cylinder_o(const NT3D_cylinder_o & original);
 	const NT3D_cylinder_o & operator=(const NT3D_cylinder_o & right);
 	~NT3D_cylinder_o();
@@ -98,23 +98,23 @@ protected:
 	}
 	;
 	virtual void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl,
-			NTreal __attribute__((unused)) value) {
+			mbase::Mreal __attribute__((unused)) value) {
 	}
 	;
 	virtual void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl,
-			NT_vector_o __attribute__((unused)) value) {
+			NT_std::vector_o __attribute__((unused)) value) {
 	}
 	;
 	/*   Data                   */
 private:
 	/*   Methods                */
-	void Init(NTreal radius);
+	void Init(mbase::Mreal radius);
 	/*   Data                   */
-	NTreal topRadius;
-	NTreal baseRadius;
-	NTreal height;
-	NTbool bHaveTopClosed;
-	NTbool bHaveBaseClosed;
+	mbase::Mreal topRadius;
+	mbase::Mreal baseRadius;
+	mbase::Mreal height;
+	mbase::Mbool bHaveTopClosed;
+	mbase::Mbool bHaveBaseClosed;
 };
 
 #endif /* _nt3d_cylinder_h_ */

@@ -31,7 +31,7 @@
 *
 * Revision 1.2  2000/06/26 19:14:06  face
 * finally found the error that caused solid object to disappear:
-* the scaling vector was not constructed in the 2nd constructor
+* the scaling std::vector was not constructed in the 2nd constructor
 * of the solid bject thus resulting in a zero object
 * new demo file: showing some random graphics
 *
@@ -63,12 +63,12 @@ class NT3D_surfaced_object_o : public NT3D_hierarchic_object_o {
 public:
 /***   Constructors, Copy/Assignment and Destructor  ***/  
 NT3D_surfaced_object_o();
-NT3D_surfaced_object_o(const NT_vector3_o & oPosition);
+NT3D_surfaced_object_o(const NT_std::vector3_o & oPosition);
 NT3D_surfaced_object_o(const NT3D_surfaced_object_o & original);
 const NT3D_surfaced_object_o & operator= (const NT3D_surfaced_object_o & right);
 virtual ~NT3D_surfaced_object_o();
 /* ***  Methods              ***/ 
-NTreturn SetTexture(NT3D_texture_o * newTexturePtr);
+mbase::Mreturn SetTexture(NT3D_texture_o * newTexturePtr);
 bool _textureSet() {return textureSet;};
 bool _bUseTexture() {return bUseTexture;};
 /* ***  Data                 ***/  
@@ -86,7 +86,7 @@ NT3D_texture_o* oTexturePtr;
 
 private:
 /* ***  Methods              ***/  
-NTreturn ResetTexture();
+mbase::Mreturn ResetTexture();
 /* ***  Data                 ***/ 
 bool textureSet;
 bool bUseTexture;

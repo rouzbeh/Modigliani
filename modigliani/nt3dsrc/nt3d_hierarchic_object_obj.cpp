@@ -46,7 +46,7 @@ NT3D_hierarchic_object_o::NT3D_hierarchic_object_o()
  pParent = NULL;
  }
 
-NT3D_hierarchic_object_o::NT3D_hierarchic_object_o(const NT_vector3_o & oNewTranslation)
+NT3D_hierarchic_object_o::NT3D_hierarchic_object_o(const NT_std::vector3_o & oNewTranslation)
  :
  NT3D_object_o(oNewTranslation)
  {
@@ -102,16 +102,16 @@ NT3D_hierarchic_object_o::Draw()
 
 
 /** Used to weakly check the consistency of the NT3D object. It is used mainly to ensure that the pointers to children and parent objects in the render tree really point to a NT3D object */
-NTreturn
+mbase::Mreturn
 NT3D_hierarchic_object_o::NT3DObjectCheck() const
 {
 	if (NT_TRUE == bHaveChild){
-		if (opChildren.size() == uiChildCounter) return NT_SUCCESS;
-		else return NT_FAIL;
+		if (opChildren.size() == uiChildCounter) return mbase::M_SUCCESS;
+		else return mbase::M_FAIL;
 	} else if (NT_FALSE == bHaveChild){
-	return NT_SUCCESS;
+	return mbase::M_SUCCESS;
 	}	
-	else return NT_FAIL;
+	else return mbase::M_FAIL;
 	
 	
 }
@@ -120,27 +120,27 @@ NT3D_hierarchic_object_o::NT3DObjectCheck() const
 NTuint
 NT3D_hierarchic_object_o::AddChild( NT3D_hierarchic_object_o * pNewChild)
 {
-	if ( pNewChild == this ) cerr << "NT3D_hierarchic_object_o::SetChild - ERROR : trying to set self as child !" << endl;
-	else if ( pNewChild == NULL ) cerr << "NT3D_hierarchic_object_o::SetChild - ERROR : trying to set NULL as child !" << endl;
-	else if ( pNewChild->NT3DObjectCheck() != NT_SUCCESS ) cerr << "NT3D_hierarchic_object_o::SetChild - ERROR : child object not ok !" << endl;
+	if ( pNewChild == this ) cerr << "NT3D_hierarchic_object_o::SetChild - ERROR : trying to set self as child !" << std::endl;
+	else if ( pNewChild == NULL ) cerr << "NT3D_hierarchic_object_o::SetChild - ERROR : trying to set NULL as child !" << std::endl;
+	else if ( pNewChild->NT3DObjectCheck() != mbase::M_SUCCESS ) cerr << "NT3D_hierarchic_object_o::SetChild - ERROR : child object not ok !" << std::endl;
 
   opChildren.push_back(pNewChild);
   uiChildCounter++;
   bHaveChild = NT_TRUE;
   
   pNewChild->SetParent(this);
-  NT_ASSERT_POSTCOND( opChildren.size() == uiChildCounter );
+  M_ASSERT_POSTCOND( opChildren.size() == uiChildCounter );
   return uiChildCounter;
 }
 
 /** remove child by providing the child´s pointer  
-@return NT_SUCCESS if child was removed succesfully. Otherwise
-    NT_FAIL. */
+@return mbase::M_SUCCESS if child was removed succesfully. Otherwise
+    mbase::M_FAIL. */
 /* has to be reimplemented
-NTreturn
+mbase::Mreturn
 NT3D_hierarchic_object_o::RemoveChild( NT3D_hierarchic_object_o * pOldChild)
 {
-  if (uiChildCounter < 1) return NT_FAIL;
+  if (uiChildCounter < 1) return mbase::M_FAIL;
   else {  
     NTint iChildId = -1;*/
     /* Search for child */
@@ -149,32 +149,32 @@ NT3D_hierarchic_object_o::RemoveChild( NT3D_hierarchic_object_o * pOldChild)
     }    
 */    
 /* Remove child if possible */
- /*   if (-1 == iChildId) return NT_FAIL;
+ /*   if (-1 == iChildId) return mbase::M_FAIL;
     else {
       opChildren.remove(iChildId);
       uiChildCounter--;
-      NT_ASSERT_POSTCOND( opChildren.size() == uiChildCounter );
+      M_ASSERT_POSTCOND( opChildren.size() == uiChildCounter );
       if (0 == uiChildCounter) bHaveChild = NT_FALSE;
-      return NT_SUCCESS;
+      return mbase::M_SUCCESS;
     }
   }
 }
 */
 
 /** remot the child which is at position childId in the child leaf
-  list.  @return{ NT_SUCCESS if child was removed
-  succesfully. Otherwise NT_FAIL.} */
+  list.  @return{ mbase::M_SUCCESS if child was removed
+  succesfully. Otherwise mbase::M_FAIL.} */
 /* has to be reimplemented
-NTreturn
+mbase::Mreturn
 NT3D_hierarchic_object_o::RemoveChild( NTuint childId)
 {*/
 	/* Remove child ,if possible */
-/*    if (childId > uiChildCounter) return NT_FAIL;
+/*    if (childId > uiChildCounter) return mbase::M_FAIL;
     else {
       opChildren.remove(childId);
       uiChildCounter--;
-      NT_ASSERT_POSTCOND( opChildren.length() == uiChildCounter );
-      return NT_SUCCESS;
+      M_ASSERT_POSTCOND( opChildren.length() == uiChildCounter );
+      return mbase::M_SUCCESS;
     }
 }
 */ 
@@ -211,7 +211,7 @@ NT3D_hierarchic_object_o::ControlImpl(NT3Dcontroller cntrl , NTint value)
 }
 
 void 
-NT3D_hierarchic_object_o::ControlImpl(NT3Dcontroller cntrl , NTreal value)
+NT3D_hierarchic_object_o::ControlImpl(NT3Dcontroller cntrl , mbase::Mreal value)
 {
  NT3D_ChildrenQue::iterator tmpIterator;
 
@@ -227,7 +227,7 @@ ControlObj( cntrl , value);
 }
 
 void 
-NT3D_hierarchic_object_o::ControlImpl(NT3Dcontroller cntrl , NT_vector_o value)
+NT3D_hierarchic_object_o::ControlImpl(NT3Dcontroller cntrl , NT_std::vector_o value)
 {
   NT3D_ChildrenQue::iterator tmpIterator;
   ControlObj( cntrl ,  value);
@@ -248,9 +248,9 @@ NT3D_hierarchic_object_o::ControlImpl(NT3Dcontroller cntrl , NT_vector_o value)
 void
 NT3D_hierarchic_object_o::SetParent(NT3D_hierarchic_object_o * pNewParent)
 {
-	if ( pNewParent == this ) cerr << "NT3D_hierarchic_object_o::SetParent - ERROR : trying to set self as parent !" << endl;
-	else if ( pNewParent == NULL ) cerr << "NT3D_hierarchic_object_o::SetParent - ERROR : trying to set NULL as parent !" << endl;
-	else if ( pNewParent->NT3DObjectCheck() != NT_SUCCESS ) cerr << "NT3D_hierarchic_object_o::SetParent - ERROR : parent object not ok !" << endl;
+	if ( pNewParent == this ) cerr << "NT3D_hierarchic_object_o::SetParent - ERROR : trying to set self as parent !" << std::endl;
+	else if ( pNewParent == NULL ) cerr << "NT3D_hierarchic_object_o::SetParent - ERROR : trying to set NULL as parent !" << std::endl;
+	else if ( pNewParent->NT3DObjectCheck() != mbase::M_SUCCESS ) cerr << "NT3D_hierarchic_object_o::SetParent - ERROR : parent object not ok !" << std::endl;
 	
 	bHaveParent = NT_TRUE;	
 	pParent = pNewParent;

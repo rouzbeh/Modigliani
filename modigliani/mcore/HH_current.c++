@@ -37,12 +37,12 @@ using namespace mcore;
 
 /* ***      CONSTRUCTORS	***/
 /** Create a HH_current */
-HH_current::HH_current(NTreal newReversalPotential, NTreal newMaxConductivity, NTreal newArea)
+HH_current::HH_current(mbase::Mreal newReversalPotential, mbase::Mreal newMaxConductivity, mbase::Mreal newArea)
 :
 Membrane_current(newReversalPotential)
 {
-	NT_ASSERT(newMaxConductivity >= 0);
-	NT_ASSERT(newArea >= 0);
+	M_ASSERT(newMaxConductivity >= 0);
+	M_ASSERT(newArea >= 0);
  	SetSimulationMode(NTBP_DETERMINISTIC);
  	maxConductivity = newMaxConductivity;
  	area = newArea;	

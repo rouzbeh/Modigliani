@@ -66,8 +66,8 @@
 
 
 /* ***      CONSTRUCTORS	***/
-NT3D_pixel_texture_o::NT3D_pixel_texture_o(NTsize newTextureWidth, 
-							   		NTsize newTextureHeight)
+NT3D_pixel_texture_o::NT3D_pixel_texture_o(mbase::Msize newTextureWidth, 
+							   		mbase::Msize newTextureHeight)
 :
 NT3D_texture_o(newTextureWidth, newTextureHeight)
 {
@@ -93,7 +93,7 @@ NT3D_pixel_texture_o::operator= (const NT3D_pixel_texture_o & right)
 /* ***      DESTRUCTOR		***/
 NT3D_pixel_texture_o::~NT3D_pixel_texture_o()
 {
-	cerr << "NT3D_pixel_texture_o::~NT3D_pixel_texture_o()" << endl;
+	cerr << "NT3D_pixel_texture_o::~NT3D_pixel_texture_o()" << std::endl;
 }
 
 /* ***  PUBLIC                                    ***   */  

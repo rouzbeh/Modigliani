@@ -4,9 +4,7 @@
 /* compile with: g++ -o find_spikes_in_binary_file find_spikes_in_binary_file.cpp
  */
 
-#include "ntsrc/nt_main.h"
-#include "ntsrc/nt_types.h"
-#include "ntsrc/nt_obj.h"
+#include "ntsrc/Obj.h"
 
 #include <string>
 #include <fstream>
@@ -14,29 +12,29 @@
 #include <vector>
 #include <cmath>
 
-#include "ntsrc/nt_ring_buffer_obj.h"
+#include "ntsrc/Ring_buffer.h"
 #define NUM_NON_COLUMN_PARAM 5 // including argv[0] ==  executable
 
 
-NTreal compute_entropy_element(NTreal prob)
+mbase::Mreal compute_entropy_element(mbase::Mreal prob)
 {
 
     if (0.0 == prob) return (0);
     else if (prob < 0.0) {
-        cerr << "ComputeEntropyElement - Error : Negative probability encountered." << endl;
+        std::cerr << "ComputeEntropyElement - Error : Negative probability encountered." << std::endl;
         exit(1);
     } else {
         return (prob*log(prob)/0.69314718055994530942 /* log(2) */);
     }
 }
 
-NTsize binary_Word2HashIndex(vector <bool> word)
+mbase::Msize binary_Word2HashIndex(std::vector <bool> word)
 {
-    NTsize tmpVal = 0;
-    NTsize base = 1;
-    NTsize wordLength = word.size();
+    mbase::Msize tmpVal = 0;
+    mbase::Msize base = 1;
+    mbase::Msize wordLength = word.size();
 
-    for (NTsize ll=0;ll < wordLength; ll++) {
+    for (mbase::Msize ll=0;ll < wordLength; ll++) {
         tmpVal += word[wordLength-ll-1]*base;
         base *= 2;
     }
@@ -73,45 +71,45 @@ int check_for_spike(float v, float upThreshold, float downThreshold, bool* spiki
 int
 main(int argc, char* argv[])
 {
-    NTreal resolutionOfDataFile = 0.1; // in mSec
-    NTsize analysisInterval = 20; // number of iterations to pool together, i.e 20*0.1mSec = 1mSec resolution of spike data
+    mbase::Mreal resolutionOfDataFile = 0.1; // in mSec
+    mbase::Msize analysisInterval = 20; // number of iterations to pool together, i.e 20*0.1mSec = 1mSec resolution of spike data
 
     if (argc < NUM_NON_COLUMN_PARAM) {
-        cerr <<"First columns is time. Invalid command line." << argv[0] <<"  <binary float data file> <number of columns>  <upstroke threshold> <down stroke threshold>  <wordLength> <column index to analyse>" << endl;
+        std::cerr <<"First columns is time. Invalid command line." << argv[0] <<"  <binary float data file> <number of columns>  <upstroke threshold> <down stroke threshold>  <wordLength> <column index to analyse>" << std::endl;
         exit(1);
     }
 
-    NTsize maxLines = 1/resolutionOfDataFile * 1000 * 10;
-    cout << "Analysing the first "<< maxLines <<" lines only." << endl;
-    string filename = argv[1];
+    mbase::Msize maxLines = 1/resolutionOfDataFile * 1000 * 10;
+    std::cout << "Analysing the first "<< maxLines <<" lines only." << std::endl;
+    std::string filename = argv[1];
     int columns = atoi ( argv[2]);
     float upThreshold = atof ( argv[3]);
     float downThreshold = atof ( argv[4]);
-    NTsize wordLength = atoi ( argv[5] );
-    NTsize select = atoi ( argv[6] );
+    mbase::Msize wordLength = atoi ( argv[5] );
+    mbase::Msize select = atoi ( argv[6] );
 
     float buffer[columns];
 
     bool spike = false;
     bool spiking = false;
 
-    NT_ring_buffer_o <bool> currentSpikeWord(wordLength);
+    mbase::Ring_buffer <bool> currentSpikeWord(wordLength);
 
-    vector <NTsize> wordHistogram;
+    std::vector <mbase::Msize> wordHistogram;
     wordHistogram.resize( ceil(pow(2.0,static_cast<int>(wordLength))) );
 
-    vector <NTreal> wordProbHistogram;
+    std::vector <mbase::Mreal> wordProbHistogram;
     wordProbHistogram.resize( wordHistogram.size() );
 
 
-    ifstream file (filename.c_str(), ios::binary);
+    std::ifstream file (filename.c_str(), std::ios::binary);
     if (!file.good()) {
-        cerr <<"Something is bad with reading from file "<<filename<<endl;
+        std::cerr <<"Something is bad with reading from file "<<filename<<std::endl;
         exit(2);
     }
 
-    NTsize counter = 0;
-    NTsize lines = 0;
+    mbase::Msize counter = 0;
+    mbase::Msize lines = 0;
     while (file.eof() == 0) {
 
         file.read(reinterpret_cast<char*>(buffer), columns*sizeof(float));
@@ -131,25 +129,25 @@ main(int argc, char* argv[])
         if (lines > maxLines) break;
     }
 
-    NTsize ll;
+    mbase::Msize ll;
     for (ll = 0; ll < wordHistogram.size(); ll++) {
-        wordProbHistogram[ll] = wordHistogram[ll]*analysisInterval/(NTreal(lines));
+        wordProbHistogram[ll] = wordHistogram[ll]*analysisInterval/(mbase::Mreal(lines));
     }
 
-    NTreal entropy = 0;
-    NTreal p = 0;
+    mbase::Mreal entropy = 0;
+    mbase::Mreal p = 0;
     for (ll = 0; ll < wordHistogram.size(); ll++) {
-//	cout << ll << "\t" << wordProbHistogram[ll] << endl;
+//	std::cout << ll << "\t" << wordProbHistogram[ll] << std::endl;
         p += wordProbHistogram[ll];
         entropy -= compute_entropy_element(wordProbHistogram[ll]);
     }
-    cout << endl;
-    cout << "Input text file had resolution of " << 1000/resolutionOfDataFile << " Hz." << endl;
-    cout << "Which was sampled for binary analysis in " <<resolutionOfDataFile*analysisInterval << " mSec long bins." << endl;
-    cout << "Using spike up- and downstroke threshold of "<< upThreshold << " mV and "<< downThreshold <<" respectively mV."<< endl;
-    cout << "For a word length of " << wordLength << " we find the following values (p summed to "<< p<<"):" << endl;
-    cout << "Entropy in bits:" << entropy << endl;
-    cout << "Entropy rate (bits/s):" << 1000 * /* mSec/Sec */ entropy/wordLength*resolutionOfDataFile*analysisInterval << endl;
+    std::cout << std::endl;
+    std::cout << "Input text file had resolution of " << 1000/resolutionOfDataFile << " Hz." << std::endl;
+    std::cout << "Which was sampled for binary analysis in " <<resolutionOfDataFile*analysisInterval << " mSec long bins." << std::endl;
+    std::cout << "Using spike up- and downstroke threshold of "<< upThreshold << " mV and "<< downThreshold <<" respectively mV."<< std::endl;
+    std::cout << "For a word length of " << wordLength << " we find the following values (p summed to "<< p<<"):" << std::endl;
+    std::cout << "Entropy in bits:" << entropy << std::endl;
+    std::cout << "Entropy rate (bits/s):" << 1000 * /* mSec/Sec */ entropy/wordLength*resolutionOfDataFile*analysisInterval << std::endl;
 
     return (0);
 }

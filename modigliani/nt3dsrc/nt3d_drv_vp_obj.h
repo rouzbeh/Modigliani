@@ -89,22 +89,22 @@ public:
 	 const NT3D_drv_vp_o & operator= (const NT3D_drv_vp_o & right);*/
 	virtual ~NT3D_drv_vp_o();
 	/* ***  Methods              ***/
-	virtual NTreturn Open(NT3D_vp_spec_o __attribute__((unused)) newWinSpec) {
+	virtual mbase::Mreturn Open(NT3D_vp_spec_o __attribute__((unused)) newWinSpec) {
 		NT_CERR(5, "NT3D_drv_vp_o::Open()");
-		return NT_SUCCESS;
+		return mbase::M_SUCCESS;
 	}
 	;
-	virtual NTreturn Close() {
+	virtual mbase::Mreturn Close() {
 		NT_CERR(5, "NT3D_drv_vp_o::Close()");
-		return NT_SUCCESS;
+		return mbase::M_SUCCESS;
 	}
 	virtual void Init() {
 	}
 	;
-	virtual NTreturn Resize(NTsize __attribute__((unused)) width,
-			NTsize __attribute__((unused)) height) {
+	virtual mbase::Mreturn Resize(mbase::Msize __attribute__((unused)) width,
+			mbase::Msize __attribute__((unused)) height) {
 		NT_CERR(5, "NT3D_drv_vp_o::Resize()");
-		return NT_FAIL;
+		return mbase::M_FAIL;
 	}
 	virtual void Redraw() {
 	}
@@ -123,13 +123,13 @@ public:
 		return bmpPtr;
 	} //2DO implement code to handle continuos use of same allocated pointer
 	  // take care that resize event are handled though!
-	virtual NTsize _width() {
+	virtual mbase::Msize _width() {
 		NT_CERR(
 				1,
 				"NT3D_drv_vp_o::_width() - Error : Should be implemented in derived class");
 		return 0;
 	}
-	virtual NTsize _height() {
+	virtual mbase::Msize _height() {
 		NT_CERR(
 				1,
 				"NT3D_drv_vp_o::_height() - Error : Should be implemented in derived class");

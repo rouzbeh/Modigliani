@@ -33,8 +33,8 @@
 #include "ntsrc/nt_main.h"
 #include "ntsrc/nt_types.h"
 
-#include "ntsrc/nt_vector_obj.h"
-#include "ntsrc/nt_vector3_obj.h"
+#include "ntsrc/nt_std::vector_obj.h"
+#include "ntsrc/nt_std::vector3_obj.h"
 #include <deque>
 //#include "ntsrc/nt_data_obj.h"
 
@@ -55,7 +55,7 @@
 class NT3D_hierarchic_object_o : public NT3D_object_o {
 public:
   NT3D_hierarchic_object_o();
-  NT3D_hierarchic_object_o(const NT_vector3_o & oNewPosition);
+  NT3D_hierarchic_object_o(const NT_std::vector3_o & oNewPosition);
   NT3D_hierarchic_object_o(const NT3D_hierarchic_object_o & original);
   /** 2DO: Destroy or not destroy parent child objects ? */  
   ~NT3D_hierarchic_object_o();
@@ -76,31 +76,31 @@ public:
 
 
   NTuint   AddChild( NT3D_hierarchic_object_o * pNewChild ); 
-  NTreturn RemoveChild( NT3D_hierarchic_object_o * pOldChild );  
-  NTreturn RemoveChild( NTuint OldChild );  
+  mbase::Mreturn RemoveChild( NT3D_hierarchic_object_o * pOldChild );  
+  mbase::Mreturn RemoveChild( NTuint OldChild );  
 
   protected:
   virtual void DrawObj() {cerr <<"NT3D_hierarchic_object_o::DrawObj() - Error : This method should be overriden by derived classes"<<endl;};
 
-  NTreturn NT3DObjectCheck() const;
+  mbase::Mreturn NT3DObjectCheck() const;
   /** ControlImpl overwrites the NT3D_object_o controllers,
       and are not to be overwritten themselves by derived classes,
       derived classes implement/overwrite ControlObj */    
   void ControlImpl(NT3Dcontroller cntrl , NTint value);
-  void ControlImpl(NT3Dcontroller cntrl , NTreal value); 
-  void ControlImpl(NT3Dcontroller cntrl , NT_vector_o value);
+  void ControlImpl(NT3Dcontroller cntrl , mbase::Mreal value); 
+  void ControlImpl(NT3Dcontroller cntrl , NT_std::vector_o value);
   /** ControlObj is to overwritten by derived classes to
       handle controller calls */
   virtual void ControlObj(NT3Dcontroller cntrl , NTint value)=0;
-  virtual void ControlObj(NT3Dcontroller cntrl , NTreal value)=0;
-  virtual void ControlObj(NT3Dcontroller cntrl , NT_vector_o value)=0;
+  virtual void ControlObj(NT3Dcontroller cntrl , mbase::Mreal value)=0;
+  virtual void ControlObj(NT3Dcontroller cntrl , NT_std::vector_o value)=0;
   private:
   void DrawChild() const;
   void SetParent(NT3D_hierarchic_object_o * pNewParent);
   /*                         */ 	
   //  NT3D_rainbow_o oColor;
-  NTbool bHaveParent;
-  NTbool bHaveChild;
+  mbase::Mbool bHaveParent;
+  mbase::Mbool bHaveChild;
   NTuint uiChildCounter;
   NT3D_hierarchic_object_o * pParent;
   deque<NT3D_hierarchic_object_o *> opChildren;

@@ -34,10 +34,6 @@
 #ifndef _nt3d_plot_vp_obj_h_ 
 #define _nt3d_plot_vp_obj_h_ 
 
-/* NT core includes */
-#include "ntsrc/nt_main.h" 
-#include "ntsrc/nt_types.h" 
-#include "ntsrc/nt_obj.h"  
 /* Parent includes */
 #include "nt3d_abstract_vp_obj.h" 
 /* NT includes */

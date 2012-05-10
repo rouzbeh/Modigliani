@@ -66,8 +66,8 @@ protected:
 private:
 /* ***  Methods              ***/  
 /* ***  Data                 ***/
-NTsize lonSteps;
-NTsize latSteps;
+mbase::Msize lonSteps;
+mbase::Msize latSteps;
 };
 #endif /* _nt3d_universe_spheric_camera_obj_h_ */ 
 

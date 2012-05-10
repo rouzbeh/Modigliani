@@ -26,7 +26,7 @@ using namespace mcore;
 
 /* ***      CONSTRUCTORS	***/
 /** Create a Membrane_patch */
-Membrane_patch::Membrane_patch(NTreal newArea /* [muM^2] */, NTreal newCM /* muF/cm^2 */)
+Membrane_patch::Membrane_patch(mbase::Mreal newArea /* [muM^2] */, mbase::Mreal newCM /* muF/cm^2 */)
 :
 Membrane_compartment(newArea)
 {
@@ -39,7 +39,7 @@ Membrane_patch::Membrane_patch(const Membrane_patch & original)
 :
 Membrane_compartment(original)
 {
-   cerr << "Membrane_patch::operator= - Error : Copy operator not defined. Undefined behaviour." <<endl;
+   std::cerr << "Membrane_patch::operator= - Error : Copy operator not defined. Undefined behaviour." <<std::endl;
    // add assignment code here
 }
 
@@ -48,7 +48,7 @@ Membrane_patch::operator= (const Membrane_patch & right)
 {
  if (this == &right) return (*this); // Gracefully handle self assignment
  // add assignment code here
-  cerr << "Membrane_patch::operator= - Error : Assignment operator not defined. Undefined behaviour." <<endl;
+  std::cerr << "Membrane_patch::operator= - Error : Assignment operator not defined. Undefined behaviour." <<std::endl;
   return (*this);
 }
 
@@ -78,14 +78,14 @@ Membrane_patch::() const
    \warning    unknown
    \bug        unknown
 */
-inline NTreturn
+inline mbase::Mreturn
 Membrane_patch::Step()
 {
 	/*       [mV] == [10^-3 ms nA /muF] */
-	NTreal deltaV =  1e-3 /* mV/muV */ * _timeStep()*CompartmentMembraneNetCurrent()/CompartmentMembraneCapacitance();
+	mbase::Mreal deltaV =  1e-3 /* mV/muV */ * _timeStep()*CompartmentMembraneNetCurrent()/CompartmentMembraneCapacitance();
 	vM = vM + deltaV;
 	Membrane_compartment::step(vM);
-	return (NT_SUCCESS);
+	return (mbase::M_SUCCESS);
 }
 
 /** No descriptions */
@@ -95,7 +95,7 @@ Membrane_patch::Step()
    \warning    unknown
    \bug        unknown
 */
-NTreturn
+mbase::Mreturn
 Membrane_patch::InitialStep()
 {
 	update_timeStep(_timeStep()/2.0);
@@ -104,8 +104,8 @@ Membrane_patch::InitialStep()
 		
 	update_timeStep(_timeStep()*2.0);
 	StepNTBP();
-	cerr <<"NTBP_membrane_compartment_sequence_o::InitialStep() - ERROR : not correctly implemented ? untested." << endl;
-	return (NT_SUCCESS);
+	std::cerr <<"NTBP_membrane_compartment_sequence_o::InitialStep() - ERROR : not correctly implemented ? untested." << std::endl;
+	return (mbase::M_SUCCESS);
 }
 
 

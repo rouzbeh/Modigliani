@@ -27,7 +27,7 @@ using namespace mcore;
 /* ***      CONSTRUCTORS	***/
 /** Create a Cylindrical_compartment */
 Cylindrical_compartment::Cylindrical_compartment(
-		NTreal newLength /* in muMeter */, NTreal newDiameter /* in muMeter */, NTreal newTemperature)
+		mbase::Mreal newLength /* in muMeter */, mbase::Mreal newDiameter /* in muMeter */, mbase::Mreal newTemperature)
 :
 			Membrane_compartment(M_PI * newDiameter * newLength /* in muMeter^2 */, newTemperature) {
 	length = newLength;

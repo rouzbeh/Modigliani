@@ -37,15 +37,10 @@
 #ifndef _nt3d_bitmap_obj_h_ 
 #define _nt3d_bitmap_obj_h_ 
 
-/* NT core includes */
-#include "ntsrc/nt_main.h" 
-#include "ntsrc/nt_types.h" 
-#include "ntsrc/nt_obj.h"  
 /* Parent includes */
 #include "nt3d_obj.h" 
 /* NT includes */
-#include "ntsrc/nt_codes.h"
-#include "ntsrc/nt_error_obj.h"
+#include "ntsrc/codes.h"
 /* other includes */
 #include <GL/gl.h>
 
@@ -56,22 +51,22 @@
 class NT3D_bitmap_o : public NT3D_o {
 public:
 /***   Constructors, Copy/Assignment and Destructor  ***/  
-NT3D_bitmap_o(NTsize width = 100, NTsize height = 100, NTimageDataFormat format = NT_RGBA);
+NT3D_bitmap_o(mbase::Msize width = 100, mbase::Msize height = 100, mbase::ImageDataFormat format = mbase::RGBA);
 NT3D_bitmap_o(const NT3D_bitmap_o & original);
 const NT3D_bitmap_o & operator= (const NT3D_bitmap_o & right);
 virtual ~NT3D_bitmap_o();
 /* ***  Methods              ***/
 void Draw();
-void GetBitmap(NTsize x1, NTsize y1, NTsize x2, NTsize y2, NTimageDataFormat newFormat);
+void GetBitmap(mbase::Msize x1, mbase::Msize y1, mbase::Msize x2, mbase::Msize y2, mbase::ImageDataFormat newFormat);
 /* ***  Data                 ***/  
 protected:
 /* ***  Methods              ***/
 /* ***  Data                 ***/  
 private:
 /* ***  Methods              ***/
-NTsize width;
-NTsize height;
-NTimageDataFormat format;
+mbase::Msize width;
+mbase::Msize height;
+mbase::ImageDataFormat format;
 GLshort * pIm; // pointer of the image
 /* ***  Data                 ***/ 
 };

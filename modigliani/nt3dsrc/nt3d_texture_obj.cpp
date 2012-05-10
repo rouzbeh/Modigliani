@@ -34,7 +34,7 @@
 *
 * Revision 1.11  2000/06/26 19:14:06  face
 * finally found the error that caused solid object to disappear:
-* the scaling vector was not constructed in the 2nd constructor
+* the scaling std::vector was not constructed in the 2nd constructor
 * of the solid bject thus resulting in a zero object
 * new demo file: showing some random graphics
 *
@@ -78,8 +78,8 @@
 * Revision 1.2  2000/04/27 09:57:08  face
 * switched to float based colors
 * texture is RGBA color value,
-* corrected nasty bug in nt3d_color_o, where the color bearing vector
-* was initialised as 3 and not as 4-vector (RGBA!)
+* corrected nasty bug in nt3d_color_o, where the color bearing std::vector
+* was initialised as 3 and not as 4-std::vector (RGBA!)
 * :wq!
 *
 * Revision 1.1  2000/04/26 22:57:45  face
@@ -97,12 +97,12 @@
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NT3D_texture_o */
-NT3D_texture_o::NT3D_texture_o(NTsize newTextureWidth, 
-							   NTsize newTextureHeight,
-							   NTsize newDim,
+NT3D_texture_o::NT3D_texture_o(mbase::Msize newTextureWidth, 
+							   mbase::Msize newTextureHeight,
+							   mbase::Msize newDim,
 							   bool newMakeTextureCoord)
 {
-//cerr<< "NT3D_texture_o::NT3D_texture_o() - Talk : uniqId="<<_uniqId() << endl;
+//cerr<< "NT3D_texture_o::NT3D_texture_o() - Talk : uniqId="<<_uniqId() << std::endl;
 
 textureCreated = false;
 textureId = 0;
@@ -122,10 +122,10 @@ if (2 == newDim ) {
 		dim = GL_TEXTURE_2D;
 		NT_CERR(3,"T3D_texture_o::NT3D_texture_o - Warning : dim declared 1, but both height and width greater 1. dim set now to 2.");
 	}
-} else cerr << "NT3D_texture_o::NT3D_texture_o - Error : invalid texture dim="<<newDim<<"specified." << endl;
+} else cerr << "NT3D_texture_o::NT3D_texture_o - Error : invalid texture dim="<<newDim<<"specified." << std::endl;
 
 textureImagePtr = new GLfloat[4 * textureWidth * textureHeight];
-cerr<< "NT3D_texture_o::NT3D_texture_o() - Talk : uniqId="<<_uniqId() << endl;
+cerr<< "NT3D_texture_o::NT3D_texture_o() - Talk : uniqId="<<_uniqId() << std::endl;
 }
 
 
@@ -142,7 +142,7 @@ NT3D_texture_o::NT3D_texture_o(const NT3D_texture_o & original):
  textureHeight = original.textureHeight;
  dim = original.dim;
  textureImagePtr = new GLfloat[4*textureWidth*textureHeight];
- for (NTsize ll = 0 ; ll < 4*textureWidth*textureHeight; ll++)
+ for (mbase::Msize ll = 0 ; ll < 4*textureWidth*textureHeight; ll++)
 	textureImagePtr[ll] = original.textureImagePtr[ll];
 
  CreateTexture();
@@ -168,7 +168,7 @@ NT3D_texture_o::operator= (const NT3D_texture_o & right)
 	delete[] textureImagePtr;
 	textureImagePtr = new GLfloat[4*textureWidth*textureHeight];
 
- for (NTsize ll = 0 ; ll < 4*textureWidth*textureHeight; ll++)
+ for (mbase::Msize ll = 0 ; ll < 4*textureWidth*textureHeight; ll++)
 	textureImagePtr[ll] = right.textureImagePtr[ll];
 
  CreateTexture();
@@ -186,7 +186,7 @@ NT3D_texture_o::~NT3D_texture_o()
 	GLuint tmp = textureId;
 	glDeleteTextures(1, &tmp);
 	delete[] textureImagePtr;
-	cerr << "...completed" << endl;
+	cerr << "...completed" << std::endl;
 }
 
 /* ***  PUBLIC                                    ***   */  
@@ -200,13 +200,13 @@ NT3D_texture_o::~NT3D_texture_o()
  */
  void NT3D_texture_o::Paint()
  {
- 	//cerr << "NT3D_texture_o::Paint() - Talk : before calling drawing routines, runnId="<< _uniqId() << endl;
+ 	//cerr << "NT3D_texture_o::Paint() - Talk : before calling drawing routines, runnId="<< _uniqId() << std::endl;
  	if (true == textureCreated) {
  		glEnable(dim); 
  		glBindTexture(dim, textureId);
  	}
  	else CreateTexture(); glBindTexture(dim, textureId);
- 	//cerr << "NT3D_texture_o::Paint() - Talk : after drawing routines, runnId="<< _uniqId() << endl;
+ 	//cerr << "NT3D_texture_o::Paint() - Talk : after drawing routines, runnId="<< _uniqId() << std::endl;
  }
 
 /* ***  PROTECTED                         ***   */
@@ -222,10 +222,10 @@ GLuint
 NT3D_texture_o::CreateTexture()
 {
 	if (true == textureCreated) return textureId;
-	//cerr << "NT3D_texture_o::CreateTexture() - Talk : before call to AssignTexture, runnId="<< _uniqId() << endl;
-	NTreturn tmpReturn = AssignTexture();
-	//cerr << "NT3D_texture_o::CreateTexture() - Talk : after call to AssignTexture" << endl;
-	if (NT_SUCCESS != tmpReturn){
+	//cerr << "NT3D_texture_o::CreateTexture() - Talk : before call to AssignTexture, runnId="<< _uniqId() << std::endl;
+	mbase::Mreturn tmpReturn = AssignTexture();
+	//cerr << "NT3D_texture_o::CreateTexture() - Talk : after call to AssignTexture" << std::endl;
+	if (mbase::M_SUCCESS != tmpReturn){
 		NT_CERR(1,"NT3D_texture_o::CreateTexture() - Error : AssignTexture failed.");
 		textureCreated = false;
 		return 0;
@@ -294,7 +294,7 @@ NT3D_texture_o::CreateTexture()
 	else {
 		cerr << "NT3D_texture_o::CreateTexture() - Error : invalid texture dim="<<dim<<"specified." <<endl;
 		textureCreated = false;
-		return NT_FAIL;
+		return mbase::M_FAIL;
 		}	
        		     			 
 

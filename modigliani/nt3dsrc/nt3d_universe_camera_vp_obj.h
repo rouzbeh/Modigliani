@@ -71,8 +71,8 @@ const NT3D_universe_camera_vp_o & operator= (const NT3D_universe_camera_vp_o & r
 virtual ~NT3D_universe_camera_vp_o();
 /* ***  Methods              ***/
 void DrawScene();
-NTreturn AddUniverse(NT3D_universe_o * pNewUniverse);
-NTbool HasUniverse() {return haveUniverse;}
+mbase::Mreturn AddUniverse(NT3D_universe_o * pNewUniverse);
+mbase::Mbool HasUniverse() {return haveUniverse;}
 /* ***  Data                 ***/  
 protected:
 /* ***  Methods              ***/  
@@ -80,7 +80,7 @@ protected:
 private:
 /* ***  Methods              ***/  
 /* ***  Data                 ***/ 
-NTbool haveUniverse;
+mbase::Mbool haveUniverse;
 NT3D_universe_o * pUniverse;
 };
 

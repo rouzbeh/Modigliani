@@ -31,7 +31,7 @@
 *
 * Revision 1.2  2000/06/26 19:14:06  face
 * finally found the error that caused solid object to disappear:
-* the scaling vector was not constructed in the 2nd constructor
+* the scaling std::vector was not constructed in the 2nd constructor
 * of the solid bject thus resulting in a zero object
 * new demo file: showing some random graphics
 *
@@ -44,16 +44,16 @@
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NT3D_rectangle_o */
-NT3D_rectangle_o::NT3D_rectangle_o(NTreal newWidth, NTreal newHeight, NTsize newSteps)
+NT3D_rectangle_o::NT3D_rectangle_o(mbase::Mreal newWidth, mbase::Mreal newHeight, mbase::Msize newSteps)
 :
 NT3D_surfaced_object_o(),
 width(newWidth),
 height(newHeight),
 steps(newSteps)
 {
-	NT_ASSERT ( width > 0.0 );
-	NT_ASSERT ( height > 0.0 );
-	NT_ASSERT ( steps > 0);
+	M_ASSERT ( width > 0.0 );
+	M_ASSERT ( height > 0.0 );
+	M_ASSERT ( steps > 0);
 }
 
 
@@ -94,16 +94,16 @@ NT3D_rectangle_o::DrawSurfacedObj()
     if (true == _bUseTexture() ) oTexturePtr->Paint();
 	else oTexturePtr->Painted();
 
-	NTreal dx = width/steps;
-	NTreal dy = height/steps;
-	NTreal x = 0;
-	NTreal y = 0;
+	mbase::Mreal dx = width/steps;
+	mbase::Mreal dy = height/steps;
+	mbase::Mreal x = 0;
+	mbase::Mreal y = 0;
 
 
 	/*	glRectf(0,0,width, height); */
 	
-	NTsize lly;
-	NTsize llx;
+	mbase::Msize lly;
+	mbase::Msize llx;
     for (lly = 0; lly < steps; lly++) {
     	y = lly * dy;
     	glBegin(GL_QUAD_STRIP);		
@@ -127,8 +127,8 @@ NT3D_rectangle_o::DrawSurfacedObj()
 	/* This is an attempt to set global text coords for the entire rect.
 	 * instead of using each subrect ... however it fails 2DO check it again */
 	/* 
-	NTsize lly;
-	NTsize llx;
+	mbase::Msize lly;
+	mbase::Msize llx;
     for (lly = 0; lly < steps; lly++) {
     	y = lly * dy;
     	glBegin(GL_QUAD_STRIP);		

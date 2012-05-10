@@ -17,7 +17,7 @@ main(int argc, char* argv[])
     bool selectColumns = false;
 
     if (argc < 3) {
-        cerr <<"Invalid command line." << argv[0] <<" <binary float data file> <number of columns> <every show every n-th row> [<column index to print>] [<column index to print>] [...] "<< endl;
+        std::cerr <<"Invalid command line." << argv[0] <<" <binary float data file> <number of columns> <every show every n-th row> [<column index to print>] [<column index to print>] [...] "<< std::endl;
         exit(1);
     }
     string filename = argv[1];
@@ -30,7 +30,7 @@ main(int argc, char* argv[])
     	selectColumns = true;
     	number=argc-4;
     }
-    vector <unsigned int> selectVec(number);
+    std::vector <unsigned int> selectVec(number);
     for (unsigned int ll =0 ;ll < number; ll++) {
         selectVec[ll] = atoi(argv[ll+4])-1;
     }
@@ -38,9 +38,9 @@ main(int argc, char* argv[])
     float buffer[columns];
     unsigned int rows = 0;
 
-    ifstream file (filename.c_str(), ios::binary);
+    ifstream file (filename.c_str(), std::ios::binary);
     if (!file.good()) {
-        cerr <<"Something is bad with reading from file "<<filename<<endl;
+        std::cerr <<"Something is bad with reading from file "<<filename<<std::endl;
         exit(2);
     }
 
@@ -50,18 +50,18 @@ main(int argc, char* argv[])
         if (rows%every == 0) {
             if (true == selectColumns) {
                 for (unsigned int ll =0 ;ll < number; ll++) {
-                    cout << buffer[selectVec[ll]] << "\t";
+                    std::cout << buffer[selectVec[ll]] << "\t";
                 }
             } else {
                 for (unsigned int ll = 0; ll < columns; ll++) {
-                    cout << buffer[ll] << "\t";
+                    std::cout << buffer[ll] << "\t";
                 }
             }
-            cout << endl;
+            std::cout << std::endl;
         }
         rows++;
     }
-    cerr << "Completed and printed (float) "<<rows<<" rows with "<<columns<<" columns from file "<<filename<<"."<<endl;
+    std::cerr << "Completed and printed (float) "<<rows<<" rows with "<<columns<<" columns from file "<<filename<<"."<<std::endl;
 }
 
 

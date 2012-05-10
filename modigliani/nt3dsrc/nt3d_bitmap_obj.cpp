@@ -37,8 +37,8 @@
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NT3D_bitmap_o */
-NT3D_bitmap_o::NT3D_bitmap_o(NTsize newWidth, NTsize newHeight,
-		NTimageDataFormat newFormat) {
+NT3D_bitmap_o::NT3D_bitmap_o(mbase::Msize newWidth, mbase::Msize newHeight,
+		mbase::ImageDataFormat newFormat) {
 	width = newWidth;
 	height = newHeight;
 	format = newFormat;
@@ -80,10 +80,10 @@ void NT3D_bitmap_o::Draw() {
 	GLenum tmpFormat;
 
 	switch (format) {
-	case NT_RGB:
+	case mbase::RGB:
 		tmpFormat = GL_RGB;
 		break;
-	case NT_RGBA:
+	case mbase::RGBA:
 		tmpFormat = GL_RGBA;
 		break;
 	default:
@@ -112,11 +112,11 @@ void NT3D_bitmap_o::Draw() {
  - give possibility to get a grey (RGB) image;
  */
 
-void NT3D_bitmap_o::GetBitmap(NTsize x1, NTsize y1, NTsize x2, NTsize y2,
-		NTimageDataFormat newFormat) {
-	NTsize tWidth = x2 - x1;
-	NTsize tHeight = y2 - y1;
-	NT_ASSERT_PRECOND( (tWidth > 0) || (tHeight > 0));
+void NT3D_bitmap_o::GetBitmap(mbase::Msize x1, mbase::Msize y1, mbase::Msize x2, mbase::Msize y2,
+		mbase::ImageDataFormat newFormat) {
+	mbase::Msize tWidth = x2 - x1;
+	mbase::Msize tHeight = y2 - y1;
+	M_ASSERT_PRECOND( (tWidth > 0) || (tHeight > 0));
 
 	if ((tWidth != width) || (tHeight != height) || (format != newFormat)) {
 		width = tWidth;
@@ -128,10 +128,10 @@ void NT3D_bitmap_o::GetBitmap(NTsize x1, NTsize y1, NTsize x2, NTsize y2,
 
 	GLenum tmpFormat;
 	switch (format) {
-	case NT_RGB:
+	case mbase::RGB:
 		tmpFormat = GL_RGB;
 		break;
-	case NT_RGBA:
+	case mbase::RGBA:
 		tmpFormat = GL_RGBA;
 		break;
 	default:

@@ -47,7 +47,7 @@
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NT3D_target_camera_o */
-NT3D_target_camera_o::NT3D_target_camera_o(const NT_vector3_o & oNewPosition, const NT_vector3_o & oNewTarget)
+NT3D_target_camera_o::NT3D_target_camera_o(const NT_std::vector3_o & oNewPosition, const NT_std::vector3_o & oNewTarget)
 :
 NT3D_camera_o(oNewPosition,oNewTarget)
 {
@@ -98,10 +98,10 @@ NT3D_target_camera_o::Draw()
 
 	
 	/* dynamic targetting, based on movement of camera,
-	   the camera points into the direction of the "velocity" vector */
-    /* tmp- and oldDirection designate a "velocity" vectoreading */
+	   the camera points into the direction of the "velocity" std::vector */
+    /* tmp- and oldDirection designate a "velocity" std::vectoreading */
 	tmpDirection = (oTranslation - oldPosition);
-	// if "the camera did move use the new motion vector"
+	// if "the camera did move use the new motion std::vector"
 	if (tmpDirection.LenSqr() > 0) {
 		tmpDirection.Norm();
 		oldDirection = tmpDirection;
@@ -113,7 +113,7 @@ NT3D_target_camera_o::Draw()
 	cerr << "oTranslation" << oTranslation;
 	cerr << "oTarget:" << oTarget;
 	cerr << "tmpDirection:" << tmpDirection;
-	cerr << "oRotation:" << oRotation << endl;
+	cerr << "oRotation:" << oRotation << std::endl;
 
 	gluLookAt(oTranslation[0],oTranslation[1],oTranslation[2],
     	      oTarget[0], oTarget[1], oTarget[2],

@@ -66,7 +66,7 @@
 class NT3D_noise_texture_o : public NT3D_pixel_texture_o {
 public:
 /***   Constructors, Copy/Assignment and Destructor  ***/  
-NT3D_noise_texture_o(NTsize newTextureWidth=64, NTsize newTextureHeight=64);
+NT3D_noise_texture_o(mbase::Msize newTextureWidth=64, mbase::Msize newTextureHeight=64);
 NT3D_noise_texture_o(const NT3D_noise_texture_o & original);
 const NT3D_noise_texture_o & operator= (const NT3D_noise_texture_o & right);
 virtual ~NT3D_noise_texture_o();
@@ -74,8 +74,8 @@ virtual ~NT3D_noise_texture_o();
 /* ***  Data                 ***/  
 protected:
 /* ***  Methods              ***/  
-NTreturn AssignPixelTexture();
-NTreal* MakeRGBATexturePoint(NTreal * colorVec, NTreal coorX, NTreal coorY);
+mbase::Mreturn AssignPixelTexture();
+mbase::Mreal* MakeRGBATexturePoint(mbase::Mreal * colorVec, mbase::Mreal coorX, mbase::Mreal coorY);
 /* ***  Data                 ***/  
 private:
 /* ***  Methods              ***/ 

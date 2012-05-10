@@ -98,7 +98,7 @@ GLXContext NT3D_glx_drv_o::uniqueCommonCtx = NULL;
 
 /* ***      CONSTRUCTORS	***/
 /** standard constructor which on default opens a 200 X 200 window */
-NT3D_glx_drv_o::NT3D_glx_drv_o(NTsize windowWidth, NTsize windowHeight,
+NT3D_glx_drv_o::NT3D_glx_drv_o(mbase::Msize windowWidth, mbase::Msize windowHeight,
 		bool useCommonContext) {
 	useUniqueCommonCtx = useCommonContext;
 
@@ -107,7 +107,7 @@ NT3D_glx_drv_o::NT3D_glx_drv_o(NTsize windowWidth, NTsize windowHeight,
 		if (NULL == dpy) {
 			cerr
 					<< "NT3D_glx_drv_o::Constructor failed - error : XOpenDisplay failed."
-					<< endl;
+					<< std::endl;
 			return;
 		}
 	}
@@ -131,9 +131,9 @@ NT3D_glx_drv_o::operator=(const NT3D_glx_drv_o & right) {
 
 /* ***      DESTRUCTOR		***/
 NT3D_glx_drv_o::~NT3D_glx_drv_o() {
-	if (NT_FAIL == Close()) {
+	if (mbase::M_FAIL == Close()) {
 		cerr << "NT3D_glx_drv_o::Close - error : call to Close failed !"
-				<< endl;
+				<< std::endl;
 		return;
 	}
 	NT3D_glx_drv_o::initCount--;
@@ -143,31 +143,31 @@ NT3D_glx_drv_o::~NT3D_glx_drv_o() {
 }
 
 /* ***  PUBLIC                                    ***   */
-NTreturn NT3D_glx_drv_o::Open(NT3D_vp_spec_o newWinSpec) {
+mbase::Mreturn NT3D_glx_drv_o::Open(NT3D_vp_spec_o newWinSpec) {
 	if (0 != CreateWindow(newWinSpec.width, newWinSpec.height))
-		return NT_SUCCESS;
+		return mbase::M_SUCCESS;
 	else
-		return NT_FAIL;
+		return mbase::M_FAIL;
 }
 
-NTreturn NT3D_glx_drv_o::Close() {
+mbase::Mreturn NT3D_glx_drv_o::Close() {
 	glXDestroyContext(dpy, ctx);
 	XDestroyWindow(dpy, win);
 //	NT3D_glx_drv_o::windowCount--;   
 	if (true == useUniqueCommonCtx)
 		commonCtxCount--;
 
-	return NT_SUCCESS;
+	return mbase::M_SUCCESS;
 }
 
-NTreturn NT3D_glx_drv_o::Resize(NTsize windowWidth, NTsize windowHeight) {
+mbase::Mreturn NT3D_glx_drv_o::Resize(mbase::Msize windowWidth, mbase::Msize windowHeight) {
 	width = windowWidth;
 	height = windowHeight;
 
 	glViewport(0, 0, width, height);
 	XResizeWindow(dpy, win, width, height);
 
-	return NT_SUCCESS;
+	return mbase::M_SUCCESS;
 }
 
 /** @short   The OLD method of choice to open a rendering window.  It opens a
@@ -188,9 +188,9 @@ NTint NT3D_glx_drv_o::CreateWindow(NTint windowWidth, NTint windowHeight) {
 
 	windowNumber = 0; // in case it fails
 
-	if (MakeRGBDBWindow(width, height) != NT_SUCCESS) {
+	if (MakeRGBDBWindow(width, height) != mbase::M_SUCCESS) {
 		cerr << "NT3D_glx_drv_o::CreateWindow - error : MakeRBGDBWindow failed."
-				<< endl;
+				<< std::endl;
 		return 0;
 	}
 
@@ -212,7 +212,7 @@ NTint NT3D_glx_drv_o::CreateWindow(NTint windowWidth, NTint windowHeight) {
 	return windowNumber; // return 0 if failed !
 }
 
-NTreturn NT3D_glx_drv_o::SetWindowTitle(string newTitle) {
+mbase::Mreturn NT3D_glx_drv_o::SetWindowTitle(string newTitle) {
 
 	windowTitle = newTitle;
 	XTextProperty textprop;
@@ -238,7 +238,7 @@ NTreturn NT3D_glx_drv_o::SetWindowTitle(string newTitle) {
 
 	XFree(wmHints);
 	delete szHints;
-	return NT_SUCCESS;
+	return mbase::M_SUCCESS;
 }
 
 NT3D_bitmap_o NT3D_glx_drv_o::View2Bitmap() {
@@ -261,7 +261,7 @@ NT3D_glx_drv_o::View2BitmapPtr(NT3D_bitmap_o * bmpPtr) {
 
 /* ***  PROTECTED                         ***   */
 /* ***  PRIVATE                           ***   */
-NTreturn NT3D_glx_drv_o::MakeRGBDBWindow(NTint windowWidth,
+mbase::Mreturn NT3D_glx_drv_o::MakeRGBDBWindow(NTint windowWidth,
 		NTint windowHeight) {
 	int attrib[] = { GLX_RGBA, GLX_DEPTH_SIZE, 16, GLX_DOUBLEBUFFER, None };
 	int scrnum;
@@ -277,8 +277,8 @@ NTreturn NT3D_glx_drv_o::MakeRGBDBWindow(NTint windowWidth,
 	if (!visinfo) {
 		cerr
 				<< "NT3D_glx_drv_o::MakeRGBDBWindow - error: couldn't get an RGB, Double-buffered visual."
-				<< endl;
-		return NT_FAIL;
+				<< std::endl;
+		return mbase::M_FAIL;
 	}
 
 	/* window attributes */
@@ -295,16 +295,16 @@ NTreturn NT3D_glx_drv_o::MakeRGBDBWindow(NTint windowWidth,
 	/* 2DO hacked code here BEWARE of side effects, e.g. deletion of original context object ... */
 	GLXContext shared_context;
 	if (useUniqueCommonCtx == true) {
-		cerr << "Using unique common context." << endl;
+		cerr << "Using unique common context." << std::endl;
 		if (commonCtxCount < 1) {
-			cerr << "First init of common context." << endl;
+			cerr << "First init of common context." << std::endl;
 			shared_context = NULL;
 		} else {
-			cerr << "Using used context." << endl;
+			cerr << "Using used context." << std::endl;
 			shared_context = uniqueCommonCtx;
 		}
 	} else {
-		cerr << "Using individual context." << endl;
+		cerr << "Using individual context." << std::endl;
 		shared_context = NULL;
 	}
 
@@ -312,19 +312,19 @@ NTreturn NT3D_glx_drv_o::MakeRGBDBWindow(NTint windowWidth,
 	if (NULL == ctx) {
 		cerr
 				<< "NT3D_glx_drv_o::MakeRGBDBWindow - error: could not create a rendering context."
-				<< endl;
-		return NT_FAIL;
+				<< std::endl;
+		return mbase::M_FAIL;
 	}
 
 	if (useUniqueCommonCtx == true) {
 		commonCtxCount++;
 		if (commonCtxCount < 2) {
-			cerr << "First time assignment of common context." << endl;
+			cerr << "First time assignment of common context." << std::endl;
 			uniqueCommonCtx = ctx;
 		}
 	}
 
-	return NT_SUCCESS;
+	return mbase::M_SUCCESS;
 
 }
 

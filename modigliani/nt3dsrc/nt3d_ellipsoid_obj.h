@@ -87,11 +87,11 @@
 class NT3D_ellipsoid_o: public NT3D_solid_o {
 public:
 	NT3D_ellipsoid_o();
-	NT3D_ellipsoid_o(NT_vector3_o oNewPosition) :
+	NT3D_ellipsoid_o(NT_std::vector3_o oNewPosition) :
 			NT3D_solid_o(oNewPosition), oHalfAxis(1.0, 1.0, 1.0) {
 	}
 	;
-	NT3D_ellipsoid_o(NT_vector3_o oNewPosition, NT_vector3_o oNewHalfAxis);
+	NT3D_ellipsoid_o(NT_std::vector3_o oNewPosition, NT_std::vector3_o oNewHalfAxis);
 	NT3D_ellipsoid_o(const NT3D_ellipsoid_o & original);
 	~NT3D_ellipsoid_o();
 	/*   Methods                */
@@ -105,15 +105,15 @@ private:
 	}
 	;
 	void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl,
-			NTreal __attribute__((unused)) value) {
+			mbase::Mreal __attribute__((unused)) value) {
 	}
 	;
 	void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl,
-			NT_vector_o __attribute__((unused)) value) {
+			NT_std::vector_o __attribute__((unused)) value) {
 	}
 	;
 	/*   Data                   */
-	NT_vector3_o oHalfAxis;
+	NT_std::vector3_o oHalfAxis;
 
 };
 

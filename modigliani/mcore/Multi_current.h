@@ -24,9 +24,7 @@
 #define _mcore_multi_current_h_
 
 /* NT core includes */
-#include "ntsrc/nt_main.h"
-#include "ntsrc/nt_types.h"
-#include "ntsrc/nt_obj.h"
+#include "ntsrc/Obj.h"
 /* Parent includes */
 #include "Membrane_current.h"
 /* NT includes */
@@ -43,54 +41,54 @@ namespace mcore {
 class Multi_current: public Membrane_current {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Multi_current(NTreal reversalPotential, // in mV
-			NTreal density, // channels per mumeter^2
-			NTreal area, // in mumeter^2
-			NTreal conductivity, // in mSiemens per channel
-			NTreal vBase = 0 // mV
+	Multi_current(mbase::Mreal reversalPotential, // in mV
+			mbase::Mreal density, // channels per mumeter^2
+			mbase::Mreal area, // in mumeter^2
+			mbase::Mreal conductivity, // in mSiemens per channel
+			mbase::Mreal vBase = 0 // mV
 			);
 	Multi_current(const Multi_current & original);
 	const Multi_current & operator=(const Multi_current & right);
 	virtual ~Multi_current();
 	/* ***  Methods              ***/
 	/* mementary total conductance */
-	NTreal _density() const {
+	mbase::Mreal _density() const {
 		return (density);
 	}
-	NTreal _area() const {
+	mbase::Mreal _area() const {
 		return (area);
 	}
 	/* conductivity per channel in mSiemens */
-	NTreal _conductivity() const {
+	mbase::Mreal _conductivity() const {
 		return (conductivity);
 	}
 	/* conductivity if all channels open in mSiemens/cm^2, */
-	NTreal _maxConductivity() const {
+	mbase::Mreal _maxConductivity() const {
 		return (density /* num/muMeter^2 */* conductivity /* mSiemens */* 1.0e8 /* muMeter^2/cm^2 */);
 	}
 	/**  */
 	bool ComputeGillespieStep() {
-		cerr << "NTBP_multi_current_o::ComputeGillespieStep()" << endl;
+		std::cerr << "NTBP_multi_current_o::ComputeGillespieStep()" << std::endl;
 		return (channelsPtr->GillespieStep(voltage));
 	}
 	void UpdateNumChannels() {
-		numChannels = (NTsize) ceil(density * area);
+		numChannels = (mbase::Msize) ceil(density * area);
 	}
-	NTsize _numChannels() const {
+	mbase::Msize _numChannels() const {
 		return (numChannels);
 	}
 	/** Number of total ionic channels */
-	NTreal NumChannels() const {
+	mbase::Mreal NumChannels() const {
 		return (_numChannels());
 	}
-	NTreal OpenChannelsRatio() const {
+	mbase::Mreal OpenChannelsRatio() const {
 		return (open_channels() / NumChannels());
 	}
-	NTreal _vBase() const {
+	mbase::Mreal _vBase() const {
 		return (vBase);
 	}
 // Dangerous: since cached values are not automatically recomputed in derived classes
-//void Set_vBase(NTreal newVBase /* mV */){ vBase = newVBase; }
+//void Set_vBase(mbase::Mreal newVBase /* mV */){ vBase = newVBase; }
 	Ion_channels * getChannelsPtr() {
 		return (channelsPtr);
 	}
@@ -101,15 +99,15 @@ public:
 protected:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	static NT_uniform_rnd_dist_o uniformRnd;
-	NTreal conductivity; // in mSiemens per channel
-	NTreal density; // channels per muMeter^2
-	NTreal vBase; // mV
+	static mbase::Uniform_rnd_dist uniformRnd;
+	mbase::Mreal conductivity; // in mSiemens per channel
+	mbase::Mreal density; // channels per muMeter^2
+	mbase::Mreal vBase; // mV
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	NTsize numChannels;
-	NTreal area; // in mumeter^2
+	mbase::Msize numChannels;
+	mbase::Mreal area; // in mumeter^2
 	bool ratesComputed;
 
 };

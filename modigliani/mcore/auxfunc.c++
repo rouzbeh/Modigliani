@@ -25,13 +25,13 @@
 using namespace std;
 
 namespace mcore {
-NTreal corrected_channel_density(NTreal chDensity, NTreal compArea) {
-	NTreal chPerCompartment = compArea * chDensity;
-	NTreal pChFloor = (ceil(chPerCompartment) - chPerCompartment);
+mbase::Mreal corrected_channel_density(mbase::Mreal chDensity, mbase::Mreal compArea) {
+	mbase::Mreal chPerCompartment = compArea * chDensity;
+	mbase::Mreal pChFloor = (ceil(chPerCompartment) - chPerCompartment);
 
-	NT_uniform_rnd_dist_o uniRnd;
+	mbase::Uniform_rnd_dist uniRnd;
 	/* compute number of channels, such that average density is achieved */
-	NTreal indChDensity = (
+	mbase::Mreal indChDensity = (
 			uniRnd.RndVal() > pChFloor ?
 					ceil(chPerCompartment) / compArea :
 					floor(chPerCompartment) / compArea);
@@ -77,78 +77,78 @@ void printConfig(ofstream& out, Json::Value node_parameters,
 		Json::Value paranode_parameters, Json::Value internode_parameters,
 		Json::Value simulation_parameters, Json::Value config_root) {
 	out << "global_diameter" << " = " << config_root["diameter"].asDouble()
-			<< ";" << endl;
+			<< ";" << std::endl;
 	out << "global_eLeak" << " = " << config_root["eLeak"].asDouble() << ";"
-			<< endl;
+			<< std::endl;
 	out << "global_hillock" << " = " << config_root["hillock"].asBool() << ";"
-			<< endl;
+			<< std::endl;
 	out << "global_internode" << " = " << config_root["internode"].asBool()
-			<< ";" << endl;
+			<< ";" << std::endl;
 	out << "global_node" << " = " << config_root["node"].asBool() << ";"
-			<< endl;
+			<< std::endl;
 	out << "global_paranode" << " = " << config_root["paranode"].asBool() << ";"
-			<< endl;
+			<< std::endl;
 	out << "global_temperature" << " = "
-			<< config_root["temperature"].asDouble() << ";" << endl;
+			<< config_root["temperature"].asDouble() << ";" << std::endl;
 	out << "global_vBase" << " = " << config_root["vBase"].asDouble() << ";"
-			<< endl;
+			<< std::endl;
 	out << "node_cm" << " = " << node_parameters["Cm"].asDouble() << ";"
-			<< endl;
+			<< std::endl;
 	out << "node_gLeak" << " = " << node_parameters["GLeak"].asDouble() << ";"
-			<< endl;
+			<< std::endl;
 	out << "node_length" << " = " << node_parameters["length"].asDouble() << ";"
-			<< endl;
+			<< std::endl;
 	out << "node_num" << " = " << node_parameters["numNd"].asUInt() << ";"
-			<< endl;
+			<< std::endl;
 	out << "node_numComp" << " = " << node_parameters["numComp"].asDouble()
-			<< ";" << endl;
+			<< ";" << std::endl;
 	out << "node_potassiumAlg" << " = " << node_parameters["chKAlg"].asUInt()
-			<< ";" << endl;
+			<< ";" << std::endl;
 	out << "node_potassiumConductance" << " = "
-			<< node_parameters["chKCond"].asDouble() << ";" << endl;
+			<< node_parameters["chKCond"].asDouble() << ";" << std::endl;
 	out << "node_potassiumDensity" << " = "
-			<< node_parameters["chKDen"].asDouble() << ";" << endl;
+			<< node_parameters["chKDen"].asDouble() << ";" << std::endl;
 	out << "node_potassiumReversalPotential" << " = "
-			<< node_parameters["chKRevPot"].asDouble() << ";" << endl;
+			<< node_parameters["chKRevPot"].asDouble() << ";" << std::endl;
 	out << "node_ra" << " = " << node_parameters["Ra"].asDouble() << ";"
-			<< endl;
+			<< std::endl;
 	out << "node_sodiumAlg" << " = " << node_parameters["chNaAlg"].asUInt()
-			<< ";" << endl;
+			<< ";" << std::endl;
 	out << "node_sodiumConductance" << " = "
-			<< node_parameters["chNaCond"].asDouble() << ";" << endl;
+			<< node_parameters["chNaCond"].asDouble() << ";" << std::endl;
 	out << "node_sodiumDensity" << " = "
-			<< node_parameters["chNaDen"].asDouble() << ";" << endl;
+			<< node_parameters["chNaDen"].asDouble() << ";" << std::endl;
 	out << "node_sodiumReversalPotential" << " = "
-			<< node_parameters["chNaRevPot"].asDouble() << ";" << endl;
+			<< node_parameters["chNaRevPot"].asDouble() << ";" << std::endl;
 	out << "paranode_cm" << " = " << paranode_parameters["Cm"].asDouble() << ";"
-			<< endl;
+			<< std::endl;
 	out << "paranode_gLeak" << " = " << paranode_parameters["GLeak"].asDouble()
-			<< ";" << endl;
+			<< ";" << std::endl;
 	out << "paranode_length" << " = "
-			<< paranode_parameters["length"].asDouble() << ";" << endl;
+			<< paranode_parameters["length"].asDouble() << ";" << std::endl;
 	out << "paranode_numComp" << " = "
-			<< paranode_parameters["numComp"].asDouble() << ";" << endl;
+			<< paranode_parameters["numComp"].asDouble() << ";" << std::endl;
 
 	out << "internode_cm" << " = " << internode_parameters["Cm"].asDouble()
-			<< ";" << endl;
+			<< ";" << std::endl;
 	out << "internode_gLeak" << " = "
-			<< internode_parameters["GLeak"].asDouble() << ";" << endl;
+			<< internode_parameters["GLeak"].asDouble() << ";" << std::endl;
 	out << "internode_length" << " = "
-			<< internode_parameters["length"].asDouble() << ";" << endl;
+			<< internode_parameters["length"].asDouble() << ";" << std::endl;
 	out << "internode_numComp" << " = "
-			<< internode_parameters["numComp"].asDouble() << ";" << endl;
+			<< internode_parameters["numComp"].asDouble() << ";" << std::endl;
 
 	out << "simulation_samplerate" << " = "
-			<< simulation_parameters["sampN"].asUInt() << ";" << endl;
+			<< simulation_parameters["sampN"].asUInt() << ";" << std::endl;
 	out << "simulation_timestep_inms" << " = "
-			<< simulation_parameters["timeStep"].asDouble() << ";" << endl;
+			<< simulation_parameters["timeStep"].asDouble() << ";" << std::endl;
 	out << "simulation_number_of_iterations" << " = "
-			<< simulation_parameters["numIter"].asUInt() << ";" << endl;
+			<< simulation_parameters["numIter"].asUInt() << ";" << std::endl;
 	out << "simulation_duration" << " = "
 			<< simulation_parameters["timeStep"].asDouble()
-					* simulation_parameters["numIter"].asUInt() << ";" << endl;
+					* simulation_parameters["numIter"].asUInt() << ";" << std::endl;
 	out << "simulation_trials" << " = "
-			<< simulation_parameters["numTrials"].asUInt() << ";" << endl;
+			<< simulation_parameters["numTrials"].asUInt() << ";" << std::endl;
 }
 
 /**
@@ -179,7 +179,7 @@ Custom_cylindrical_compartment* createCompartment(Json::Value config_root,
 		}
 
 		if ("file" == current["type"].asString()) {
-			NTreal indDensity = corrected_channel_density(
+			mbase::Mreal indDensity = corrected_channel_density(
 					current["chDen"].asDouble(), tmpPtr->_area());
 			File_based_stochastic_multi_current * file_current =
 					new File_based_stochastic_multi_current(tmpPtr->_area(),
@@ -211,7 +211,7 @@ Custom_cylindrical_compartment* createCompartment(Json::Value config_root,
 				tmpPtr->AttachCurrent(lua_current, NTBP_IONIC);
 				continue;
 			} else if (4 == current["chAlg"].asInt()) {
-				NTreal indDensity = corrected_channel_density(
+				mbase::Mreal indDensity = corrected_channel_density(
 						current["chDen"].asDouble(), tmpPtr->_area());
 				Lua_based_stochastic_multi_current * lua_current =
 						new Lua_based_stochastic_multi_current(tmpPtr->_area(),
@@ -248,7 +248,7 @@ void openOutputFile(string outputFolder, string prefix, ofstream& outStream,
 	outStream.open(temp_name.c_str(), ios::binary);
 
 	if (outStream.fail()) {
-		cerr << "Could not open output file " << prefix << endl;
+		std::cerr << "Could not open output file " << prefix << std::endl;
 		std::exit(EXIT_IO_ERROR);
 	}
 }
@@ -271,7 +271,7 @@ ofstream* openOutputFile(string outputFolder, string prefix, int counter,
 	ofstream* out_stream = new ofstream(temp_name.c_str(), ios::binary);
 
 	if (out_stream->fail()) {
-		cerr << "Could not open output file " << temp_name << endl;
+		std::cerr << "Could not open output file " << temp_name << std::endl;
 		std::exit(EXIT_IO_ERROR);
 	}
 	return (out_stream);
@@ -285,7 +285,7 @@ Membrane_compartment_sequence create_axon(Json::Value config_root,
 	luaL_openlibs(L);
 	luaL_dostring(L, lua_script.c_str());
 
-	auto compartment_types = vector<int>();
+	auto compartment_types = std::vector<int>();
 	lua_getglobal(L, "compartments");
 	/* table is in the stack at index 't' */
 	lua_pushnil(L); /* first key */
@@ -304,11 +304,11 @@ Membrane_compartment_sequence create_axon(Json::Value config_root,
 
 	Json::Value compartments_parameters = config_root["compartments_parameters"];
 
-	for (vector<int>::iterator it = compartment_types.begin();
+	for (std::vector<int>::iterator it = compartment_types.begin();
 			it != compartment_types.end(); it++) {
-		TypePerCompartmentFile << *it << endl;
+		TypePerCompartmentFile << *it << std::endl;
 		LengthPerCompartmentFile
-				<< compartments_parameters[*it]["length"].asDouble() << endl;
+				<< compartments_parameters[*it]["length"].asDouble() << std::endl;
 		oModel.PushBack(
 				createCompartment(config_root,
 						config_root["simulation_parameters"],

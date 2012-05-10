@@ -88,7 +88,7 @@ NT3D_image_o::RGBImagePtr() const
 {
 	GLfloat* imagePtr = new GLfloat[width*height*3];
 	cerr <<"NT3D_image_o::RGBImagePt - Talk : Large potential for memory loss here, as long as memory pointer returned."<<endl;
-	NTsize ll;
+	mbase::Msize ll;
 	switch (dataFormat) {
 		case NT_SINGLE_CHANNEL:
 			for (ll=0; ll < width*height; ll++) {
@@ -131,7 +131,7 @@ NT3D_image_o::RGBAImagePtr() const
 	cerr <<"NT3D_image_o::RGBAImagePtr()..."<<endl;
 	GLfloat* imagePtr = new GLfloat[width*height*4];
 	cerr <<"NT3D_image_o::RGBImagePt - Talk : Large potential for memory loss here, as long as new pointer is returned."<<endl;
-	NTsize ll;
+	mbase::Msize ll;
 	switch (dataFormat) {
 		case NT_SINGLE_CHANNEL:
 			for (ll=0; ll < width*height; ll++) {
