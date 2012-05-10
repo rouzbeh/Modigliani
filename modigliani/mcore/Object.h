@@ -26,11 +26,11 @@
 #define NTBP_TIMESTEP 0.001 /* in msec */
 
 /* NT core includes */
-#include "ntsrc/Obj.h"
+#include "mbase/Obj.h"
 /* NT includes */
-#include "../ntsrc/Error.h"
+#include "../mbase/Error.h"
 /* other includes */
-#include "../ntsrc/physical_constants.h"
+#include "../mbase/physical_constants.h"
 
 enum NTBPKineticFunctionType {
 	NTBP_CONSTANT, NTBP_LINEAR, NTBP, NTBP_FERMI, NTBP_GAUSSIAN

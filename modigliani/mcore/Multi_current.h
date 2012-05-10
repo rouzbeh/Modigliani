@@ -24,7 +24,7 @@
 #define _mcore_multi_current_h_
 
 /* NT core includes */
-#include "ntsrc/Obj.h"
+#include "mbase/Obj.h"
 /* Parent includes */
 #include "Membrane_current.h"
 /* NT includes */

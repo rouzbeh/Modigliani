@@ -35,14 +35,14 @@
 #define _ntg_random_ring_graph_obj_h_
 
 /* M core includes */
-#include "ntsrc/main.h"
-#include "ntsrc/types.h"
-#include "ntsrc/Obj.h"
+#include "mbase/main.h"
+#include "mbase/types.h"
+#include "mbase/Obj.h"
 /* Parent includes */
 #include "ntg_neighbour_ring_graph_obj.h"
 /* M includes */
-#include "ntsrc/Uniform_rnd_dist.h"
-#include "ntsrc/aux_math_func.h"
+#include "mbase/Uniform_rnd_dist.h"
+#include "mbase/aux_math_func.h"
 /* other includes */
 #include <cmath>
 

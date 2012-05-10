@@ -24,9 +24,7 @@
 #define _ntg_edge_obj_h_
 
 /* M core includes */
-#include "ntsrc/main.h"
-#include "ntsrc/types.h"
-#include "ntsrc/Obj.h"
+#include "mbase/Obj.h"
 /* M includes */
 
 /* other includes */

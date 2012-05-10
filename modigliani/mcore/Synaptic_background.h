@@ -26,7 +26,7 @@
 /* Parent includes */
 #include "Membrane_current.h"
 /* NT includes */
-#include "ntsrc/Gaussian_rnd_dist.h"
+#include "mbase/Gaussian_rnd_dist.h"
 
 /* other includes */
 

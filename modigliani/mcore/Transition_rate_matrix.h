@@ -8,7 +8,7 @@
 #ifndef NTBP_TRANSITION_RATE_MATRIX_OBJ_H_
 #define NTBP_TRANSITION_RATE_MATRIX_OBJ_H_
 
-#include "ntsrc/types.h"
+#include "mbase/types.h"
 // Boost's multi array class can be slow, if the data is not accessed properly.
 // See http://stackoverflow.com/questions/446866/boostmulti-array-performance-question
 

@@ -66,9 +66,9 @@
 #define _nt3d_rainbow_texture_h_ 
 
 /* NT core includes */
-#include "ntsrc/nt_main.h" 
-#include "ntsrc/nt_types.h" 
-#include "ntsrc/nt_obj.h"  
+#include "mbase/nt_main.h" 
+#include "mbase/nt_types.h" 
+#include "mbase/nt_obj.h"  
 /* Parent includes */
 #include "nt3d_pixel_texture_obj.h" 
 /* NT includes */

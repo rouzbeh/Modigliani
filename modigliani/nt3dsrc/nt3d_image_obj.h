@@ -43,11 +43,11 @@
 #define _nt3d_image_obj_h_ 
 
 /* NT core includes */
-#include "ntsrc/nt_main.h" 
-#include "ntsrc/nt_types.h" 
-#include "ntsrc/nt_obj.h"  
+#include "mbase/nt_main.h" 
+#include "mbase/nt_types.h" 
+#include "mbase/nt_obj.h"  
 /* Parent includes */
-#include "ntsrc/nt_image_obj.h" 
+#include "mbase/nt_image_obj.h" 
 /* NT includes */
 
 /* other includes */

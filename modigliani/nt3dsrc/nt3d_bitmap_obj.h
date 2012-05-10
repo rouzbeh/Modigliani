@@ -40,7 +40,7 @@
 /* Parent includes */
 #include "nt3d_obj.h" 
 /* NT includes */
-#include "ntsrc/codes.h"
+#include "mbase/codes.h"
 /* other includes */
 #include <GL/gl.h>
 

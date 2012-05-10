@@ -24,9 +24,9 @@
 #define _ntg_matrix_graph_obj_h_
 
 /* M core includes */
-/*#include "ntsrc/main.h"
-#include "ntsrc/types.h"
-#include "ntsrc/Obj.h"  */
+/*#include "mbase/main.h"
+#include "mbase/types.h"
+#include "mbase/Obj.h"  */
 /* M includes */
 #include "ntg_node_obj.h"
 #include "ntg_edge_obj.h"

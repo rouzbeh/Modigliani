@@ -24,15 +24,15 @@
 #define _ntg_graph_obj_h_
 
 /* M core includes */
-#include "ntsrc/main.h"
-#include "ntsrc/types.h"
-#include "ntsrc/Obj.h"
+#include "mbase/main.h"
+#include "mbase/types.h"
+#include "mbase/Obj.h"
 /* M includes */
-#include "ntsrc/Id_management.h"
+#include "mbase/Id_management.h"
 #include "ntg_node_obj.h"
 #include "ntg_edge_obj.h"
-#include "ntsrc/Uniform_rnd_dist.h"
-#include "ntsrc/Sequential_statistics.h"
+#include "mbase/Uniform_rnd_dist.h"
+#include "mbase/Sequential_statistics.h"
 /* other includes */
 #include <vector>
 #include <algorithm>

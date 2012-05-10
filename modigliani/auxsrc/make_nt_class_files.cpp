@@ -14,7 +14,7 @@
 *
 *  Revision 1.1  2001/06/29 13:14:44  face
 *  adding vraious addtions
-*  mainly in ntsrc (multidim_array)
+*  mainly in mbase (multidim_array)
 *
 *  Revision 1.6  2000/11/06 10:37:33  face
 *  *** empty log message ***
@@ -87,9 +87,9 @@ void writeHeaderFileMain(ostream& fout) {
     "#ifndef _"<<filePrefix<<classnameStem<< fileSuffix << "_h_ "<< std::endl <<
     "#define _"<<filePrefix<<classnameStem<< fileSuffix << "_h_ "<< std::endl << std::endl <<
     "/"<<"* NT core includes *"<<"/" << std::endl <<
-    "#include \"ntsrc/nt_main.h\" " <<std::endl <<
-    "#include \"ntsrc/nt_types.h\" "<<std::endl <<
-    "#include \"ntsrc/nt_obj.h\"  "<< std::endl;
+    "#include \"mbase/nt_main.h\" " <<std::endl <<
+    "#include \"mbase/nt_types.h\" "<<std::endl <<
+    "#include \"mbase/nt_obj.h\"  "<< std::endl;
 
     if (true == derivedClass) {
         fout << "/"<<"* Parent includes *"<<"/" << std::endl;

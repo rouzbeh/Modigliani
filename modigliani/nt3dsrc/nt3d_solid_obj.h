@@ -128,8 +128,8 @@
 #ifndef _nt3d_solid_h_
 #define _nt3d_solid_h_
 
-#include "ntsrc/nt_main.h"
-#include "ntsrc/nt_types.h"
+#include "mbase/nt_main.h"
+#include "mbase/nt_types.h"
 #include "nt3d_surfaced_object_obj.h"
 #include "nt3d_material_obj.h"
 #include "nt3d_texture_obj.h"

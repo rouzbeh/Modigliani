@@ -27,13 +27,13 @@ make_histogram_from_txt_file_SOURCES = make_histogram_from_txt_file.cpp
 make_histogram_from_txt_file_LDADD = -lm
 
 test_ring_buffer_SOURCES = test_ring_buffer.cpp
-test_ring_buffer_LDADD = $(top_builddir)/modigliani/ntsrc/libntsrc.a
+test_ring_buffer_LDADD = $(top_builddir)/modigliani/mbase/libmbase.a
 
 generate_white_noise_SOURCES = generate_white_noise.cpp
-generate_white_noise_LDADD = $(top_builddir)/modigliani/ntsrc/libntsrc.a
+generate_white_noise_LDADD = $(top_builddir)/modigliani/mbase/libmbase.a
 
 measure_mutual_information_in_binary_file_SOURCES = measure_mutual_information_in_binary_file.cpp
-measure_mutual_information_in_binary_file_LDADD = $(top_builddir)/modigliani/ntsrc/libntsrc.a
+measure_mutual_information_in_binary_file_LDADD = $(top_builddir)/modigliani/mbase/libmbase.a
 
 if WITH_PLPLOT
   MAYBE_PLPLOT = -lplplotcxxd -lplplotd
@@ -43,9 +43,9 @@ endif
 axon_simulator_SOURCES = axon_simulator.cpp
 
 if MINGW
-  axon_simulator_LDADD = $(top_builddir)/modigliani/mcore/libmcore.a $(top_builddir)/modigliani/ntsrc/libntsrc.a -lboost_filesystem-mt -lboost_system-mt -ljsoncpp -lm -llua $(MAYBE_PLPLOT)
+  axon_simulator_LDADD = $(top_builddir)/modigliani/mcore/libmcore.a $(top_builddir)/modigliani/mbase/libmbase.a -lboost_filesystem-mt -lboost_system-mt -ljsoncpp -lm -llua $(MAYBE_PLPLOT)
 else
-  axon_simulator_LDADD = $(top_builddir)/modigliani/mcore/libmcore.a $(top_builddir)/modigliani/ntsrc/libntsrc.a -lboost_filesystem -lboost_system -ljson -lm -llua -ldl $(MAYBE_PLPLOT)
+  axon_simulator_LDADD = $(top_builddir)/modigliani/mcore/libmcore.a $(top_builddir)/modigliani/mbase/libmbase.a -lboost_filesystem -lboost_system -ljson -lm -llua -ldl $(MAYBE_PLPLOT)
 endif
 axon_simulator_CPPFLAGS = $(PLPLOTCPPFLAGS)
 

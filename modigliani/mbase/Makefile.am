@@ -1,6 +1,6 @@
-noinst_LIBRARIES = libntsrc.a
+noinst_LIBRARIES = libmbase.a
 
-libntsrc_a_SOURCES = Two_dim_histogram.c++ \
+libmbase_a_SOURCES = Two_dim_histogram.c++ \
 Multidim_histogram.c++ \
 Binomial_rnd_dist.c++ \
 Vector.c++ \

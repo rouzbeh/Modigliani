@@ -1,4 +1,4 @@
-#include "../ntsrc/Ring_buffer.h"
+#include "../mbase/Ring_buffer.h"
 
 int main()
 {

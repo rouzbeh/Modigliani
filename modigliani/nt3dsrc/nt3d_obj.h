@@ -72,7 +72,7 @@
 #define _nt3d_h_
 
 
-#include "ntsrc/Obj.h"
+#include "mbase/Obj.h"
 
 #include <GL/gl.h>
 #define NT3D_MAX_LIGHTS GL_MAX_LIGHTS
