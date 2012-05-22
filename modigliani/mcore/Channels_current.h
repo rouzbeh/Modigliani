@@ -38,28 +38,28 @@ namespace mcore {
 class Channels_current: public Membrane_current {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Channels_current(mbase::Mreal reversalPotential, // in mV
-			mbase::Mreal density, // channels per mumeter^2
-			mbase::Mreal area, // in mumeter^2
-			mbase::Mreal conductivity // in mSiemens per channel
+	Channels_current(mbase::Real reversalPotential, // in mV
+			mbase::Real density, // channels per mumeter^2
+			mbase::Real area, // in mumeter^2
+			mbase::Real conductivity // in mSiemens per channel
 			);
 	Channels_current(const Channels_current & original);
 	const Channels_current & operator=(const Channels_current & right);
 	virtual ~Channels_current();
 	/* ***  Methods              ***/
 	/* mementary total conductance */
-	mbase::Mreal _density() const {
+	mbase::Real _density() const {
 		return (density);
 	}
-	mbase::Mreal _area() const {
+	mbase::Real _area() const {
 		return (area);
 	}
 	/* conductivity per channel */
-	mbase::Mreal _conductivity() const {
+	mbase::Real _conductivity() const {
 		return (conductivity);
 	} /* in mSiemens per channel */
 	/* conductivity if all channels open in mSiemens/cm^2 */
-	mbase::Mreal _maxConductivity() const {
+	mbase::Real _maxConductivity() const {
 		return (density * conductivity * 1e-8);
 	}
 	/**  */
@@ -67,7 +67,7 @@ public:
 	bool ComputeGillespieStep() {
 		return (channelsPtr->GillespieStep(voltage));
 	}
-	mbase::Mreal ComputeConductance() {
+	mbase::Real ComputeConductance() {
 		return (Set_conductance(channelsPtr->NumOpen() * conductivity));
 	}
 	/* ***  Data                 ***/
@@ -75,9 +75,9 @@ protected:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
 	Ion_channels * channelsPtr;
-	mbase::Mreal density; // channels per mumeter^2
-	mbase::Mreal area; // in mumeter^2
-	mbase::Mreal conductivity; // in mSiemens per channel
+	mbase::Real density; // channels per mumeter^2
+	mbase::Real area; // in mumeter^2
+	mbase::Real conductivity; // in mSiemens per channel
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/

@@ -107,8 +107,8 @@ mbase::Mreturn Membrane_compartment_sequence::step() {
 		}
 	}
 
-	std::vector<mbase::Mreal> tmpVVec;
-	mbase::Mreal omega = 0.0;
+	std::vector<mbase::Real> tmpVVec;
+	mbase::Real omega = 0.0;
 	mbase::Msize ll = 0;
 
 	/* load voltage std::vector and rhs-std::vector */
@@ -122,7 +122,7 @@ mbase::Mreturn Membrane_compartment_sequence::step() {
 		// TODO it appears to be correct, but why is omega ADDED and not subtracted ?
 	}
 
-	std::vector<mbase::Mreal> vVec = NumericalRecipesSolveTriDiag(lVec, dVec, uVec, rVec);
+	std::vector<mbase::Real> vVec = NumericalRecipesSolveTriDiag(lVec, dVec, uVec, rVec);
 	/* set new voltage */
 
 	for (ll = 0; ll < numCompartments; ll++) {
@@ -151,11 +151,11 @@ mbase::Mreturn Membrane_compartment_sequence::Init() {
 	dVec.resize(numCompartments);
 	rVec.resize(numCompartments);
 
-	mbase::Mreal sigma = 0;
-	mbase::Mreal radius = compartmentVec[0]->_radius(); // should be constant with present solution method
-	mbase::Mreal axoplasmicR = compartmentVec[0]->_rA(); // (specific!) should be constant with present solution method
-	mbase::Mreal deltaT = _timeStep();
-	mbase::Mreal deltaXX = 0;
+	mbase::Real sigma = 0;
+	mbase::Real radius = compartmentVec[0]->_radius(); // should be constant with present solution method
+	mbase::Real axoplasmicR = compartmentVec[0]->_rA(); // (specific!) should be constant with present solution method
+	mbase::Real deltaT = _timeStep();
+	mbase::Real deltaXX = 0;
 
 	/* initialisation of left band l and right band u "std::vectors" */
 	//vVec[0] = 0;
@@ -236,35 +236,35 @@ mbase::Mreturn Membrane_compartment_sequence::InitialStep() {
 	return (mbase::M_SUCCESS);
 }
 
-std::vector<mbase::Mreal> Membrane_compartment_sequence::open_channels(
+std::vector<mbase::Real> Membrane_compartment_sequence::open_channels(
 		mbase::Msize currIndex) const {
-	std::vector<mbase::Mreal> tmp(_numCompartments());
+	std::vector<mbase::Real> tmp(_numCompartments());
 	for (mbase::Msize ll = 0; ll < _numCompartments(); ll++) {
 		tmp[ll] = compartmentVec[ll]->Current(currIndex)->open_channels();
 	}
 	return (tmp);
 }
 
-std::vector<mbase::Mreal> Membrane_compartment_sequence::_vVec() const {
-	std::vector<mbase::Mreal> out;
+std::vector<mbase::Real> Membrane_compartment_sequence::_vVec() const {
+	std::vector<mbase::Real> out;
 	for (mbase::Msize ll = 0; ll < _numCompartments(); ll++) {
 		out.push_back(compartmentVec[ll]->_vM());
 	}
 	return (out);
 }
 
-std::vector<mbase::Mreal> Membrane_compartment_sequence::NumChannels(
+std::vector<mbase::Real> Membrane_compartment_sequence::NumChannels(
 		mbase::Msize currIndex) const {
-	std::vector<mbase::Mreal> tmp(_numCompartments());
+	std::vector<mbase::Real> tmp(_numCompartments());
 	for (mbase::Msize ll = 0; ll < _numCompartments(); ll++) {
 		tmp[ll] = compartmentVec[ll]->Current(currIndex)->NumChannels();
 	}
 	return (tmp);
 }
 
-std::vector<mbase::Mreal> Membrane_compartment_sequence::NumChannelsInState(
+std::vector<mbase::Real> Membrane_compartment_sequence::NumChannelsInState(
 		mbase::Msize currIndex, mbase::Msize state) const {
-	std::vector<mbase::Mreal> tmp(_numCompartments());
+	std::vector<mbase::Real> tmp(_numCompartments());
 	for (mbase::Msize ll = 0; ll < _numCompartments(); ll++) {
 		tmp[ll] = compartmentVec[ll]->Current(currIndex)->num_channels_in_state(
 				state);
@@ -272,9 +272,9 @@ std::vector<mbase::Mreal> Membrane_compartment_sequence::NumChannelsInState(
 	return (tmp);
 }
 
-std::vector<mbase::Mreal> Membrane_compartment_sequence::OpenChannelsRatio(
+std::vector<mbase::Real> Membrane_compartment_sequence::OpenChannelsRatio(
 		mbase::Msize currIndex) const {
-	std::vector<mbase::Mreal> tmp(_numCompartments());
+	std::vector<mbase::Real> tmp(_numCompartments());
 	for (mbase::Msize ll = 0; ll < _numCompartments(); ll++) {
 		if (currIndex - 1 < compartmentVec[ll]->currentVec.size())
 			tmp[ll] =
@@ -374,8 +374,8 @@ mbase::Mreturn Membrane_compartment_sequence::WriteCurrent(std::ostream & file,
  @return     none
  \warning    unknown
  \bug        unknown  */
-std::vector<mbase::Mreal> Membrane_compartment_sequence::GiveCurrent(mbase::Msize index) {
-	std::vector<mbase::Mreal> data(_numCompartments());
+std::vector<mbase::Real> Membrane_compartment_sequence::GiveCurrent(mbase::Msize index) {
+	std::vector<mbase::Real> data(_numCompartments());
 	if (0 == index) {
 		for (mbase::Msize ll = 0; ll < _numCompartments(); ll++) {
 			data[ll] = compartmentVec[ll]->CompartmentMembraneNetCurrent();
@@ -398,7 +398,7 @@ std::vector<mbase::Mreal> Membrane_compartment_sequence::GiveCurrent(mbase::Msiz
  \warning    unknown
  \bug        unknown  */
 mbase::Mreturn Membrane_compartment_sequence::InjectCurrent(
-		mbase::Mreal current /* in nA */, mbase::Msize compartmentId) {
+		mbase::Real current /* in nA */, mbase::Msize compartmentId) {
 	if ((compartmentId < 1) || (compartmentId > _numCompartments()))
 		return (mbase::M_PARAM_OUT_OF_RANGE);
 	return (compartmentVec[compartmentId - 1]->InjectCurrent(current));
@@ -414,7 +414,7 @@ void Membrane_compartment_sequence::ShowHinesMatrix() {
 	using namespace TNT;
 	mbase::Msize n = _numCompartments();
 
-	Matrix<mbase::Mreal> hinesMtr(n, n + 2);
+	Matrix<mbase::Real> hinesMtr(n, n + 2);
 
 	/* reconstruct tridiagonal matrix from band std::vectors */
 	hinesMtr[0][0] = dVec[0];
@@ -440,19 +440,19 @@ void Membrane_compartment_sequence::ShowHinesMatrix() {
 }
 
 // NOT WORKING
-std::vector<mbase::Mreal> Membrane_compartment_sequence::ZadorPearlmutterSolveTriDiag(
-		std::vector<mbase::Mreal> lNewVec, std::vector<mbase::Mreal> dNewVec, std::vector<mbase::Mreal> uNewVec,
-		std::vector<mbase::Mreal> rNewVec) const {
+std::vector<mbase::Real> Membrane_compartment_sequence::ZadorPearlmutterSolveTriDiag(
+		std::vector<mbase::Real> lNewVec, std::vector<mbase::Real> dNewVec, std::vector<mbase::Real> uNewVec,
+		std::vector<mbase::Real> rNewVec) const {
 	const mbase::Msize n = lNewVec.size();
-	std::vector<mbase::Mreal> vNewVec(n);
+	std::vector<mbase::Real> vNewVec(n);
 	M_ASSERT(
 			(lNewVec.size() == dNewVec.size()) && (dNewVec.size() == uNewVec.size()) && (uNewVec.size() == vNewVec.size()) && (vNewVec.size() == rNewVec.size()));
 
-	std::vector<mbase::Mreal> Kl(n);
-	std::vector<mbase::Mreal> Kd(n);
-	std::vector<mbase::Mreal> Ku(n);
+	std::vector<mbase::Real> Kl(n);
+	std::vector<mbase::Real> Kd(n);
+	std::vector<mbase::Real> Ku(n);
 
-	std::vector<mbase::Mreal> BJd(n);
+	std::vector<mbase::Real> BJd(n);
 
 	mbase::Msize ll = 0;
 	for (ll = 0; ll < n; ll++) {
@@ -481,11 +481,11 @@ std::vector<mbase::Mreal> Membrane_compartment_sequence::ZadorPearlmutterSolveTr
 }
 
 // NOT WORKING
-std::vector<mbase::Mreal> Membrane_compartment_sequence::MascagniSolveTriDiag(
-		std::vector<mbase::Mreal> lNewVec, std::vector<mbase::Mreal> dNewVec, std::vector<mbase::Mreal> uNewVec,
-		std::vector<mbase::Mreal> rNewVec) const {
+std::vector<mbase::Real> Membrane_compartment_sequence::MascagniSolveTriDiag(
+		std::vector<mbase::Real> lNewVec, std::vector<mbase::Real> dNewVec, std::vector<mbase::Real> uNewVec,
+		std::vector<mbase::Real> rNewVec) const {
 	mbase::Msize m = lNewVec.size();
-	std::vector<mbase::Mreal> vNewVec(m);
+	std::vector<mbase::Real> vNewVec(m);
 	M_ASSERT(
 			(lNewVec.size() == dNewVec.size()) && (dNewVec.size() == uNewVec.size()) && (uNewVec.size() == vNewVec.size()) && (vNewVec.size() == rNewVec.size()));
 
@@ -521,11 +521,11 @@ std::vector<mbase::Mreal> Membrane_compartment_sequence::MascagniSolveTriDiag(
 }
 
 /**  Compute sum of escape rates over current state in [kHz] */
-mbase::Mreal Membrane_compartment_sequence::CompartmentSequenceChannelStateTimeConstant() const {
+mbase::Real Membrane_compartment_sequence::CompartmentSequenceChannelStateTimeConstant() const {
 	std::cerr
 			<< "Membrane_compartment_sequence::CompartmentSequenceChannelStateTimeConstant()"
 			<< std::endl;
-	mbase::Mreal sum = 0.0;
+	mbase::Real sum = 0.0;
 	for (mbase::Msize ll = 0; ll < numCompartments; ll++) {
 		//		cout <<"Membrane_compartment_sequence::CompartmentSequenceChannelStateTimeConstant  SEQ" << std::endl;
 		sum += compartmentVec[ll]->CompartmentChannelStateTimeConstant();
@@ -535,15 +535,15 @@ mbase::Mreal Membrane_compartment_sequence::CompartmentSequenceChannelStateTimeC
 }
 
 /**  */
-std::vector<mbase::Mreal> Membrane_compartment_sequence::NumericalRecipesSolveTriDiag(
-		const std::vector<mbase::Mreal> & lNewVec, const std::vector<mbase::Mreal> & dNewVec,
-		const std::vector<mbase::Mreal> & uNewVec, const std::vector<mbase::Mreal> & rNewVec) const {
+std::vector<mbase::Real> Membrane_compartment_sequence::NumericalRecipesSolveTriDiag(
+		const std::vector<mbase::Real> & lNewVec, const std::vector<mbase::Real> & dNewVec,
+		const std::vector<mbase::Real> & uNewVec, const std::vector<mbase::Real> & rNewVec) const {
 	mbase::Msize n = lNewVec.size();
-	std::vector<mbase::Mreal> vNewVec(n);
+	std::vector<mbase::Real> vNewVec(n);
 	M_ASSERT(
 			(n == dNewVec.size()) && (dNewVec.size() == uNewVec.size()) && (uNewVec.size() == vNewVec.size()) && (vNewVec.size() == rNewVec.size()));
-	mbase::Mreal bet;
-	std::vector<mbase::Mreal> gam(n);
+	mbase::Real bet;
+	std::vector<mbase::Real> gam(n);
 
 	// a is l
 	// b is d
@@ -573,16 +573,16 @@ std::vector<mbase::Mreal> Membrane_compartment_sequence::NumericalRecipesSolveTr
 /**  */
 bool Membrane_compartment_sequence::GillespieStep() {
 	std::cerr << "Membrane_compartment_sequence::GillespieStep()" << std::endl;
-	std::vector<mbase::Mreal> compartmentTauVec(_numCompartments());
+	std::vector<mbase::Real> compartmentTauVec(_numCompartments());
 	mbase::Uniform_rnd_dist rnd;
-	mbase::Mreal val;
-	mbase::Mreal sum;
-	mbase::Mreal sequenceTau;
+	mbase::Real val;
+	mbase::Real sum;
+	mbase::Real sequenceTau;
 	bool integrateStep = false;
-	mbase::Mreal newDeltaT;
-	mbase::Mreal maxDeltaT;
+	mbase::Real newDeltaT;
+	mbase::Real maxDeltaT;
 
-	mbase::Mreal tStar = 0.0;
+	mbase::Real tStar = 0.0;
 
 	do {
 		/** BLOCK 2 */

@@ -93,18 +93,18 @@ public:
   void Draw();
   mbase::Mbool SetCamera(NT3D_camera_o * newCameraPtr);
   mbase::Mbool _hasCamera() { return haveCamera;}
-  void RotateX ( const mbase::Mreal deltaRotX){ cameraPtr->RotateX(deltaRotX);}
-  void RotateY ( const mbase::Mreal deltaRotY){ cameraPtr->RotateY(deltaRotY);}
-  void RotateZ ( const mbase::Mreal deltaRotZ){ cameraPtr->RotateZ(deltaRotZ);}
-  void SetRotationX ( const mbase::Mreal rotX){ cameraPtr->SetRotationX(rotX); }
-  void SetRotationY ( const mbase::Mreal rotY){ cameraPtr->SetRotationY(rotY); }
-  void SetRotationZ ( const mbase::Mreal rotZ){ cameraPtr->SetRotationZ(rotZ); }
-  void TranslateX ( const mbase::Mreal deltaTraX){ cameraPtr->TranslateX(deltaTraX);}
-  void TranslateY ( const mbase::Mreal deltaTraY){ cameraPtr->TranslateY(deltaTraY);}
-  void TranslateZ ( const mbase::Mreal deltaTraZ){ cameraPtr->TranslateZ(deltaTraZ);}
-  void SetTranslationX ( const mbase::Mreal traX){ cameraPtr->SetTranslationX(traX); }
-  void SetTranslationY ( const mbase::Mreal traY){ cameraPtr->SetTranslationY(traY); }
-  void SetTranslationZ ( const mbase::Mreal traZ){ cameraPtr->SetTranslationZ(traZ); }
+  void RotateX ( const mbase::Real deltaRotX){ cameraPtr->RotateX(deltaRotX);}
+  void RotateY ( const mbase::Real deltaRotY){ cameraPtr->RotateY(deltaRotY);}
+  void RotateZ ( const mbase::Real deltaRotZ){ cameraPtr->RotateZ(deltaRotZ);}
+  void SetRotationX ( const mbase::Real rotX){ cameraPtr->SetRotationX(rotX); }
+  void SetRotationY ( const mbase::Real rotY){ cameraPtr->SetRotationY(rotY); }
+  void SetRotationZ ( const mbase::Real rotZ){ cameraPtr->SetRotationZ(rotZ); }
+  void TranslateX ( const mbase::Real deltaTraX){ cameraPtr->TranslateX(deltaTraX);}
+  void TranslateY ( const mbase::Real deltaTraY){ cameraPtr->TranslateY(deltaTraY);}
+  void TranslateZ ( const mbase::Real deltaTraZ){ cameraPtr->TranslateZ(deltaTraZ);}
+  void SetTranslationX ( const mbase::Real traX){ cameraPtr->SetTranslationX(traX); }
+  void SetTranslationY ( const mbase::Real traY){ cameraPtr->SetTranslationY(traY); }
+  void SetTranslationZ ( const mbase::Real traZ){ cameraPtr->SetTranslationZ(traZ); }
   void SetTranslationXYZ ( const NT_std::vector3_o & oTra){ cameraPtr->SetTranslationXYZ(oTra); }
   void SetTarget ( const NT_std::vector3_o & oTarget){ cameraPtr->SetTarget(oTarget); }
 

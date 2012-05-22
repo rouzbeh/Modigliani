@@ -193,25 +193,25 @@ NT3D_solid_o::Scale(  NT_std::vector3_o oDeltaScaling )
 }
 
 void
-NT3D_solid_o::ScaleX ( mbase::Mreal deltaSclX)
+NT3D_solid_o::ScaleX ( mbase::Real deltaSclX)
 {
 	oScaling[0] += deltaSclX;
 }
 
 void
-NT3D_solid_o::ScaleY ( mbase::Mreal deltaSclY)
+NT3D_solid_o::ScaleY ( mbase::Real deltaSclY)
 {
 	oScaling[1] += deltaSclY;
 }
 
 void
-NT3D_solid_o::ScaleZ ( mbase::Mreal deltaSclZ)
+NT3D_solid_o::ScaleZ ( mbase::Real deltaSclZ)
 {
 	oScaling[2] += deltaSclZ;
 }
 
 void
-NT3D_solid_o::ScaleXYZ ( mbase::Mreal deltaSclXYZ)
+NT3D_solid_o::ScaleXYZ ( mbase::Real deltaSclXYZ)
 {
 	oScaling = oScaling * deltaSclXYZ;
 }

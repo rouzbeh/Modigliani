@@ -107,7 +107,7 @@ public:
   private:
   /*   Methods                */  
   void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl , NTint __attribute__((unused)) value) {};
-  void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl , mbase::Mreal __attribute__((unused)) value) {};
+  void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl , mbase::Real __attribute__((unused)) value) {};
   void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl , NT_std::vector_o __attribute__((unused)) value){};
   /*   Data                   */
   NT_std::vector3_o startPnt;

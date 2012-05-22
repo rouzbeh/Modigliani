@@ -39,20 +39,20 @@ namespace mcore {
 class HH_current: public Membrane_current {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	HH_current(mbase::Mreal reversalPotential, mbase::Mreal maxConductivity, mbase::Mreal area);
+	HH_current(mbase::Real reversalPotential, mbase::Real maxConductivity, mbase::Real area);
 	HH_current(const HH_current & original);
 	const HH_current & operator=(const HH_current & right);
 	virtual ~HH_current();
 	/* ***  Methods              ***/
-	mbase::Mreal ComputeChannelStateTimeConstant() const {
+	mbase::Real ComputeChannelStateTimeConstant() const {
 		return (0); /* no stochasticity */
 	}
 	/** in mSiemens/cm^2 */
-	mbase::Mreal _maxConductivity() const {
+	mbase::Real _maxConductivity() const {
 		return (maxConductivity);
 	}
 	/** in muMeter^2 */
-	mbase::Mreal _area() const {
+	mbase::Real _area() const {
 		return (area);
 	}
 	/* ***  Data                 ***/
@@ -63,10 +63,10 @@ protected:
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	mbase::Mreal maxConductivity; // in mSiemens / muMeter^2
-	mbase::Mreal density; // channels per mumeter^2
-	mbase::Mreal area; // in mumeter^2
-	mbase::Mreal conductivity; // in mSiemens per channel
+	mbase::Real maxConductivity; // in mSiemens / muMeter^2
+	mbase::Real density; // channels per mumeter^2
+	mbase::Real area; // in mumeter^2
+	mbase::Real conductivity; // in mSiemens per channel
 };
 }
 #endif /* _mcore_hh_current.h_ */

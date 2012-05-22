@@ -92,7 +92,7 @@ protected:
 /* ***  Methods              ***/ 
 mbase::Mreturn AssignPixelTexture();
 /** Make a colored point within the normalised texure area [0,1]x[0,1] */
-mbase::Mreal* MakeRGBATexturePoint(mbase::Mreal* colorVec, mbase::Mreal coorX, mbase::Mreal coorY);
+mbase::Real* MakeRGBATexturePoint(mbase::Real* colorVec, mbase::Real coorX, mbase::Real coorY);
 /* ***  Data                 ***/  
 private:
 /* ***  Methods              ***/  

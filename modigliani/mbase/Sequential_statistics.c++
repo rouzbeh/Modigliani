@@ -79,8 +79,8 @@ Sequential_statistics::Reset()
     average = 0.0;
     valSquareAverage = 0.0;
     variance = 0.0;
-    min = 1/0.0;//MAXFLOAT;//numeric_limits<Mreal>::max();
-    max = -1/0.0;//MINFLOAT;//numeric_limits<Mreal>::min();
+    min = 1/0.0;//MAXFLOAT;//numeric_limits<Real>::max();
+    max = -1/0.0;//MINFLOAT;//numeric_limits<Real>::min();
 }
 
 /** @short
@@ -90,7 +90,7 @@ Sequential_statistics::Reset()
    \bug        unknown
  */
 void
-Sequential_statistics::Add(Mreal val)
+Sequential_statistics::Add(Real val)
 {
     counter++;
 
@@ -124,8 +124,8 @@ std::ostream& operator<< (std::ostream& str, const Sequential_statistics & self)
    \bug        unknown
  */
 
-Mreal
-Sequential_statistics::UpdateAverage(Mreal avg, Mreal val, Msize n) const
+Real
+Sequential_statistics::UpdateAverage(Real avg, Real val, Msize n) const
 {
     return ( val * (1.0/n) + avg * (1.0 - 1.0/n)	);
 }

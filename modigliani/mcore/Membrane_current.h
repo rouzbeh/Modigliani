@@ -47,46 +47,46 @@ namespace mcore {
 class Membrane_current: public Object {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Membrane_current(mbase::Mreal reversalPotential /* in mV */);
+	Membrane_current(mbase::Real reversalPotential /* in mV */);
 	Membrane_current(const Membrane_current & original);
 	const Membrane_current & operator=(const Membrane_current & right);
 	virtual ~Membrane_current();
 
 	/* ***  Methods              ***/
 	/* in mSiemens/cm^2 */
-	virtual mbase::Mreal _maxConductivity() const = 0;
+	virtual mbase::Real _maxConductivity() const = 0;
 	/** momentary current in nA */
-	mbase::Mreal _current() const { /*std::cerr << "Current in nA" << current << std::endl;*/
+	mbase::Real _current() const { /*std::cerr << "Current in nA" << current << std::endl;*/
 		return (current);
 	}
 	/** momentary conductance in muFarad */
-	mbase::Mreal _conductance() const {
+	mbase::Real _conductance() const {
 		return (conductance);
 	}
 	/** reversal potential in mV */
-	void Set_reversalPotential(mbase::Mreal eRev /* mV */) {
+	void Set_reversalPotential(mbase::Real eRev /* mV */) {
 		reversalPotential = eRev;
 	}
 	/** reversal potential in mV */
-	mbase::Mreal _reversalPotential() const {
+	mbase::Real _reversalPotential() const {
 		return (reversalPotential);
 	}
 	/** temperature in Celsius */
-	mbase::Mreal _temperature() const {
+	mbase::Real _temperature() const {
 		return (temperature);
 	}
 	/** Set temperature in Celsius */
-	mbase::Mreturn Set_temperature(mbase::Mreal newTemp) {
+	mbase::Mreturn Set_temperature(mbase::Real newTemp) {
 		M_ASSERT(newTemp > mbase::ZERO_KELVIN);
 		temperature = newTemp;
 		return (mbase::M_SUCCESS);
 	}
 	/** Q10  */
-	mbase::Mreal _q10() const {
+	mbase::Real _q10() const {
 		return (q10);
 	}
 	/** Set Q10 */
-	virtual mbase::Mreturn Set_q10(mbase::Mreal newQ10) {
+	virtual mbase::Mreturn Set_q10(mbase::Real newQ10) {
 		q10 = newQ10;
 		return (mbase::M_SUCCESS);
 	}
@@ -99,7 +99,7 @@ public:
 		simulationMode = newMode;
 	}
 
-	mbase::Mreturn step(mbase::Mreal newVm /* in mV */) {
+	mbase::Mreturn step(mbase::Real newVm /* in mV */) {
 		//ComputeRateConstants(newVm); /* UpdateRateConstantsAND*/
 		voltage = newVm;
 		step_current();
@@ -108,27 +108,27 @@ public:
 		return (mbase::M_SUCCESS);
 	}
 	/* in nA */
-	mbase::Mreal compute_current(mbase::Mreal vM /* in mV */) {
+	mbase::Real compute_current(mbase::Real vM /* in mV */) {
 		return (Set_current(
 				_conductance() /* mSiemens */* 1000.0 /* mA/nA */* (vM
 				/* mV */- _reversalPotential()/* mV */)));
 	}
 	virtual mbase::Mreturn step_current() = 0;
 	/** compute and return conductance in mSiemens */
-	virtual mbase::Mreal compute_conductance() = 0;
+	virtual mbase::Real compute_conductance() = 0;
 	/** compute the rate constants ( in ms^-1 ) */
-	//virtual void ComputeRateConstants(mbase::Mreal vM /* in mV */) = 0;
+	//virtual void ComputeRateConstants(mbase::Real vM /* in mV */) = 0;
 	/** Number of open ionic channels */
-	virtual mbase::Mreal open_channels() const = 0;
+	virtual mbase::Real open_channels() const = 0;
 	/** Total number of ionic channels */
-	virtual mbase::Mreal NumChannels() const {
+	virtual mbase::Real NumChannels() const {
 		std::cerr
 				<< "NTBP_membrane_current_o::NumChannels() - Error : Not Implemented."
 				<< std::endl;
 		return (-42);
 	}
 
-	virtual mbase::Mreal num_channels_in_state(
+	virtual mbase::Real num_channels_in_state(
 			mbase::Msize __attribute__((__unused__)) state) const {
 		std::cerr
 				<< "NTBP_membrane_current_o::NumChannels() - Error : Not Implemented."
@@ -136,7 +136,7 @@ public:
 		return (-42);
 	}
 	/** Number of open over total number of channels */
-	virtual mbase::Mreal OpenChannelsRatio() const {
+	virtual mbase::Real OpenChannelsRatio() const {
 		std::cerr
 				<< "NTBP_membrane_current_o::OpenChannelsRatio() - Error : Not Implemented."
 				<< std::endl;
@@ -148,13 +148,13 @@ public:
 				<< std::endl;
 	}
 	/* Additional sweeps by the Gillespie Algorithm make the following method necessary */
-	virtual mbase::Mreal ComputeChannelStateTimeConstant() const {
+	virtual mbase::Real ComputeChannelStateTimeConstant() const {
 		std::cerr
 				<< "NTBP_membrane_current_o::ComputeChannelStateTimeConstant - Error : Method should be overridden by a stochastic current class or not be called for a deterministic current class."
 				<< std::endl;
 		return (0);
 	}
-	mbase::Mreal ChannelStateTimeConstant() const {
+	mbase::Real ChannelStateTimeConstant() const {
 		return (ComputeChannelStateTimeConstant());
 	}
 	bool GillespieStep() {/*2DO is this necessary here*/
@@ -168,10 +168,10 @@ public:
 		return (mbase::M_NOT_DERIVED);
 	}
 
-	mbase::Mreal Get_voltage() {
+	mbase::Real Get_voltage() {
 		return (voltage);
 	}
-	void Set_voltage(mbase::Mreal newVoltage) {
+	void Set_voltage(mbase::Real newVoltage) {
 		voltage = newVoltage;
 	}
 
@@ -179,23 +179,23 @@ public:
 
 protected:
 	/* ***  Methods              ***/
-	mbase::Mreal Set_current(mbase::Mreal newVal /* in nA */) {
+	mbase::Real Set_current(mbase::Real newVal /* in nA */) {
 		return (current = newVal);
 	}
-	mbase::Mreal Set_conductance(mbase::Mreal newVal /* in mSiemens */) {
+	mbase::Real Set_conductance(mbase::Real newVal /* in mSiemens */) {
 		return (conductance = newVal);
 	}
 	/* ***  Data                 ***/
 	mbase::Uniform_rnd_dist uniform;
-	mbase::Mreal voltage;
-	mbase::Mreal temperature; // in Celsius
+	mbase::Real voltage;
+	mbase::Real temperature; // in Celsius
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	mbase::Mreal current; // in nanoAmpere
-	mbase::Mreal conductance; // in mSiemens
-	mbase::Mreal reversalPotential; // in mV
-	mbase::Mreal q10; // the Q_10 value for temperature dependent reaction kinetics
+	mbase::Real current; // in nanoAmpere
+	mbase::Real conductance; // in mSiemens
+	mbase::Real reversalPotential; // in mV
+	mbase::Real q10; // the Q_10 value for temperature dependent reaction kinetics
 	enum NTBPstochasticType simulationMode;
 };
 }

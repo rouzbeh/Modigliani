@@ -40,14 +40,14 @@ public:
     Rnd_dist(const Rnd_dist &);
     virtual ~Rnd_dist();
 
-    virtual Mreal RndVal() const = 0;
-    //  Mreal Rnd_dist();
+    virtual Real RndVal() const = 0;
+    //  Real Rnd_dist();
     // M_vector_o Rnd_dist();
 
-    Mreal _mean() const   {
+    Real _mean() const   {
         return (mean);
     };
-    Mreal _variance() const   {
+    Real _variance() const   {
         return (variance);
     };
 
@@ -60,8 +60,8 @@ protected:
         return (randgen.rand());
     }
     // 2DO: seed has to be mutexed !
-    Mreal mean;
-    Mreal variance;
+    Real mean;
+    Real variance;
 private:
     static MTRand randgen;
     static long seed;

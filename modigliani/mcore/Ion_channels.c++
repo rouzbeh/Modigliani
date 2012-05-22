@@ -37,7 +37,7 @@ mbase::Binomial_rnd_dist Ion_channels::binomRnd(0.0, 1);
 /** Create a NTBP_ion_channels_o */
 Ion_channels::Ion_channels(mbase::Msize numNewChannels,
 		mbase::Msize numNewStates, NTBP_transition_rate_matrix_o* probMatrix,
-		mbase::Mreal newTimeStep) :
+		mbase::Real newTimeStep) :
 		Object(), _probMatrix(probMatrix) {
 	setTimeStep(newTimeStep);
 	numChannels = numNewChannels;
@@ -110,17 +110,17 @@ void Ion_channels::setAsOpenState(mbase::Msize newOpenState) {
 }
 
 /**  */
-mbase::Mreturn Ion_channels::GillespieStep(mbase::Mreal voltage) {
+mbase::Mreturn Ion_channels::GillespieStep(mbase::Real voltage) {
 	std::cerr << "NTBP_ion_channels_o::GillespieStep()" << std::endl;
 	mbase::Uniform_rnd_dist rnd;
-	mbase::Mreal val = rnd.RndVal();
-	mbase::Mreal deltaT = _timeStep();
-	mbase::Mreal channelTau = ComputeChannelStateTimeConstant(voltage);
+	mbase::Real val = rnd.RndVal();
+	mbase::Real deltaT = _timeStep();
+	mbase::Real channelTau = ComputeChannelStateTimeConstant(voltage);
 	std::cerr << "channelTau=" << channelTau << std::endl;
 
-	mbase::Mreal sum = 0.0;
+	mbase::Real sum = 0.0;
 	for (mbase::Msize ll = 1; ll < _numStates() + 1; ll++) {
-		mbase::Mreal stateChangeProbability = 0;
+		mbase::Real stateChangeProbability = 0;
 		for (mbase::Msize nextState = 1; nextState < _numStates() + 1; nextState++) {
 			if (ll == nextState)
 				continue;
@@ -143,14 +143,14 @@ mbase::Mreturn Ion_channels::GillespieStep(mbase::Mreal voltage) {
  *
  * @return
  */
-mbase::Mreturn Ion_channels::step(mbase::Mreal voltage) {
-	mbase::Mreal rv = 0;
+mbase::Mreturn Ion_channels::step(mbase::Real voltage) {
+	mbase::Real rv = 0;
 	std::vector<mbase::Mint> oldStateCounterVec = stateCounterVec;
 	mbase::Msize matrix_index = _probMatrix->get_index(voltage);
 	for (mbase::Msize lls = 1; lls < _numStates() + 1; lls++) {
 		for (mbase::Mint llc = 1; llc < oldStateCounterVec[lls] + 1; llc++) {
 			rv = uniformRnd.RndVal();
-			mbase::Mreal accumulatedProb = 0;
+			mbase::Real accumulatedProb = 0;
 			for (mbase::Msize nextState = 0; nextState < _numStates(); nextState++) {
 				if (_probMatrix->getTransitionProbability(matrix_index, lls,
 						nextState) == 0)
@@ -198,13 +198,13 @@ mbase::Msize Ion_channels::NumOpen() const {
 }
 
 /** Sum of escape rates [1/s] */
-mbase::Mreal Ion_channels::ComputeChannelStateTimeConstant(
-		mbase::Mreal voltage) const {
+mbase::Real Ion_channels::ComputeChannelStateTimeConstant(
+		mbase::Real voltage) const {
 	std::cerr << "NTBP_ion_channels_o::ComputeChannelStateTimeConstant()" << std::endl;
-	mbase::Mreal sum = 0.0;
-	mbase::Mreal deltaT = _timeStep();
+	mbase::Real sum = 0.0;
+	mbase::Real deltaT = _timeStep();
 	for (mbase::Msize ll = 1; ll < _numStates() + 1; ll++) {
-		mbase::Mreal stateChangeProbability = 0;
+		mbase::Real stateChangeProbability = 0;
 		for (mbase::Msize nextState = 1; nextState < _numStates() + 1; nextState++) {
 			if (ll == nextState)
 				continue;
@@ -222,7 +222,7 @@ mbase::Mreal Ion_channels::ComputeChannelStateTimeConstant(
  * @return
  */
 mbase::Mreturn Ion_channels::ComputeGillespieStep(mbase::Msize stateId,
-		mbase::Mreal voltage) {
+		mbase::Real voltage) {
 	std::cerr << "NTBP_ion_channels_o::ComputeGillespieStep" << std::endl;
 	mbase::Uniform_rnd_dist rnd;
 	//int index = (voltage + 100) * 1000;
@@ -230,19 +230,19 @@ mbase::Mreturn Ion_channels::ComputeGillespieStep(mbase::Msize stateId,
 	mbase::Msize matrix_index = _probMatrix->get_index(voltage);
 
 	mbase::Msize oldOpen = NumOpen();
-	mbase::Mreal deltaT = _timeStep();
+	mbase::Real deltaT = _timeStep();
 
-	mbase::Mreal val = rnd.RndVal() * _timeStep();
+	mbase::Real val = rnd.RndVal() * _timeStep();
 	// the probability has to be converted into a rate
 
-	mbase::Mreal stateChangeProbability = 0;
+	mbase::Real stateChangeProbability = 0;
 	for (mbase::Msize nextState = 1; nextState < _numStates() + 1; nextState++) {
 		if (stateId == nextState)
 			continue;
 		stateChangeProbability += _probMatrix->getTransitionProbability(
 				matrix_index, stateId, nextState);
 	}
-	mbase::Mreal accumulatedProb = 0;
+	mbase::Real accumulatedProb = 0;
 	stateChangeProbability = stateChangeProbability / deltaT;
 	for (mbase::Msize nextState = 1; nextState < _numStates() + 1; nextState++) {
 		if (stateId == nextState
@@ -277,7 +277,7 @@ mbase::Mreturn Ion_channels::ComputeGillespieStep(mbase::Msize stateId,
 		return (mbase::M_SUCCESS);
 }
 
-mbase::Mreturn Ion_channels::BinomialStep(mbase::Mreal voltage) {
+mbase::Mreturn Ion_channels::BinomialStep(mbase::Real voltage) {
 	std::vector<mbase::Mint> newStateCounterVec = stateCounterVec;
 	// This operation is costly. So we do it only once.
 	mbase::Msize matrix_index = _probMatrix->get_index(voltage);
@@ -293,13 +293,13 @@ mbase::Mreturn Ion_channels::BinomialStep(mbase::Mreal voltage) {
 					nextState++) {
 				if (nextState == currentState)
 					continue;
-				mbase::Mreal prob = _probMatrix->getTransitionProbability(
+				mbase::Real prob = _probMatrix->getTransitionProbability(
 						matrix_index, currentState, nextState);
 				if (prob == 0)
 					continue;
 				//M_ASSERT(prob>0 && prob<=1);
 				int numberOfChannels = stateCounterVec[currentState];
-				mbase::Mreal delta = binomRnd.Binomial(prob, numberOfChannels);
+				mbase::Real delta = binomRnd.Binomial(prob, numberOfChannels);
 				newStateCounterVec[nextState] += delta;
 				newStateCounterVec[currentState] -= delta;
 			}
@@ -330,7 +330,7 @@ mbase::Mreturn Ion_channels::BinomialStep(mbase::Mreal voltage) {
 	return (mbase::M_SUCCESS);
 }
 
-mbase::Mreturn Ion_channels::DeterministicStep(mbase::Mreal voltage) {
+mbase::Mreturn Ion_channels::DeterministicStep(mbase::Real voltage) {
 	std::vector<mbase::Mint> newStateCounterVec = stateCounterVec;
 	mbase::Msize matrix_index = _probMatrix->get_index(voltage);
 
@@ -339,7 +339,7 @@ mbase::Mreturn Ion_channels::DeterministicStep(mbase::Mreal voltage) {
 		for (mbase::Msize nextState = 1; nextState < _numStates() + 1; nextState++) {
 			if (nextState == currentState)
 				continue;
-			mbase::Mreal prob = _probMatrix->getTransitionProbability(matrix_index,
+			mbase::Real prob = _probMatrix->getTransitionProbability(matrix_index,
 					currentState, nextState);
 			if (prob == 0)
 				continue;
@@ -365,7 +365,7 @@ mbase::Mreturn Ion_channels::DeterministicStep(mbase::Mreal voltage) {
 					nextState++) {
 				if (nextState == currentState)
 					continue;
-				mbase::Mreal prob = _probMatrix->getTransitionProbability(
+				mbase::Real prob = _probMatrix->getTransitionProbability(
 						matrix_index, currentState, nextState);
 				if (prob == 0)
 					continue;
@@ -387,7 +387,7 @@ mbase::Mreturn Ion_channels::DeterministicStep(mbase::Mreal voltage) {
 }
 
 /** Do not call before rate constants were set. */
-mbase::Mreturn Ion_channels::SteadyStateDistribution(mbase::Mreal voltage) {
+mbase::Mreturn Ion_channels::SteadyStateDistribution(mbase::Real voltage) {
 	// TODO dirty hack ... make time step dependent and maybe compute directly state
 	//values
 	for (mbase::Msize ll = 0; ll < 1000; ll++) {

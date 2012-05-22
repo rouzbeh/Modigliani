@@ -26,8 +26,8 @@ using namespace mbase;
 
 #define M_LOGGAMMATABLEMAX 10000001
 
-/*vector<Mreal> M_make_vector_func(Msize dim) {
- vector<Mreal> tmpVec;
+/*vector<Real> M_make_vector_func(Msize dim) {
+ vector<Real> tmpVec;
  tmpVec.resize(dim);
  return tmpVec;
  }*/
@@ -35,12 +35,12 @@ using namespace mbase;
 Binomial_rnd_dist::Initializer Binomial_rnd_dist::static_table;
 
 Binomial_rnd_dist::Initializer::Initializer() {
-	logGammaTable = std::vector<Mreal>(M_LOGGAMMATABLEMAX);
+	logGammaTable = std::vector<Real>(M_LOGGAMMATABLEMAX);
 	std::cerr
 			<< "Binomial_rnd_dist::Binomial_rnd_dist - Talk : This may take a while, populating LogGamma(0.."
 			<< M_LOGGAMMATABLEMAX - 1 << ") tables." << std::endl;
 	for (Msize ll = 0; ll < M_LOGGAMMATABLEMAX; ll++) {
-		logGammaTable[ll] = MLogGammaFunction(Mreal(ll));
+		logGammaTable[ll] = MLogGammaFunction(Real(ll));
 	}
 }
 
@@ -48,7 +48,7 @@ Binomial_rnd_dist::Initializer::Initializer() {
 
 /* ***      CONSTRUCTORS	***/
 /** Create a Binomial_rnd_dist */
-Binomial_rnd_dist::Binomial_rnd_dist(Mreal pp, Msize num) :
+Binomial_rnd_dist::Binomial_rnd_dist(Real pp, Msize num) :
 		Rnd_dist() {
 	M_ASSERT( (pp >= 0) && (pp <= 1));
 	p = pp;
@@ -82,7 +82,7 @@ Binomial_rnd_dist::~Binomial_rnd_dist() {
  \warning    unknown
  \bug        unknown
  */
-inline Mreal Binomial_rnd_dist::RndVal() const {
+inline Real Binomial_rnd_dist::RndVal() const {
 	/*    This is algorithm BTPE from:
 	 Kachitvichyanukul, V. and Schmeiser, B. W.
 	 Binomial Random Variate Generation.
@@ -352,7 +352,7 @@ inline Mreal Binomial_rnd_dist::RndVal() const {
 
 }
 
-Mreal Binomial_rnd_dist::Binomial(float pp, int new_n) const {
+Real Binomial_rnd_dist::Binomial(float pp, int new_n) const {
 	if (0 == new_n)
 		return (0);
 
@@ -411,9 +411,9 @@ Mreal Binomial_rnd_dist::Binomial(float pp, int new_n) const {
 	return (bnl);
 }
 
-inline Mreal Binomial_rnd_dist::LogGamma(Mreal val) const {
+inline Real Binomial_rnd_dist::LogGamma(Real val) const {
 	Mint rVal = (Mint) val;
-	if ((val == (Mreal) rVal) && (rVal < M_LOGGAMMATABLEMAX)) {
+	if ((val == (Real) rVal) && (rVal < M_LOGGAMMATABLEMAX)) {
 		return (static_table.logGammaTable[rVal]);
 	} else {
 		return (MLogGammaFunction(val));

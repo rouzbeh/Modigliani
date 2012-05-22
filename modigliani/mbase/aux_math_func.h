@@ -39,10 +39,10 @@
  \warning unknown
  */
 namespace mbase {
-	extern Mreal MComputePLogP(Mreal prob);
-	extern Mreal Mlimit01 (Mreal value);
-	extern Mreal Mround (Mreal value);
-	extern Mreal MLogGammaFunction(Mreal arg);
+	extern Real MComputePLogP(Real prob);
+	extern Real Mlimit01 (Real value);
+	extern Real Mround (Real value);
+	extern Real MLogGammaFunction(Real arg);
 	extern MTRand MMakeMTRandFunction(MTRand::uint32 oneSeed);
 	extern int Misnan (double value);
 	extern int Misinf (double value);

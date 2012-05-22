@@ -25,13 +25,13 @@
 using namespace std;
 
 namespace mcore {
-mbase::Mreal corrected_channel_density(mbase::Mreal chDensity, mbase::Mreal compArea) {
-	mbase::Mreal chPerCompartment = compArea * chDensity;
-	mbase::Mreal pChFloor = (ceil(chPerCompartment) - chPerCompartment);
+mbase::Real corrected_channel_density(mbase::Real chDensity, mbase::Real compArea) {
+	mbase::Real chPerCompartment = compArea * chDensity;
+	mbase::Real pChFloor = (ceil(chPerCompartment) - chPerCompartment);
 
 	mbase::Uniform_rnd_dist uniRnd;
 	/* compute number of channels, such that average density is achieved */
-	mbase::Mreal indChDensity = (
+	mbase::Real indChDensity = (
 			uniRnd.RndVal() > pChFloor ?
 					ceil(chPerCompartment) / compArea :
 					floor(chPerCompartment) / compArea);
@@ -179,7 +179,7 @@ Custom_cylindrical_compartment* createCompartment(Json::Value config_root,
 		}
 
 		if ("file" == current["type"].asString()) {
-			mbase::Mreal indDensity = corrected_channel_density(
+			mbase::Real indDensity = corrected_channel_density(
 					current["chDen"].asDouble(), tmpPtr->_area());
 			File_based_stochastic_multi_current * file_current =
 					new File_based_stochastic_multi_current(tmpPtr->_area(),
@@ -211,7 +211,7 @@ Custom_cylindrical_compartment* createCompartment(Json::Value config_root,
 				tmpPtr->AttachCurrent(lua_current, NTBP_IONIC);
 				continue;
 			} else if (4 == current["chAlg"].asInt()) {
-				mbase::Mreal indDensity = corrected_channel_density(
+				mbase::Real indDensity = corrected_channel_density(
 						current["chDen"].asDouble(), tmpPtr->_area());
 				Lua_based_stochastic_multi_current * lua_current =
 						new Lua_based_stochastic_multi_current(tmpPtr->_area(),

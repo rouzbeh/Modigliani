@@ -25,7 +25,7 @@
 /* ***      CONSTRUCTORS	***/
 /** Create a NTG_random_ring_graph_o */
 NTG_random_ring_graph_o::NTG_random_ring_graph_o(mbase::Msize nodes,
-		mbase::Msize neighbourhoodRange, mbase::Mreal reconnectProbability,
+		mbase::Msize neighbourhoodRange, mbase::Real reconnectProbability,
 		bool deterministic, const NTG_node_o & nodeProto,
 		const NTG_edge_o & edgeProto) :
 		NTG_neighbour_ring_graph_o(nodes, neighbourhoodRange, nodeProto,

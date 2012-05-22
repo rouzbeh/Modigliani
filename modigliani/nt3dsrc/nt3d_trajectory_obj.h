@@ -72,12 +72,12 @@ public:
   /** position std::vector, synch with projectile.oPosition */
   NT_std::vector3_o x;
   /** mass (unused!) */
-  mbase::Mreal m;
+  mbase::Real m;
   /** timestep */
   NTlong timestep;
   /** Time resolution, how many seconds does a time step correspond. 
       This is not the actual computational duration of a timesteo */
-  mbase::Mreal stepDuration;
+  mbase::Real stepDuration;
   private:
   /* ***  Methods              ***/  
   /* ***  Data                 ***/

@@ -133,25 +133,25 @@ oRotation = oRotation + oDeltaRotation;
 }
 
 void
-NT3D_object_o::RotateX ( mbase::Mreal deltaRotX)
+NT3D_object_o::RotateX ( mbase::Real deltaRotX)
 {
 oRotation.x += deltaRotX;
 }
 
 void
-NT3D_object_o::RotateY ( mbase::Mreal deltaRotY)
+NT3D_object_o::RotateY ( mbase::Real deltaRotY)
 {
 oRotation[1] += deltaRotY;
 }
 
 void
-NT3D_object_o::RotateZ ( mbase::Mreal deltaRotZ)
+NT3D_object_o::RotateZ ( mbase::Real deltaRotZ)
 {
 oRotation[2] += deltaRotZ;
 }
 
 void
-NT3D_object_o::RotateXYZ ( const mbase::Mreal deltaRot[3] )
+NT3D_object_o::RotateXYZ ( const mbase::Real deltaRot[3] )
 {
 oRotation.set_elem(deltaRot);
 }
@@ -164,25 +164,25 @@ oTranslation = oTranslation + oDeltaTranslation;
 }
 
 void 
-NT3D_object_o::TranslateX ( mbase::Mreal deltaTraX)
+NT3D_object_o::TranslateX ( mbase::Real deltaTraX)
 {
 oTranslation.x += deltaTraX;
 }
 
 void 
-NT3D_object_o::TranslateY ( mbase::Mreal deltaTraY)
+NT3D_object_o::TranslateY ( mbase::Real deltaTraY)
 {
 oTranslation.y += deltaTraY;
 }
 
 void 
-NT3D_object_o::TranslateZ ( mbase::Mreal deltaTraZ)
+NT3D_object_o::TranslateZ ( mbase::Real deltaTraZ)
 {
 oTranslation.z += deltaTraZ;
 }
 
 void 
-NT3D_object_o::TranslateXYZ ( const mbase::Mreal deltaTra[3] )
+NT3D_object_o::TranslateXYZ ( const mbase::Real deltaTra[3] )
 {
 oTranslation.set_elem(deltaTra);
 }

@@ -58,11 +58,11 @@ NTBP_tridiag_solver_o(const NTBP_tridiag_solver_o & original);
 const NTBP_tridiag_solver_o & operator= (const NTBP_tridiag_solver_o & right);
 virtual ~NTBP_tridiag_solver_o();
 /* ***  Methods              ***/  
-mbase::Mreturn Setup(std::vector <mbase::Mreal> newLVec, std::vector <mbase::Mreal> newUVec);
-std::vector <mbase::Mreal> Solve( std::vector <mbase::Mreal> dVec,  std::vector <mbase::Mreal> vVec, std::vector <mbase::Mreal> rVec);
+mbase::Mreturn Setup(std::vector <mbase::Real> newLVec, std::vector <mbase::Real> newUVec);
+std::vector <mbase::Real> Solve( std::vector <mbase::Real> dVec,  std::vector <mbase::Real> vVec, std::vector <mbase::Real> rVec);
   /**  */
 mbase::Mreturn Resize(mbase::Msize numCompartment);
-// std::vector <mbase::Mreal> Solve(std::vector <mbase::Mreal> dVec, std::vector <mbase::Mreal> vVec, std::vector <mbase::Mreal> rVec);
+// std::vector <mbase::Real> Solve(std::vector <mbase::Real> dVec, std::vector <mbase::Real> vVec, std::vector <mbase::Real> rVec);
 /* ***  Data                 ***/  
 protected:
 /* ***  Methods              ***/  

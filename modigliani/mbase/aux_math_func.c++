@@ -29,7 +29,7 @@ MTRand mbase::MMakeMTRandFunction(MTRand::uint32 oneSeed) {
 	return (tmp);
 }
 
-Mreal mbase::MComputePLogP(Mreal prob) {
+Real mbase::MComputePLogP(Real prob) {
 
 	if (0.0 == prob)
 		return (0);
@@ -48,7 +48,7 @@ Mreal mbase::MComputePLogP(Mreal prob) {
  \bug unknown
  \warning unknown
  */
-Mreal mbase::Mlimit01(Mreal value) {
+Real mbase::Mlimit01(Real value) {
 	if (value > 1.0)
 		return (1.0);
 	else if (value < 0.0)
@@ -57,14 +57,14 @@ Mreal mbase::Mlimit01(Mreal value) {
 		return (value);
 }
 
-Mreal mbase::Mround(Mreal value) {
-	return ((Mreal) (floor(value + 0.5)));
+Real mbase::Mround(Real value) {
+	return ((Real) (floor(value + 0.5)));
 }
 
 /**	Compute the logarithm of the Gamma function
  Taken from function 'gammln' Numerical Recipes in C (Press et al.)
  */
-Mreal mbase::MLogGammaFunction(Mreal arg) {
+Real mbase::MLogGammaFunction(Real arg) {
 	double x, tmp, ser;
 	static double cof[6] = { 76.18009173, -86.50532033, 24.01409822,
 			-1.231739516, 0.120858003e-2, -0.536382e-5 };

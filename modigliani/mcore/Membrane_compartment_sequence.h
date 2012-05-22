@@ -64,26 +64,26 @@ public:
 		}
 		std::cerr << "]" << std::endl;
 	}
-	mbase::Mreal MembraneVoltage(mbase::Msize compartmentId /* 1..numCompartments*/) {
+	mbase::Real MembraneVoltage(mbase::Msize compartmentId /* 1..numCompartments*/) {
 		return (compartmentVec[compartmentId - 1]->_vM());
 	}
-	mbase::Mreturn InjectCurrent(mbase::Mreal current /* in nA */, mbase::Msize compartmentId);
+	mbase::Mreturn InjectCurrent(mbase::Real current /* in nA */, mbase::Msize compartmentId);
 	mbase::Msize _numCompartments() const {
 		return (numCompartments);
 	}
 	/**  */
 	/**  */
-	mbase::Mreal CompartmentSequenceChannelStateTimeConstant() const;
+	mbase::Real CompartmentSequenceChannelStateTimeConstant() const;
 	void ShowHinesMatrix();
-	mbase::Mreal AttachedCurrent(mbase::Msize compIndex, mbase::Msize currIndex) {
+	mbase::Real AttachedCurrent(mbase::Msize compIndex, mbase::Msize currIndex) {
 		M_ASSERT(compIndex > 0);
 		return (compartmentVec[compIndex - 1]->AttachedCurrent(currIndex));
 	}
-	std::vector<mbase::Mreal> open_channels(mbase::Msize currIndex) const;
-	std::vector<mbase::Mreal> OpenChannelsRatio(mbase::Msize currIndex) const;
-	std::vector<mbase::Mreal> NumChannels(mbase::Msize currIndex) const;
-	std::vector<mbase::Mreal> NumChannelsInState(mbase::Msize currIndex, mbase::Msize state) const;
-	std::vector<mbase::Mreal> _vVec() const;
+	std::vector<mbase::Real> open_channels(mbase::Msize currIndex) const;
+	std::vector<mbase::Real> OpenChannelsRatio(mbase::Msize currIndex) const;
+	std::vector<mbase::Real> NumChannels(mbase::Msize currIndex) const;
+	std::vector<mbase::Real> NumChannelsInState(mbase::Msize currIndex, mbase::Msize state) const;
+	std::vector<mbase::Real> _vVec() const;
 	mbase::Mreturn WriteMembranePotential(std::ostream & file) const;
 	mbase::Mreturn WriteCompartmentData(std::ostream* file, mbase::Msize to_print) const;
 	mbase::Mreturn WriteCurrent(std::ostream & file,
@@ -98,36 +98,36 @@ public:
 	/**  */
 	bool GillespieStep();
 	/**  */
-	std::vector<mbase::Mreal> GiveCurrent(mbase::Msize index);
+	std::vector<mbase::Real> GiveCurrent(mbase::Msize index);
 	/* ***  Data                 ***/
 	std::vector<Cylindrical_compartment*> compartmentVec;
 
 protected:
 	/* ***  Methods              ***/
 	/** CRAP not working */
-	std::vector<mbase::Mreal> ZadorPearlmutterSolveTriDiag(std::vector<mbase::Mreal> lNewVec,
-			std::vector<mbase::Mreal> dNewVec, std::vector<mbase::Mreal> uNewVec,
-			std::vector<mbase::Mreal> rNewVec) const;
+	std::vector<mbase::Real> ZadorPearlmutterSolveTriDiag(std::vector<mbase::Real> lNewVec,
+			std::vector<mbase::Real> dNewVec, std::vector<mbase::Real> uNewVec,
+			std::vector<mbase::Real> rNewVec) const;
 	/** CRAP not working */
-	std::vector<mbase::Mreal> MascagniSolveTriDiag(std::vector<mbase::Mreal> lNewVec,
-			std::vector<mbase::Mreal> dNewVec, std::vector<mbase::Mreal> uNewVec,
-			std::vector<mbase::Mreal> rNewVec) const;
+	std::vector<mbase::Real> MascagniSolveTriDiag(std::vector<mbase::Real> lNewVec,
+			std::vector<mbase::Real> dNewVec, std::vector<mbase::Real> uNewVec,
+			std::vector<mbase::Real> rNewVec) const;
 	/** WORKING ! */
-	std::vector<mbase::Mreal> NumericalRecipesSolveTriDiag(const std::vector<mbase::Mreal> & l,
-			const std::vector<mbase::Mreal> & d, const std::vector<mbase::Mreal> & u,
-			const std::vector<mbase::Mreal> & r) const;
+	std::vector<mbase::Real> NumericalRecipesSolveTriDiag(const std::vector<mbase::Real> & l,
+			const std::vector<mbase::Real> & d, const std::vector<mbase::Real> & u,
+			const std::vector<mbase::Real> & r) const;
 	/* ***  Data                 ***/
 
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	std::vector<mbase::Mreal> lVec;
-	std::vector<mbase::Mreal> dVec;
-	std::vector<mbase::Mreal> uVec;
+	std::vector<mbase::Real> lVec;
+	std::vector<mbase::Real> dVec;
+	std::vector<mbase::Real> uVec;
 
 //This should be in each compartment
-//std::vector <mbase::Mreal> vVec;
-	std::vector<mbase::Mreal> rVec;
+//std::vector <mbase::Real> vVec;
+	std::vector<mbase::Real> rVec;
 	mbase::Msize numCompartments;
 	bool initialised;
 	bool swCrankNicholson;

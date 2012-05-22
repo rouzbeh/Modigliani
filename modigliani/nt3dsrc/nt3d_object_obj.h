@@ -158,27 +158,27 @@ public:
   virtual ~NT3D_object_o();
   /*                         */  
   void Rotate( const NT_std::vector3_o & oDeltaRotation );
-  void RotateX ( mbase::Mreal deltaRotX);
-  void RotateY ( mbase::Mreal deltaRotY);
-  void RotateZ ( mbase::Mreal deltaRotZ);
+  void RotateX ( mbase::Real deltaRotX);
+  void RotateY ( mbase::Real deltaRotY);
+  void RotateZ ( mbase::Real deltaRotZ);
   void RotateXYZ ( NT_std::vector3_o oDeltaRot ) { oRotation += oDeltaRot; }
-  void RotateXYZ ( const mbase::Mreal deltaRot[3] );
+  void RotateXYZ ( const mbase::Real deltaRot[3] );
   void RotateNull () { oRotation = NT_OriginVec3();};
-  void SetRotationX ( const mbase::Mreal rotX){ oRotation.x= rotX; }
-  void SetRotationY ( const mbase::Mreal rotY){ oRotation.y= rotY; }
-  void SetRotationZ ( const mbase::Mreal rotZ){ oRotation.z= rotZ; }
+  void SetRotationX ( const mbase::Real rotX){ oRotation.x= rotX; }
+  void SetRotationY ( const mbase::Real rotY){ oRotation.y= rotY; }
+  void SetRotationZ ( const mbase::Real rotZ){ oRotation.z= rotZ; }
   void SetRotationXYZ ( const NT_std::vector3_o & oRot ) { oTranslation = oRot; }
   
   virtual void Translate( const NT_std::vector3_o & oDeltaTranslation ); 
-  virtual void TranslateX ( const mbase::Mreal deltaTraX);
-  virtual void TranslateY ( const mbase::Mreal deltaTraY);
-  virtual void TranslateZ ( const mbase::Mreal deltaTraZ);
+  virtual void TranslateX ( const mbase::Real deltaTraX);
+  virtual void TranslateY ( const mbase::Real deltaTraY);
+  virtual void TranslateZ ( const mbase::Real deltaTraZ);
   virtual void TranslateXYZ ( const NT_std::vector3_o & oDeltaTra ) { oTranslation += oDeltaTra; }
-  virtual void TranslateXYZ ( const mbase::Mreal deltaTra[3]);
+  virtual void TranslateXYZ ( const mbase::Real deltaTra[3]);
   virtual void TranslateNull () { oTranslation = NT_OriginVec3();};
-  virtual void SetTranslationX ( const mbase::Mreal traX){ oTranslation.x= traX; }
-  virtual void SetTranslationY ( const mbase::Mreal traY){ oTranslation.y= traY; }
-  virtual void SetTranslationZ ( const mbase::Mreal traZ){ oTranslation.z= traZ; }
+  virtual void SetTranslationX ( const mbase::Real traX){ oTranslation.x= traX; }
+  virtual void SetTranslationY ( const mbase::Real traY){ oTranslation.y= traY; }
+  virtual void SetTranslationZ ( const mbase::Real traZ){ oTranslation.z= traZ; }
   virtual void SetTranslationXYZ ( const NT_std::vector3_o & oTra ) { oTranslation = oTra; }
 
   /** rotate the object such that its (oRotation std::vector would rotate 
@@ -195,7 +195,7 @@ public:
   virtual void Draw() = 0;
   /** Set any control/state variables in the object and in the child tree */
   void Control(NT3Dcontroller cntrl , NTint value){ControlImpl(cntrl , value);}
-  void Control(NT3Dcontroller cntrl , mbase::Mreal value){ControlImpl(cntrl , value);}
+  void Control(NT3Dcontroller cntrl , mbase::Real value){ControlImpl(cntrl , value);}
   void Control(NT3Dcontroller cntrl , NT_std::vector_o value){ControlImpl(cntrl , value);}
  
   protected:
@@ -206,7 +206,7 @@ public:
     ControlImpl() should be overridden by derived classes ONLY if control/state
     are to be applied to *this object !*/
   virtual void ControlImpl(NT3Dcontroller cntrl , NTint value) = 0;
-  virtual void ControlImpl(NT3Dcontroller cntrl , mbase::Mreal value) = 0; 
+  virtual void ControlImpl(NT3Dcontroller cntrl , mbase::Real value) = 0; 
   virtual void ControlImpl(NT3Dcontroller cntrl , NT_std::vector_o value) = 0;
 
   private:

@@ -16,7 +16,7 @@
 #define NUM_NON_COLUMN_PARAM 5 // including argv[0] ==  executable
 
 
-mbase::Mreal compute_entropy_element(mbase::Mreal prob)
+mbase::Real compute_entropy_element(mbase::Real prob)
 {
 
     if (0.0 == prob) return (0);
@@ -71,7 +71,7 @@ int check_for_spike(float v, float upThreshold, float downThreshold, bool* spiki
 int
 main(int argc, char* argv[])
 {
-    mbase::Mreal resolutionOfDataFile = 0.1; // in mSec
+    mbase::Real resolutionOfDataFile = 0.1; // in mSec
     mbase::Msize analysisInterval = 20; // number of iterations to pool together, i.e 20*0.1mSec = 1mSec resolution of spike data
 
     if (argc < NUM_NON_COLUMN_PARAM) {
@@ -98,7 +98,7 @@ main(int argc, char* argv[])
     std::vector <mbase::Msize> wordHistogram;
     wordHistogram.resize( ceil(pow(2.0,static_cast<int>(wordLength))) );
 
-    std::vector <mbase::Mreal> wordProbHistogram;
+    std::vector <mbase::Real> wordProbHistogram;
     wordProbHistogram.resize( wordHistogram.size() );
 
 
@@ -131,11 +131,11 @@ main(int argc, char* argv[])
 
     mbase::Msize ll;
     for (ll = 0; ll < wordHistogram.size(); ll++) {
-        wordProbHistogram[ll] = wordHistogram[ll]*analysisInterval/(mbase::Mreal(lines));
+        wordProbHistogram[ll] = wordHistogram[ll]*analysisInterval/(mbase::Real(lines));
     }
 
-    mbase::Mreal entropy = 0;
-    mbase::Mreal p = 0;
+    mbase::Real entropy = 0;
+    mbase::Real p = 0;
     for (ll = 0; ll < wordHistogram.size(); ll++) {
 //	std::cout << ll << "\t" << wordProbHistogram[ll] << std::endl;
         p += wordProbHistogram[ll];

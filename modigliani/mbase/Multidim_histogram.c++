@@ -26,7 +26,7 @@ using namespace mbase;
 
 /* ***      CONSTRUCTORS	***/
 /** Create a Multidim_histogram */
-Multidim_histogram::Multidim_histogram(Mreal low, Mreal high, Msize bins,
+Multidim_histogram::Multidim_histogram(Real low, Real high, Msize bins,
 		Msize dims) :
 		oCube(dims, bins) {
 	/* should have been already tested by oCube constructor
@@ -89,7 +89,7 @@ void Multidim_histogram::Reset() {
  \warning    unknown
  \bug        unknown
  */
-Msize Multidim_histogram::BinValue(const std::vector<Mreal> & valueVec) {
+Msize Multidim_histogram::BinValue(const std::vector<Real> & valueVec) {
 	M_ASSERT(valueVec.size() == dim);
 
 	std::vector<Msize> coorVec(dim);
@@ -112,9 +112,9 @@ Msize Multidim_histogram::BinValue(const std::vector<Mreal> & valueVec) {
 	return (0);
 }
 
-Mreal Multidim_histogram::ShannonEntropy() const {
-	Mreal tmp = 0;
-	Mreal sum = 0;
+Real Multidim_histogram::ShannonEntropy() const {
+	Real tmp = 0;
+	Real sum = 0;
 	for (Msize ll = 0; ll < oCube.TotalNumElem(); ll++) {
 		tmp = oCube.ElemByIndex(ll);
 		sum -= mbase::MComputePLogP(tmp);

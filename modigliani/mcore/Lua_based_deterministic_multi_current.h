@@ -22,9 +22,9 @@ using namespace std;
 namespace mcore {
 class Lua_based_deterministic_multi_current: public Multi_current {
 public:
-	Lua_based_deterministic_multi_current(mbase::Mreal newArea,
-			mbase::Mreal newDensity, mbase::Mreal newConductivity, mbase::Mreal newVBase,
-			mbase::Mreal reversalPotential, mbase::Mreal newTimeStep, mbase::Mreal newTemperature,
+	Lua_based_deterministic_multi_current(mbase::Real newArea,
+			mbase::Real newDensity, mbase::Real newConductivity, mbase::Real newVBase,
+			mbase::Real reversalPotential, mbase::Real newTimeStep, mbase::Real newTemperature,
 			string fileName);
 
 	Lua_based_deterministic_multi_current(
@@ -36,16 +36,16 @@ public:
 	operator=(const Lua_based_deterministic_multi_current & right);
 
 	virtual mbase::Mreturn step_current() override	;
-	virtual mbase::Mreal open_channels() const override;
-	virtual mbase::Mreal compute_conductance() override;
-	virtual mbase::Mreal num_channels_in_state(mbase::Msize state) const override;
+	virtual mbase::Real open_channels() const override;
+	virtual mbase::Real compute_conductance() override;
+	virtual mbase::Real num_channels_in_state(mbase::Msize state) const override;
 	void show_param() const override;
 
 	string lua_script;
 private:
-	static mbase::Mreal lua_get_ntreal(lua_State* L, string name);
-	mbase::Mreal baseTemp;
-	mbase::Mreal stepV;
+	static mbase::Real lua_get_ntreal(lua_State* L, string name);
+	mbase::Real baseTemp;
+	mbase::Real stepV;
 	lua_State* L;
 };}
 #endif /* _mcore_lua_based_deterministic_multi_current_o_H_ */

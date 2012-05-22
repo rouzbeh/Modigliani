@@ -56,13 +56,13 @@ public:
 	void AutoRange(bool decision) {
 		autoRange = decision;
 	}
-	mbase::Mreturn SetXRange(mbase::Mreal min, mbase::Mreal max) {
+	mbase::Mreturn SetXRange(mbase::Real min, mbase::Real max) {
 		M_ASSERT( min < max);
 		xMin = min;
 		xMax = max;
 		return mbase::M_SUCCESS;
 	}
-	mbase::Mreturn SetYRange(mbase::Mreal min, mbase::Mreal max) {
+	mbase::Mreturn SetYRange(mbase::Real min, mbase::Real max) {
 		M_ASSERT( min < max);
 		yMin = min;
 		yMax = max;
@@ -83,13 +83,13 @@ protected:
 		DrawData();
 	}
 	virtual void DrawData() = 0;
-	void NewXData(mbase::Mreal x) {
+	void NewXData(mbase::Real x) {
 		if (x < dataXMin)
 			dataXMin = x;
 		else if (x > dataXMax)
 			dataXMax = x;
 	}
-	void NewYData(mbase::Mreal y) {
+	void NewYData(mbase::Real y) {
 		if (y < dataYMin)
 			dataYMin = y;
 		else if (y > dataYMax)
@@ -101,10 +101,10 @@ protected:
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	mbase::Mreal dataXMin, dataXMax;
-	mbase::Mreal dataYMin, dataYMax;
-	mbase::Mreal xMin, xMax;
-	mbase::Mreal yMin, yMax;
+	mbase::Real dataXMin, dataXMax;
+	mbase::Real dataYMin, dataYMax;
+	mbase::Real xMin, xMax;
+	mbase::Real yMin, yMax;
 	bool autoRange;
 	bool drawCoord;
 };

@@ -44,7 +44,7 @@
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NT3D_rectangle_o */
-NT3D_rectangle_o::NT3D_rectangle_o(mbase::Mreal newWidth, mbase::Mreal newHeight, mbase::Msize newSteps)
+NT3D_rectangle_o::NT3D_rectangle_o(mbase::Real newWidth, mbase::Real newHeight, mbase::Msize newSteps)
 :
 NT3D_surfaced_object_o(),
 width(newWidth),
@@ -94,10 +94,10 @@ NT3D_rectangle_o::DrawSurfacedObj()
     if (true == _bUseTexture() ) oTexturePtr->Paint();
 	else oTexturePtr->Painted();
 
-	mbase::Mreal dx = width/steps;
-	mbase::Mreal dy = height/steps;
-	mbase::Mreal x = 0;
-	mbase::Mreal y = 0;
+	mbase::Real dx = width/steps;
+	mbase::Real dy = height/steps;
+	mbase::Real x = 0;
+	mbase::Real y = 0;
 
 
 	/*	glRectf(0,0,width, height); */

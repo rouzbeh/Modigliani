@@ -23,12 +23,12 @@
 
 using namespace mcore;
 
-mbase::Mreal NTBP_temperature_rate_relation(mbase::Mreal temp, mbase::Mreal q10)
+mbase::Real NTBP_temperature_rate_relation(mbase::Real temp, mbase::Real q10)
 {
 	return (pow(q10,(temp-NTBP_STD_TEMPERATURE)/10.0));
 }
 		
-mbase::Mreal NTBP_temperature_rate_relation(mbase::Mreal temp, mbase::Mreal baseTemp, mbase::Mreal q10)
+mbase::Real NTBP_temperature_rate_relation(mbase::Real temp, mbase::Real baseTemp, mbase::Real q10)
 {
 	return (pow(q10,(temp-baseTemp)/10.0));
 }
@@ -36,16 +36,16 @@ mbase::Mreal NTBP_temperature_rate_relation(mbase::Mreal temp, mbase::Mreal base
 
 
 /** Compute length constant in muMeter */
-mbase::Mreal NTBP_length_constant_passive_cable(mbase::Mreal diameter /* muM */,
-									   mbase::Mreal rAxoplasmic /* Ohm cm */,
-									   mbase::Mreal gLeak /* mSiemens/cm^2 */)
+mbase::Real NTBP_length_constant_passive_cable(mbase::Real diameter /* muM */,
+									   mbase::Real rAxoplasmic /* Ohm cm */,
+									   mbase::Real gLeak /* mSiemens/cm^2 */)
 {
 	return ( 1.0e6 /* muMeter/m */ * sqrt( 1.0e-5 /*  m/muMeter/ ((mSiemens/cm^2) Ohm cm) */ * diameter /* muMeter */ / (gLeak * rAxoplasmic * 4.0) ) );
 }
 
 
-mbase::Mreal Object::timeStep = NTBP_TIMESTEP; //in msec
-mbase::Mreal Object::suggestedTimeStep = NTBP_TIMESTEP; //in msec
+mbase::Real Object::timeStep = NTBP_TIMESTEP; //in msec
+mbase::Real Object::suggestedTimeStep = NTBP_TIMESTEP; //in msec
 
 /* ***      CONSTRUCTORS	***/
 /** Create a Object */

@@ -26,8 +26,8 @@ using namespace mbase;
 
 /* ***      CONSTRUCTORS	***/
 /** Create a Gaussian_vec_rnd_dist */
-Gaussian_vec_rnd_dist::Gaussian_vec_rnd_dist(Mreal newMean,
-		Mreal newStdDev, Msize newDim) :
+Gaussian_vec_rnd_dist::Gaussian_vec_rnd_dist(Real newMean,
+		Real newStdDev, Msize newDim) :
 		Vec_rnd_dist(newDim), meanVec(newDim), stdDevVec(newDim) {
 	Gaussian_rnd_dist * tmpPtr = new Gaussian_rnd_dist(newMean,
 			newStdDev);

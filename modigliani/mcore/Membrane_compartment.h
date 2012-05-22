@@ -40,7 +40,7 @@ namespace mcore {
 class Membrane_compartment: public Object {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Membrane_compartment(mbase::Mreal area /* in muMeter^2 */, mbase::Mreal newTemperature =
+	Membrane_compartment(mbase::Real area /* in muMeter^2 */, mbase::Real newTemperature =
 			6.3);
 	Membrane_compartment(const Membrane_compartment & original);
 	const Membrane_compartment & operator=(const Membrane_compartment & right);
@@ -48,22 +48,22 @@ public:
 	/* ***  Methods              ***/
 	mbase::Mreturn AttachCurrent(Membrane_current * currentPtr,
 			NTBPcurrentType type);
-	mbase::Mreturn step(mbase::Mreal newVM /* mV */);
-	mbase::Mreturn InjectCurrent(mbase::Mreal current /* in nA */);
-	mbase::Mreal AttachedCurrent(mbase::Msize currentIndex) {
+	mbase::Mreturn step(mbase::Real newVM /* mV */);
+	mbase::Mreturn InjectCurrent(mbase::Real current /* in nA */);
+	mbase::Real AttachedCurrent(mbase::Msize currentIndex) {
 		M_ASSERT((currentIndex > 0) && (currentIndex - 1 < currentVec.size()));
 		return (currentVec[currentIndex - 1]->_current());
 	}
-	mbase::Mreal AttachedConductance(mbase::Msize currentIndex) {
+	mbase::Real AttachedConductance(mbase::Msize currentIndex) {
 		M_ASSERT((currentIndex > 0) && (currentIndex - 1 < currentVec.size()));
 		return (currentVec[currentIndex - 1]->_conductance());
 	}
-	mbase::Mreal AttachedReversalPotential(mbase::Msize currentIndex) {
+	mbase::Real AttachedReversalPotential(mbase::Msize currentIndex) {
 		M_ASSERT((currentIndex > 0) && (currentIndex - 1 < currentVec.size()));
 		return (currentVec[currentIndex - 1]->_reversalPotential());
 	}
 	/**  membrane time constant at instaneous membrane conductivity in ms */
-	mbase::Mreal TimeConstant() {
+	mbase::Real TimeConstant() {
 		return ((_cM() / total_conductance()) * _area() * 1.0e8);
 	}
 	const Membrane_current * Current(mbase::Msize currentIndex) {
@@ -71,54 +71,54 @@ public:
 		return (currentVec[currentIndex - 1]);
 	}
 	/* in muMeter^2 */
-	mbase::Mreal _area() /* in muMeter^2 */const {
+	mbase::Real _area() /* in muMeter^2 */const {
 		return (area);
 	}
 	/* in mV */
-	mbase::Mreal _vM() /* in mV muMeter */const {
+	mbase::Real _vM() /* in mV muMeter */const {
 		return (vM);
 	}
-	void Set_vM(mbase::Mreal newVoltage) {
+	void Set_vM(mbase::Real newVoltage) {
 		vM = newVoltage;
 	}
 	/** Set specific membrane capacitance in muF / cm^2 */
-	void Set_cM(mbase::Mreal newCm /* in muF / cm^2 */) {
+	void Set_cM(mbase::Real newCm /* in muF / cm^2 */) {
 		cM = newCm;
 		compartmentMembraneCapacitance = CompartmentMembraneCapacitance();
 	}
 	/* in muF / cm^2 */
-	mbase::Mreal _cM() const {
+	mbase::Real _cM() const {
 		return (cM);
 	}
 	/** Set specific axoplasmic resistivity in Ohm cm */
-	void Set_rA(mbase::Mreal newRa /* in Ohm cm */) {
+	void Set_rA(mbase::Real newRa /* in Ohm cm */) {
 		rA = newRa;
 	}
 	/* in Ohm cm */
-	mbase::Mreal _rA() const {
+	mbase::Real _rA() const {
 		return (rA);
 	}
 	/* Set temperature [Celsius] in compartment and for all currents within compartment (affects future attached ones also) */
-	mbase::Mreturn Set_temperature(mbase::Mreal newTemp /* in Celsius */) {
+	mbase::Mreturn Set_temperature(mbase::Real newTemp /* in Celsius */) {
 		temperature = newTemp;
 		for (mbase::Msize i = 0; i < currentVec.size(); i++)
 			currentVec[i]->Set_temperature(newTemp);
 		return (mbase::M_SUCCESS);
 	}
 	/* in Celsius */
-	mbase::Mreal _temperature() const {
+	mbase::Real _temperature() const {
 		return (temperature);
 	}
 	/* in muF */
-	mbase::Mreal _compartmentMembraneCapacitance() const {
+	mbase::Real _compartmentMembraneCapacitance() const {
 		return (compartmentMembraneCapacitance);
 	}
 	/* in muF */
-	mbase::Mreal CompartmentMembraneCapacitance() const;
+	mbase::Real CompartmentMembraneCapacitance() const;
 	/* in nA */
-	mbase::Mreal CompartmentMembraneNetCurrent() const;
+	mbase::Real CompartmentMembraneNetCurrent() const;
 	/** in 1/mSec or 1 kHz*/
-	mbase::Mreal CompartmentChannelStateTimeConstant() const;
+	mbase::Real CompartmentChannelStateTimeConstant() const;
 	/**  */
 	bool GillespieStep();
 	/**  */
@@ -130,19 +130,19 @@ public:
 
 protected:
 	/* ***  Methods              ***/
-	mbase::Mreal total_conductance() const;
-	mbase::Mreal WeightedConductance() const; // OBSOLETE?
+	mbase::Real total_conductance() const;
+	mbase::Real WeightedConductance() const; // OBSOLETE?
 	/* ***  Data                 ***/
-	mbase::Mreal vM; // membrane voltage in mV
-	mbase::Mreal iInj; // injected current into compartment in nA
+	mbase::Real vM; // membrane voltage in mV
+	mbase::Real iInj; // injected current into compartment in nA
 
 private:
 	/* ***  Methods              ***/
-	mbase::Mreal cM; // membrane capacity in muFarad/cm^2
-	mbase::Mreal rA; // axoplasmatic resistance in Ohm cm
-	mbase::Mreal area; // in muMeter^2
-	mbase::Mreal temperature; // in Celsius
-	mbase::Mreal compartmentMembraneCapacitance; // in muFarad
+	mbase::Real cM; // membrane capacity in muFarad/cm^2
+	mbase::Real rA; // axoplasmatic resistance in Ohm cm
+	mbase::Real area; // in muMeter^2
+	mbase::Real temperature; // in Celsius
+	mbase::Real compartmentMembraneCapacitance; // in muFarad
 	/* ***  Data                 ***/
 };
 }

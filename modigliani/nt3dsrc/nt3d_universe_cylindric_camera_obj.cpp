@@ -80,11 +80,11 @@ NT3D_universe_cylindric_camera_o::~NT3D_universe_cylindric_camera_o() {
  NT3D_universe_cylindric_camera_o::Draw()
  {
  2DO apparently nonsense (?) code commented out here... Draw was not declared in header
- mbase::Mreal	width = pVP_width();
- mbase::Mreal	height = pVP_height();
+ mbase::Real	width = pVP_width();
+ mbase::Real	height = pVP_height();
 
- mbase::Mreal	stepX = width/aziStep;
- mbase::Mreal	stepY = height/hStep;
+ mbase::Real	stepX = width/aziStep;
+ mbase::Real	stepY = height/hStep;
 
  for (mbase::Msize llx=0; llx < aziStep; llx++){
  for (mbase::Msize lly=0; lly < hStep; lly++){

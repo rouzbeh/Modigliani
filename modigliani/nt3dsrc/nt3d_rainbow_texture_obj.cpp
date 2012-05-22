@@ -104,8 +104,8 @@ NT3D_rainbow_texture_o::~NT3D_rainbow_texture_o()
 
 /* ***  PROTECTED                         ***   */
 /** Make a colored point within the normalised texure area [0,1]x[0,1] */
-mbase::Mreal *
-NT3D_rainbow_texture_o::MakeRGBATexturePoint(mbase::Mreal* colorVec, mbase::Mreal coorX, mbase::Mreal coorY)
+mbase::Real *
+NT3D_rainbow_texture_o::MakeRGBATexturePoint(mbase::Real* colorVec, mbase::Real coorX, mbase::Real coorY)
 {
     colorVec[0] = (0.5+0.5*sin( coorX * 0.9));
 	colorVec[1] = (0.5+0.5*cos(1.3 * coorY + 2));
@@ -119,9 +119,9 @@ mbase::Mreturn
 NT3D_rainbow_texture_o::AssignPixelTexture()
 {
 	mbase::Msize i, j;
-    mbase::Mreal ti, tj;
+    mbase::Real ti, tj;
 	mbase::Msize tmp;
-	mbase::Mreal* tmpColor = new mbase::Mreal[4];
+	mbase::Real* tmpColor = new mbase::Real[4];
 
     for (i = 0; i < textureWidth; i++) {
         ti = 2.0*M_PI*i/textureWidth;

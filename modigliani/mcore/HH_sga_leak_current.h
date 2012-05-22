@@ -54,15 +54,15 @@ namespace mcore{
 class HH_sga_leak_current: public HH_current {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	HH_sga_leak_current(mbase::Mreal newArea /* in mu^2 */,
-			mbase::Mreal newLeakConductance = 0.3 /* mS/cm^2 */,
-			mbase::Mreal newReversalPotential = 10.613 /* mV */);
+	HH_sga_leak_current(mbase::Real newArea /* in mu^2 */,
+			mbase::Real newLeakConductance = 0.3 /* mS/cm^2 */,
+			mbase::Real newReversalPotential = 10.613 /* mV */);
 	HH_sga_leak_current(const HH_sga_leak_current & original);
 	const HH_sga_leak_current & operator=(
 			const HH_sga_leak_current & right);
 	virtual ~HH_sga_leak_current();
 	/* ***  Methods              ***/
-	void ComputeRateConstants(mbase::Mreal __attribute__((__unused__)) _voltage /* in mV */) {
+	void ComputeRateConstants(mbase::Real __attribute__((__unused__)) _voltage /* in mV */) {
 	}
 	/** in mSiemens */
 	mbase::Mreturn step_current() {
@@ -73,7 +73,7 @@ public:
 		Set_conductance(_maxConductivity() * _area() * 1.0e-8);
 	}
 	/** Return leak conductance in mSiemens  (note: function return constant value (leak!) set in constructor) */
-	mbase::Mreal compute_conductance() {
+	mbase::Real compute_conductance() {
 		return (_conductance());
 	}
 	mbase::Mreturn DeterministicStepCurrent() {
@@ -83,19 +83,19 @@ public:
 		std::cout << "g_Leak [mSiemens]=" << _conductance();
 	}
 	/** Number of open ionic channels */
-	virtual mbase::Mreal open_channels() const {
+	virtual mbase::Real open_channels() const {
 		return (0.0);
 	}
 	/** Total number of ionic channels */
-	virtual mbase::Mreal NumChannels() const {
+	virtual mbase::Real NumChannels() const {
 		return (0.0);
 	}
 	/** Number of open over total number of channels */
-	virtual mbase::Mreal OpenChannelsRatio() const {
+	virtual mbase::Real OpenChannelsRatio() const {
 		return (0.0);
 	}
 
-	virtual mbase::Mreal NumChannelsInState(mbase::Msize __attribute__((__unused__)) state) const {
+	virtual mbase::Real NumChannelsInState(mbase::Msize __attribute__((__unused__)) state) const {
 		return (0);
 	}
 	/* ***  Data                 ***/

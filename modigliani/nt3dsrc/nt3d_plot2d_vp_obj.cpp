@@ -105,17 +105,17 @@ void NT3D_plot2d_vp_o::Draw() {
 }
 
 void NT3D_plot2d_vp_o::DrawCoordinateSystem(/* to be optionalised */) {
-	mbase::Mreal x, y;
-	mbase::Mreal xLen = fabs(xMax - xMin);
-	mbase::Mreal yLen = fabs(yMax - yMin);
+	mbase::Real x, y;
+	mbase::Real xLen = fabs(xMax - xMin);
+	mbase::Real yLen = fabs(yMax - yMin);
 
-	mbase::Mreal minorXTickLength = 0.01 * yLen;
-	mbase::Mreal majorXTickLength = 0.02 * yLen;
-	mbase::Mreal minorXTickSpacing = 1.0;
+	mbase::Real minorXTickLength = 0.01 * yLen;
+	mbase::Real majorXTickLength = 0.02 * yLen;
+	mbase::Real minorXTickSpacing = 1.0;
 	mbase::Msize minor2MajorXTickRatio = 10.0;
-	mbase::Mreal minorYTickLength = 0.01 * xLen;
-	mbase::Mreal majorYTickLength = 0.02 * xLen;
-	mbase::Mreal minorYTickSpacing = 1.0;
+	mbase::Real minorYTickLength = 0.01 * xLen;
+	mbase::Real majorYTickLength = 0.02 * xLen;
+	mbase::Real minorYTickSpacing = 1.0;
 	mbase::Msize minor2MajorYTickRatio = 10.0;
 
 	glColor3f(1.0, 1.0, 1.0);

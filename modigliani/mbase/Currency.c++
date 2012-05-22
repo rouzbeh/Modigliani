@@ -44,7 +44,7 @@ Currency::Currency()
 //	Input :
 //	Output :
 //
-Currency::Currency(CountryCode Initcountry, Mreal InitconversionFactor)
+Currency::Currency(CountryCode Initcountry, Real InitconversionFactor)
 {
     set_amount(0);
     set_id(mbase::CURRENCY);

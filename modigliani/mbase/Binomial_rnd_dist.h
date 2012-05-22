@@ -44,31 +44,31 @@ class Binomial_rnd_dist: public Rnd_dist {
 	class Initializer {
 	public:
 		Initializer();
-		std::vector<Mreal> logGammaTable;
+		std::vector<Real> logGammaTable;
 	};
 
 	friend class Initializer;
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Binomial_rnd_dist(Mreal pp, Msize n);Binomial_rnd_dist(const Binomial_rnd_dist & original);
+	Binomial_rnd_dist(Real pp, Msize n);Binomial_rnd_dist(const Binomial_rnd_dist & original);
 	const Binomial_rnd_dist & operator=(
 			const Binomial_rnd_dist & right);
 	virtual ~Binomial_rnd_dist();
-	Mreal RndVal() const;
+	Real RndVal() const;
 	/** Identical to method 'bnldev' from Numerical Recipes in C (Press et al.) */
-	Mreal Binomial(float pp, int n) const;
-	Mreal LogGamma(Mreal val) const;
+	Real Binomial(float pp, int n) const;
+	Real LogGamma(Real val) const;
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
 protected:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	//static vector<Mreal> logGammaTable;
+	//static vector<Real> logGammaTable;
 	static bool init;
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	Mreal p;
+	Real p;
 	Msize n;
 	static Initializer static_table;
 };

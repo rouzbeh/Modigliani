@@ -78,9 +78,9 @@ public:
 typedef std::vector<NTG_vertex_o> NTG_NodeContainer;
 typedef std::vector<NTG_edge_o> NTG_EdgeContainer;
 typedef std::vector<mbase::Mid> NTG_NodeIdList;
-typedef Matrix<mbase::Mreal> NTG_PositiveCostMatrix;
+typedef Matrix<mbase::Real> NTG_PositiveCostMatrix;
 typedef Matrix<bool> NTG_AdjacencyMatrix;
-typedef Matrix<mbase::Mreal> NTG_NodeDistanceMatrix;
+typedef Matrix<mbase::Real> NTG_NodeDistanceMatrix;
 
 template<class T>
 NTG_NodeDistanceMatrix NodeDistanceMatrixConditioning(const Matrix<T> & aMtr) {
@@ -94,7 +94,7 @@ NTG_NodeDistanceMatrix NodeDistanceMatrixConditioning(const Matrix<T> & aMtr) {
 				T tmpVal = aMtr[lr][lc];
 				if (0 == tmpVal)
 					dMtr[lr][lc] = 1 / 0.0; /* set value to infinity (NAN), this is correct code ! */
-				else if ((mbase::Mreal) tmpVal < 0) {
+				else if ((mbase::Real) tmpVal < 0) {
 					std::cerr
 							<< "NodeDistanceMatrixPrecondition - Warning : Negative values in matrix encountered. Using absolute values."
 							<< std::endl;

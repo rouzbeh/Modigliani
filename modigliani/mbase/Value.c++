@@ -50,7 +50,7 @@ Value::Value()
 //
 
 
-Value::Value(Mid InittypeId, M_string Initname, Mnum Initamount, Mreal Initvalue)
+Value::Value(Mid InittypeId, M_string Initname, Mnum Initamount, Real Initvalue)
 {
     amount= Initamount;
     id = InittypeId;
@@ -110,13 +110,13 @@ void Value::set_name(std::string newName)
 
 
 //
-//	Method name :  set_value(Mreal newValue)
+//	Method name :  set_value(Real newValue)
 //
 //	Description :
 //	Input :
 //	Output :
 //
-void Value::set_value(Mreal newValue)
+void Value::set_value(Real newValue)
 {
     value = newValue;
 }
@@ -160,7 +160,7 @@ inline std::string Value::_name() const {
 //	Input :
 //	Output :
 //
-inline Mreal Value::_value() const {
+inline Real Value::_value() const {
 	return (value);
 }
 

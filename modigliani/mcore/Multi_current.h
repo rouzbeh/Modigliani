@@ -41,29 +41,29 @@ namespace mcore {
 class Multi_current: public Membrane_current {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Multi_current(mbase::Mreal reversalPotential, // in mV
-			mbase::Mreal density, // channels per mumeter^2
-			mbase::Mreal area, // in mumeter^2
-			mbase::Mreal conductivity, // in mSiemens per channel
-			mbase::Mreal vBase = 0 // mV
+	Multi_current(mbase::Real reversalPotential, // in mV
+			mbase::Real density, // channels per mumeter^2
+			mbase::Real area, // in mumeter^2
+			mbase::Real conductivity, // in mSiemens per channel
+			mbase::Real vBase = 0 // mV
 			);
 	Multi_current(const Multi_current & original);
 	const Multi_current & operator=(const Multi_current & right);
 	virtual ~Multi_current();
 	/* ***  Methods              ***/
 	/* mementary total conductance */
-	mbase::Mreal _density() const {
+	mbase::Real _density() const {
 		return (density);
 	}
-	mbase::Mreal _area() const {
+	mbase::Real _area() const {
 		return (area);
 	}
 	/* conductivity per channel in mSiemens */
-	mbase::Mreal _conductivity() const {
+	mbase::Real _conductivity() const {
 		return (conductivity);
 	}
 	/* conductivity if all channels open in mSiemens/cm^2, */
-	mbase::Mreal _maxConductivity() const {
+	mbase::Real _maxConductivity() const {
 		return (density /* num/muMeter^2 */* conductivity /* mSiemens */* 1.0e8 /* muMeter^2/cm^2 */);
 	}
 	/**  */
@@ -78,17 +78,17 @@ public:
 		return (numChannels);
 	}
 	/** Number of total ionic channels */
-	mbase::Mreal NumChannels() const {
+	mbase::Real NumChannels() const {
 		return (_numChannels());
 	}
-	mbase::Mreal OpenChannelsRatio() const {
+	mbase::Real OpenChannelsRatio() const {
 		return (open_channels() / NumChannels());
 	}
-	mbase::Mreal _vBase() const {
+	mbase::Real _vBase() const {
 		return (vBase);
 	}
 // Dangerous: since cached values are not automatically recomputed in derived classes
-//void Set_vBase(mbase::Mreal newVBase /* mV */){ vBase = newVBase; }
+//void Set_vBase(mbase::Real newVBase /* mV */){ vBase = newVBase; }
 	Ion_channels * getChannelsPtr() {
 		return (channelsPtr);
 	}
@@ -100,14 +100,14 @@ protected:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
 	static mbase::Uniform_rnd_dist uniformRnd;
-	mbase::Mreal conductivity; // in mSiemens per channel
-	mbase::Mreal density; // channels per muMeter^2
-	mbase::Mreal vBase; // mV
+	mbase::Real conductivity; // in mSiemens per channel
+	mbase::Real density; // channels per muMeter^2
+	mbase::Real vBase; // mV
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
 	mbase::Msize numChannels;
-	mbase::Mreal area; // in mumeter^2
+	mbase::Real area; // in mumeter^2
 	bool ratesComputed;
 
 };

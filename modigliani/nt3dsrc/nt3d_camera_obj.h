@@ -122,10 +122,10 @@ public:
 	/** set the camera position, i.e. set the projection and viewing transformation,
 	 ** The method is virtual such that derived classes can overwrite it */
 	virtual void Draw();
-	mbase::Mreal _aspectRatio() const {
+	mbase::Real _aspectRatio() const {
 		return aspectRatio;
 	}
-	void Set_aspectRatio(mbase::Mreal newRatio) {
+	void Set_aspectRatio(mbase::Real newRatio) {
 		aspectRatio = newRatio;
 	}
 	void SetTarget(const NT_std::vector3_o & oNewTarget) {
@@ -142,7 +142,7 @@ protected:
 	}
 	;
 	void ControlImpl(NT3Dcontroller __attribute__((unused)) cntrl,
-			mbase::Mreal __attribute__((unused)) value) {
+			mbase::Real __attribute__((unused)) value) {
 	}
 	;
 	void ControlImpl(NT3Dcontroller __attribute__((unused)) cntrl,
@@ -160,9 +160,9 @@ protected:
 	/** The ascpect ratio determines the ratio of width to height of
 	 the "film" which is recorded from the camera. It usually corresponds
 	 to the aspect ratio of a (rendering) viewport. */
-	mbase::Mreal aspectRatio;
+	mbase::Real aspectRatio;
 	/** The camera Field Of View (FOV) is an angle in ]0,180[ */
-	mbase::Mreal fov;
+	mbase::Real fov;
 
 private:
 	/* ***  Methods              ***/

@@ -26,7 +26,7 @@ using namespace mcore;
 
 /* ***      CONSTRUCTORS	***/
 /** Create a Membrane_patch */
-Membrane_patch::Membrane_patch(mbase::Mreal newArea /* [muM^2] */, mbase::Mreal newCM /* muF/cm^2 */)
+Membrane_patch::Membrane_patch(mbase::Real newArea /* [muM^2] */, mbase::Real newCM /* muF/cm^2 */)
 :
 Membrane_compartment(newArea)
 {
@@ -82,7 +82,7 @@ inline mbase::Mreturn
 Membrane_patch::Step()
 {
 	/*       [mV] == [10^-3 ms nA /muF] */
-	mbase::Mreal deltaV =  1e-3 /* mV/muV */ * _timeStep()*CompartmentMembraneNetCurrent()/CompartmentMembraneCapacitance();
+	mbase::Real deltaV =  1e-3 /* mV/muV */ * _timeStep()*CompartmentMembraneNetCurrent()/CompartmentMembraneCapacitance();
 	vM = vM + deltaV;
 	Membrane_compartment::step(vM);
 	return (mbase::M_SUCCESS);

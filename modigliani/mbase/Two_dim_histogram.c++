@@ -26,7 +26,7 @@ using namespace mbase;
 
 /* ***      CONSTRUCTORS	***/
 /** Create a Two_dim_histogram */
-Two_dim_histogram::Two_dim_histogram(Msize newNumBinsA, Mreal newMinA, Mreal newMaxA, Msize newNumBinsB, Mreal newMinB, Mreal newMaxB)
+Two_dim_histogram::Two_dim_histogram(Msize newNumBinsA, Real newMinA, Real newMaxA, Msize newNumBinsB, Real newMinB, Real newMaxB)
 {
     numBinsA = newNumBinsA;
     M_ASSERT(numBinsA > 0);
@@ -84,7 +84,7 @@ Two_dim_histogram::~Two_dim_histogram()
    \warning    unknown
    \bug        unknown
  */
-Msize Two_dim_histogram::BinValue(Mreal valueA, Mreal valueB)
+Msize Two_dim_histogram::BinValue(Real valueA, Real valueB)
 {
     Msize normValA = Msize(floor(numBinsA*(valueA-minA)/rangeA));
     Msize normValB = Msize(floor(numBinsB*(valueB-minB)/rangeB));
@@ -110,7 +110,7 @@ Msize Two_dim_histogram::BinValue(Mreal valueA, Mreal valueB)
    \warning    unknown
    \bug        unknown
  */
-Msize Two_dim_histogram::BinValue ( std::vector <Mreal> valueVec)
+Msize Two_dim_histogram::BinValue ( std::vector <Real> valueVec)
 {
 	M_ASSERT(valueVec.size() == 2);
     return (BinValue(valueVec[0],valueVec[1]));
@@ -128,17 +128,17 @@ Mreturn Two_dim_histogram::Reset()
 }
 
 /** No descriptions */
-Matrix <Mreal> Two_dim_histogram::PDF() const {
-    Matrix <Mreal> tmpMtr(numBinsA, numBinsB, 0.0);
+Matrix <Real> Two_dim_histogram::PDF() const {
+    Matrix <Real> tmpMtr(numBinsA, numBinsB, 0.0);
     if (0 == numBinned) {
         std::cerr << "Two_dim_histogram::PDF - Error : PDF cannot be computed on empty histograms. Returning 0.0 matrix." << std::endl;
         return (tmpMtr);
     }
 
-    Mreal sum = 0;
+    Real sum = 0;
     for (Msize lla = 0; lla < numBinsA; lla++) {
         for (Msize llb = 0; llb < numBinsB; llb++) {
-            tmpMtr[lla][llb] = table[lla][llb]/Mreal(numBinned);
+            tmpMtr[lla][llb] = table[lla][llb]/Real(numBinned);
             sum += tmpMtr[lla][llb];
         }
     }
@@ -147,10 +147,10 @@ Matrix <Mreal> Two_dim_histogram::PDF() const {
 }
 
 /** Compute the joint entropy in bits */
-Mreal Two_dim_histogram::ShannonEntropy() const
+Real Two_dim_histogram::ShannonEntropy() const
 {
-    Matrix <Mreal> tmpMtr = PDF();
-    Mreal entropy  = 0;
+    Matrix <Real> tmpMtr = PDF();
+    Real entropy  = 0;
 
     for (Msize lla = 0; lla < numBinsA; lla++) {
         for (Msize llb = 0; llb < numBinsB; llb++) {

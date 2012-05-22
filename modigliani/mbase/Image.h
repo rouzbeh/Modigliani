@@ -72,7 +72,7 @@ public:
 	/* ***  Data                 ***/
 protected:
 	/* ***  Methods              ***/
-	Mreal _imageVecR(Msize elementIndex) const {
+	Real _imageVecR(Msize elementIndex) const {
 		return (imageVec[elementIndex] / 255.0);
 	}
 	Msize _imageVecI(Msize elementIndex) const {

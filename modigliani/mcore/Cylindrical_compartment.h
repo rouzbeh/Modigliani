@@ -37,8 +37,8 @@ namespace mcore{
 class Cylindrical_compartment: public Membrane_compartment {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Cylindrical_compartment(mbase::Mreal length /* in muMeter */,
-			mbase::Mreal diameter /* in muMeter */, mbase::Mreal newTemperature = 6.3);
+	Cylindrical_compartment(mbase::Real length /* in muMeter */,
+			mbase::Real diameter /* in muMeter */, mbase::Real newTemperature = 6.3);
 	Cylindrical_compartment(
 			const Cylindrical_compartment & original);
 	const Cylindrical_compartment & operator=(
@@ -46,23 +46,23 @@ public:
 	virtual ~Cylindrical_compartment();
 	/* ***  Methods              ***/
 	/** length constant in muMeter for instantenous membrane conductance */
-	mbase::Mreal ActiveLengthConstant() {
+	mbase::Real ActiveLengthConstant() {
 		return (_diameter() / (4.0 * _rA() * 1.0e4 * total_conductance()));
 	}
 	/* in muMeter^2 */
-	mbase::Mreal _CrosssectionalArea() const {
+	mbase::Real _CrosssectionalArea() const {
 		return (_radius() * _radius() * M_PI);
 	}
 	/* in muMeter */
-	mbase::Mreal _diameter() const {
+	mbase::Real _diameter() const {
 		return (diameter);
 	}
 	/* in muMeter */
-	mbase::Mreal _radius() const {
+	mbase::Real _radius() const {
 		return (_diameter() / 2.0);
 	}
 	/* in muMeter */
-	mbase::Mreal _length() const {
+	mbase::Real _length() const {
 		return (length);
 	}
 	/* ***  Data                 ***/
@@ -71,8 +71,8 @@ protected:
 	/* ***  Data                 ***/
 private:
 	/* ***  Methods              ***/
-	mbase::Mreal diameter; // in muMeter
-	mbase::Mreal length; // in muMeter
+	mbase::Real diameter; // in muMeter
+	mbase::Real length; // in muMeter
 	/* ***  Data                 ***/
 };
 }

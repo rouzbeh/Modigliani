@@ -69,7 +69,7 @@ protected:
 		cerr << "Not implemented" << std::endl;
 	}
 	virtual void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl,
-			mbase::Mreal __attribute__((unused)) value) {
+			mbase::Real __attribute__((unused)) value) {
 		cerr << "Not implemented" << std::endl;
 	}
 	virtual void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl,

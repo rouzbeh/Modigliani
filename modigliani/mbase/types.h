@@ -31,7 +31,7 @@
 namespace mbase {
 typedef float Mfloat;
 typedef double Mdouble;
-typedef Mdouble Mreal;
+typedef Mdouble Real;
 
 typedef int Mint;
 typedef unsigned int Muint;

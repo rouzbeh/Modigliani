@@ -27,8 +27,8 @@ using namespace mcore;
 /* ***      CONSTRUCTORS	***/
 /** Create a Custom_cylindrical_compartment */
 Custom_cylindrical_compartment::Custom_cylindrical_compartment(
-		mbase::Mreal newLength, mbase::Mreal newDiameter, mbase::Mreal newCm, mbase::Mreal newRa,
-		mbase::Mreal newTemperature) :
+		mbase::Real newLength, mbase::Real newDiameter, mbase::Real newCm, mbase::Real newRa,
+		mbase::Real newTemperature) :
 		Cylindrical_compartment(newLength, newDiameter, newTemperature), voltage(
 				0) {
 	Set_cM(newCm);
@@ -68,11 +68,11 @@ Custom_cylindrical_compartment::~Custom_cylindrical_compartment() {
  }
  */
 
-mbase::Mreal Custom_cylindrical_compartment::getVoltage() {
+mbase::Real Custom_cylindrical_compartment::getVoltage() {
 	return (voltage);
 }
 
-void Custom_cylindrical_compartment::setVoltage(mbase::Mreal newVoltage) {
+void Custom_cylindrical_compartment::setVoltage(mbase::Real newVoltage) {
 	voltage = newVoltage;
 }
 /* ***  PROTECTED                         ***   */

@@ -38,11 +38,11 @@ namespace mcore {
 class Synaptic_background: public Membrane_current {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Synaptic_background(mbase::Mreal avgSynBkCond, /* in nS */
-	mbase::Mreal eSynBk, /* Synaptic background reversal potentialin mV (with vRest = vBase */
-	mbase::Mreal synSigma, /* Synaptic noise "diffusion" nS */
-	mbase::Mreal synTau, /* Synaptic time constant */
-	mbase::Mreal vBase = -65.0 /* in mV */
+	Synaptic_background(mbase::Real avgSynBkCond, /* in nS */
+	mbase::Real eSynBk, /* Synaptic background reversal potentialin mV (with vRest = vBase */
+	mbase::Real synSigma, /* Synaptic noise "diffusion" nS */
+	mbase::Real synTau, /* Synaptic time constant */
+	mbase::Real vBase = -65.0 /* in mV */
 	);
 	Synaptic_background(const Synaptic_background & original);
 	const Synaptic_background & operator=(const Synaptic_background & right);
@@ -50,7 +50,7 @@ public:
 	mbase::Mreturn step_current()
 override	;
 	/** compute and return conductance in mSiemens */
-	mbase::Mreal compute_conductance() override;
+	mbase::Real compute_conductance() override;
 	virtual ~Synaptic_background();
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
@@ -60,13 +60,13 @@ protected:
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	mbase::Mreal avgSynBkCond; /* ns */
-	mbase::Mreal synSigma; /* ns */
-	mbase::Mreal synVar; /* ns^2 */
-	mbase::Mreal synTau; /* ms */
-	mbase::Mreal vBase; /* mV */
-	mbase::Mreal gT; /* nS */
-	mbase::Mreal amplitude;/* nS */
+	mbase::Real avgSynBkCond; /* ns */
+	mbase::Real synSigma; /* ns */
+	mbase::Real synVar; /* ns^2 */
+	mbase::Real synTau; /* ms */
+	mbase::Real vBase; /* mV */
+	mbase::Real gT; /* nS */
+	mbase::Real amplitude;/* nS */
 	mbase::Gaussian_rnd_dist normRnd;
 };}
 #endif /* _mcore_synaptic_background.h_ */

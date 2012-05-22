@@ -26,11 +26,11 @@ using namespace mcore;
 
 /* ***      CONSTRUCTORS	***/
 /** Create a Synaptic_background */
-Synaptic_background::Synaptic_background(mbase::Mreal newAvgSynBkCond, /* in nS */
-mbase::Mreal newESynBk, /* Synaptic background reversal potential mV */
-mbase::Mreal __attribute__((unused)) newSynSigma, /* Synaptic noise "diffusion" nS */
-mbase::Mreal newSynTau, /* Synaptic time constant ms */
-mbase::Mreal newVBase /* in mV */
+Synaptic_background::Synaptic_background(mbase::Real newAvgSynBkCond, /* in nS */
+mbase::Real newESynBk, /* Synaptic background reversal potential mV */
+mbase::Real __attribute__((unused)) newSynSigma, /* Synaptic noise "diffusion" nS */
+mbase::Real newSynTau, /* Synaptic time constant ms */
+mbase::Real newVBase /* in mV */
 ) :
 		Membrane_current(newESynBk - newVBase) {
 	avgSynBkCond = newAvgSynBkCond;
@@ -69,7 +69,7 @@ Synaptic_background::~Synaptic_background() {
  \bug        unknown
  */
 
-mbase::Mreal Synaptic_background::compute_conductance() {
+mbase::Real Synaptic_background::compute_conductance() {
 	return (Set_conductance(0.001 /* mS/nS */* gT /* nS */));
 }
 

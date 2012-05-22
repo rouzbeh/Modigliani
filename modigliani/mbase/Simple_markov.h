@@ -65,13 +65,13 @@ public:
 	Mint _stateIndex() const {
 		return (stateIndex);
 	}
-	Mreturn SetProbTransMatrix(Matrix<Mreal> * ptrNewMtr);
+	Mreturn SetProbTransMatrix(Matrix<Real> * ptrNewMtr);
 	Mreturn SetState(Msize newStateIndex);
 	/* ***  Data                 ***/
 protected:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	Matrix<Mreal> * ptrTPMtr; //Transition-probability matrix
+	Matrix<Real> * ptrTPMtr; //Transition-probability matrix
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
