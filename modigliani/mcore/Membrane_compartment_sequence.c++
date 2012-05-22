@@ -40,26 +40,6 @@ Membrane_compartment_sequence::Membrane_compartment_sequence() :
 	swCrankNicholson = false;
 }
 
-/* ***      COPY AND ASSIGNMENT	***/
-Membrane_compartment_sequence::Membrane_compartment_sequence(
-		const Membrane_compartment_sequence __attribute__((__unused__)) & original) :
-		Membrane() {
-	std::cerr << "DO NOT COPY" << std::endl;
-	M_ASSERT( 1 == 0);
-	// add assignment code here
-}
-
-const Membrane_compartment_sequence&
-Membrane_compartment_sequence::operator=(
-		const Membrane_compartment_sequence & right) {
-	if (this == &right)
-		return (*this); // Gracefully handle self assignment
-	// add assignment code here
-	std::cerr << "DO NOT ASSIGN" << std::endl;
-	M_ASSERT( 1 == 0);
-	return (*this);
-}
-
 /* ***      DESTRUCTOR		***/
 Membrane_compartment_sequence::~Membrane_compartment_sequence() {
 	for (auto it = compartmentVec.begin(); it!=compartmentVec.end(); it++){
