@@ -46,10 +46,9 @@ public:
 //polymorphic usage of different compartments
 //
 	Membrane_compartment_sequence();
-	Membrane_compartment_sequence(
-			const Membrane_compartment_sequence & original);
+	Membrane_compartment_sequence(const Membrane_compartment_sequence & original) = delete;
 	const Membrane_compartment_sequence & operator=(
-			const Membrane_compartment_sequence & right);
+			const Membrane_compartment_sequence & right) = delete;
 	virtual ~Membrane_compartment_sequence();
 	/* ***  Methods              ***/
 	mbase::Mreturn PushBack(Cylindrical_compartment * compartPtr);
