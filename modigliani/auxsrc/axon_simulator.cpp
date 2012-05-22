@@ -22,18 +22,16 @@
 #include <plplot/plplot.h>
 #include <plplot/plstream.h>
 #endif
-
 #include <mcore/auxfunc.h>
 
-using namespace std;
-
-Json::Value config_root; // will contains the root value after parsing.
+//Json::Value config_root; // will contains the root value after parsing.
 
 /**
  * Reads the parameters in the file given as argument.
  * @param fileName Input file.
  */
-void read_config(string fileName) {
+Json::Value read_config(string fileName) {
+	Json::Value config_root;
 	// Remember that data file should have more lines than Num iterations.
 	Json::Reader config_reader;
 	ifstream config_doc;
@@ -45,6 +43,27 @@ void read_config(string fileName) {
 				<< config_reader.getFormatedErrorMessages();
 		exit(1);
 	}
+	return (config_root);
+}
+
+std::vector<mbase::Msize> get_electrods(Json::Value root) {
+	auto outvec = std::vector<mbase::Msize>(100);
+	string lua_script = root["electrods_lua"].asString();
+	lua_State* L = luaL_newstate();
+	luaL_openlibs(L);
+	luaL_dostring(L, lua_script.c_str());
+
+	lua_getglobal(L, "electrods");
+	/* table is in the stack at index 't' */
+	lua_pushnil(L); /* first key */
+	while (lua_next(L, -2) != 0) {
+		/* uses 'key' (at index -2) and 'value' (at index -1) */
+		int found = lua_tonumber(L, -1);
+		outvec.push_back(found);
+		lua_pop(L, 1);
+	}
+	lua_close(L);
+	return (outvec);
 }
 
 /**
@@ -55,13 +74,15 @@ void read_config(string fileName) {
  */
 int simulate(string fileName) {
 	mbase::Msize numCompartments;
-	read_config(fileName);
+	Json::Value config_root = read_config(fileName);
 	string timedOutputFolder;
-
+	// What compartments to save
+	auto electrods_vec = get_electrods(config_root);
 	// We write each compartment's potential and currents into a single file.
 	ofstream TimeFile, LengthPerCompartmentFile, TypePerCompartmentFile,
 			ConfigUsedFile;
-	std::vector<ofstream*> pot_current_files(3010);
+
+	std::vector<ofstream*> pot_current_files;
 	if (config_root["simulation_parameters"].get("sampN", 0).asUInt() > 0) {
 		timedOutputFolder =
 				mcore::createOutputFolder(
@@ -85,16 +106,12 @@ int simulate(string fileName) {
 				".m");
 		TimeFile << "% in ms" << std::endl;
 
-		int counter = 0;
-		for (auto ci = pot_current_files.begin(); ci != pot_current_files.end();
-				++ci) {
-			*ci = mcore::openOutputFile(timedOutputFolder, "compartment",
-					counter++, ".bin");
-		}
+		for_each(electrods_vec.begin(), electrods_vec.end(),
+				[&pot_current_files,timedOutputFolder](mbase::Msize ll) {
+					pot_current_files.push_back(mcore::openOutputFile(timedOutputFolder, "compartment",
+									ll, ".bin"));
+				});
 	}
-
-	std::cout << "Eleak set to " << config_root.get("eLeak", 0).asDouble() << " mV."
-			<< std::endl;
 
 	// Read input file only once. Store its content in memory.
 	ifstream dataFile(
@@ -106,33 +123,26 @@ int simulate(string fileName) {
 				<< std::endl;
 		exit(1);
 	}
-	int count = 1000000;
-	std::vector<float> inputData(count);
-	int index = 0;
 
+	std::vector<float> inputData(1000000);
+	int index = 0;
 	while (dataFile.good()) {
-		if (index < count) {
+		if (index < inputData.size()) {
 			char tmp[100];
 			dataFile.getline(tmp, 100);
 			sscanf(tmp, "%f", &inputData[index]);
 			index++;
 		} else {
-			count += 1000000;
-			inputData.resize(count);
+			inputData.resize(inputData.size() + 100000);
 		}
 	}
 	dataFile.close();
-	//mbase::Msize compartmentCounter;
-	std::cout << "Assembling neuron..." << std::endl;
-	std::vector<mbase::Msize> nodes_vec(0);
-	std::vector<mbase::Msize> nodes_paranodes_vec(0);
+
 	/* *** Trials loop *** */
 	for (mbase::Msize lTrials = 0;
 			lTrials < config_root["simulation_parameters"]["numTrials"].asUInt();
 			lTrials++) {
 		/* Model setup */
-		nodes_vec.clear();
-		nodes_paranodes_vec.clear();
 		mcore::Membrane_compartment_sequence oModel = mcore::create_axon(
 				config_root, TypePerCompartmentFile, LengthPerCompartmentFile);
 
@@ -149,8 +159,8 @@ int simulate(string fileName) {
 #endif
 
 		numCompartments = oModel._numCompartments();
-		std::cerr << "Total number of compartments(in oModel)" << numCompartments
-				<< std::endl;
+		std::cerr << "Total number of compartments(in oModel)"
+				<< numCompartments << std::endl;
 		std::vector<mbase::Real> leakCurrVec(numCompartments);
 		std::vector<mbase::Real> naCurrVec(numCompartments);
 		std::vector<mbase::Real> kCurrVec(numCompartments);
@@ -198,10 +208,13 @@ int simulate(string fileName) {
 					&& lt
 							% config_root["simulation_parameters"]["sampN"].asInt()
 							== 0) {
-				for (unsigned int ll = 0; ll < numCompartments; ++ll) {
-					oModel.WriteCompartmentData(pot_current_files[ll], ll);
-				}
-				TimeFile << timeVar << std::endl;
+				mbase::Msize counter = 0;
+				for_each(electrods_vec.begin(), electrods_vec.end(),
+						[&counter,oModel, pot_current_files](mbase::Msize ll) {
+							oModel.WriteCompartmentData(pot_current_files[counter++], ll);
+						});
+				if (!lTrials)
+					TimeFile << timeVar << std::endl;
 			}
 #ifdef WITH_PLPLOT
 			if (config_root["simulation_parameters"]["useVis"].asInt() > 0) {
@@ -216,7 +229,8 @@ int simulate(string fileName) {
 						== 0) {
 					pls->clear();
 					pls->box("abcnt", 0, 0, "anvbct", 0, 0);
-					for (mbase::Msize ll = 0; ll < oModel._numCompartments(); ll++) {
+					for (mbase::Msize ll = 0; ll < oModel._numCompartments();
+							ll++) {
 						voltVec[ll] = oModel.compartmentVec[ll]->_vM();
 					}
 					for (mbase::Msize lc = 0; lc < numCompartments; lc++) {
@@ -228,7 +242,8 @@ int simulate(string fileName) {
 						} else if (voltVec[lc] > 200.0 /* mV */) {
 							std::cerr << "ERROR at t=" << timeVar
 									<< " voltage in compartment " << lc
-									<< " is " << voltVec[lc] << "." << std::endl;
+									<< " is " << voltVec[lc] << "."
+									<< std::endl;
 							return (1);
 						}
 					}
@@ -244,7 +259,6 @@ int simulate(string fileName) {
 								* config_root["simulation_parameters"]["inpISDV"].asDouble())
 								+ config_root["simulation_parameters"]["inpI"].asDouble();
 				dataRead++;
-				std::cout << lt << "\t" << inpCurrent << std::endl;
 			}
 			oModel.InjectCurrent(inpCurrent, 1);
 
@@ -256,7 +270,6 @@ int simulate(string fileName) {
 #endif
 	} // lTrials
 	std::cerr << "Simulation completed." << std::endl;
-	std::cerr << "Number of compartments=" << numCompartments << std::endl;
 	ConfigUsedFile << "Number_of_compartments=" << numCompartments << std::endl;
 	ConfigUsedFile.close();
 	for (auto ci = pot_current_files.begin(); ci != pot_current_files.end();
@@ -270,7 +283,7 @@ int simulate(string fileName) {
 }
 
 int get_resting_potential(string fileName) {
-	read_config(fileName);
+	Json::Value config_root = read_config(fileName);
 	double min = -90;
 	double max = -40;
 	double current_guess;
@@ -306,11 +319,12 @@ int get_resting_potential(string fileName) {
 			/* the "sampling ratio" used for "measurement" to disk */
 			if (lt % 10000 == 0) {
 				sum = 0;
-				for (mbase::Msize ll = 0; ll < oModel._numCompartments(); ll++) {
+				for (mbase::Msize ll = 0; ll < oModel._numCompartments();
+						ll++) {
 					sum += oModel.compartmentVec[ll]->_vM();
 				}
-				std::cout << "Mean voltage = " << sum / oModel._numCompartments()
-						<< std::endl;
+				std::cout << "Mean voltage = "
+						<< sum / oModel._numCompartments() << std::endl;
 			}
 
 			if (lt == 10000) {
