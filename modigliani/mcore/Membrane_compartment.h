@@ -122,7 +122,7 @@ public:
 	/**  */
 	bool GillespieStep();
 	/**  */
-	void ShowParam() const;
+	void show_param() const;
 	/* ***  Data                 ***/
 	std::vector<Membrane_current *> currentVec;
 

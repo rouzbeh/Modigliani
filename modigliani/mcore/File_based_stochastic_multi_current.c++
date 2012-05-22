@@ -170,7 +170,7 @@ inline mbase::Mreal File_based_stochastic_multi_current::open_channels() const {
 
 /**  */
 /** No descriptions */
-inline mbase::Mreal File_based_stochastic_multi_current::NumChannelsInState(
+inline mbase::Mreal File_based_stochastic_multi_current::num_channels_in_state(
 		mbase::Msize state) const {
 	return (channelsPtr->numChannelsInState(state));
 }
@@ -183,7 +183,7 @@ inline mbase::Mreal File_based_stochastic_multi_current::ComputeChannelStateTime
 	return (channelsPtr->ComputeChannelStateTimeConstant(voltage));
 }
 
-void File_based_stochastic_multi_current::ShowParam() const {
+void File_based_stochastic_multi_current::show_param() const {
 	std::cout << "Na channel parameters:" << std::endl;
 	std::cout << "Single channel conductivity [nA]" << _conductivity() << std::endl;
 	std::cout << "Channel density [1/muMeter^2]" << _area() << std::endl;

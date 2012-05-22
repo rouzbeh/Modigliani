@@ -128,7 +128,7 @@ public:
 		return (-42);
 	}
 
-	virtual mbase::Mreal NumChannelsInState(
+	virtual mbase::Mreal num_channels_in_state(
 			mbase::Msize __attribute__((__unused__)) state) const {
 		std::cerr
 				<< "NTBP_membrane_current_o::NumChannels() - Error : Not Implemented."
@@ -142,7 +142,7 @@ public:
 				<< std::endl;
 		return (-42);
 	}
-	virtual void ShowParam() const {
+	virtual void show_param() const {
 		std::cerr
 				<< "NTBP_membrane_current_o::ShowParam - Warning : Not Implemented."
 				<< std::endl;
