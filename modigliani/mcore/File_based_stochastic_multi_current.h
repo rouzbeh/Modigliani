@@ -34,9 +34,9 @@ public:
 override	;
 	virtual mbase::Mreal open_channels() const override;
 	virtual mbase::Mreal compute_conductance() override;
-	mbase::Mreal NumChannelsInState(mbase::Msize state) const;
+	mbase::Mreal num_channels_in_state(mbase::Msize state) const;
 	mbase::Mreal ComputeChannelStateTimeConstant() const;
-	void ShowParam() const;
+	void show_param() const;
 	void printProb(std::string fileName) {
 		for (mbase::Mreal v =20; v<130; v+=0.005) {
 			std::cout << probability_matrix_map[fileName]->getTransitionProbability(v, 2, 1) << std::endl;

@@ -57,7 +57,7 @@ extern "C" {
 #include <tnt/tnt.h>
 #include <nt3dsrc/nt3d_plot2d_vec_vp_obj.h>
 
-namespace mcore{
+namespace mcore {
 
 const int EXIT_V_TOO_HIGH = 1;
 const int EXIT_GRAPHIC_ERROR = 2;
@@ -69,8 +69,9 @@ NTBP_corrected_channel_density(mbase::Mreal chDensity /* mum^-2 */,
 
 mcore::Membrane_current *
 NTBP_create_na_channel_ptr(mbase::Msize sodiumModel, mbase::Msize algorithm,
-		mbase::Mreal chDensity /* mum^-2 */, mbase::Mreal chConductance /* pS */,
-		mbase::Mreal q10, mbase::Mreal temperature /* C */, mbase::Mreal compArea /* mum^2 */);
+		mbase::Mreal chDensity /* mum^-2 */,
+		mbase::Mreal chConductance /* pS */, mbase::Mreal q10,
+		mbase::Mreal temperature /* C */, mbase::Mreal compArea /* mum^2 */);
 
 string createOutputFolder(string outputFolder);
 

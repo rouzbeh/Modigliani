@@ -6,10 +6,11 @@
  */
 
 #ifndef _mcore_lua_based_deterministic_MULTI_CURRENT_O_H_
-#define _mcorelua_based_deterministic_MULTI_CURRENT_O_H_
+#define _mcore_lua_based_deterministic_MULTI_CURRENT_O_H_
 
 #include "Multi_current.h"
 #include "Ion_channels.h"
+#include "auxfunc.h"
 
 extern "C" {
 #include "lua.h"
@@ -37,12 +38,14 @@ public:
 	virtual mbase::Mreturn step_current() override	;
 	virtual mbase::Mreal open_channels() const override;
 	virtual mbase::Mreal compute_conductance() override;
-	virtual mbase::Mreal NumChannelsInState(mbase::Msize state) const override;
-	void ShowParam() const override;
+	virtual mbase::Mreal num_channels_in_state(mbase::Msize state) const override;
+	void show_param() const override;
 
 	string lua_script;
 private:
+	static mbase::Mreal lua_get_ntreal(lua_State* L, string name);
 	mbase::Mreal baseTemp;
+	mbase::Mreal stepV;
 	lua_State* L;
 };}
 #endif /* _mcore_lua_based_deterministic_multi_current_o_H_ */

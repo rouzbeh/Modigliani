@@ -266,7 +266,7 @@ std::vector<mbase::Mreal> Membrane_compartment_sequence::NumChannelsInState(
 		mbase::Msize currIndex, mbase::Msize state) const {
 	std::vector<mbase::Mreal> tmp(_numCompartments());
 	for (mbase::Msize ll = 0; ll < _numCompartments(); ll++) {
-		tmp[ll] = compartmentVec[ll]->Current(currIndex)->NumChannelsInState(
+		tmp[ll] = compartmentVec[ll]->Current(currIndex)->num_channels_in_state(
 				state);
 	}
 	return (tmp);

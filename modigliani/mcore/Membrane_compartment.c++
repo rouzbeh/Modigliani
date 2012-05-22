@@ -232,7 +232,7 @@ bool Membrane_compartment::GillespieStep()
 	return (mbase::M_FAIL);
 }
 
-void Membrane_compartment::ShowParam() const
+void Membrane_compartment::show_param() const
 {
 	std::cout << "Compartment paramters:" << std::endl;
 	std::cout << "Specific membrane capacitance [muF/cm^2] " << _cM() << std::endl;
@@ -241,7 +241,7 @@ void Membrane_compartment::ShowParam() const
 	std::cout << "Compartment currents paramters:" << std::endl;
 	std::vector< Membrane_current * >::const_iterator it = currentVec.begin();
 	for (it = currentVec.begin(); it != currentVec.end(); it++) {
-		(*it)->ShowParam();	
+		(*it)->show_param();
 	}
 }
 
