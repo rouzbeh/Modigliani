@@ -40,7 +40,7 @@ using namespace mcore;
 
 /* ***      CONSTRUCTORS	***/
 /** Create a Spherical_compartment */
-Spherical_compartment::Spherical_compartment(mbase::Mreal newRadius, mbase::Mreal newCm)
+Spherical_compartment::Spherical_compartment(mbase::Real newRadius, mbase::Real newCm)
 :
 Membrane_compartment(4 * M_PI * newRadius * newRadius )
 {

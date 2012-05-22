@@ -37,7 +37,7 @@ using namespace mcore;
 
 /* ***      CONSTRUCTORS	***/
 /** Create a HH_current */
-HH_current::HH_current(mbase::Mreal newReversalPotential, mbase::Mreal newMaxConductivity, mbase::Mreal newArea)
+HH_current::HH_current(mbase::Real newReversalPotential, mbase::Real newMaxConductivity, mbase::Real newArea)
 :
 Membrane_current(newReversalPotential)
 {

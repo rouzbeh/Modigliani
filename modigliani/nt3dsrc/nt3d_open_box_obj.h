@@ -61,7 +61,7 @@
 class NT3D_open_box_o : public NT3D_surfaced_object_o {
 public:
 /***   Constructors, Copy/Assignment and Destructor  ***/  
-NT3D_open_box_o(mbase::Mreal width = 1.0, mbase::Mreal depth = 1.0, mbase::Mreal height = 1.0);
+NT3D_open_box_o(mbase::Real width = 1.0, mbase::Real depth = 1.0, mbase::Real height = 1.0);
 NT3D_open_box_o(const NT3D_open_box_o & original);
 const NT3D_open_box_o & operator= (const NT3D_open_box_o & right);
 virtual ~NT3D_open_box_o();
@@ -71,16 +71,16 @@ protected:
 /* ***  Methods              ***/
 void DrawSurfacedObj();
 virtual void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl , NTint __attribute__((unused)) value){cerr << "Not implemented" << std::endl;};
-virtual void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl , mbase::Mreal __attribute__((unused)) value){cerr << "Not implemented" << std::endl;};
+virtual void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl , mbase::Real __attribute__((unused)) value){cerr << "Not implemented" << std::endl;};
 virtual void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl , NT_std::vector_o __attribute__((unused)) value){cerr << "Not implemented" << std::endl;};
 /* ***  Data                 ***/  
 NT_std::vector3_o oScaling;
 private:
 /* ***  Methods              ***/  
 /* ***  Data                 ***/ 
-mbase::Mreal width;
-mbase::Mreal depth;
-mbase::Mreal height;
+mbase::Real width;
+mbase::Real depth;
+mbase::Real height;
 
 };
 #endif /* _nt3d_open_box_obj_h_ */ 

@@ -18,9 +18,9 @@ std::map<std::string, std::vector<int> > File_based_stochastic_multi_current::op
 /* ***      CONSTRUCTORS	***/
 /** Create a NTBP_hranvier_sodium_multi_current_o */
 
-File_based_stochastic_multi_current::File_based_stochastic_multi_current(mbase::Mreal newArea,
-		mbase::Mreal newDensity, mbase::Mreal newConductivity, mbase::Mreal newVBase,
-		mbase::Mreal newReversalPotential, mbase::Mreal newTimeStep, mbase::Mreal newTemperature,
+File_based_stochastic_multi_current::File_based_stochastic_multi_current(mbase::Real newArea,
+		mbase::Real newDensity, mbase::Real newConductivity, mbase::Real newVBase,
+		mbase::Real newReversalPotential, mbase::Real newTimeStep, mbase::Real newTemperature,
 		std::string fileName) :
 		Multi_current(newReversalPotential /* in mV */,
 				newDensity /* channels per mu^2 */, newArea /* in mu^2 */,
@@ -164,22 +164,22 @@ inline mbase::Mreturn File_based_stochastic_multi_current::step_current() {
 
 /**  */
 /** No descriptions */
-inline mbase::Mreal File_based_stochastic_multi_current::open_channels() const {
+inline mbase::Real File_based_stochastic_multi_current::open_channels() const {
 	return (channelsPtr->NumOpen());
 }
 
 /**  */
 /** No descriptions */
-inline mbase::Mreal File_based_stochastic_multi_current::num_channels_in_state(
+inline mbase::Real File_based_stochastic_multi_current::num_channels_in_state(
 		mbase::Msize state) const {
 	return (channelsPtr->numChannelsInState(state));
 }
 
-inline mbase::Mreal File_based_stochastic_multi_current::compute_conductance() {
+inline mbase::Real File_based_stochastic_multi_current::compute_conductance() {
 	return (Set_conductance(channelsPtr->NumOpen() * conductivity));
 }
 
-inline mbase::Mreal File_based_stochastic_multi_current::ComputeChannelStateTimeConstant() const {
+inline mbase::Real File_based_stochastic_multi_current::ComputeChannelStateTimeConstant() const {
 	return (channelsPtr->ComputeChannelStateTimeConstant(voltage));
 }
 

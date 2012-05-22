@@ -90,10 +90,10 @@ protected:
 		return mbase::M_FAIL;
 	}
 	/** Make a colored point within the normalised texure area [0,1]x[0,1] */
-	virtual mbase::Mreal* MakeRGBATexturePoint(
-			mbase::Mreal __attribute__((unused)) *colorVec,
-			mbase::Mreal __attribute__((unused)) coorX,
-			mbase::Mreal __attribute__((unused)) coorY) {
+	virtual mbase::Real* MakeRGBATexturePoint(
+			mbase::Real __attribute__((unused)) *colorVec,
+			mbase::Real __attribute__((unused)) coorX,
+			mbase::Real __attribute__((unused)) coorY) {
 		cerr
 				<< "NT3D_pixel_texture_o::MakeRGBATexturePoint - Warning : Not overriden in derived class. "
 				<< std::endl;

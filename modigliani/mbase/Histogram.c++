@@ -26,7 +26,7 @@ using namespace mbase;
 
 /* ***      CONSTRUCTORS	***/
 /** Create a Histogram */
-Histogram::Histogram(Mreal minVal, Mreal maxVal,
+Histogram::Histogram(Real minVal, Real maxVal,
 		Msize numberOfBins) :
 		bins((int) numberOfBins) {
 	min = minVal;
@@ -90,27 +90,27 @@ void Histogram::Reset() {
  \warning    Bound checking is implicitly done by increasing numOutliers
  \bug        unknown
  */
-void Histogram::BinValue(Mreal value) {
+void Histogram::BinValue(Real value) {
 	numDataPoints++;
 	if ((value > max) || (value < min))
 		numOutliers++;
 	else
-		(bins[floor(0.5 + (value - min) / (Mreal) binWidth)]) += 1;
+		(bins[floor(0.5 + (value - min) / (Real) binWidth)]) += 1;
 }
 
-std::vector<Mreal> Histogram::PDF() const {
-	std::vector<Mreal> probVec(numBins);
+std::vector<Real> Histogram::PDF() const {
+	std::vector<Real> probVec(numBins);
 	for (Msize ll = 0; ll < numBins; ll++) {
-		probVec[ll] = ((Mreal) bins[ll]) / ((Mreal) numDataPoints);
+		probVec[ll] = ((Real) bins[ll]) / ((Real) numDataPoints);
 	}
 	return (probVec);
 }
 
-Mreal Histogram::ShannonEntropy() const {
-	Mreal h = 0;
-	Mreal p = 0;
+Real Histogram::ShannonEntropy() const {
+	Real h = 0;
+	Real p = 0;
 	for (Msize ll = 0; ll < numBins; ll++) {
-		p = ((Mreal) bins[ll]) / ((Mreal) numDataPoints);
+		p = ((Real) bins[ll]) / ((Real) numDataPoints);
 		if (0.0 != p)
 			h -= p * log(p);
 	}

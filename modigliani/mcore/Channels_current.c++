@@ -36,10 +36,10 @@ using namespace mcore;
 
 /* ***      CONSTRUCTORS	***/
 /** Create a Channels_current */
-Channels_current::Channels_current(mbase::Mreal newReversalPotential, //in mV
-		mbase::Mreal newDensity, // channels per mumeter^2
-		mbase::Mreal newArea, // in mumeter^2
-		mbase::Mreal newConductivity // in mSiemens per channel
+Channels_current::Channels_current(mbase::Real newReversalPotential, //in mV
+		mbase::Real newDensity, // channels per mumeter^2
+		mbase::Real newArea, // in mumeter^2
+		mbase::Real newConductivity // in mSiemens per channel
 		) :
 		Membrane_current(newReversalPotential) {
 

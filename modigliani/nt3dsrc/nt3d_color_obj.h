@@ -95,13 +95,13 @@ public:
   void SetColor( GLfloat newR, GLfloat newG, GLfloat newB, GLfloat newAlpha);
   void SetColor( const GLfloat newColor[] );
   void SetColor( const NT3D_color_o & newColor);
-  mbase::Mreal _R(){ return colorRGBA[0];}
-  mbase::Mreal _G(){ return colorRGBA[1];}
-  mbase::Mreal _B(){ return colorRGBA[2];}
-  mbase::Mreal _Alpha(){ return colorRGBA[3];}
+  mbase::Real _R(){ return colorRGBA[0];}
+  mbase::Real _G(){ return colorRGBA[1];}
+  mbase::Real _B(){ return colorRGBA[2];}
+  mbase::Real _Alpha(){ return colorRGBA[3];}
   NT3D_color_o operator+(const NT3D_color_o &right) const;
   NT3D_color_o operator-(const NT3D_color_o &right) const;
-  NT3D_color_o operator*(mbase::Mreal alpha) const;
+  NT3D_color_o operator*(mbase::Real alpha) const;
   /* return the pointer to the color Cache (for OpenGL draws) */
   const GLfloat * _colorPtr() {Update(); return (const GLfloat*) colorPtr;}
    /*   Data                   */  

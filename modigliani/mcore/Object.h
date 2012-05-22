@@ -57,14 +57,14 @@ enum NTBPdelayedPotassiumRectifierType {
 	NTBP_FROG_MUSCLE // frog skeletal muscle by Standen et al. (1985)
 };
 
-const mbase::Mreal NTBP_STD_TEMPERATURE = 6.3; // Celsius (NOT TO BE CHANGED)
+const mbase::Real NTBP_STD_TEMPERATURE = 6.3; // Celsius (NOT TO BE CHANGED)
 
-mbase::Mreal NTBP_temperature_rate_relation(mbase::Mreal temp /* C */, mbase::Mreal q10);
-mbase::Mreal NTBP_temperature_rate_relation(mbase::Mreal temp /* C */,
-		mbase::Mreal baseTemp /* C */, mbase::Mreal q10);
+mbase::Real NTBP_temperature_rate_relation(mbase::Real temp /* C */, mbase::Real q10);
+mbase::Real NTBP_temperature_rate_relation(mbase::Real temp /* C */,
+		mbase::Real baseTemp /* C */, mbase::Real q10);
 /** Compute length constant in muMeter */
-mbase::Mreal NTBP_length_constant_passive_cable(mbase::Mreal diameter /* mu */,
-		mbase::Mreal rAxoplasmic /* Ohm cm */, mbase::Mreal gLeak /* mSiemens/cm^2 */);
+mbase::Real NTBP_length_constant_passive_cable(mbase::Real diameter /* mu */,
+		mbase::Real rAxoplasmic /* Ohm cm */, mbase::Real gLeak /* mSiemens/cm^2 */);
 
 /** @short Object class
  \bug unknown
@@ -82,7 +82,7 @@ public:
 	const Object & operator=(const Object & right);
 	virtual ~Object();
 	/* ***  Methods              ***/
-	mbase::Mreal _timeStep() const {
+	mbase::Real _timeStep() const {
 		return (timeStep);
 	}
 	/** @short  update of explicitly time dependent variables using a deltaT = timeStep, NO update
@@ -92,7 +92,7 @@ public:
 	 \warning    indirectly time dependent variables NOT updated
 	 \bug        unknown
 	 */
-	mbase::Mreal update_timeStep(mbase::Mreal newSuggestedTimeStep) { /* if (suggestedTimeStep > newSuggestedTimeStep) */
+	mbase::Real update_timeStep(mbase::Real newSuggestedTimeStep) { /* if (suggestedTimeStep > newSuggestedTimeStep) */
 		suggestedTimeStep = newSuggestedTimeStep;
 		return (newSuggestedTimeStep);
 	}
@@ -106,13 +106,13 @@ public:
 		timeStep = suggestedTimeStep;
 		return (mbase::M_SUCCESS);
 	}
-	mbase::Mreal _timeStep() {
+	mbase::Real _timeStep() {
 		return (timeStep);
 	}
-	mbase::Mreal _baseTimeStep() {
+	mbase::Real _baseTimeStep() {
 		return (baseTimeStep);
 	}
-	void setTimeStep(mbase::Mreal newTimeStep) {
+	void setTimeStep(mbase::Real newTimeStep) {
 		timeStep = newTimeStep;
 	}
 	/* ***  Data                 ***/
@@ -122,9 +122,9 @@ protected:
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	mbase::Mreal baseTimeStep; // time step size in msec;
-	static mbase::Mreal timeStep; // time step size in msec;
-	static mbase::Mreal suggestedTimeStep; // time step size in msec;
+	mbase::Real baseTimeStep; // time step size in msec;
+	static mbase::Real timeStep; // time step size in msec;
+	static mbase::Real suggestedTimeStep; // time step size in msec;
 };
 }
 #endif /* _Object.h_ */ 

@@ -87,12 +87,12 @@ public:
       and are not to be overwritten themselves by derived classes,
       derived classes implement/overwrite ControlObj */    
   void ControlImpl(NT3Dcontroller cntrl , NTint value);
-  void ControlImpl(NT3Dcontroller cntrl , mbase::Mreal value); 
+  void ControlImpl(NT3Dcontroller cntrl , mbase::Real value); 
   void ControlImpl(NT3Dcontroller cntrl , NT_std::vector_o value);
   /** ControlObj is to overwritten by derived classes to
       handle controller calls */
   virtual void ControlObj(NT3Dcontroller cntrl , NTint value)=0;
-  virtual void ControlObj(NT3Dcontroller cntrl , mbase::Mreal value)=0;
+  virtual void ControlObj(NT3Dcontroller cntrl , mbase::Real value)=0;
   virtual void ControlObj(NT3Dcontroller cntrl , NT_std::vector_o value)=0;
   private:
   void DrawChild() const;

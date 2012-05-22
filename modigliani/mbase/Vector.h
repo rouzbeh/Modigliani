@@ -43,14 +43,14 @@ class Vector : public Obj {
 public:
     Vector();
     Vector(Muint dim);
-    Vector(Muint dim, Mreal * elemVec);
+    Vector(Muint dim, Real * elemVec);
     Vector(Muint dim, float * elemVec);
-    // if Mreal != double uncomment the below line
+    // if Real != double uncomment the below line
     // Vector(Muint dim, double * elemVec);
     Vector(Vector3 newVector3);
-    Vector(Mreal a, Mreal b);
-    Vector(Mreal a, Mreal b, Mreal c);
-    Vector(Mreal a, Mreal b, Mreal c, Mreal d);
+    Vector(Real a, Real b);
+    Vector(Real a, Real b, Real c);
+    Vector(Real a, Real b, Real c, Real d);
     Vector(const Vector &);
     Vector& operator=(Vector const &);
     ~Vector();
@@ -61,32 +61,32 @@ public:
     //! subtraction C = A-B
     Vector operator-(const Vector &) const;
     //! scalar product r = A*B
-    Mreal operator*(const Vector &) const;
+    Real operator*(const Vector &) const;
     //! scalar (dot) product r = A*B
-    Mreal Dot(const Vector right) const
+    Real Dot(const Vector right) const
     {
         return ((*this)*(right));
     }
     /** cosine of the angle between two Vector */
-    Mreal CosAng( const Vector right)
+    Real CosAng( const Vector right)
     {
         return ((*this)*(right) / (Length() * right.Length()));
     }
     //! Scaling, factor multiplication (from the RIGHT) C = A*alpha
-    Vector operator*(Mreal) const;
+    Vector operator*(Real) const;
     //! Access vector components 1..dimension slower and safer
-    Mreal &operator()(Mint component) const;
+    Real &operator()(Mint component) const;
     //! Access vector components 0..(dimension-1) fast and no range checking
-    Mreal &operator[](Mint component) const;
-    Mreal operator^(Vector b);
+    Real &operator[](Mint component) const;
+    Real operator^(Vector b);
     operator Vector3() const;
     friend std::ostream & operator<<(std::ostream & os, const Vector & self);
     /*		Functions		*/
     Vector BaseVectorAngle() const;
-    inline Mreal Length() const {
+    inline Real Length() const {
         return (sqrt(LenSqr()));
     };
-    Mreal LenSqr() const;
+    Real LenSqr() const;
     Muint _dim() const {
         return (dimension);
     }
@@ -94,15 +94,15 @@ public:
     Muint _dimension() const {
         return (dimension);
     };
-    const Mreal* _elem() const;
-    void set_elem(const Mreal * elemVec);
+    const Real* _elem() const;
+    void set_elem(const Real * elemVec);
     /*		Data		*/
 private:
     /*		Methods		*/
     void Init(Muint newDim);//!< call only on first Init, or free elem before
     void set_dimension(Muint newDim);
     /*		Data		*/
-    Mreal* elem;
+    Real* elem;
     Muint dimension;
 };
 }

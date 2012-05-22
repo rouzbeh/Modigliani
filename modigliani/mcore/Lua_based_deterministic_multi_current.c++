@@ -10,9 +10,9 @@
 using namespace mcore;
 
 /* ***      CONSTRUCTORS	***/
-Lua_based_deterministic_multi_current::Lua_based_deterministic_multi_current(mbase::Mreal newArea,
-		mbase::Mreal newDensity, mbase::Mreal newConductivity, mbase::Mreal newVBase,
-		mbase::Mreal newReversalPotential, mbase::Mreal newTimeStep, mbase::Mreal newTemperature,
+Lua_based_deterministic_multi_current::Lua_based_deterministic_multi_current(mbase::Real newArea,
+		mbase::Real newDensity, mbase::Real newConductivity, mbase::Real newVBase,
+		mbase::Real newReversalPotential, mbase::Real newTimeStep, mbase::Real newTemperature,
 		string new_lua_script) :
 		Multi_current(newReversalPotential /* in mV */,
 				newDensity /* channels per mu^2 */, newArea /* in mu^2 */,
@@ -90,7 +90,7 @@ Lua_based_deterministic_multi_current::~Lua_based_deterministic_multi_current() 
  \bug        unknown
  */
 inline mbase::Mreturn Lua_based_deterministic_multi_current::step_current() {
-	mbase::Mreal rounded_voltage = floor((voltage / stepV)+0.5)*stepV;
+	mbase::Real rounded_voltage = floor((voltage / stepV)+0.5)*stepV;
 	switch (_simulationMode()) {
 	case NTBP_DETERMINISTIC: {
 		lua_getglobal(L, "step_current");
@@ -117,13 +117,13 @@ inline mbase::Mreturn Lua_based_deterministic_multi_current::step_current() {
 
 /**  */
 /** No descriptions */
-inline mbase::Mreal Lua_based_deterministic_multi_current::open_channels() const {
+inline mbase::Real Lua_based_deterministic_multi_current::open_channels() const {
 	lua_getglobal(L, "open_channels");
 
 	/* call the function with 0
 	 argument, return 1 result */
 	lua_call(L, 0, 1);
-	mbase::Mreal count = lua_tonumber(L, -1);
+	mbase::Real count = lua_tonumber(L, -1);
 	lua_pop(L, 1);
 
 	return (count * NumChannels());
@@ -131,19 +131,19 @@ inline mbase::Mreal Lua_based_deterministic_multi_current::open_channels() const
 
 /**  */
 /** No descriptions */
-mbase::Mreal Lua_based_deterministic_multi_current::num_channels_in_state(
+mbase::Real Lua_based_deterministic_multi_current::num_channels_in_state(
 		mbase::Msize __attribute__((__unused__)) state) const {
 	std::cerr << "Deterministic channel does not have states" << std::endl;
 	return (0);
 }
 
-inline mbase::Mreal Lua_based_deterministic_multi_current::compute_conductance() {
+inline mbase::Real Lua_based_deterministic_multi_current::compute_conductance() {
 	lua_getglobal(L, "compute_conductance");
 
 	/* call the function with 0
 	 argument, return 1 result */
 	lua_call(L, 0, 1);
-	mbase::Mreal conduc = lua_tonumber(L, -1);
+	mbase::Real conduc = lua_tonumber(L, -1);
 	lua_pop(L, 1);
 	M_ASSERT(conduc == conduc);
 	return (Set_conductance(
@@ -158,10 +158,10 @@ void Lua_based_deterministic_multi_current::show_param() const {
 			<< _maxConductivity() << std::endl;
 }
 
-mbase::Mreal Lua_based_deterministic_multi_current::lua_get_ntreal(lua_State* L,
+mbase::Real Lua_based_deterministic_multi_current::lua_get_ntreal(lua_State* L,
 		string name) {
 	lua_getglobal(L, name.c_str());
-	mbase::Mreal ret = lua_tonumber(L, -1);
+	mbase::Real ret = lua_tonumber(L, -1);
 	lua_pop(L, 1);
 	return (ret);
 }

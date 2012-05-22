@@ -44,30 +44,30 @@ typedef std::vector<Msize> HistogramBins;
 class Histogram: public Obj {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Histogram(Mreal minVal = 0, Mreal maxVal = 1, Msize numberOfBins =
+	Histogram(Real minVal = 0, Real maxVal = 1, Msize numberOfBins =
 			10);
 	Histogram(const Histogram & original);
 	const Histogram & operator=(const Histogram & right);
 	virtual ~Histogram();
 	/* ***  Methods              ***/
 	void Reset();
-	void BinValue(Mreal value);
+	void BinValue(Real value);
 	void Show(bool showHeader = false) const;
-	std::vector<Mreal> PDF() const;
+	std::vector<Real> PDF() const;
 	/* in bits */
-	Mreal ShannonEntropy() const;
+	Real ShannonEntropy() const;
 
 	friend std::ostream& operator<<(std::ostream& str, const Histogram & self);
 	/* ***  Data                 ***/
 	HistogramBins bins;
-	Mreal numBins;
+	Real numBins;
 protected:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	Mreal min;
-	Mreal max;
-	Mreal binWidth;
-	Mreal numDataPoints;
+	Real min;
+	Real max;
+	Real binWidth;
+	Real numDataPoints;
 	Msize numOutliers;
 private:
 	/* ***  Methods              ***/

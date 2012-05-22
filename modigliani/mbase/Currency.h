@@ -40,15 +40,15 @@ class Currency : public Value
 {
 private:
 	CountryCode countryCode;
-    Mreal conversionFactor;
+    Real conversionFactor;
 
 protected:
     void set_country (mbase::CountryCode newCoutryCode);
-    void set_conversionFactor (Mreal newConversionFactor);
+    void set_conversionFactor (Real newConversionFactor);
 
 public:
     Currency();
-    Currency(mbase::CountryCode initCountry, Mreal initConversionFactor);
+    Currency(mbase::CountryCode initCountry, Real initConversionFactor);
     Currency(const Currency &);
     ~Currency();
     std::string countryCode2currencyName(mbase::CountryCode);

@@ -43,7 +43,7 @@ namespace mcore{
 class Ion_channels: public Object {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Ion_channels(mbase::Msize numNewChannels, mbase::Msize numNewStates, NTBP_transition_rate_matrix_o* probMatrix, mbase::Mreal newTimeStep=0.1);
+	Ion_channels(mbase::Msize numNewChannels, mbase::Msize numNewStates, NTBP_transition_rate_matrix_o* probMatrix, mbase::Real newTimeStep=0.1);
 	Ion_channels(const Ion_channels & original);
 	const Ion_channels & operator=(const Ion_channels & right);
 	virtual ~Ion_channels();
@@ -54,12 +54,12 @@ public:
 	mbase::Msize _numStates() const {
 		return (numStates);
 	}
-	mbase::Mreturn GillespieStep(mbase::Mreal voltage);
+	mbase::Mreturn GillespieStep(mbase::Real voltage);
 	void setAsOpenState(mbase::Msize newOpenState);
-	mbase::Mreturn BinomialStep(mbase::Mreal voltage);
-	mbase::Mreturn DeterministicStep(mbase::Mreal voltage);
-	mbase::Mreturn step(mbase::Mreal voltage);
-	mbase::Mreturn ComputeGillespieStep(mbase::Msize channelStateId, mbase::Mreal voltage);
+	mbase::Mreturn BinomialStep(mbase::Real voltage);
+	mbase::Mreturn DeterministicStep(mbase::Real voltage);
+	mbase::Mreturn step(mbase::Real voltage);
+	mbase::Mreturn ComputeGillespieStep(mbase::Msize channelStateId, mbase::Real voltage);
 	void ShowStates() const;
 	mbase::Msize NumOpen() const;
 	mbase::Msize numChannelsInState(mbase::Msize state) const {
@@ -68,10 +68,10 @@ public:
 	mbase::Msize NumClosed() const {
 		return (_numChannels() - NumOpen());
 	}
-	virtual mbase::Mreturn SteadyStateDistribution(mbase::Mreal voltage);
+	virtual mbase::Mreturn SteadyStateDistribution(mbase::Real voltage);
 	/** Sum of escape rates from current state [1/s] */
-	virtual mbase::Mreal ComputeChannelStateTimeConstant(mbase::Mreal voltage) const;
-	//virtual mbase::Mreturn UpdateStateProb(std::vector <mbase::Mreal> rateConstVec /* in mSec^-1 */) = 0;
+	virtual mbase::Real ComputeChannelStateTimeConstant(mbase::Real voltage) const;
+	//virtual mbase::Mreturn UpdateStateProb(std::vector <mbase::Real> rateConstVec /* in mSec^-1 */) = 0;
 	/**  */
 	void setRatesComputed(bool newValue) {
 		ratesComputed = newValue;
@@ -85,7 +85,7 @@ protected:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
 	// TODO remove this
-	std::vector<mbase::Mreal> statePersistenceProbVec;
+	std::vector<mbase::Real> statePersistenceProbVec;
 	std::vector<mbase::Mint> stateCounterVec;
 	static mbase::Uniform_rnd_dist uniformRnd; // [0,1] random number generation
 	static mbase::Binomial_rnd_dist binomRnd;

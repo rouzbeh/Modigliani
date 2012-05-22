@@ -35,7 +35,7 @@ using namespace mbase;
 //
 void Vector::Init(Muint newDim) {
 	dimension = newDim;
-	elem = (Mreal*) new Mreal[dimension];
+	elem = (Real*) new Real[dimension];
 	for (Muint ll = 0; ll < dimension; ll++)
 		elem[ll] = 0.0;
 }
@@ -55,7 +55,7 @@ Vector::Vector(Muint newDim) {
 	Init(newDim);
 }
 
-Vector::Vector(Muint dim, Mreal * elemVec) {
+Vector::Vector(Muint dim, Real * elemVec) {
 	Init(dim);
 	for (Muint i = 0; i < dimension; i++)
 		elem[i] = elemVec[i];
@@ -67,7 +67,7 @@ Vector::Vector(Muint dim, float * elemVec) {
 		elem[i] = elemVec[i];
 }
 
-/* if Mreal != double uncomment the below lines
+/* if Real != double uncomment the below lines
  Vector::Vector(Muint dim, double * elemVec){
  Init(dim);
  for (Muint i = 0; i < dimension; i++) elem[i] = elemVec[i];
@@ -81,20 +81,20 @@ Vector::Vector(Vector3 newVec3) {
 	elem[2] = newVec3.z;
 }
 
-Vector::Vector(Mreal a, Mreal b) {
+Vector::Vector(Real a, Real b) {
 	Init(2);
 	elem[0] = a;
 	elem[1] = b;
 }
 
-Vector::Vector(Mreal a, Mreal b, Mreal c) {
+Vector::Vector(Real a, Real b, Real c) {
 	Init(3);
 	elem[0] = a;
 	elem[1] = b;
 	elem[2] = c;
 }
 
-Vector::Vector(Mreal a, Mreal b, Mreal c, Mreal d) {
+Vector::Vector(Real a, Real b, Real c, Real d) {
 	Init(4);
 	elem[0] = a;
 	elem[1] = b;
@@ -105,7 +105,7 @@ Vector::Vector(Mreal a, Mreal b, Mreal c, Mreal d) {
 Vector::Vector(const Vector &right) :
 		Obj() {
 	dimension = right.dimension;
-	elem = (Mreal*) new Mreal[dimension];
+	elem = (Real*) new Real[dimension];
 	for (Muint i = 0; i < dimension; i++)
 		elem[i] = right.elem[i];
 }
@@ -165,14 +165,14 @@ Vector::operator Vector3() const {
 }
 
 // Access vector components 1..dimension slower and safer
-Mreal &
+Real &
 Vector::operator()(Mint component) const {
 	M_ASSERT_BOUNDS(component, 1, dimension);
 	return (elem[component - 1]);
 }
 
 // Access vector components 0..(dimension-1)
-Mreal &
+Real &
 Vector::operator[](Mint component) const {
 	return (elem[component]);
 }
@@ -193,8 +193,8 @@ Vector Vector::operator-(const Vector &right) const {
 	return (left);
 }
 
-Mreal Vector::operator*(const Vector &right) const {
-	Mreal result = 0.0;
+Real Vector::operator*(const Vector &right) const {
+	Real result = 0.0;
 	for (Muint i = 0; i < dimension; i++) {
 		result += elem[i] * right[i];
 	}
@@ -202,7 +202,7 @@ Mreal Vector::operator*(const Vector &right) const {
 }
 
 // scalar multiplication from the RIGHT side
-Vector Vector::operator*(Mreal alpha) const {
+Vector Vector::operator*(Real alpha) const {
 	Vector left(*this);
 	for (Muint i = 0; i < dimension; i++) {
 		left[i] = alpha * elem[i];
@@ -221,9 +221,9 @@ Vector::operator=(Vector const &right) {
 		else
 			delete[] elem;
 		dimension = right.dimension;
-		elem = new Mreal[dimension];
+		elem = new Real[dimension];
 
-		memcpy(elem, right.elem, dimension * sizeof(Mreal));
+		memcpy(elem, right.elem, dimension * sizeof(Real));
 
 		return (*this);
 	}
@@ -243,23 +243,23 @@ Vector Vector::BaseVectorAngle() const {
 	return (oDirection);
 }
 
-Mreal Vector::LenSqr() const {
-	Mreal len = 0.0;
+Real Vector::LenSqr() const {
+	Real len = 0.0;
 	for (Muint ll = 0; ll < dimension; ll++)
 		len += elem[ll] * elem[ll];
 	return(len);
 }
 
 /** return pointer to element vector.
- \warning The constant pointer to Mreal[dimension] should
+ \warning The constant pointer to Real[dimension] should
  not be modified by any reason.
  */
-const Mreal*
+const Real*
 Vector::_elem() const {
-	return ((const Mreal*) elem);
+	return ((const Real*) elem);
 }
 
-void Vector::set_elem(const Mreal * elemVec) {
+void Vector::set_elem(const Real * elemVec) {
 	for (Muint i = 0; i < dimension; i++)
 		elem[i] = elemVec[i];
 }
@@ -268,7 +268,7 @@ void Vector::set_dimension(Muint newDim) {
 	// save old entries and create new vector components
 	Vector tmpVec = *this;
 	delete elem;
-	elem = new Mreal[newDim];
+	elem = new Real[newDim];
 
 	// copy old entries into vector forall i < newDim
 	for (Muint i = 0; i < newDim; i++)
@@ -292,7 +292,7 @@ std::ostream & operator<<(std::ostream & os, const Vector & self) {
 	return (os);
 }
 
-Mreal Vector::operator^(Vector right) {
+Real Vector::operator^(Vector right) {
 	return (CosAng(right));
 }
 

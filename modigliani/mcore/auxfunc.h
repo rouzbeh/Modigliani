@@ -63,15 +63,15 @@ const int EXIT_V_TOO_HIGH = 1;
 const int EXIT_GRAPHIC_ERROR = 2;
 const int EXIT_IO_ERROR = 3;
 
-mbase::Mreal /* mum^-2 */
-NTBP_corrected_channel_density(mbase::Mreal chDensity /* mum^-2 */,
-		mbase::Mreal compArea /* mum^-2 */);
+mbase::Real /* mum^-2 */
+NTBP_corrected_channel_density(mbase::Real chDensity /* mum^-2 */,
+		mbase::Real compArea /* mum^-2 */);
 
 mcore::Membrane_current *
 NTBP_create_na_channel_ptr(mbase::Msize sodiumModel, mbase::Msize algorithm,
-		mbase::Mreal chDensity /* mum^-2 */,
-		mbase::Mreal chConductance /* pS */, mbase::Mreal q10,
-		mbase::Mreal temperature /* C */, mbase::Mreal compArea /* mum^2 */);
+		mbase::Real chDensity /* mum^-2 */,
+		mbase::Real chConductance /* pS */, mbase::Real q10,
+		mbase::Real temperature /* C */, mbase::Real compArea /* mum^2 */);
 
 string createOutputFolder(string outputFolder);
 

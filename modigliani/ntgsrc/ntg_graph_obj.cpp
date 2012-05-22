@@ -340,7 +340,7 @@ NTG_NodeDistanceMatrix NTG_graph_o::NodeDistanceMatrix(
 	Matrix<bool> foundMtr(NumNodes(), NumNodes(), false);
 	//cerr << "NTG_graph_o::NodeDistanceMatrix  - Talk : Init done. NumNodes ="<< NumNodes()<< std::endl;
 
-	mbase::Mreal minVal;
+	mbase::Real minVal;
 	mbase::Msize minNode = 0;
 
 	//cout << aMtr;

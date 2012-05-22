@@ -49,7 +49,7 @@
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NT3D_open_box_o */
-NT3D_open_box_o::NT3D_open_box_o(mbase::Mreal newWidth, mbase::Mreal newDepth, mbase::Mreal newHeight)
+NT3D_open_box_o::NT3D_open_box_o(mbase::Real newWidth, mbase::Real newDepth, mbase::Real newHeight)
 :
 NT3D_surfaced_object_o(),
 oScaling(1,1,1),
@@ -94,9 +94,9 @@ NT3D_open_box_o::~NT3D_open_box_o()
 void
 NT3D_open_box_o::DrawSurfacedObj() 
 {
-	mbase::Mreal x = depth/2 * oScaling.x;
-	mbase::Mreal y = height/2 * oScaling.y;
-	mbase::Mreal z = width/2 * oScaling.z;
+	mbase::Real x = depth/2 * oScaling.x;
+	mbase::Real y = height/2 * oScaling.y;
+	mbase::Real z = width/2 * oScaling.z;
 	
 	oMaterial.Paint();
     oTexturePtr->Paint();

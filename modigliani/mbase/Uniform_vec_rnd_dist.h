@@ -39,7 +39,7 @@ namespace mbase{
 class Uniform_vec_rnd_dist : public Vec_rnd_dist {
 public:
     /***   Constructors, CopyAssignment and Destructor  ***/
-    Uniform_vec_rnd_dist(Mreal lowerBound, Mreal upperBound, Msize dim);
+    Uniform_vec_rnd_dist(Real lowerBound, Real upperBound, Msize dim);
     Uniform_vec_rnd_dist(Vector lowerBound, Vector upperBound, Msize dim);
 
     Uniform_vec_rnd_dist(const Uniform_vec_rnd_dist & original);

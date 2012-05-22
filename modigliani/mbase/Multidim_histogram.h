@@ -38,33 +38,33 @@ namespace mbase{
 class Multidim_histogram : public Obj {
 public:
     /***   Constructors, Copy/Assignment and Destructor  ***/
-	Multidim_histogram(Mreal low, Mreal high, Msize binsPerDim, Msize dims);
+	Multidim_histogram(Real low, Real high, Msize binsPerDim, Msize dims);
     Multidim_histogram(const Multidim_histogram & original);
     const Multidim_histogram & operator= (const Multidim_histogram & right);
     virtual ~Multidim_histogram();
     /* ***  Methods              ***/
     /** Enter data into histogram with data $\in [min,max] $*/
-    Msize BinValue( const std::vector <Mreal>  & valueVec);
+    Msize BinValue( const std::vector <Real>  & valueVec);
     /** No descriptions */
-    Mreal ShannonEntropy() const;
+    Real ShannonEntropy() const;
     /**  Set histogram to initial values */
     void Reset();
     Msize _numBinned() const {
         return (numBinned);
     }
-    Mreal _min() const {
+    Real _min() const {
         return (min);
     }
-    Mreal _max() const {
+    Real _max() const {
         return (max);
     }
-    Mreal _range() const {
+    Real _range() const {
         return (range);
     }
-    Mreal _numBinPerDim() const {
+    Real _numBinPerDim() const {
         return (numBins);
     }
-    Mreal _dim() const {
+    Real _dim() const {
         return (dim);
     }
     std::vector <Msize> _outsideBinVec() const {
@@ -79,9 +79,9 @@ private:
     /* ***  Methods              ***/
     Msize numBinned;
     std::vector <Msize> outsideBinVec;
-    Mreal min;
-    Mreal max;
-    Mreal range;
+    Real min;
+    Real max;
+    Real range;
     Msize numBins;
     Msize dim;
     /* ***  Data                 ***/

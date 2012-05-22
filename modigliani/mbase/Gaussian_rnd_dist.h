@@ -33,21 +33,21 @@
                     random distribution objects based upon inidividual paramters
 		      for each subspace
 	Idea : The usage idea is to call the object which returns
-             a Mreal or M_vector_o containing random values out
+             a Real or M_vector_o containing random values out
              of its specific distribution [a,b]
 	     */
 namespace mbase{
 class Gaussian_rnd_dist : public Rnd_dist {
 public:
     Gaussian_rnd_dist();
-    Gaussian_rnd_dist(Mreal newMean, Mreal newStdDev);
+    Gaussian_rnd_dist(Real newMean, Real newStdDev);
     Gaussian_rnd_dist(const Gaussian_rnd_dist &);
     virtual ~Gaussian_rnd_dist();
-    operator Mreal() const {
+    operator Real() const {
         return (RndVal());
     }
-    Mreal RndVal() const;
-    Mreal _stddevi() const  {
+    Real RndVal() const;
+    Real _stddevi() const  {
         return (stddevi);
     };
     friend std::ostream & operator<<(std::ostream & os, const Gaussian_rnd_dist & self);
@@ -59,7 +59,7 @@ protected:
 private:
     //! switch for faster standard normal distribution computation
     Mbool stdNormSW;
-    Mreal stddevi;
+    Real stddevi;
 };
 }
 

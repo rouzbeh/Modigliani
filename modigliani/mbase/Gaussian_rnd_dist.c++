@@ -30,8 +30,8 @@ Gaussian_rnd_dist::Gaussian_rnd_dist() {
 	stdNormSW = M_TRUE;
 }
 
-Gaussian_rnd_dist::Gaussian_rnd_dist(Mreal newMean,
-		Mreal newStddevi) {
+Gaussian_rnd_dist::Gaussian_rnd_dist(Real newMean,
+		Real newStddevi) {
 	M_ASSERT(newStddevi >= 0.0);
 	mean = newMean;
 	stddevi = newStddevi;
@@ -46,17 +46,17 @@ Gaussian_rnd_dist::~Gaussian_rnd_dist() {
 }
 
 //
-//	Method name : Gaussian_rnd_dist operator Mreal()
+//	Method name : Gaussian_rnd_dist operator Real()
 //
-//	Description : "Cast" a random value to Mreal
+//	Description : "Cast" a random value to Real
 //	Input : nothing
-//	Output : an Mreal random value
+//	Output : an Real random value
 //
-Mreal Gaussian_rnd_dist::RndVal() const {
+Real Gaussian_rnd_dist::RndVal() const {
 	if (M_TRUE == stdNormSW)
-		return ((Mreal) gaussian01());
+		return ((Real) gaussian01());
 	else
-		return ((Mreal) gaussian01() * stddevi + mean);
+		return ((Real) gaussian01() * stddevi + mean);
 }
 
 //

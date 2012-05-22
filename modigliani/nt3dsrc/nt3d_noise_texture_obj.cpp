@@ -86,8 +86,8 @@ NT3D_noise_texture_o::~NT3D_noise_texture_o()
    \warning    unknown
    \bug        unknown
  */
-mbase::Mreal *
-NT3D_noise_texture_o::MakeRGBATexturePoint(mbase::Mreal* colorVec, mbase::Mreal __attribute__((unused)) coorX, mbase::Mreal __attribute__((unused)) coorY)
+mbase::Real *
+NT3D_noise_texture_o::MakeRGBATexturePoint(mbase::Real* colorVec, mbase::Real __attribute__((unused)) coorX, mbase::Real __attribute__((unused)) coorY)
 {
 		
 	colorVec[0] = rRnd.RndVal();
@@ -103,9 +103,9 @@ mbase::Mreturn
 NT3D_noise_texture_o::AssignPixelTexture()
 {
 	mbase::Msize i, j;
-    mbase::Mreal ti, tj;
+    mbase::Real ti, tj;
 	mbase::Msize tmp;
-	mbase::Mreal* tmpColor = new mbase::Mreal[4];
+	mbase::Real* tmpColor = new mbase::Real[4];
 
     for (i = 0; i < textureWidth; i++) {
         ti = 2.0*M_PI*i/textureWidth;

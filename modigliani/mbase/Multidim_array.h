@@ -49,8 +49,8 @@ public:
 		num = n;
 		// implementation range checking
 		/* 2DO not working as numeric_limits not implemented in gcc 2.95
-		 Mreal numElem = pow(n,d);
-		 Mreal maxIndexRange = numeric_limits<Msize>::max();
+		 Real numElem = pow(n,d);
+		 Real maxIndexRange = numeric_limits<Msize>::max();
 		 if (numElem >= maxIndexRange) {
 		 std::cerr <<
 		 "M_multidim_array_o::M_multidim_array_o - Error : array will contain to many elements"

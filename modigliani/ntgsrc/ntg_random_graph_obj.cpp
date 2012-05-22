@@ -108,7 +108,7 @@ NTG_random_graph_o::NTG_random_graph_o(mbase::Msize numInitialNodes,
 
 /** Create a NTG_random_graph_o */
 NTG_random_graph_o::NTG_random_graph_o(mbase::Msize numInitialNodes,
-		mbase::Mreal connectivityProbability, const NTG_node_o & nodeProto,
+		mbase::Real connectivityProbability, const NTG_node_o & nodeProto,
 		const NTG_edge_o & edgeProto) :
 		NTG_graph_o() {
 	/* init */

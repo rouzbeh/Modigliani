@@ -66,7 +66,7 @@ NTBP_tridiag_solver_o::~NTBP_tridiag_solver_o() {
 /* ***  PUBLIC                                    ***   */
 /*
  mbase::Mreturn
- NTBP_tridiag_solver_o::Setup(std::vector <mbase::Mreal> newLVec, std::vector <mbase::Mreal> newUVec)
+ NTBP_tridiag_solver_o::Setup(std::vector <mbase::Real> newLVec, std::vector <mbase::Real> newUVec)
  {
  std::cerr << "OBSOLETE code called";
  M_ASSERT(newLVec.size() == numCompartments);
@@ -86,11 +86,11 @@ NTBP_tridiag_solver_o::~NTBP_tridiag_solver_o() {
  \warning    unknown
  \bug        unknown
  */
-std::vector<mbase::Mreal> NTBP_tridiag_solver_o::Solve(std::vector<mbase::Mreal> dVec,
-		std::vector<mbase::Mreal> vVec, std::vector<mbase::Mreal> rVec) {
+std::vector<mbase::Real> NTBP_tridiag_solver_o::Solve(std::vector<mbase::Real> dVec,
+		std::vector<mbase::Real> vVec, std::vector<mbase::Real> rVec) {
 	std::cerr << "OBSOLETE code called";
-	std::vector<mbase::Mreal> lVec;
-	std::vector<mbase::Mreal> uVec;
+	std::vector<mbase::Real> lVec;
+	std::vector<mbase::Real> uVec;
 	M_ASSERT( true == initialised);
 	M_ASSERT(lVec.size() == numCompartments);
 	M_ASSERT(dVec.size() == numCompartments);

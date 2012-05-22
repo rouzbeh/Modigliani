@@ -27,8 +27,8 @@ using namespace mbase;
 /* ***      CONSTRUCTORS	***/
 
 /** dim-dimensional unit with the same distribution (parameters) in each dimension */
-Uniform_vec_rnd_dist::Uniform_vec_rnd_dist(Mreal newLowerBound,
-		Mreal newUpperBound, Msize newDim) :
+Uniform_vec_rnd_dist::Uniform_vec_rnd_dist(Real newLowerBound,
+		Real newUpperBound, Msize newDim) :
 		Vec_rnd_dist(newDim), lowerBoundVec(newDim), upperBoundVec(newDim) {
 	Uniform_rnd_dist * tmpPtr = new Uniform_rnd_dist(newLowerBound,
 			newUpperBound);

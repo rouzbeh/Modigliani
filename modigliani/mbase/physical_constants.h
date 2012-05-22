@@ -38,11 +38,11 @@
 namespace mbase{
 
 /* Data from the IUPAC 2003 website */
-const Mreal ZERO_CELSIUS = Mreal(273.15) /* [K] */;
-const Mreal ZERO_KELVIN = Mreal(-273.15) /* [C] */;
-const Mreal BOLTZMANN = Mreal(1.380658*10e-23) /* [J K^-1], Boltzmann's constant (k, k_B) */;
-const Mreal PLANCK = Mreal(6.6260755*10e-34) /* [J s], Planck's constant (h) */;
-const Mreal PROTON_CHARGE = Mreal(1.60217733*10e-19) /* [C], elementary charge of a proton */;
+const Real ZERO_CELSIUS = Real(273.15) /* [K] */;
+const Real ZERO_KELVIN = Real(-273.15) /* [C] */;
+const Real BOLTZMANN = Real(1.380658*10e-23) /* [J K^-1], Boltzmann's constant (k, k_B) */;
+const Real PLANCK = Real(6.6260755*10e-34) /* [J s], Planck's constant (h) */;
+const Real PROTON_CHARGE = Real(1.60217733*10e-19) /* [C], elementary charge of a proton */;
 
 }
 #endif /* _MMATH_PHYSICAL_CONSTAMS_H_ */

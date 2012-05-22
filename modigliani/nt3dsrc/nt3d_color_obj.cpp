@@ -292,7 +292,7 @@ NT3D_color_o NT3D_color_o::operator-(const NT3D_color_o &right) const {
 }
 
 // scalar multiplication from the RIGHT side
-NT3D_color_o NT3D_color_o::operator*(mbase::Mreal alpha) const {
+NT3D_color_o NT3D_color_o::operator*(mbase::Real alpha) const {
 	NT3D_color_o tmp(colorRGBA);
 	tmp.colorRGBA *= alpha;
 	M_ASSERT_DIM(4, colorRGBA.size());

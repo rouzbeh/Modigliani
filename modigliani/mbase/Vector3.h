@@ -52,14 +52,14 @@ extern Vector3& M_OriginVec3();
 class Vector3: public Obj {
 public:
 	// Vector3 components
-	Mreal x, y, z;
+	Real x, y, z;
 
 	/* ***	  CONSTRUCTORS          ***/
 	Vector3() {
 		x = y = z = 0;
 	}
 
-	Vector3(Mreal pX, Mreal pY, Mreal pZ) :
+	Vector3(Real pX, Real pY, Real pZ) :
 	x(pX), y(pY), z(pZ) {
 	}
 
@@ -117,7 +117,7 @@ public:
 	}
 
 	/** Access vector components 1..dimension slower and safer */
-	Mreal operator()(Mint component) const {
+	Real operator()(Mint component) const {
 		M_ASSERT_BOUNDS(component, 1, 3);
 		switch (component) {
 		case 1:
@@ -137,7 +137,7 @@ public:
 	}
 
 	/** Access vector components read/write */
-	Mreal &
+	Real &
 	operator[](Mint component) {
 		switch (component) {
 		case 0:
@@ -157,7 +157,7 @@ public:
 	}
 
 	/** Access vector components read-only */
-	Mreal operator[](Mint component) const {
+	Real operator[](Mint component) const {
 		switch (component) {
 		case 0:
 			return (x);
@@ -185,32 +185,32 @@ public:
 	}
 
 	/** dot product with another vector (returns a vector)  */
-	Mreal operator*(const Vector3 & pV) const {
+	Real operator*(const Vector3 & pV) const {
 		return (x * pV.x + y * pV.y + z * pV.z);
 	}
 
-	Mreal Dot(const Vector3 & pV) const {
+	Real Dot(const Vector3 & pV) const {
 		return ((*this) * (pV));
 	}
 
-	friend Mreal Dot(const Vector3 & p1, const Vector3 & p2) {
+	friend Real Dot(const Vector3 & p1, const Vector3 & p2) {
 		return (p1 * p2);
 	}
 
 	/**  scalar muliplication from the right */
-	Vector3 operator*(const Mreal pR) const {
+	Vector3 operator*(const Real pR) const {
 		Vector3 out(x * pR, y * pR, z * pR);
 		return (out);
 	}
 
 	/**  scalar muliplication from the left */
-	friend Vector3 operator*(const Mreal pR, const Vector3 pV) {
+	friend Vector3 operator*(const Real pR, const Vector3 pV) {
 		Vector3 out(pV.x * pR, pV.y * pR, pV.z * pR);
 		return (out);
 	}
 
 	/**  scalar muliplication from the right applied to *this */
-	Vector3& operator*=(const Mreal pR) {
+	Vector3& operator*=(const Real pR) {
 		x *= pR;
 		y *= pR;
 		z *= pR;
@@ -223,12 +223,12 @@ public:
 	Vector3 XYZrotation(const Vector3 & rotV) const;
 
 	/** squared euclidean length of vector */
-	Mreal LenSqr(void) const {
+	Real LenSqr(void) const {
 		return (x * x + y * y + z * z);
 	}
 
 	/** euclidean length of vector */
-	Mreal Length(void) const {
+	Real Length(void) const {
 		return (sqrt(LenSqr()));
 	}
 
@@ -236,7 +236,7 @@ public:
 	 Normlises vector, or unmodified if length is 0
 	 */
 	void Norm() {
-		Mreal tmpLen = Length();
+		Real tmpLen = Length();
 		if (tmpLen > 0) {
 			x /= tmpLen;
 			y /= tmpLen;
@@ -246,7 +246,7 @@ public:
 
 	/** Return A normalized version of vector */
 	Vector3 Norm() const {
-		Mreal tmpLen = Length();
+		Real tmpLen = Length();
 		if (tmpLen > 0)
 			return (Vector3(x / tmpLen, y / tmpLen, z / tmpLen));
 		else
@@ -261,11 +261,11 @@ public:
 	}
 
 	/** cosine of the angle between two Vector3s */
-	Mreal CosAng(const Vector3 & pV) {
+	Real CosAng(const Vector3 & pV) {
 		return (this->Dot(pV) / (Length() * pV.Length()));
 	}
 
-	Mreal operator^(const Vector3 & right) {
+	Real operator^(const Vector3 & right) {
 		return (M_SELF.CosAng(right));
 	}
 
@@ -283,7 +283,7 @@ public:
 		return (oDirection);
 	}
 
-	void set_elem(const Mreal * elemVec) {
+	void set_elem(const Real * elemVec) {
 		x = elemVec[0];
 		y = elemVec[1];
 		z = elemVec[2];
@@ -293,9 +293,9 @@ public:
 	Muint _dimension() const {
 		return (3);
 	}
-	/** return a pointer to a DELETABLE Mreal[3] */
-	Mreal* _elem() const {
-		Mreal * tmpPtr = new Mreal[3];
+	/** return a pointer to a DELETABLE Real[3] */
+	Real* _elem() const {
+		Real * tmpPtr = new Real[3];
 		tmpPtr[0] = x;
 		tmpPtr[1] = y;
 		tmpPtr[2] = z;

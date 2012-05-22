@@ -47,23 +47,23 @@ public:
     virtual ~Sequential_statistics();
     /* ***  Methods              ***/
     void Reset();
-    void Add(Mreal val);
+    void Add(Real val);
     unsigned long int _counter() const {
         return (counter);
     }
-    Mreal _average() const {
+    Real _average() const {
         return (average);
     }
-    Mreal _valSquareAverage() const {
+    Real _valSquareAverage() const {
         return (valSquareAverage);
     }
-    Mreal _variance() const {
+    Real _variance() const {
         return (variance);
     }
-    Mreal _min() const {
+    Real _min() const {
         return (min);
     }
-    Mreal _max() const {
+    Real _max() const {
         return (max);
     }
     friend std::ostream& operator<< (std::ostream& str, const Sequential_statistics & self);
@@ -73,14 +73,14 @@ protected:
     /* ***  Data                 ***/
 private:
     /* ***  Methods              ***/
-    Mreal UpdateAverage(Mreal avg, Mreal val, Msize n) const;
+    Real UpdateAverage(Real avg, Real val, Msize n) const;
     /* ***  Data                 ***/
     unsigned long int counter;
-    Mreal average;
-    Mreal valSquareAverage;
-    Mreal variance;
-    Mreal min;
-    Mreal max;
+    Real average;
+    Real valSquareAverage;
+    Real variance;
+    Real min;
+    Real max;
 };
 }
 #endif /* _mbase_sequential_statistics_h_ */

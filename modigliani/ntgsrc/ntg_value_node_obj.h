@@ -57,7 +57,7 @@ public:
     virtual ~NTG_value_node_o();
     /* ***  Methods              ***/
     /* ***  Data                 ***/
-    mbase::Mreal value;
+    mbase::Real value;
 protected:
     /* ***  Methods              ***/
     /* ***  Data                 ***/

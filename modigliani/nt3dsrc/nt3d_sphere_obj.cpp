@@ -47,7 +47,7 @@
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NT3D_sphere_o */
-NT3D_sphere_o::NT3D_sphere_o(const NT_std::vector3_o & oNewPosition, const mbase::Mreal newRadius )
+NT3D_sphere_o::NT3D_sphere_o(const NT_std::vector3_o & oNewPosition, const mbase::Real newRadius )
 :
 NT3D_solid_o(oNewPosition),
 radius(newRadius)

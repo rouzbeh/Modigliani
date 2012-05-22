@@ -45,7 +45,7 @@ namespace mbase {
 class Two_dim_histogram : public Obj {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Two_dim_histogram(Msize numBinsA, Mreal minA, Mreal maxA, Msize numBinsB, Mreal minB, Mreal maxB);
+	Two_dim_histogram(Msize numBinsA, Real minA, Real maxA, Msize numBinsB, Real minB, Real maxB);
 	Two_dim_histogram(const Two_dim_histogram & original);
 	const Two_dim_histogram & operator= (const Two_dim_histogram & right);
 	virtual ~Two_dim_histogram();
@@ -53,15 +53,15 @@ public:
 	/** No descriptions */
 	Mreturn Reset();
 	/** No descriptions */
-	Mreal ShannonEntropy() const;
+	Real ShannonEntropy() const;
 	/** No descriptions */
-	Msize BinValue(Mreal valueA, Mreal valueB);
+	Msize BinValue(Real valueA, Real valueB);
 	/** No descriptions */
 	void Show() const;
 	/** No descriptions */
-	Matrix <Mreal> PDF() const;
+	Matrix <Real> PDF() const;
 	/** No descriptions */
-	Msize BinValue ( std::vector <Mreal> valueVec);
+	Msize BinValue ( std::vector <Real> valueVec);
 	/** No descriptions */
 	Msize _numBinned() {
 		return (numBinned);
@@ -82,13 +82,13 @@ private:
 	/* ***  Data                 ***/
 	Matrix <Msize> table;
 	Msize numBinsA;
-	Mreal maxA;
-	Mreal minA;
-	Mreal rangeA;
+	Real maxA;
+	Real minA;
+	Real rangeA;
 	Msize numBinsB;
-	Mreal maxB;
-	Mreal minB;
-	Mreal rangeB;
+	Real maxB;
+	Real minB;
+	Real rangeB;
 	Msize numBinned;
 	Msize numUnbinned;
 };

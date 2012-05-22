@@ -34,8 +34,8 @@ class Stock_value : public Value {
 
 private:
     Mnum stockExchangeId; // where the value is traded
-    Mreal currentBuyingPrice;
-    Mreal currentSellingPrice;
+    Real currentBuyingPrice;
+    Real currentSellingPrice;
     Date emissionDate;
 
 protected:

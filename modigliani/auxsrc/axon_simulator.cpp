@@ -151,9 +151,9 @@ int simulate(string fileName) {
 		numCompartments = oModel._numCompartments();
 		std::cerr << "Total number of compartments(in oModel)" << numCompartments
 				<< std::endl;
-		std::vector<mbase::Mreal> leakCurrVec(numCompartments);
-		std::vector<mbase::Mreal> naCurrVec(numCompartments);
-		std::vector<mbase::Mreal> kCurrVec(numCompartments);
+		std::vector<mbase::Real> leakCurrVec(numCompartments);
+		std::vector<mbase::Real> naCurrVec(numCompartments);
+		std::vector<mbase::Real> kCurrVec(numCompartments);
 
 #ifdef WITH_PLPLOT
 		/* Graphics init */
@@ -171,11 +171,11 @@ int simulate(string fileName) {
 		/* *** SIMULATION ITERATION LOOP *** */
 		std::cerr << "MainLoop started" << std::endl;
 		float timeVar = 0;
-		mbase::Mreal inpCurrent = 0.0;
+		mbase::Real inpCurrent = 0.0;
 
 		mbase::Uniform_rnd_dist uniformRnd;
 
-		mbase::Mreal timeInMS = 0;
+		mbase::Real timeInMS = 0;
 		int dataRead = 0;
 		for (mbase::Msize lt = 0;
 				lt < config_root["simulation_parameters"]["numIter"].asUInt();
@@ -314,7 +314,7 @@ int get_resting_potential(string fileName) {
 			}
 
 			if (lt == 10000) {
-				mbase::Mreal inpCurrent =
+				mbase::Real inpCurrent =
 						(5
 								* config_root["simulation_parameters"]["inpISDV"].asDouble())
 								+ config_root["simulation_parameters"]["inpI"].asDouble();
@@ -355,7 +355,7 @@ int test() {
 	for (mbase::Msize i = 1; i <= 8; ++i) {
 		for (mbase::Msize j = 1; j <= 8; ++j) {
 			for (mbase::Msize k = 0; k < length; k++) {
-				mbase::Mreal diff =
+				mbase::Real diff =
 						mcore::Lua_based_stochastic_multi_current::probability_matrix_map["/home/man210/Dropbox/workspace/ChannelGenerators/src/lua/SGA_sodium.lua"]->getTransitionProbability(
 								k, i, j)
 								- mcore::File_based_stochastic_multi_current::probability_matrix_map["/home/man210/thesis/channels/SGA_sodium.json"]->getTransitionProbability(

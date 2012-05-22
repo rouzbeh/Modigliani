@@ -211,7 +211,7 @@ NT3D_hierarchic_object_o::ControlImpl(NT3Dcontroller cntrl , NTint value)
 }
 
 void 
-NT3D_hierarchic_object_o::ControlImpl(NT3Dcontroller cntrl , mbase::Mreal value)
+NT3D_hierarchic_object_o::ControlImpl(NT3Dcontroller cntrl , mbase::Real value)
 {
  NT3D_ChildrenQue::iterator tmpIterator;
 

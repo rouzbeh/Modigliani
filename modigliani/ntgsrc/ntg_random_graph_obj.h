@@ -53,7 +53,7 @@ class NTG_random_graph_o : public NTG_graph_o {
 public:
     /***   Constructors, Copy/Assignment and Destructor  ***/
     NTG_random_graph_o(mbase::Msize numInitialNodes, const NTG_node_o & nodeProto, const NTG_edge_o & edgeProto);
-    NTG_random_graph_o(mbase::Msize numInitialNodes, mbase::Mreal connectivityProbability, const NTG_node_o & nodeProto, const NTG_edge_o & edgeProto);
+    NTG_random_graph_o(mbase::Msize numInitialNodes, mbase::Real connectivityProbability, const NTG_node_o & nodeProto, const NTG_edge_o & edgeProto);
     NTG_random_graph_o(const NTG_random_graph_o & original);
     const NTG_random_graph_o & operator= (const NTG_random_graph_o & right);
     virtual ~NTG_random_graph_o();
@@ -68,7 +68,7 @@ private:
     /* ***  Methods              ***/
     void InitFullyConnectedGraph(mbase::Msize numInitialNodes, const NTG_node_o & nodeProto, const NTG_edge_o & edgeProto);
     /* ***  Data                 ***/
-    mbase::Mreal p;
+    mbase::Real p;
 
 };
 #endif /* _ntg_random_graph_obj_h_ */

@@ -39,8 +39,8 @@ Uniform_rnd_dist::Uniform_rnd_dist() {
 	set_statistics();
 }
 
-Uniform_rnd_dist::Uniform_rnd_dist(Mreal lowerBound,
-		Mreal upperBound) {
+Uniform_rnd_dist::Uniform_rnd_dist(Real lowerBound,
+		Real upperBound) {
 	M_ASSERT(lowerBound < upperBound);
 
 	a = lowerBound;
@@ -60,28 +60,28 @@ Uniform_rnd_dist::~Uniform_rnd_dist() {
 
 }
 
-inline Mreal Uniform_rnd_dist::RndVal() const {
+inline Real Uniform_rnd_dist::RndVal() const {
 	if (M_TRUE == ab01)
-		return ((Mreal) uniformMT());
+		return ((Real) uniformMT());
 	else
-		return ((Mreal) (interval * uniformMT() + a));
-//	if (M_TRUE == ab01) return (Mreal) uniformQuickDirty();
-//    else return (Mreal) ( interval*uniformQuickDirty() + a);
+		return ((Real) (interval * uniformMT() + a));
+//	if (M_TRUE == ab01) return (Real) uniformQuickDirty();
+//    else return (Real) ( interval*uniformQuickDirty() + a);
 }
 
 //
 //	Method name : Uniform_rnd_dist
 //
-//	Description : "Cast" a random value in (a,b) to Mreal
+//	Description : "Cast" a random value in (a,b) to Real
 //	Input : nothing
-//	Output : an Mreal random value in (a,b)
+//	Output : an Real random value in (a,b)
 //
-Uniform_rnd_dist::operator Mreal() const {
+Uniform_rnd_dist::operator Real() const {
 	return (RndVal());
 }
 
-Mreturn Uniform_rnd_dist::ChangeBounds(Mreal lowerBound,
-		Mreal upperBound) {
+Mreturn Uniform_rnd_dist::ChangeBounds(Real lowerBound,
+		Real upperBound) {
 	if (lowerBound >= upperBound) {
 		std::cerr << "Uniform_rnd_dist::ChangeBounds - Error : lowerBound "
 				<< lowerBound

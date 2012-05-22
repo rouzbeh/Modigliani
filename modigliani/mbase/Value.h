@@ -42,17 +42,17 @@ protected:
 	void set_amount(Mnum newAmount);
 	void set_id(Mid newId);
 	void set_name(std::string newName);
-	void set_value(Mreal newValue);
+	void set_value(Real newValue);
 
 private:
 	Mnum amount;
 	Mid id;
 	std::string name;
-	Mreal value;
+	Real value;
 
 public:
 	Value();
-	Value(Mid typeId, M_string name, Mnum amount, Mreal value);
+	Value(Mid typeId, M_string name, Mnum amount, Real value);
 	virtual ~Value();
 	friend std::ostream & operator<<(std::ostream & os, const Value & self);
 	Mnum _amount() const {
@@ -60,7 +60,7 @@ public:
 	}
 	Mid _id() const;
 	std::string _name() const;
-	Mreal _value() const;
+	Real _value() const;
 };
 
 }

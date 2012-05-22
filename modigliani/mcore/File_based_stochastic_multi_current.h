@@ -18,9 +18,9 @@
 namespace mcore {
 class File_based_stochastic_multi_current: public Multi_current {
 public:
-	File_based_stochastic_multi_current(mbase::Mreal newArea,
-			mbase::Mreal newDensity, mbase::Mreal newConductivity, mbase::Mreal newVBase,
-			mbase::Mreal reversalPotential, mbase::Mreal newTimeStep, mbase::Mreal newTemperature,
+	File_based_stochastic_multi_current(mbase::Real newArea,
+			mbase::Real newDensity, mbase::Real newConductivity, mbase::Real newVBase,
+			mbase::Real reversalPotential, mbase::Real newTimeStep, mbase::Real newTemperature,
 			std::string fileName);
 	virtual ~File_based_stochastic_multi_current();
 
@@ -32,13 +32,13 @@ public:
 	static std::map<std::string, std::vector<int> > open_states_map;
 	virtual mbase::Mreturn step_current()
 override	;
-	virtual mbase::Mreal open_channels() const override;
-	virtual mbase::Mreal compute_conductance() override;
-	mbase::Mreal num_channels_in_state(mbase::Msize state) const;
-	mbase::Mreal ComputeChannelStateTimeConstant() const;
+	virtual mbase::Real open_channels() const override;
+	virtual mbase::Real compute_conductance() override;
+	mbase::Real num_channels_in_state(mbase::Msize state) const;
+	mbase::Real ComputeChannelStateTimeConstant() const;
 	void show_param() const;
 	void printProb(std::string fileName) {
-		for (mbase::Mreal v =20; v<130; v+=0.005) {
+		for (mbase::Real v =20; v<130; v+=0.005) {
 			std::cout << probability_matrix_map[fileName]->getTransitionProbability(v, 2, 1) << std::endl;
 		}
 	}
@@ -48,7 +48,7 @@ override	;
 private:
 	static bool initTableLookUp;
 	static std::vector<std::string> initialised_probability_matrices;
-	mbase::Mreal baseTemp;
+	mbase::Real baseTemp;
 
 };}
 #endif /* NTBP_file_based_stochastic_MULTI_CURRENT_O_H_ */

@@ -34,29 +34,29 @@ class Uniform_rnd_dist: public Rnd_dist {
 public:
 	Uniform_rnd_dist();
 	// Uniform_rnd_dist(Mint dim);
-	Uniform_rnd_dist(Mreal lowerBound, Mreal upperBound);
-	// Uniform_rnd_dist(Mreal lowerBound, Mreal upperBound, Mint dim);
+	Uniform_rnd_dist(Real lowerBound, Real upperBound);
+	// Uniform_rnd_dist(Real lowerBound, Real upperBound, Mint dim);
 	Uniform_rnd_dist(const Uniform_rnd_dist &);
 	~Uniform_rnd_dist();
 
-	Mreal RndVal() const;
-	operator Mreal() const;
-	Mreturn ChangeBounds(Mreal lowerBound, Mreal upperBound);
+	Real RndVal() const;
+	operator Real() const;
+	Mreturn ChangeBounds(Real lowerBound, Real upperBound);
 	// operator M_vector_o() const;
 
-	Mreal _a() const {
+	Real _a() const {
 		return (a);
 	}
 	;
-	Mreal _b() const {
+	Real _b() const {
 		return (b);
 	}
 	;
-	Mreal _mean() const {
+	Real _mean() const {
 		return (mean);
 	}
 	;
-	Mreal _variance() const {
+	Real _variance() const {
 		return (variance);
 	}
 	;
@@ -65,9 +65,9 @@ public:
 
 private:
 	void set_statistics();
-	Mreal a;
-	Mreal b;
-	Mreal interval;
+	Real a;
+	Real b;
+	Real interval;
 	Muint dimension;
 	Mbool ab01; // faster-(0,1)-call flag
 };

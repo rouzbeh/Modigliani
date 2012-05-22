@@ -105,7 +105,7 @@ private:
 	}
 	;
 	void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl,
-			mbase::Mreal __attribute__((unused)) value) {
+			mbase::Real __attribute__((unused)) value) {
 	}
 	;
 	void ControlObj(NT3Dcontroller __attribute__((unused)) cntrl,

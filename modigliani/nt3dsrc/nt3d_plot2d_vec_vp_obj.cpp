@@ -89,7 +89,7 @@ void NT3D_plot2d_vec_vp_o::DrawData() {
  \warning    unknown
  \bug        unknown
  */
-mbase::Mreturn NT3D_plot2d_vec_vp_o::SetData(const std::vector<mbase::Mreal> & newDataVec) {
+mbase::Mreturn NT3D_plot2d_vec_vp_o::SetData(const std::vector<mbase::Real> & newDataVec) {
 	if (dim > 0)
 		M_ASSERT(newDataVec.size() == dim);
 	else

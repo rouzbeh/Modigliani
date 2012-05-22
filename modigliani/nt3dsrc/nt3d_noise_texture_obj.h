@@ -75,7 +75,7 @@ virtual ~NT3D_noise_texture_o();
 protected:
 /* ***  Methods              ***/  
 mbase::Mreturn AssignPixelTexture();
-mbase::Mreal* MakeRGBATexturePoint(mbase::Mreal * colorVec, mbase::Mreal coorX, mbase::Mreal coorY);
+mbase::Real* MakeRGBATexturePoint(mbase::Real * colorVec, mbase::Real coorX, mbase::Real coorY);
 /* ***  Data                 ***/  
 private:
 /* ***  Methods              ***/ 

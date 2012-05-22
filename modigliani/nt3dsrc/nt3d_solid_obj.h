@@ -150,10 +150,10 @@ public:
   ~NT3D_solid_o();
   /*   Methods                */  
   void Scale( NT_std::vector3_o oDeltaScaling );
-  void ScaleX ( mbase::Mreal deltaSclX);
-  void ScaleY ( mbase::Mreal deltaSclY);
-  void ScaleZ ( mbase::Mreal deltaSclZ);
-  void ScaleXYZ ( mbase::Mreal deltaSclXYZ );
+  void ScaleX ( mbase::Real deltaSclX);
+  void ScaleY ( mbase::Real deltaSclY);
+  void ScaleZ ( mbase::Real deltaSclZ);
+  void ScaleXYZ ( mbase::Real deltaSclXYZ );
   void ScaleUnit(){ oScaling = NT_std::vector3_o(1.0,1.0,1.0);}
   
   /*   Data                   */  

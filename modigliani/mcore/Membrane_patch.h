@@ -36,12 +36,12 @@ namespace mcore {
 class Membrane_patch: public Membrane_compartment {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Membrane_patch(mbase::Mreal area /* [muM^2] */, mbase::Mreal newCM /* muF/cm^2 */);
+	Membrane_patch(mbase::Real area /* [muM^2] */, mbase::Real newCM /* muF/cm^2 */);
 	Membrane_patch(const Membrane_patch & original);
 	const Membrane_patch & operator=(const Membrane_patch & right);
 	virtual ~Membrane_patch();
 	/* ***  Methods              ***/
-	mbase::Mreal MembranePotential() const {
+	mbase::Real MembranePotential() const {
 		return (_vM());
 	}
 	/** No descriptions */
@@ -49,7 +49,7 @@ public:
 	/** No descriptions */
 	mbase::Mreturn InitialStep();
 	/** Current [nA]  */
-	mbase::Mreal MembraneCurrent(mbase::Msize currentIndex) const {
+	mbase::Real MembraneCurrent(mbase::Msize currentIndex) const {
 		M_ASSERT((currentIndex > 0) && (currentIndex-1 < currentVec.size()));
 		return (currentVec[currentIndex - 1]->_current());
 	}
