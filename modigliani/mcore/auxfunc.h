@@ -99,7 +99,7 @@ void openOutputFile(string outputFolder, string prefix, ofstream& outStream,
 ofstream* openOutputFile(string outputFolder, string prefix, int counter,
 		string extension = ".txt");
 
-mcore::Membrane_compartment_sequence create_axon(Json::Value config_root,
+mcore::Membrane_compartment_sequence* create_axon(Json::Value config_root,
 		ofstream& TypePerCompartmentFile, ofstream& LengthPerCompartmentFile);
 }
 #endif /* _ntbp_auxfunc_h_ */

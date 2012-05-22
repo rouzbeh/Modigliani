@@ -157,6 +157,8 @@ Custom_cylindrical_compartment* createCompartment(Json::Value config_root,
 			compartment_parameters["Ra"].asDouble() /* ohm cm */,
 			config_root["temperature"].asDouble());
 
+	bool randomise_densities = simulation_parameters["randomise_densities"].asBool();
+
 	// Read a list of currents for each compartments
 	Json::Value currents = compartment_parameters["currents"];
 	for (unsigned int index = 0; index < currents.size(); ++index) {
@@ -175,7 +177,7 @@ Custom_cylindrical_compartment* createCompartment(Json::Value config_root,
 					current["chDen"].asDouble(), tmpPtr->_area());
 			File_based_stochastic_multi_current * file_current =
 					new File_based_stochastic_multi_current(tmpPtr->_area(),
-							indDensity /* mum^-2 */,
+							(randomise_densities ? indDensity:current["chDen"].asDouble()) /* mum^-2 */,
 							current["chCond"].asDouble() * 1e-9 /* pS */,
 							config_root["vBase"].asDouble() /* mV */,
 							current["chRevPot"].asDouble() /* mV */,
@@ -207,7 +209,7 @@ Custom_cylindrical_compartment* createCompartment(Json::Value config_root,
 						current["chDen"].asDouble(), tmpPtr->_area());
 				Lua_based_stochastic_multi_current * lua_current =
 						new Lua_based_stochastic_multi_current(tmpPtr->_area(),
-								indDensity /* mum^-2 */,
+								(randomise_densities ? indDensity:current["chDen"].asDouble()) /* mum^-2 */,
 								current["chCond"].asDouble() * 1e-9 /* pS */,
 								config_root["vBase"].asDouble() /* mV */,
 								current["chRevPot"].asDouble() /* mV */,
@@ -269,7 +271,7 @@ ofstream* openOutputFile(string outputFolder, string prefix, int counter,
 	return (out_stream);
 }
 
-Membrane_compartment_sequence create_axon(Json::Value config_root,
+Membrane_compartment_sequence* create_axon(Json::Value config_root,
 		ofstream& TypePerCompartmentFile, ofstream& LengthPerCompartmentFile) {
 
 	string lua_script = config_root["anatomy_lua"].asString();
@@ -289,10 +291,10 @@ Membrane_compartment_sequence create_axon(Json::Value config_root,
 	}
 	lua_close(L);
 
-	Membrane_compartment_sequence oModel;
-	oModel.update_timeStep(
+	auto oModel = new Membrane_compartment_sequence();
+	oModel->update_timeStep(
 			config_root["simulation_parameters"]["timeStep"].asDouble() /* mSec */);
-	oModel.StepNTBP();
+	oModel->StepNTBP();
 
 	Json::Value compartments_parameters = config_root["compartments_parameters"];
 
@@ -301,7 +303,7 @@ Membrane_compartment_sequence create_axon(Json::Value config_root,
 		TypePerCompartmentFile << *it << std::endl;
 		LengthPerCompartmentFile
 				<< compartments_parameters[*it]["length"].asDouble() << std::endl;
-		oModel.PushBack(
+		oModel->PushBack(
 				createCompartment(config_root,
 						config_root["simulation_parameters"],
 						compartments_parameters[*it]));
