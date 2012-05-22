@@ -80,14 +80,6 @@ void printConfig(ofstream& out, Json::Value node_parameters,
 			<< ";" << std::endl;
 	out << "global_eLeak" << " = " << config_root["eLeak"].asDouble() << ";"
 			<< std::endl;
-	out << "global_hillock" << " = " << config_root["hillock"].asBool() << ";"
-			<< std::endl;
-	out << "global_internode" << " = " << config_root["internode"].asBool()
-			<< ";" << std::endl;
-	out << "global_node" << " = " << config_root["node"].asBool() << ";"
-			<< std::endl;
-	out << "global_paranode" << " = " << config_root["paranode"].asBool() << ";"
-			<< std::endl;
 	out << "global_temperature" << " = "
 			<< config_root["temperature"].asDouble() << ";" << std::endl;
 	out << "global_vBase" << " = " << config_root["vBase"].asDouble() << ";"
