@@ -34,7 +34,7 @@ public:
 override	;
 	virtual mbase::Real open_channels() const override;
 	virtual mbase::Real compute_conductance() override;
-	mbase::Real num_channels_in_state(mbase::Msize state) const;
+	mbase::Real num_channels_in_state(mbase::Size_t state) const;
 	mbase::Real ComputeChannelStateTimeConstant() const;
 	void show_param() const;
 	void printProb(std::string fileName) {

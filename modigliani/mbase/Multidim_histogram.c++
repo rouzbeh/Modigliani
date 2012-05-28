@@ -26,8 +26,8 @@ using namespace mbase;
 
 /* ***      CONSTRUCTORS	***/
 /** Create a Multidim_histogram */
-Multidim_histogram::Multidim_histogram(Real low, Real high, Msize bins,
-		Msize dims) :
+Multidim_histogram::Multidim_histogram(Real low, Real high, Size_t bins,
+		Size_t dims) :
 		oCube(dims, bins) {
 	/* should have been already tested by oCube constructor
 	 M_ASSERT( bins > 0);
@@ -77,7 +77,7 @@ Multidim_histogram::~Multidim_histogram() {
  */
 void Multidim_histogram::Reset() {
 	numBinned = 0;
-	for (Msize ll = 0; ll < dim; ll++) {
+	for (Size_t ll = 0; ll < dim; ll++) {
 		outsideBinVec[ll] = 0;
 	}
 	oCube.SetAll(0);
@@ -89,14 +89,14 @@ void Multidim_histogram::Reset() {
  \warning    unknown
  \bug        unknown
  */
-Msize Multidim_histogram::BinValue(const std::vector<Real> & valueVec) {
+Size_t Multidim_histogram::BinValue(const std::vector<Real> & valueVec) {
 	M_ASSERT(valueVec.size() == dim);
 
-	std::vector<Msize> coorVec(dim);
-	Msize coor;
+	std::vector<Size_t> coorVec(dim);
+	Size_t coor;
 
-	for (Msize ld = 0; ld < dim; ld++) {
-		coor = Msize(numBins * (valueVec[ld] - min) / range);
+	for (Size_t ld = 0; ld < dim; ld++) {
+		coor = Size_t(numBins * (valueVec[ld] - min) / range);
 		if (coor < numBins) {
 			coorVec[ld] = coor;
 		} else {
@@ -115,7 +115,7 @@ Msize Multidim_histogram::BinValue(const std::vector<Real> & valueVec) {
 Real Multidim_histogram::ShannonEntropy() const {
 	Real tmp = 0;
 	Real sum = 0;
-	for (Msize ll = 0; ll < oCube.TotalNumElem(); ll++) {
+	for (Size_t ll = 0; ll < oCube.TotalNumElem(); ll++) {
 		tmp = oCube.ElemByIndex(ll);
 		sum -= mbase::MComputePLogP(tmp);
 	}

@@ -66,8 +66,8 @@
 
 
 /* ***      CONSTRUCTORS	***/
-NT3D_pixel_texture_o::NT3D_pixel_texture_o(mbase::Msize newTextureWidth, 
-							   		mbase::Msize newTextureHeight)
+NT3D_pixel_texture_o::NT3D_pixel_texture_o(mbase::Size_t newTextureWidth, 
+							   		mbase::Size_t newTextureHeight)
 :
 NT3D_texture_o(newTextureWidth, newTextureHeight)
 {

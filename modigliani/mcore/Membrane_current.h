@@ -129,7 +129,7 @@ public:
 	}
 
 	virtual mbase::Real num_channels_in_state(
-			mbase::Msize __attribute__((__unused__)) state) const {
+			mbase::Size_t __attribute__((__unused__)) state) const {
 		std::cerr
 				<< "NTBP_membrane_current_o::NumChannels() - Error : Not Implemented."
 				<< std::endl;

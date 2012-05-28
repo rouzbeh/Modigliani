@@ -125,7 +125,7 @@ std::ostream& operator<< (std::ostream& str, const Sequential_statistics & self)
  */
 
 Real
-Sequential_statistics::UpdateAverage(Real avg, Real val, Msize n) const
+Sequential_statistics::UpdateAverage(Real avg, Real val, Size_t n) const
 {
     return ( val * (1.0/n) + avg * (1.0 - 1.0/n)	);
 }

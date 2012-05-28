@@ -101,8 +101,8 @@ public:
 	virtual void Init() {
 	}
 	;
-	virtual mbase::Mreturn Resize(mbase::Msize __attribute__((unused)) width,
-			mbase::Msize __attribute__((unused)) height) {
+	virtual mbase::Mreturn Resize(mbase::Size_t __attribute__((unused)) width,
+			mbase::Size_t __attribute__((unused)) height) {
 		NT_CERR(5, "NT3D_drv_vp_o::Resize()");
 		return mbase::M_FAIL;
 	}
@@ -123,13 +123,13 @@ public:
 		return bmpPtr;
 	} //2DO implement code to handle continuos use of same allocated pointer
 	  // take care that resize event are handled though!
-	virtual mbase::Msize _width() {
+	virtual mbase::Size_t _width() {
 		NT_CERR(
 				1,
 				"NT3D_drv_vp_o::_width() - Error : Should be implemented in derived class");
 		return 0;
 	}
-	virtual mbase::Msize _height() {
+	virtual mbase::Size_t _height() {
 		NT_CERR(
 				1,
 				"NT3D_drv_vp_o::_height() - Error : Should be implemented in derived class");

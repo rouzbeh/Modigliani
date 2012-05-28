@@ -14,16 +14,16 @@
 
 class NTBP_transition_rate_matrix_o {
 public:
-	NTBP_transition_rate_matrix_o(mbase::Msize numNewStates, mbase::Real min, mbase::Real max,
+	NTBP_transition_rate_matrix_o(mbase::Size_t numNewStates, mbase::Real min, mbase::Real max,
 			mbase::Real step);
 	virtual ~NTBP_transition_rate_matrix_o();
-	void setTransitionProbability(mbase::Real voltage, mbase::Msize start, mbase::Msize stop,
+	void setTransitionProbability(mbase::Real voltage, mbase::Size_t start, mbase::Size_t stop,
 			mbase::Real probability);
-	void setTransitionProbability(mbase::Msize index, mbase::Msize start, mbase::Msize stop,
+	void setTransitionProbability(mbase::Size_t index, mbase::Size_t start, mbase::Size_t stop,
 				mbase::Real probability);
-	mbase::Real getTransitionProbability(mbase::Real voltage, mbase::Msize start, mbase::Msize stop);
-	mbase::Real getTransitionProbability(mbase::Msize index, mbase::Msize start, mbase::Msize stop);
-	mbase::Msize get_index(mbase::Real voltage);
+	mbase::Real getTransitionProbability(mbase::Real voltage, mbase::Size_t start, mbase::Size_t stop);
+	mbase::Real getTransitionProbability(mbase::Size_t index, mbase::Size_t start, mbase::Size_t stop);
+	mbase::Size_t get_index(mbase::Real voltage);
 private:
 	//typedef boost::multi_array<double, 3> matrix_array_type;
 	//typedef blitz::Array<double, 3> matrix_array_type;

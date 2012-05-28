@@ -114,7 +114,7 @@ NT3D_file_texture_o::AssignTexture()
 	textureImagePtr = new GLfloat[4*textureWidth*textureHeight];
 
 	GLfloat* tmpPtr = image.RGBAImagePtr();
-	for (mbase::Msize ll = 0; ll < textureWidth*textureHeight*4; ll++){
+	for (mbase::Size_t ll = 0; ll < textureWidth*textureHeight*4; ll++){
 		textureImagePtr[ll] = tmpPtr[ll];
 		//cerr << textureImagePtr[ll] << "\t" << flush;
 	}

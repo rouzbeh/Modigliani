@@ -57,47 +57,47 @@ public:
 	mbase::Mreturn step();
 	void ShowVoltage() {
 		std::cerr << "Voltage [";
-		for (mbase::Msize ll = 0; ll < _numCompartments(); ll++) {
+		for (mbase::Size_t ll = 0; ll < _numCompartments(); ll++) {
 			std::cout << compartmentVec[ll]->_vM() << "\t";
 			std::cerr << compartmentVec[ll]->_vM() << " ";
 		}
 		std::cerr << "]" << std::endl;
 	}
-	mbase::Real MembraneVoltage(mbase::Msize compartmentId /* 1..numCompartments*/) {
+	mbase::Real MembraneVoltage(mbase::Size_t compartmentId /* 1..numCompartments*/) {
 		return (compartmentVec[compartmentId - 1]->_vM());
 	}
-	mbase::Mreturn InjectCurrent(mbase::Real current /* in nA */, mbase::Msize compartmentId);
-	mbase::Msize _numCompartments() const {
+	mbase::Mreturn InjectCurrent(mbase::Real current /* in nA */, mbase::Size_t compartmentId);
+	mbase::Size_t _numCompartments() const {
 		return (numCompartments);
 	}
 	/**  */
 	/**  */
 	mbase::Real CompartmentSequenceChannelStateTimeConstant() const;
 	void ShowHinesMatrix();
-	mbase::Real AttachedCurrent(mbase::Msize compIndex, mbase::Msize currIndex) {
+	mbase::Real AttachedCurrent(mbase::Size_t compIndex, mbase::Size_t currIndex) {
 		M_ASSERT(compIndex > 0);
 		return (compartmentVec[compIndex - 1]->AttachedCurrent(currIndex));
 	}
-	std::vector<mbase::Real> open_channels(mbase::Msize currIndex) const;
-	std::vector<mbase::Real> OpenChannelsRatio(mbase::Msize currIndex) const;
-	std::vector<mbase::Real> NumChannels(mbase::Msize currIndex) const;
-	std::vector<mbase::Real> NumChannelsInState(mbase::Msize currIndex, mbase::Msize state) const;
+	std::vector<mbase::Real> open_channels(mbase::Size_t currIndex) const;
+	std::vector<mbase::Real> OpenChannelsRatio(mbase::Size_t currIndex) const;
+	std::vector<mbase::Real> NumChannels(mbase::Size_t currIndex) const;
+	std::vector<mbase::Real> NumChannelsInState(mbase::Size_t currIndex, mbase::Size_t state) const;
 	std::vector<mbase::Real> _vVec() const;
 	mbase::Mreturn WriteMembranePotential(std::ostream & file) const;
-	mbase::Mreturn WriteCompartmentData(std::ostream* file, mbase::Msize to_print) const;
+	mbase::Mreturn WriteCompartmentData(std::ostream* file, mbase::Size_t to_print) const;
 	mbase::Mreturn WriteCurrent(std::ostream & file,
-			mbase::Msize currentIndex /* 1..numCurrents in compartment */) const;
+			mbase::Size_t currentIndex /* 1..numCurrents in compartment */) const;
 	mbase::Mreturn WriteCurrent(std::ostream & file,
-			mbase::Msize currentIndex /* 1..numCurrents in compartment */,
-			std::vector<mbase::Msize> to_print) const;
+			mbase::Size_t currentIndex /* 1..numCurrents in compartment */,
+			std::vector<mbase::Size_t> to_print) const;
 	mbase::Mreturn WriteMembranePotentialASCII(std::ostream & file) const;
 	mbase::Mreturn WriteCurrentAscii(std::ostream & file,
-			mbase::Msize currentIndex /* 1..numCurrents in compartment */) const;
-	Cylindrical_compartment* ReturnCompartmentVec(mbase::Msize index);
+			mbase::Size_t currentIndex /* 1..numCurrents in compartment */) const;
+	Cylindrical_compartment* ReturnCompartmentVec(mbase::Size_t index);
 	/**  */
 	bool GillespieStep();
 	/**  */
-	std::vector<mbase::Real> GiveCurrent(mbase::Msize index);
+	std::vector<mbase::Real> GiveCurrent(mbase::Size_t index);
 	/* ***  Data                 ***/
 	std::vector<Cylindrical_compartment*> compartmentVec;
 
@@ -127,7 +127,7 @@ private:
 //This should be in each compartment
 //std::vector <mbase::Real> vVec;
 	std::vector<mbase::Real> rVec;
-	mbase::Msize numCompartments;
+	mbase::Size_t numCompartments;
 	bool initialised;
 	bool swCrankNicholson;
 };

@@ -45,7 +45,7 @@ namespace mbase {
 class Two_dim_histogram : public Obj {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Two_dim_histogram(Msize numBinsA, Real minA, Real maxA, Msize numBinsB, Real minB, Real maxB);
+	Two_dim_histogram(Size_t numBinsA, Real minA, Real maxA, Size_t numBinsB, Real minB, Real maxB);
 	Two_dim_histogram(const Two_dim_histogram & original);
 	const Two_dim_histogram & operator= (const Two_dim_histogram & right);
 	virtual ~Two_dim_histogram();
@@ -55,18 +55,18 @@ public:
 	/** No descriptions */
 	Real ShannonEntropy() const;
 	/** No descriptions */
-	Msize BinValue(Real valueA, Real valueB);
+	Size_t BinValue(Real valueA, Real valueB);
 	/** No descriptions */
 	void Show() const;
 	/** No descriptions */
 	Matrix <Real> PDF() const;
 	/** No descriptions */
-	Msize BinValue ( std::vector <Real> valueVec);
+	Size_t BinValue ( std::vector <Real> valueVec);
 	/** No descriptions */
-	Msize _numBinned() {
+	Size_t _numBinned() {
 		return (numBinned);
 	}
-	Msize _numUnbinned() {
+	Size_t _numUnbinned() {
 		return (numUnbinned);
 	}
 	/** No descriptions */
@@ -80,17 +80,17 @@ protected:
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	Matrix <Msize> table;
-	Msize numBinsA;
+	Matrix <Size_t> table;
+	Size_t numBinsA;
 	Real maxA;
 	Real minA;
 	Real rangeA;
-	Msize numBinsB;
+	Size_t numBinsB;
 	Real maxB;
 	Real minB;
 	Real rangeB;
-	Msize numBinned;
-	Msize numUnbinned;
+	Size_t numBinned;
+	Size_t numUnbinned;
 };
 }
 

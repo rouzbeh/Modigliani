@@ -43,29 +43,29 @@ namespace mcore{
 class Ion_channels: public Object {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Ion_channels(mbase::Msize numNewChannels, mbase::Msize numNewStates, NTBP_transition_rate_matrix_o* probMatrix, mbase::Real newTimeStep=0.1);
+	Ion_channels(mbase::Size_t numNewChannels, mbase::Size_t numNewStates, NTBP_transition_rate_matrix_o* probMatrix, mbase::Real newTimeStep=0.1);
 	Ion_channels(const Ion_channels & original);
 	const Ion_channels & operator=(const Ion_channels & right);
 	virtual ~Ion_channels();
 	/* ***  Methods              ***/
-	mbase::Msize _numChannels() const {
+	mbase::Size_t _numChannels() const {
 		return (numChannels);
 	}
-	mbase::Msize _numStates() const {
+	mbase::Size_t _numStates() const {
 		return (numStates);
 	}
 	mbase::Mreturn GillespieStep(mbase::Real voltage);
-	void setAsOpenState(mbase::Msize newOpenState);
+	void setAsOpenState(mbase::Size_t newOpenState);
 	mbase::Mreturn BinomialStep(mbase::Real voltage);
 	mbase::Mreturn DeterministicStep(mbase::Real voltage);
 	mbase::Mreturn step(mbase::Real voltage);
-	mbase::Mreturn ComputeGillespieStep(mbase::Msize channelStateId, mbase::Real voltage);
+	mbase::Mreturn ComputeGillespieStep(mbase::Size_t channelStateId, mbase::Real voltage);
 	void ShowStates() const;
-	mbase::Msize NumOpen() const;
-	mbase::Msize numChannelsInState(mbase::Msize state) const {
+	mbase::Size_t NumOpen() const;
+	mbase::Size_t numChannelsInState(mbase::Size_t state) const {
 		return (stateCounterVec[state]);
 	}
-	mbase::Msize NumClosed() const {
+	mbase::Size_t NumClosed() const {
 		return (_numChannels() - NumOpen());
 	}
 	virtual mbase::Mreturn SteadyStateDistribution(mbase::Real voltage);
@@ -94,9 +94,9 @@ private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
 	NTBP_transition_rate_matrix_o* _probMatrix;
-	std::vector<mbase::Msize> openStates;
-	mbase::Msize numStates;
-	mbase::Msize numChannels;
+	std::vector<mbase::Size_t> openStates;
+	mbase::Size_t numStates;
+	mbase::Size_t numChannels;
 	bool ratesComputed;
 };
 }

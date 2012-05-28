@@ -27,7 +27,7 @@ using namespace mbase;
 /* ***      CONSTRUCTORS	***/
 /** Create a Histogram */
 Histogram::Histogram(Real minVal, Real maxVal,
-		Msize numberOfBins) :
+		Size_t numberOfBins) :
 		bins((int) numberOfBins) {
 	min = minVal;
 	max = maxVal;
@@ -100,7 +100,7 @@ void Histogram::BinValue(Real value) {
 
 std::vector<Real> Histogram::PDF() const {
 	std::vector<Real> probVec(numBins);
-	for (Msize ll = 0; ll < numBins; ll++) {
+	for (Size_t ll = 0; ll < numBins; ll++) {
 		probVec[ll] = ((Real) bins[ll]) / ((Real) numDataPoints);
 	}
 	return (probVec);
@@ -109,7 +109,7 @@ std::vector<Real> Histogram::PDF() const {
 Real Histogram::ShannonEntropy() const {
 	Real h = 0;
 	Real p = 0;
-	for (Msize ll = 0; ll < numBins; ll++) {
+	for (Size_t ll = 0; ll < numBins; ll++) {
 		p = ((Real) bins[ll]) / ((Real) numDataPoints);
 		if (0.0 != p)
 			h -= p * log(p);
@@ -128,14 +128,14 @@ void Histogram::Show(bool showHeader) const {
 		std::cout << "Histogram " << numBins << " bins [" << min << "," << max
 				<< "] with " << numDataPoints << " of which " << numOutliers
 				<< " outliers." << std::endl;
-	for (Msize ll = 0; ll < numBins; ll++) {
+	for (Size_t ll = 0; ll < numBins; ll++) {
 		std::cout << bins[ll] << " ";
 	}
 	std::cout << std::endl;
 }
 
 std::ostream& operator<<(std::ostream& str, const Histogram & self) {
-	for (Msize ll = 0; ll < self.numBins; ll++) {
+	for (Size_t ll = 0; ll < self.numBins; ll++) {
 		str << self.bins[ll] << "\n ";
 	}
 	return (str);

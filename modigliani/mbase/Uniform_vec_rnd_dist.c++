@@ -28,12 +28,12 @@ using namespace mbase;
 
 /** dim-dimensional unit with the same distribution (parameters) in each dimension */
 Uniform_vec_rnd_dist::Uniform_vec_rnd_dist(Real newLowerBound,
-		Real newUpperBound, Msize newDim) :
+		Real newUpperBound, Size_t newDim) :
 		Vec_rnd_dist(newDim), lowerBoundVec(newDim), upperBoundVec(newDim) {
 	Uniform_rnd_dist * tmpPtr = new Uniform_rnd_dist(newLowerBound,
 			newUpperBound);
 
-	Msize ll;
+	Size_t ll;
 	for (ll = 0; ll < dim; ll++) {
 		lowerBoundVec[ll] = newLowerBound;
 		upperBoundVec[ll] = newUpperBound;
@@ -44,9 +44,9 @@ Uniform_vec_rnd_dist::Uniform_vec_rnd_dist(Real newLowerBound,
 
 /** dim-dimensional unit with the individual distribution paramters in each dimension */
 Uniform_vec_rnd_dist::Uniform_vec_rnd_dist(Vector newLowerBound,
-		Vector newUpperBound, Msize newDim) :
+		Vector newUpperBound, Size_t newDim) :
 		Vec_rnd_dist(newDim), lowerBoundVec(newDim), upperBoundVec(newDim) {
-	Msize ll;
+	Size_t ll;
 	M_ASSERT_DIM(newLowerBound._dimension(), dim);
 	M_ASSERT_DIM(newUpperBound._dimension(), dim);
 

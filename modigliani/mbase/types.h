@@ -35,7 +35,7 @@ typedef Mdouble Real;
 
 typedef int Mint;
 typedef unsigned int Muint;
-typedef unsigned int Msize;
+typedef unsigned int Size_t;
 typedef long int Mlong;
 typedef Mlong Mnum;
 
@@ -77,7 +77,7 @@ enum Mreturn {
  M_TALK = 7,          M_SMALL_TALK = 9};
  */
 
-inline void M_cerr(Msize currentTalkLevel, Msize talkLevel, std::string message) {
+inline void M_cerr(Size_t currentTalkLevel, Size_t talkLevel, std::string message) {
 	if (currentTalkLevel >= talkLevel)
 		std::cerr << message << std::endl;
 }

@@ -34,7 +34,7 @@
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NT3D_plot2d_vec_vp_o */
-NT3D_plot2d_vec_vp_o::NT3D_plot2d_vec_vp_o(mbase::Msize newDim) :
+NT3D_plot2d_vec_vp_o::NT3D_plot2d_vec_vp_o(mbase::Size_t newDim) :
 		NT3D_plot2d_vp_o() {
 	dim = newDim;
 	if (dim > 0) {
@@ -75,7 +75,7 @@ NT3D_plot2d_vec_vp_o::~NT3D_plot2d_vec_vp_o() {
 void NT3D_plot2d_vec_vp_o::DrawData() {
 	glBegin(GL_LINE_STRIP);
 	glColor3f(1.0, 1.0, 0.0);
-	for (mbase::Msize ll = 0; ll < dim; ll++) {
+	for (mbase::Size_t ll = 0; ll < dim; ll++) {
 		NewXData(positionVec[ll]);
 		NewYData(dataVec[ll]);
 		glVertex2f(positionVec[ll], dataVec[ll]);
@@ -94,7 +94,7 @@ mbase::Mreturn NT3D_plot2d_vec_vp_o::SetData(const std::vector<mbase::Real> & ne
 		M_ASSERT(newDataVec.size() == dim);
 	else
 		set_dim(newDataVec.size());
-	for (mbase::Msize ll = 0; ll < dim; ll++) {
+	for (mbase::Size_t ll = 0; ll < dim; ll++) {
 		dataVec[ll] = newDataVec[ll];
 		positionVec[ll] = ll;
 	}

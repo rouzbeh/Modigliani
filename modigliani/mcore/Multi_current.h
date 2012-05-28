@@ -72,9 +72,9 @@ public:
 		return (channelsPtr->GillespieStep(voltage));
 	}
 	void UpdateNumChannels() {
-		numChannels = (mbase::Msize) ceil(density * area);
+		numChannels = (mbase::Size_t) ceil(density * area);
 	}
-	mbase::Msize _numChannels() const {
+	mbase::Size_t _numChannels() const {
 		return (numChannels);
 	}
 	/** Number of total ionic channels */
@@ -106,7 +106,7 @@ protected:
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	mbase::Msize numChannels;
+	mbase::Size_t numChannels;
 	mbase::Real area; // in mumeter^2
 	bool ratesComputed;
 

@@ -114,7 +114,7 @@
 class NT3D_glx_drv_o : public NT3D_drv_vp_o {
 public:
   /***   Constructors, CopyAssignment and Destructor  ***/  
-  NT3D_glx_drv_o(mbase::Msize windowWidth = 200 , mbase::Msize windowHeight = 200, bool useCommonContext = false);
+  NT3D_glx_drv_o(mbase::Size_t windowWidth = 200 , mbase::Size_t windowHeight = 200, bool useCommonContext = false);
   NT3D_glx_drv_o(const NT3D_glx_drv_o & original);
   const NT3D_glx_drv_o & operator= (const NT3D_glx_drv_o & right);
   virtual ~NT3D_glx_drv_o();
@@ -129,7 +129,7 @@ public:
   /** call instead of glXSwapBuffers */
   void SwapBuffer() { /*cerr << "NT3D_glx_drv_o : "<<_uniqId() <<"SB"<<endl;*/
                       glXSwapBuffers (dpy, win);}
-  mbase::Mreturn Resize(mbase::Msize width, mbase::Msize height);
+  mbase::Mreturn Resize(mbase::Size_t width, mbase::Size_t height);
   mbase::Mreturn SetWindowTitle(string newTitle);
 
   /** Make sure that the method is called directly after a Draw() to the VP,
@@ -137,8 +137,8 @@ public:
   NT3D_bitmap_o   View2Bitmap();
   NT3D_bitmap_o * View2BitmapPtr(NT3D_bitmap_o * bmpPtr);
 
-  mbase::Msize _width(){return width;}
-  mbase::Msize _height(){return height;}
+  mbase::Size_t _width(){return width;}
+  mbase::Size_t _height(){return height;}
 
   protected:
   private:

@@ -91,7 +91,7 @@ Membrane_compartment::step(mbase::Real newVM)
 	vM = newVM;
 	
 	//for every current
-	for (mbase::Msize it = 0; it < currentVec.size(); it++) {
+	for (mbase::Size_t it = 0; it < currentVec.size(); it++) {
 		(currentVec[it])->step(vM);
 	}
 	
@@ -183,7 +183,7 @@ mbase::Real Membrane_compartment::CompartmentMembraneCapacitance() const
 mbase::Real Membrane_compartment::CompartmentMembraneNetCurrent() const
 {
 	mbase::Real sumDeltaI = 0.0;
-	for (mbase::Msize it = 0; it < currentVec.size(); it++) {
+	for (mbase::Size_t it = 0; it < currentVec.size(); it++) {
 			sumDeltaI -= (currentVec[it])->_current();	// i.e. ionic current is subtracted (modern  current convention)
 	}
 //	std::cerr << "\t Membrane capacitance [muF]"<< CompartmentMembraneCapacitance() << "\t Injected current [nA] "<< iInj <<  "\tionicCurrent="<<sumDeltaI << std::endl;	

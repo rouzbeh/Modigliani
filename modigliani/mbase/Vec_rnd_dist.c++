@@ -26,7 +26,7 @@ using namespace mbase;
 /* ***      CONSTRUCTORS	***/
 
 /** Create a Vec_rnd_dist */
-Vec_rnd_dist::Vec_rnd_dist(Msize newDim) {
+Vec_rnd_dist::Vec_rnd_dist(Size_t newDim) {
 	dim = newDim;
 	rndDistPtrVec.resize(dim);
 }
@@ -59,7 +59,7 @@ Vec_rnd_dist::~Vec_rnd_dist() {
 
 Vector Vec_rnd_dist::RndVec() const {
 	Vector tmp(3); //2DO speed up using cache unit
-	Msize ll;
+	Size_t ll;
 	for (ll = 0; ll < dim; ll++) {
 		tmp[ll] = (rndDistPtrVec[ll])->RndVal();
 	}

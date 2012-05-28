@@ -95,7 +95,7 @@ public:
 		return (0.0);
 	}
 
-	virtual mbase::Real NumChannelsInState(mbase::Msize __attribute__((__unused__)) state) const {
+	virtual mbase::Real NumChannelsInState(mbase::Size_t __attribute__((__unused__)) state) const {
 		return (0);
 	}
 	/* ***  Data                 ***/

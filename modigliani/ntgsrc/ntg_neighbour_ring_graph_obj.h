@@ -58,7 +58,7 @@
 class NTG_neighbour_ring_graph_o : public NTG_undirected_graph_o {
 public:
     /***   Constructors, Copy/Assignment and Destructor  ***/
-    NTG_neighbour_ring_graph_o(mbase::Msize nodes, mbase::Msize neighbourhoodRange, const NTG_node_o & nodeProto, const NTG_edge_o & edgeProto);
+    NTG_neighbour_ring_graph_o(mbase::Size_t nodes, mbase::Size_t neighbourhoodRange, const NTG_node_o & nodeProto, const NTG_edge_o & edgeProto);
     NTG_neighbour_ring_graph_o(const NTG_neighbour_ring_graph_o & original);
     const NTG_neighbour_ring_graph_o & operator= (const NTG_neighbour_ring_graph_o & right);
     virtual ~NTG_neighbour_ring_graph_o();
@@ -70,7 +70,7 @@ protected:
 private:
     /* ***  Methods              ***/
     /* ***  Data                 ***/
-    mbase::Msize radius;
+    mbase::Size_t radius;
 };
 #endif /* _ntg_neighbour_ring_graph_obj_h_ */
 

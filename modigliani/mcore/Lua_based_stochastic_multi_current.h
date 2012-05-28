@@ -31,10 +31,10 @@ public:
 
 	static void load_file(string fileName, double temperature, double time_step);
 	static map<string,NTBP_transition_rate_matrix_o*> probability_matrix_map;
-	static map<string,mbase::Msize> number_of_states_map;
+	static map<string,mbase::Size_t> number_of_states_map;
 	static map<string,double> base_temperature_map;
 	static map<string,std::vector<int> > open_states_map;
-	mbase::Real num_channels_in_state(mbase::Msize state) const override;
+	mbase::Real num_channels_in_state(mbase::Size_t state) const override;
 	mbase::Real ComputeChannelStateTimeConstant() const override;
 
 	virtual mbase::Mreturn step_current() override;

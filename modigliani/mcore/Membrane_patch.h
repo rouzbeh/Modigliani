@@ -49,7 +49,7 @@ public:
 	/** No descriptions */
 	mbase::Mreturn InitialStep();
 	/** Current [nA]  */
-	mbase::Real MembraneCurrent(mbase::Msize currentIndex) const {
+	mbase::Real MembraneCurrent(mbase::Size_t currentIndex) const {
 		M_ASSERT((currentIndex > 0) && (currentIndex-1 < currentVec.size()));
 		return (currentVec[currentIndex - 1]->_current());
 	}

@@ -132,7 +132,7 @@ inline mbase::Real Lua_based_deterministic_multi_current::open_channels() const 
 /**  */
 /** No descriptions */
 mbase::Real Lua_based_deterministic_multi_current::num_channels_in_state(
-		mbase::Msize __attribute__((__unused__)) state) const {
+		mbase::Size_t __attribute__((__unused__)) state) const {
 	std::cerr << "Deterministic channel does not have states" << std::endl;
 	return (0);
 }

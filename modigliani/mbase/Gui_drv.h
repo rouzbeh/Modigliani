@@ -42,7 +42,7 @@ public:
 	/*   Methods                */
 	virtual void MakeCurrent() const;
 	virtual void SwapBuffer() const;
-	virtual void Resize(Msize width, Msize height);
+	virtual void Resize(Size_t width, Size_t height);
 	virtual void Redraw();
 	/*   Data                   */
 protected:

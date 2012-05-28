@@ -1,4 +1,4 @@
-/* NetTrader - visualisation, scientific and financial analysis and simulation system
+/* Modigliani
  * Version:  2.0
  * Copyright (C) 1998,1999,2000,2001 Ahmed Aldo Faisal
  * Copyright (C) 2010, 2011 Mohammad Ali Neishabouri
@@ -46,8 +46,8 @@ Json::Value read_config(string fileName) {
 	return (config_root);
 }
 
-std::vector<mbase::Msize> get_electrods(Json::Value root) {
-	auto outvec = std::vector<mbase::Msize>(100);
+std::vector<mbase::Size_t> get_electrods(Json::Value root) {
+	auto outvec = std::vector<mbase::Size_t>(100);
 	string lua_script = root["electrods_lua"].asString();
 	lua_State* L = luaL_newstate();
 	luaL_openlibs(L);
@@ -73,7 +73,7 @@ std::vector<mbase::Msize> get_electrods(Json::Value root) {
  * @return
  */
 int simulate(string fileName) {
-	mbase::Msize numCompartments;
+	mbase::Size_t numCompartments;
 	Json::Value config_root = read_config(fileName);
 	string timedOutputFolder;
 	// What compartments to save
@@ -107,7 +107,7 @@ int simulate(string fileName) {
 		TimeFile << "% in ms" << std::endl;
 
 		for_each(electrods_vec.begin(), electrods_vec.end(),
-				[&pot_current_files,timedOutputFolder](mbase::Msize ll) {
+				[&pot_current_files,timedOutputFolder](mbase::Size_t ll) {
 					pot_current_files.push_back(mcore::openOutputFile(timedOutputFolder, "compartment",
 									ll, ".bin"));
 				});
@@ -125,7 +125,7 @@ int simulate(string fileName) {
 	}
 
 	std::vector<float> inputData(1000000);
-	int index = 0;
+	mbase::Size_t index = 0;
 	while (dataFile.good()) {
 		if (index < inputData.size()) {
 			char tmp[100];
@@ -139,26 +139,26 @@ int simulate(string fileName) {
 	dataFile.close();
 
 	/* *** Trials loop *** */
-	for (mbase::Msize lTrials = 0;
+	for (mbase::Size_t lTrials = 0;
 			lTrials < config_root["simulation_parameters"]["numTrials"].asUInt();
 			lTrials++) {
 		/* Model setup */
-		mcore::Membrane_compartment_sequence oModel = mcore::create_axon(
+		mcore::Membrane_compartment_sequence* oModel = mcore::create_axon(
 				config_root, TypePerCompartmentFile, LengthPerCompartmentFile);
 
 		if (!lTrials) {
 			TypePerCompartmentFile.close();
 			LengthPerCompartmentFile.close();
 		}
-		oModel.Init();
+		oModel->Init();
 
 #ifdef WITH_PLPLOT
-		PLFLT voltVec[oModel._numCompartments()];
-		PLFLT x[oModel._numCompartments()];
+		PLFLT voltVec[oModel->_numCompartments()];
+		PLFLT x[oModel->_numCompartments()];
 		x[0] = 0;
 #endif
 
-		numCompartments = oModel._numCompartments();
+		numCompartments = oModel->_numCompartments();
 		std::cerr << "Total number of compartments(in oModel)"
 				<< numCompartments << std::endl;
 		std::vector<mbase::Real> leakCurrVec(numCompartments);
@@ -187,20 +187,22 @@ int simulate(string fileName) {
 
 		mbase::Real timeInMS = 0;
 		int dataRead = 0;
-		for (mbase::Msize lt = 0;
+		for (mbase::Size_t lt = 0;
 				lt < config_root["simulation_parameters"]["numIter"].asUInt();
 				lt++) {
-			timeInMS += oModel._timeStep();
+			timeInMS += oModel->_timeStep();
 			timeVar = timeInMS;
 			// Write number of columns
 			if (config_root["simulation_parameters"]["sampN"].asInt() > 0
 					&& lt == 0 && lTrials == 0) {
-				for (unsigned int ll = 0; ll < numCompartments; ++ll) {
-					mbase::Msize number_of_currents =
-							oModel.compartmentVec[ll]->currentVec.size() + 1;
-					pot_current_files[ll]->write(
+				mbase::Size_t counter = 0;
+				for (auto ci = electrods_vec.begin(); ci != electrods_vec.end();
+						ci++) {
+					mbase::Size_t number_of_currents =
+							oModel->compartmentVec[*ci]->currentVec.size() + 1;
+					pot_current_files[counter++]->write(
 							reinterpret_cast<char*>(&number_of_currents),
-							sizeof(mbase::Msize));
+							sizeof(mbase::Size_t));
 				}
 			}
 			/* the "sampling ratio" used for "measurement" to disk */
@@ -208,20 +210,21 @@ int simulate(string fileName) {
 					&& lt
 							% config_root["simulation_parameters"]["sampN"].asInt()
 							== 0) {
-				mbase::Msize counter = 0;
-				for_each(electrods_vec.begin(), electrods_vec.end(),
-						[&counter,oModel, pot_current_files](mbase::Msize ll) {
-							oModel.WriteCompartmentData(pot_current_files[counter++], ll);
-						});
+				mbase::Size_t counter = 0;
+				for (auto ci = electrods_vec.begin(); ci != electrods_vec.end();
+						ci++) {
+					oModel->WriteCompartmentData(pot_current_files[counter++],
+							*ci);
+				}
 				if (!lTrials)
 					TimeFile << timeVar << std::endl;
 			}
 #ifdef WITH_PLPLOT
 			if (config_root["simulation_parameters"]["useVis"].asInt() > 0) {
 				if (lt == 0) {
-					for (mbase::Msize lc = 1; lc < numCompartments; lc++) {
+					for (mbase::Size_t lc = 1; lc < numCompartments; lc++) {
 						x[lc] = x[lc - 1]
-								+ oModel.compartmentVec[lc]->_length();
+								+ oModel->compartmentVec[lc]->_length();
 					}
 					pls->env(0, x[numCompartments - 1], -100, 100, 0, 0);
 				}
@@ -229,11 +232,11 @@ int simulate(string fileName) {
 						== 0) {
 					pls->clear();
 					pls->box("abcnt", 0, 0, "anvbct", 0, 0);
-					for (mbase::Msize ll = 0; ll < oModel._numCompartments();
+					for (mbase::Size_t ll = 0; ll < oModel->_numCompartments();
 							ll++) {
-						voltVec[ll] = oModel.compartmentVec[ll]->_vM();
+						voltVec[ll] = oModel->compartmentVec[ll]->_vM();
 					}
-					for (mbase::Msize lc = 0; lc < numCompartments; lc++) {
+					for (mbase::Size_t lc = 0; lc < numCompartments; lc++) {
 						if (mbase::Misnan(voltVec[lc])) {
 							std::cerr << "ERROR at t=" << timeVar
 									<< " voltage in compartment " << lc
@@ -247,7 +250,7 @@ int simulate(string fileName) {
 							return (1);
 						}
 					}
-					pls->line((PLINT) oModel._numCompartments(), x, voltVec);
+					pls->line((PLINT) oModel->_numCompartments(), x, voltVec);
 					pls->flush();
 				}
 			}
@@ -260,14 +263,15 @@ int simulate(string fileName) {
 								+ config_root["simulation_parameters"]["inpI"].asDouble();
 				dataRead++;
 			}
-			oModel.InjectCurrent(inpCurrent, 1);
+			oModel->InjectCurrent(inpCurrent, 1);
 
-			oModel.step();
+			oModel->step();
 		}
 #ifdef WITH_PLPLOT
 		if (pls)
 			delete pls;
 #endif
+		delete oModel;
 	} // lTrials
 	std::cerr << "Simulation completed." << std::endl;
 	ConfigUsedFile << "Number_of_compartments=" << numCompartments << std::endl;
@@ -298,33 +302,33 @@ int get_resting_potential(string fileName) {
 		std::cout << "Trying with " << current_guess << std::endl;
 		config_root["eLeak"] = current_guess;
 		config_root["node_parameters"]["numNd"] = 5;
-		std::vector<mbase::Msize> nodes_vec, nodes_paranodes_vec;
+		std::vector<mbase::Size_t> nodes_vec, nodes_paranodes_vec;
 		/* Model setup */
-		mcore::Membrane_compartment_sequence oModel = mcore::create_axon(
+		mcore::Membrane_compartment_sequence* oModel = mcore::create_axon(
 				config_root, temp, temp);
 
-		oModel.Init();
+		oModel->Init();
 
 		std::cerr << "Total number of compartments(in oModel)"
-				<< oModel._numCompartments() << std::endl;
+				<< oModel->_numCompartments() << std::endl;
 
 		/* ***********************  Main loop **************************** */
 		std::cerr << "MainLoop started" << std::endl;
 
 		double sum = 0;
-		for (mbase::Msize lt = 0;
+		for (mbase::Size_t lt = 0;
 				lt < config_root["simulation_parameters"]["numIter"].asUInt();
 				lt++) {
 
 			/* the "sampling ratio" used for "measurement" to disk */
 			if (lt % 10000 == 0) {
 				sum = 0;
-				for (mbase::Msize ll = 0; ll < oModel._numCompartments();
+				for (mbase::Size_t ll = 0; ll < oModel->_numCompartments();
 						ll++) {
-					sum += oModel.compartmentVec[ll]->_vM();
+					sum += oModel->compartmentVec[ll]->_vM();
 				}
 				std::cout << "Mean voltage = "
-						<< sum / oModel._numCompartments() << std::endl;
+						<< sum / oModel->_numCompartments() << std::endl;
 			}
 
 			if (lt == 10000) {
@@ -332,14 +336,14 @@ int get_resting_potential(string fileName) {
 						(5
 								* config_root["simulation_parameters"]["inpISDV"].asDouble())
 								+ config_root["simulation_parameters"]["inpI"].asDouble();
-				oModel.InjectCurrent(inpCurrent, 1);
+				oModel->InjectCurrent(inpCurrent, 1);
 			} else {
-				oModel.InjectCurrent(0, 1);
+				oModel->InjectCurrent(0, 1);
 			}
 
-			oModel.step();
+			oModel->step();
 		}
-		current_result = sum / oModel._numCompartments();
+		current_result = sum / oModel->_numCompartments();
 		if (current_result > -80) {
 			max = current_guess;
 		}
@@ -365,10 +369,10 @@ int test() {
 					"/home/man210/thesis/channels/SGA_sodium.json");
 	file_current->SetSimulationMode(NTBP_BINOMIALPOPULATION);
 
-	mbase::Msize length = floor(200 / 0.01 + 0.5) + 1;
-	for (mbase::Msize i = 1; i <= 8; ++i) {
-		for (mbase::Msize j = 1; j <= 8; ++j) {
-			for (mbase::Msize k = 0; k < length; k++) {
+	mbase::Size_t length = floor(200 / 0.01 + 0.5) + 1;
+	for (mbase::Size_t i = 1; i <= 8; ++i) {
+		for (mbase::Size_t j = 1; j <= 8; ++j) {
+			for (mbase::Size_t k = 0; k < length; k++) {
 				mbase::Real diff =
 						mcore::Lua_based_stochastic_multi_current::probability_matrix_map["/home/man210/Dropbox/workspace/ChannelGenerators/src/lua/SGA_sodium.lua"]->getTransitionProbability(
 								k, i, j)
@@ -389,6 +393,10 @@ int test() {
 }
 
 int main(int argc, char* argv[]) {
+	if (argc < 2) {
+		std::cout << "What shall I do?" << std::endl;
+		exit(1);
+	}
 	if (strcmp(argv[1], "resting") == 0) {
 		return (get_resting_potential(argv[2]));
 	}

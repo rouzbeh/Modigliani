@@ -64,8 +64,8 @@ private:
 	/* ***  Methods              ***/
 	void RedrawChild() {
 	}
-	mbase::Mreturn ResizeChild(mbase::Msize __attribute__((unused)) width,
-			mbase::Msize __attribute__((unused)) height) {
+	mbase::Mreturn ResizeChild(mbase::Size_t __attribute__((unused)) width,
+			mbase::Size_t __attribute__((unused)) height) {
 		return mbase::M_SUCCESS;
 	}
 	void InitChild() {

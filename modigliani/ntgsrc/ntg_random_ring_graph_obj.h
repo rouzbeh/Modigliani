@@ -53,7 +53,7 @@
 class NTG_random_ring_graph_o : public NTG_neighbour_ring_graph_o {
 public:
     /***   Constructors, Copy/Assignment and Destructor  ***/
-    NTG_random_ring_graph_o(mbase::Msize nodes, mbase::Msize neighbourhoodRange, mbase::Real reconnectProbability, bool deterministic, const NTG_node_o & nodeProto, const NTG_edge_o & edgeProto);
+    NTG_random_ring_graph_o(mbase::Size_t nodes, mbase::Size_t neighbourhoodRange, mbase::Real reconnectProbability, bool deterministic, const NTG_node_o & nodeProto, const NTG_edge_o & edgeProto);
     NTG_random_ring_graph_o(const NTG_random_ring_graph_o & original);
     const NTG_random_ring_graph_o & operator= (const NTG_random_ring_graph_o & right);
     virtual ~NTG_random_ring_graph_o();

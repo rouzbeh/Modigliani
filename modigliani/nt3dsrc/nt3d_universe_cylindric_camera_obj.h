@@ -66,8 +66,8 @@ protected:
 private:
 /* ***  Methods              ***/  
 /* ***  Data                 ***/
-mbase::Msize aziSteps;
-mbase::Msize hSteps;
+mbase::Size_t aziSteps;
+mbase::Size_t hSteps;
 };
 #endif /* _nt3d_universe_cylindric_camera_obj_h_ */ 
 

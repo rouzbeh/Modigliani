@@ -27,12 +27,12 @@ using namespace mbase;
 /* ***      CONSTRUCTORS	***/
 /** Create a Gaussian_vec_rnd_dist */
 Gaussian_vec_rnd_dist::Gaussian_vec_rnd_dist(Real newMean,
-		Real newStdDev, Msize newDim) :
+		Real newStdDev, Size_t newDim) :
 		Vec_rnd_dist(newDim), meanVec(newDim), stdDevVec(newDim) {
 	Gaussian_rnd_dist * tmpPtr = new Gaussian_rnd_dist(newMean,
 			newStdDev);
 
-	Msize ll;
+	Size_t ll;
 	for (ll = 0; ll < dim; ll++) {
 		meanVec[ll] = newMean;
 		stdDevVec[ll] = newStdDev;
@@ -41,14 +41,14 @@ Gaussian_vec_rnd_dist::Gaussian_vec_rnd_dist(Real newMean,
 }
 
 Gaussian_vec_rnd_dist::Gaussian_vec_rnd_dist(Vector newMean,
-		Vector newStdDev, Msize newDim) :
+		Vector newStdDev, Size_t newDim) :
 		Vec_rnd_dist(newDim), meanVec(newDim), stdDevVec(newDim) {
 	M_ASSERT_DIM(newMean._dimension(), dim);
 	M_ASSERT_DIM(newStdDev._dimension(), dim);
 	meanVec = newMean;
 	stdDevVec = newStdDev;
 
-	Msize ll;
+	Size_t ll;
 	for (ll = 0; ll < dim; ll++) {
 		rndDistPtrVec[ll] = new Gaussian_rnd_dist(newMean[ll],
 				newStdDev[ll]);
@@ -65,7 +65,7 @@ Gaussian_vec_rnd_dist::Gaussian_vec_rnd_dist(
 	meanVec = original.meanVec;
 	stdDevVec = original.stdDevVec;
 
-	Msize ll;
+	Size_t ll;
 	for (ll = 0; ll < dim; ll++) {
 		rndDistPtrVec[ll] = new Gaussian_rnd_dist(original.meanVec[ll],
 				original.stdDevVec[ll]);

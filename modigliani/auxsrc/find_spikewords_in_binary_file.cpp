@@ -28,13 +28,13 @@ mbase::Real compute_entropy_element(mbase::Real prob)
     }
 }
 
-mbase::Msize binary_Word2HashIndex(std::vector <bool> word)
+mbase::Size_t binary_Word2HashIndex(std::vector <bool> word)
 {
-    mbase::Msize tmpVal = 0;
-    mbase::Msize base = 1;
-    mbase::Msize wordLength = word.size();
+    mbase::Size_t tmpVal = 0;
+    mbase::Size_t base = 1;
+    mbase::Size_t wordLength = word.size();
 
-    for (mbase::Msize ll=0;ll < wordLength; ll++) {
+    for (mbase::Size_t ll=0;ll < wordLength; ll++) {
         tmpVal += word[wordLength-ll-1]*base;
         base *= 2;
     }
@@ -72,21 +72,21 @@ int
 main(int argc, char* argv[])
 {
     mbase::Real resolutionOfDataFile = 0.1; // in mSec
-    mbase::Msize analysisInterval = 20; // number of iterations to pool together, i.e 20*0.1mSec = 1mSec resolution of spike data
+    mbase::Size_t analysisInterval = 20; // number of iterations to pool together, i.e 20*0.1mSec = 1mSec resolution of spike data
 
     if (argc < NUM_NON_COLUMN_PARAM) {
         std::cerr <<"First columns is time. Invalid command line." << argv[0] <<"  <binary float data file> <number of columns>  <upstroke threshold> <down stroke threshold>  <wordLength> <column index to analyse>" << std::endl;
         exit(1);
     }
 
-    mbase::Msize maxLines = 1/resolutionOfDataFile * 1000 * 10;
+    mbase::Size_t maxLines = 1/resolutionOfDataFile * 1000 * 10;
     std::cout << "Analysing the first "<< maxLines <<" lines only." << std::endl;
     std::string filename = argv[1];
     int columns = atoi ( argv[2]);
     float upThreshold = atof ( argv[3]);
     float downThreshold = atof ( argv[4]);
-    mbase::Msize wordLength = atoi ( argv[5] );
-    mbase::Msize select = atoi ( argv[6] );
+    mbase::Size_t wordLength = atoi ( argv[5] );
+    mbase::Size_t select = atoi ( argv[6] );
 
     float buffer[columns];
 
@@ -95,7 +95,7 @@ main(int argc, char* argv[])
 
     mbase::Ring_buffer <bool> currentSpikeWord(wordLength);
 
-    std::vector <mbase::Msize> wordHistogram;
+    std::vector <mbase::Size_t> wordHistogram;
     wordHistogram.resize( ceil(pow(2.0,static_cast<int>(wordLength))) );
 
     std::vector <mbase::Real> wordProbHistogram;
@@ -108,8 +108,8 @@ main(int argc, char* argv[])
         exit(2);
     }
 
-    mbase::Msize counter = 0;
-    mbase::Msize lines = 0;
+    mbase::Size_t counter = 0;
+    mbase::Size_t lines = 0;
     while (file.eof() == 0) {
 
         file.read(reinterpret_cast<char*>(buffer), columns*sizeof(float));
@@ -129,7 +129,7 @@ main(int argc, char* argv[])
         if (lines > maxLines) break;
     }
 
-    mbase::Msize ll;
+    mbase::Size_t ll;
     for (ll = 0; ll < wordHistogram.size(); ll++) {
         wordProbHistogram[ll] = wordHistogram[ll]*analysisInterval/(mbase::Real(lines));
     }

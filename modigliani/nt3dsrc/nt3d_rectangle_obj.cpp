@@ -44,7 +44,7 @@
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NT3D_rectangle_o */
-NT3D_rectangle_o::NT3D_rectangle_o(mbase::Real newWidth, mbase::Real newHeight, mbase::Msize newSteps)
+NT3D_rectangle_o::NT3D_rectangle_o(mbase::Real newWidth, mbase::Real newHeight, mbase::Size_t newSteps)
 :
 NT3D_surfaced_object_o(),
 width(newWidth),
@@ -102,8 +102,8 @@ NT3D_rectangle_o::DrawSurfacedObj()
 
 	/*	glRectf(0,0,width, height); */
 	
-	mbase::Msize lly;
-	mbase::Msize llx;
+	mbase::Size_t lly;
+	mbase::Size_t llx;
     for (lly = 0; lly < steps; lly++) {
     	y = lly * dy;
     	glBegin(GL_QUAD_STRIP);		
@@ -127,8 +127,8 @@ NT3D_rectangle_o::DrawSurfacedObj()
 	/* This is an attempt to set global text coords for the entire rect.
 	 * instead of using each subrect ... however it fails 2DO check it again */
 	/* 
-	mbase::Msize lly;
-	mbase::Msize llx;
+	mbase::Size_t lly;
+	mbase::Size_t llx;
     for (lly = 0; lly < steps; lly++) {
     	y = lly * dy;
     	glBegin(GL_QUAD_STRIP);		

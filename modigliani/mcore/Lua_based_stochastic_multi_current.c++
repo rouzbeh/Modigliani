@@ -11,7 +11,7 @@ using namespace mcore;
 
 bool Lua_based_stochastic_multi_current::initTableLookUp = false;
 map<string, NTBP_transition_rate_matrix_o*> Lua_based_stochastic_multi_current::probability_matrix_map;
-map<string, mbase::Msize> Lua_based_stochastic_multi_current::number_of_states_map;
+map<string, mbase::Size_t> Lua_based_stochastic_multi_current::number_of_states_map;
 map<string, double> Lua_based_stochastic_multi_current::base_temperature_map;
 map<string, std::vector<int> > Lua_based_stochastic_multi_current::open_states_map;
 
@@ -110,9 +110,9 @@ void Lua_based_stochastic_multi_current::load_file(string fileName,
 			number_of_states_map[fileName], minV, maxV, step);
 
 	mbase::Real length = floor((maxV - minV) / step + 0.5) + 1;
-	for (mbase::Msize i = 1; i <= number_of_states_map[fileName]; ++i) {
-		for (mbase::Msize j = 1; j <= number_of_states_map[fileName]; ++j) {
-			for (mbase::Msize k = 0; k < length; k++) {
+	for (mbase::Size_t i = 1; i <= number_of_states_map[fileName]; ++i) {
+		for (mbase::Size_t j = 1; j <= number_of_states_map[fileName]; ++j) {
+			for (mbase::Size_t k = 0; k < length; k++) {
 				mbase::Real voltage = minV + step * k;
 				lua_getglobal(L, "get_probability");
 				lua_pushnumber(L, i);
@@ -178,7 +178,7 @@ inline mbase::Real Lua_based_stochastic_multi_current::open_channels() const {
 /**  */
 /** No descriptions */
 inline mbase::Real Lua_based_stochastic_multi_current::num_channels_in_state(
-		mbase::Msize state) const {
+		mbase::Size_t state) const {
 	return (channelsPtr->numChannelsInState(state));
 }
 

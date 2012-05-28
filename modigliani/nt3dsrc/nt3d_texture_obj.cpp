@@ -97,9 +97,9 @@
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NT3D_texture_o */
-NT3D_texture_o::NT3D_texture_o(mbase::Msize newTextureWidth, 
-							   mbase::Msize newTextureHeight,
-							   mbase::Msize newDim,
+NT3D_texture_o::NT3D_texture_o(mbase::Size_t newTextureWidth, 
+							   mbase::Size_t newTextureHeight,
+							   mbase::Size_t newDim,
 							   bool newMakeTextureCoord)
 {
 //cerr<< "NT3D_texture_o::NT3D_texture_o() - Talk : uniqId="<<_uniqId() << std::endl;
@@ -142,7 +142,7 @@ NT3D_texture_o::NT3D_texture_o(const NT3D_texture_o & original):
  textureHeight = original.textureHeight;
  dim = original.dim;
  textureImagePtr = new GLfloat[4*textureWidth*textureHeight];
- for (mbase::Msize ll = 0 ; ll < 4*textureWidth*textureHeight; ll++)
+ for (mbase::Size_t ll = 0 ; ll < 4*textureWidth*textureHeight; ll++)
 	textureImagePtr[ll] = original.textureImagePtr[ll];
 
  CreateTexture();
@@ -168,7 +168,7 @@ NT3D_texture_o::operator= (const NT3D_texture_o & right)
 	delete[] textureImagePtr;
 	textureImagePtr = new GLfloat[4*textureWidth*textureHeight];
 
- for (mbase::Msize ll = 0 ; ll < 4*textureWidth*textureHeight; ll++)
+ for (mbase::Size_t ll = 0 ; ll < 4*textureWidth*textureHeight; ll++)
 	textureImagePtr[ll] = right.textureImagePtr[ll];
 
  CreateTexture();

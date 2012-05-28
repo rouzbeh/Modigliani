@@ -60,8 +60,8 @@ void Gui_drv::SwapBuffer() const {
 void Gui_drv::MakeCurrent() const {
 }
 
-void Gui_drv::Resize(Msize __attribute__((unused)) width,
-		Msize __attribute__((unused)) height) {
+void Gui_drv::Resize(Size_t __attribute__((unused)) width,
+		Size_t __attribute__((unused)) height) {
 }
 
 void Gui_drv::Redraw() {

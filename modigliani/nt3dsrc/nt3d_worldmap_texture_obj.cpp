@@ -88,8 +88,8 @@ mbase::Mreturn
 NT3D_worldmap_texture_o::AssignTexture() 
 {
 	unsigned int * tmpPtr = NT_worldmap_RGB_uByte_128_64_image;
-	mbase::Msize i;
-   	mbase::Msize val;
+	mbase::Size_t i;
+   	mbase::Size_t val;
 	 for (i = 0; i < 3*textureWidth*textureHeight; i += 3) {
 			                           
 			val = i + (int) floor(i/3.0);

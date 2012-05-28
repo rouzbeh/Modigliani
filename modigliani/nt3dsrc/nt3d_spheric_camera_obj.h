@@ -59,14 +59,14 @@
 class NT3D_spheric_camera_o : public NT3D_universe_vp_o {
 public:
 /***   Constructors, Copy/Assignment and Destructor  ***/  
-NT3D_spheric_camera_o(mbase::Msize azimutalSteps = 8, mbase::Msize altitudalSteps = 5);
+NT3D_spheric_camera_o(mbase::Size_t azimutalSteps = 8, mbase::Size_t altitudalSteps = 5);
 NT3D_spheric_camera_o(const NT3D_spheric_camera_o & original);
 const NT3D_spheric_camera_o & operator= (const NT3D_spheric_camera_o & right);
 virtual ~NT3D_spheric_camera_o();
 /* ***  Methods              ***/
 void DrawChild();
 void RedrawChild(){}
-mbase::Mreturn ResizeChild(mbase::Msize __attribute__((unused)) width, mbase::Msize __attribute__((unused)) height){return mbase::M_SUCCESS;}
+mbase::Mreturn ResizeChild(mbase::Size_t __attribute__((unused)) width, mbase::Size_t __attribute__((unused)) height){return mbase::M_SUCCESS;}
 void InitChild(){}
 /* ***  Data                 ***/  
 NT3D_stub_o eye;
@@ -77,8 +77,8 @@ private:
 /* ***  Methods              ***/  
 NT3D_open_box_o oAvatar;
 /* ***  Data                 ***/
-mbase::Msize aziSteps;
-mbase::Msize altSteps;
+mbase::Size_t aziSteps;
+mbase::Size_t altSteps;
 };
 #endif /* _nt3d_spheric_camera_obj_h_ */ 
 

@@ -39,7 +39,7 @@ namespace mbase {
 class Vec_rnd_dist: public Obj {
 public:
 	/***   Constructors, CopyAssignment and Destructor  ***/
-	Vec_rnd_dist(Msize newDim = 3);
+	Vec_rnd_dist(Size_t newDim = 3);
 	Vec_rnd_dist(const Vec_rnd_dist & original);
 	const Vec_rnd_dist & operator=(const Vec_rnd_dist & right);
 	virtual ~Vec_rnd_dist();
@@ -49,7 +49,7 @@ public:
 protected:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	Msize dim;
+	Size_t dim;
 	std::vector<Rnd_dist *> rndDistPtrVec;
 private:
 	/* ***  Methods              ***/
