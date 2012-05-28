@@ -84,7 +84,7 @@ void TranslateX ( const mbase::Real deltaTraX) { NT3D_object_o::TranslateX(delta
 void TranslateY ( const mbase::Real deltaTraY) { NT3D_object_o::TranslateY(deltaTraY); oTarget.y += deltaTraY; }
 void TranslateZ ( const mbase::Real deltaTraZ) { NT3D_object_o::TranslateZ(deltaTraZ); oTarget.z += deltaTraZ; }
 void TranslateXYZ ( const NT_std::vector3_o & oDeltaTra ) { NT3D_object_o::TranslateXYZ(oDeltaTra); oTarget += oDeltaTra;}
-void TranslateXYZ ( const mbase::Real deltaTra[3]) { NT3D_object_o::TranslateXYZ(deltaTra); for(mbase::Msize ll=0; ll<3; ll++) oTarget[ll] += deltaTra[ll];}
+void TranslateXYZ ( const mbase::Real deltaTra[3]) { NT3D_object_o::TranslateXYZ(deltaTra); for(mbase::Size_t ll=0; ll<3; ll++) oTarget[ll] += deltaTra[ll];}
 void TranslateNull () { oTarget -= _oTranslation(); NT3D_object_o::TranslateNull();}
 void SetTranslationX ( const mbase::Real traX){ NT3D_object_o::SetTranslationX(traX); oTarget.x = traX ; } //2DO
 void SetTranslationY ( const mbase::Real traY){ NT3D_object_o::SetTranslationY(traY); oTarget.y = traY ; } //2DO

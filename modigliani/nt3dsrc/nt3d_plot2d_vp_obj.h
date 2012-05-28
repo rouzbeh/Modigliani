@@ -74,8 +74,8 @@ protected:
 	void InitChild() {
 	}
 	;
-	mbase::Mreturn ResizeChild(mbase::Msize __attribute__((__unused__)) x,
-			mbase::Msize __attribute__((__unused__)) y) {
+	mbase::Mreturn ResizeChild(mbase::Size_t __attribute__((__unused__)) x,
+			mbase::Size_t __attribute__((__unused__)) y) {
 		return mbase::M_SUCCESS;
 	}
 	void RedrawChild() {

@@ -24,8 +24,8 @@
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NTG_random_ring_graph_o */
-NTG_random_ring_graph_o::NTG_random_ring_graph_o(mbase::Msize nodes,
-		mbase::Msize neighbourhoodRange, mbase::Real reconnectProbability,
+NTG_random_ring_graph_o::NTG_random_ring_graph_o(mbase::Size_t nodes,
+		mbase::Size_t neighbourhoodRange, mbase::Real reconnectProbability,
 		bool deterministic, const NTG_node_o & nodeProto,
 		const NTG_edge_o & edgeProto) :
 		NTG_neighbour_ring_graph_o(nodes, neighbourhoodRange, nodeProto,
@@ -34,17 +34,17 @@ NTG_random_ring_graph_o::NTG_random_ring_graph_o(mbase::Msize nodes,
 
 	reconnectionP = reconnectProbability;
 	NTG_EdgeContainer edgeList = EdgeList();
-	mbase::Msize numDelEdges = 0;
+	mbase::Size_t numDelEdges = 0;
 
 	determDeletion = deterministic;
 
 	if (true == determDeletion) {
 		/* This code defines a deterministic rewiring of randomly selected edges,
 		 * thus p is the fraction of nodes which are rewired (which are choson randomly) */
-		numDelEdges = (mbase::Msize) mbase::Mround(NumEdges() * reconnectionP / 2.0);
+		numDelEdges = (mbase::Size_t) mbase::Mround(NumEdges() * reconnectionP / 2.0);
 		random_shuffle(edgeList.begin(), edgeList.end());
 		NTG_EdgeContainer::const_iterator edgeIter = edgeList.begin();
-		for (mbase::Msize ll = 0; ll < numDelEdges; ll++) {
+		for (mbase::Size_t ll = 0; ll < numDelEdges; ll++) {
 			//			cerr << (*edgeIter).Source() <<  " "<< (*edgeIter).Target() << std::endl;
 			if (true
 					== IsConnected((*edgeIter).Source(),
@@ -74,7 +74,7 @@ NTG_random_ring_graph_o::NTG_random_ring_graph_o(mbase::Msize nodes,
 		}
 	}
 
-	mbase::Msize counter = 0;
+	mbase::Size_t counter = 0;
 	mbase::Mid a, b;
 
 	while (counter < numDelEdges) {

@@ -47,20 +47,20 @@ public:
   virtual void Draw() = 0; 
   /** These methods call child and drv implementations */
   void Init() {InitChild();pVP->Init();}
-  mbase::Mreturn Resize(mbase::Msize newWidth, mbase::Msize newHeight) {ResizeChild(newWidth,newHeight); return pVP->Resize(newWidth,newHeight);}
+  mbase::Mreturn Resize(mbase::Size_t newWidth, mbase::Size_t newHeight) {ResizeChild(newWidth,newHeight); return pVP->Resize(newWidth,newHeight);}
   void Redraw() {RedrawChild(); pVP->Redraw();}
   /* These methods call drv implemetnations only */
   void MakeCurrent() {pVP->MakeCurrent();}
   void SwapBuffer() {pVP->SwapBuffer();}
   NT3D_bitmap_o View2Bitmap() {return (NT3D_bitmap_o) pVP->View2Bitmap();}
   NT3D_bitmap_o * View2BitmapPtr(NT3D_bitmap_o * bmpPtr) {return pVP->View2BitmapPtr(bmpPtr);}
-  mbase::Msize _width(){return pVP->_width();}
-  mbase::Msize _height(){return pVP->_height();}
+  mbase::Size_t _width(){return pVP->_width();}
+  mbase::Size_t _height(){return pVP->_height();}
   /* ***  Data                 ***/
   protected:
   /* ***  Methods              ***/
   virtual void InitChild() = 0;
-  virtual mbase::Mreturn ResizeChild(mbase::Msize width, mbase::Msize height) = 0;
+  virtual mbase::Mreturn ResizeChild(mbase::Size_t width, mbase::Size_t height) = 0;
   /* ***  Data                 ***/
   virtual void RedrawChild() = 0;
   /* ***  Data                 ***/  

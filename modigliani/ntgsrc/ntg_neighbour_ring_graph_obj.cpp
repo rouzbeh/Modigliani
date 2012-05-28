@@ -24,8 +24,8 @@
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NTG_neighbour_ring_graph_o */
-NTG_neighbour_ring_graph_o::NTG_neighbour_ring_graph_o(mbase::Msize nodes,
-		mbase::Msize neighbourhoodRange, const NTG_node_o & nodeProto,
+NTG_neighbour_ring_graph_o::NTG_neighbour_ring_graph_o(mbase::Size_t nodes,
+		mbase::Size_t neighbourhoodRange, const NTG_node_o & nodeProto,
 		const NTG_edge_o __attribute__((unused)) & edgeProto) :
 		NTG_undirected_graph_o() {
 	M_ASSERT(neighbourhoodRange > 0);
@@ -36,7 +36,7 @@ NTG_neighbour_ring_graph_o::NTG_neighbour_ring_graph_o(mbase::Msize nodes,
 				<< std::endl;
 
 	M_ASSERT(nodes > 0);
-	for (mbase::Msize ll = 0; ll < nodes; ll++) {
+	for (mbase::Size_t ll = 0; ll < nodes; ll++) {
 		if (0 == AddNode(nodeProto))
 			std::cerr
 					<< "NTG_neighbour_ring_graph_o::NTG_neighbour_ring_graph_o - Error : Node adding generated an error."
@@ -50,18 +50,18 @@ NTG_neighbour_ring_graph_o::NTG_neighbour_ring_graph_o(mbase::Msize nodes,
 
 	for (nodeIter = nodeList.begin(); nodeIter != nodeList.end(); nodeIter++) {
 
-		for (mbase::Msize lli = 1; lli <= radius; lli++) {
+		for (mbase::Size_t lli = 1; lli <= radius; lli++) {
 			iterVec[lli - 1] = nodeIter;
 
 			/* "modulo" operation on a node list */
-			for (mbase::Msize llr = 1; llr <= lli; llr++) {
+			for (mbase::Size_t llr = 1; llr <= lli; llr++) {
 				(iterVec[lli - 1])++;
 				if (nodeList.end() == iterVec[lli - 1])
 					iterVec[lli - 1] = nodeList.begin();
 			}
 			if (mbase::M_SUCCESS != SymmetricConnect(*nodeIter, *(iterVec[lli - 1])))
 				std::cerr
-						<< "NTG_neighbour_ring_graph_o::NTG_neighbour_ring_graph_o(mbase::Msize nodes, mbase::Msize neighbourhoodRange,NTG_node_o & nodeProto, NTG_edge_o & edgeProto ) : NTG_graph_o() - Error : Error creating symmetric  neighbour ring connection at radius="
+						<< "NTG_neighbour_ring_graph_o::NTG_neighbour_ring_graph_o(mbase::Size_t nodes, mbase::Size_t neighbourhoodRange,NTG_node_o & nodeProto, NTG_edge_o & edgeProto ) : NTG_graph_o() - Error : Error creating symmetric  neighbour ring connection at radius="
 						<< lli << "." << std::endl;
 			// cerr <<"NTG_neighbour_ring_graph_o::NTG_neighbour_ring_graph_o - Talk : Connected ("<<*nodeIter<<","<<*(iterVec[lli-1])<<")." << std::endl;
 		}

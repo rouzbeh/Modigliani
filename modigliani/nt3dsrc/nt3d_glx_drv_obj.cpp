@@ -98,7 +98,7 @@ GLXContext NT3D_glx_drv_o::uniqueCommonCtx = NULL;
 
 /* ***      CONSTRUCTORS	***/
 /** standard constructor which on default opens a 200 X 200 window */
-NT3D_glx_drv_o::NT3D_glx_drv_o(mbase::Msize windowWidth, mbase::Msize windowHeight,
+NT3D_glx_drv_o::NT3D_glx_drv_o(mbase::Size_t windowWidth, mbase::Size_t windowHeight,
 		bool useCommonContext) {
 	useUniqueCommonCtx = useCommonContext;
 
@@ -160,7 +160,7 @@ mbase::Mreturn NT3D_glx_drv_o::Close() {
 	return mbase::M_SUCCESS;
 }
 
-mbase::Mreturn NT3D_glx_drv_o::Resize(mbase::Msize windowWidth, mbase::Msize windowHeight) {
+mbase::Mreturn NT3D_glx_drv_o::Resize(mbase::Size_t windowWidth, mbase::Size_t windowHeight) {
 	width = windowWidth;
 	height = windowHeight;
 

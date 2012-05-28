@@ -37,7 +37,7 @@
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NT3D_bitmap_o */
-NT3D_bitmap_o::NT3D_bitmap_o(mbase::Msize newWidth, mbase::Msize newHeight,
+NT3D_bitmap_o::NT3D_bitmap_o(mbase::Size_t newWidth, mbase::Size_t newHeight,
 		mbase::ImageDataFormat newFormat) {
 	width = newWidth;
 	height = newHeight;
@@ -112,10 +112,10 @@ void NT3D_bitmap_o::Draw() {
  - give possibility to get a grey (RGB) image;
  */
 
-void NT3D_bitmap_o::GetBitmap(mbase::Msize x1, mbase::Msize y1, mbase::Msize x2, mbase::Msize y2,
+void NT3D_bitmap_o::GetBitmap(mbase::Size_t x1, mbase::Size_t y1, mbase::Size_t x2, mbase::Size_t y2,
 		mbase::ImageDataFormat newFormat) {
-	mbase::Msize tWidth = x2 - x1;
-	mbase::Msize tHeight = y2 - y1;
+	mbase::Size_t tWidth = x2 - x1;
+	mbase::Size_t tHeight = y2 - y1;
 	M_ASSERT_PRECOND( (tWidth > 0) || (tHeight > 0));
 
 	if ((tWidth != width) || (tHeight != height) || (format != newFormat)) {

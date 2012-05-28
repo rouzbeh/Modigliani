@@ -86,8 +86,8 @@ NT3D_universe_cylindric_camera_o::~NT3D_universe_cylindric_camera_o() {
  mbase::Real	stepX = width/aziStep;
  mbase::Real	stepY = height/hStep;
 
- for (mbase::Msize llx=0; llx < aziStep; llx++){
- for (mbase::Msize lly=0; lly < hStep; lly++){
+ for (mbase::Size_t llx=0; llx < aziStep; llx++){
+ for (mbase::Size_t lly=0; lly < hStep; lly++){
  glViewport(llx*stepX,lly*stepY, stepX, stepY);
  glLoadIdentity();
  glMatrixMode(GL_PROJECTION);

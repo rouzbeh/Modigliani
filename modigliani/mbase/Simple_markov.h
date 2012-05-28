@@ -66,7 +66,7 @@ public:
 		return (stateIndex);
 	}
 	Mreturn SetProbTransMatrix(Matrix<Real> * ptrNewMtr);
-	Mreturn SetState(Msize newStateIndex);
+	Mreturn SetState(Size_t newStateIndex);
 	/* ***  Data                 ***/
 protected:
 	/* ***  Methods              ***/
@@ -76,7 +76,7 @@ private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
 	Mint stateIndex; // index of state 1...numStates
-	Msize numStates;
+	Size_t numStates;
 	M_uniform_rnd_dist_o random;
 	bool mtrAssigned;
 };

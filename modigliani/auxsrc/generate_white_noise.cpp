@@ -30,7 +30,7 @@ main(int argc, char* argv[])
         exit(1);
     }
     std::string filename = argv[1];
-    mbase::Msize numNumbers = atoi ( argv[2]);
+    mbase::Size_t numNumbers = atoi ( argv[2]);
 
 
     std::ofstream file (filename.c_str(), std::ios::binary);
@@ -42,7 +42,7 @@ main(int argc, char* argv[])
 
     mbase::Sequential_statistics stats;
 
-    for (mbase::Msize ll = 0; ll < numNumbers; ll++) {
+    for (mbase::Size_t ll = 0; ll < numNumbers; ll++) {
         value = float(rnd.RndVal());
         stats.Add(value);
         file.write( reinterpret_cast<char*>(&value), sizeof(float) );

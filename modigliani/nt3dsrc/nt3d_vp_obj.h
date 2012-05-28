@@ -57,14 +57,14 @@ public:
   virtual void Init()=0;
   virtual void MakeCurrent()=0;
   virtual void SwapBuffer(){};
-  virtual mbase::Mreturn Resize(mbase::Msize width, mbase::Msize height)=0;
+  virtual mbase::Mreturn Resize(mbase::Size_t width, mbase::Size_t height)=0;
   virtual void Redraw()=0;
   mbase::Mreturn Connect(NT3D_vp_o * connectingVP);
   mbase::Mreturn Disconnect();
   virtual NT3D_bitmap_o View2Bitmap()=0;
   virtual NT3D_bitmap_o * View2BitmapPtr(NT3D_bitmap_o * bmpPtr)=0;
-  virtual mbase::Msize _width()=0;
-  virtual mbase::Msize _height()=0;
+  virtual mbase::Size_t _width()=0;
+  virtual mbase::Size_t _height()=0;
   /* ***  Data                 ***/  
   protected:
   /* ***  Methods              ***/  

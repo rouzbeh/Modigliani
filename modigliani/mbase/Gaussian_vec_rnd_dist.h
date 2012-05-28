@@ -39,9 +39,9 @@ namespace mbase {
 class Gaussian_vec_rnd_dist: public Vec_rnd_dist {
 public:
 	/***   Constructors, CopyAssignment and Destructor  ***/
-	Gaussian_vec_rnd_dist(Real mean, Real stdDev, Msize dim);
+	Gaussian_vec_rnd_dist(Real mean, Real stdDev, Size_t dim);
 	Gaussian_vec_rnd_dist(Vector mean, Vector stdDev,
-			Msize dim);
+			Size_t dim);
 
 	Gaussian_vec_rnd_dist(const Gaussian_vec_rnd_dist & original);
 	const Gaussian_vec_rnd_dist & operator=(

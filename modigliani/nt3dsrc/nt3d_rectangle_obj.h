@@ -63,7 +63,7 @@
 class NT3D_rectangle_o : public NT3D_surfaced_object_o {
 public:
 /***   Constructors, Copy/Assignment and Destructor  ***/  
-NT3D_rectangle_o(mbase::Real width = 1.0, mbase::Real height = 1.0, mbase::Msize steps = 2);
+NT3D_rectangle_o(mbase::Real width = 1.0, mbase::Real height = 1.0, mbase::Size_t steps = 2);
 NT3D_rectangle_o(const NT3D_rectangle_o & original);
 const NT3D_rectangle_o & operator= (const NT3D_rectangle_o & right);
 virtual ~NT3D_rectangle_o();
@@ -80,7 +80,7 @@ void ConstructRectanlge();
 /* ***  Data                 ***/ 
 mbase::Real width;
 mbase::Real height;
-mbase::Msize steps;
+mbase::Size_t steps;
 };
 #endif /* _nt3d_rectangle_obj_h_ */ 
 

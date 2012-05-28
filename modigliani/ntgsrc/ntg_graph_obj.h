@@ -86,8 +86,8 @@ template<class T>
 NTG_NodeDistanceMatrix NodeDistanceMatrixConditioning(const Matrix<T> & aMtr) {
 	NTG_NodeDistanceMatrix dMtr(aMtr.num_rows(), aMtr.num_cols());
 	M_ASSERT( aMtr.size() == dMtr.size());
-	for (mbase::Msize lr = 0; lr < (mbase::Msize) aMtr.num_rows(); lr++) {
-		for (mbase::Msize lc = 0; lc < (mbase::Msize) aMtr.num_cols(); lc++) {
+	for (mbase::Size_t lr = 0; lr < (mbase::Size_t) aMtr.num_rows(); lr++) {
+		for (mbase::Size_t lc = 0; lc < (mbase::Size_t) aMtr.num_cols(); lc++) {
 			if (lr == lc)
 				dMtr[lr][lc] = 0;
 			else {
@@ -123,11 +123,11 @@ public:
 	mbase::Mbool GraphConsistency() {
 		return (mbase::M_TRUE);
 	}
-	mbase::Msize NumNodes() const;
-	mbase::Msize NumEdges() const;
-	mbase::Msize NumConvergentConnections(mbase::Mid id) const;
+	mbase::Size_t NumNodes() const;
+	mbase::Size_t NumEdges() const;
+	mbase::Size_t NumConvergentConnections(mbase::Mid id) const;
 	NTG_NodeIdList ShortestPath() const;
-	mbase::Msize Distance(mbase::Mid a, mbase::Mid b) const;
+	mbase::Size_t Distance(mbase::Mid a, mbase::Mid b) const;
 	NTG_EdgeContainer ConvergentConnections(mbase::Mid id) const;
 	NTG_EdgeContainer DivergentConnections(mbase::Mid id) const;
 	NTG_NodeIdList NodeIdList() const;
@@ -175,8 +175,8 @@ private:
 // edge manipulation
 	mbase::Mreturn AddEdge(const NTG_edge_o & newEdge);
 	/* ***  Data                 ***/
-	mbase::Msize numNodes;
-	mbase::Msize numEdges;
+	mbase::Size_t numNodes;
+	mbase::Size_t numEdges;
 	mbase::Id_management nodeIdManager;
 	mbase::Uniform_rnd_dist rndNodeGen;
 	NTG_NodeContainer V;

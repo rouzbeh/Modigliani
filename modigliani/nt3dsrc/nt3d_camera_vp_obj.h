@@ -115,7 +115,7 @@ protected:
   /* ***  Methods              ***/  
   virtual void DrawScene() = 0;
   void RedrawChild(){DrawScene();};
-  mbase::Mreturn ResizeChild(mbase::Msize width, mbase::Msize height);
+  mbase::Mreturn ResizeChild(mbase::Size_t width, mbase::Size_t height);
   void InitChild() ;
   /* ***  Data                 ***/  
   NT3D_camera_o * cameraPtr;

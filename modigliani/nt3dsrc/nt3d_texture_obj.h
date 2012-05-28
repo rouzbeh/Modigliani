@@ -110,9 +110,9 @@ Paint() -> DrawXYZ() -> Painted()
 class NT3D_texture_o : public NT_o {
 public:
 /***   Constructors, Copy/Assignment and Destructor  ***/  
-NT3D_texture_o(mbase::Msize newTextureWidth=64, 
-			   mbase::Msize newTextureHeight=64, 
-			   mbase::Msize newDim=2,
+NT3D_texture_o(mbase::Size_t newTextureWidth=64, 
+			   mbase::Size_t newTextureHeight=64, 
+			   mbase::Size_t newDim=2,
 			   bool newMakeTextureCoord=false);		   
 NT3D_texture_o(const NT3D_texture_o & original);
 const NT3D_texture_o & operator= (const NT3D_texture_o & right);
@@ -133,8 +133,8 @@ virtual mbase::Mreturn AssignTexture() { NT_CERR(1,"NT3D_texture_o::AssignTextur
 /* ***  Data                 ***/  
 GLfloat *textureImagePtr;
 GLuint textureId;
-mbase::Msize textureWidth;
-mbase::Msize textureHeight;
+mbase::Size_t textureWidth;
+mbase::Size_t textureHeight;
 GLenum dim;
 
 private:

@@ -65,11 +65,11 @@ public:
 
 /* ***      CONSTRUCTORS	***/
 
-void NTG_random_graph_o::InitFullyConnectedGraph(mbase::Msize numInitialNodes,
+void NTG_random_graph_o::InitFullyConnectedGraph(mbase::Size_t numInitialNodes,
 		const NTG_node_o & nodeProto,
 		const NTG_edge_o __attribute__((unused)) & edgeProto) {
 
-	for (mbase::Msize ll = 0; ll < numInitialNodes; ll++) {
+	for (mbase::Size_t ll = 0; ll < numInitialNodes; ll++) {
 		if (AddNode(nodeProto) == 0)
 			std::cerr
 					<< "NTG_random_graph_o::NTG_random_graph_o - Error: An error occured while adding the nodes to the graph."
@@ -96,7 +96,7 @@ void NTG_random_graph_o::InitFullyConnectedGraph(mbase::Msize numInitialNodes,
 
 /** Create a NTG_random_graph_o */
 /** @short Generate fully connected graph */
-NTG_random_graph_o::NTG_random_graph_o(mbase::Msize numInitialNodes,
+NTG_random_graph_o::NTG_random_graph_o(mbase::Size_t numInitialNodes,
 		const NTG_node_o & nodeProto, const NTG_edge_o & edgeProto) :
 		NTG_graph_o() {
 	p = 1;
@@ -107,7 +107,7 @@ NTG_random_graph_o::NTG_random_graph_o(mbase::Msize numInitialNodes,
 }
 
 /** Create a NTG_random_graph_o */
-NTG_random_graph_o::NTG_random_graph_o(mbase::Msize numInitialNodes,
+NTG_random_graph_o::NTG_random_graph_o(mbase::Size_t numInitialNodes,
 		mbase::Real connectivityProbability, const NTG_node_o & nodeProto,
 		const NTG_edge_o & edgeProto) :
 		NTG_graph_o() {
@@ -121,7 +121,7 @@ NTG_random_graph_o::NTG_random_graph_o(mbase::Msize numInitialNodes,
 
 	/* dilute fully connected graph */
 	mbase::Uniform_rnd_dist connectRndGen(1, NumEdges());
-	mbase::Msize numDel = (mbase::Msize) (NumEdges()
+	mbase::Size_t numDel = (mbase::Size_t) (NumEdges()
 			* (1 - connectivityProbability));
 
 	NTG_EdgeContainer edgeList = EdgeList();

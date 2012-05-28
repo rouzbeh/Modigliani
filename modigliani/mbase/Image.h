@@ -40,19 +40,19 @@ namespace mbase {
 class Image: public Obj {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Image(Msize width = 128, Msize height = 64, Msize colorDepth = 16,
+	Image(Size_t width = 128, Size_t height = 64, Size_t colorDepth = 16,
 			ImageDataFormat dataFormat = RGBA);
 	Image(const Image & original);
 	const Image & operator=(const Image & right);
 	virtual ~Image();
 	/* ***  Methods              ***/
-	Msize _width() {
+	Size_t _width() {
 		return (width);
 	}
-	Msize _height() {
+	Size_t _height() {
 		return (height);
 	}
-	Msize _colorDepth() {
+	Size_t _colorDepth() {
 		return (24);
 	}
 	ImageDataFormat _dataFormat() {
@@ -65,23 +65,23 @@ public:
 		return (M_NOT_IMPLEMENTED);
 	}
 	;
-	const std::valarray<Msize>* GetImageArray() const {
+	const std::valarray<Size_t>* GetImageArray() const {
 		return (&imageVec);
 	}
 //valarray<double>* GetRGBAImageArray() const;
 	/* ***  Data                 ***/
 protected:
 	/* ***  Methods              ***/
-	Real _imageVecR(Msize elementIndex) const {
+	Real _imageVecR(Size_t elementIndex) const {
 		return (imageVec[elementIndex] / 255.0);
 	}
-	Msize _imageVecI(Msize elementIndex) const {
+	Size_t _imageVecI(Size_t elementIndex) const {
 		return (imageVec[elementIndex]);
 	}
 	/* ***  Data                 ***/
-	Msize width;
-	Msize height;
-	Msize colorDepth; /*  in bits per pixel without alpha channel {1,2,4,8,15,16,24,32}; */
+	Size_t width;
+	Size_t height;
+	Size_t colorDepth; /*  in bits per pixel without alpha channel {1,2,4,8,15,16,24,32}; */
 	ImageDataFormat dataFormat;
 private:
 	/* ***  Methods              ***/
@@ -96,7 +96,7 @@ private:
 	}
 	Mreturn LoadTGA(std::string filename);
 	/* ***  Data                 ***/
-	std::valarray<Msize> imageVec;
+	std::valarray<Size_t> imageVec;
 };
 }
 #endif /* _mbase_image_h_ */

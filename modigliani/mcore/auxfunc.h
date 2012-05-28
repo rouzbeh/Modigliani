@@ -68,7 +68,7 @@ NTBP_corrected_channel_density(mbase::Real chDensity /* mum^-2 */,
 		mbase::Real compArea /* mum^-2 */);
 
 mcore::Membrane_current *
-NTBP_create_na_channel_ptr(mbase::Msize sodiumModel, mbase::Msize algorithm,
+NTBP_create_na_channel_ptr(mbase::Size_t sodiumModel, mbase::Size_t algorithm,
 		mbase::Real chDensity /* mum^-2 */,
 		mbase::Real chConductance /* pS */, mbase::Real q10,
 		mbase::Real temperature /* C */, mbase::Real compArea /* mum^2 */);

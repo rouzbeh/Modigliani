@@ -74,7 +74,7 @@
 class NT3D_pixel_texture_o: public NT3D_texture_o {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	NT3D_pixel_texture_o(mbase::Msize newTextureWidth = 64, mbase::Msize newTextureHeight =
+	NT3D_pixel_texture_o(mbase::Size_t newTextureWidth = 64, mbase::Size_t newTextureHeight =
 			64);
 	NT3D_pixel_texture_o(const NT3D_pixel_texture_o & original);
 	const NT3D_pixel_texture_o & operator=(const NT3D_pixel_texture_o & right);

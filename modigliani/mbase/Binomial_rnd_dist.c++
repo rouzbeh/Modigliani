@@ -26,7 +26,7 @@ using namespace mbase;
 
 #define M_LOGGAMMATABLEMAX 10000001
 
-/*vector<Real> M_make_vector_func(Msize dim) {
+/*vector<Real> M_make_vector_func(Size_t dim) {
  vector<Real> tmpVec;
  tmpVec.resize(dim);
  return tmpVec;
@@ -39,7 +39,7 @@ Binomial_rnd_dist::Initializer::Initializer() {
 	std::cerr
 			<< "Binomial_rnd_dist::Binomial_rnd_dist - Talk : This may take a while, populating LogGamma(0.."
 			<< M_LOGGAMMATABLEMAX - 1 << ") tables." << std::endl;
-	for (Msize ll = 0; ll < M_LOGGAMMATABLEMAX; ll++) {
+	for (Size_t ll = 0; ll < M_LOGGAMMATABLEMAX; ll++) {
 		logGammaTable[ll] = MLogGammaFunction(Real(ll));
 	}
 }
@@ -48,7 +48,7 @@ Binomial_rnd_dist::Initializer::Initializer() {
 
 /* ***      CONSTRUCTORS	***/
 /** Create a Binomial_rnd_dist */
-Binomial_rnd_dist::Binomial_rnd_dist(Real pp, Msize num) :
+Binomial_rnd_dist::Binomial_rnd_dist(Real pp, Size_t num) :
 		Rnd_dist() {
 	M_ASSERT( (pp >= 0) && (pp <= 1));
 	p = pp;

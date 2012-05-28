@@ -40,11 +40,11 @@
  \warning unknown
  */
 namespace mbase {
-typedef std::vector<Msize> HistogramBins;
+typedef std::vector<Size_t> HistogramBins;
 class Histogram: public Obj {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Histogram(Real minVal = 0, Real maxVal = 1, Msize numberOfBins =
+	Histogram(Real minVal = 0, Real maxVal = 1, Size_t numberOfBins =
 			10);
 	Histogram(const Histogram & original);
 	const Histogram & operator=(const Histogram & right);
@@ -68,7 +68,7 @@ protected:
 	Real max;
 	Real binWidth;
 	Real numDataPoints;
-	Msize numOutliers;
+	Size_t numOutliers;
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/

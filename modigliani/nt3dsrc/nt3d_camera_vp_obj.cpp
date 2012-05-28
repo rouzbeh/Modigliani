@@ -180,7 +180,7 @@ NT3D_camera_vp_o::InitChild()
 
 /* ***  PROTECTED                         ***   */
 mbase::Mreturn 
-NT3D_camera_vp_o::ResizeChild(mbase::Msize width, mbase::Msize height)
+NT3D_camera_vp_o::ResizeChild(mbase::Size_t width, mbase::Size_t height)
 {
 	cameraPtr->Set_aspectRatio(width/(mbase::Real)height);
 	return mbase::M_SUCCESS;

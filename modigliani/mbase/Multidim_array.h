@@ -42,7 +42,7 @@ template<class T> // with regards to Modula-3 :)
 class Multidim_array: public Obj {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Multidim_array(Msize d, Msize n) {
+	Multidim_array(Size_t d, Size_t n) {
 		M_ASSERT(d > 0);
 		dim = d;
 		M_ASSERT(n > 0);
@@ -50,12 +50,12 @@ public:
 		// implementation range checking
 		/* 2DO not working as numeric_limits not implemented in gcc 2.95
 		 Real numElem = pow(n,d);
-		 Real maxIndexRange = numeric_limits<Msize>::max();
+		 Real maxIndexRange = numeric_limits<Size_t>::max();
 		 if (numElem >= maxIndexRange) {
 		 std::cerr <<
 		 "M_multidim_array_o::M_multidim_array_o - Error : array will contain to many elements"
 		 << numElem << " for supported implementation range "
-		 << maxIndexRange << " ("<< numeric_limits<Msize>.max()
+		 << maxIndexRange << " ("<< numeric_limits<Size_t>.max()
 		 << "). Undefined behaviour may result." << std::endl;
 		 }
 		 */
@@ -63,7 +63,7 @@ public:
 		powerSeriesCacheVec.resize(dim + 1);
 		// = {1,num,num^2,...,num^dim}
 		powerSeriesCacheVec[0] = 1;
-		for (Msize ll = 1; ll < dim + 1; ll++) {
+		for (Size_t ll = 1; ll < dim + 1; ll++) {
 			powerSeriesCacheVec[ll] = num * powerSeriesCacheVec[ll - 1];
 			std::cerr << powerSeriesCacheVec[ll] << std::endl;
 		}
@@ -110,8 +110,8 @@ public:
 	 \bug        unknown
 	 */
 	T &
-	Elem(const std::vector<Msize> & coordinateVec) {
-		Msize hash = Hash(coordinateVec);
+	Elem(const std::vector<Size_t> & coordinateVec) {
+		Size_t hash = Hash(coordinateVec);
 		M_ASSERT(dataVec.size() >= hash);
 		return (dataVec[hash]);
 	}
@@ -128,13 +128,13 @@ public:
 	 \bug        unknown
 	 */
 	const T &
-	ElemByIndex(Msize index) const {
+	ElemByIndex(Size_t index) const {
 		M_ASSERT((index < TotalNumElem()));
 		return (dataVec[index]);
 	}
 
 	void SetAll(const T & val) {
-		for (Msize ll = 0; ll < TotalNumElem(); ll++) {
+		for (Size_t ll = 0; ll < TotalNumElem(); ll++) {
 			dataVec[ll] = val;
 		}
 	}
@@ -146,19 +146,19 @@ public:
 	 \bug        unknown
 	 */
 	T &
-	Elem(Msize index1...)
+	Elem(Size_t index1...)
 	{
-		std::vector <Msize> coorVec(dim);
+		std::vector <Size_t> coorVec(dim);
 		va_list args;
 		va_start(args,index1);
-		for (Msize ld=0; ld < dim; ld++) {
-			coorVec[ld] = va_arg(args, Msize);
+		for (Size_t ld=0; ld < dim; ld++) {
+			coorVec[ld] = va_arg(args, Size_t);
 		}
 		va_end(args);
 		return (Elem(coorVec));
 	}
 
-	Msize
+	Size_t
 	TotalNumElem() const
 	{
 		return (powerSeriesCacheVec[dim]);
@@ -175,20 +175,20 @@ private:
 	 decimal representation of the num-ary dim-digit coordinate "number".
 	 \warning range of coordinates values (0..num-1) is not tested
 	 */
-	Msize Hash(const std::vector <Msize> & coorVec) const
+	Size_t Hash(const std::vector <Size_t> & coorVec) const
 	{
 		M_ASSERT( coorVec.size() == dim );
-		Msize addressIndex = 0;
-		for (Msize ld = 0; ld < dim; ld++) { //2DO  WHY was ld < num+1 ?!?!?!
+		Size_t addressIndex = 0;
+		for (Size_t ld = 0; ld < dim; ld++) { //2DO  WHY was ld < num+1 ?!?!?!
 				addressIndex += coorVec[ld] * powerSeriesCacheVec[ld];
 			}
 			return (addressIndex);
 		}
 		/* ***  Data                 ***/
-		std::vector <Msize> dataVec;
-		std::vector <Msize> powerSeriesCacheVec;
-		Msize dim;
-		Msize num; // number of elements per dimension
+		std::vector <Size_t> dataVec;
+		std::vector <Size_t> powerSeriesCacheVec;
+		Size_t dim;
+		Size_t num; // number of elements per dimension
 
 	};
 

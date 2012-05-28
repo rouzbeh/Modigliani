@@ -112,11 +112,11 @@ void NT3D_plot2d_vp_o::DrawCoordinateSystem(/* to be optionalised */) {
 	mbase::Real minorXTickLength = 0.01 * yLen;
 	mbase::Real majorXTickLength = 0.02 * yLen;
 	mbase::Real minorXTickSpacing = 1.0;
-	mbase::Msize minor2MajorXTickRatio = 10.0;
+	mbase::Size_t minor2MajorXTickRatio = 10.0;
 	mbase::Real minorYTickLength = 0.01 * xLen;
 	mbase::Real majorYTickLength = 0.02 * xLen;
 	mbase::Real minorYTickSpacing = 1.0;
-	mbase::Msize minor2MajorYTickRatio = 10.0;
+	mbase::Size_t minor2MajorYTickRatio = 10.0;
 
 	glColor3f(1.0, 1.0, 1.0);
 	glBegin(GL_POINTS);
@@ -132,7 +132,7 @@ void NT3D_plot2d_vp_o::DrawCoordinateSystem(/* to be optionalised */) {
 
 	/* x axis ticks */
 	y = yMin;
-	mbase::Msize ll;
+	mbase::Size_t ll;
 	for (ll = 0; ll < (float) xLen / minorXTickSpacing; ll++) {
 		x = ll * minorXTickSpacing
 				+ minorXTickSpacing * floor(xMin / minorXTickSpacing);

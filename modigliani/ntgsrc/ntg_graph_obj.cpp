@@ -176,10 +176,10 @@ mbase::Mreturn NTG_graph_o::SymmetricConnect(mbase::Mid a, mbase::Mid b,
 	return (mbase::M_SUCCESS);
 }
 
-mbase::Msize NTG_graph_o::NumNodes() const {
+mbase::Size_t NTG_graph_o::NumNodes() const {
 	return (numNodes);
 }
-mbase::Msize NTG_graph_o::NumEdges() const {
+mbase::Size_t NTG_graph_o::NumEdges() const {
 	return (numEdges);
 }
 
@@ -333,7 +333,7 @@ bool NTG_graph_o::InGraph(mbase::Mid selNode) const {
 NTG_NodeDistanceMatrix NTG_graph_o::NodeDistanceMatrix(
 		const NTG_NodeDistanceMatrix & aMtr) const {
 	M_ASSERT(
-			( (mbase::Msize) aMtr.num_rows() == NumNodes() ) && ( (mbase::Msize)aMtr.num_cols() ==NumNodes()));
+			( (mbase::Size_t) aMtr.num_rows() == NumNodes() ) && ( (mbase::Size_t)aMtr.num_cols() ==NumNodes()));
 	//cerr << "NTG_graph_o::NodeDistanceMatrix  - Talk : Entered method."<< std::endl;
 	NTG_NodeDistanceMatrix dMtr(aMtr);
 
@@ -341,13 +341,13 @@ NTG_NodeDistanceMatrix NTG_graph_o::NodeDistanceMatrix(
 	//cerr << "NTG_graph_o::NodeDistanceMatrix  - Talk : Init done. NumNodes ="<< NumNodes()<< std::endl;
 
 	mbase::Real minVal;
-	mbase::Msize minNode = 0;
+	mbase::Size_t minNode = 0;
 
 	//cout << aMtr;
 	//cout << dMtr;
 	//cout << foundMtr;
 
-	mbase::Msize lc, lr, ll;
+	mbase::Size_t lc, lr, ll;
 	for (lr = 0; lr < NumNodes(); lr++) {
 
 		foundMtr[lr][lr] = true;
@@ -392,9 +392,9 @@ mbase::Sequential_statistics NTG_graph_o::AdjacencyDistanceStatistics() {
 			NodeDistanceMatrixConditioning(AdjacencyMatrix()));
 	mbase::Sequential_statistics oStats;
 
-	M_ASSERT(mbase::Msize(dMtr.size()) == mbase::Msize(NumNodes() * NumNodes()));
+	M_ASSERT(mbase::Size_t(dMtr.size()) == mbase::Size_t(NumNodes() * NumNodes()));
 	/* simple test, 2DO improve */
-	mbase::Msize lr, lc;
+	mbase::Size_t lr, lc;
 	for (lr = 0; lr < NumNodes(); lr++) {
 		for (lc = 0; lc < NumNodes(); lc++) {
 			oStats.Add(dMtr[lr][lc]);
@@ -527,10 +527,10 @@ NTG_AdjacencyMatrix NTG_graph_o::AdjacencyMatrix() {
 	return (aMtr);
 }
 
-mbase::Msize NTG_graph_o::NumConvergentConnections(mbase::Mid id) const {
+mbase::Size_t NTG_graph_o::NumConvergentConnections(mbase::Mid id) const {
 	NTG_EdgeContainer::const_iterator itE;
 
-	mbase::Msize counter = 0;
+	mbase::Size_t counter = 0;
 	for (itE = E.begin(); itE != E.end(); itE++) {
 		if ((*itE).Target() == id)
 			counter++;

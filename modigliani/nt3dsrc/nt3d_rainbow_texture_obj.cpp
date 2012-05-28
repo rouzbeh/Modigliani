@@ -66,8 +66,8 @@
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NT3D_rainbow_texture_o */
-NT3D_rainbow_texture_o::NT3D_rainbow_texture_o(mbase::Msize newTextureWidth, 
-							                   mbase::Msize newTextureHeight)
+NT3D_rainbow_texture_o::NT3D_rainbow_texture_o(mbase::Size_t newTextureWidth, 
+							                   mbase::Size_t newTextureHeight)
 :
 NT3D_pixel_texture_o(newTextureWidth, newTextureHeight)
 {
@@ -118,9 +118,9 @@ NT3D_rainbow_texture_o::MakeRGBATexturePoint(mbase::Real* colorVec, mbase::Real 
 mbase::Mreturn
 NT3D_rainbow_texture_o::AssignPixelTexture()
 {
-	mbase::Msize i, j;
+	mbase::Size_t i, j;
     mbase::Real ti, tj;
-	mbase::Msize tmp;
+	mbase::Size_t tmp;
 	mbase::Real* tmpColor = new mbase::Real[4];
 
     for (i = 0; i < textureWidth; i++) {

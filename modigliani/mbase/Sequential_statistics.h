@@ -73,7 +73,7 @@ protected:
     /* ***  Data                 ***/
 private:
     /* ***  Methods              ***/
-    Real UpdateAverage(Real avg, Real val, Msize n) const;
+    Real UpdateAverage(Real avg, Real val, Size_t n) const;
     /* ***  Data                 ***/
     unsigned long int counter;
     Real average;

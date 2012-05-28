@@ -26,7 +26,7 @@ using namespace mbase;
 
 /* ***      CONSTRUCTORS	***/
 /** Create a Two_dim_histogram */
-Two_dim_histogram::Two_dim_histogram(Msize newNumBinsA, Real newMinA, Real newMaxA, Msize newNumBinsB, Real newMinB, Real newMaxB)
+Two_dim_histogram::Two_dim_histogram(Size_t newNumBinsA, Real newMinA, Real newMaxA, Size_t newNumBinsB, Real newMinB, Real newMaxB)
 {
     numBinsA = newNumBinsA;
     M_ASSERT(numBinsA > 0);
@@ -44,7 +44,7 @@ Two_dim_histogram::Two_dim_histogram(Msize newNumBinsA, Real newMinA, Real newMa
 
     numBinned = 0;
     numUnbinned = 0;
-    Matrix <Msize> null(numBinsA, numBinsB);
+    Matrix <Size_t> null(numBinsA, numBinsB);
     table = null;
 }
 
@@ -84,10 +84,10 @@ Two_dim_histogram::~Two_dim_histogram()
    \warning    unknown
    \bug        unknown
  */
-Msize Two_dim_histogram::BinValue(Real valueA, Real valueB)
+Size_t Two_dim_histogram::BinValue(Real valueA, Real valueB)
 {
-    Msize normValA = Msize(floor(numBinsA*(valueA-minA)/rangeA));
-    Msize normValB = Msize(floor(numBinsB*(valueB-minB)/rangeB));
+    Size_t normValA = Size_t(floor(numBinsA*(valueA-minA)/rangeA));
+    Size_t normValB = Size_t(floor(numBinsB*(valueB-minB)/rangeB));
     if (normValA >= numBinsA) {
         numUnbinned++;
         return (1);
@@ -110,7 +110,7 @@ Msize Two_dim_histogram::BinValue(Real valueA, Real valueB)
    \warning    unknown
    \bug        unknown
  */
-Msize Two_dim_histogram::BinValue ( std::vector <Real> valueVec)
+Size_t Two_dim_histogram::BinValue ( std::vector <Real> valueVec)
 {
 	M_ASSERT(valueVec.size() == 2);
     return (BinValue(valueVec[0],valueVec[1]));
@@ -122,7 +122,7 @@ Mreturn Two_dim_histogram::Reset()
     numBinned = 0;
     numUnbinned = 0;
 
-    table = Matrix <Msize> (numBinsA, numBinsB);
+    table = Matrix <Size_t> (numBinsA, numBinsB);
 
     return (M_SUCCESS);
 }
@@ -136,8 +136,8 @@ Matrix <Real> Two_dim_histogram::PDF() const {
     }
 
     Real sum = 0;
-    for (Msize lla = 0; lla < numBinsA; lla++) {
-        for (Msize llb = 0; llb < numBinsB; llb++) {
+    for (Size_t lla = 0; lla < numBinsA; lla++) {
+        for (Size_t llb = 0; llb < numBinsB; llb++) {
             tmpMtr[lla][llb] = table[lla][llb]/Real(numBinned);
             sum += tmpMtr[lla][llb];
         }
@@ -152,8 +152,8 @@ Real Two_dim_histogram::ShannonEntropy() const
     Matrix <Real> tmpMtr = PDF();
     Real entropy  = 0;
 
-    for (Msize lla = 0; lla < numBinsA; lla++) {
-        for (Msize llb = 0; llb < numBinsB; llb++) {
+    for (Size_t lla = 0; lla < numBinsA; lla++) {
+        for (Size_t llb = 0; llb < numBinsB; llb++) {
             entropy -= MComputePLogP(tmpMtr[lla][llb]);
         }
     }

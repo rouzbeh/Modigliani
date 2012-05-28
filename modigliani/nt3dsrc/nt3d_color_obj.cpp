@@ -264,7 +264,7 @@ void NT3D_color_o::SetColor(GLfloat newR, GLfloat newG, GLfloat newB,
  */
 void NT3D_color_o::SetColor(const GLfloat newColor[]) {
 	M_ASSERT_DIM(4, colorRGBA.size());
-	mbase::Msize ll;
+	mbase::Size_t ll;
 	for (ll = 0; ll < 5; ll++)
 		colorRGBA[ll] = newColor[ll];
 	Update();
@@ -307,7 +307,7 @@ NT3D_color_o NT3D_color_o::operator*(mbase::Real alpha) const {
  \bug 	unknown
  */
 void NT3D_color_o::Update() {
-	mbase::Msize ll;
+	mbase::Size_t ll;
 	for (ll = 0; ll < 5; ll++)
 		colorPtr[ll] = colorRGBA[ll];
 }

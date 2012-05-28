@@ -51,21 +51,21 @@
 class NT3D_bitmap_o : public NT3D_o {
 public:
 /***   Constructors, Copy/Assignment and Destructor  ***/  
-NT3D_bitmap_o(mbase::Msize width = 100, mbase::Msize height = 100, mbase::ImageDataFormat format = mbase::RGBA);
+NT3D_bitmap_o(mbase::Size_t width = 100, mbase::Size_t height = 100, mbase::ImageDataFormat format = mbase::RGBA);
 NT3D_bitmap_o(const NT3D_bitmap_o & original);
 const NT3D_bitmap_o & operator= (const NT3D_bitmap_o & right);
 virtual ~NT3D_bitmap_o();
 /* ***  Methods              ***/
 void Draw();
-void GetBitmap(mbase::Msize x1, mbase::Msize y1, mbase::Msize x2, mbase::Msize y2, mbase::ImageDataFormat newFormat);
+void GetBitmap(mbase::Size_t x1, mbase::Size_t y1, mbase::Size_t x2, mbase::Size_t y2, mbase::ImageDataFormat newFormat);
 /* ***  Data                 ***/  
 protected:
 /* ***  Methods              ***/
 /* ***  Data                 ***/  
 private:
 /* ***  Methods              ***/
-mbase::Msize width;
-mbase::Msize height;
+mbase::Size_t width;
+mbase::Size_t height;
 mbase::ImageDataFormat format;
 GLshort * pIm; // pointer of the image
 /* ***  Data                 ***/ 

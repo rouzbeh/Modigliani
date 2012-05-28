@@ -48,7 +48,7 @@
 class NT3D_plot2d_vec_vp_o : public NT3D_plot2d_vp_o {
 public:
 /***   Constructors, Copy/Assignment and Destructor  ***/  
-NT3D_plot2d_vec_vp_o(mbase::Msize dim = 0);
+NT3D_plot2d_vec_vp_o(mbase::Size_t dim = 0);
 NT3D_plot2d_vec_vp_o(const NT3D_plot2d_vec_vp_o & original);
 const NT3D_plot2d_vec_vp_o & operator= (const NT3D_plot2d_vec_vp_o & right);
 virtual ~NT3D_plot2d_vec_vp_o();
@@ -57,7 +57,7 @@ mbase::Mreturn SetData( const std::vector <mbase::Real> & dataVec );
 /* ***  Data                 ***/
 protected:
 /* ***  Methods              ***/
-mbase::Mreturn set_dim(mbase::Msize newDim) {dim = newDim; positionVec.resize(dim); dataVec.resize(dim); return mbase::M_SUCCESS;}
+mbase::Mreturn set_dim(mbase::Size_t newDim) {dim = newDim; positionVec.resize(dim); dataVec.resize(dim); return mbase::M_SUCCESS;}
 void DrawData();
 /* ***  Data                 ***/
 std::vector <mbase::Real> positionVec;
@@ -65,7 +65,7 @@ std::vector <mbase::Real> dataVec;
 private:
 /* ***  Methods              ***/  
 /* ***  Data                 ***/
-mbase::Msize dim;
+mbase::Size_t dim;
 };
 #endif /* _nt3d_plot2d_vec_vp_obj_h_ */ 
 

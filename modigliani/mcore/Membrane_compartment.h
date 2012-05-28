@@ -50,15 +50,15 @@ public:
 			NTBPcurrentType type);
 	mbase::Mreturn step(mbase::Real newVM /* mV */);
 	mbase::Mreturn InjectCurrent(mbase::Real current /* in nA */);
-	mbase::Real AttachedCurrent(mbase::Msize currentIndex) {
+	mbase::Real AttachedCurrent(mbase::Size_t currentIndex) {
 		M_ASSERT((currentIndex > 0) && (currentIndex - 1 < currentVec.size()));
 		return (currentVec[currentIndex - 1]->_current());
 	}
-	mbase::Real AttachedConductance(mbase::Msize currentIndex) {
+	mbase::Real AttachedConductance(mbase::Size_t currentIndex) {
 		M_ASSERT((currentIndex > 0) && (currentIndex - 1 < currentVec.size()));
 		return (currentVec[currentIndex - 1]->_conductance());
 	}
-	mbase::Real AttachedReversalPotential(mbase::Msize currentIndex) {
+	mbase::Real AttachedReversalPotential(mbase::Size_t currentIndex) {
 		M_ASSERT((currentIndex > 0) && (currentIndex - 1 < currentVec.size()));
 		return (currentVec[currentIndex - 1]->_reversalPotential());
 	}
@@ -66,7 +66,7 @@ public:
 	mbase::Real TimeConstant() {
 		return ((_cM() / total_conductance()) * _area() * 1.0e8);
 	}
-	const Membrane_current * Current(mbase::Msize currentIndex) {
+	const Membrane_current * Current(mbase::Size_t currentIndex) {
 		M_ASSERT((currentIndex > 0) && (currentIndex - 1 < currentVec.size()));
 		return (currentVec[currentIndex - 1]);
 	}
@@ -101,7 +101,7 @@ public:
 	/* Set temperature [Celsius] in compartment and for all currents within compartment (affects future attached ones also) */
 	mbase::Mreturn Set_temperature(mbase::Real newTemp /* in Celsius */) {
 		temperature = newTemp;
-		for (mbase::Msize i = 0; i < currentVec.size(); i++)
+		for (mbase::Size_t i = 0; i < currentVec.size(); i++)
 			currentVec[i]->Set_temperature(newTemp);
 		return (mbase::M_SUCCESS);
 	}

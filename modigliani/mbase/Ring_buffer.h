@@ -43,7 +43,7 @@ template<class T>
 class Ring_buffer {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Ring_buffer(Msize newRingLength = 2) {
+	Ring_buffer(Size_t newRingLength = 2) {
 		Init(newRingLength);
 	}
 	Ring_buffer(const Ring_buffer & original);
@@ -51,11 +51,11 @@ public:
 	virtual ~Ring_buffer() {
 	}
 	/* ***  Methods              ***/
-	Msize _ringLength() const {
+	Size_t _ringLength() const {
 		return (ringLength);
 	}
 	/** after resize states are reset to scratch */
-	Mreturn Resize(Msize newRingLength) {
+	Mreturn Resize(Size_t newRingLength) {
 		Init(newRingLength);
 		return (M_SUCCESS);
 	}
@@ -64,34 +64,34 @@ public:
 	}
 	void Show() {
 		std::vector<T> tmpVec = Buffer();
-		for (Msize ll = 0; ll < _ringLength(); ll++)
+		for (Size_t ll = 0; ll < _ringLength(); ll++)
 			std::cout << tmpVec[ll] << " ";
 		std::cout << std::endl;
 	}
 	/* highest index is newest entry */
 	std::vector<T> Buffer() {
 		std::vector<T> tmpVec(ringLength);
-		for (Msize ll = 0; ll < _ringLength(); ll++)
+		for (Size_t ll = 0; ll < _ringLength(); ll++)
 			tmpVec[ll] = bufferVec[(_counter() + ll + 1) % ringLength];
 		return (tmpVec);
 	}
 	/* ***  Data                 ***/
 protected:
 	/* ***  Methods              ***/
-	Msize IncreaseCounter() {
+	Size_t IncreaseCounter() {
 		counter = (counter + 1) % ringLength;
 		return (counter);
 	}
-	Msize _counter() {
+	Size_t _counter() {
 		return (counter);
 	}
 	/* ***  Data                 ***/
-	Msize ringLength;
+	Size_t ringLength;
 private:
 	/* ***  Methods              ***/
 	std::vector<T> bufferVec;
-	Msize counter;
-	void Init(Msize newRingLength) {
+	Size_t counter;
+	void Init(Size_t newRingLength) {
 		counter = 0;
 		ringLength = newRingLength;
 		bufferVec.resize(ringLength);

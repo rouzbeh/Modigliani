@@ -171,7 +171,7 @@ inline mbase::Real File_based_stochastic_multi_current::open_channels() const {
 /**  */
 /** No descriptions */
 inline mbase::Real File_based_stochastic_multi_current::num_channels_in_state(
-		mbase::Msize state) const {
+		mbase::Size_t state) const {
 	return (channelsPtr->numChannelsInState(state));
 }
 

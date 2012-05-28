@@ -38,7 +38,7 @@ public:
 	virtual mbase::Mreturn step_current() override	;
 	virtual mbase::Real open_channels() const override;
 	virtual mbase::Real compute_conductance() override;
-	virtual mbase::Real num_channels_in_state(mbase::Msize state) const override;
+	virtual mbase::Real num_channels_in_state(mbase::Size_t state) const override;
 	void show_param() const override;
 
 	string lua_script;

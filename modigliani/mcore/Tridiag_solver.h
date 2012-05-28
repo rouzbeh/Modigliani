@@ -53,7 +53,7 @@ OBSOLETE CODE
 class NTBP_tridiag_solver_o : public mbase::Obj {
 public:
 /***   Constructors, Copy/Assignment and Destructor  ***/  
-NTBP_tridiag_solver_o(mbase::Msize numCompartments);
+NTBP_tridiag_solver_o(mbase::Size_t numCompartments);
 NTBP_tridiag_solver_o(const NTBP_tridiag_solver_o & original);
 const NTBP_tridiag_solver_o & operator= (const NTBP_tridiag_solver_o & right);
 virtual ~NTBP_tridiag_solver_o();
@@ -61,7 +61,7 @@ virtual ~NTBP_tridiag_solver_o();
 mbase::Mreturn Setup(std::vector <mbase::Real> newLVec, std::vector <mbase::Real> newUVec);
 std::vector <mbase::Real> Solve( std::vector <mbase::Real> dVec,  std::vector <mbase::Real> vVec, std::vector <mbase::Real> rVec);
   /**  */
-mbase::Mreturn Resize(mbase::Msize numCompartment);
+mbase::Mreturn Resize(mbase::Size_t numCompartment);
 // std::vector <mbase::Real> Solve(std::vector <mbase::Real> dVec, std::vector <mbase::Real> vVec, std::vector <mbase::Real> rVec);
 /* ***  Data                 ***/  
 protected:
@@ -70,7 +70,7 @@ protected:
 
 private:
 /* ***  Methods              ***/  
-mbase::Msize numCompartments;
+mbase::Size_t numCompartments;
 bool initialised;
 /* ***  Data                 ***/ 
 };

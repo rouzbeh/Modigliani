@@ -50,7 +50,7 @@ class Binomial_rnd_dist: public Rnd_dist {
 	friend class Initializer;
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Binomial_rnd_dist(Real pp, Msize n);Binomial_rnd_dist(const Binomial_rnd_dist & original);
+	Binomial_rnd_dist(Real pp, Size_t n);Binomial_rnd_dist(const Binomial_rnd_dist & original);
 	const Binomial_rnd_dist & operator=(
 			const Binomial_rnd_dist & right);
 	virtual ~Binomial_rnd_dist();
@@ -69,7 +69,7 @@ private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
 	Real p;
-	Msize n;
+	Size_t n;
 	static Initializer static_table;
 };
 }

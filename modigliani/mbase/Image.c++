@@ -26,7 +26,7 @@ using namespace mbase;
 
 /* ***      CONSTRUCTORS	***/
 /** Create a Image */
-Image::Image(Msize newWidth, Msize newHeight, Msize newColorDepth,
+Image::Image(Size_t newWidth, Size_t newHeight, Size_t newColorDepth,
 		ImageDataFormat newDataFormat) :
 		width(newWidth), height(newHeight), colorDepth(newColorDepth), dataFormat(
 				newDataFormat) {
@@ -106,7 +106,7 @@ Mreturn Image::Load(std::string filename, ImageFileType fileType) {
  \bug        unknown
  */
 mbase::ImageFileType Image::Filename2Filetype(std::string filename) {
-	Msize length = filename.length();
+	Size_t length = filename.length();
 
 	if (filename.substr(length - 4, 1) != ".") {
 		std::cerr
@@ -315,7 +315,7 @@ Mreturn Image::LoadTGA(std::string filename) {
 	unsigned char tmp1;
 	int tmp2;
 	std::cerr << width * height * (int) dataFormat << std::endl;
-	for (Msize ll = 0; ll < width * height * (int) dataFormat; ll++) {
+	for (Size_t ll = 0; ll < width * height * (int) dataFormat; ll++) {
 		tmp1 = imageData[ll];
 		tmp2 = (int) tmp1;
 		imageVec[ll] = tmp2;
