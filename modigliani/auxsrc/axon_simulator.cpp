@@ -286,74 +286,6 @@ int simulate(string fileName) {
 	return (0);
 }
 
-int get_resting_potential(string fileName) {
-	Json::Value config_root = read_config(fileName);
-	double min = -90;
-	double max = -40;
-	double current_guess;
-	double current_result = 100000;
-
-	ofstream temp;
-	temp.open("/dev/null");
-
-	while (current_result > -79.9 || current_result < -80.1) {
-		/* Model setup */
-		current_guess = (min + max) / 2;
-		std::cout << "Trying with " << current_guess << std::endl;
-		config_root["eLeak"] = current_guess;
-		config_root["node_parameters"]["numNd"] = 5;
-		std::vector<mbase::Size_t> nodes_vec, nodes_paranodes_vec;
-		/* Model setup */
-		mcore::Membrane_compartment_sequence* oModel = mcore::create_axon(
-				config_root, temp, temp);
-
-		oModel->Init();
-
-		std::cerr << "Total number of compartments(in oModel)"
-				<< oModel->_numCompartments() << std::endl;
-
-		/* ***********************  Main loop **************************** */
-		std::cerr << "MainLoop started" << std::endl;
-
-		double sum = 0;
-		for (mbase::Size_t lt = 0;
-				lt < config_root["simulation_parameters"]["numIter"].asUInt();
-				lt++) {
-
-			/* the "sampling ratio" used for "measurement" to disk */
-			if (lt % 10000 == 0) {
-				sum = 0;
-				for (mbase::Size_t ll = 0; ll < oModel->_numCompartments();
-						ll++) {
-					sum += oModel->compartmentVec[ll]->_vM();
-				}
-				std::cout << "Mean voltage = "
-						<< sum / oModel->_numCompartments() << std::endl;
-			}
-
-			if (lt == 10000) {
-				mbase::Real inpCurrent =
-						(5
-								* config_root["simulation_parameters"]["inpISDV"].asDouble())
-								+ config_root["simulation_parameters"]["inpI"].asDouble();
-				oModel->InjectCurrent(inpCurrent, 1);
-			} else {
-				oModel->InjectCurrent(0, 1);
-			}
-
-			oModel->step();
-		}
-		current_result = sum / oModel->_numCompartments();
-		if (current_result > -80) {
-			max = current_guess;
-		}
-		if (current_result < -80) {
-			min = current_guess;
-		}
-	}
-	std::cerr << "Simulation completed. Found " << current_guess << std::endl;
-	return (0);
-}
 
 int test() {
 
@@ -396,9 +328,6 @@ int main(int argc, char* argv[]) {
 	if (argc < 2) {
 		std::cout << "What shall I do?" << std::endl;
 		exit(1);
-	}
-	if (strcmp(argv[1], "resting") == 0) {
-		return (get_resting_potential(argv[2]));
 	}
 	if (strcmp(argv[1], "simulate") == 0) {
 		return (simulate(argv[2]));
