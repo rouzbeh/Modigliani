@@ -39,12 +39,12 @@ axon_simulator_SOURCES = axon_simulator.cpp
 if MINGW
   axon_simulator_LDADD = $(top_builddir)/modigliani/mcore/libmcore.a $(top_builddir)/modigliani/mbase/libmbase.a -lboost_filesystem-mt -lboost_system-mt -ljsoncpp -lm -llua $(MAYBE_PLPLOT)
 else
-  axon_simulator_LDADD = $(top_builddir)/modigliani/mcore/libmcore.a $(top_builddir)/modigliani/mbase/libmbase.a -lboost_filesystem -lboost_system -ljson -lm -llua -ldl $(MAYBE_PLPLOT)
+  axon_simulator_LDADD = $(top_builddir)/modigliani/mcore/libmcore.a $(top_builddir)/modigliani/mbase/libmbase.a -lboost_filesystem -lboost_system -ljsoncpp -lm -llua -ldl $(MAYBE_PLPLOT)
 endif
 axon_simulator_CPPFLAGS = $(PLPLOTCPPFLAGS)
 
 resting_potential_SOURCES = resting_potential.c++
-resting_potential_LDADD = $(top_builddir)/modigliani/mcore/libmcore.a $(top_builddir)/modigliani/mbase/libmbase.a -ljson -llua -ldl  -lboost_filesystem -lboost_system
+resting_potential_LDADD = $(top_builddir)/modigliani/mcore/libmcore.a $(top_builddir)/modigliani/mbase/libmbase.a -ljsoncpp -llua -ldl  -lboost_filesystem -lboost_system
 
 # set the include path found by configure
 INCLUDES= $(all_includes)  -I$(top_srcdir)/modigliani
