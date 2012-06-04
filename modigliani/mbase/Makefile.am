@@ -38,7 +38,7 @@ Gaussian_rnd_dist.h\
 Gaussian_vec_rnd_dist.c++\
 Gaussian_vec_rnd_dist.h\
 Gui_drv.c++ Gui_drv.h\
-header_string.h\
+Header_string.h\
 Histogram.c++\
 Histogram.h\
 Id_management.c++\
