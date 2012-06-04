@@ -50,9 +50,9 @@ class Binomial_rnd_dist: public Rnd_dist {
 	friend class Initializer;
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Binomial_rnd_dist(Real pp, Size_t n);Binomial_rnd_dist(const Binomial_rnd_dist & original);
-	const Binomial_rnd_dist & operator=(
-			const Binomial_rnd_dist & right);
+	Binomial_rnd_dist(Real pp, Size_t n);
+	Binomial_rnd_dist(const Binomial_rnd_dist & original);
+	const Binomial_rnd_dist & operator=(const Binomial_rnd_dist & right);
 	virtual ~Binomial_rnd_dist();
 	Real RndVal() const;
 	/** Identical to method 'bnldev' from Numerical Recipes in C (Press et al.) */
