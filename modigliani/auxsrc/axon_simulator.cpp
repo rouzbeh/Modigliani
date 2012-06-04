@@ -80,7 +80,7 @@ int simulate(string fileName) {
 	auto electrods_vec = get_electrods(config_root);
 	// We write each compartment's potential and currents into a single file.
 	ofstream TimeFile, LengthPerCompartmentFile, TypePerCompartmentFile,
-			ConfigUsedFile;
+			log_file;
 
 	std::vector<ofstream*> pot_current_files;
 	if (config_root["simulation_parameters"].get("sampN", 0).asUInt() > 0) {
@@ -102,8 +102,7 @@ int simulate(string fileName) {
 				TypePerCompartmentFile);
 		mcore::openOutputFile(timedOutputFolder, "LengthPerCompartment",
 				LengthPerCompartmentFile);
-		mcore::openOutputFile(timedOutputFolder, "ConfigUsed", ConfigUsedFile,
-				".m");
+		mcore::openOutputFile(timedOutputFolder, "log", log_file, ".log");
 		TimeFile << "% in ms" << std::endl;
 
 		for_each(electrods_vec.begin(), electrods_vec.end(),
@@ -111,6 +110,9 @@ int simulate(string fileName) {
 					pot_current_files.push_back(mcore::openOutputFile(timedOutputFolder, "compartment",
 									ll, ".bin"));
 				});
+	}
+	else {
+		mcore::openOutputFile("tmp", "log", log_file, ".log");
 	}
 
 	// Read input file only once. Store its content in memory.
@@ -159,7 +161,7 @@ int simulate(string fileName) {
 #endif
 
 		numCompartments = oModel->_numCompartments();
-		std::cerr << "Total number of compartments(in oModel)"
+		log_file << "Total number of compartments(in oModel)"
 				<< numCompartments << std::endl;
 		std::vector<mbase::Real> leakCurrVec(numCompartments);
 		std::vector<mbase::Real> naCurrVec(numCompartments);
@@ -236,18 +238,16 @@ int simulate(string fileName) {
 							ll++) {
 						voltVec[ll] = oModel->compartmentVec[ll]->_vM();
 					}
-					for (mbase::Size_t lc = 0; lc < numCompartments; lc++) {
-						if (mbase::Misnan(voltVec[lc])) {
-							std::cerr << "ERROR at t=" << timeVar
-									<< " voltage in compartment " << lc
-									<< " is NaN." << std::endl;
-							return (1);
-						} else if (voltVec[lc] > 200.0 /* mV */) {
-							std::cerr << "ERROR at t=" << timeVar
-									<< " voltage in compartment " << lc
-									<< " is " << voltVec[lc] << "."
-									<< std::endl;
-							return (1);
+					for (auto iv : voltVec) {
+						if (mbase::Misnan(iv)) {
+							log_file << "ERROR at t=" << timeVar
+									<< " voltage is NaN." << std::endl;
+							std::exit(1);
+						} else if (iv > 200.0 /* mV */) {
+							log_file << "ERROR at t=" << timeVar
+									<< " voltage in compartment  is " << iv
+									<< "." << std::endl;
+							std::exit(1);
 						}
 					}
 					pls->line((PLINT) oModel->_numCompartments(), x, voltVec);
@@ -273,9 +273,9 @@ int simulate(string fileName) {
 #endif
 		delete oModel;
 	} // lTrials
-	std::cerr << "Simulation completed." << std::endl;
-	ConfigUsedFile << "Number_of_compartments=" << numCompartments << std::endl;
-	ConfigUsedFile.close();
+	log_file << "Simulation completed." << std::endl;
+	log_file << "Number_of_compartments=" << numCompartments << std::endl;
+	log_file.close();
 	for (auto ci = pot_current_files.begin(); ci != pot_current_files.end();
 			++ci) {
 		auto file = *ci;
@@ -286,42 +286,15 @@ int simulate(string fileName) {
 	return (0);
 }
 
-
 int test() {
+	volatile mbase::Real result = 0;
+	mbase::Binomial_rnd_dist rnd(0.3, 100);
 
-	mcore::Lua_based_stochastic_multi_current * lua_current =
-			new mcore::Lua_based_stochastic_multi_current(0, 0 /* mum^-2 */,
-					0/* pS */, 0/* mV */, 0/* mV */, 0.1, 6.3/* C */,
-					"/home/man210/Dropbox/workspace/ChannelGenerators/src/lua/SGA_sodium.lua");
-	lua_current->SetSimulationMode(NTBP_DETERMINISTIC);
+//	for (int i=0; i< 100000000; i++){
+//		result = rnd.RndVal();
+//	}
 
-	mcore::File_based_stochastic_multi_current * file_current =
-			new mcore::File_based_stochastic_multi_current(0, 0 /* mum^-2 */,
-					0/* pS */, 0/* mV */, 0/* mV */, 0.1, 6.3/* C */,
-					"/home/man210/thesis/channels/SGA_sodium.json");
-	file_current->SetSimulationMode(NTBP_BINOMIALPOPULATION);
-
-	mbase::Size_t length = floor(200 / 0.01 + 0.5) + 1;
-	for (mbase::Size_t i = 1; i <= 8; ++i) {
-		for (mbase::Size_t j = 1; j <= 8; ++j) {
-			for (mbase::Size_t k = 0; k < length; k++) {
-				mbase::Real diff =
-						mcore::Lua_based_stochastic_multi_current::probability_matrix_map["/home/man210/Dropbox/workspace/ChannelGenerators/src/lua/SGA_sodium.lua"]->getTransitionProbability(
-								k, i, j)
-								- mcore::File_based_stochastic_multi_current::probability_matrix_map["/home/man210/thesis/channels/SGA_sodium.json"]->getTransitionProbability(
-										k, i, j);
-				if (diff > 0.01 || diff < -0.01) {
-					std::cout << "Merde "
-							<< mcore::Lua_based_stochastic_multi_current::probability_matrix_map["/home/man210/Dropbox/workspace/ChannelGenerators/src/lua/SGA_sodium.lua"]->getTransitionProbability(
-									k, i, j) << " =/= "
-							<< mcore::File_based_stochastic_multi_current::probability_matrix_map["/home/man210/thesis/channels/SGA_sodium.json"]->getTransitionProbability(
-									k, i, j) << " from " << i << " to " << j
-							<< " at " << (-100 + 0.01 * k) << std::endl;
-				}
-			}
-		}
-	}
-	return (0);
+	return (result == 0);
 }
 
 int main(int argc, char* argv[]) {
