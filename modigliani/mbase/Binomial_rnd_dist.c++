@@ -60,7 +60,8 @@ Binomial_rnd_dist::Binomial_rnd_dist(Real pp, Size_t num) :
 Binomial_rnd_dist::Binomial_rnd_dist(
 		const Binomial_rnd_dist __attribute__((unused)) & original) :
 		Rnd_dist() {
-// add assignment code here
+	p = original.p;
+	n = original.n;
 }
 
 const Binomial_rnd_dist&
