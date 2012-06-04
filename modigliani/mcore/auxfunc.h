@@ -20,13 +20,6 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-/* $Id: ntbp_auxfunc.h,v 1.1 2005/04/25 13:55:27 face Exp $
- * $Log: ntbp_auxfunc.h,v $
- * Revision 1.1  2005/04/25 13:55:27  face
- * *** empty log message ***
- *
- */
-
 #ifndef _mcore_auxfunc_h_
 #define _mcore_auxfunc_h_
 #include <cstring>
@@ -38,7 +31,7 @@
 #include <map>
 #include <cmath>
 #include <ctime>
-#include <json/json.h>
+#include <jsoncpp/json.h>
 #include <boost/filesystem.hpp>
 
 extern "C" {
