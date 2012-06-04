@@ -43,7 +43,7 @@ namespace mcore{
 class Ion_channels: public Object {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Ion_channels(mbase::Size_t numNewChannels, mbase::Size_t numNewStates, NTBP_transition_rate_matrix_o* probMatrix, mbase::Real newTimeStep=0.1);
+	Ion_channels(mbase::Size_t numNewChannels, mbase::Size_t numNewStates, Transition_rate_matrix* probMatrix, mbase::Real newTimeStep=0.1);
 	Ion_channels(const Ion_channels & original);
 	const Ion_channels & operator=(const Ion_channels & right);
 	virtual ~Ion_channels();
@@ -93,7 +93,7 @@ protected:
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	NTBP_transition_rate_matrix_o* _probMatrix;
+	Transition_rate_matrix* _probMatrix;
 	std::vector<mbase::Size_t> openStates;
 	mbase::Size_t numStates;
 	mbase::Size_t numChannels;

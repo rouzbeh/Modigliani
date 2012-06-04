@@ -11,7 +11,7 @@
 #include "Multi_current.h"
 #include "Ion_channels.h"
 
-#include <json/json.h>
+#include <jsoncpp/json.h>
 #include <fstream>
 #include <iostream>
 
@@ -26,7 +26,7 @@ public:
 
 	static void load_file(std::string fileName, double temperature,
 			double time_step);
-	static std::map<std::string, NTBP_transition_rate_matrix_o*> probability_matrix_map;
+	static std::map<std::string, Transition_rate_matrix*> probability_matrix_map;
 	static std::map<std::string, int> number_of_states_map;
 	static std::map<std::string, double> base_temperature_map;
 	static std::map<std::string, std::vector<int> > open_states_map;

@@ -1,5 +1,5 @@
 /*
- * ntbp_transition_rate_matrix_o.cpp
+ * transition_rate_matrix.c++
  *
  *  Created on: 30 Mar 2011
  *      Author: man210
@@ -7,7 +7,9 @@
 
 #include "Transition_rate_matrix.h"
 
-NTBP_transition_rate_matrix_o::NTBP_transition_rate_matrix_o(
+using namespace mcore;
+
+Transition_rate_matrix::Transition_rate_matrix(
 		mbase::Size_t new_num_states, mbase::Real new_min, mbase::Real new_max, mbase::Real new_step) :
 		min(new_min), max(new_max), step(new_step), num_states(new_num_states) {
 	int length = (floor((max - min) / step + 0.5) + 1)	* num_states * num_states;
@@ -17,34 +19,34 @@ NTBP_transition_rate_matrix_o::NTBP_transition_rate_matrix_o(
 	}
 }
 
-NTBP_transition_rate_matrix_o::~NTBP_transition_rate_matrix_o(){
+Transition_rate_matrix::~Transition_rate_matrix(){
 	delete[] _probMatrices;
 }
 
-void NTBP_transition_rate_matrix_o::setTransitionProbability(mbase::Real voltage,
+void Transition_rate_matrix::setTransitionProbability(mbase::Real voltage,
 		mbase::Size_t start, mbase::Size_t stop, mbase::Real probability) {
 	mbase::Size_t index = floor((voltage - min) / step + 0.5);
 	_probMatrices[index * num_states * num_states + (start - 1) * num_states
 			+ (stop - 1)] = probability;
 }
 
-void NTBP_transition_rate_matrix_o::setTransitionProbability(mbase::Size_t index,
+void Transition_rate_matrix::setTransitionProbability(mbase::Size_t index,
 		mbase::Size_t start, mbase::Size_t stop, mbase::Real probability) {
 	_probMatrices[index * num_states * num_states + (start - 1) * num_states
 			+ (stop - 1)] = probability;
 }
 
-mbase::Size_t NTBP_transition_rate_matrix_o::get_index(mbase::Real voltage){
+mbase::Size_t Transition_rate_matrix::get_index(mbase::Real voltage){
 	return (floor((voltage - min) / step +0.5));
 }
 
-mbase::Real NTBP_transition_rate_matrix_o::getTransitionProbability(mbase::Real voltage,
+mbase::Real Transition_rate_matrix::getTransitionProbability(mbase::Real voltage,
 		mbase::Size_t start, mbase::Size_t stop) {
 	return (_probMatrices[get_index(voltage) * num_states * num_states
 			+ (start - 1) * num_states + (stop - 1)]);
 }
 
-mbase::Real NTBP_transition_rate_matrix_o::getTransitionProbability(mbase::Size_t index,
+mbase::Real Transition_rate_matrix::getTransitionProbability(mbase::Size_t index,
 		mbase::Size_t start, mbase::Size_t stop) {
 	return (_probMatrices[index * num_states * num_states
 			+ (start - 1) * num_states + (stop - 1)]);

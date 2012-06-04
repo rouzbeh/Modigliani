@@ -36,7 +36,7 @@ mbase::Binomial_rnd_dist Ion_channels::binomRnd(0.0, 1);
 /* ***      CONSTRUCTORS	***/
 /** Create a NTBP_ion_channels_o */
 Ion_channels::Ion_channels(mbase::Size_t numNewChannels,
-		mbase::Size_t numNewStates, NTBP_transition_rate_matrix_o* probMatrix,
+		mbase::Size_t numNewStates, Transition_rate_matrix* probMatrix,
 		mbase::Real newTimeStep) :
 		Object(), _probMatrix(probMatrix) {
 	setTimeStep(newTimeStep);

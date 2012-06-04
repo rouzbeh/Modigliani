@@ -10,7 +10,7 @@
 using namespace mcore;
 
 bool File_based_stochastic_multi_current::initTableLookUp = false;
-std::map<std::string, NTBP_transition_rate_matrix_o*> File_based_stochastic_multi_current::probability_matrix_map;
+std::map<std::string, Transition_rate_matrix*> File_based_stochastic_multi_current::probability_matrix_map;
 std::map<std::string, int> File_based_stochastic_multi_current::number_of_states_map;
 std::map<std::string, double> File_based_stochastic_multi_current::base_temperature_map;
 std::map<std::string, std::vector<int> > File_based_stochastic_multi_current::open_states_map;
@@ -109,7 +109,7 @@ void File_based_stochastic_multi_current::load_file(std::string fileName,
 
 	const Json::Value transitions = root["transitions"];
 
-	probability_matrix_map[fileName] = new NTBP_transition_rate_matrix_o(
+	probability_matrix_map[fileName] = new Transition_rate_matrix(
 			number_of_states_map[fileName], minV, maxV, step);
 
 

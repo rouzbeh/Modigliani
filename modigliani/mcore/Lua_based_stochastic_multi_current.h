@@ -30,7 +30,7 @@ public:
 	virtual ~Lua_based_stochastic_multi_current();
 
 	static void load_file(string fileName, double temperature, double time_step);
-	static map<string,NTBP_transition_rate_matrix_o*> probability_matrix_map;
+	static map<string,Transition_rate_matrix*> probability_matrix_map;
 	static map<string,mbase::Size_t> number_of_states_map;
 	static map<string,double> base_temperature_map;
 	static map<string,std::vector<int> > open_states_map;

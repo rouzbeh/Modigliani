@@ -10,7 +10,7 @@
 using namespace mcore;
 
 bool Lua_based_stochastic_multi_current::initTableLookUp = false;
-map<string, NTBP_transition_rate_matrix_o*> Lua_based_stochastic_multi_current::probability_matrix_map;
+map<string, Transition_rate_matrix*> Lua_based_stochastic_multi_current::probability_matrix_map;
 map<string, mbase::Size_t> Lua_based_stochastic_multi_current::number_of_states_map;
 map<string, double> Lua_based_stochastic_multi_current::base_temperature_map;
 map<string, std::vector<int> > Lua_based_stochastic_multi_current::open_states_map;
@@ -106,7 +106,7 @@ void Lua_based_stochastic_multi_current::load_file(string fileName,
 
 	//const Json::Value transitions = root["transitions"];
 
-	probability_matrix_map[fileName] = new NTBP_transition_rate_matrix_o(
+	probability_matrix_map[fileName] = new Transition_rate_matrix(
 			number_of_states_map[fileName], minV, maxV, step);
 
 	mbase::Real length = floor((maxV - minV) / step + 0.5) + 1;
