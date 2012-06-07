@@ -17,23 +17,25 @@ AC_PROG_MAKE_SET
 AC_PROG_RANLIB
 
 # Checks for libraries.
-# FIXME: Replace `main' with a function in `-lGL':
-#AC_CHECK_LIB([GL], [main])
-# FIXME: Replace `main' with a function in `-lGLU':
-#AC_CHECK_LIB([GLU], [main])
-# FIXME: Replace `main' with a function in `-lX11':
-#AC_CHECK_LIB([X11], [main])
-# FIXME: Replace `main' with a function in `-lXext':
-#AC_CHECK_LIB([Xext], [main])
-AC_CHECK_LIB([lua],[luaL_dofile])
-AC_CHECK_LIB([m], [sqrt])
+AC_CHECK_LIB([lua],[luaopen_package], [HAVE_LUA=1], [AC_MSG_ERROR([Lua is not installed.])])
+AC_CHECK_LIB([m], [sqrt],[HAVE_LIBM=1], AC_MSG_ERROR([libm not found.]))
+AC_CHECK_LIB([plplotd], [c_plwid],[HAVE_PLPLOT="yes"])
+if test "x$host" = xi486-mingw32; then
+	AC_CHECK_LIB([jsoncpp], [main],[HAVE_JSONCPP=1],[AC_MSG_ERROR([libjson missing])])
+	AC_CHECK_LIB([boost_system-mt], [main],[HAVE_BOOSTSYSTEM=1],[AC_MSG_ERROR([libboost_system missing])])
+	AC_CHECK_LIB([boost_filesystem-mt], [main],[HAVE_BOOSTFILESYSTEM=1],[AC_MSG_ERROR([libboost_filesystem missing])])
+elif test 1; then
+	AC_CHECK_LIB([json], [main],[HAVE_JSON=1],[AC_MSG_ERROR([libjson missing])])
+	AC_CHECK_LIB([boost_filesystem], [main],[HAVE_BOOSTFILESYSTEM=1],[AC_MSG_ERROR([libboost_filesystem missing])])
+	AC_CHECK_LIB([boost_system], [main],[HAVE_BOOSTSYSTEM=1],[AC_MSG_ERROR([libboost_system missing])])
+fi
 
 # Checks for header files.
 AC_PATH_X
 AC_FUNC_ALLOCA
 AC_HEADER_DIRENT
 AC_HEADER_STDC
-AC_CHECK_HEADERS([OS.h fcntl.h fenv.h float.h inttypes.h climits malloc.h memory.h nl_types.h cstddef cstdint cstdlib map cmath cstring sys/file.h sys/param.h ctime unistd.h values.h wchar.h wctype.h])
+dnl AC_CHECK_HEADERS([OS.h fcntl.h fenv.h float.h inttypes.h climits malloc.h memory.h nl_types.h cstddef cstdint cstdlib map cmath cstring sys/file.h sys/param.h ctime unistd.h values.h wchar.h wctype.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_HEADER_STDBOOL
@@ -48,17 +50,13 @@ AC_C_VOLATILE
 AC_CHECK_TYPES([ptrdiff_t])
 
 # Are we cross compiling?
-AM_CONDITIONAL(MINGW, test "$host" = i486-mingw32)
+AM_CONDITIONAL([MINGW], [test "x$host" = "xi486-mingw32"])
 
 # Checks for library functions.
 AC_FUNC_CLOSEDIR_VOID
 AC_FUNC_ERROR_AT_LINE
 AC_FUNC_FORK
 AC_FUNC_MEMCMP
-if test "$MINGW" = yes; then
-AC_FUNC_MALLOC
-AC_FUNC_REALLOC
-fi
 AC_FUNC_SELECT_ARGTYPES
 AC_TYPE_SIGNAL
 AC_FUNC_STAT
@@ -66,27 +64,15 @@ AC_FUNC_STRFTIME
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([alarm clock_gettime fesetround floor ftime getcwd gettimeofday memchr memmove memset pathconf pow regcomp rint select setlocale sqrt strchr strcspn strerror strpbrk strrchr strspn strstr strtol strtoul uname])
 
-CXXFLAGS="-g -Wall -W -Wundef -Wshadow -ansi -pedantic -std=c++0x -Wno-vla"
-dnl CXXFLAGS="-Ofast -march=native -mtune=native -ffast-math -ansi -pedantic -Wshadow -Wno-vla -malign-double -std=c++0x"
-
-
-# This adds the option of compiling without using the PLPlot library,
-# which has proved troublesome for compilation on windows
-AC_ARG_ENABLE(plplot,
-  [ --disable-plplot   Disable compilation with PlPlot],
-  [case "${enableval}" in
-     yes | no ) WITH_PLPLOT="${enableval}" ;;
-     *) AC_MSG_ERROR(bad value ${enableval} for --disable-plplot) ;;
-   esac],
-  [WITH_PLPLOT="yes"]
-)
+dnl CXXFLAGS="-g -Wall -W -Wundef -Wshadow -ansi -pedantic -std=c++0x -Wno-vla"
+CXXFLAGS="-Ofast -march=native -mtune=native -ffast-math -ansi -pedantic -Wshadow -Wno-vla -malign-double -std=c++0x"
 
 dnl Make sure we register this option with Automake, so we know whether to
 dnl descend into ctemplate for more configuration or not
 AM_CONDITIONAL([WITH_PLPLOT], [test "x$WITH_PLPLOT" = "xyes"])
 
 # Define CTEMPLATE in config.h if we're going to compile against it
-if test "x$WITH_PLPLOT" = "xyes"; then
+if test "x$HAVE_PLPLOT" = "xyes"; then
     AC_DEFINE([PLPLOT], [], ["build using PLPlot library"])
     AC_MSG_NOTICE([PLPlot will be used])
 else

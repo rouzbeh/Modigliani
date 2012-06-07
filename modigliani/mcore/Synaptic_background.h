@@ -48,9 +48,9 @@ public:
 	const Synaptic_background & operator=(const Synaptic_background & right);
 
 	mbase::Mreturn step_current()
-override	;
+	;
 	/** compute and return conductance in mSiemens */
-	mbase::Real compute_conductance() override;
+	mbase::Real compute_conductance() ;
 	virtual ~Synaptic_background();
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/

@@ -34,13 +34,13 @@ public:
 	static map<string,mbase::Size_t> number_of_states_map;
 	static map<string,double> base_temperature_map;
 	static map<string,std::vector<int> > open_states_map;
-	mbase::Real num_channels_in_state(mbase::Size_t state) const override;
-	mbase::Real ComputeChannelStateTimeConstant() const override;
+	mbase::Real num_channels_in_state(mbase::Size_t state) const ;
+	mbase::Real ComputeChannelStateTimeConstant() const ;
 
-	virtual mbase::Mreturn step_current() override;
-	virtual mbase::Real open_channels() const override;
-	virtual mbase::Real compute_conductance() override;
-	void show_param() const override;
+	virtual mbase::Mreturn step_current() ;
+	virtual mbase::Real open_channels() const ;
+	virtual mbase::Real compute_conductance() ;
+	void show_param() const ;
 	void printProb(string fileName){
 		for (mbase::Real v =20; v<130; v+=0.005){
 			cout << probability_matrix_map[fileName]->getTransitionProbability(v, 2, 1) << std::endl;

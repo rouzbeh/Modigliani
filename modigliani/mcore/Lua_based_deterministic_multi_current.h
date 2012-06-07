@@ -35,11 +35,11 @@ public:
 	const Lua_based_deterministic_multi_current&
 	operator=(const Lua_based_deterministic_multi_current & right);
 
-	virtual mbase::Mreturn step_current() override	;
-	virtual mbase::Real open_channels() const override;
-	virtual mbase::Real compute_conductance() override;
-	virtual mbase::Real num_channels_in_state(mbase::Size_t state) const override;
-	void show_param() const override;
+	virtual mbase::Mreturn step_current() 	;
+	virtual mbase::Real open_channels() const ;
+	virtual mbase::Real compute_conductance() ;
+	virtual mbase::Real num_channels_in_state(mbase::Size_t state) const ;
+	void show_param() const ;
 
 	string lua_script;
 private:
