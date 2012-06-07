@@ -1,7 +1,4 @@
-SUBDIRS = mbase ntgsrc mcore auxsrc 
-if MINGW
-	SUBDIRS += nt3dsrc
-endif
+SUBDIRS = mbase mcore auxsrc 
 # set the include path found by configure
 INCLUDES= $(all_includes)
  

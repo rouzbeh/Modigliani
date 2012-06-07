@@ -88,9 +88,7 @@ AC_SUBST(all_libraries)
 AC_CONFIG_FILES([Makefile
                  modigliani/Makefile
                  modigliani/auxsrc/Makefile
-                 modigliani/nt3dsrc/Makefile
                  modigliani/mcore/Makefile
-                 modigliani/ntgsrc/Makefile
                  modigliani/mbase/Makefile])
 
 AC_OUTPUT

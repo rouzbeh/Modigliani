@@ -52,7 +52,6 @@ extern "C" {
 #include "HH_sga_leak_current.h"
 
 #include <tnt/tnt.h>
-#include <nt3dsrc/nt3d_plot2d_vec_vp_obj.h>
 
 namespace mcore {
 
