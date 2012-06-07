@@ -1,6 +1,6 @@
 /**\file Str2real.h - Str2real class header
  * by Ahmed Aldo Faisal &copy; created 3.7.1999  
- * code is originally based on Chameleon.h by Ren� Nyffenegger
+ * code is originally based on Chameleon.h by Ren��� Nyffenegger
  * see http://www.adp-gmbh.ch/cpp/chameleon.html
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
@@ -34,6 +34,7 @@
 /* other includes */
 #include <cstring>
 #include <sstream>
+#include <cstdlib>
 
 /** @short Str2real class
  A class that can can act as a number and a string

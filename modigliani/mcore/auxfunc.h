@@ -31,7 +31,11 @@
 #include <map>
 #include <cmath>
 #include <ctime>
+#ifdef __MINGW32__
 #include <jsoncpp/json.h>
+#else
+#include <json/json.h>
+#endif
 #include <boost/filesystem.hpp>
 
 extern "C" {

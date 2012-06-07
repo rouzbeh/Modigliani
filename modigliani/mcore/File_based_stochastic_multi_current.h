@@ -11,7 +11,11 @@
 #include "Multi_current.h"
 #include "Ion_channels.h"
 
+#ifdef __MINGW32__
 #include <jsoncpp/json.h>
+#else
+#include <json/json.h>
+#endif
 #include <fstream>
 #include <iostream>
 
@@ -30,10 +34,9 @@ public:
 	static std::map<std::string, int> number_of_states_map;
 	static std::map<std::string, double> base_temperature_map;
 	static std::map<std::string, std::vector<int> > open_states_map;
-	virtual mbase::Mreturn step_current()
-override	;
-	virtual mbase::Real open_channels() const override;
-	virtual mbase::Real compute_conductance() override;
+	virtual mbase::Mreturn step_current();
+	virtual mbase::Real open_channels() const;
+	virtual mbase::Real compute_conductance();
 	mbase::Real num_channels_in_state(mbase::Size_t state) const;
 	mbase::Real ComputeChannelStateTimeConstant() const;
 	void show_param() const;
