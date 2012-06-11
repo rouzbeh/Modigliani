@@ -19,8 +19,9 @@ map<string, std::vector<int> > Lua_based_stochastic_multi_current::open_states_m
 /** Create a NTBP_hranvier_sodium_multi_current_o */
 
 Lua_based_stochastic_multi_current::Lua_based_stochastic_multi_current(
-		mbase::Real newArea, mbase::Real newDensity, mbase::Real newConductivity,
-		mbase::Real newVBase, mbase::Real newReversalPotential, mbase::Real newTimeStep,
+		mbase::Real newArea, mbase::Real newDensity,
+		mbase::Real newConductivity, mbase::Real newVBase,
+		mbase::Real newReversalPotential, mbase::Real newTimeStep,
 		mbase::Real newTemperature, string fileName) :
 		Multi_current(newReversalPotential /* in mV */,
 				newDensity /* channels per mu^2 */, newArea /* in mu^2 */,
@@ -130,8 +131,8 @@ void Lua_based_stochastic_multi_current::load_file(string fileName,
 				double probability = NTBP_temperature_rate_relation(temperature,
 						base_temperature_map[fileName] /* C */, prob_q10)
 						* base_probability * time_step;
-				probability_matrix_map[fileName]->setTransitionProbability(voltage,
-						i , j , probability);
+				probability_matrix_map[fileName]->setTransitionProbability(
+						voltage, i, j, probability);
 			}
 		}
 	}
@@ -148,6 +149,10 @@ inline mbase::Mreturn Lua_based_stochastic_multi_current::step_current() {
 	switch (_simulationMode()) {
 	case NTBP_BINOMIALPOPULATION: {
 		return (channelsPtr->BinomialStep(voltage));
+	}
+		break;
+	case NTBP_SINGLECHANNEL: {
+		return (channelsPtr->step(voltage));
 	}
 		break;
 	case NTBP_GILLESPIE: {
