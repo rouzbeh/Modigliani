@@ -17,7 +17,7 @@ AC_PROG_MAKE_SET
 AC_PROG_RANLIB
 
 # Checks for libraries.
-AC_CHECK_LIB([lua],[luaopen_package], [HAVE_LUA=1], [AC_MSG_ERROR([Lua is not installed.])])
+AC_CHECK_LIB([lua],[main], [HAVE_LUA=1], [AC_MSG_ERROR([Lua is not installed.])])
 AC_CHECK_LIB([m], [sqrt],[HAVE_LIBM=1], AC_MSG_ERROR([libm not found.]))
 AC_CHECK_LIB([plplotd], [c_plwid],[HAVE_PLPLOT="yes"])
 if test "x$host" = xi486-mingw32; then
