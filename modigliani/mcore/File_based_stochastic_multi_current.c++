@@ -18,10 +18,11 @@ std::map<std::string, std::vector<int> > File_based_stochastic_multi_current::op
 /* ***      CONSTRUCTORS	***/
 /** Create a NTBP_hranvier_sodium_multi_current_o */
 
-File_based_stochastic_multi_current::File_based_stochastic_multi_current(mbase::Real newArea,
-		mbase::Real newDensity, mbase::Real newConductivity, mbase::Real newVBase,
-		mbase::Real newReversalPotential, mbase::Real newTimeStep, mbase::Real newTemperature,
-		std::string fileName) :
+File_based_stochastic_multi_current::File_based_stochastic_multi_current(
+		mbase::Real newArea, mbase::Real newDensity,
+		mbase::Real newConductivity, mbase::Real newVBase,
+		mbase::Real newReversalPotential, mbase::Real newTimeStep,
+		mbase::Real newTemperature, std::string fileName) :
 		Multi_current(newReversalPotential /* in mV */,
 				newDensity /* channels per mu^2 */, newArea /* in mu^2 */,
 				newConductivity /* in mS per channel  */, newVBase /* mV */
@@ -112,7 +113,6 @@ void File_based_stochastic_multi_current::load_file(std::string fileName,
 	probability_matrix_map[fileName] = new Transition_rate_matrix(
 			number_of_states_map[fileName], minV, maxV, step);
 
-
 	for (unsigned int index = 0; index < transitions.size(); ++index) { // Iterates over the sequence elements.
 		double q10 = transitions[index].get("q10", 1).asDouble();
 		double base_probability =
@@ -139,6 +139,10 @@ void File_based_stochastic_multi_current::load_file(std::string fileName,
  */
 inline mbase::Mreturn File_based_stochastic_multi_current::step_current() {
 	switch (_simulationMode()) {
+	case NTBP_BINOMIALPOPULATION: {
+		return (channelsPtr->BinomialStep(voltage));
+	}
+		break;
 	case NTBP_BINOMIALPOPULATION: {
 		return (channelsPtr->BinomialStep(voltage));
 	}
@@ -185,7 +189,8 @@ inline mbase::Real File_based_stochastic_multi_current::ComputeChannelStateTimeC
 
 void File_based_stochastic_multi_current::show_param() const {
 	std::cout << "Na channel parameters:" << std::endl;
-	std::cout << "Single channel conductivity [nA]" << _conductivity() << std::endl;
+	std::cout << "Single channel conductivity [nA]" << _conductivity()
+			<< std::endl;
 	std::cout << "Channel density [1/muMeter^2]" << _area() << std::endl;
 	std::cout << "MaxConductivity (all channels open) mSiemens/cm^2"
 			<< _maxConductivity() << std::endl;

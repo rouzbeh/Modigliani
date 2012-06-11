@@ -33,8 +33,6 @@
 #include <vector>
 #include <iostream>
 
-//#include "boost/multi_array.hpp"
-
 /** @short NTBP_ion_channels_o class
  \bug unknown
  \warning unknown
@@ -71,7 +69,6 @@ public:
 	virtual mbase::Mreturn SteadyStateDistribution(mbase::Real voltage);
 	/** Sum of escape rates from current state [1/s] */
 	virtual mbase::Real ComputeChannelStateTimeConstant(mbase::Real voltage) const;
-	//virtual mbase::Mreturn UpdateStateProb(std::vector <mbase::Real> rateConstVec /* in mSec^-1 */) = 0;
 	/**  */
 	void setRatesComputed(bool newValue) {
 		ratesComputed = newValue;
