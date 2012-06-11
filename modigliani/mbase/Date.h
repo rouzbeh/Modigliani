@@ -77,16 +77,16 @@ protected:
 
 private:
 
-	Mint nsec; //!* nanoseconds (0-999999999) UNSUPPORTED
-	Mint sec; //!* seconds (0 - 60)
-	Mint min; //!* minutes (0 - 59)
-	Mint hour; //!* hours (0 - 23)
-	Mint mday; //!* day of month (1 - 31)
-	Mint mon; //!* month of year (0 - 11)
-	Mint year; //!* year (! no offset to 1900 !)
-	Mint wday; //!* day of week (Sunday = 0)
-	Mint yday; //!* day of year (0 - 365)
-	Mint isdst; //!* is summer time in effect?
+	int_t nsec; //!* nanoseconds (0-999999999) UNSUPPORTED
+	int_t sec; //!* seconds (0 - 60)
+	int_t min; //!* minutes (0 - 59)
+	int_t hour; //!* hours (0 - 23)
+	int_t mday; //!* day of month (1 - 31)
+	int_t mon; //!* month of year (0 - 11)
+	int_t year; //!* year (! no offset to 1900 !)
+	int_t wday; //!* day of week (Sunday = 0)
+	int_t yday; //!* day of year (0 - 365)
+	int_t isdst; //!* is summer time in effect?
 	Mchar zone[M_STRING_LENGTH]; //!* abbreviation of timezone name
 	Mlong gmtoff; //!* offset from UTC in seconds
 

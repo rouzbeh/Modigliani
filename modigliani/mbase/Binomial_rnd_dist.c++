@@ -413,7 +413,7 @@ Real Binomial_rnd_dist::Binomial(float pp, int new_n) const {
 }
 
 inline Real Binomial_rnd_dist::LogGamma(Real val) const {
-	Mint rVal = (Mint) val;
+	int_t rVal = (int_t) val;
 	if ((val == (Real) rVal) && (rVal < M_LOGGAMMATABLEMAX)) {
 		return (static_table.logGammaTable[rVal]);
 	} else {

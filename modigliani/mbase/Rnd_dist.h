@@ -36,7 +36,7 @@ namespace mbase{
 class Rnd_dist : public Obj {
 public:
     Rnd_dist();
-    Rnd_dist(Mint dim);
+    Rnd_dist(int_t dim);
     Rnd_dist(const Rnd_dist &);
     virtual ~Rnd_dist();
 

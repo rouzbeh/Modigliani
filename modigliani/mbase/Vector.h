@@ -75,9 +75,9 @@ public:
     //! Scaling, factor multiplication (from the RIGHT) C = A*alpha
     Vector operator*(Real) const;
     //! Access vector components 1..dimension slower and safer
-    Real &operator()(Mint component) const;
+    Real &operator()(int_t component) const;
     //! Access vector components 0..(dimension-1) fast and no range checking
-    Real &operator[](Mint component) const;
+    Real &operator[](int_t component) const;
     Real operator^(Vector b);
     operator Vector3() const;
     friend std::ostream & operator<<(std::ostream & os, const Vector & self);

@@ -166,14 +166,14 @@ Vector::operator Vector3() const {
 
 // Access vector components 1..dimension slower and safer
 Real &
-Vector::operator()(Mint component) const {
+Vector::operator()(int_t component) const {
 	M_ASSERT_BOUNDS(component, 1, dimension);
 	return (elem[component - 1]);
 }
 
 // Access vector components 0..(dimension-1)
 Real &
-Vector::operator[](Mint component) const {
+Vector::operator[](int_t component) const {
 	return (elem[component]);
 }
 

@@ -117,7 +117,7 @@ public:
 	}
 
 	/** Access vector components 1..dimension slower and safer */
-	Real operator()(Mint component) const {
+	Real operator()(int_t component) const {
 		M_ASSERT_BOUNDS(component, 1, 3);
 		switch (component) {
 		case 1:
@@ -138,7 +138,7 @@ public:
 
 	/** Access vector components read/write */
 	Real &
-	operator[](Mint component) {
+	operator[](int_t component) {
 		switch (component) {
 		case 0:
 			return (x);
@@ -157,7 +157,7 @@ public:
 	}
 
 	/** Access vector components read-only */
-	Real operator[](Mint component) const {
+	Real operator[](int_t component) const {
 		switch (component) {
 		case 0:
 			return (x);
