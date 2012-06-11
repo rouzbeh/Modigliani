@@ -56,13 +56,13 @@ namespace mbase {
 class Simple_markov: public Obj {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Simple_markov(Mint numMarkovStates = 1);
+	Simple_markov(int_t numMarkovStates = 1);
 	Simple_markov(const Simple_markov & original);
 	const Simple_markov & operator=(const Simple_markov & right);
 	virtual ~Simple_markov();
 	/* ***  Methods              ***/
 	Mreturn MarkovStep();
-	Mint _stateIndex() const {
+	int_t _stateIndex() const {
 		return (stateIndex);
 	}
 	Mreturn SetProbTransMatrix(Matrix<Real> * ptrNewMtr);
@@ -75,7 +75,7 @@ protected:
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	Mint stateIndex; // index of state 1...numStates
+	int_t stateIndex; // index of state 1...numStates
 	Size_t numStates;
 	M_uniform_rnd_dist_o random;
 	bool mtrAssigned;

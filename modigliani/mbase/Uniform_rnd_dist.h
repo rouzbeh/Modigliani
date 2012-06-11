@@ -33,9 +33,9 @@ namespace mbase {
 class Uniform_rnd_dist: public Rnd_dist {
 public:
 	Uniform_rnd_dist();
-	// Uniform_rnd_dist(Mint dim);
+	// Uniform_rnd_dist(int_t dim);
 	Uniform_rnd_dist(Real lowerBound, Real upperBound);
-	// Uniform_rnd_dist(Real lowerBound, Real upperBound, Mint dim);
+	// Uniform_rnd_dist(Real lowerBound, Real upperBound, int_t dim);
 	Uniform_rnd_dist(const Uniform_rnd_dist &);
 	~Uniform_rnd_dist();
 
@@ -60,7 +60,7 @@ public:
 		return (variance);
 	}
 	;
-	// Mint _dimension() const   { return dimension; };
+	// int_t _dimension() const   { return dimension; };
 	friend std::ostream & operator<<(std::ostream & os, const Uniform_rnd_dist & self);
 
 private:

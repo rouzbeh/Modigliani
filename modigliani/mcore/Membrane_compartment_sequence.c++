@@ -444,7 +444,7 @@ std::vector<mbase::Real> Membrane_compartment_sequence::ZadorPearlmutterSolveTri
 
 	Kd[n - 1] = 1 / BJd[n - 1];
 
-	mbase::Mint j = 0;
+	mbase::int_t j = 0;
 	for (j = n - 2; j > 0; j--) {
 		Kd[j] = 1 / BJd[j]
 				+ (Kd[j + 1] * lNewVec[j] * uNewVec[j]) / (BJd[j] * BJd[j]);
@@ -490,7 +490,7 @@ std::vector<mbase::Real> Membrane_compartment_sequence::MascagniSolveTriDiag(
 
 	/* backward substitution */
 	vNewVec[m - 1] = rNewVec[m - 1];
-	mbase::Mint ll = 0; // INT as mbase::Size_t cannot be compared to a negative number
+	mbase::int_t ll = 0; // INT as mbase::Size_t cannot be compared to a negative number
 	for (ll = m - 2; ll > -1; ll--) {
 		vNewVec[ll] = rNewVec[ll] - uNewVec[ll] * vNewVec[ll + 1];
 		std::cout << ll << " " << lNewVec[ll] << " " << dNewVec[ll] << " "
@@ -542,7 +542,7 @@ std::vector<mbase::Real> Membrane_compartment_sequence::NumericalRecipesSolveTri
 					<< std::endl;
 		vNewVec[j] = (rNewVec[j] - lNewVec[j] * vNewVec[j - 1]) / bet;
 	}
-	mbase::Mint i = 0;
+	mbase::int_t i = 0;
 	for (i = (n - 2); i > -1; i--) {
 		vNewVec[i] -= gam[i + 1] * vNewVec[i + 1];
 	}

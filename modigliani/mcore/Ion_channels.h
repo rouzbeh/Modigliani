@@ -86,7 +86,7 @@ protected:
 	/* ***  Data                 ***/
 	// TODO remove this
 	std::vector<mbase::Real> statePersistenceProbVec;
-	std::vector<mbase::Mint> stateCounterVec;
+	std::vector<mbase::int_t> stateCounterVec;
 	static mbase::Uniform_rnd_dist uniformRnd; // [0,1] random number generation
 	static mbase::Binomial_rnd_dist binomRnd;
 

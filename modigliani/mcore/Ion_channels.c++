@@ -20,12 +20,6 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-/* $Id: ntbp_ion_channels_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $ 
- * $Log: ntbp_ion_channels_obj.cpp,v $
- * Revision 1.1.1.1  2004/12/16 01:38:36  face
- * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
- *
- */
 #include "Ion_channels.h"
 
 using namespace mcore;
@@ -34,7 +28,6 @@ mbase::Uniform_rnd_dist Ion_channels::uniformRnd;
 mbase::Binomial_rnd_dist Ion_channels::binomRnd(0.0, 1);
 
 /* ***      CONSTRUCTORS	***/
-/** Create a NTBP_ion_channels_o */
 Ion_channels::Ion_channels(mbase::Size_t numNewChannels,
 		mbase::Size_t numNewStates, Transition_rate_matrix* probMatrix,
 		mbase::Real newTimeStep) :
@@ -43,12 +36,12 @@ Ion_channels::Ion_channels(mbase::Size_t numNewChannels,
 	numChannels = numNewChannels;
 	numStates = numNewStates;
 	statePersistenceProbVec.resize(_numStates());
-	stateCounterVec.resize(_numStates() + 1); // 0: total number of channels, 1..8 state"besetzung"
+	stateCounterVec.resize(_numStates() + 1);
 	uniformRnd = mbase::Uniform_rnd_dist(0, 1);
 	mbase::Size_t tmpNumChannels = _numChannels();
 	if (_numChannels() <= 1) {
 		std::cerr
-				<< "NTBP_ion_channels_o::NTBP_ion_channels_o - Warning : _numChannels() <= 1, setting numChannels to 1 in binomial population algorithm."
+				<< "Warning : _numChannels() <= 1, setting numChannels to 1."
 				<< std::endl;
 		tmpNumChannels = 1;
 	}
@@ -71,12 +64,12 @@ Ion_channels::Ion_channels(const Ion_channels & original) :
 	numChannels = original.numChannels;
 	numStates = original.numStates;
 	statePersistenceProbVec.resize(numStates);
-	stateCounterVec.resize(_numStates() + 1); // 0: total number of channels, 1..8 state"besetzung"
+	stateCounterVec.resize(_numStates() + 1);
 	uniformRnd = mbase::Uniform_rnd_dist(0, 1);
 	mbase::Size_t tmpNumChannels = _numChannels();
 	if (_numChannels() <= 1) {
 		std::cerr
-				<< "NTBP_ion_channels_o::NTBP_ion_channels_o - Warning : _numChannels() <= 1, setting numChannels to 1 in binomial population algorithm."
+				<< "Warning : _numChannels() <= 1, setting numChannels to 1."
 				<< std::endl;
 		tmpNumChannels = 1;
 	}
@@ -92,6 +85,13 @@ Ion_channels::Ion_channels(const Ion_channels & original) :
 	ratesComputed = false;
 }
 
+/** 
+  * Copy constructor
+  * 
+  * @param right 
+  * 
+  * @return 
+  */
 const Ion_channels&
 Ion_channels::operator=(const Ion_channels & right) {
 	if (this == &right)
@@ -100,11 +100,19 @@ Ion_channels::operator=(const Ion_channels & right) {
 	return (*this);
 }
 
-/* ***      DESTRUCTOR		***/
+/** 
+ * Destructor
+ * 
+ */
 Ion_channels::~Ion_channels() {
 }
 
 /* ***  PUBLIC                                    ***   */
+/** 
+ * Defines the given state as an open state
+ * 
+ * @param newOpenState 
+ */
 void Ion_channels::setAsOpenState(mbase::Size_t newOpenState) {
 	openStates.push_back(newOpenState);
 }
@@ -140,35 +148,35 @@ mbase::Mreturn Ion_channels::GillespieStep(mbase::Real voltage) {
 }
 
 /**
- *
+ * Take a step using the single channel algorithm
  * @return
  */
 mbase::Mreturn Ion_channels::step(mbase::Real voltage) {
 	mbase::Real rv = 0;
-	std::vector<mbase::Mint> oldStateCounterVec = stateCounterVec;
+	std::vector<mbase::int_t> oldStateCounterVec = stateCounterVec;
 	mbase::Size_t matrix_index = _probMatrix->get_index(voltage);
-	for (mbase::Size_t lls = 1; lls < _numStates() + 1; lls++) {
-		for (mbase::Mint llc = 1; llc < oldStateCounterVec[lls] + 1; llc++) {
+	for (mbase::Size_t current_state = 1; current_state < _numStates() + 1; current_state++) {
+		for (mbase::int_t llc = 1; llc < oldStateCounterVec[current_state] + 1; llc++) {
 			rv = uniformRnd.RndVal();
 			mbase::Real accumulatedProb = 0;
-			for (mbase::Size_t nextState = 0; nextState < _numStates(); nextState++) {
-				if (_probMatrix->getTransitionProbability(matrix_index, lls,
+			for (mbase::Size_t nextState = 1; nextState < _numStates() + 1; nextState++) {
+				if (_probMatrix->getTransitionProbability(matrix_index, current_state,
 						nextState) == 0)
 					continue;
-
+                                if (nextState == current_state)
+					continue;
 				// This replaces awkward tNN probabilities
 				accumulatedProb += _probMatrix->getTransitionProbability(
-						matrix_index, lls, nextState);
-				if (rv <= accumulatedProb && stateCounterVec[lls] > 0) {
+						matrix_index, current_state, nextState);
+				if (rv <= accumulatedProb && stateCounterVec[current_state] > 0) {
 					// The state counter std::vector starts at 1
 					stateCounterVec[nextState]++;
-					stateCounterVec[lls]--;
+					stateCounterVec[current_state]--;
 
 					// We have found our next state
 					break;
 				}
-				// Something went wrong. The sum of all those probabilities
-				// should have reached one.
+                                std::cerr << "Ion_channels::step : Something went wrong. The sum of all those probabilities should have reached one." << std::endl;
 				return (mbase::M_FAIL);
 			}
 
@@ -263,7 +271,7 @@ mbase::Mreturn Ion_channels::ComputeGillespieStep(mbase::Size_t stateId,
 	}
 
 	/* CHECKING CODE */
-	mbase::Mint check = 0.0;
+	mbase::int_t check = 0.0;
 	for (mbase::Size_t ll = 1; ll < _numStates() + 1; ll++) {
 		check += stateCounterVec[ll];
 		std::cerr << check << std::endl;
@@ -278,7 +286,7 @@ mbase::Mreturn Ion_channels::ComputeGillespieStep(mbase::Size_t stateId,
 }
 
 mbase::Mreturn Ion_channels::BinomialStep(mbase::Real voltage) {
-	std::vector<mbase::Mint> newStateCounterVec = stateCounterVec;
+	std::vector<mbase::int_t> newStateCounterVec = stateCounterVec;
 	// This operation is costly. So we do it only once.
 	mbase::Size_t matrix_index = _probMatrix->get_index(voltage);
 	bool loop = false;
@@ -320,45 +328,19 @@ mbase::Mreturn Ion_channels::BinomialStep(mbase::Real voltage) {
 		return (mbase::M_SUCCESS);
 	}
 	stateCounterVec = newStateCounterVec;
-	//	else {}
-	//TODO: added: all state counters shown in BinominalStep
-	//	for (mbase::Size_t ll = 1; ll < _numStates() + 1; ll++)
-	//	{
-	//		std::cerr << ll << ": " << stateCounterVec[ll] << "\t";
-	//	}
-	//	std::cerr << "\n" << std::endl;
 	return (mbase::M_SUCCESS);
 }
 
 mbase::Mreturn Ion_channels::DeterministicStep(mbase::Real voltage) {
-	std::vector<mbase::Mint> newStateCounterVec = stateCounterVec;
+	std::vector<mbase::int_t> newStateCounterVec = stateCounterVec;
+	// This operation is costly. So we do it only once.
 	mbase::Size_t matrix_index = _probMatrix->get_index(voltage);
-
-	for (mbase::Size_t currentState = 1; currentState < _numStates() + 1;
-			currentState++) {
-		for (mbase::Size_t nextState = 1; nextState < _numStates() + 1; nextState++) {
-			if (nextState == currentState)
-				continue;
-			mbase::Real prob = _probMatrix->getTransitionProbability(matrix_index,
-					currentState, nextState);
-			if (prob == 0)
-				continue;
-			mbase::Mint numberOfChannels = stateCounterVec[currentState];
-			mbase::Mint delta = floor(prob * numberOfChannels);
-			newStateCounterVec[nextState] += delta;
-			newStateCounterVec[currentState] -= delta;
-		}
-	}
-	mbase::Size_t check = 0;
 	bool loop = false;
-	for (mbase::Size_t ll = 1; ll < _numStates() + 1; ll++) {
-		if (newStateCounterVec[ll] < 0)
-			loop = true;
-		check += newStateCounterVec[ll];
-	}
-	if (check != _numChannels())
-		loop = true;
-	if (loop) {
+	mbase::Size_t loopCounter = 0;
+
+	do {
+		loop = false;
+		loopCounter++;
 		for (mbase::Size_t currentState = 1; currentState < _numStates() + 1;
 				currentState++) {
 			for (mbase::Size_t nextState = 1; nextState < _numStates() + 1;
@@ -369,18 +351,27 @@ mbase::Mreturn Ion_channels::DeterministicStep(mbase::Real voltage) {
 						matrix_index, currentState, nextState);
 				if (prob == 0)
 					continue;
-				mbase::Mint numberOfChannels = stateCounterVec[currentState];
-				mbase::Mint delta = floor(prob * numberOfChannels);
-				if (delta <= newStateCounterVec[currentState]) {
-					newStateCounterVec[nextState] += delta;
-					newStateCounterVec[currentState] -= delta;
-				} else {
-					newStateCounterVec[nextState] +=
-							newStateCounterVec[currentState];
-					newStateCounterVec[currentState] = 0;
-				}
+				//M_ASSERT(prob>0 && prob<=1);
+				int numberOfChannels = stateCounterVec[currentState];
+				mbase::int_t delta = floor(prob * numberOfChannels);
+				newStateCounterVec[nextState] += delta;
+				newStateCounterVec[currentState] -= delta;
 			}
 		}
+
+		/* CHECKING CODE */
+		mbase::Size_t check = 0;
+		for (mbase::Size_t ll = 1; ll < _numStates() + 1; ll++) {
+			if (newStateCounterVec[ll] < 0)
+				loop = true;
+			check += newStateCounterVec[ll];
+		}
+		if (check != _numChannels())
+			loop = true;
+		} while ((true == loop) && (loopCounter < 100));
+	if (loopCounter >= 100) {
+		std::cerr << "ERROR: Binominal step loop counter limit reached." << std::endl;
+		return (mbase::M_SUCCESS);
 	}
 	stateCounterVec = newStateCounterVec;
 	return (mbase::M_SUCCESS);

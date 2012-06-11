@@ -33,7 +33,7 @@ typedef float Mfloat;
 typedef double Mdouble;
 typedef Mdouble Real;
 
-typedef int Mint;
+typedef int int_t;
 typedef unsigned int Muint;
 typedef unsigned int Size_t;
 typedef long int Mlong;

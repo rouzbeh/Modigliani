@@ -106,7 +106,7 @@ std::ostream & mbase::operator<<(std::ostream & os,  const   Currency & self)
     std::string osName = self._name();
     os << "Currency"  << M_SEPARATOR << self._id() << M_SEPARATOR
     << self._amount() << M_SEPARATOR  <<  osName << M_SEPARATOR
-    << self._value() << M_SEPARATOR << (Mint) self.countryCode << M_SEPARATOR
+    << self._value() << M_SEPARATOR << (int_t) self.countryCode << M_SEPARATOR
     << self.conversionFactor << std::endl;
 
     return (os);
