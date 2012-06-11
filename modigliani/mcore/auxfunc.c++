@@ -25,7 +25,8 @@
 using namespace std;
 
 namespace mcore {
-mbase::Real corrected_channel_density(mbase::Real chDensity, mbase::Real compArea) {
+mbase::Real corrected_channel_density(mbase::Real chDensity,
+		mbase::Real compArea) {
 	mbase::Real chPerCompartment = compArea * chDensity;
 	mbase::Real pChFloor = (ceil(chPerCompartment) - chPerCompartment);
 
@@ -70,80 +71,6 @@ string createOutputFolder(string outputFolder) {
 }
 
 /**
- * Formats and prints current parameters into the ofstream given as input.
- * @param out
- */
-void printConfig(ofstream& out, Json::Value node_parameters,
-		Json::Value paranode_parameters, Json::Value internode_parameters,
-		Json::Value simulation_parameters, Json::Value config_root) {
-	out << "global_diameter" << " = " << config_root["diameter"].asDouble()
-			<< ";" << std::endl;
-	out << "global_eLeak" << " = " << config_root["eLeak"].asDouble() << ";"
-			<< std::endl;
-	out << "global_temperature" << " = "
-			<< config_root["temperature"].asDouble() << ";" << std::endl;
-	out << "global_vBase" << " = " << config_root["vBase"].asDouble() << ";"
-			<< std::endl;
-	out << "node_cm" << " = " << node_parameters["Cm"].asDouble() << ";"
-			<< std::endl;
-	out << "node_gLeak" << " = " << node_parameters["GLeak"].asDouble() << ";"
-			<< std::endl;
-	out << "node_length" << " = " << node_parameters["length"].asDouble() << ";"
-			<< std::endl;
-	out << "node_num" << " = " << node_parameters["numNd"].asUInt() << ";"
-			<< std::endl;
-	out << "node_numComp" << " = " << node_parameters["numComp"].asDouble()
-			<< ";" << std::endl;
-	out << "node_potassiumAlg" << " = " << node_parameters["chKAlg"].asUInt()
-			<< ";" << std::endl;
-	out << "node_potassiumConductance" << " = "
-			<< node_parameters["chKCond"].asDouble() << ";" << std::endl;
-	out << "node_potassiumDensity" << " = "
-			<< node_parameters["chKDen"].asDouble() << ";" << std::endl;
-	out << "node_potassiumReversalPotential" << " = "
-			<< node_parameters["chKRevPot"].asDouble() << ";" << std::endl;
-	out << "node_ra" << " = " << node_parameters["Ra"].asDouble() << ";"
-			<< std::endl;
-	out << "node_sodiumAlg" << " = " << node_parameters["chNaAlg"].asUInt()
-			<< ";" << std::endl;
-	out << "node_sodiumConductance" << " = "
-			<< node_parameters["chNaCond"].asDouble() << ";" << std::endl;
-	out << "node_sodiumDensity" << " = "
-			<< node_parameters["chNaDen"].asDouble() << ";" << std::endl;
-	out << "node_sodiumReversalPotential" << " = "
-			<< node_parameters["chNaRevPot"].asDouble() << ";" << std::endl;
-	out << "paranode_cm" << " = " << paranode_parameters["Cm"].asDouble() << ";"
-			<< std::endl;
-	out << "paranode_gLeak" << " = " << paranode_parameters["GLeak"].asDouble()
-			<< ";" << std::endl;
-	out << "paranode_length" << " = "
-			<< paranode_parameters["length"].asDouble() << ";" << std::endl;
-	out << "paranode_numComp" << " = "
-			<< paranode_parameters["numComp"].asDouble() << ";" << std::endl;
-
-	out << "internode_cm" << " = " << internode_parameters["Cm"].asDouble()
-			<< ";" << std::endl;
-	out << "internode_gLeak" << " = "
-			<< internode_parameters["GLeak"].asDouble() << ";" << std::endl;
-	out << "internode_length" << " = "
-			<< internode_parameters["length"].asDouble() << ";" << std::endl;
-	out << "internode_numComp" << " = "
-			<< internode_parameters["numComp"].asDouble() << ";" << std::endl;
-
-	out << "simulation_samplerate" << " = "
-			<< simulation_parameters["sampN"].asUInt() << ";" << std::endl;
-	out << "simulation_timestep_inms" << " = "
-			<< simulation_parameters["timeStep"].asDouble() << ";" << std::endl;
-	out << "simulation_number_of_iterations" << " = "
-			<< simulation_parameters["numIter"].asUInt() << ";" << std::endl;
-	out << "simulation_duration" << " = "
-			<< simulation_parameters["timeStep"].asDouble()
-					* simulation_parameters["numIter"].asUInt() << ";" << std::endl;
-	out << "simulation_trials" << " = "
-			<< simulation_parameters["numTrials"].asUInt() << ";" << std::endl;
-}
-
-/**
  * Creates a compartment using the parameters supplied in the parameters structs supplied.
  * @return The constructed compartment.
  */
@@ -157,7 +84,8 @@ Custom_cylindrical_compartment* createCompartment(Json::Value config_root,
 			compartment_parameters["Ra"].asDouble() /* ohm cm */,
 			config_root["temperature"].asDouble());
 
-	bool randomise_densities = simulation_parameters["randomise_densities"].asBool();
+	bool randomise_densities =
+			simulation_parameters["randomise_densities"].asBool();
 
 	// Read a list of currents for each compartments
 	Json::Value currents = compartment_parameters["currents"];
@@ -177,14 +105,18 @@ Custom_cylindrical_compartment* createCompartment(Json::Value config_root,
 					current["chDen"].asDouble(), tmpPtr->_area());
 			File_based_stochastic_multi_current * file_current =
 					new File_based_stochastic_multi_current(tmpPtr->_area(),
-							(randomise_densities ? indDensity:current["chDen"].asDouble()) /* mum^-2 */,
+							(randomise_densities ?
+									indDensity : current["chDen"].asDouble()) /* mum^-2 */,
 							current["chCond"].asDouble() * 1e-9 /* pS */,
 							config_root["vBase"].asDouble() /* mV */,
 							current["chRevPot"].asDouble() /* mV */,
 							simulation_parameters["timeStep"].asDouble(),
 							config_root["temperature"].asDouble() /* C */,
 							current["chModel"].asString());
-			file_current->SetSimulationMode(NTBP_BINOMIALPOPULATION);
+			if (4 == current["chAlg"].asInt())
+				file_current->SetSimulationMode(NTBP_BINOMIALPOPULATION);
+			if (2 == current["chAlg"].asInt())
+				file_current->SetSimulationMode(NTBP_SINGLECHANNEL);
 			tmpPtr->AttachCurrent(file_current, NTBP_IONIC);
 			continue;
 		}
@@ -204,19 +136,24 @@ Custom_cylindrical_compartment* createCompartment(Json::Value config_root,
 				lua_current->SetSimulationMode(NTBP_DETERMINISTIC);
 				tmpPtr->AttachCurrent(lua_current, NTBP_IONIC);
 				continue;
-			} else if (4 == current["chAlg"].asInt()) {
+			} else if (4 == current["chAlg"].asInt()
+					|| 2 == current["chAlg"].asInt()) {
 				mbase::Real indDensity = corrected_channel_density(
 						current["chDen"].asDouble(), tmpPtr->_area());
 				Lua_based_stochastic_multi_current * lua_current =
 						new Lua_based_stochastic_multi_current(tmpPtr->_area(),
-								(randomise_densities ? indDensity:current["chDen"].asDouble()) /* mum^-2 */,
+								(randomise_densities ?
+										indDensity : current["chDen"].asDouble()) /* mum^-2 */,
 								current["chCond"].asDouble() * 1e-9 /* pS */,
 								config_root["vBase"].asDouble() /* mV */,
 								current["chRevPot"].asDouble() /* mV */,
 								simulation_parameters["timeStep"].asDouble(),
 								config_root["temperature"].asDouble() /* C */,
 								current["chModel"].asString());
-				lua_current->SetSimulationMode(NTBP_BINOMIALPOPULATION);
+				if (4 == current["chAlg"].asInt())
+					lua_current->SetSimulationMode(NTBP_BINOMIALPOPULATION);
+				if (2 == current["chAlg"].asInt())
+					lua_current->SetSimulationMode(NTBP_SINGLECHANNEL);
 				tmpPtr->AttachCurrent(lua_current, NTBP_IONIC);
 				continue;
 			}
@@ -302,7 +239,8 @@ Membrane_compartment_sequence* create_axon(Json::Value config_root,
 			it != compartment_types.end(); it++) {
 		TypePerCompartmentFile << *it << std::endl;
 		LengthPerCompartmentFile
-				<< compartments_parameters[*it]["length"].asDouble() << std::endl;
+				<< compartments_parameters[*it]["length"].asDouble()
+				<< std::endl;
 		oModel->PushBack(
 				createCompartment(config_root,
 						config_root["simulation_parameters"],
