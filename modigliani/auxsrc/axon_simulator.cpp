@@ -24,8 +24,6 @@
 #endif
 #include <mcore/auxfunc.h>
 
-//Json::Value config_root; // will contains the root value after parsing.
-
 /**
  * Reads the parameters in the file given as argument.
  * @param fileName Input file.
@@ -111,8 +109,8 @@ int simulate(string fileName) {
 									ll, ".bin"));
 				});
 	}
-	else {
-		mcore::openOutputFile("tmp", "log", log_file, ".log");
+	else{
+		mcore::openOutputFile("/tmp", "log", log_file, ".log");
 	}
 
 	// Read input file only once. Store its content in memory.

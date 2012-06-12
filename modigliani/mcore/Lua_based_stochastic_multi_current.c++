@@ -20,12 +20,11 @@ map<string, std::vector<int> > Lua_based_stochastic_multi_current::open_states_m
 
 Lua_based_stochastic_multi_current::Lua_based_stochastic_multi_current(
 		mbase::Real newArea, mbase::Real newDensity,
-		mbase::Real newConductivity, mbase::Real newVBase,
-		mbase::Real newReversalPotential, mbase::Real newTimeStep,
-		mbase::Real newTemperature, string fileName) :
+		mbase::Real newConductivity, mbase::Real newReversalPotential,
+		mbase::Real newTimeStep, mbase::Real newTemperature, string fileName) :
 		Multi_current(newReversalPotential /* in mV */,
 				newDensity /* channels per mu^2 */, newArea /* in mu^2 */,
-				newConductivity /* in mS per channel  */, newVBase /* mV */
+				newConductivity /* in mS per channel  */
 				) {
 
 	UpdateNumChannels(); //TODO

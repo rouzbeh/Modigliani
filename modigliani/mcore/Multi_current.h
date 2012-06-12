@@ -44,8 +44,7 @@ public:
 	Multi_current(mbase::Real reversalPotential, // in mV
 			mbase::Real density, // channels per mumeter^2
 			mbase::Real area, // in mumeter^2
-			mbase::Real conductivity, // in mSiemens per channel
-			mbase::Real vBase = 0 // mV
+			mbase::Real conductivity // in mSiemens per channel
 			);
 	Multi_current(const Multi_current & original);
 	const Multi_current & operator=(const Multi_current & right);
@@ -84,9 +83,6 @@ public:
 	mbase::Real OpenChannelsRatio() const {
 		return (open_channels() / NumChannels());
 	}
-	mbase::Real _vBase() const {
-		return (vBase);
-	}
 // Dangerous: since cached values are not automatically recomputed in derived classes
 //void Set_vBase(mbase::Real newVBase /* mV */){ vBase = newVBase; }
 	Ion_channels * getChannelsPtr() {
@@ -102,7 +98,6 @@ protected:
 	static mbase::Uniform_rnd_dist uniformRnd;
 	mbase::Real conductivity; // in mSiemens per channel
 	mbase::Real density; // channels per muMeter^2
-	mbase::Real vBase; // mV
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/

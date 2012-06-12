@@ -23,9 +23,9 @@ namespace mcore {
 class File_based_stochastic_multi_current: public Multi_current {
 public:
 	File_based_stochastic_multi_current(mbase::Real newArea,
-			mbase::Real newDensity, mbase::Real newConductivity, mbase::Real newVBase,
-			mbase::Real reversalPotential, mbase::Real newTimeStep, mbase::Real newTemperature,
-			std::string fileName);
+			mbase::Real newDensity, mbase::Real newConductivity,
+			mbase::Real reversalPotential, mbase::Real newTimeStep,
+			mbase::Real newTemperature, std::string fileName);
 	virtual ~File_based_stochastic_multi_current();
 
 	static void load_file(std::string fileName, double temperature,
@@ -41,8 +41,10 @@ public:
 	mbase::Real ComputeChannelStateTimeConstant() const;
 	void show_param() const;
 	void printProb(std::string fileName) {
-		for (mbase::Real v =20; v<130; v+=0.005) {
-			std::cout << probability_matrix_map[fileName]->getTransitionProbability(v, 2, 1) << std::endl;
+		for (mbase::Real v = 20; v < 130; v += 0.005) {
+			std::cout
+					<< probability_matrix_map[fileName]->getTransitionProbability(
+							v, 2, 1) << std::endl;
 		}
 	}
 
@@ -53,5 +55,6 @@ private:
 	static std::vector<std::string> initialised_probability_matrices;
 	mbase::Real baseTemp;
 
-};}
+};
+}
 #endif /* NTBP_file_based_stochastic_MULTI_CURRENT_O_H_ */
