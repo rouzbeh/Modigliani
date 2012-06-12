@@ -20,22 +20,6 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-/* $Id: ntbp_hh_sga_leak_current_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $ 
- * $Log: ntbp_hh_sga_leak_current_obj.cpp,v $
- * Revision 1.1.1.1  2004/12/16 01:38:36  face
- * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
- *
- * Revision 1.3  2003/08/14 16:43:27  face
- * *** empty log message ***
- *
- * Revision 1.2  2003/06/19 11:05:03  face
- * *** empty log message ***
- *
- * Revision 1.1  2001/10/03 14:37:52  face
- * *** empty log message ***
- *
-
- */
 #include "HH_sga_leak_current.h"
 using namespace mcore;
 

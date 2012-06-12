@@ -26,42 +26,34 @@ using namespace mcore;
 
 /* ***      CONSTRUCTORS	***/
 /** Create a Multi_current */
-Multi_current::Multi_current(
-	mbase::Real newReversalPotential, //in mV
-	mbase::Real newDensity, // channels per mumeter^2
-	mbase::Real newArea, // in mumeter^2
-	mbase::Real newConductivity, // in mSiemens per channel
-	mbase::Real newVBase // mV
-)
-:
-Membrane_current(newReversalPotential)
-{
+Multi_current::Multi_current(mbase::Real newReversalPotential, //in mV
+		mbase::Real newDensity, // channels per mumeter^2
+		mbase::Real newArea, // in mumeter^2
+		mbase::Real newConductivity // in mSiemens per channel
+		) :
+		Membrane_current(newReversalPotential) {
 	density = newDensity;
 	area = newArea;
 	conductivity = newConductivity;
-	numChannels = area*density;
-	vBase = newVBase;
+	numChannels = area * density;
 }
 
 /* ***      COPY AND ASSIGNMENT	***/
-Multi_current::Multi_current(const Multi_current & original)
-:
-Membrane_current(original._reversalPotential())
-{
- // add assignment code here
+Multi_current::Multi_current(const Multi_current & original) :
+		Membrane_current(original._reversalPotential()) {
+	// add assignment code here
 }
 
 const Multi_current&
-Multi_current::operator= (const Multi_current & right)
-{
- if (this == &right) return (*this); // Gracefully handle self assignment
- // add assignment code here
-  return (*this);
+Multi_current::operator=(const Multi_current & right) {
+	if (this == &right)
+		return (*this); // Gracefully handle self assignment
+	// add assignment code here
+	return (*this);
 }
 
 /* ***      DESTRUCTOR		***/
-Multi_current::~Multi_current()
-{
+Multi_current::~Multi_current() {
 }
 
 /* ***  PUBLIC                                    ***   */

@@ -10,13 +10,14 @@
 using namespace mcore;
 
 /* ***      CONSTRUCTORS	***/
-Lua_based_deterministic_multi_current::Lua_based_deterministic_multi_current(mbase::Real newArea,
-		mbase::Real newDensity, mbase::Real newConductivity, mbase::Real newVBase,
-		mbase::Real newReversalPotential, mbase::Real newTimeStep, mbase::Real newTemperature,
+Lua_based_deterministic_multi_current::Lua_based_deterministic_multi_current(
+		mbase::Real newArea, mbase::Real newDensity,
+		mbase::Real newConductivity, mbase::Real newReversalPotential,
+		mbase::Real newTimeStep, mbase::Real newTemperature,
 		string new_lua_script) :
 		Multi_current(newReversalPotential /* in mV */,
 				newDensity /* channels per mu^2 */, newArea /* in mu^2 */,
-				newConductivity /* in mS per channel  */, newVBase /* mV */
+				newConductivity /* in mS per channel  */
 				) {
 
 	UpdateNumChannels(); //TODO
@@ -90,7 +91,7 @@ Lua_based_deterministic_multi_current::~Lua_based_deterministic_multi_current() 
  \bug        unknown
  */
 inline mbase::Mreturn Lua_based_deterministic_multi_current::step_current() {
-	mbase::Real rounded_voltage = floor((voltage / stepV)+0.5)*stepV;
+	mbase::Real rounded_voltage = floor((voltage / stepV) + 0.5) * stepV;
 	switch (_simulationMode()) {
 	case NTBP_DETERMINISTIC: {
 		lua_getglobal(L, "step_current");

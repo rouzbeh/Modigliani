@@ -20,12 +20,12 @@ std::map<std::string, std::vector<int> > File_based_stochastic_multi_current::op
 
 File_based_stochastic_multi_current::File_based_stochastic_multi_current(
 		mbase::Real newArea, mbase::Real newDensity,
-		mbase::Real newConductivity, mbase::Real newVBase,
-		mbase::Real newReversalPotential, mbase::Real newTimeStep,
-		mbase::Real newTemperature, std::string fileName) :
+		mbase::Real newConductivity, mbase::Real newReversalPotential,
+		mbase::Real newTimeStep, mbase::Real newTemperature,
+		std::string fileName) :
 		Multi_current(newReversalPotential /* in mV */,
 				newDensity /* channels per mu^2 */, newArea /* in mu^2 */,
-				newConductivity /* in mS per channel  */, newVBase /* mV */
+				newConductivity /* in mS per channel  */
 				) {
 
 	UpdateNumChannels(); //TODO
