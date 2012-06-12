@@ -20,22 +20,6 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-/* $Id: ntbp_spherical_compartment.h,v 1.1.1.1 2004/12/16 01:38:36 face Exp $ 
- * $Log: ntbp_spherical_compartment.h,v $
- * Revision 1.1.1.1  2004/12/16 01:38:36  face
- * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
- *
- * Revision 1.3  2003/06/20 16:15:05  face
- * *** empty log message ***
- *
- * Revision 1.2  2003/04/08 15:13:36  face
- * *** empty log message ***
- *
- * Revision 1.1  2001/10/03 14:37:52  face
- * *** empty log message ***
- *
-
- */
 #ifndef _mcore_spherical_compartment_h_
 #define _mcore_spherical_compartment_h_
 
@@ -47,11 +31,13 @@
 #include <cmath>
 //#include <math.h>
 
-/** @short mcore_spherical_compartment class
- \bug unknown
- \warning unknown
- */
+
 namespace mcore {
+/**
+ * @short mcore_spherical_compartment class
+ * \bug unknown
+ * \warning unknown
+ */
 class Spherical_compartment: public Membrane_compartment {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/

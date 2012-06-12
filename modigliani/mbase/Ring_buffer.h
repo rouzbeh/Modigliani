@@ -34,11 +34,11 @@
 
 #include <vector>
 
+namespace mbase {
 /** @short Ring_buffer class
  \bug unknown
  \warning unknown
  */
-namespace mbase {
 template<class T>
 class Ring_buffer {
 public:

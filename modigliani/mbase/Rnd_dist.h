@@ -29,9 +29,6 @@
 
 #include "MTrand.h"
 
-//
-//	Class name : Rnd_dist
-//
 namespace mbase{
 class Rnd_dist : public Obj {
 public:

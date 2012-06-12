@@ -26,9 +26,7 @@
 #include "Rnd_dist.h"
 #include "Vector.h"
 
-//
-//	Class name : Gaussian_rnd_dist
-//
+namespace mbase{
 /**	Gaussian_rnd_dist returns values out of a gaussian
                     random distribution objects based upon inidividual paramters
 		      for each subspace
@@ -36,7 +34,6 @@
              a Real or M_vector_o containing random values out
              of its specific distribution [a,b]
 	     */
-namespace mbase{
 class Gaussian_rnd_dist : public Rnd_dist {
 public:
     Gaussian_rnd_dist();

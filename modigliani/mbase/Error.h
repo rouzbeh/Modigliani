@@ -30,8 +30,13 @@
 #include "types.h"
 #include "Obj.h"
 
-/** M superclass to report an error */
+
 namespace mbase {
+/**
+ *  superclass to report an error
+ *
+ */
+
 class Error: public Obj {
 public:
 	Error(const char* f, int l, const char* expr = 0, const char* msg = 0);

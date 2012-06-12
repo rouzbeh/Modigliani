@@ -31,13 +31,13 @@
 #include <vector>
 #include <cstdarg>
 
+namespace mbase {
 /** @short Multidim_array class
  Implements a regular - multidimensional, i.e.
  a "dim"-diemsional hypercube with "num" elements per dimension.
  \bug unknown
  \warning unknown
  */
-namespace mbase {
 template<class T> // with regards to Modula-3 :)
 class Multidim_array: public Obj {
 public:

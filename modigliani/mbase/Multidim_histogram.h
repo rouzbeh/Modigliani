@@ -30,11 +30,12 @@
 #include "aux_math_func.h"
 /* other includes */
 
+namespace mbase{
+
 /** @short M_multidim_histogram_o class
 \bug unknown
 \warning unknown
 */
-namespace mbase{
 class Multidim_histogram : public Obj {
 public:
     /***   Constructors, Copy/Assignment and Destructor  ***/

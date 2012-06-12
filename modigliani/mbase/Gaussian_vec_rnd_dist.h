@@ -30,12 +30,12 @@
 #include "Vec_rnd_dist.h"
 #include "Gaussian_rnd_dist.h"
 
+namespace mbase {
 /** @short Gaussian_vec_rnd_dist class
 
  \bug unknown
  \warning unknown
  */
-namespace mbase {
 class Gaussian_vec_rnd_dist: public Vec_rnd_dist {
 public:
 	/***   Constructors, CopyAssignment and Destructor  ***/

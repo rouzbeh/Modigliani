@@ -1,5 +1,7 @@
-/* Listbj.h - general linked list class for any type--numerical, pointer or class */
-/* by Ahmed A. Faisal, 22. 5. 1998(c) */
+/**
+ * @file Listbj.h - general linked list class for any type--numerical, pointer or class
+ * @author Ahmed A. Faisal, 22. 5. 1998(c)
+ */
 
 /*
  * NetTrader - finance management, analysis and simulation system

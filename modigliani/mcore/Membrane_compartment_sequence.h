@@ -1,5 +1,7 @@
-/**\file Membrane_compartment_sequence.h - Membrane_compartment_sequence class header
- * by Ahmed Aldo Faisal &copy; created 26.3.2001  
+/**
+ * @file Membrane_compartment_sequence.h
+ * Membrane_compartment_sequence class header
+ * @author Ahmed Aldo Faisal &copy; created 26.3.2001
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
  * Version:  0.5
@@ -31,11 +33,12 @@
 #include <fstream>
 #include <vector>
 #include <tnt/tnt_cmat.h>
+
+namespace mcore {
 /** @short Membrane_compartment_sequence class
  \bug unknown
  \warning unknown
  */
-namespace mcore {
 class Membrane_compartment_sequence: public Membrane {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/

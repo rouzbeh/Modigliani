@@ -30,13 +30,14 @@
 #include <vector>
 #include <algorithm>
 
+namespace mbase {
+
 /** @short Id_management class
  Manage a contiguous list of IDs which might be
  used or freed at any time.
  \bug unknown
  \warning unknown
  */
-namespace mbase {
 class Id_management: public Obj {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/

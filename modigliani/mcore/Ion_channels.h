@@ -1,5 +1,7 @@
-/**\file Ion_channels.h - Ion_channels class header
- * by Ahmed Aldo Faisal &copy; created 15.3.2001  
+/**
+ * \file Ion_channels.h
+ * Ion_channels class header
+ * @author Ahmed Aldo Faisal &copy; created 15.3.2001
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
  * Version:  0.5
@@ -33,11 +35,12 @@
 #include <vector>
 #include <iostream>
 
-/** @short NTBP_ion_channels_o class
- \bug unknown
- \warning unknown
- */
 namespace mcore{
+/**
+ * @short Ion_channels class
+ * \bug unknown
+ * \warning unknown
+ */
 class Ion_channels: public Object {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/

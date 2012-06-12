@@ -27,16 +27,15 @@
 
 #include "types.h"
 
-
-
-/**
-  @short Master class for all M objects.
-  It provides object accounting, and a unique identifier (uniqId) for
-  each object.  The unique id might become ambigous when uniqId gets
-  greater LONG_MAX. However, the initialisation of each M object with
-  this class might help in synchronisation of a threaded version.
-  */
 namespace mbase{
+/**
+ * @class Obj
+ * @short Master class for all M objects.
+ * It provides object accounting, and a unique identifier (uniqId) for
+ * each object.  The unique id might become ambigous when uniqId gets
+ * greater LONG_MAX. However, the initialisation of each M object with
+ * this class might help in synchronisation of a threaded version.
+ */
 class Obj {
 public:
     Obj(); // 2DO : the constructor is not thread safe !

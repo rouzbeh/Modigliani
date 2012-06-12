@@ -1,6 +1,7 @@
-/* header_string.h - declaration of header information object
- in "string" storage classes  */
-/* by Ahmed A. Faisal, 22. 5. 1998(c) */
+/** @file header_string.h
+ * Declaration of header information object in "string" storage classes
+ * @author Ahmed A. Faisal, 22. 5. 1998(c)
+ */
 
 /*
  * NetTrader - finance management, analysis and simulation system

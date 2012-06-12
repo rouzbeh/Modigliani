@@ -1,5 +1,7 @@
-/* types.h - type declarations for NetTrader */
-/* by Ahmed A. Faisal, 22. 5. 1998(c) */
+/**
+ * @file types.h - type declarations for NetTrader
+ * @author Ahmed A. Faisal, 22. 5. 1998(c)
+ */
 
 /*
  * NetTrader - finance management, analysis and simulation system

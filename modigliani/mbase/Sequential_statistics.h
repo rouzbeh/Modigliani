@@ -33,11 +33,11 @@
 #include <climits>
 #include <cfloat>
 
+namespace mbase{
 /** @short Sequential_statistics class
 \bug unknown
 \warning unknown
 */
-namespace mbase{
 class Sequential_statistics : public Obj {
 public:
     /***   Constructors, Copy/Assignment and Destructor  ***/

@@ -30,11 +30,12 @@
 
 /* other includes */
 
+namespace mcore {
+
 /** @short Synaptic_background_o class
  \bug unknown
  \warning unknown
  */
-namespace mcore {
 class Synaptic_background: public Membrane_current {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/

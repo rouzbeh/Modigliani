@@ -1,10 +1,10 @@
-/**\file Config_file_parser.c++ - Config_file_parser class implementation
- * by Ahmed Aldo Faisal &copy; created 3.7.1999  
- */
-/* NetTrader - visualisation, scientific and financial analysis and simulation system
- * Version:  0.0
- * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    
+/**
+ * @file Config_file_parser.c++ - Config_file_parser class implementation
+ * @author Ahmed Aldo Faisal &copy; created 3.7.1999
  *
+ * @version:  0.0
+ * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    
+ * @section LICENSE
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
  * License as published by the Free Software Foundation; either

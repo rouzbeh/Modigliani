@@ -1,5 +1,6 @@
-/**\file Object.h - NT bio-physics related main declaration
- * by Ahmed Aldo Faisal &copy; created 15.3.2001  
+/**
+ * @file Object.h - NT bio-physics related main declaration
+ * @author Ahmed Aldo Faisal &copy; created 15.3.2001
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
  * Version:  0.5
@@ -18,6 +19,15 @@
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the Free
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ */
+
+/**
+ * @namespace mcore
+ * @short Core classes
+ *
+ * This namespace contains classes directly used for simulations.
+ * Notably, it contains ion channels and membrane classes.
+ *
  */
 
 #ifndef _Object_h_

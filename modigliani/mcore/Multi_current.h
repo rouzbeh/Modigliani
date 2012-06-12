@@ -31,13 +31,12 @@
 #include "Ion_channels.h"
 /* other includes */
 
+namespace mcore {
 /** @short NTBP_multi_current_o class
  Base class for stochastic channel simulations of individual channels
  \bug unknown
  \warning unknown
  */
-
-namespace mcore {
 class Multi_current: public Membrane_current {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/

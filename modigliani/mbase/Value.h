@@ -30,12 +30,13 @@
 
 #include <ostream>
 #include <cstring>
+
+namespace mbase {
 //
 //	Class name : mbase::Value
 //
 //	Description :
 //
-namespace mbase {
 class Value: public Obj {
 protected:
 

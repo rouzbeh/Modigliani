@@ -34,11 +34,12 @@
 #include <map>
 #include <fstream>
 
+namespace mbase {
+
 /** @short Config_file_parser class
  \bug unknown
  \warning unknown
  */
-namespace mbase {
 class Config_file_parser: public Obj {
 
 	std::map<std::string, Str2real> content_;

@@ -1,8 +1,7 @@
-/*
- * transition_rate_matrix.h
+/**
+ * @file transition_rate_matrix.h
  *
- *  Created on: 30 Mar 2011
- *      Author: man210
+ * @author Ali Neishabouri <ali@neishabouri.net>
  */
 
 #ifndef TRANSITION_RATE_MATRIX_H_

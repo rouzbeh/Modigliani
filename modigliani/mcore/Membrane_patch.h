@@ -28,11 +28,12 @@
 #include "Object.h"
 /* other includes */
 
+namespace mcore {
+
 /** @short Membrane_patch_o class
  \bug unknown
  \warning unknown
  */
-namespace mcore {
 class Membrane_patch: public Membrane_compartment {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/

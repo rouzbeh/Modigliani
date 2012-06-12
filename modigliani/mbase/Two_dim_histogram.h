@@ -36,12 +36,11 @@
 using namespace TNT;
 using TNT::Matrix;
 
+namespace mbase {
 /** @short M_2dim_histogram_o class
  \bug unknown
  \warning unknown
  */
-
-namespace mbase {
 class Two_dim_histogram : public Obj {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/

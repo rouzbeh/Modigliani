@@ -1,4 +1,4 @@
-/**\file Binomial_rnd_dist.h - M_binomial_rnd_dist_o class header
+/**\file Binomial_rnd_dist.h - Binomial_rnd_dist class header
  * by Ahmed Aldo Faisal &copy; created 19.6.2001
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
@@ -34,11 +34,11 @@
 #include <cmath>
 #include <vector>
 
-/** @short M_binomial_rnd_dist_o class
+namespace mbase {
+/** @short Binomial_rnd_dist class
  \bug unknown
  \warning unknown
  */
-namespace mbase {
 class Binomial_rnd_dist: public Rnd_dist {
 
 	class Initializer {
