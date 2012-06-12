@@ -49,7 +49,7 @@ extern "C" {
 #include "Lua_based_stochastic_multi_current.h"
 #include "Lua_based_deterministic_multi_current.h"
 #include "Custom_cylindrical_compartment.h"
-#include "HH_sga_leak_current.h"
+#include "Leak_current.h"
 
 #include <tnt/tnt.h>
 

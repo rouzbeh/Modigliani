@@ -1,7 +1,7 @@
 noinst_LIBRARIES = libmcore.a
 
 libmcore_a_SOURCES = File_based_stochastic_multi_current.c++\
-HH_sga_leak_current.c++\
+Leak_current.c++\
 Ion_channels.c++\
 Lua_based_deterministic_multi_current.c++\
 Lua_based_stochastic_multi_current.c++\
@@ -13,7 +13,6 @@ auxfunc.c++\
 Channels_current.c++\
 Custom_cylindrical_compartment.c++\
 Cylindrical_compartment.c++\
-HH_current.c++\
 Membrane_compartment_sequence.c++\
 Membrane.c++\
 Object.c++\
@@ -23,7 +22,7 @@ Spherical_compartment.c++\
 Synaptic_background.c++
 
 EXTRA_DIST = $(libmcore_a_SOURCES) File_based_stochastic_multi_current.h\
-HH_sga_leak_current.h\
+Leak_current.h\
 Ion_channels.h\
 Lua_based_deterministic_multi_current.h\
 Lua_based_stochastic_multi_current.h\
@@ -35,7 +34,6 @@ auxfunc.h\
 Channels_current.h\
 Custom_cylindrical_compartment.h\
 Cylindrical_compartment.h\
-HH_current.h\
 Membrane_compartment_sequence.h\
 Membrane.h\
 Object.h\
