@@ -17,7 +17,6 @@ Membrane_compartment_sequence.c++\
 Membrane.c++\
 Object.c++\
 Transition_rate_matrix.c++\
-Tridiag_solver.c++\
 Spherical_compartment.c++\
 Synaptic_background.c++
 
@@ -38,7 +37,6 @@ Membrane_compartment_sequence.h\
 Membrane.h\
 Object.h\
 Transition_rate_matrix.h\
-Tridiag_solver.h\
 Spherical_compartment.h\
 Synaptic_background.h
 

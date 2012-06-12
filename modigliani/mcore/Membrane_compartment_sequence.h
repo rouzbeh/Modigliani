@@ -26,7 +26,6 @@
 /* Parent includes */
 #include "Membrane.h"
 /* NT includes */
-#include "Tridiag_solver.h"
 #include "Cylindrical_compartment.h"
 /* other includes */
 #include <fstream>
