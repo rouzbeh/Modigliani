@@ -43,7 +43,7 @@ public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
 	Ion_channels(mbase::Size_t numNewChannels, mbase::Size_t numNewStates, Transition_rate_matrix* probMatrix, mbase::Real newTimeStep=0.1);
 	Ion_channels(const Ion_channels & original);
-	const Ion_channels & operator=(const Ion_channels & right);
+	Ion_channels & operator=(const Ion_channels & right);
 	virtual ~Ion_channels();
 	/* ***  Methods              ***/
 	mbase::Size_t _numChannels() const {

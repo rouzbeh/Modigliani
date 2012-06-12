@@ -47,7 +47,7 @@ public:
 			mbase::Real conductivity // in mSiemens per channel
 			);
 	Multi_current(const Multi_current & original);
-	const Multi_current & operator=(const Multi_current & right);
+	Multi_current & operator=(const Multi_current & right);
 	virtual ~Multi_current();
 	/* ***  Methods              ***/
 	/* mementary total conductance */
@@ -67,7 +67,8 @@ public:
 	}
 	/**  */
 	bool ComputeGillespieStep() {
-		std::cerr << "NTBP_multi_current_o::ComputeGillespieStep()" << std::endl;
+		std::cerr << "NTBP_multi_current_o::ComputeGillespieStep()"
+				<< std::endl;
 		return (channelsPtr->GillespieStep(voltage));
 	}
 	void UpdateNumChannels() {

@@ -32,8 +32,8 @@ public:
 
 	virtual ~Lua_based_deterministic_multi_current();
 
-	const Lua_based_deterministic_multi_current&
-	operator=(const Lua_based_deterministic_multi_current & right);
+	Lua_based_deterministic_multi_current& operator=(
+			const Lua_based_deterministic_multi_current & right);
 
 	virtual mbase::Mreturn step_current();
 	virtual mbase::Real open_channels() const;

@@ -44,7 +44,7 @@ Multi_current::Multi_current(const Multi_current & original) :
 	// add assignment code here
 }
 
-const Multi_current&
+Multi_current&
 Multi_current::operator=(const Multi_current & right) {
 	if (this == &right)
 		return (*this); // Gracefully handle self assignment

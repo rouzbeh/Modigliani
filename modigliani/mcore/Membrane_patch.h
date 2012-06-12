@@ -38,7 +38,7 @@ public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
 	Membrane_patch(mbase::Real area /* [muM^2] */, mbase::Real newCM /* muF/cm^2 */);
 	Membrane_patch(const Membrane_patch & original);
-	const Membrane_patch & operator=(const Membrane_patch & right);
+	Membrane_patch & operator=(const Membrane_patch & right);
 	virtual ~Membrane_patch();
 	/* ***  Methods              ***/
 	mbase::Real MembranePotential() const {

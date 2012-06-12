@@ -49,7 +49,7 @@ public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
 	Membrane();
 	Membrane(const Membrane & original);
-	const Membrane & operator=(const Membrane & right);
+	Membrane & operator=(const Membrane & right);
 	virtual ~Membrane();
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/

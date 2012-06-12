@@ -1,4 +1,4 @@
-/**\file ntbp_tridiag_solver.h - NTBP_tridiag_solver_o class header 
+/**\file ntbp_tridiag_solver.h - Tridiag_solver class header
  * by Ahmed Aldo Faisal &copy; created 26.3.2001  
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
@@ -40,7 +40,7 @@
 /* other includes */
 #include <vector>
 
-/** @short NTBP_tridiag_solver_o class 
+/** @short Tridiag_solver class
  Solve tridiangonal sequence of multi-compartment cable equations
  using the Thomas algorithm
 std::cerr << "OBSOLETE code called";
@@ -50,13 +50,13 @@ OBSOLETE CODE
 \bug unknown
 \warning unknown 
 */
-class NTBP_tridiag_solver_o : public mbase::Obj {
+class Tridiag_solver : public mbase::Obj {
 public:
 /***   Constructors, Copy/Assignment and Destructor  ***/  
-NTBP_tridiag_solver_o(mbase::Size_t numCompartments);
-NTBP_tridiag_solver_o(const NTBP_tridiag_solver_o & original);
-const NTBP_tridiag_solver_o & operator= (const NTBP_tridiag_solver_o & right);
-virtual ~NTBP_tridiag_solver_o();
+Tridiag_solver(mbase::Size_t numCompartments);
+Tridiag_solver(const Tridiag_solver & original);
+Tridiag_solver & operator= (const Tridiag_solver & right);
+virtual ~Tridiag_solver();
 /* ***  Methods              ***/  
 mbase::Mreturn Setup(std::vector <mbase::Real> newLVec, std::vector <mbase::Real> newUVec);
 std::vector <mbase::Real> Solve( std::vector <mbase::Real> dVec,  std::vector <mbase::Real> vVec, std::vector <mbase::Real> rVec);

@@ -49,7 +49,7 @@ public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
 	Membrane_current(mbase::Real reversalPotential /* in mV */);
 	Membrane_current(const Membrane_current & original);
-	const Membrane_current & operator=(const Membrane_current & right);
+	Membrane_current & operator=(const Membrane_current & right);
 	virtual ~Membrane_current();
 
 	/* ***  Methods              ***/

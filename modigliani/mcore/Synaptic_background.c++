@@ -49,7 +49,7 @@ Synaptic_background::Synaptic_background(const Synaptic_background & original) :
 	// add assignment code here
 }
 
-const Synaptic_background&
+Synaptic_background&
 Synaptic_background::operator=(const Synaptic_background & right) {
 	if (this == &right)
 		return (*this); // Gracefully handle self assignment

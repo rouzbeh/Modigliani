@@ -41,7 +41,7 @@ Cylindrical_compartment::Cylindrical_compartment(
 	// add assignment code here
 }
 
-const Cylindrical_compartment&
+Cylindrical_compartment&
 Cylindrical_compartment::operator=(
 		const Cylindrical_compartment & right) {
 	if (this == &right)

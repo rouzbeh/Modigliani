@@ -90,7 +90,7 @@ Ion_channels::Ion_channels(const Ion_channels & original) :
  *
  * @return
  */
-const Ion_channels&
+Ion_channels&
 Ion_channels::operator=(const Ion_channels & right) {
 	if (this == &right)
 		return (*this); // Gracefully handle self assignment

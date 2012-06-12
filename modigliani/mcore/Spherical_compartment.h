@@ -58,7 +58,7 @@ public:
 	Spherical_compartment(mbase::Real radius /* muMeter */,
 			mbase::Real cM /* muFarad/cm^2 */);
 	Spherical_compartment(const Spherical_compartment & original);
-	const Spherical_compartment & operator=(
+	Spherical_compartment & operator=(
 			const Spherical_compartment & right);
 	virtual ~Spherical_compartment();
 	/* ***  Methods              ***/

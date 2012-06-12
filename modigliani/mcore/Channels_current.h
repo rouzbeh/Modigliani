@@ -44,7 +44,7 @@ public:
 			mbase::Real conductivity // in mSiemens per channel
 			);
 	Channels_current(const Channels_current & original);
-	const Channels_current & operator=(const Channels_current & right);
+	Channels_current & operator=(const Channels_current & right);
 	virtual ~Channels_current();
 	/* ***  Methods              ***/
 	/* mementary total conductance */
