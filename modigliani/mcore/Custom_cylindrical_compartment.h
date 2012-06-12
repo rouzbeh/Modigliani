@@ -1,5 +1,6 @@
-/**\file Custom_cylindrical_compartment.h - Custom_cylindrical_compartment class header
- * by Ahmed Aldo Faisal &copy; created 26.3.2001  
+/**
+ * @file Custom_cylindrical_compartment.h - Custom_cylindrical_compartment class header
+ * @author Ahmed Aldo Faisal &copy; created 26.3.2001
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
  * Version:  0.5
@@ -27,11 +28,13 @@
 #include "Cylindrical_compartment.h"
 /* other includes */
 
-/** @short Custom_cylindrical_compartment class
- \bug unknown
- \warning unknown
- */
 namespace mcore {
+
+/**
+ *  @short Custom_cylindrical_compartment class
+ *  \bug unknown
+ *  \warning unknown
+ */
 class Custom_cylindrical_compartment: public Cylindrical_compartment {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/

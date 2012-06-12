@@ -1,4 +1,6 @@
-/**\file Membrane_compartment.h - Membrane_compartment_o class header
+/**
+ * @file Membrane_compartment.h
+ * Membrane_compartment class header
  * by Ahmed Aldo Faisal &copy; created 16.3.2001  
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
@@ -27,16 +29,16 @@
 /* other includes */
 #include <vector>
 
-/** @short NTBP_membrane_compartment_o class acts as a "container + glue" for the various membrane_current
+namespace mcore {
+
+/**
+ * @short NTBP_membrane_compartment_o class acts as a "container + glue" for the various membrane_current
  classes that can be attached to it.
-
-
 
  \bug unknown
  \warning 1. rA, rM and cM are set to (arbitrary) standard values, overwrite in derived class
  2. leak current IS incorported into the COMPARTMENT VECTOR
  */
-namespace mcore {
 class Membrane_compartment: public Object {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/

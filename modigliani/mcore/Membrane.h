@@ -39,11 +39,11 @@
 #include "Membrane_compartment.h"
 /* other includes */
 
-/** @short Membrane class 
+namespace mcore {
+/** @short Membrane class
  \bug unknown
  \warning unknown
  */
-namespace mcore {
 class Membrane: public Object {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/

@@ -33,12 +33,13 @@
 #include <iostream>
 //#include <math.h>
 #include <cmath>
+
+namespace mbase{
 //
 //	Class name : Vector
 //
 /**	A n-dimensional real vector class with visualization capabilities
  */
-namespace mbase{
 class Vector : public Obj {
 public:
     Vector();

@@ -1,5 +1,7 @@
-/**\file Leak_current.h - Leak_current class header
- * by Ahmed Aldo Faisal &copy; created 19.3.2001  
+/**
+ * @file Leak_current.h
+ * Leak_current class header
+ * @author Ahmed Aldo Faisal &copy; created 19.3.2001
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
  * Version:  0.5
@@ -25,11 +27,12 @@
 
 #include "Membrane_current.h"
 
-/** @short Leak_current class
- \bug unknown
- \warning unknown
- */
 namespace mcore {
+/**
+ * @short Leak_current class
+ * \bug unknown
+ * \warning unknown
+ */
 class Leak_current: public Membrane_current {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/

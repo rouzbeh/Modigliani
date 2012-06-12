@@ -24,12 +24,11 @@
 #include "Value.h"
 #include "Date.h"
 
-//
-//	Class name : Stock_value
-//
-/**	Bbase class for values traded at a stock exchange
- */
 namespace mbase{
+
+/**
+ * 	Bbase class for values traded at a stock exchange
+ */
 class Stock_value : public Value {
 
 private:

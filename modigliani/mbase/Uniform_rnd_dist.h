@@ -26,10 +26,10 @@
 #include "Rnd_dist.h"
 #include "Vector.h"
 
+namespace mbase {
 //
 //	Class name : Uniform_rnd_dist
 //
-namespace mbase {
 class Uniform_rnd_dist: public Rnd_dist {
 public:
 	Uniform_rnd_dist();

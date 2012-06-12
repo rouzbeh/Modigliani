@@ -31,21 +31,19 @@
 /* other includes */
 #include <cmath>
 
-/* *** METHODS *** */
-
+namespace mbase {
 /** @short Mlimit01
  Limit a value between [0,1]
  \bug unknown
  \warning unknown
  */
-namespace mbase {
-	extern Real MComputePLogP(Real prob);
-	extern Real Mlimit01 (Real value);
-	extern Real Mround (Real value);
-	extern Real MLogGammaFunction(Real arg);
-	extern MTRand MMakeMTRandFunction(MTRand::uint32 oneSeed);
-	extern int Misnan (double value);
-	extern int Misinf (double value);
+extern Real MComputePLogP(Real prob);
+extern Real Mlimit01(Real value);
+extern Real Mround(Real value);
+extern Real MLogGammaFunction(Real arg);
+extern MTRand MMakeMTRandFunction(MTRand::uint32 oneSeed);
+extern int Misnan(double value);
+extern int Misinf(double value);
 }
 /* *** DATA *** */
 #ifndef M_PI

@@ -32,11 +32,12 @@
 #include <valarray>
 #include <cstring>
 
+namespace mbase {
+
 /** @short Image class
  \bug unknown
  \warning unknown
  */
-namespace mbase {
 class Image: public Obj {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/

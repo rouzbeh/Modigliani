@@ -30,12 +30,13 @@
 #include "Vec_rnd_dist.h"
 #include "Uniform_rnd_dist.h"
 
-/** @short Uniform_vec_rnd_dist class
-
-\bug unknown
-\warning unknown
- */
 namespace mbase{
+
+/**
+ *  @short Uniform_vec_rnd_dist class
+ *  @bug unknown
+ *  @warning unknown
+ */
 class Uniform_vec_rnd_dist : public Vec_rnd_dist {
 public:
     /***   Constructors, CopyAssignment and Destructor  ***/

@@ -30,17 +30,16 @@
 #include "Obj.h"
 #include "types.h"
 
+namespace mbase{
 
-/**  M_timing_o a  stopwatch like measurement object:
+/**  @class M_timing
+ * a stopwatch like measurement object.
+ *
         void    start()     : start timing
         double  stop()      : stop timing
         void    reset()     : set elapsed time to 0.0
         double  read()      : read elapsed time (in seconds)
-*/
-
-
-
-namespace mbase{
+ */
 class Timing : public Obj {
 private:
     Mbool isRunning;

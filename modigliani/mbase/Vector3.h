@@ -30,16 +30,16 @@
 #include "aux_math_func.h"
 
 #include <iostream>
-/** @short Vector3 class
- Implementation of a three-dimensional
- real-valued vector. Useable it as a 2D vector, too; the third (Z)
- dimension defaults to zero.
- \warning All input angles (roationas) in degree!.
- \bug unknown
- */
-
 namespace mbase {
 
+/**
+ *  @short Vector3 class
+ *  Implementation of a three-dimensional
+ *  real-valued vector. Useable it as a 2D vector, too; the third (Z)
+ *  dimension defaults to zero.
+ *  @warning All input angles (roationas) in degree!.
+ *  @bug unknown
+ */
 class Vector3;
 
 extern Vector3& M_UnitXVec3();

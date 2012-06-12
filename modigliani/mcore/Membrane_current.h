@@ -23,27 +23,26 @@
 #ifndef _mcore_membrane_current_h_
 #define _mcore_membrane_current_h_
 
-/* NT core includes */
 #include "mbase/main.h"
 #include "mbase/types.h"
-/* Parent includes */
 #include "Object.h"
-/* NT includes */
 #include "mbase/Uniform_rnd_dist.h"
-/* other includes */
-
-/** @short membrane_current_o class
- Represents the current accross a membrane,
- with its generalisable properties. It computes the
- actual currents based on the Nernst-Equation accross
- the membrane neglecting diffusion/concentration effects
- and the conductivity values provided by the hh_current
- or channel_current classes.
- \bug unknown
- \warning unknown
- */
 
 namespace mcore {
+
+/**
+ *  @short membrane_current_o class
+ *
+ *  Represents the current accross a membrane, with its
+ *  generalisable properties. It computes the
+ *  actual currents based on the Nernst-Equation accross
+ *  the membrane neglecting diffusion/concentration effects
+ *  and the conductivity values provided by the hh_current
+ *  or channel_current classes.
+ *  @bug unknown
+ *  @warning unknown
+ */
+
 class Membrane_current: public Object {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/

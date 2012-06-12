@@ -1,5 +1,6 @@
-/**\file Str2real.h - Str2real class header
- * by Ahmed Aldo Faisal &copy; created 3.7.1999  
+/**
+ * @file Str2real.h - Str2real class header
+ * @author Ahmed Aldo Faisal &copy; created 3.7.1999
  * code is originally based on Chameleon.h by Ren��� Nyffenegger
  * see http://www.adp-gmbh.ch/cpp/chameleon.html
  */
@@ -36,12 +37,12 @@
 #include <sstream>
 #include <cstdlib>
 
+namespace mbase {
 /** @short Str2real class
  A class that can can act as a number and a string
  \bug unknown
  \warning unknown
  */
-namespace mbase {
 class Str2real: public Obj {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/

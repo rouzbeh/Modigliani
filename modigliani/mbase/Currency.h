@@ -33,9 +33,11 @@
 //
 //	Class name : Currency
 //
-/**	A general class for M supported coutnries == money class
- */
+
 namespace mbase{
+/**
+ * 	A general class for M supported coutnries == money class
+ */
 class Currency : public Value
 {
 private:

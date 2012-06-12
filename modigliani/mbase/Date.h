@@ -32,10 +32,10 @@
 #include <ostream>
 #include <ctime>
 
-//
-//	Class name : Date
-//
-/**	Date and time class for NetTrader
+
+namespace mbase {
+/**
+ * 	Date and time class for NetTrader
 
  nsec The number of nanoseconds after the second,
  range between 0-999999999
@@ -70,7 +70,6 @@
  not available.
 
  */
-namespace mbase {
 class Date: public Obj {
 
 protected:

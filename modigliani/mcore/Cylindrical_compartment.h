@@ -29,11 +29,13 @@
 
 /* other includes */
 
-/** @short Cylindrical_compartment class
- \bug unknown
- \warning unknown
- */
 namespace mcore {
+
+/**
+ *  @short Cylindrical_compartment class
+ *  \bug unknown
+ *  \warning unknown
+ */
 class Cylindrical_compartment: public Membrane_compartment {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/

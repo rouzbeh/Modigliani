@@ -42,8 +42,9 @@
 #include <tnt/tnt.h>
 #include <tnt/cmat.h>
 
-using TM::Matrix;
+using TNT::Matrix;
 
+namespace mbase {
 /** @short M_simple_markov_o class
  Basic numState-dimensional 1st order markov
  state model. The transitions-probability matrix is
@@ -52,7 +53,6 @@ using TM::Matrix;
  \bug unknown
  \warning ptrPMtr is not deleted!
  */
-namespace mbase {
 class Simple_markov: public Obj {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
@@ -77,7 +77,7 @@ private:
 	/* ***  Data                 ***/
 	int_t stateIndex; // index of state 1...numStates
 	Size_t numStates;
-	M_uniform_rnd_dist_o random;
+	Uniform_rnd_dist random;
 	bool mtrAssigned;
 };
 }

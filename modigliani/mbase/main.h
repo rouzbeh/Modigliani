@@ -1,12 +1,9 @@
-/* main.h - main header file for Modigliani sources */
-/* by Ahmed A. Faisal, 22. 5. 1998(c) */
-
-
-/*
- * NetTrader - finance management, analysis and simulation system
- * Version:  0.1
+/**
+ * @file main.h - main header file for Modigliani sources
+ * @version:  2
  * Copyright (C) 1998 Ahmed Aldo Faisal
  *
+ * @section LICENCE
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
  * License as published by the Free Software Foundation; either
@@ -22,8 +19,12 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-/* MAIN INCLUDES NOTHING !!! */
 
+/**
+ * @namespace mbase
+ * Base types and classes for Modigliani
+ *
+ */
 /* 2DO for some bizarre reason lrand48 is not included/implemented
  * and random_shuffle (STL) needs it or will have to use rand()
  */

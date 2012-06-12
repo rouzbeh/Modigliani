@@ -1,5 +1,6 @@
-/**\file Histogram.h - Histogram class header
- * by Ahmed Aldo Faisal &copy; created 11.10.2000
+/**@file Histogram.h
+ * Histogram class header
+ * @author Ahmed Aldo Faisal &copy; created 11.10.2000
  */
 /* NetTrader - visualisation, scientific and financial analysis and simulation system
  * Version:  0.5
@@ -35,17 +36,17 @@
 #include <cmath>
 #include <iostream>
 
+namespace mbase {
+
+typedef std::vector<Size_t> HistogramBins;
 /** @short Histogram class
  \bug unknown
  \warning unknown
  */
-namespace mbase {
-typedef std::vector<Size_t> HistogramBins;
 class Histogram: public Obj {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Histogram(Real minVal = 0, Real maxVal = 1, Size_t numberOfBins =
-			10);
+	Histogram(Real minVal = 0, Real maxVal = 1, Size_t numberOfBins = 10);
 	Histogram(const Histogram & original);
 	const Histogram & operator=(const Histogram & right);
 	virtual ~Histogram();

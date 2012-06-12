@@ -1,7 +1,3 @@
-/** dmatrix.h
- Header-File for a Double-Matrix-Class
- Released 14.7.1997 , afaisal@techfak.uni-bielefeld.de
- */
 /*
  * Dmatrix - a straight-forward double matrix class
  * Version:  0.1
@@ -22,17 +18,6 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-/**
- Genuine double matrix class
- IMPORTAM : INDICES in Matrix START with (1,1)
- and end with (row,col) !
-
- NOTE :
- DESTRUCTIVE methods used!
- Be carefull because currently methods and operators
- might modify the (*this) object and some generate a new
- one
- */
 #ifndef _mbase_dmatrix_h_
 #define _mbase_dmatrix_h_
 
@@ -54,6 +39,17 @@
 #endif
 
 namespace mbase {
+/**
+ Genuine double matrix class
+ IMPORTAM : INDICES in Matrix START with (1,1)
+ and end with (row,col) !
+
+ NOTE :
+ DESTRUCTIVE methods used!
+ Be carefull because currently methods and operators
+ might modify the (*this) object and some generate a new
+ one
+ */
 class DMatrix {
 private:
 	int row, col;

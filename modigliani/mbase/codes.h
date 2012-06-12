@@ -26,8 +26,10 @@
 
 #include "main.h"
 
-/** CLASS CODES */
 namespace mbase {
+/**
+ *  CLASS CODES
+ */
 enum ClassCode {
 	/** M class */
 	MMATH_O = 1,

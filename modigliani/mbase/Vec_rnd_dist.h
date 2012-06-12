@@ -30,12 +30,13 @@
 
 #include "Vector.h"
 #include "Rnd_dist.h"
+
+namespace mbase {
 /** @short Vec_rnd_dist class
 
  \bug unknown
  \warning unknown
  */
-namespace mbase {
 class Vec_rnd_dist: public Obj {
 public:
 	/***   Constructors, CopyAssignment and Destructor  ***/

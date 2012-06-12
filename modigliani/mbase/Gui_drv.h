@@ -1,5 +1,5 @@
-/** \file Gui_drv.h - Gui_drv class declaration
- * by Ahmed Aldo Faisal &copy; created  18.1.1998
+/** @file Gui_drv.h - Gui_drv class declaration
+ * @author Ahmed Aldo Faisal &copy; created  18.1.1998
  */
 /* NetTrader - finance management, analysis and simulation system
  * Version:  0.2
@@ -27,12 +27,13 @@
 #include "types.h"
 #include "Obj.h"
 
-/** @short Gui_drv class
- Generic (abstract) driver for window systems
- \bug unknown
- \warning unknown
- */
 namespace mbase {
+/**
+ * @short Gui_drv class
+ * Generic (abstract) driver for window systems
+ * @bug unknown
+ * @warning unknown
+ */
 class Gui_drv: public Obj {
 public:
 	Gui_drv();
