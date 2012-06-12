@@ -57,7 +57,6 @@ public:
 	mbase::Mreturn BinomialStep(mbase::Real voltage);
 	mbase::Mreturn DeterministicStep(mbase::Real voltage);
 	mbase::Mreturn step(mbase::Real voltage);
-	mbase::Mreturn ComputeGillespieStep(mbase::Size_t channelStateId, mbase::Real voltage);
 	void ShowStates() const;
 	mbase::Size_t NumOpen() const;
 	mbase::Size_t numChannelsInState(mbase::Size_t state) const {
@@ -89,6 +88,7 @@ protected:
 
 private:
 	/* ***  Methods              ***/
+	mbase::Mreturn ComputeGillespieStep(mbase::Size_t channelStateId, mbase::Real voltage);
 	/* ***  Data                 ***/
 	Transition_rate_matrix* _probMatrix;
 	std::vector<mbase::Size_t> openStates;
