@@ -1,10 +1,12 @@
-/** \file nt_vector3.h - M_solid_o class declaration
- * by Ahmed Aldo Faisal &copy; created  15.10.1998
- */
-/* NetTrader - finance management, analysis and simulation system
- * Version:  0.2
+/**
+ * @file Vector3.h
+ * Vector3 Declaration
+ * @author Ahmed Aldo Faisal &copy; created  15.10.1998
+ * NetTrader - finance management, analysis and simulation system
+ * @version  0.2
  * Copyright (C) 1998 Ahmed Aldo Faisal
  *
+ * @section LICENSE
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
  * License as published by the Free Software Foundation; either

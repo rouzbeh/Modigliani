@@ -1,8 +1,6 @@
-/*
- * NTBP_lua_based_deterministic_multi_current_o.h
- *
- *  Created on: 28 Mar 2011
- *      Author: man210
+/**
+ * @file Lua_based_deterministic_multi_current.h
+ * @author Ali Neishabouri
  */
 
 #ifndef _mcore_lua_based_deterministic_MULTI_CURRENT_O_H_

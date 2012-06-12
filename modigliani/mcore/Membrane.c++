@@ -1,10 +1,11 @@
-/**\file ntbp_membrane_obj.cpp - Membrane class implementation 
- * by Ahmed Aldo Faisal &copy; created 16.3.2001  
- */
-/* NetTrader - visualisation, scientific and financial analysis and simulation system
- * Version:  0.5
+/**
+ * @file Membrane.c++
+ * Membrane class implementation
+ * @author Ahmed Aldo Faisal &copy; created 16.3.2001  
+ * @version   0.5
  * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    
  *
+ * @section LICENSE
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
  * License as published by the Free Software Foundation; either

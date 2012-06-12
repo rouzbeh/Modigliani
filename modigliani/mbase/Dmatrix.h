@@ -1,8 +1,10 @@
-/*
- * Dmatrix - a straight-forward double matrix class
- * Version:  0.1
+/**
+ * @file Dmatrix
+ * A straight-forward double matrix class
+ * @version  0.1
  * Copyright (C) 1997 Ahmed Aldo Faisal
  *
+ * @section LICENSE
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
  * License as published by the Free Software Foundation; either

@@ -1,8 +1,6 @@
-/*
- * File_based_stochastic_multi_current_o.h
- *
- *  Created on: 28 Mar 2011
- *      Author: man210
+/**
+ * @file File_based_stochastic_multi_current.h
+ * @author man210
  */
 
 #ifndef NTBP_file_based_stochastic_MULTI_CURRENT_O_H_

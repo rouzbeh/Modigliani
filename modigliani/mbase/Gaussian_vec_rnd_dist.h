@@ -1,10 +1,11 @@
-/**\file Gaussian_vec_rnd_dist.h - Gaussian_vec_rnd_dist class header
- * by Ahmed Aldo Faisal &copy; created 26.6.1999
- */
-/* NetTrader - visualisation, scientific and financial analysis and simulation system
- * Version:  0.3
+/**
+ * @file Gaussian_vec_rnd_dist.h
+ * Gaussian_vec_rnd_dist class header
+ * @author Ahmed Aldo Faisal &copy; created 26.6.1999
+ * @version  0.3
  * Copyright (C) 1998,199 Ahmed Aldo Faisal
  *
+ * @section LICENSE
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
  * License as published by the Free Software Foundation; either
@@ -31,10 +32,10 @@
 #include "Gaussian_rnd_dist.h"
 
 namespace mbase {
-/** @short Gaussian_vec_rnd_dist class
-
- \bug unknown
- \warning unknown
+/**
+ * @short Gaussian_vec_rnd_dist class
+ * \bug unknown
+ * \warning unknown
  */
 class Gaussian_vec_rnd_dist: public Vec_rnd_dist {
 public:

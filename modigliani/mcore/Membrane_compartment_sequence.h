@@ -2,11 +2,10 @@
  * @file Membrane_compartment_sequence.h
  * Membrane_compartment_sequence class header
  * @author Ahmed Aldo Faisal &copy; created 26.3.2001
- */
-/* NetTrader - visualisation, scientific and financial analysis and simulation system
- * Version:  0.5
+ * @version   0.5
  * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    
  *
+ * @section LICENSE
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
  * License as published by the Free Software Foundation; either

@@ -1,10 +1,12 @@
-/**\file aux_math_func.c++ - M_aux_math_o auxiliary functions implementation
- * by Ahmed Aldo Faisal &copy; created 27.4.2000
- */
-/* NetTrader - visualisation, scientific and financial analysis and simulation system
- * Version:  0.4
+/**
+ * @file aux_math_func.c++
+ * Auxiliary functions implementation
+ * @author Ahmed Aldo Faisal &copy; created 27.4.2000
+ * NetTrader - visualisation, scientific and financial analysis and simulation system
+ * @version  0.4
  * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
  *
+ * @section LICENSE
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
  * License as published by the Free Software Foundation; either

@@ -1,10 +1,11 @@
-/* Timing.h - measure timings with a stopwatch like class */
-/* by Ahmed A. Faisal, 15. 10. 1998(c) */
-/*
- * NetTrader - finance management, analysis and simulation system
- * Version:  0.1
+/**
+ * @file Timing.h
+ * Measure timings with a stopwatch like class
+ * @author Ahmed A. Faisal, 15. 10. 1998(c)
+ * @version  0.1
  * Copyright (C) 1998 Ahmed Aldo Faisal
  *
+ * @section LICENSE
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
  * License as published by the Free Software Foundation; either

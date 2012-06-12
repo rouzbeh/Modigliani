@@ -1,11 +1,11 @@
-/* codes.h - defintions of codes*/
-/* by Ahmed A. Faisal, 22. 5. 1998(c) */
-
-/*
- * NetTrader - finance management, analysis and simulation system
- * Version:  0.1
+/**
+ * @file codes.h
+ * Defintions of codes
+ * @author Ahmed A. Faisal, 22. 5. 1998(c)
+ * @version  0.1
  * Copyright (C) 1998 Ahmed Aldo Faisal
  *
+ * @section LICENSE
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
  * License as published by the Free Software Foundation; either

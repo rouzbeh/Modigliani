@@ -1,8 +1,6 @@
 /**
  * @file Lua_based_stochastic_multi_current.h
- *
- * Created on: 28 Mar 2011
- * @author: man210
+ * @author Ali Neishabouri
  */
 
 #ifndef _mcore_lua_based_stochastic_MULTI_CURRENT_O_H_

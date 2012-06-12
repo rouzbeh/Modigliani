@@ -1,10 +1,11 @@
-/**\file Synaptic_background.h - Synaptic_background_o class header
- * by Ahmed Aldo Faisal &copy; created 20.8.2003  
- */
-/* NetTrader - visualisation, scientific and financial analysis and simulation system
- * Version:  0.5
+/**
+ * @file Synaptic_background.h
+ * Synaptic_background class header
+ * @author Ahmed Aldo Faisal &copy; created 20.8.2003  
+ * @version   0.5
  * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    
  *
+ * @section LICENSE
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
  * License as published by the Free Software Foundation; either

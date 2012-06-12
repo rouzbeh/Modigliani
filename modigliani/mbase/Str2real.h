@@ -3,11 +3,11 @@
  * @author Ahmed Aldo Faisal &copy; created 3.7.1999
  * code is originally based on Chameleon.h by Ren��� Nyffenegger
  * see http://www.adp-gmbh.ch/cpp/chameleon.html
- */
-/* NetTrader - visualisation, scientific and financial analysis and simulation system
- * Version:  0.5
+ * NetTrader - visualisation, scientific and financial analysis and simulation system
+ * @version  0.5
  * Copyright (C) 1998-20005 Ahmed Aldo Faisal    
  *
+ * @section LICENSE
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
  * License as published by the Free Software Foundation; either

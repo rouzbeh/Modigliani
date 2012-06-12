@@ -1,12 +1,12 @@
-/* Vector.h - real vector class */
-/* by Ahmed A. Faisal, 22. 5. 1998(c) */
-
-
-/*
+/**
+ * @file Vector.h
+ * Real vector class
+ * @author Ahmed A. Faisal, 22. 5. 1998(c)
  * NetTrader - finance management, analysis and simulation system
- * Version:  0.1
+ * @version  0.1
  * Copyright (C) 1998 Ahmed Aldo Faisal
  *
+ * @section LICENSE
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
  * License as published by the Free Software Foundation; either

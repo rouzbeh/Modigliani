@@ -1,10 +1,11 @@
-/* Rnd_dist.c++ - Methods for random distribution super class */
-/* by Ahmed A. Faisal, 15. 10. 1998(c) */
-/*
- * NetTrader - finance management, analysis and simulation system
- * Version:  0.1
+/**
+ * @file Rnd_dist.c++
+ * Methods for random distribution super class
+ * @author Ahmed A. Faisal, 15. 10. 1998(c)
+ * @version  0.1
  * Copyright (C) 1998 Ahmed Aldo Faisal
  *
+ * @section LICENSE
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
  * License as published by the Free Software Foundation; either
@@ -61,7 +62,7 @@ inline float Rnd_dist::uniformQuickDirty() const {
 /**      return uniform random values within (0,1)
  Input : initialize idum once(!) to a negative integer
  Output : random value within (0,1)
- Background : Long period ( > 2 x 10^18 ) generator of L�Ecuyer with Bays-Durham
+ Background : Long period ( > 2 x 10^18 ) generator of L���Ecuyer with Bays-Durham
  shuffle and added safeguards
  Note: (1.0-1.2e-7) should approach the smallest number below 1.0
 
@@ -99,7 +100,7 @@ inline float Rnd_dist::uniform1() const {
 	// running mode (after init)
 	k = seed / 53668;
 	// execute the two random numbers
-	// we use Schrage�s method two avoid overflow on 32-bit machienes
+	// we use Schrage���s method two avoid overflow on 32-bit machienes
 	seed = 40014 * (seed - k * 53668) - k * 12211;
 	if (seed < 0)
 		seed += 2147483563;

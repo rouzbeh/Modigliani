@@ -1,8 +1,6 @@
-/*
- * transition_rate_matrix.c++
- *
- *  Created on: 30 Mar 2011
- *      Author: man210
+/**
+ * @file Transition_rate_matrix.c++
+ * @author Ali Neishabouri
  */
 
 #include "Transition_rate_matrix.h"
