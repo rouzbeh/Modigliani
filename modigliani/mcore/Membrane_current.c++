@@ -1,10 +1,11 @@
-/**\file Membrane_currentbj.cpp - Membrane_current class implementation
- * by Ahmed Aldo Faisal &copy; created 16.3.2001  
- */
-/* NetTrader - visualisation, scientific and financial analysis and simulation system
- * Version:  0.5
+/**
+ * @file Membrane_current.c++
+ * Membrane_current class implementation
+ * @author Ahmed Aldo Faisal &copy; created 16.3.2001  
+ * @version   0.5
  * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    
  *
+ * @section LICENSE
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
  * License as published by the Free Software Foundation; either
@@ -20,16 +21,6 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-/* $Id: ntbp_membrane_current_obj.cpp,v 1.1.1.1 2004/12/16 01:38:36 face Exp $ 
- * $Log: ntbp_membrane_current_obj.cpp,v $
- * Revision 1.1.1.1  2004/12/16 01:38:36  face
- * Imported NetTrader 0.5 source from flyeye02.zoo.cam.ac.uk repository
- *
- * Revision 1.1  2001/10/03 14:37:52  face
- * *** empty log message ***
- *
-
- */
 #include "Membrane_current.h"
 
 using namespace mcore;

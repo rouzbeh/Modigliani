@@ -1,10 +1,11 @@
-/**\file ntbp_auxfunc.h - NTBP auxiliary function headers  for heteregenous object creation 
- * by Ahmed Aldo Faisal &copy; created 22.4.2005  
- */
-/* NetTrader - visualisation, scientific and financial analysis and simulation system
- * Version:  0.5
+/**
+ * @file auxfunc.h
+ * Auxiliary function headers  for heteregenous object creation
+ * @author Ahmed Aldo Faisal &copy; created 22.4.2005  
+ * @version   0.5
  * Copyright (C) 1998-2005 Ahmed Aldo Faisal    
  *
+ * @section LICENSE
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
  * License as published by the Free Software Foundation; either
@@ -60,14 +61,8 @@ const int EXIT_GRAPHIC_ERROR = 2;
 const int EXIT_IO_ERROR = 3;
 
 mbase::Real /* mum^-2 */
-NTBP_corrected_channel_density(mbase::Real chDensity /* mum^-2 */,
+corrected_channel_density(mbase::Real chDensity /* mum^-2 */,
 		mbase::Real compArea /* mum^-2 */);
-
-mcore::Membrane_current *
-NTBP_create_na_channel_ptr(mbase::Size_t sodiumModel, mbase::Size_t algorithm,
-		mbase::Real chDensity /* mum^-2 */,
-		mbase::Real chConductance /* pS */, mbase::Real q10,
-		mbase::Real temperature /* C */, mbase::Real compArea /* mum^2 */);
 
 string createOutputFolder(string outputFolder);
 

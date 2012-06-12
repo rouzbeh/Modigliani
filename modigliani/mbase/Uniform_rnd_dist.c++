@@ -1,10 +1,11 @@
-/* Uniform_rnd_dist.c++ - Methods for unfirom random distribution class */
-/* by Ahmed A. Faisal, 15. 10. 1998(c) */
-/*
- * NetTrader - finance management, analysis and simulation system
- * Version:  0.1
+/**
+ * @file Uniform_rnd_dist.c++
+ * Methods for unfirom random distribution class
+ * @author Ahmed A. Faisal, 15. 10. 1998(c)
+ * @version  0.1
  * Copyright (C) 1998 Ahmed Aldo Faisal
  *
+ * @section LICENSE
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
  * License as published by the Free Software Foundation; either

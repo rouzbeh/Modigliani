@@ -1,10 +1,13 @@
-/**\file Id_management.h - Id_management class header
- * by Ahmed Aldo Faisal &copy; created 3.7.1999
- */
-/* NetTrader - visualisation, scientific and financial analysis and simulation system
- * Version:  0.4
+/**
+ * @file Id_management.h
+ * Id_management class header
+ * @author Ahmed Aldo Faisal &copy; created 3.7.1999
+ *
+ * NetTrader - visualisation, scientific and financial analysis and simulation system
+ * @version  0.4
  * Copyright (C) 1998,199 Ahmed Aldo Faisal
  *
+ * @section LICENSE
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
  * License as published by the Free Software Foundation; either

@@ -1,10 +1,11 @@
-/**\file aux_math.h - aux_math auxiliary functions header
- * by Ahmed Aldo Faisal &copy; created 27.4.2000
- */
-/* NetTrader - visualisation, scientific and financial analysis and simulation system
- * Version:  0.4
+/**
+ * @file aux_math.h
+ * Auxiliary functions header
+ * @author Ahmed Aldo Faisal &copy; created 27.4.2000
+ * @version  0.4
  * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
  *
+ * @section LICENSE
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
  * License as published by the Free Software Foundation; either
@@ -32,10 +33,11 @@
 #include <cmath>
 
 namespace mbase {
-/** @short Mlimit01
- Limit a value between [0,1]
- \bug unknown
- \warning unknown
+/**
+ * @short Mlimit01
+ * Limit a value between [0,1]
+ * \bug unknown
+ * \warning unknown
  */
 extern Real MComputePLogP(Real prob);
 extern Real Mlimit01(Real value);

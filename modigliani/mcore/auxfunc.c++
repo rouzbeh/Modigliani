@@ -1,10 +1,11 @@
-/**\file auxfunc.cpp -  Auxiliary function implementation for heterogeneous object creation
- * by Ahmed Ali Neishabouri &copy; created 01.4.2012
- */
-/* NetTrader - visualisation, scientific and financial analysis and simulation system
- * Version:  0.5
+/**
+ * @file auxfunc.c++
+ * Auxiliary function implementation for heterogeneous object creation
+ * @author Ahmed Ali Neishabouri &copy; created 01.4.2012
+ * @version   0.5
  * Copyright (C) 1998-2005 Ahmed Aldo Faisal    
  *
+ * @section LICENSE
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
  * License as published by the Free Software Foundation; either

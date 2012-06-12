@@ -1,8 +1,11 @@
-/* Modigliani
- * Version:  2.0
- * Copyright (C) 1998,1999,2000,2001 Ahmed Aldo Faisal
- * Copyright (C) 2010, 2011 Mohammad Ali Neishabouri
+/**
+ * @file axon_simulator
+ * Can simulate arbitrary axons
+ * @version  2.0
+ * @author Copyright (C) 1998,1999,2000,2001 Ahmed Aldo Faisal
+ * @author Copyright (C) 2010, 2011 Mohammad Ali Neishabouri
  *
+ * @section LICENSE
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
  * License as published by the Free Software Foundation; either
@@ -27,6 +30,7 @@
 /**
  * Reads the parameters in the file given as argument.
  * @param fileName Input file.
+ * @return A JSON structure containing the parameters
  */
 Json::Value read_config(string fileName) {
 	Json::Value config_root;

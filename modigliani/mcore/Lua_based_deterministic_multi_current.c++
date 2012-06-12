@@ -1,8 +1,6 @@
-/*
- * Lua_based_deterministic_multi_current_o.cpp
- *
- *  Created on: 28 Mar 2011
- *      Author: man210
+/**
+ * @file Lua_based_deterministic_multi_current.c++
+ * @author Ali Neishabouri
  */
 
 #include "Lua_based_deterministic_multi_current.h"
