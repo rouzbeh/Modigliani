@@ -233,7 +233,7 @@ Membrane_compartment_sequence* create_axon(Json::Value config_root,
 	Json::Value compartments_parameters = config_root["compartments_parameters"];
 
 	for (std::vector<int>::iterator it = compartment_types.begin();
-			it != compartment_types.end(); it++) {
+			it != compartment_types.end(); ++it) {
 		TypePerCompartmentFile << *it << std::endl;
 		LengthPerCompartmentFile
 				<< compartments_parameters[*it]["length"].asDouble()
