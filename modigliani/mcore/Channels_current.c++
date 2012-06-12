@@ -55,7 +55,7 @@ Channels_current::Channels_current(const Channels_current & original) :
 	// add assignment code here
 }
 
-const Channels_current&
+Channels_current&
 Channels_current::operator=(const Channels_current & right) {
 	if (this == &right)
 		return (*this); // Gracefully handle self assignment

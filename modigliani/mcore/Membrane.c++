@@ -40,13 +40,12 @@ Membrane::Membrane() :
 		Object() {
 }
 /* ***      COPY AND ASSIGNMENT	***/
-Membrane::Membrane(
-		const Membrane __attribute__((unused)) & original) :
+Membrane::Membrane(const Membrane __attribute__((unused)) & original) :
 		Object() {
 	// add assignment code here
 }
 
-const Membrane&
+Membrane&
 Membrane::operator=(const Membrane & right) {
 	if (this == &right)
 		return (*this); // Gracefully handle self assignment

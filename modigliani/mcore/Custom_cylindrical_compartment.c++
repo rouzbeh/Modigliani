@@ -27,8 +27,8 @@ using namespace mcore;
 /* ***      CONSTRUCTORS	***/
 /** Create a Custom_cylindrical_compartment */
 Custom_cylindrical_compartment::Custom_cylindrical_compartment(
-		mbase::Real newLength, mbase::Real newDiameter, mbase::Real newCm, mbase::Real newRa,
-		mbase::Real newTemperature) :
+		mbase::Real newLength, mbase::Real newDiameter, mbase::Real newCm,
+		mbase::Real newRa, mbase::Real newTemperature) :
 		Cylindrical_compartment(newLength, newDiameter, newTemperature), voltage(
 				0) {
 	Set_cM(newCm);
@@ -42,7 +42,7 @@ Custom_cylindrical_compartment::Custom_cylindrical_compartment(
 	// add assignment code here
 }
 
-const Custom_cylindrical_compartment&
+Custom_cylindrical_compartment&
 Custom_cylindrical_compartment::operator=(
 		const Custom_cylindrical_compartment & right) {
 	if (this == &right)

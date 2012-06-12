@@ -79,7 +79,7 @@ public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
 	Object();
 	Object(const Object & original);
-	const Object & operator=(const Object & right);
+	Object & operator=(const Object & right);
 	virtual ~Object();
 	/* ***  Methods              ***/
 	mbase::Real _timeStep() const {

@@ -45,7 +45,7 @@ public:
 	mbase::Real vBase = -65.0 /* in mV */
 	);
 	Synaptic_background(const Synaptic_background & original);
-	const Synaptic_background & operator=(const Synaptic_background & right);
+	Synaptic_background & operator=(const Synaptic_background & right);
 
 	mbase::Mreturn step_current()
 	;

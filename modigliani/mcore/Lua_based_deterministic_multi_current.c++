@@ -58,7 +58,7 @@ Lua_based_deterministic_multi_current::Lua_based_deterministic_multi_current(
 	lua_call(L, 1, 0);
 }
 
-const Lua_based_deterministic_multi_current&
+Lua_based_deterministic_multi_current&
 Lua_based_deterministic_multi_current::operator=(
 		const Lua_based_deterministic_multi_current & right) {
 	if (this == &right)

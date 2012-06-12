@@ -33,16 +33,15 @@
  \bug unknown
  \warning unknown
  */
-namespace mcore{
+namespace mcore {
 class Cylindrical_compartment: public Membrane_compartment {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
 	Cylindrical_compartment(mbase::Real length /* in muMeter */,
-			mbase::Real diameter /* in muMeter */, mbase::Real newTemperature = 6.3);
-	Cylindrical_compartment(
-			const Cylindrical_compartment & original);
-	const Cylindrical_compartment & operator=(
-			const Cylindrical_compartment & right);
+			mbase::Real diameter /* in muMeter */, mbase::Real newTemperature =
+					6.3);
+	Cylindrical_compartment(const Cylindrical_compartment & original);
+	Cylindrical_compartment & operator=(const Cylindrical_compartment & right);
 	virtual ~Cylindrical_compartment();
 	/* ***  Methods              ***/
 	/** length constant in muMeter for instantenous membrane conductance */

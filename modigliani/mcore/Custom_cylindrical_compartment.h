@@ -40,7 +40,7 @@ public:
 			mbase::Real rA /* ohm cm */, mbase::Real newTemperature = 6.3);
 	Custom_cylindrical_compartment(
 			const Custom_cylindrical_compartment & original);
-	const Custom_cylindrical_compartment & operator=(
+	Custom_cylindrical_compartment & operator=(
 			const Custom_cylindrical_compartment & right);
 	mbase::Real getVoltage();
 	void setVoltage(mbase::Real newVoltage);

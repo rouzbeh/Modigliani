@@ -37,7 +37,7 @@ public:
 			mbase::Real newLeakConductance = 0.3 /* mS/cm^2 */,
 			mbase::Real newReversalPotential = 10.613 /* mV */);
 	Leak_current(const Leak_current & original);
-	const Leak_current & operator=(const Leak_current & right);
+	Leak_current & operator=(const Leak_current & right);
 	virtual ~Leak_current();
 	/* ***  Methods              ***/
 	void ComputeRateConstants(

@@ -40,10 +40,10 @@ namespace mcore {
 class Membrane_compartment: public Object {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Membrane_compartment(mbase::Real area /* in muMeter^2 */, mbase::Real newTemperature =
-			6.3);
+	Membrane_compartment(mbase::Real area /* in muMeter^2 */,
+			mbase::Real newTemperature = 6.3);
 	Membrane_compartment(const Membrane_compartment & original);
-	const Membrane_compartment & operator=(const Membrane_compartment & right);
+	Membrane_compartment & operator=(const Membrane_compartment & right);
 	virtual ~Membrane_compartment();
 	/* ***  Methods              ***/
 	mbase::Mreturn AttachCurrent(Membrane_current * currentPtr,

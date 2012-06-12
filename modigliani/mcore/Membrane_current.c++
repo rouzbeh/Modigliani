@@ -36,8 +36,7 @@ using namespace mcore;
 
 /* ***      CONSTRUCTORS	***/
 /** Create a Membrane_current */
-Membrane_current::Membrane_current(
-		mbase::Real newReversalPotential /* in mV */) :
+Membrane_current::Membrane_current(mbase::Real newReversalPotential /* in mV */) :
 		Object() {
 	simulationMode = NTBP_DETERMINISTIC;
 	reversalPotential = newReversalPotential; //in mV
@@ -53,7 +52,7 @@ Membrane_current::Membrane_current(
 	// add assignment code here
 }
 
-const Membrane_current&
+Membrane_current&
 Membrane_current::operator=(const Membrane_current & right) {
 	if (this == &right)
 		return (*this); // Gracefully handle self assignment
