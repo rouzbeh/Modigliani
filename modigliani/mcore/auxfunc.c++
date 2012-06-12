@@ -94,7 +94,7 @@ Custom_cylindrical_compartment* createCompartment(Json::Value config_root,
 
 		if ("leak" == current["type"].asString()) {
 			tmpPtr->AttachCurrent(
-					new HH_sga_leak_current(tmpPtr->_area(),
+					new Leak_current(tmpPtr->_area(),
 							current["GLeak"].asDouble(),
 							config_root["eLeak"].asDouble()), NTBP_LEAK);
 			continue;
