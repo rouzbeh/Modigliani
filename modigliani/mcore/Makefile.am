@@ -10,7 +10,6 @@ Membrane_current.c++\
 Membrane_patch.c++\
 Multi_current.c++\
 auxfunc.c++\
-Channels_current.c++\
 Custom_cylindrical_compartment.c++\
 Cylindrical_compartment.c++\
 Membrane_compartment_sequence.c++\
@@ -30,7 +29,6 @@ Membrane_current.h\
 Membrane_patch.h\
 Multi_current.h\
 auxfunc.h\
-Channels_current.h\
 Custom_cylindrical_compartment.h\
 Cylindrical_compartment.h\
 Membrane_compartment_sequence.h\
