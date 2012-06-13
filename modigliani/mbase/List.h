@@ -41,7 +41,7 @@ public:
 	T _info;
 	Link_list<T>* _next;
 
-	static const T& defval();
+	static T defval;
 };
 
 /*-------------------------------------------------------------------------*/
@@ -113,17 +113,6 @@ private:
 	const List<T>& _list;
 	Link_list<T>* _pre;
 };
-
-//***************************************************************************
-
-/** PURPOSE:    make a default object of type T
- REMARKS:    We use a function because Borland 3.1 doesn't handle static
- data members in templates correctly
- */
-template<class T> const T& Link_list<T>::defval() {
-	static T t;
-	return (t);
-}
 
 //............................................................................
 
@@ -394,7 +383,7 @@ template<class T> void Iterator_list<T>::next() {
  */
 template<class T> const T& Iterator_list<T>::current() const {
 	Link_list<T>* cur = cursor();
-	return (cur ? cur->_info : Link_list<T>::defval());
+	return (cur ? cur->_info : Link_list<T>::defval);
 }
 }
 #endif /* _mbase_list_h_ */
