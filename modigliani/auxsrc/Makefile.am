@@ -1,6 +1,6 @@
 noinst_LIBRARIES = libauxsrc.a
 
-libauxsrc_a_SOURCES = measure_mutual_information_in_binary_file.cpp generate_white_noise.cpp find_spikewords_in_binary_file.cpp test_ring_buffer.cpp test_binary_io.cpp show_binary_file.cpp print_interspike_intervals_in_binary_file.cpp make_nt_class_files.cpp make_histogram_from_txt_file.cpp find_spikes_in_binary_file.cpp compute_derivative_from_column.cpp axon_simulator.cpp resting_potential.c++
+libauxsrc_a_SOURCES = measure_mutual_information_in_binary_file.cpp generate_white_noise.cpp find_spikewords_in_binary_file.cpp test_ring_buffer.cpp test_binary_io.cpp show_binary_file.cpp print_interspike_intervals_in_binary_file.cpp make_nt_class_files.cpp make_histogram_from_txt_file.cpp find_spikes_in_binary_file.cpp compute_derivative_from_column.cpp axon_simulator.c++ resting_potential.c++
 
 bin_PROGRAMS = show_binary_file make_nt_class_files compute_derivative_from_column find_spikes_in_binary_file make_histogram_from_txt_file \
 				test_ring_buffer find_spikewords_in_binary_file generate_white_noise measure_mutual_information_in_binary_file \
@@ -34,7 +34,7 @@ if WITH_PLPLOT
   PLPLOTCPPFLAGS = -DWITH_PLPLOT
 endif
 
-axon_simulator_SOURCES = axon_simulator.cpp
+axon_simulator_SOURCES = axon_simulator.c++
 resting_potential_SOURCES = resting_potential.c++
 
 if MINGW
