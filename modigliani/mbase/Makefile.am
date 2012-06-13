@@ -54,7 +54,6 @@ Obj.h\
 Rnd_dist.c++ Rnd_dist.h\
 Sequential_statistics.c++\
 Sequential_statistics.h\
-Simple_markov.h\
 Stock_value.c++\
 Stock_value.h\
 Timing.h\
