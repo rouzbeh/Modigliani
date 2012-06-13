@@ -92,5 +92,15 @@ ofstream* openOutputFile(string outputFolder, string prefix, int counter,
 
 mcore::Membrane_compartment_sequence* create_axon(Json::Value config_root,
 		ofstream& TypePerCompartmentFile, ofstream& LengthPerCompartmentFile);
+
+/**
+ * Reads the parameters in the file given as argument.
+ * @param fileName Input file.
+ * @return A JSON structure containing the parameters
+ */
+Json::Value read_config(string fileName);
+
+std::vector<mbase::Size_t> get_electrods(Json::Value root);
 }
+
 #endif /* _ntbp_auxfunc_h_ */

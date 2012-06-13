@@ -25,8 +25,7 @@
 
 using namespace std;
 
-namespace mcore {
-mbase::Real corrected_channel_density(mbase::Real chDensity,
+mbase::Real mcore::corrected_channel_density(mbase::Real chDensity,
 		mbase::Real compArea) {
 	mbase::Real chPerCompartment = compArea * chDensity;
 	mbase::Real pChFloor = (ceil(chPerCompartment) - chPerCompartment);
@@ -47,7 +46,7 @@ mbase::Real corrected_channel_density(mbase::Real chDensity,
  * @param output Folder The folder in which to create the new folder.
  * @return Name of the newly created folder
  */
-string createOutputFolder(string outputFolder) {
+string mcore::createOutputFolder(string outputFolder) {
 	/* open files */
 	time_t rawtime;
 	struct tm * timeinfo;
@@ -75,7 +74,7 @@ string createOutputFolder(string outputFolder) {
  * Creates a compartment using the parameters supplied in the parameters structs supplied.
  * @return The constructed compartment.
  */
-Custom_cylindrical_compartment* createCompartment(Json::Value config_root,
+mcore::Custom_cylindrical_compartment* mcore::createCompartment(Json::Value config_root,
 		Json::Value simulation_parameters, Json::Value compartment_parameters) {
 
 	Custom_cylindrical_compartment *tmpPtr = new Custom_cylindrical_compartment(
@@ -166,7 +165,7 @@ Custom_cylindrical_compartment* createCompartment(Json::Value config_root,
  * @param prefix File name prefix
  * @param outStream Will contain an ofstream pointing to the newly created file.
  */
-void openOutputFile(string outputFolder, string prefix, ofstream& outStream,
+void mcore::openOutputFile(string outputFolder, string prefix, ofstream& outStream,
 		string extension) {
 	/* open files */
 	stringstream ss(stringstream::in | stringstream::out);
@@ -178,17 +177,19 @@ void openOutputFile(string outputFolder, string prefix, ofstream& outStream,
 
 	if (outStream.fail()) {
 		std::cerr << "Could not open output file " << prefix << std::endl;
-		std::exit(EXIT_IO_ERROR);
+		std::exit(mcore::EXIT_IO_ERROR);
 	}
 }
 
 /**
- * Opens a new file in write mode.
+ * @short Opens a new file in write mode, postfixing the name with the given number
  * @param output Folder The folder in which to create the new file.
  * @param prefix File name prefix
- * @param outStream Will contain an ofstream pointing to the newly created file.
+ * @param counter Number postfix
+ * @param extenstion File extension
+ * @return outStream Will contain an ofstream pointing to the newly created file.
  */
-ofstream* openOutputFile(string outputFolder, string prefix, int counter,
+ofstream* mcore::openOutputFile(string outputFolder, string prefix, int counter,
 		string extension) {
 	/* open files */
 	stringstream ss(stringstream::in | stringstream::out);
@@ -201,12 +202,12 @@ ofstream* openOutputFile(string outputFolder, string prefix, int counter,
 
 	if (out_stream->fail()) {
 		std::cerr << "Could not open output file " << temp_name << std::endl;
-		std::exit(EXIT_IO_ERROR);
+		std::exit(mcore::EXIT_IO_ERROR);
 	}
 	return (out_stream);
 }
 
-Membrane_compartment_sequence* create_axon(Json::Value config_root,
+mcore::Membrane_compartment_sequence* mcore::create_axon(Json::Value config_root,
 		ofstream& TypePerCompartmentFile, ofstream& LengthPerCompartmentFile) {
 
 	string lua_script = config_root["anatomy_lua"].asString();
@@ -249,4 +250,44 @@ Membrane_compartment_sequence* create_axon(Json::Value config_root,
 
 }
 
+/**
+ * Reads the parameters in the file given as argument.
+ * @param fileName Input file.
+ * @return A JSON structure containing the parameters
+ */
+Json::Value mcore::read_config(string fileName) {
+	Json::Value config_root;
+	// Remember that data file should have more lines than Num iterations.
+	Json::Reader config_reader;
+	ifstream config_doc;
+	config_doc.open(fileName.c_str(), ifstream::in);
+	bool parsingSuccessful = config_reader.parse(config_doc, config_root);
+	if (!parsingSuccessful) {
+		// report to the user the failure and their locations in the document.
+		std::cerr << "Failed to parse configuration\n"
+				<< config_reader.getFormatedErrorMessages();
+		exit(1);
+	}
+	return (config_root);
+}
+
+
+std::vector<mbase::Size_t> mcore::get_electrods(Json::Value root) {
+	auto outvec = std::vector<mbase::Size_t>(100);
+	string lua_script = root["electrods_lua"].asString();
+	lua_State* L = luaL_newstate();
+	luaL_openlibs(L);
+	luaL_dostring(L, lua_script.c_str());
+
+	lua_getglobal(L, "electrods");
+	/* table is in the stack at index 't' */
+	lua_pushnil(L); /* first key */
+	while (lua_next(L, -2) != 0) {
+		/* uses 'key' (at index -2) and 'value' (at index -1) */
+		int found = lua_tonumber(L, -1);
+		outvec.push_back(found);
+		lua_pop(L, 1);
+	}
+	lua_close(L);
+	return (outvec);
 }
