@@ -74,7 +74,7 @@ void printConfig(ofstream& out, Json::Value node_parameters,
 		Json::Value paranode_parameters, Json::Value internode_parameters,
 		Json::Value simulation_parameters, Json::Value config_root);
 
-mcore::Custom_cylindrical_compartment* createCompartment(
+mcore::Custom_cylindrical_compartment* create_compartment(
 		Json::Value config_root, Json::Value simulation_parameters,
 		Json::Value compartment_parameters);
 
