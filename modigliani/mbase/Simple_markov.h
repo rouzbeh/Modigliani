@@ -41,7 +41,7 @@
 
 /* other includes */
 #include <tnt/tnt.h>
-#include <tnt/cmat.h>
+#include <tnt/tnt_cmat.h>
 
 using TNT::Matrix;
 
