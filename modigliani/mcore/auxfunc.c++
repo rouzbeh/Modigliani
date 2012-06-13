@@ -74,7 +74,7 @@ string mcore::createOutputFolder(string outputFolder) {
  * Creates a compartment using the parameters supplied in the parameters structs supplied.
  * @return The constructed compartment.
  */
-mcore::Custom_cylindrical_compartment* mcore::createCompartment(Json::Value config_root,
+mcore::Custom_cylindrical_compartment* mcore::create_compartment(Json::Value config_root,
 		Json::Value simulation_parameters, Json::Value compartment_parameters) {
 
 	Custom_cylindrical_compartment *tmpPtr = new Custom_cylindrical_compartment(
@@ -83,6 +83,9 @@ mcore::Custom_cylindrical_compartment* mcore::createCompartment(Json::Value conf
 			compartment_parameters["Cm"].asDouble()/*muFarad/cm^2 */,
 			compartment_parameters["Ra"].asDouble() /* ohm cm */,
 			config_root["temperature"].asDouble());
+
+	tmpPtr->update_timeStep(
+				config_root["simulation_parameters"]["timeStep"].asDouble() /* mSec */);
 
 	bool randomise_densities =
 			simulation_parameters["randomise_densities"].asBool();
@@ -241,7 +244,7 @@ mcore::Membrane_compartment_sequence* mcore::create_axon(Json::Value config_root
 				<< compartments_parameters[*it]["length"].asDouble()
 				<< std::endl;
 		oModel->PushBack(
-				createCompartment(config_root,
+				create_compartment(config_root,
 						config_root["simulation_parameters"],
 						compartments_parameters[*it]));
 	}
