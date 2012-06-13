@@ -1,5 +1,5 @@
 /**
- * @file axon_simulator
+ * @file axon_simulator.c++
  * Can simulate arbitrary axons
  * @version  2.0
  * @author Copyright (C) 1998,1999,2000,2001 Ahmed Aldo Faisal

@@ -1,8 +1,10 @@
-/* Modigliani
- * Version:  2.0
- * Copyright (C) 1998,1999,2000,2001 Ahmed Aldo Faisal
- * Copyright (C) 2010, 2011 Mohammad Ali Neishabouri
+/**
+ * @file resting_potential.c++
+ * Find the resting potential of a neuron compartment
+ * @version  2.0
+ * @author Copyright (C) 2010, 2011 Mohammad Ali Neishabouri
  *
+ * @section LICENSE
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
  * License as published by the Free Software Foundation; either
@@ -21,27 +23,6 @@
 
 #include <mcore/auxfunc.h>
 
-/**
- * Reads the parameters in the file given as argument.
- * @param fileName Input file.
- */
-Json::Value read_config(string fileName) {
-	Json::Value config_root;
-	// Remember that data file should have more lines than Num iterations.
-	Json::Reader config_reader;
-	ifstream config_doc;
-	config_doc.open(fileName.c_str(), ifstream::in);
-	bool parsingSuccessful = config_reader.parse(config_doc, config_root);
-	if (!parsingSuccessful) {
-		// report to the user the failure and their locations in the document.
-		std::cerr << "Failed to parse configuration\n"
-				<< config_reader.getFormatedErrorMessages();
-		exit(1);
-	}
-	return (config_root);
-}
-
-
 int main(int argc, char* argv[]) {
 	if (argc<2){
 		std::cerr << "You need to specify a config file" << std::endl;
@@ -49,7 +30,7 @@ int main(int argc, char* argv[]) {
 	}
 
 	string filename = argv[1];
-	Json::Value config_root = read_config(filename);
+	Json::Value config_root = mcore::read_config(filename);
 	double min = -90;
 	double max = -40;
 	double current_guess;
