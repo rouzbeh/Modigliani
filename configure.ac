@@ -16,6 +16,8 @@ AC_PROG_LN_S
 AC_PROG_MAKE_SET
 AC_PROG_RANLIB
 
+AC_LANG(C++)
+
 # Checks for libraries.
 AC_CHECK_LIB([lua],[main], [HAVE_LUA=1], [AC_MSG_ERROR([Lua is not installed.])])
 AC_CHECK_LIB([m], [sqrt],[HAVE_LIBM=1], AC_MSG_ERROR([libm not found.]))
@@ -35,7 +37,9 @@ AC_PATH_X
 AC_FUNC_ALLOCA
 AC_HEADER_DIRENT
 AC_HEADER_STDC
-dnl AC_CHECK_HEADERS([OS.h fcntl.h fenv.h float.h inttypes.h climits malloc.h memory.h nl_types.h cstddef cstdint cstdlib map cmath cstring sys/file.h sys/param.h ctime unistd.h values.h wchar.h wctype.h])
+AC_REQUIRE_CPP
+AC_CHECK_HEADER([tnt/tnt.h],[],[AC_MSG_ERROR([TNT is not installed.])])
+
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_HEADER_STDBOOL
@@ -69,7 +73,7 @@ CXXFLAGS="-Ofast -march=native -mtune=native -ffast-math -ansi -pedantic -Wshado
 
 dnl Make sure we register this option with Automake, so we know whether to
 dnl descend into ctemplate for more configuration or not
-AM_CONDITIONAL([WITH_PLPLOT], [test "x$WITH_PLPLOT" = "xyes"])
+AM_CONDITIONAL([WITH_PLPLOT], [test "x$HAVE_PLPLOT" = "xyes"])
 
 # Define CTEMPLATE in config.h if we're going to compile against it
 if test "x$HAVE_PLPLOT" = "xyes"; then
