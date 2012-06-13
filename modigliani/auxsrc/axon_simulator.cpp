@@ -28,58 +28,17 @@
 #include <mcore/auxfunc.h>
 
 /**
- * Reads the parameters in the file given as argument.
- * @param fileName Input file.
- * @return A JSON structure containing the parameters
- */
-Json::Value read_config(string fileName) {
-	Json::Value config_root;
-	// Remember that data file should have more lines than Num iterations.
-	Json::Reader config_reader;
-	ifstream config_doc;
-	config_doc.open(fileName.c_str(), ifstream::in);
-	bool parsingSuccessful = config_reader.parse(config_doc, config_root);
-	if (!parsingSuccessful) {
-		// report to the user the failure and their locations in the document.
-		std::cerr << "Failed to parse configuration\n"
-				<< config_reader.getFormatedErrorMessages();
-		exit(1);
-	}
-	return (config_root);
-}
-
-std::vector<mbase::Size_t> get_electrods(Json::Value root) {
-	auto outvec = std::vector<mbase::Size_t>(100);
-	string lua_script = root["electrods_lua"].asString();
-	lua_State* L = luaL_newstate();
-	luaL_openlibs(L);
-	luaL_dostring(L, lua_script.c_str());
-
-	lua_getglobal(L, "electrods");
-	/* table is in the stack at index 't' */
-	lua_pushnil(L); /* first key */
-	while (lua_next(L, -2) != 0) {
-		/* uses 'key' (at index -2) and 'value' (at index -1) */
-		int found = lua_tonumber(L, -1);
-		outvec.push_back(found);
-		lua_pop(L, 1);
-	}
-	lua_close(L);
-	return (outvec);
-}
-
-/**
  * Runs a simulation using parameters in the given json file.
  *
  * @param filename
- * @return
+ * @return Status
  */
 int simulate(string fileName) {
 	mbase::Size_t numCompartments;
-	Json::Value config_root = read_config(fileName);
+	Json::Value config_root = mcore::read_config(fileName);
 	string timedOutputFolder;
 	// What compartments to save
-	auto electrods_vec = get_electrods(config_root);
+	auto electrods_vec = mcore::get_electrods(config_root);
 	// We write each compartment's potential and currents into a single file.
 	ofstream TimeFile, LengthPerCompartmentFile, TypePerCompartmentFile,
 			log_file;
@@ -276,7 +235,6 @@ int simulate(string fileName) {
 		delete oModel;
 	} // lTrials
 	log_file << "Simulation completed." << std::endl;
-	log_file << "Number_of_compartments=" << numCompartments << std::endl;
 	log_file.close();
 	for (auto ci = pot_current_files.begin(); ci != pot_current_files.end();
 			++ci) {
