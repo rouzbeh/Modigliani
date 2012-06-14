@@ -93,6 +93,6 @@ AC_CONFIG_FILES([Makefile
                  modigliani/Makefile
                  modigliani/auxsrc/Makefile
                  modigliani/mcore/Makefile
-                 modigliani/mbase/Makefile])
+                 modigliani/modigliani_base/Makefile])
 
 AC_OUTPUT

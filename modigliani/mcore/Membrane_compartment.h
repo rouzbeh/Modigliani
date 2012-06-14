@@ -41,110 +41,108 @@ namespace mcore {
 class Membrane_compartment: public Object {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Membrane_compartment(mbase::Real area /* in muMeter^2 */,
-			mbase::Real newTemperature = 6.3);
+	Membrane_compartment(modigliani_base::Real area /* in muMeter^2 */,
+			modigliani_base::Real newTemperature = 6.3);
 	Membrane_compartment(const Membrane_compartment & original);
 	Membrane_compartment & operator=(const Membrane_compartment & right);
 	virtual ~Membrane_compartment();
 	/* ***  Methods              ***/
-	mbase::Mreturn AttachCurrent(Membrane_current * currentPtr,
+	modigliani_base::ReturnEnum AttachCurrent(Membrane_current * currentPtr,
 			NTBPcurrentType type);
-	mbase::Mreturn step(mbase::Real newVM /* mV */);
-	mbase::Mreturn InjectCurrent(mbase::Real current /* in nA */);
-	mbase::Real AttachedCurrent(mbase::Size_t currentIndex) {
-		M_ASSERT((currentIndex > 0) && (currentIndex - 1 < currentVec.size()));
-		return (currentVec[currentIndex - 1]->_current());
+	modigliani_base::ReturnEnum step(modigliani_base::Real newVM /* mV */);
+	modigliani_base::ReturnEnum InjectCurrent(modigliani_base::Real current /* in nA */);
+	modigliani_base::Real AttachedCurrent(modigliani_base::Size currentIndex) {
+		M_ASSERT((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
+		return (current_vec_[currentIndex - 1]->current());
 	}
-	mbase::Real AttachedConductance(mbase::Size_t currentIndex) {
-		M_ASSERT((currentIndex > 0) && (currentIndex - 1 < currentVec.size()));
-		return (currentVec[currentIndex - 1]->_conductance());
+	modigliani_base::Real AttachedConductance(modigliani_base::Size currentIndex) {
+		M_ASSERT((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
+		return (current_vec_[currentIndex - 1]->_conductance());
 	}
-	mbase::Real AttachedReversalPotential(mbase::Size_t currentIndex) {
-		M_ASSERT((currentIndex > 0) && (currentIndex - 1 < currentVec.size()));
-		return (currentVec[currentIndex - 1]->_reversalPotential());
+	modigliani_base::Real AttachedReversalPotential(modigliani_base::Size currentIndex) {
+		M_ASSERT((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
+		return (current_vec_[currentIndex - 1]->_reversalPotential());
 	}
 	/**  membrane time constant at instaneous membrane conductivity in ms */
-	mbase::Real TimeConstant() {
-		return ((_cM() / total_conductance()) * _area() * 1.0e8);
+	modigliani_base::Real TimeConstant() {
+		return ((cm() / total_conductance()) * area() * 1.0e8);
 	}
-	const Membrane_current * Current(mbase::Size_t currentIndex) {
-		M_ASSERT((currentIndex > 0) && (currentIndex - 1 < currentVec.size()));
-		return (currentVec[currentIndex - 1]);
+	const Membrane_current * Current(modigliani_base::Size currentIndex) {
+		M_ASSERT((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
+		return (current_vec_[currentIndex - 1]);
 	}
 	/* in muMeter^2 */
-	mbase::Real _area() /* in muMeter^2 */const {
-		return (area);
+	modigliani_base::Real area() /* in muMeter^2 */const {
+		return (area_);
 	}
 	/* in mV */
-	mbase::Real _vM() /* in mV muMeter */const {
-		return (vM);
+	modigliani_base::Real vm() /* in mV muMeter */const {
+		return (vm_);
 	}
-	void Set_vM(mbase::Real newVoltage) {
-		vM = newVoltage;
+	void set_vm(modigliani_base::Real newVoltage) {
+		vm_ = newVoltage;
 	}
 	/** Set specific membrane capacitance in muF / cm^2 */
-	void Set_cM(mbase::Real newCm /* in muF / cm^2 */) {
-		cM = newCm;
-		compartmentMembraneCapacitance = CompartmentMembraneCapacitance();
+	void SetCM(modigliani_base::Real newCm /* in muF / cm^2 */) {
+		cm_ = newCm;
+		compartment_membrane_capacitance_ = CompartmentMembraneCapacitance();
 	}
 	/* in muF / cm^2 */
-	mbase::Real _cM() const {
-		return (cM);
+	modigliani_base::Real cm() const {
+		return (cm_);
 	}
 	/** Set specific axoplasmic resistivity in Ohm cm */
-	void Set_rA(mbase::Real newRa /* in Ohm cm */) {
-		rA = newRa;
+	void Set_rA(modigliani_base::Real newRa /* in Ohm cm */) {
+		ra_ = newRa;
 	}
 	/* in Ohm cm */
-	mbase::Real _rA() const {
-		return (rA);
+	modigliani_base::Real ra() const {
+		return (ra_);
 	}
 	/* Set temperature [Celsius] in compartment and for all currents within compartment (affects future attached ones also) */
-	mbase::Mreturn Set_temperature(mbase::Real newTemp /* in Celsius */) {
-		temperature = newTemp;
-		for (mbase::Size_t i = 0; i < currentVec.size(); i++)
-			currentVec[i]->Set_temperature(newTemp);
-		return (mbase::M_SUCCESS);
+	modigliani_base::ReturnEnum set_temperature(modigliani_base::Real newTemp /* in Celsius */) {
+		temperature_ = newTemp;
+		for (modigliani_base::Size i = 0; i < current_vec_.size(); i++)
+			current_vec_[i]->Set_temperature(newTemp);
+		return (modigliani_base::ReturnEnum::SUCCESS);
 	}
 	/* in Celsius */
-	mbase::Real _temperature() const {
-		return (temperature);
+	modigliani_base::Real temperature() const {
+		return (temperature_);
 	}
 	/* in muF */
-	mbase::Real _compartmentMembraneCapacitance() const {
-		return (compartmentMembraneCapacitance);
+	modigliani_base::Real compartment_membrane_capacitance() const {
+		return (compartment_membrane_capacitance_);
 	}
 	/* in muF */
-	mbase::Real CompartmentMembraneCapacitance() const;
+	modigliani_base::Real CompartmentMembraneCapacitance() const;
 	/* in nA */
-	mbase::Real CompartmentMembraneNetCurrent() const;
+	modigliani_base::Real CompartmentMembraneNetCurrent() const;
 	/** in 1/mSec or 1 kHz*/
-	mbase::Real CompartmentChannelStateTimeConstant() const;
+	modigliani_base::Real CompartmentChannelStateTimeConstant() const;
 	/**  */
 	bool GillespieStep();
 	/**  */
 	void show_param() const;
+	modigliani_base::Size NumberCurrents() const;
+	Membrane_current const * GetCurrent(modigliani_base::Size i) const;
 	/* ***  Data                 ***/
-	std::vector<Membrane_current *> currentVec;
-
-	std::vector<Membrane_current *> ReturnCurrentVec(); //TODO: added
 
 protected:
 	/* ***  Methods              ***/
-	mbase::Real total_conductance() const;
-	mbase::Real WeightedConductance() const; // OBSOLETE?
+	modigliani_base::Real total_conductance() const;
+	modigliani_base::Real WeightedConductance() const; // OBSOLETE?
 	/* ***  Data                 ***/
-	mbase::Real vM; // membrane voltage in mV
-	mbase::Real iInj; // injected current into compartment in nA
+	modigliani_base::Real i_inj_; // injected current into compartment in nA
+	std::vector<Membrane_current *> current_vec_;
 
 private:
-	/* ***  Methods              ***/
-	mbase::Real cM; // membrane capacity in muFarad/cm^2
-	mbase::Real rA; // axoplasmatic resistance in Ohm cm
-	mbase::Real area; // in muMeter^2
-	mbase::Real temperature; // in Celsius
-	mbase::Real compartmentMembraneCapacitance; // in muFarad
-	/* ***  Data                 ***/
+	modigliani_base::Real cm_; // membrane capacity in muFarad/cm^2
+	modigliani_base::Real ra_; // axoplasmatic resistance in Ohm cm
+	modigliani_base::Real area_; // in muMeter^2
+	modigliani_base::Real temperature_; // in Celsius
+	modigliani_base::Real compartment_membrane_capacitance_; // in muFarad
+	modigliani_base::Real vm_; // membrane voltage in mV
 };
 }
 #endif /* _mcore_membrane_compartment.h_ */

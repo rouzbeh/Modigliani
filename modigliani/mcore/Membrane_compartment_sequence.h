@@ -52,83 +52,83 @@ public:
 			const Membrane_compartment_sequence & right) = delete;
 	virtual ~Membrane_compartment_sequence();
 	/* ***  Methods              ***/
-	mbase::Mreturn PushBack(Cylindrical_compartment * compartPtr);
-	mbase::Mreturn Init();
-	mbase::Mreturn InitialStep();
-	mbase::Mreturn step();
+	modigliani_base::ReturnEnum PushBack(Cylindrical_compartment * compartPtr);
+	modigliani_base::ReturnEnum Init();
+	modigliani_base::ReturnEnum InitialStep();
+	modigliani_base::ReturnEnum step();
 	void ShowVoltage() {
 		std::cerr << "Voltage [";
-		for (mbase::Size_t ll = 0; ll < _numCompartments(); ll++) {
-			std::cout << compartmentVec[ll]->_vM() << "\t";
-			std::cerr << compartmentVec[ll]->_vM() << " ";
+		for (modigliani_base::Size ll = 0; ll < _numCompartments(); ll++) {
+			std::cout << compartmentVec[ll]->vm() << "\t";
+			std::cerr << compartmentVec[ll]->vm() << " ";
 		}
 		std::cerr << "]" << std::endl;
 	}
-	mbase::Real MembraneVoltage(mbase::Size_t compartmentId /* 1..numCompartments*/) {
-		return (compartmentVec[compartmentId - 1]->_vM());
+	modigliani_base::Real MembraneVoltage(modigliani_base::Size compartmentId /* 1..numCompartments*/) {
+		return (compartmentVec[compartmentId - 1]->vm());
 	}
-	mbase::Mreturn InjectCurrent(mbase::Real current /* in nA */, mbase::Size_t compartmentId);
-	mbase::Size_t _numCompartments() const {
+	modigliani_base::ReturnEnum InjectCurrent(modigliani_base::Real current /* in nA */, modigliani_base::Size compartmentId);
+	modigliani_base::Size _numCompartments() const {
 		return (numCompartments);
 	}
 	/**  */
 	/**  */
-	mbase::Real CompartmentSequenceChannelStateTimeConstant() const;
+	modigliani_base::Real CompartmentSequenceChannelStateTimeConstant() const;
 	void ShowHinesMatrix();
-	mbase::Real AttachedCurrent(mbase::Size_t compIndex, mbase::Size_t currIndex) {
+	modigliani_base::Real AttachedCurrent(modigliani_base::Size compIndex, modigliani_base::Size currIndex) {
 		M_ASSERT(compIndex > 0);
 		return (compartmentVec[compIndex - 1]->AttachedCurrent(currIndex));
 	}
-	std::vector<mbase::Real> open_channels(mbase::Size_t currIndex) const;
-	std::vector<mbase::Real> OpenChannelsRatio(mbase::Size_t currIndex) const;
-	std::vector<mbase::Real> NumChannels(mbase::Size_t currIndex) const;
-	std::vector<mbase::Real> NumChannelsInState(mbase::Size_t currIndex, mbase::Size_t state) const;
-	std::vector<mbase::Real> _vVec() const;
-	mbase::Mreturn WriteMembranePotential(std::ostream & file) const;
-	mbase::Mreturn WriteCompartmentData(std::ostream* file, mbase::Size_t to_print) const;
-	mbase::Mreturn WriteCurrent(std::ostream & file,
-			mbase::Size_t currentIndex /* 1..numCurrents in compartment */) const;
-	mbase::Mreturn WriteCurrent(std::ostream & file,
-			mbase::Size_t currentIndex /* 1..numCurrents in compartment */,
-			std::vector<mbase::Size_t> to_print) const;
-	mbase::Mreturn WriteMembranePotentialASCII(std::ostream & file) const;
-	mbase::Mreturn WriteCurrentAscii(std::ostream & file,
-			mbase::Size_t currentIndex /* 1..numCurrents in compartment */) const;
-	Cylindrical_compartment* ReturnCompartmentVec(mbase::Size_t index);
+	std::vector<modigliani_base::Real> open_channels(modigliani_base::Size currIndex) const;
+	std::vector<modigliani_base::Real> OpenChannelsRatio(modigliani_base::Size currIndex) const;
+	std::vector<modigliani_base::Real> NumChannels(modigliani_base::Size currIndex) const;
+	std::vector<modigliani_base::Real> NumChannelsInState(modigliani_base::Size currIndex, modigliani_base::Size state) const;
+	std::vector<modigliani_base::Real> _vVec() const;
+	modigliani_base::ReturnEnum WriteMembranePotential(std::ostream & file) const;
+	modigliani_base::ReturnEnum WriteCompartmentData(std::ostream* file, modigliani_base::Size to_print) const;
+	modigliani_base::ReturnEnum WriteCurrent(std::ostream & file,
+			modigliani_base::Size currentIndex /* 1..numCurrents in compartment */) const;
+	modigliani_base::ReturnEnum WriteCurrent(std::ostream & file,
+			modigliani_base::Size currentIndex /* 1..numCurrents in compartment */,
+			std::vector<modigliani_base::Size> to_print) const;
+	modigliani_base::ReturnEnum WriteMembranePotentialASCII(std::ostream & file) const;
+	modigliani_base::ReturnEnum WriteCurrentAscii(std::ostream & file,
+			modigliani_base::Size currentIndex /* 1..numCurrents in compartment */) const;
+	Cylindrical_compartment* ReturnCompartmentVec(modigliani_base::Size index);
 	/**  */
 	bool GillespieStep();
 	/**  */
-	std::vector<mbase::Real> GiveCurrent(mbase::Size_t index);
+	std::vector<modigliani_base::Real> GiveCurrent(modigliani_base::Size index);
 	/* ***  Data                 ***/
 	std::vector<Cylindrical_compartment*> compartmentVec;
 
 protected:
 	/* ***  Methods              ***/
 	/** CRAP not working */
-	std::vector<mbase::Real> ZadorPearlmutterSolveTriDiag(std::vector<mbase::Real> lNewVec,
-			std::vector<mbase::Real> dNewVec, std::vector<mbase::Real> uNewVec,
-			std::vector<mbase::Real> rNewVec) const;
+	std::vector<modigliani_base::Real> ZadorPearlmutterSolveTriDiag(std::vector<modigliani_base::Real> lNewVec,
+			std::vector<modigliani_base::Real> dNewVec, std::vector<modigliani_base::Real> uNewVec,
+			std::vector<modigliani_base::Real> rNewVec) const;
 	/** CRAP not working */
-	std::vector<mbase::Real> MascagniSolveTriDiag(std::vector<mbase::Real> lNewVec,
-			std::vector<mbase::Real> dNewVec, std::vector<mbase::Real> uNewVec,
-			std::vector<mbase::Real> rNewVec) const;
+	std::vector<modigliani_base::Real> MascagniSolveTriDiag(std::vector<modigliani_base::Real> lNewVec,
+			std::vector<modigliani_base::Real> dNewVec, std::vector<modigliani_base::Real> uNewVec,
+			std::vector<modigliani_base::Real> rNewVec) const;
 	/** WORKING ! */
-	std::vector<mbase::Real> NumericalRecipesSolveTriDiag(const std::vector<mbase::Real> & l,
-			const std::vector<mbase::Real> & d, const std::vector<mbase::Real> & u,
-			const std::vector<mbase::Real> & r) const;
+	std::vector<modigliani_base::Real> NumericalRecipesSolveTriDiag(const std::vector<modigliani_base::Real> & l,
+			const std::vector<modigliani_base::Real> & d, const std::vector<modigliani_base::Real> & u,
+			const std::vector<modigliani_base::Real> & r) const;
 	/* ***  Data                 ***/
 
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	std::vector<mbase::Real> lVec;
-	std::vector<mbase::Real> dVec;
-	std::vector<mbase::Real> uVec;
+	std::vector<modigliani_base::Real> lVec;
+	std::vector<modigliani_base::Real> dVec;
+	std::vector<modigliani_base::Real> uVec;
 
 //This should be in each compartment
 //std::vector <mbase::Real> vVec;
-	std::vector<mbase::Real> rVec;
-	mbase::Size_t numCompartments;
+	std::vector<modigliani_base::Real> rVec;
+	modigliani_base::Size numCompartments;
 	bool initialised;
 	bool swCrankNicholson;
 };

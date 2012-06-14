@@ -9,9 +9,9 @@ using namespace mcore;
 
 /* ***      CONSTRUCTORS	***/
 Lua_based_deterministic_multi_current::Lua_based_deterministic_multi_current(
-		mbase::Real newArea, mbase::Real newDensity,
-		mbase::Real newConductivity, mbase::Real newReversalPotential,
-		mbase::Real newTimeStep, mbase::Real newTemperature,
+		modigliani_base::Real newArea, modigliani_base::Real newDensity,
+		modigliani_base::Real newConductivity, modigliani_base::Real newReversalPotential,
+		modigliani_base::Real newTimeStep, modigliani_base::Real newTemperature,
 		string new_lua_script) :
 		Multi_current(newReversalPotential /* in mV */,
 				newDensity /* channels per mu^2 */, newArea /* in mu^2 */,
@@ -88,8 +88,8 @@ Lua_based_deterministic_multi_current::~Lua_based_deterministic_multi_current() 
  \warning    unknown
  \bug        unknown
  */
-inline mbase::Mreturn Lua_based_deterministic_multi_current::step_current() {
-	mbase::Real rounded_voltage = floor((voltage / stepV) + 0.5) * stepV;
+inline modigliani_base::ReturnEnum Lua_based_deterministic_multi_current::step_current() {
+	modigliani_base::Real rounded_voltage = floor((voltage / stepV) + 0.5) * stepV;
 	switch (_simulationMode()) {
 	case NTBP_DETERMINISTIC: {
 		lua_getglobal(L, "step_current");
@@ -100,7 +100,7 @@ inline mbase::Mreturn Lua_based_deterministic_multi_current::step_current() {
 		 argument, return 0 result */
 		lua_call(L, 1, 0);
 
-		return (mbase::M_SUCCESS);
+		return (modigliani_base::ReturnEnum::SUCCESS);
 	}
 
 		break;
@@ -108,21 +108,21 @@ inline mbase::Mreturn Lua_based_deterministic_multi_current::step_current() {
 		std::cerr
 				<< "Lua_based_deterministic_multi_current::StepCurrent - ERROR : Unsupported simulation mode."
 				<< std::endl;
-		return (mbase::M_PARAM_UNSUPPORTED);
+		return (modigliani_base::ReturnEnum::PARAM_UNSUPPORTED);
 		break;
 	}
-	return (mbase::M_FAIL);
+	return (modigliani_base::ReturnEnum::FAIL);
 }
 
 /**  */
 /** No descriptions */
-inline mbase::Real Lua_based_deterministic_multi_current::open_channels() const {
+inline modigliani_base::Real Lua_based_deterministic_multi_current::open_channels() const {
 	lua_getglobal(L, "open_channels");
 
 	/* call the function with 0
 	 argument, return 1 result */
 	lua_call(L, 0, 1);
-	mbase::Real count = lua_tonumber(L, -1);
+	modigliani_base::Real count = lua_tonumber(L, -1);
 	lua_pop(L, 1);
 
 	return (count * NumChannels());
@@ -130,19 +130,19 @@ inline mbase::Real Lua_based_deterministic_multi_current::open_channels() const 
 
 /**  */
 /** No descriptions */
-mbase::Real Lua_based_deterministic_multi_current::num_channels_in_state(
-		mbase::Size_t __attribute__((__unused__)) state) const {
+modigliani_base::Real Lua_based_deterministic_multi_current::num_channels_in_state(
+		modigliani_base::Size __attribute__((__unused__)) state) const {
 	std::cerr << "Deterministic channel does not have states" << std::endl;
 	return (0);
 }
 
-inline mbase::Real Lua_based_deterministic_multi_current::compute_conductance() {
+inline modigliani_base::Real Lua_based_deterministic_multi_current::compute_conductance() {
 	lua_getglobal(L, "compute_conductance");
 
 	/* call the function with 0
 	 argument, return 1 result */
 	lua_call(L, 0, 1);
-	mbase::Real conduc = lua_tonumber(L, -1);
+	modigliani_base::Real conduc = lua_tonumber(L, -1);
 	lua_pop(L, 1);
 	M_ASSERT(conduc == conduc);
 	return (Set_conductance(
@@ -157,10 +157,10 @@ void Lua_based_deterministic_multi_current::show_param() const {
 			<< _maxConductivity() << std::endl;
 }
 
-mbase::Real Lua_based_deterministic_multi_current::lua_get_ntreal(lua_State* L,
+modigliani_base::Real Lua_based_deterministic_multi_current::lua_get_ntreal(lua_State* L,
 		string name) {
 	lua_getglobal(L, name.c_str());
-	mbase::Real ret = lua_tonumber(L, -1);
+	modigliani_base::Real ret = lua_tonumber(L, -1);
 	lua_pop(L, 1);
 	return (ret);
 }

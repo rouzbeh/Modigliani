@@ -47,48 +47,44 @@ namespace mcore {
 class Membrane_current: public Object {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Membrane_current(mbase::Real reversalPotential /* in mV */);
+	Membrane_current(modigliani_base::Real reversalPotential /* in mV */);
 	Membrane_current(const Membrane_current & original);
 	Membrane_current & operator=(const Membrane_current & right);
 	virtual ~Membrane_current();
 
 	/* ***  Methods              ***/
 	/* in mSiemens/cm^2 */
-	virtual mbase::Real _maxConductivity() const = 0;
-	/** momentary current in nA */
-	mbase::Real _current() const { /*std::cerr << "Current in nA" << current << std::endl;*/
-		return (current);
-	}
+	virtual modigliani_base::Real _maxConductivity() const = 0;
 	/** momentary conductance in muFarad */
-	mbase::Real _conductance() const {
+	modigliani_base::Real _conductance() const {
 		return (conductance);
 	}
 	/** reversal potential in mV */
-	void Set_reversalPotential(mbase::Real eRev /* mV */) {
+	void Set_reversalPotential(modigliani_base::Real eRev /* mV */) {
 		reversalPotential = eRev;
 	}
 	/** reversal potential in mV */
-	mbase::Real _reversalPotential() const {
+	modigliani_base::Real _reversalPotential() const {
 		return (reversalPotential);
 	}
 	/** temperature in Celsius */
-	mbase::Real _temperature() const {
+	modigliani_base::Real _temperature() const {
 		return (temperature);
 	}
 	/** Set temperature in Celsius */
-	mbase::Mreturn Set_temperature(mbase::Real newTemp) {
-		M_ASSERT(newTemp > mbase::ZERO_KELVIN);
+	modigliani_base::ReturnEnum Set_temperature(modigliani_base::Real newTemp) {
+		M_ASSERT(newTemp > modigliani_base::ZERO_KELVIN);
 		temperature = newTemp;
-		return (mbase::M_SUCCESS);
+		return (modigliani_base::ReturnEnum::SUCCESS);
 	}
 	/** Q10  */
-	mbase::Real _q10() const {
+	modigliani_base::Real _q10() const {
 		return (q10);
 	}
 	/** Set Q10 */
-	virtual mbase::Mreturn Set_q10(mbase::Real newQ10) {
+	virtual modigliani_base::ReturnEnum Set_q10(modigliani_base::Real newQ10) {
 		q10 = newQ10;
-		return (mbase::M_SUCCESS);
+		return (modigliani_base::ReturnEnum::SUCCESS);
 	}
 	/** Simulation mode */
 	enum NTBPstochasticType _simulationMode() const {
@@ -99,44 +95,39 @@ public:
 		simulationMode = newMode;
 	}
 
-	mbase::Mreturn step(mbase::Real newVm /* in mV */) {
+	modigliani_base::ReturnEnum step(modigliani_base::Real newVm /* in mV */) {
 		//ComputeRateConstants(newVm); /* UpdateRateConstantsAND*/
 		voltage = newVm;
 		step_current();
 		compute_conductance();
 		compute_current(newVm);
-		return (mbase::M_SUCCESS);
+		return (modigliani_base::ReturnEnum::SUCCESS);
 	}
 	/* in nA */
-	mbase::Real compute_current(mbase::Real vM /* in mV */) {
+	modigliani_base::Real compute_current(modigliani_base::Real vM /* in mV */) {
 		return (Set_current(
 				_conductance() /* mSiemens */* 1000.0 /* mA/nA */* (vM
 				/* mV */- _reversalPotential()/* mV */)));
 	}
-	virtual mbase::Mreturn step_current() = 0;
+	virtual modigliani_base::ReturnEnum step_current() = 0;
 	/** compute and return conductance in mSiemens */
-	virtual mbase::Real compute_conductance() = 0;
+	virtual modigliani_base::Real compute_conductance() = 0;
 	/** compute the rate constants ( in ms^-1 ) */
 	//virtual void ComputeRateConstants(mbase::Real vM /* in mV */) = 0;
 	/** Number of open ionic channels */
-	virtual mbase::Real open_channels() const = 0;
+	virtual modigliani_base::Real open_channels() const = 0;
 	/** Total number of ionic channels */
-	virtual mbase::Real NumChannels() const {
-		std::cerr
-				<< "NTBP_membrane_current_o::NumChannels() - Error : Not Implemented."
-				<< std::endl;
-		return (-42);
-	}
+	virtual modigliani_base::Real NumChannels() const = 0;
 
-	virtual mbase::Real num_channels_in_state(
-			mbase::Size_t __attribute__((__unused__)) state) const {
+	virtual modigliani_base::Real num_channels_in_state(
+			modigliani_base::Size __attribute__((__unused__)) state) const {
 		std::cerr
 				<< "NTBP_membrane_current_o::NumChannels() - Error : Not Implemented."
 				<< std::endl;
 		return (-42);
 	}
 	/** Number of open over total number of channels */
-	virtual mbase::Real OpenChannelsRatio() const {
+	virtual modigliani_base::Real OpenChannelsRatio() const {
 		std::cerr
 				<< "NTBP_membrane_current_o::OpenChannelsRatio() - Error : Not Implemented."
 				<< std::endl;
@@ -148,13 +139,13 @@ public:
 				<< std::endl;
 	}
 	/* Additional sweeps by the Gillespie Algorithm make the following method necessary */
-	virtual mbase::Real ComputeChannelStateTimeConstant() const {
+	virtual modigliani_base::Real ComputeChannelStateTimeConstant() const {
 		std::cerr
 				<< "NTBP_membrane_current_o::ComputeChannelStateTimeConstant - Error : Method should be overridden by a stochastic current class or not be called for a deterministic current class."
 				<< std::endl;
 		return (0);
 	}
-	mbase::Real ChannelStateTimeConstant() const {
+	modigliani_base::Real ChannelStateTimeConstant() const {
 		return (ComputeChannelStateTimeConstant());
 	}
 	bool GillespieStep() {/*2DO is this necessary here*/
@@ -165,37 +156,41 @@ public:
 		std::cerr
 				<< "NTBP_membrane_current_o::ComputeGillespieStep- Error : Method should be overridden by a stochastic current class or not be called for a deterministic current class."
 				<< std::endl;
-		return (mbase::M_NOT_DERIVED);
+		return (modigliani_base::ReturnEnum::NOT_DERIVED);
 	}
 
-	mbase::Real Get_voltage() {
+	modigliani_base::Real Get_voltage() {
 		return (voltage);
 	}
-	void Set_voltage(mbase::Real newVoltage) {
+	void set_voltage(modigliani_base::Real newVoltage) {
 		voltage = newVoltage;
+	}
+
+	modigliani_base::Real current() const{
+		return (current_);
 	}
 
 	/* ***  Data                 ***/
 
 protected:
 	/* ***  Methods              ***/
-	mbase::Real Set_current(mbase::Real newVal /* in nA */) {
-		return (current = newVal);
+	modigliani_base::Real Set_current(modigliani_base::Real newVal /* in nA */) {
+		return (current_ = newVal);
 	}
-	mbase::Real Set_conductance(mbase::Real newVal /* in mSiemens */) {
+	modigliani_base::Real Set_conductance(modigliani_base::Real newVal /* in mSiemens */) {
 		return (conductance = newVal);
 	}
 	/* ***  Data                 ***/
-	mbase::Uniform_rnd_dist uniform;
-	mbase::Real voltage;
-	mbase::Real temperature; // in Celsius
+	modigliani_base::Uniform_rnd_dist uniform;
+	modigliani_base::Real voltage;
+	modigliani_base::Real temperature; // in Celsius
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	mbase::Real current; // in nanoAmpere
-	mbase::Real conductance; // in mSiemens
-	mbase::Real reversalPotential; // in mV
-	mbase::Real q10; // the Q_10 value for temperature dependent reaction kinetics
+	modigliani_base::Real current_; // in nanoAmpere
+	modigliani_base::Real conductance; // in mSiemens
+	modigliani_base::Real reversalPotential; // in mV
+	modigliani_base::Real q10; // the Q_10 value for temperature dependent reaction kinetics
 	enum NTBPstochasticType simulationMode;
 };
 }

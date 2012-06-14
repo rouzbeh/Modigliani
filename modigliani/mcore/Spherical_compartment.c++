@@ -40,18 +40,18 @@ using namespace mcore;
 
 /* ***      CONSTRUCTORS	***/
 /** Create a Spherical_compartment */
-Spherical_compartment::Spherical_compartment(mbase::Real newRadius,
-		mbase::Real newCm) :
+Spherical_compartment::Spherical_compartment(modigliani_base::Real newRadius,
+		modigliani_base::Real newCm) :
 		Membrane_compartment(4 * M_PI * newRadius * newRadius) {
 	radius = newRadius;
-	Set_cM(newCm);
+	SetCM(newCm);
 	Set_rA(35.4);
 }
 
 /* ***      COPY AND ASSIGNMENT	***/
 Spherical_compartment::Spherical_compartment(
 		const Spherical_compartment & original) :
-		Membrane_compartment(original._area()) {
+		Membrane_compartment(original.area()) {
 	// add assignment code here
 	radius = original.radius;
 }

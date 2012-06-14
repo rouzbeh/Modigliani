@@ -20,10 +20,10 @@
 namespace mcore {
 class File_based_stochastic_multi_current: public Multi_current {
 public:
-	File_based_stochastic_multi_current(mbase::Real newArea,
-			mbase::Real newDensity, mbase::Real newConductivity,
-			mbase::Real reversalPotential, mbase::Real newTimeStep,
-			mbase::Real newTemperature, std::string fileName);
+	File_based_stochastic_multi_current(modigliani_base::Real newArea,
+			modigliani_base::Real newDensity, modigliani_base::Real newConductivity,
+			modigliani_base::Real reversalPotential, modigliani_base::Real newTimeStep,
+			modigliani_base::Real newTemperature, std::string fileName);
 	virtual ~File_based_stochastic_multi_current();
 
 	static void load_file(std::string fileName, double temperature,
@@ -32,14 +32,14 @@ public:
 	static std::map<std::string, int> number_of_states_map;
 	static std::map<std::string, double> base_temperature_map;
 	static std::map<std::string, std::vector<int> > open_states_map;
-	virtual mbase::Mreturn step_current();
-	virtual mbase::Real open_channels() const;
-	virtual mbase::Real compute_conductance();
-	mbase::Real num_channels_in_state(mbase::Size_t state) const;
-	mbase::Real ComputeChannelStateTimeConstant() const;
+	virtual modigliani_base::ReturnEnum step_current();
+	virtual modigliani_base::Real open_channels() const;
+	virtual modigliani_base::Real compute_conductance();
+	modigliani_base::Real num_channels_in_state(modigliani_base::Size state) const;
+	modigliani_base::Real ComputeChannelStateTimeConstant() const;
 	void show_param() const;
 	void printProb(std::string fileName) {
-		for (mbase::Real v = 20; v < 130; v += 0.005) {
+		for (modigliani_base::Real v = 20; v < 130; v += 0.005) {
 			std::cout
 					<< probability_matrix_map[fileName]->getTransitionProbability(
 							v, 2, 1) << std::endl;
@@ -51,7 +51,7 @@ public:
 private:
 	static bool initTableLookUp;
 	static std::vector<std::string> initialised_probability_matrices;
-	mbase::Real baseTemp;
+	modigliani_base::Real baseTemp;
 
 };
 }

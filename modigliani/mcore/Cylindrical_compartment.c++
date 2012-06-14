@@ -29,7 +29,7 @@ using namespace mcore;
 /* ***      CONSTRUCTORS	***/
 /** Create a Cylindrical_compartment */
 Cylindrical_compartment::Cylindrical_compartment(
-		mbase::Real newLength /* in muMeter */, mbase::Real newDiameter /* in muMeter */, mbase::Real newTemperature)
+		modigliani_base::Real newLength /* in muMeter */, modigliani_base::Real newDiameter /* in muMeter */, modigliani_base::Real newTemperature)
 :
 			Membrane_compartment(M_PI * newDiameter * newLength /* in muMeter^2 */, newTemperature) {
 	length = newLength;
@@ -39,7 +39,7 @@ Cylindrical_compartment::Cylindrical_compartment(
 /* ***      COPY AND ASSIGNMENT	***/
 Cylindrical_compartment::Cylindrical_compartment(
 		const Cylindrical_compartment & original) :
-	Membrane_compartment(original._area()) {
+	Membrane_compartment(original.area()) {
 	// add assignment code here
 }
 
@@ -54,9 +54,6 @@ Cylindrical_compartment::operator=(
 
 /* ***      DESTRUCTOR		***/
 Cylindrical_compartment::~Cylindrical_compartment() {
-	for (auto it=currentVec.begin(); it!=currentVec.end(); ++it){
-		delete *it;
-	}
 }
 
 /* ***  PUBLIC                                    ***   */

@@ -41,14 +41,14 @@ namespace mcore {
 class Spherical_compartment: public Membrane_compartment {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Spherical_compartment(mbase::Real radius /* muMeter */,
-			mbase::Real cM /* muFarad/cm^2 */);
+	Spherical_compartment(modigliani_base::Real radius /* muMeter */,
+			modigliani_base::Real cM /* muFarad/cm^2 */);
 	Spherical_compartment(const Spherical_compartment & original);
 	Spherical_compartment & operator=(
 			const Spherical_compartment & right);
 	virtual ~Spherical_compartment();
 	/* ***  Methods              ***/
-	mbase::Real _radius() const {
+	modigliani_base::Real _radius() const {
 		return (radius);
 	}
 	/* ***  Data                 ***/
@@ -58,7 +58,7 @@ protected:
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	mbase::Real radius; // in
+	modigliani_base::Real radius; // in
 };
 }
 #endif /* _mcore_spherical_compartment.h_ */

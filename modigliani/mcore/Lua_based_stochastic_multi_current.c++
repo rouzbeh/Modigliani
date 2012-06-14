@@ -9,7 +9,7 @@ using namespace mcore;
 
 bool Lua_based_stochastic_multi_current::initTableLookUp = false;
 map<string, Transition_rate_matrix*> Lua_based_stochastic_multi_current::probability_matrix_map;
-map<string, mbase::Size_t> Lua_based_stochastic_multi_current::number_of_states_map;
+map<string, modigliani_base::Size> Lua_based_stochastic_multi_current::number_of_states_map;
 map<string, double> Lua_based_stochastic_multi_current::base_temperature_map;
 map<string, std::vector<int> > Lua_based_stochastic_multi_current::open_states_map;
 
@@ -17,9 +17,9 @@ map<string, std::vector<int> > Lua_based_stochastic_multi_current::open_states_m
 /** Create a NTBP_hranvier_sodium_multi_current_o */
 
 Lua_based_stochastic_multi_current::Lua_based_stochastic_multi_current(
-		mbase::Real newArea, mbase::Real newDensity,
-		mbase::Real newConductivity, mbase::Real newReversalPotential,
-		mbase::Real newTimeStep, mbase::Real newTemperature, string fileName) :
+		modigliani_base::Real newArea, modigliani_base::Real newDensity,
+		modigliani_base::Real newConductivity, modigliani_base::Real newReversalPotential,
+		modigliani_base::Real newTimeStep, modigliani_base::Real newTemperature, string fileName) :
 		Multi_current(newReversalPotential /* in mV */,
 				newDensity /* channels per mu^2 */, newArea /* in mu^2 */,
 				newConductivity /* in mS per channel  */
@@ -107,11 +107,11 @@ void Lua_based_stochastic_multi_current::load_file(string fileName,
 	probability_matrix_map[fileName] = new Transition_rate_matrix(
 			number_of_states_map[fileName], minV, maxV, step);
 
-	mbase::Real length = floor((maxV - minV) / step + 0.5) + 1;
-	for (mbase::Size_t i = 1; i <= number_of_states_map[fileName]; ++i) {
-		for (mbase::Size_t j = 1; j <= number_of_states_map[fileName]; ++j) {
-			for (mbase::Size_t k = 0; k < length; k++) {
-				mbase::Real voltage = minV + step * k;
+	modigliani_base::Real length = floor((maxV - minV) / step + 0.5) + 1;
+	for (modigliani_base::Size i = 1; i <= number_of_states_map[fileName]; ++i) {
+		for (modigliani_base::Size j = 1; j <= number_of_states_map[fileName]; ++j) {
+			for (modigliani_base::Size k = 0; k < length; k++) {
+				modigliani_base::Real voltage = minV + step * k;
 				lua_getglobal(L, "get_probability");
 				lua_pushnumber(L, i);
 				lua_pushnumber(L, j);
@@ -142,7 +142,7 @@ void Lua_based_stochastic_multi_current::load_file(string fileName,
  \warning    unknown
  \bug        unknown
  */
-inline mbase::Mreturn Lua_based_stochastic_multi_current::step_current() {
+inline modigliani_base::ReturnEnum Lua_based_stochastic_multi_current::step_current() {
 	switch (_simulationMode()) {
 	case NTBP_BINOMIALPOPULATION: {
 		return (channelsPtr->BinomialStep(voltage));
@@ -165,30 +165,30 @@ inline mbase::Mreturn Lua_based_stochastic_multi_current::step_current() {
 		std::cerr
 				<< "Lua_based_stochastic_multi_current::StepCurrent - ERROR : Unsupported simulation mode."
 				<< std::endl;
-		return (mbase::M_PARAM_UNSUPPORTED);
+		return (modigliani_base::ReturnEnum::PARAM_UNSUPPORTED);
 		break;
 	}
-	return (mbase::M_FAIL);
+	return (modigliani_base::ReturnEnum::FAIL);
 }
 
 /**  */
 /** No descriptions */
-inline mbase::Real Lua_based_stochastic_multi_current::open_channels() const {
+inline modigliani_base::Real Lua_based_stochastic_multi_current::open_channels() const {
 	return (channelsPtr->NumOpen());
 }
 
 /**  */
 /** No descriptions */
-inline mbase::Real Lua_based_stochastic_multi_current::num_channels_in_state(
-		mbase::Size_t state) const {
+inline modigliani_base::Real Lua_based_stochastic_multi_current::num_channels_in_state(
+		modigliani_base::Size state) const {
 	return (channelsPtr->numChannelsInState(state));
 }
 
-inline mbase::Real Lua_based_stochastic_multi_current::compute_conductance() {
+inline modigliani_base::Real Lua_based_stochastic_multi_current::compute_conductance() {
 	return (Set_conductance(channelsPtr->NumOpen() * conductivity));
 }
 
-inline mbase::Real Lua_based_stochastic_multi_current::ComputeChannelStateTimeConstant() const {
+inline modigliani_base::Real Lua_based_stochastic_multi_current::ComputeChannelStateTimeConstant() const {
 	return (channelsPtr->ComputeChannelStateTimeConstant(voltage));
 }
 
@@ -200,10 +200,10 @@ void Lua_based_stochastic_multi_current::show_param() const {
 			<< _maxConductivity() << std::endl;
 }
 
-mbase::Real Lua_based_stochastic_multi_current::lua_get_ntreal(lua_State* L,
+modigliani_base::Real Lua_based_stochastic_multi_current::lua_get_ntreal(lua_State* L,
 		string name) {
 	lua_getglobal(L, name.c_str());
-	mbase::Real ret = lua_tonumber(L, -1);
+	modigliani_base::Real ret = lua_tonumber(L, -1);
 	lua_pop(L, 1);
 	return (ret);
 }

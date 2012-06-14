@@ -41,28 +41,28 @@ namespace mcore {
 class Multi_current: public Membrane_current {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Multi_current(mbase::Real reversalPotential, // in mV
-			mbase::Real density, // channels per mumeter^2
-			mbase::Real area, // in mumeter^2
-			mbase::Real conductivity // in mSiemens per channel
+	Multi_current(modigliani_base::Real reversalPotential, // in mV
+			modigliani_base::Real density, // channels per mumeter^2
+			modigliani_base::Real area, // in mumeter^2
+			modigliani_base::Real conductivity // in mSiemens per channel
 			);
 	Multi_current(const Multi_current & original);
 	Multi_current & operator=(const Multi_current & right);
 	virtual ~Multi_current();
 	/* ***  Methods              ***/
 	/* mementary total conductance */
-	mbase::Real _density() const {
+	modigliani_base::Real _density() const {
 		return (density);
 	}
-	mbase::Real _area() const {
+	modigliani_base::Real _area() const {
 		return (area);
 	}
 	/* conductivity per channel in mSiemens */
-	mbase::Real _conductivity() const {
+	modigliani_base::Real _conductivity() const {
 		return (conductivity);
 	}
 	/* conductivity if all channels open in mSiemens/cm^2, */
-	mbase::Real _maxConductivity() const {
+	modigliani_base::Real _maxConductivity() const {
 		return (density /* num/muMeter^2 */* conductivity /* mSiemens */* 1.0e8 /* muMeter^2/cm^2 */);
 	}
 	/**  */
@@ -72,16 +72,16 @@ public:
 		return (channelsPtr->GillespieStep(voltage));
 	}
 	void UpdateNumChannels() {
-		numChannels = (mbase::Size_t) ceil(density * area);
+		numChannels = (modigliani_base::Size) ceil(density * area);
 	}
-	mbase::Size_t _numChannels() const {
+	modigliani_base::Size _numChannels() const {
 		return (numChannels);
 	}
 	/** Number of total ionic channels */
-	mbase::Real NumChannels() const {
+	modigliani_base::Real NumChannels() const {
 		return (_numChannels());
 	}
-	mbase::Real OpenChannelsRatio() const {
+	modigliani_base::Real OpenChannelsRatio() const {
 		return (open_channels() / NumChannels());
 	}
 // Dangerous: since cached values are not automatically recomputed in derived classes
@@ -96,14 +96,14 @@ public:
 protected:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	static mbase::Uniform_rnd_dist uniformRnd;
-	mbase::Real conductivity; // in mSiemens per channel
-	mbase::Real density; // channels per muMeter^2
+	static modigliani_base::Uniform_rnd_dist uniformRnd;
+	modigliani_base::Real conductivity; // in mSiemens per channel
+	modigliani_base::Real density; // channels per muMeter^2
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	mbase::Size_t numChannels;
-	mbase::Real area; // in mumeter^2
+	modigliani_base::Size numChannels;
+	modigliani_base::Real area; // in mumeter^2
 	bool ratesComputed;
 
 };

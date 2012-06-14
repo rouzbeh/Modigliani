@@ -27,11 +27,11 @@ using namespace mcore;
 
 /* ***      CONSTRUCTORS	***/
 /** Create a Membrane_current */
-Membrane_current::Membrane_current(mbase::Real newReversalPotential /* in mV */) :
+Membrane_current::Membrane_current(modigliani_base::Real newReversalPotential /* in mV */) :
 		Object() {
 	simulationMode = NTBP_DETERMINISTIC;
 	reversalPotential = newReversalPotential; //in mV
-	current = 0.0; // nanoAmpere
+	current_ = 0.0; // nanoAmpere
 	temperature = 6.3; // SGA values
 	q10 = 2.0; // SGA values
 }

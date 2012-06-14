@@ -17,9 +17,9 @@ std::map<std::string, std::vector<int> > File_based_stochastic_multi_current::op
 /** Create a NTBP_hranvier_sodium_multi_current_o */
 
 File_based_stochastic_multi_current::File_based_stochastic_multi_current(
-		mbase::Real newArea, mbase::Real newDensity,
-		mbase::Real newConductivity, mbase::Real newReversalPotential,
-		mbase::Real newTimeStep, mbase::Real newTemperature,
+		modigliani_base::Real newArea, modigliani_base::Real newDensity,
+		modigliani_base::Real newConductivity, modigliani_base::Real newReversalPotential,
+		modigliani_base::Real newTimeStep, modigliani_base::Real newTemperature,
 		std::string fileName) :
 		Multi_current(newReversalPotential /* in mV */,
 				newDensity /* channels per mu^2 */, newArea /* in mu^2 */,
@@ -135,7 +135,7 @@ void File_based_stochastic_multi_current::load_file(std::string fileName,
  \warning    unknown
  \bug        unknown
  */
-inline mbase::Mreturn File_based_stochastic_multi_current::step_current() {
+inline modigliani_base::ReturnEnum File_based_stochastic_multi_current::step_current() {
 	switch (_simulationMode()) {
 	case NTBP_BINOMIALPOPULATION: {
 		return (channelsPtr->BinomialStep(voltage));
@@ -158,30 +158,30 @@ inline mbase::Mreturn File_based_stochastic_multi_current::step_current() {
 		std::cerr
 				<< "File_based_stochastic_multi_current::StepCurrent - ERROR : Unsupported simulation mode."
 				<< std::endl;
-		return (mbase::M_PARAM_UNSUPPORTED);
+		return (modigliani_base::ReturnEnum::PARAM_UNSUPPORTED);
 		break;
 	}
-	return (mbase::M_FAIL);
+	return (modigliani_base::ReturnEnum::FAIL);
 }
 
 /**  */
 /** No descriptions */
-inline mbase::Real File_based_stochastic_multi_current::open_channels() const {
+inline modigliani_base::Real File_based_stochastic_multi_current::open_channels() const {
 	return (channelsPtr->NumOpen());
 }
 
 /**  */
 /** No descriptions */
-inline mbase::Real File_based_stochastic_multi_current::num_channels_in_state(
-		mbase::Size_t state) const {
+inline modigliani_base::Real File_based_stochastic_multi_current::num_channels_in_state(
+		modigliani_base::Size state) const {
 	return (channelsPtr->numChannelsInState(state));
 }
 
-inline mbase::Real File_based_stochastic_multi_current::compute_conductance() {
+inline modigliani_base::Real File_based_stochastic_multi_current::compute_conductance() {
 	return (Set_conductance(channelsPtr->NumOpen() * conductivity));
 }
 
-inline mbase::Real File_based_stochastic_multi_current::ComputeChannelStateTimeConstant() const {
+inline modigliani_base::Real File_based_stochastic_multi_current::ComputeChannelStateTimeConstant() const {
 	return (channelsPtr->ComputeChannelStateTimeConstant(voltage));
 }
 

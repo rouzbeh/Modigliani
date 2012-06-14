@@ -20,10 +20,10 @@ using namespace std;
 namespace mcore {
 class Lua_based_deterministic_multi_current: public Multi_current {
 public:
-	Lua_based_deterministic_multi_current(mbase::Real newArea,
-			mbase::Real newDensity, mbase::Real newConductivity,
-			mbase::Real reversalPotential, mbase::Real newTimeStep,
-			mbase::Real newTemperature, string fileName);
+	Lua_based_deterministic_multi_current(modigliani_base::Real newArea,
+			modigliani_base::Real newDensity, modigliani_base::Real newConductivity,
+			modigliani_base::Real reversalPotential, modigliani_base::Real newTimeStep,
+			modigliani_base::Real newTemperature, string fileName);
 
 	Lua_based_deterministic_multi_current(
 			const Lua_based_deterministic_multi_current & original);
@@ -33,17 +33,17 @@ public:
 	Lua_based_deterministic_multi_current& operator=(
 			const Lua_based_deterministic_multi_current & right);
 
-	virtual mbase::Mreturn step_current();
-	virtual mbase::Real open_channels() const;
-	virtual mbase::Real compute_conductance();
-	virtual mbase::Real num_channels_in_state(mbase::Size_t state) const;
+	virtual modigliani_base::ReturnEnum step_current();
+	virtual modigliani_base::Real open_channels() const;
+	virtual modigliani_base::Real compute_conductance();
+	virtual modigliani_base::Real num_channels_in_state(modigliani_base::Size state) const;
 	void show_param() const;
 
 	string lua_script;
 private:
-	static mbase::Real lua_get_ntreal(lua_State* L, string name);
-	mbase::Real baseTemp;
-	mbase::Real stepV;
+	static modigliani_base::Real lua_get_ntreal(lua_State* L, string name);
+	modigliani_base::Real baseTemp;
+	modigliani_base::Real stepV;
 	lua_State* L;
 };
 }

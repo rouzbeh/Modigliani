@@ -60,9 +60,9 @@ const int EXIT_V_TOO_HIGH = 1;
 const int EXIT_GRAPHIC_ERROR = 2;
 const int EXIT_IO_ERROR = 3;
 
-mbase::Real /* mum^-2 */
-corrected_channel_density(mbase::Real chDensity /* mum^-2 */,
-		mbase::Real compArea /* mum^-2 */);
+modigliani_base::Real /* mum^-2 */
+corrected_channel_density(modigliani_base::Real chDensity /* mum^-2 */,
+		modigliani_base::Real compArea /* mum^-2 */);
 
 string createOutputFolder(string outputFolder);
 
@@ -100,7 +100,7 @@ mcore::Membrane_compartment_sequence* create_axon(Json::Value config_root,
  */
 Json::Value read_config(string fileName);
 
-std::vector<mbase::Size_t> get_electrods(Json::Value root);
+std::vector<modigliani_base::Size> get_electrods(Json::Value root);
 }
 
 #endif /* _ntbp_auxfunc_h_ */

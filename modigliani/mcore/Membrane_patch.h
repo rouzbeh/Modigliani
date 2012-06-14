@@ -38,22 +38,22 @@ namespace mcore {
 class Membrane_patch: public Membrane_compartment {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Membrane_patch(mbase::Real area /* [muM^2] */, mbase::Real newCM /* muF/cm^2 */);
-	Membrane_patch(const Membrane_patch & original);
-	Membrane_patch & operator=(const Membrane_patch & right);
+	Membrane_patch(modigliani_base::Real area /* [muM^2] */, modigliani_base::Real newCM /* muF/cm^2 */);
+	Membrane_patch(const Membrane_patch & original) = delete;
+	Membrane_patch & operator=(const Membrane_patch & right) = delete;
 	virtual ~Membrane_patch();
 	/* ***  Methods              ***/
-	mbase::Real MembranePotential() const {
-		return (_vM());
+	modigliani_base::Real MembranePotential() const {
+		return (vm());
 	}
 	/** No descriptions */
-	mbase::Mreturn Step();
+	modigliani_base::ReturnEnum Step();
 	/** No descriptions */
-	mbase::Mreturn InitialStep();
+	modigliani_base::ReturnEnum InitialStep();
 	/** Current [nA]  */
-	mbase::Real MembraneCurrent(mbase::Size_t currentIndex) const {
-		M_ASSERT((currentIndex > 0) && (currentIndex-1 < currentVec.size()));
-		return (currentVec[currentIndex - 1]->_current());
+	modigliani_base::Real MembraneCurrent(modigliani_base::Size currentIndex) const {
+		M_ASSERT((currentIndex > 0) && (currentIndex-1 < NumberCurrents()));
+		return (GetCurrent(currentIndex)->current());
 	}
 	/* in muMeter^2 */
 

@@ -39,15 +39,15 @@ namespace mcore {
 class Custom_cylindrical_compartment: public Cylindrical_compartment {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Custom_cylindrical_compartment(mbase::Real length /* muMeter */,
-			mbase::Real diameter /* muMeter */, mbase::Real cM /* muFarad/cm^2 */,
-			mbase::Real rA /* ohm cm */, mbase::Real newTemperature = 6.3);
+	Custom_cylindrical_compartment(modigliani_base::Real length /* muMeter */,
+			modigliani_base::Real diameter /* muMeter */, modigliani_base::Real cM /* muFarad/cm^2 */,
+			modigliani_base::Real rA /* ohm cm */, modigliani_base::Real newTemperature = 6.3);
 	Custom_cylindrical_compartment(
 			const Custom_cylindrical_compartment & original);
 	Custom_cylindrical_compartment & operator=(
 			const Custom_cylindrical_compartment & right);
-	mbase::Real getVoltage();
-	void setVoltage(mbase::Real newVoltage);
+	modigliani_base::Real getVoltage();
+	void setVoltage(modigliani_base::Real newVoltage);
 	virtual ~Custom_cylindrical_compartment();
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
@@ -57,7 +57,7 @@ protected:
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	mbase::Real voltage;
+	modigliani_base::Real voltage;
 };
 }
 #endif /* _ntbp_custom_cylindrical_compartment.h_ */ 

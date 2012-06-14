@@ -25,27 +25,27 @@
 
 using namespace mcore;
 
-mbase::Real NTBP_temperature_rate_relation(mbase::Real temp, mbase::Real q10) {
+modigliani_base::Real NTBP_temperature_rate_relation(modigliani_base::Real temp, modigliani_base::Real q10) {
 	return (pow(q10, (temp - NTBP_STD_TEMPERATURE) / 10.0));
 }
 
-mbase::Real NTBP_temperature_rate_relation(mbase::Real temp,
-		mbase::Real baseTemp, mbase::Real q10) {
+modigliani_base::Real NTBP_temperature_rate_relation(modigliani_base::Real temp,
+		modigliani_base::Real baseTemp, modigliani_base::Real q10) {
 	return (pow(q10, (temp - baseTemp) / 10.0));
 }
 
 /** Compute length constant in muMeter */
-mbase::Real NTBP_length_constant_passive_cable(mbase::Real diameter /* muM */,
-		mbase::Real rAxoplasmic /* Ohm cm */,
-		mbase::Real gLeak /* mSiemens/cm^2 */) {
+modigliani_base::Real NTBP_length_constant_passive_cable(modigliani_base::Real diameter /* muM */,
+		modigliani_base::Real rAxoplasmic /* Ohm cm */,
+		modigliani_base::Real gLeak /* mSiemens/cm^2 */) {
 	return (1.0e6 /* muMeter/m */
 			* sqrt(
 					1.0e-5 /*  m/muMeter/ ((mSiemens/cm^2) Ohm cm) */* diameter /* muMeter */
 							/ (gLeak * rAxoplasmic * 4.0)));
 }
 
-mbase::Real Object::timeStep = NTBP_TIMESTEP; //in msec
-mbase::Real Object::suggestedTimeStep = NTBP_TIMESTEP; //in msec
+modigliani_base::Real Object::timeStep = NTBP_TIMESTEP; //in msec
+modigliani_base::Real Object::suggestedTimeStep = NTBP_TIMESTEP; //in msec
 
 /* ***      CONSTRUCTORS	***/
 /** Create a Object */
@@ -56,7 +56,7 @@ Object::Object() {
 
 /* ***      COPY AND ASSIGNMENT	***/
 Object::Object(const Object & original) :
-		mbase::Obj() {
+		modigliani_base::Obj() {
 	baseTimeStep = original.baseTimeStep;
 }
 

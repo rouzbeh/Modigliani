@@ -28,30 +28,10 @@ using namespace mcore;
 
 /* ***      CONSTRUCTORS	***/
 /** Create a Membrane_patch */
-Membrane_patch::Membrane_patch(mbase::Real newArea /* [muM^2] */,
-		mbase::Real newCM /* muF/cm^2 */) :
+Membrane_patch::Membrane_patch(modigliani_base::Real newArea /* [muM^2] */,
+		modigliani_base::Real newCM /* muF/cm^2 */) :
 		Membrane_compartment(newArea) {
-	Set_cM(newCM);
-}
-
-/* ***      COPY AND ASSIGNMENT	***/
-Membrane_patch::Membrane_patch(const Membrane_patch & original) :
-		Membrane_compartment(original) {
-	std::cerr
-			<< "Membrane_patch::operator= - Error : Copy operator not defined. Undefined behaviour."
-			<< std::endl;
-	// add assignment code here
-}
-
-Membrane_patch&
-Membrane_patch::operator=(const Membrane_patch & right) {
-	if (this == &right)
-		return (*this); // Gracefully handle self assignment
-	// add assignment code here
-	std::cerr
-			<< "Membrane_patch::operator= - Error : Assignment operator not defined. Undefined behaviour."
-			<< std::endl;
-	return (*this);
+	SetCM(newCM);
 }
 
 /* ***      DESTRUCTOR		***/
@@ -78,14 +58,14 @@ Membrane_patch::~Membrane_patch() {
  \warning    unknown
  \bug        unknown
  */
-inline mbase::Mreturn Membrane_patch::Step() {
+inline modigliani_base::ReturnEnum Membrane_patch::Step() {
 	/*       [mV] == [10^-3 ms nA /muF] */
-	mbase::Real deltaV = 1e-3 /* mV/muV */* _timeStep()
+	modigliani_base::Real deltaV = 1e-3 /* mV/muV */* _timeStep()
 			* CompartmentMembraneNetCurrent()
 			/ CompartmentMembraneCapacitance();
-	vM = vM + deltaV;
-	Membrane_compartment::step(vM);
-	return (mbase::M_SUCCESS);
+	set_vm(vm() + deltaV);
+	Membrane_compartment::step(vm());
+	return (modigliani_base::ReturnEnum::SUCCESS);
 }
 
 /** No descriptions */
@@ -95,7 +75,7 @@ inline mbase::Mreturn Membrane_patch::Step() {
  \warning    unknown
  \bug        unknown
  */
-mbase::Mreturn Membrane_patch::InitialStep() {
+modigliani_base::ReturnEnum Membrane_patch::InitialStep() {
 	update_timeStep(_timeStep() / 2.0);
 	StepNTBP();
 	Step();
@@ -105,7 +85,7 @@ mbase::Mreturn Membrane_patch::InitialStep() {
 	std::cerr
 			<< "NTBP_membrane_compartment_sequence_o::InitialStep() - ERROR : not correctly implemented ? untested."
 			<< std::endl;
-	return (mbase::M_SUCCESS);
+	return (modigliani_base::ReturnEnum::SUCCESS);
 }
 
 /* ***  PROTECTED                         ***   */

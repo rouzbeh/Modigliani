@@ -71,9 +71,9 @@ int main(int argc, char* argv[]) {
 		exit(2);
 	}
 
-	mbase::Histogram histA(lowA, highA, numBinsA);
-	mbase::Histogram histB(lowB, highB, numBinsB);
-	mbase::Two_dim_histogram histJoint(numBinsA, lowA, highA, numBinsB, lowB, highB);
+	modigliani_base::Histogram histA(lowA, highA, numBinsA);
+	modigliani_base::Histogram histB(lowB, highB, numBinsB);
+	modigliani_base::Two_dim_histogram histJoint(numBinsA, lowA, highA, numBinsB, lowB, highB);
 
 	int rows = 0;
 	while (file.eof() == 0 && rows <= numRows) {

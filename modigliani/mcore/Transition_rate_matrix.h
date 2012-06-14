@@ -14,27 +14,27 @@
 namespace mcore {
 class Transition_rate_matrix {
 public:
-	Transition_rate_matrix(mbase::Size_t numNewStates, mbase::Real min,
-			mbase::Real max, mbase::Real step);
+	Transition_rate_matrix(modigliani_base::Size numNewStates, modigliani_base::Real min,
+			modigliani_base::Real max, modigliani_base::Real step);
 	virtual ~Transition_rate_matrix();
-	void setTransitionProbability(mbase::Real voltage, mbase::Size_t start,
-			mbase::Size_t stop, mbase::Real probability);
-	void setTransitionProbability(mbase::Size_t index, mbase::Size_t start,
-			mbase::Size_t stop, mbase::Real probability);
-	mbase::Real getTransitionProbability(mbase::Real voltage,
-			mbase::Size_t start, mbase::Size_t stop);
-	mbase::Real getTransitionProbability(mbase::Size_t index,
-			mbase::Size_t start, mbase::Size_t stop);
-	mbase::Size_t get_index(mbase::Real voltage);
+	void setTransitionProbability(modigliani_base::Real voltage, modigliani_base::Size start,
+			modigliani_base::Size stop, modigliani_base::Real probability);
+	void setTransitionProbability(modigliani_base::Size index, modigliani_base::Size start,
+			modigliani_base::Size stop, modigliani_base::Real probability);
+	modigliani_base::Real getTransitionProbability(modigliani_base::Real voltage,
+			modigliani_base::Size start, modigliani_base::Size stop);
+	modigliani_base::Real getTransitionProbability(modigliani_base::Size index,
+			modigliani_base::Size start, modigliani_base::Size stop);
+	modigliani_base::Size get_index(modigliani_base::Real voltage);
 private:
 	//typedef boost::multi_array<double, 3> matrix_array_type;
 	//typedef blitz::Array<double, 3> matrix_array_type;
-	typedef mbase::Real* matrix_array_type;
+	typedef modigliani_base::Real* matrix_array_type;
 	matrix_array_type _probMatrices;
 
-	mbase::Real min;
-	mbase::Real max;
-	mbase::Real step;
+	modigliani_base::Real min;
+	modigliani_base::Real max;
+	modigliani_base::Real step;
 	int num_states;
 };
 }

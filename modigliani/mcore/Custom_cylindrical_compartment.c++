@@ -29,11 +29,11 @@ using namespace mcore;
 /* ***      CONSTRUCTORS	***/
 /** Create a Custom_cylindrical_compartment */
 Custom_cylindrical_compartment::Custom_cylindrical_compartment(
-		mbase::Real newLength, mbase::Real newDiameter, mbase::Real newCm,
-		mbase::Real newRa, mbase::Real newTemperature) :
+		modigliani_base::Real newLength, modigliani_base::Real newDiameter, modigliani_base::Real newCm,
+		modigliani_base::Real newRa, modigliani_base::Real newTemperature) :
 		Cylindrical_compartment(newLength, newDiameter, newTemperature), voltage(
 				0) {
-	Set_cM(newCm);
+	SetCM(newCm);
 	Set_rA(newRa);
 }
 
@@ -70,11 +70,11 @@ Custom_cylindrical_compartment::~Custom_cylindrical_compartment() {
  }
  */
 
-mbase::Real Custom_cylindrical_compartment::getVoltage() {
+modigliani_base::Real Custom_cylindrical_compartment::getVoltage() {
 	return (voltage);
 }
 
-void Custom_cylindrical_compartment::setVoltage(mbase::Real newVoltage) {
+void Custom_cylindrical_compartment::setVoltage(modigliani_base::Real newVoltage) {
 	voltage = newVoltage;
 }
 /* ***  PROTECTED                         ***   */

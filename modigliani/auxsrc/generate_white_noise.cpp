@@ -18,7 +18,7 @@
 int
 main(int argc, char* argv[])
 {
-    mbase::Gaussian_rnd_dist rnd;
+    modigliani_base::Gaussian_rnd_dist rnd;
     float value = 0.0;
 
 
@@ -30,7 +30,7 @@ main(int argc, char* argv[])
         exit(1);
     }
     std::string filename = argv[1];
-    mbase::Size_t numNumbers = atoi ( argv[2]);
+    modigliani_base::Size numNumbers = atoi ( argv[2]);
 
 
     std::ofstream file (filename.c_str(), std::ios::binary);
@@ -40,9 +40,9 @@ main(int argc, char* argv[])
     }
 
 
-    mbase::Sequential_statistics stats;
+    modigliani_base::Sequential_statistics stats;
 
-    for (mbase::Size_t ll = 0; ll < numNumbers; ll++) {
+    for (modigliani_base::Size ll = 0; ll < numNumbers; ll++) {
         value = float(rnd.RndVal());
         stats.Add(value);
         file.write( reinterpret_cast<char*>(&value), sizeof(float) );

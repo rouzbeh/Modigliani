@@ -25,14 +25,14 @@
 
 using namespace std;
 
-mbase::Real mcore::corrected_channel_density(mbase::Real chDensity,
-		mbase::Real compArea) {
-	mbase::Real chPerCompartment = compArea * chDensity;
-	mbase::Real pChFloor = (ceil(chPerCompartment) - chPerCompartment);
+modigliani_base::Real mcore::corrected_channel_density(modigliani_base::Real chDensity,
+		modigliani_base::Real compArea) {
+	modigliani_base::Real chPerCompartment = compArea * chDensity;
+	modigliani_base::Real pChFloor = (ceil(chPerCompartment) - chPerCompartment);
 
-	mbase::Uniform_rnd_dist uniRnd;
+	modigliani_base::Uniform_rnd_dist uniRnd;
 	/* compute number of channels, such that average density is achieved */
-	mbase::Real indChDensity = (
+	modigliani_base::Real indChDensity = (
 			uniRnd.RndVal() > pChFloor ?
 					ceil(chPerCompartment) / compArea :
 					floor(chPerCompartment) / compArea);
@@ -97,17 +97,17 @@ mcore::Custom_cylindrical_compartment* mcore::create_compartment(Json::Value con
 
 		if ("leak" == current["type"].asString()) {
 			tmpPtr->AttachCurrent(
-					new Leak_current(tmpPtr->_area(),
+					new Leak_current(tmpPtr->area(),
 							current["GLeak"].asDouble(),
 							config_root["eLeak"].asDouble()), NTBP_LEAK);
 			continue;
 		}
 
 		if ("file" == current["type"].asString()) {
-			mbase::Real indDensity = corrected_channel_density(
-					current["chDen"].asDouble(), tmpPtr->_area());
+			modigliani_base::Real indDensity = corrected_channel_density(
+					current["chDen"].asDouble(), tmpPtr->area());
 			File_based_stochastic_multi_current * file_current =
-					new File_based_stochastic_multi_current(tmpPtr->_area(),
+					new File_based_stochastic_multi_current(tmpPtr->area(),
 							(randomise_densities ?
 									indDensity : current["chDen"].asDouble()) /* mum^-2 */,
 							current["chCond"].asDouble() * 1e-9 /* pS */,
@@ -127,7 +127,7 @@ mcore::Custom_cylindrical_compartment* mcore::create_compartment(Json::Value con
 			if (1 == current["chAlg"].asInt()) {
 				Lua_based_deterministic_multi_current * lua_current =
 						new Lua_based_deterministic_multi_current(
-								tmpPtr->_area(),
+								tmpPtr->area(),
 								current["chDen"].asDouble() /* mum^-2 */,
 								current["chCond"].asDouble() * 1e-9 /* pS */,
 								current["chRevPot"].asDouble() /* mV */,
@@ -139,10 +139,10 @@ mcore::Custom_cylindrical_compartment* mcore::create_compartment(Json::Value con
 				continue;
 			} else if (4 == current["chAlg"].asInt()
 					|| 2 == current["chAlg"].asInt()) {
-				mbase::Real indDensity = corrected_channel_density(
-						current["chDen"].asDouble(), tmpPtr->_area());
+				modigliani_base::Real indDensity = corrected_channel_density(
+						current["chDen"].asDouble(), tmpPtr->area());
 				Lua_based_stochastic_multi_current * lua_current =
-						new Lua_based_stochastic_multi_current(tmpPtr->_area(),
+						new Lua_based_stochastic_multi_current(tmpPtr->area(),
 								(randomise_densities ?
 										indDensity : current["chDen"].asDouble()) /* mum^-2 */,
 								current["chCond"].asDouble() * 1e-9 /* pS */,
@@ -275,8 +275,8 @@ Json::Value mcore::read_config(string fileName) {
 }
 
 
-std::vector<mbase::Size_t> mcore::get_electrods(Json::Value root) {
-	auto outvec = std::vector<mbase::Size_t>(100);
+std::vector<modigliani_base::Size> mcore::get_electrods(Json::Value root) {
+	auto outvec = std::vector<modigliani_base::Size>(100);
 	string lua_script = root["electrods_lua"].asString();
 	lua_State* L = luaL_newstate();
 	luaL_openlibs(L);
