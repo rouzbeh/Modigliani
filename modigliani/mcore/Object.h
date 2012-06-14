@@ -68,14 +68,14 @@ enum NTBPdelayedPotassiumRectifierType {
 	NTBP_FROG_MUSCLE // frog skeletal muscle by Standen et al. (1985)
 };
 
-const mbase::Real NTBP_STD_TEMPERATURE = 6.3; // Celsius (NOT TO BE CHANGED)
+const modigliani_base::Real NTBP_STD_TEMPERATURE = 6.3; // Celsius (NOT TO BE CHANGED)
 
-mbase::Real NTBP_temperature_rate_relation(mbase::Real temp /* C */, mbase::Real q10);
-mbase::Real NTBP_temperature_rate_relation(mbase::Real temp /* C */,
-		mbase::Real baseTemp /* C */, mbase::Real q10);
+modigliani_base::Real NTBP_temperature_rate_relation(modigliani_base::Real temp /* C */, modigliani_base::Real q10);
+modigliani_base::Real NTBP_temperature_rate_relation(modigliani_base::Real temp /* C */,
+		modigliani_base::Real baseTemp /* C */, modigliani_base::Real q10);
 /** Compute length constant in muMeter */
-mbase::Real NTBP_length_constant_passive_cable(mbase::Real diameter /* mu */,
-		mbase::Real rAxoplasmic /* Ohm cm */, mbase::Real gLeak /* mSiemens/cm^2 */);
+modigliani_base::Real NTBP_length_constant_passive_cable(modigliani_base::Real diameter /* mu */,
+		modigliani_base::Real rAxoplasmic /* Ohm cm */, modigliani_base::Real gLeak /* mSiemens/cm^2 */);
 
 /** @short Object class
  \bug unknown
@@ -85,7 +85,7 @@ mbase::Real NTBP_length_constant_passive_cable(mbase::Real diameter /* mu */,
 
 #define NTBP_DEBUG 1
 namespace mcore {
-class Object: public mbase::Obj {
+class Object: public modigliani_base::Obj {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
 	Object();
@@ -93,7 +93,7 @@ public:
 	Object & operator=(const Object & right);
 	virtual ~Object();
 	/* ***  Methods              ***/
-	mbase::Real _timeStep() const {
+	modigliani_base::Real _timeStep() const {
 		return (timeStep);
 	}
 	/** @short  update of explicitly time dependent variables using a deltaT = timeStep, NO update
@@ -103,27 +103,27 @@ public:
 	 \warning    indirectly time dependent variables NOT updated
 	 \bug        unknown
 	 */
-	mbase::Real update_timeStep(mbase::Real newSuggestedTimeStep) { /* if (suggestedTimeStep > newSuggestedTimeStep) */
+	modigliani_base::Real update_timeStep(modigliani_base::Real newSuggestedTimeStep) { /* if (suggestedTimeStep > newSuggestedTimeStep) */
 		suggestedTimeStep = newSuggestedTimeStep;
 		return (newSuggestedTimeStep);
 	}
-	virtual mbase::Mreturn step() {
+	virtual modigliani_base::ReturnEnum step() {
 		std::cerr
 				<< "Object:Step() - Warning : Non-overriden base method () called by derived class."
 				<< std::endl;
-		return (mbase::M_NOT_IMPLEMENTED);
+		return (modigliani_base::ReturnEnum::NOT_IMPLEMENTED);
 	}
-	mbase::Mreturn StepNTBP() {
+	modigliani_base::ReturnEnum StepNTBP() {
 		timeStep = suggestedTimeStep;
-		return (mbase::M_SUCCESS);
+		return (modigliani_base::ReturnEnum::SUCCESS);
 	}
-	mbase::Real _timeStep() {
+	modigliani_base::Real _timeStep() {
 		return (timeStep);
 	}
-	mbase::Real _baseTimeStep() {
+	modigliani_base::Real _baseTimeStep() {
 		return (baseTimeStep);
 	}
-	void setTimeStep(mbase::Real newTimeStep) {
+	void setTimeStep(modigliani_base::Real newTimeStep) {
 		timeStep = newTimeStep;
 	}
 	/* ***  Data                 ***/
@@ -133,9 +133,9 @@ protected:
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	mbase::Real baseTimeStep; // time step size in msec;
-	static mbase::Real timeStep; // time step size in msec;
-	static mbase::Real suggestedTimeStep; // time step size in msec;
+	modigliani_base::Real baseTimeStep; // time step size in msec;
+	static modigliani_base::Real timeStep; // time step size in msec;
+	static modigliani_base::Real suggestedTimeStep; // time step size in msec;
 };
 }
 #endif /* _Object.h_ */ 

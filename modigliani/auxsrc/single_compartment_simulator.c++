@@ -33,7 +33,7 @@
  * @param filename
  * @return Status
  */
-int simulate(string fileName) {
+int Simulate(string fileName) {
 	Json::Value config_root = mcore::read_config(fileName);
 	string timedOutputFolder;
 
@@ -77,7 +77,7 @@ int simulate(string fileName) {
 	}
 
 	std::vector<float> inputData(1000000);
-	mbase::Size_t index = 0;
+	modigliani_base::Size index = 0;
 	while (dataFile.good()) {
 		if (index < inputData.size()) {
 			char tmp[100];
@@ -91,7 +91,7 @@ int simulate(string fileName) {
 	dataFile.close();
 
 	// Trials loop
-	for (mbase::Size_t lTrials = 0;
+	for (modigliani_base::Size lTrials = 0;
 			lTrials < config_root["simulation_parameters"]["numTrials"].asUInt();
 			lTrials++) {
 		/* Model setup */
@@ -105,13 +105,13 @@ int simulate(string fileName) {
 		// SIMULATION ITERATION LOOP
 		std::cerr << "MainLoop started" << std::endl;
 		float timeVar = 0;
-		mbase::Real inpCurrent = 0.0;
+		modigliani_base::Real inpCurrent = 0.0;
 
-		mbase::Uniform_rnd_dist uniformRnd;
+		modigliani_base::Uniform_rnd_dist uniformRnd;
 
-		mbase::Real timeInMS = 0;
+		modigliani_base::Real timeInMS = 0;
 		int dataRead = 0;
-		for (mbase::Size_t lt = 0;
+		for (modigliani_base::Size lt = 0;
 				lt < config_root["simulation_parameters"]["numIter"].asUInt();
 				lt++) {
 			timeInMS += oModel->_timeStep();
@@ -119,22 +119,22 @@ int simulate(string fileName) {
 			// Write number of columns
 			if (config_root["simulation_parameters"]["sampN"].asInt() > 0
 					&& lt == 0 && lTrials == 0) {
-				mbase::Size_t number_of_currents = oModel->currentVec.size()
+				modigliani_base::Size number_of_currents = oModel->NumberCurrents()
 						+ 1;
 				pot_current_file->write(
 						reinterpret_cast<char*>(&number_of_currents),
-						sizeof(mbase::Size_t));
+						sizeof(modigliani_base::Size));
 			}
 			/* the "sampling ratio" used for "measurement" to disk */
 			if (config_root["simulation_parameters"]["sampN"].asInt() > 0
 					&& lt
 							% config_root["simulation_parameters"]["sampN"].asInt()
 							== 0) {
-				mbase::Size_t counter = 0;
-				mbase::Size_t number_of_currents = oModel->currentVec.size();
+				modigliani_base::Size counter = 0;
+				modigliani_base::Size number_of_currents = oModel->NumberCurrents();
 				float data[1 + number_of_currents];
-				data[0] = oModel->_vM();
-				for (mbase::Size_t ll = 1; ll - 1 < number_of_currents; ++ll) {
+				data[0] = oModel->vm();
+				for (modigliani_base::Size ll = 1; ll - 1 < number_of_currents; ++ll) {
 					data[ll] = oModel->AttachedCurrent(ll);
 				}
 				pot_current_file->write(reinterpret_cast<char*>(data),
@@ -153,7 +153,7 @@ int simulate(string fileName) {
 			}
 			oModel->InjectCurrent(inpCurrent);
 
-			oModel->step(oModel->_vM());
+			oModel->step(oModel->vm());
 		}
 
 		delete oModel;
@@ -167,5 +167,5 @@ int simulate(string fileName) {
 }
 
 int main(int argc, char* argv[]) {
-	return (simulate(argv[2]));
+	return (Simulate(argv[2]));
 }

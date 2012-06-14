@@ -1,4 +1,4 @@
-SUBDIRS = mbase mcore auxsrc 
+SUBDIRS = modigliani_base mcore auxsrc 
 # set the include path found by configure
 INCLUDES= $(all_includes)
  

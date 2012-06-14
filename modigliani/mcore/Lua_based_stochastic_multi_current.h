@@ -22,27 +22,27 @@ using namespace std;
 namespace mcore {
 class Lua_based_stochastic_multi_current: public Multi_current {
 public:
-	Lua_based_stochastic_multi_current(mbase::Real newArea,
-			mbase::Real newDensity, mbase::Real newConductivity,
-			mbase::Real reversalPotential, mbase::Real newTimeStep,
-			mbase::Real newTemperature, string fileName);
+	Lua_based_stochastic_multi_current(modigliani_base::Real newArea,
+			modigliani_base::Real newDensity, modigliani_base::Real newConductivity,
+			modigliani_base::Real reversalPotential, modigliani_base::Real newTimeStep,
+			modigliani_base::Real newTemperature, string fileName);
 	virtual ~Lua_based_stochastic_multi_current();
 
 	static void load_file(string fileName, double temperature,
 			double time_step);
 	static map<string, Transition_rate_matrix*> probability_matrix_map;
-	static map<string, mbase::Size_t> number_of_states_map;
+	static map<string, modigliani_base::Size> number_of_states_map;
 	static map<string, double> base_temperature_map;
 	static map<string, std::vector<int> > open_states_map;
-	mbase::Real num_channels_in_state(mbase::Size_t state) const;
-	mbase::Real ComputeChannelStateTimeConstant() const;
+	modigliani_base::Real num_channels_in_state(modigliani_base::Size state) const;
+	modigliani_base::Real ComputeChannelStateTimeConstant() const;
 
-	virtual mbase::Mreturn step_current();
-	virtual mbase::Real open_channels() const;
-	virtual mbase::Real compute_conductance();
+	virtual modigliani_base::ReturnEnum step_current();
+	virtual modigliani_base::Real open_channels() const;
+	virtual modigliani_base::Real compute_conductance();
 	void show_param() const;
 	void printProb(string fileName) {
-		for (mbase::Real v = 20; v < 130; v += 0.005) {
+		for (modigliani_base::Real v = 20; v < 130; v += 0.005) {
 			cout
 					<< probability_matrix_map[fileName]->getTransitionProbability(
 							v, 2, 1) << std::endl;
@@ -52,10 +52,10 @@ public:
 	Ion_channels * channelsPtr;
 
 private:
-	static mbase::Real lua_get_ntreal(lua_State* L, string name);
+	static modigliani_base::Real lua_get_ntreal(lua_State* L, string name);
 	static bool initTableLookUp;
 	static std::vector<string> initialised_probability_matrices;
-	mbase::Real baseTemp;
+	modigliani_base::Real baseTemp;
 
 };
 }

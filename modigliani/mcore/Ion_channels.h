@@ -43,33 +43,33 @@ namespace mcore{
 class Ion_channels: public Object {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
-	Ion_channels(mbase::Size_t numNewChannels, mbase::Size_t numNewStates, Transition_rate_matrix* probMatrix, mbase::Real newTimeStep=0.1);
+	Ion_channels(modigliani_base::Size numNewChannels, modigliani_base::Size numNewStates, Transition_rate_matrix* probMatrix, modigliani_base::Real newTimeStep=0.1);
 	Ion_channels(const Ion_channels & original);
 	Ion_channels & operator=(const Ion_channels & right);
 	virtual ~Ion_channels();
 	/* ***  Methods              ***/
-	mbase::Size_t _numChannels() const {
+	modigliani_base::Size _numChannels() const {
 		return (numChannels);
 	}
-	mbase::Size_t _numStates() const {
+	modigliani_base::Size _numStates() const {
 		return (numStates);
 	}
-	mbase::Mreturn GillespieStep(mbase::Real voltage);
-	void setAsOpenState(mbase::Size_t newOpenState);
-	mbase::Mreturn BinomialStep(mbase::Real voltage);
-	mbase::Mreturn DeterministicStep(mbase::Real voltage);
-	mbase::Mreturn step(mbase::Real voltage);
+	modigliani_base::ReturnEnum GillespieStep(modigliani_base::Real voltage);
+	void setAsOpenState(modigliani_base::Size newOpenState);
+	modigliani_base::ReturnEnum BinomialStep(modigliani_base::Real voltage);
+	modigliani_base::ReturnEnum DeterministicStep(modigliani_base::Real voltage);
+	modigliani_base::ReturnEnum step(modigliani_base::Real voltage);
 	void ShowStates() const;
-	mbase::Size_t NumOpen() const;
-	mbase::Size_t numChannelsInState(mbase::Size_t state) const {
+	modigliani_base::Size NumOpen() const;
+	modigliani_base::Size numChannelsInState(modigliani_base::Size state) const {
 		return (stateCounterVec[state]);
 	}
-	mbase::Size_t NumClosed() const {
+	modigliani_base::Size NumClosed() const {
 		return (_numChannels() - NumOpen());
 	}
-	virtual mbase::Mreturn SteadyStateDistribution(mbase::Real voltage);
+	virtual modigliani_base::ReturnEnum SteadyStateDistribution(modigliani_base::Real voltage);
 	/** Sum of escape rates from current state [1/s] */
-	virtual mbase::Real ComputeChannelStateTimeConstant(mbase::Real voltage) const;
+	virtual modigliani_base::Real ComputeChannelStateTimeConstant(modigliani_base::Real voltage) const;
 	/**  */
 	void setRatesComputed(bool newValue) {
 		ratesComputed = newValue;
@@ -83,19 +83,19 @@ protected:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
 	// TODO remove this
-	std::vector<mbase::Real> statePersistenceProbVec;
-	std::vector<mbase::int_t> stateCounterVec;
-	static mbase::Uniform_rnd_dist uniformRnd; // [0,1] random number generation
-	static mbase::Binomial_rnd_dist binomRnd;
+	std::vector<modigliani_base::Real> statePersistenceProbVec;
+	std::vector<int> stateCounterVec;
+	static modigliani_base::Uniform_rnd_dist uniformRnd; // [0,1] random number generation
+	static modigliani_base::Binomial_rnd_dist binomRnd;
 
 private:
 	/* ***  Methods              ***/
-	mbase::Mreturn ComputeGillespieStep(mbase::Size_t channelStateId, mbase::Real voltage);
+	modigliani_base::ReturnEnum ComputeGillespieStep(modigliani_base::Size channelStateId, modigliani_base::Real voltage);
 	/* ***  Data                 ***/
 	Transition_rate_matrix* _probMatrix;
-	std::vector<mbase::Size_t> openStates;
-	mbase::Size_t numStates;
-	mbase::Size_t numChannels;
+	std::vector<modigliani_base::Size> openStates;
+	modigliani_base::Size numStates;
+	modigliani_base::Size numChannels;
 	bool ratesComputed;
 };
 }

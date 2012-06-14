@@ -26,11 +26,11 @@ using namespace mcore;
 
 /* ***      CONSTRUCTORS	***/
 /** Create a Synaptic_background */
-Synaptic_background::Synaptic_background(mbase::Real newAvgSynBkCond, /* in nS */
-mbase::Real newESynBk, /* Synaptic background reversal potential mV */
-mbase::Real __attribute__((unused)) newSynSigma, /* Synaptic noise "diffusion" nS */
-mbase::Real newSynTau, /* Synaptic time constant ms */
-mbase::Real newVBase /* in mV */
+Synaptic_background::Synaptic_background(modigliani_base::Real newAvgSynBkCond, /* in nS */
+modigliani_base::Real newESynBk, /* Synaptic background reversal potential mV */
+modigliani_base::Real __attribute__((unused)) newSynSigma, /* Synaptic noise "diffusion" nS */
+modigliani_base::Real newSynTau, /* Synaptic time constant ms */
+modigliani_base::Real newVBase /* in mV */
 ) :
 		Membrane_current(newESynBk - newVBase) {
 	avgSynBkCond = newAvgSynBkCond;
@@ -69,18 +69,18 @@ Synaptic_background::~Synaptic_background() {
  \bug        unknown
  */
 
-mbase::Real Synaptic_background::compute_conductance() {
+modigliani_base::Real Synaptic_background::compute_conductance() {
 	return (Set_conductance(0.001 /* mS/nS */* gT /* nS */));
 }
 
-mbase::Mreturn Synaptic_background::step_current() {
+modigliani_base::ReturnEnum Synaptic_background::step_current() {
 	amplitude = sqrt(
 			(synVar * synTau / 2.0) * (1.0 - exp(-2.0 * _timeStep() / synTau)));
 
 	gT += avgSynBkCond + (gT - avgSynBkCond) * exp(-_timeStep() / synTau)
 			+ amplitude * normRnd.RndVal();
 
-	return (mbase::M_SUCCESS);
+	return (modigliani_base::ReturnEnum::SUCCESS);
 }
 
 /* ***  PROTECTED                         ***   */

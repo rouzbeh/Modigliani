@@ -33,8 +33,8 @@
  * @param filename
  * @return Status
  */
-int simulate(string fileName) {
-	mbase::Size_t numCompartments;
+int Simulate(string fileName) {
+	modigliani_base::Size numCompartments;
 	Json::Value config_root = mcore::read_config(fileName);
 	string timedOutputFolder;
 	// What compartments to save
@@ -67,7 +67,7 @@ int simulate(string fileName) {
 		TimeFile << "% in ms" << std::endl;
 
 		for_each(electrods_vec.begin(), electrods_vec.end(),
-				[&pot_current_files,timedOutputFolder](mbase::Size_t ll) {
+				[&pot_current_files,timedOutputFolder](modigliani_base::Size ll) {
 					pot_current_files.push_back(mcore::openOutputFile(timedOutputFolder, "compartment",
 									ll, ".bin"));
 				});
@@ -88,7 +88,7 @@ int simulate(string fileName) {
 	}
 
 	std::vector<float> inputData(1000000);
-	mbase::Size_t index = 0;
+	modigliani_base::Size index = 0;
 	while (dataFile.good()) {
 		if (index < inputData.size()) {
 			char tmp[100];
@@ -102,7 +102,7 @@ int simulate(string fileName) {
 	dataFile.close();
 
 	/* *** Trials loop *** */
-	for (mbase::Size_t lTrials = 0;
+	for (modigliani_base::Size lTrials = 0;
 			lTrials < config_root["simulation_parameters"]["numTrials"].asUInt();
 			lTrials++) {
 		/* Model setup */
@@ -124,9 +124,9 @@ int simulate(string fileName) {
 		numCompartments = oModel->_numCompartments();
 		log_file << "Total number of compartments(in oModel)"
 				<< numCompartments << std::endl;
-		std::vector<mbase::Real> leakCurrVec(numCompartments);
-		std::vector<mbase::Real> naCurrVec(numCompartments);
-		std::vector<mbase::Real> kCurrVec(numCompartments);
+		std::vector<modigliani_base::Real> leakCurrVec(numCompartments);
+		std::vector<modigliani_base::Real> naCurrVec(numCompartments);
+		std::vector<modigliani_base::Real> kCurrVec(numCompartments);
 
 #ifdef WITH_PLPLOT
 		/* Graphics init */
@@ -144,13 +144,13 @@ int simulate(string fileName) {
 		/* *** SIMULATION ITERATION LOOP *** */
 		std::cerr << "MainLoop started" << std::endl;
 		float timeVar = 0;
-		mbase::Real inpCurrent = 0.0;
+		modigliani_base::Real inpCurrent = 0.0;
 
-		mbase::Uniform_rnd_dist uniformRnd;
+		modigliani_base::Uniform_rnd_dist uniformRnd;
 
-		mbase::Real timeInMS = 0;
+		modigliani_base::Real timeInMS = 0;
 		int dataRead = 0;
-		for (mbase::Size_t lt = 0;
+		for (modigliani_base::Size lt = 0;
 				lt < config_root["simulation_parameters"]["numIter"].asUInt();
 				lt++) {
 			timeInMS += oModel->_timeStep();
@@ -158,22 +158,23 @@ int simulate(string fileName) {
 			// Write number of columns
 			if (config_root["simulation_parameters"]["sampN"].asInt() > 0
 					&& lt == 0 && lTrials == 0) {
-				mbase::Size_t counter = 0;
+				modigliani_base::Size counter = 0;
 				for (auto ci = electrods_vec.begin(); ci != electrods_vec.end();
 						ci++) {
-					mbase::Size_t number_of_currents =
-							oModel->compartmentVec[*ci]->currentVec.size() + 1;
+					// For each current, we write the current and number of open channels
+					modigliani_base::Size number_of_columns =
+							2*oModel->compartmentVec[*ci]->NumberCurrents() + 1;
 					pot_current_files[counter++]->write(
-							reinterpret_cast<char*>(&number_of_currents),
-							sizeof(mbase::Size_t));
+							reinterpret_cast<char*>(&number_of_columns),
+							sizeof(modigliani_base::Size));
 				}
 			}
-			/* the "sampling ratio" used for "measurement" to disk */
+			// the "sampling ratio" used for "measurement" to disk
 			if (config_root["simulation_parameters"]["sampN"].asInt() > 0
 					&& lt
 							% config_root["simulation_parameters"]["sampN"].asInt()
 							== 0) {
-				mbase::Size_t counter = 0;
+				modigliani_base::Size counter = 0;
 				for (auto ci = electrods_vec.begin(); ci != electrods_vec.end();
 						ci++) {
 					oModel->WriteCompartmentData(pot_current_files[counter++],
@@ -185,7 +186,7 @@ int simulate(string fileName) {
 #ifdef WITH_PLPLOT
 			if (config_root["simulation_parameters"]["useVis"].asInt() > 0) {
 				if (lt == 0) {
-					for (mbase::Size_t lc = 1; lc < numCompartments; lc++) {
+					for (modigliani_base::Size lc = 1; lc < numCompartments; lc++) {
 						x[lc] = x[lc - 1]
 								+ oModel->compartmentVec[lc]->_length();
 					}
@@ -195,12 +196,12 @@ int simulate(string fileName) {
 						== 0) {
 					pls->clear();
 					pls->box("abcnt", 0, 0, "anvbct", 0, 0);
-					for (mbase::Size_t ll = 0; ll < oModel->_numCompartments();
+					for (modigliani_base::Size ll = 0; ll < oModel->_numCompartments();
 							ll++) {
-						voltVec[ll] = oModel->compartmentVec[ll]->_vM();
+						voltVec[ll] = oModel->compartmentVec[ll]->vm();
 					}
 					for (auto iv : voltVec) {
-						if (mbase::Misnan(iv)) {
+						if (modigliani_base::Misnan(iv)) {
 							log_file << "ERROR at t=" << timeVar
 									<< " voltage is NaN." << std::endl;
 							std::exit(1);
@@ -246,9 +247,9 @@ int simulate(string fileName) {
 	return (0);
 }
 
-int test() {
-	volatile mbase::Real result = 0;
-	mbase::Binomial_rnd_dist rnd(0.3, 100);
+int Test() {
+	volatile modigliani_base::Real result = 0;
+	modigliani_base::Binomial_rnd_dist rnd(0.3, 100);
 
 //	for (int i=0; i< 100000000; i++){
 //		result = rnd.RndVal();
@@ -263,10 +264,10 @@ int main(int argc, char* argv[]) {
 		exit(1);
 	}
 	if (strcmp(argv[1], "simulate") == 0) {
-		return (simulate(argv[2]));
+		return (Simulate(argv[2]));
 	}
 	if (strcmp(argv[1], "test") == 0) {
-		return (test());
+		return (Test());
 	}
 	return (1);
 }

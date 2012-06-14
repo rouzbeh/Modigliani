@@ -2,9 +2,9 @@
 
 int main()
 {
-    mbase::Ring_buffer <int> test(5);
+    modigliani_base::Ring_buffer <int> test(5);
 
-    mbase::Size_t ll =0;
+    modigliani_base::Size ll =0;
     for (ll= 0; ll < 100; ll++) {
         test.Push(ll);
         test.Show();

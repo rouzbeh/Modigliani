@@ -26,8 +26,8 @@ using namespace mcore;
 
 /* ***      CONSTRUCTORS	***/
 /** Create a Leak_current */
-Leak_current::Leak_current(mbase::Real newArea, mbase::Real newLeakConductance,
-		mbase::Real newReversalPotential /* mV */) :
+Leak_current::Leak_current(modigliani_base::Real newArea, modigliani_base::Real newLeakConductance,
+		modigliani_base::Real newReversalPotential /* mV */) :
 		Membrane_current(newReversalPotential) {
 	M_ASSERT(newLeakConductance >= 0);
 	M_ASSERT(newArea >= 0);
