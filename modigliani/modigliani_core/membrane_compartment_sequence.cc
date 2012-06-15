@@ -314,7 +314,7 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::WriteCompartmentData(
 		std::ostream* file, modigliani_base::Size to_print) const {
 	modigliani_base::Size number_of_currents =
 			compartmentVec[to_print]->NumberCurrents();
-	float data[1 + number_of_currents];
+	float data[1 + 2*number_of_currents];
 	data[0] = compartmentVec[to_print]->vm();
 	for (modigliani_base::Size ll = 1; ll - 1 < number_of_currents; ++ll) {
 		data[ll] = compartmentVec[to_print]->AttachedCurrent(ll);
