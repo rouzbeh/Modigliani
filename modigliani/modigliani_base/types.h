@@ -1,5 +1,5 @@
 /**
- * @file types.h - Type declarations for Modigliani
+ * @file types.h - type declarations for modigliani
  * @author Ali Neishabouri
  * @author Ahmed A. Faisal, 22. 5. 1998(c)
  * @version  1
@@ -20,10 +20,10 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ifndef _mbase_types_h_
-#define _mbase_types_h_
+#ifndef MODIGLIANI_MODIGLIANI_BASE_TYPES_H_
+#define MODIGLIANI_MODIGLIANI_BASE_TYPES_H_
 
-#include <cstring>
+#include <string>
 #include <cmath>
 #include <iostream>
 
@@ -37,28 +37,27 @@ typedef Long Mnum;
 typedef long int Mid;
 
 enum ReturnEnum {
-	SUCCESS,
-	FAIL,
-	NOT_IMPLEMENTED,
-	NOT_DERIVED,
-	OUT_OF_MEMORY,
-	FILE_NOT_FOUND,
-	WRONG_FILE_TYPE,
-	BAD_FILE,
-	EMPTY_FILE,
-	BAD_DATA,
-	READ_FAIL,
-	NO_SPACE_LEFT,
-	WRITE_FAIL,
-	NOT_EXISTING_NODE,
-	NOT_EXISTING_EDGE,
-	PARAM_OUT_OF_RANGE,
-	PARAM_UNSUPPORTED
+  SUCCESS,
+  FAIL,
+  NOT_IMPLEMENTED,
+  NOT_DERIVED,
+  OUT_OF_MEMORY,
+  FILE_NOT_FOUND,
+  WRONG_FILE_TYPE,
+  BAD_FILE,
+  EMPTY_FILE,
+  BAD_DATA,
+  READ_FAIL,
+  NO_SPACE_LEFT,
+  WRITE_FAIL,
+  NOT_EXISTING_NODE,
+  NOT_EXISTING_EDGE,
+  PARAM_OUT_OF_RANGE,
+  PARAM_UNSUPPORTED
 };
 
 inline void Cerr(Size currentTalkLevel, Size talkLevel, std::string message) {
-	if (currentTalkLevel >= talkLevel)
-		std::cerr << message << std::endl;
+  if (currentTalkLevel >= talkLevel) std::cerr << message << std::endl;
 }
 
 #define M_CERR( L , M )  (M_cerr( M_TALKLEVEL, L , M ))
@@ -70,21 +69,19 @@ static const double sqrt_2_ = 1.41421356237309504880;
 #define M_SELF (*this)
 
 template<class T> inline T M_Max(T a, T b) {
-	return (a > b ? a : b);
+  return (a > b ? a : b);
 }
 template<class T> inline T M_Min(T a, T b) {
-	return (a < b ? a : b);
+  return (a < b ? a : b);
 }
 template<class T> inline T M_Abs(T x) {
-	return ((x) >= 0 ? (x) : -(x));
+  return ((x) >= 0 ? (x) : -(x));
 }
 template<class T> inline void M_Swap(T& a, T& b) {
-	T temp = a;
-	a = b;
-	b = temp;
+  T temp = a;
+  a = b;
+  b = temp;
+}
 }
 
-}
-
-#endif /* _TYPES_H_ */
-
+#endif  // MODIGLIANI_MODIGLIANI_BASE_TYPES_H_

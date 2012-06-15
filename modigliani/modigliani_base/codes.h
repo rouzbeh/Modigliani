@@ -31,39 +31,39 @@ namespace modigliani_base {
  *  CLASS CODES
  */
 enum ClassCode {
-	/** M class */
-	MMATH_O = 1,
-	/** M3D classes */
-	M3D_O = 1000000
+    /** M class */
+    MMATH_O = 1,
+    /** M3D classes */
+    M3D_O = 1000000
 };
 
 /** image/bitmap related  CODES */
 enum ImageFileType {
-	AUTO,
-	RAW,
-	M = 1,
-	PPM,
-	BMP,
-	TGA,
-	GIF,
-	JPG,
-	PNG,
-	UNKNOWN
+    AUTO,
+    RAW,
+    M = 1,
+    PPM,
+    BMP,
+    TGA,
+    GIF,
+    JPG,
+    PNG,
+    UNKNOWN
 };
 enum ImageDataFormat {
-	SINGLE_CHANNEL = 1,
-	RGB = 3,
-	RGBA = 4,
-	RED,
-	GREEN,
-	BLUE,
-	ALPHA
+    SINGLE_CHANNEL = 1,
+    RGB = 3,
+    RGBA = 4,
+    RED,
+    GREEN,
+    BLUE,
+    ALPHA
 };
 /* SINGLE-channel corresponds to a single "gray" channel */
 
 /** COUMRY CODES == intl. phone code */
 enum CountryCode {
-	EU = -1, USA = 1, ITALY = 39, UK = 44, GERMANY = 49
+    EU = -1, USA = 1, ITALY = 39, UK = 44, GERMANY = 49
 };
 
 /* *** CURRENCY NAMES *** */
@@ -73,11 +73,11 @@ const std::string ITALY_CURRENCY = "Lira Italiane";
 const std::string GERMANY_CURRENCY = "Deutsche Mark";
 
 enum StockExchangeId {
-	STKEXC_UNDEF = 0,
-	/* USA */
-	STKEXC_NYSE = 1000, STKEXC_NASDAQ = 2000,
-	/* EUROPE */
-	STKEXC_FTSE = 10000, STKEXC_FSE = 20000
+    STKEXC_UNDEF = 0,
+    /* USA */
+    STKEXC_NYSE = 1000, STKEXC_NASDAQ = 2000,
+    /* EUROPE */
+    STKEXC_FTSE = 10000, STKEXC_FSE = 20000
 };
 
 /* *** VALUE OBJ TYPE ID *** */

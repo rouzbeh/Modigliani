@@ -1,6 +1,6 @@
 /**
- * @file physical_constants.h
- * Defintions of physical constants
+ * @file list.cc
+ * General linked list implementation for any type--numerical, pointer or class
  * @author Ahmed A. Faisal, 22. 5. 1998(c)
  * @version  0.1
  * Copyright (C) 1998 Ahmed Aldo Faisal
@@ -21,17 +21,27 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ifndef MODIGLIANI_MODIGLIANI_BASE_PHYSICAL_CONSTANTS_H_
-#define MODIGLIANI_MODIGLIANI_BASE_PHYSICAL_CONSTANTS_H_
+#include "list.h"
+#include <iostream>
 
-#include "modigliani_base/main.h"
+using namespace modigliani_base;
 
-namespace modigliani_base {
-/* Data from the IUPAC 2003 website */
-const Real ZERO_CELSIUS = Real(273.15) /* [K] */;
-const Real ZERO_KELVIN = Real(-273.15) /* [C] */;
-const Real kBoltzmann = Real(1.380658*10e-23);  // [J K^-1]
-const Real PLANCK = Real(6.6260755*10e-34) /* [J s], Planck's constant (h) */;
-const Real kProtonCharge = Real(1.60217733*10e-19);  // [C]
+void pr(const List<int>& list) {
+    Iterator_list<int> it(list);
+    while (!it.at_end()) {
+        std::cout << it.current() << " ";
+        it.next();
+    }
+    std::cout << std::endl;
 }
-#endif  // MODIGLIANI_MODIGLIANI_BASE_PHYSICAL_CONSTANTS_H_
+
+void pr2(List<int> list)
+// to test copy constructor, destructor
+        {
+    Iterator_list<int> it(list);
+    while (!it.at_end()) {
+        std::cout << it.current() << " ";
+        it.next();
+    }
+    std::cout << std::endl;
+}

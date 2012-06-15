@@ -26,9 +26,9 @@
 
 /* M core includes */
 #include "types.h"
-#include "Obj.h"
+#include "obj.h"
 /* M includes */
-#include "MTrand.h"
+#include "mtrand.h"
 /* other includes */
 #include <cmath>
 
