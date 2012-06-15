@@ -1,5 +1,5 @@
 /**
- * @file main.h - main header file for Modigliani sources
+ * @file main.h - main header file for modigliani sources
  * @version:  2
  * Copyright (C) 1998 Ahmed Aldo Faisal
  *

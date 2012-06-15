@@ -1,6 +1,5 @@
 /**
- * @file physical_constants.h
- * Defintions of physical constants
+ * @file stock_value.h - base class for stock exchangable values
  * @author Ahmed A. Faisal, 22. 5. 1998(c)
  * @version  0.1
  * Copyright (C) 1998 Ahmed Aldo Faisal
@@ -21,17 +20,30 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ifndef MODIGLIANI_MODIGLIANI_BASE_PHYSICAL_CONSTANTS_H_
-#define MODIGLIANI_MODIGLIANI_BASE_PHYSICAL_CONSTANTS_H_
+#include "value.h"
+#include "date.h"
 
-#include "modigliani_base/main.h"
+namespace modigliani_base{
 
-namespace modigliani_base {
-/* Data from the IUPAC 2003 website */
-const Real ZERO_CELSIUS = Real(273.15) /* [K] */;
-const Real ZERO_KELVIN = Real(-273.15) /* [C] */;
-const Real kBoltzmann = Real(1.380658*10e-23);  // [J K^-1]
-const Real PLANCK = Real(6.6260755*10e-34) /* [J s], Planck's constant (h) */;
-const Real kProtonCharge = Real(1.60217733*10e-19);  // [C]
+/**
+ *     Bbase class for values traded at a stock exchange
+ */
+class Stock_value : public Value {
+
+private:
+    Mnum stockExchangeId; // where the value is traded
+    Real currentBuyingPrice;
+    Real currentSellingPrice;
+    Date emissionDate;
+
+protected:
+
+public:
+    Stock_value();
+    Stock_value(const Stock_value &);
+    ~Stock_value();
+
+    friend std::ostream & operator<<(std::ostream & os, const Stock_value & self);
+};
 }
-#endif  // MODIGLIANI_MODIGLIANI_BASE_PHYSICAL_CONSTANTS_H_
+
