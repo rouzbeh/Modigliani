@@ -44,10 +44,10 @@ class Lua_based_stochastic_multi_current : public Multi_current {
     static map<string, std::vector<int> > open_states_map;
     modigliani_base::Real num_channels_in_state(modigliani_base::Size state) const;
     modigliani_base::Real ComputeChannelStateTimeConstant() const;
+    virtual modigliani_base::Real ComputeConductance();
 
-    virtual modigliani_base::ReturnEnum step_current();
+    virtual modigliani_base::ReturnEnum StepCurrent();
     virtual modigliani_base::Real open_channels() const;
-    virtual modigliani_base::Real compute_conductance();
     void show_param() const;
     void printProb(string fileName) {
       for (modigliani_base::Real v = 20; v < 130; v += 0.005) {

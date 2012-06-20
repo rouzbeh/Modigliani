@@ -46,7 +46,7 @@ public:
 			modigliani_base::Real __attribute__((__unused__)) _voltage /* in mV */) {
 	}
 	/** in mSiemens */
-	modigliani_base::ReturnEnum step_current() {
+	modigliani_base::ReturnEnum StepCurrent() {
 		return (modigliani_base::ReturnEnum::SUCCESS);
 	}
 	/** compute and return conductance in mSiemens */
@@ -54,7 +54,7 @@ public:
 		Set_conductance(_maxConductivity() * _area() * 1.0e-8);
 	}
 	/** Return leak conductance in mSiemens  (note: function return constant value (leak!) set in constructor) */
-	modigliani_base::Real compute_conductance() {
+	modigliani_base::Real ComputeConductance() {
 		return (_conductance());
 	}
 	modigliani_base::ReturnEnum DeterministicStepCurrent() {

@@ -32,9 +32,9 @@ public:
 	Lua_based_deterministic_multi_current& operator=(
 			const Lua_based_deterministic_multi_current & right);
 
-	virtual modigliani_base::ReturnEnum step_current();
+	virtual modigliani_base::ReturnEnum StepCurrent() override;
 	virtual modigliani_base::Real open_channels() const;
-	virtual modigliani_base::Real compute_conductance();
+	virtual modigliani_base::Real ComputeConductance() override;
 	virtual modigliani_base::Real num_channels_in_state(modigliani_base::Size state) const;
 	void show_param() const;
 

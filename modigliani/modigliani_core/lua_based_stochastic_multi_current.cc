@@ -108,7 +108,7 @@ void Lua_based_stochastic_multi_current::load_file(string fileName,
         lua_call(L, 2, 1);
         double prob_q10 = lua_tonumber(L, -1);
         lua_pop(L, 1);
-        double probability = NTBP_temperature_rate_relation(
+        double probability = TemperatureRateRelation(
             temperature, base_temperature_map[fileName] /* C */, prob_q10)
             * base_probability * time_step;
         probability_matrix_map[fileName]->setTransitionProbability(voltage, i,
@@ -126,21 +126,21 @@ void Lua_based_stochastic_multi_current::load_file(string fileName,
  \warning    unknown
  \bug        unknown
  */
-inline modigliani_base::ReturnEnum Lua_based_stochastic_multi_current::step_current() {
+inline modigliani_base::ReturnEnum Lua_based_stochastic_multi_current::StepCurrent() {
   switch (_simulationMode()) {
-    case NTBP_BINOMIALPOPULATION: {
+    case BINOMIALPOPULATION: {
       return (channelsPtr->BinomialStep(voltage));
     }
       break;
-    case NTBP_SINGLECHANNEL: {
-      return (channelsPtr->step(voltage));
+    case SINGLECHANNEL: {
+      return (channelsPtr->Step(voltage));
     }
       break;
-    case NTBP_GILLESPIE: {
+    case GILLESPIE: {
       return (channelsPtr->GillespieStep(voltage));
     }
       break;
-    case NTBP_DETERMINISTIC: {
+    case DETERMINISTIC: {
       return (channelsPtr->DeterministicStep(voltage));
     }
 
@@ -168,7 +168,7 @@ inline modigliani_base::Real Lua_based_stochastic_multi_current::num_channels_in
   return (channelsPtr->numChannelsInState(state));
 }
 
-inline modigliani_base::Real Lua_based_stochastic_multi_current::compute_conductance() {
+inline modigliani_base::Real Lua_based_stochastic_multi_current::ComputeConductance() {
   return (Set_conductance(channelsPtr->NumOpen() * conductivity));
 }
 

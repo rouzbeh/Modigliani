@@ -48,7 +48,7 @@ class Membrane_compartment : public Object {
     virtual ~Membrane_compartment();
     /* ***  Methods              ***/
     modigliani_base::ReturnEnum AttachCurrent(Membrane_current * currentPtr,
-                                              NTBPcurrentType type);
+                                              NTBPcurrentType type = NTBP_IONIC);
     modigliani_base::ReturnEnum step(modigliani_base::Real newVM /* mV */);
     modigliani_base::ReturnEnum InjectCurrent(
         modigliani_base::Real current /* in nA */);

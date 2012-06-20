@@ -96,7 +96,7 @@ modigliani_base::ReturnEnum Membrane_compartment::step(modigliani_base::Real new
 
 	//for every current
 	for (modigliani_base::Size it = 0; it < current_vec_.size(); it++) {
-		(current_vec_[it])->step(vm_);
+		(current_vec_[it])->Step(vm_);
 	}
 
 	return (modigliani_base::ReturnEnum::SUCCESS);
@@ -140,7 +140,7 @@ modigliani_base::Real Membrane_compartment::WeightedConductance() const {
  \bug        unknown
  */
 modigliani_base::ReturnEnum Membrane_compartment::AttachCurrent(
-		Membrane_current * currentPtr, NTBPcurrentType type = NTBP_IONIC) {
+		Membrane_current * currentPtr, NTBPcurrentType type){
 	currentPtr->set_voltage(vm_);
 	currentPtr->setTimeStep(_timeStep());
 	currentPtr->Set_temperature(temperature_);

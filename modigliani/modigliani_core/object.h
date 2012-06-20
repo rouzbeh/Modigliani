@@ -36,46 +36,11 @@
 
 #define NTBP_TIMESTEP 0.001 /* in msec */
 
-/* NT core includes */
-#include "modigliani_base/obj.h"
 /* NT includes */
 #include "../modigliani_base/error.h"
 /* other includes */
 #include "../modigliani_base/physical_constants.h"
 
-enum NTBPKineticFunctionType {
-	NTBP_CONSTANT, NTBP_LINEAR, NTBP, NTBP_FERMI, NTBP_GAUSSIAN
-};
-enum NTBPcurrentType {
-	NTBP_LEAK, NTBP_IONIC, NTBP_EXTERNAL
-};
-enum NTBPstochasticType {
-	NTBP_DETERMINISTIC,
-	NTBP_GILLESPIE,
-	NTBP_LANGEVIN,
-	NTBP_SINGLECHANNEL,
-	NTBP_NOISYMEAN,
-	NTBP_BINOMIALPOPULATION
-};
-enum NTBPdelayedPotassiumRectifierType {
-	NTBP_SGA_K_CONTI, // squid giant axon by Conti et al. (1975)
-	NTBP_SGA_SCHNEIDMAN, // values used by Schneidman et al. (1998)
-	NTBP_SGA_K_LLANO, // squid giant axon by Llano et al. (1988)
-	NTBP_SNAIL, // snail neuron by Reuter & Stevens (1980)
-	NTBP_FROG_RANVIER1, // frog ranvier node by Begenisich & Stevens (1975)
-	NTBP_FROG_RANVIER2, // frog ranvier node by Neumcke ety al. (1980)
-	NTBP_FROG_RANVIER3, // frog ranvier node by Vogel et al. (1991)
-	NTBP_FROG_MUSCLE // frog skeletal muscle by Standen et al. (1985)
-};
-
-const modigliani_base::Real NTBP_STD_TEMPERATURE = 6.3; // Celsius (NOT TO BE CHANGED)
-
-modigliani_base::Real NTBP_temperature_rate_relation(modigliani_base::Real temp /* C */, modigliani_base::Real q10);
-modigliani_base::Real NTBP_temperature_rate_relation(modigliani_base::Real temp /* C */,
-		modigliani_base::Real baseTemp /* C */, modigliani_base::Real q10);
-/** Compute length constant in muMeter */
-modigliani_base::Real NTBP_length_constant_passive_cable(modigliani_base::Real diameter /* mu */,
-		modigliani_base::Real rAxoplasmic /* Ohm cm */, modigliani_base::Real gLeak /* mSiemens/cm^2 */);
 
 /** @short Object class
  \bug unknown
@@ -83,8 +48,32 @@ modigliani_base::Real NTBP_length_constant_passive_cable(modigliani_base::Real d
  TIMESTEP SHOULD BECOME STATIC! FOR GLOBAL CHANGES!
  */
 
-#define NTBP_DEBUG 1
 namespace modigliani_core {
+
+enum NTBPKineticFunctionType {
+  NTBP_CONSTANT, NTBP_LINEAR, NTBP, NTBP_FERMI, NTBP_GAUSSIAN
+};
+enum NTBPcurrentType {
+  NTBP_LEAK, NTBP_IONIC, NTBP_EXTERNAL
+};
+enum StochasticType {
+  DETERMINISTIC,
+  GILLESPIE,
+  LANGEVIN,
+  SINGLECHANNEL,
+  NOISYMEAN,
+  BINOMIALPOPULATION
+};
+
+const modigliani_base::Real NTBP_STD_TEMPERATURE = 6.3; // Celsius (NOT TO BE CHANGED)
+
+modigliani_base::Real NTBP_temperature_rate_relation(modigliani_base::Real temp /* C */, modigliani_base::Real q10);
+modigliani_base::Real TemperatureRateRelation(modigliani_base::Real temp /* C */,
+    modigliani_base::Real baseTemp /* C */, modigliani_base::Real q10);
+/** Compute length constant in muMeter */
+modigliani_base::Real NTBP_length_constant_passive_cable(modigliani_base::Real diameter /* mu */,
+    modigliani_base::Real rAxoplasmic /* Ohm cm */, modigliani_base::Real gLeak /* mSiemens/cm^2 */);
+
 class Object: public modigliani_base::Obj {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
@@ -107,7 +96,7 @@ public:
 		suggestedTimeStep = newSuggestedTimeStep;
 		return (newSuggestedTimeStep);
 	}
-	virtual modigliani_base::ReturnEnum step() {
+	virtual modigliani_base::ReturnEnum Step() {
 		std::cerr
 				<< "Object:Step() - Warning : Non-overriden base method () called by derived class."
 				<< std::endl;

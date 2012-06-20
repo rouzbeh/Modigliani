@@ -1,20 +1,3 @@
-noinst_LIBRARIES = libauxsrc.a
-
-libauxsrc_a_SOURCES = measure_mutual_information_in_binary_file.cc \
-generate_white_noise.cc \
-find_spikewords_in_binary_file.cc \
-test_ring_buffer.cc \
-test_binary_io.cc \
-show_binary_file.cc \
-print_interspike_intervals_in_binary_file.cc \
-make_nt_class_files.cc \
-make_histogram_from_txt_file.cc \
-find_spikes_in_binary_file.cc \
-compute_derivative_from_column.cc \
-axon_simulator.cc \
-resting_potential.cc \
-single_compartment_simulator.cc
-
 bin_PROGRAMS = show_binary_file make_nt_class_files \
 compute_derivative_from_column \
 find_spikes_in_binary_file \
@@ -25,7 +8,8 @@ generate_white_noise \
 measure_mutual_information_in_binary_file \
 axon_simulator \
 resting_potential \
-single_compartment_simulator
+single_compartment_simulator \
+voltage_step
 				
 LDADD = -lm
 
@@ -62,14 +46,17 @@ resting_potential_SOURCES = resting_potential.cc
 if MINGW
   axon_simulator_LDADD = $(top_builddir)/modigliani/modigliani_core/libmodigliani_core.a $(top_builddir)/modigliani/modigliani_base/libmodigliani_base.a -lboost_filesystem-mt -lboost_system-mt -ljsoncc -lm -llua $(MAYBE_PLPLOT)
   single_compartment_simulator_LDADD = $(top_builddir)/modigliani/modigliani_core/libmodigliani_core.a $(top_builddir)/modigliani/modigliani_base/libmodigliani_base.a -lboost_filesystem-mt -lboost_system-mt -ljsoncc -lm -llua
-  resting_potential_LDADD = $(top_builddir)/modigliani/modigliani_core/libmodigliani_core.a $(top_builddir)/modigliani/modigliani_base/libmodigliani_base.a -ljsoncc -llua -lboost_filesystem-mt -lboost_system-mt
 else
   single_compartment_simulator_LDADD = $(top_builddir)/modigliani/modigliani_core/libmodigliani_core.a $(top_builddir)/modigliani/modigliani_base/libmodigliani_base.a -lboost_filesystem -lboost_system -ljson -lm -llua
   axon_simulator_LDADD = $(top_builddir)/modigliani/modigliani_core/libmodigliani_core.a $(top_builddir)/modigliani/modigliani_base/libmodigliani_base.a -lboost_filesystem -lboost_system -ljson -lm -llua -ldl $(MAYBE_PLPLOT)
-  resting_potential_LDADD = $(top_builddir)/modigliani/modigliani_core/libmodigliani_core.a $(top_builddir)/modigliani/modigliani_base/libmodigliani_base.a -ljson -llua -ldl  -lboost_filesystem -lboost_system
 endif
 axon_simulator_CPPFLAGS = $(PLPLOTCPPFLAGS)
 resting_potential_CPPFLAGS = $(PLPLOTCPPFLAGS)
+
+resting_potential_LDADD = $(single_compartment_simulator_LDADD)
+
+voltage_step_SOURCES = voltage_step.cc
+voltage_step_LDADD = $(single_compartment_simulator_LDADD)
 
 
 # set the include path found by configure

@@ -88,11 +88,11 @@ Lua_based_deterministic_multi_current::~Lua_based_deterministic_multi_current() 
  \warning    unknown
  \bug        unknown
  */
-inline modigliani_base::ReturnEnum Lua_based_deterministic_multi_current::step_current() {
+inline modigliani_base::ReturnEnum Lua_based_deterministic_multi_current::StepCurrent(){
   modigliani_base::Real rounded_voltage = floor((voltage / stepV) + 0.5)
       * stepV;
   switch (_simulationMode()) {
-    case NTBP_DETERMINISTIC: {
+    case DETERMINISTIC: {
       lua_getglobal(L, "step_current");
       /* the first argument */
       lua_pushnumber(L, rounded_voltage);
@@ -137,7 +137,7 @@ modigliani_base::Real Lua_based_deterministic_multi_current::num_channels_in_sta
   return (0);
 }
 
-inline modigliani_base::Real Lua_based_deterministic_multi_current::compute_conductance() {
+inline modigliani_base::Real Lua_based_deterministic_multi_current::ComputeConductance() {
   lua_getglobal(L, "compute_conductance");
 
   /* call the function with 0

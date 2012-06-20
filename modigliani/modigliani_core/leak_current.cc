@@ -31,7 +31,7 @@ Leak_current::Leak_current(modigliani_base::Real newArea, modigliani_base::Real 
 		Membrane_current(newReversalPotential) {
 	M_ASSERT(newLeakConductance >= 0);
 	M_ASSERT(newArea >= 0);
-	SetSimulationMode(NTBP_DETERMINISTIC);
+	SetSimulationMode(DETERMINISTIC);
 	maxConductivity = newLeakConductance;
 	area = newArea;
 	UpdateConductance();
@@ -40,7 +40,7 @@ Leak_current::Leak_current(modigliani_base::Real newArea, modigliani_base::Real 
 /* ***      COPY AND ASSIGNMENT	***/
 Leak_current::Leak_current(const Leak_current & original) :
 		Membrane_current(original._reversalPotential()) {
-	SetSimulationMode(NTBP_DETERMINISTIC);
+	SetSimulationMode(DETERMINISTIC);
 	maxConductivity = original._maxConductivity();
 	area = original._area();
 	UpdateConductance();

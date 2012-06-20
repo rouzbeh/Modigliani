@@ -58,7 +58,6 @@ int Simulate(string fileName) {
 		modigliani_core::openOutputFile(timedOutputFolder, "Time", TimeFile);
 		modigliani_core::openOutputFile(timedOutputFolder, "log", log_file, ".log");
 		TimeFile << "% in ms" << std::endl;
-		modigliani_core::openOutputFile(timedOutputFolder, "", log_file, ".log");
 		pot_current_file = modigliani_core::openOutputFile(timedOutputFolder,
 				"compartment", 0, ".bin");
 	} else {
