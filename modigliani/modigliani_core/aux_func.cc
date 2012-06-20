@@ -114,9 +114,9 @@ modigliani_core::create_compartment(Json::Value config_root,
               config_root["temperature"].asDouble() /* C */,
               current["chModel"].asString());
       if (4 == current["chAlg"].asInt())
-        file_current->SetSimulationMode(NTBP_BINOMIALPOPULATION);
+        file_current->SetSimulationMode(BINOMIALPOPULATION);
       if (2 == current["chAlg"].asInt())
-        file_current->SetSimulationMode(NTBP_SINGLECHANNEL);
+        file_current->SetSimulationMode(SINGLECHANNEL);
       tmpPtr->AttachCurrent(file_current, NTBP_IONIC);
       continue;
     }
@@ -131,7 +131,7 @@ modigliani_core::create_compartment(Json::Value config_root,
                 simulation_parameters["timeStep"].asDouble(),
                 config_root["temperature"].asDouble() /* C */,
                 current["chModel"].asString());
-        lua_current->SetSimulationMode(NTBP_DETERMINISTIC);
+        lua_current->SetSimulationMode(DETERMINISTIC);
         tmpPtr->AttachCurrent(lua_current, NTBP_IONIC);
         continue;
       } else if (4 == current["chAlg"].asInt()
@@ -148,9 +148,9 @@ modigliani_core::create_compartment(Json::Value config_root,
                 config_root["temperature"].asDouble() /* C */,
                 current["chModel"].asString());
         if (4 == current["chAlg"].asInt())
-          lua_current->SetSimulationMode(NTBP_BINOMIALPOPULATION);
+          lua_current->SetSimulationMode(BINOMIALPOPULATION);
         if (2 == current["chAlg"].asInt())
-          lua_current->SetSimulationMode(NTBP_SINGLECHANNEL);
+          lua_current->SetSimulationMode(SINGLECHANNEL);
         tmpPtr->AttachCurrent(lua_current, NTBP_IONIC);
         continue;
       }

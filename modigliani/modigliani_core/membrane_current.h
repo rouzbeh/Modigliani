@@ -87,19 +87,19 @@ class Membrane_current : public Object {
       return (modigliani_base::ReturnEnum::SUCCESS);
     }
     /** Simulation mode */
-    enum NTBPstochasticType _simulationMode() const {
+    enum StochasticType _simulationMode() const {
       return (simulationMode);
     }
     /** Set simulation mode */
-    virtual void SetSimulationMode(enum NTBPstochasticType newMode) {
+    virtual void SetSimulationMode(enum StochasticType newMode) {
       simulationMode = newMode;
     }
 
-    modigliani_base::ReturnEnum step(modigliani_base::Real newVm /* in mV */) {
+    modigliani_base::ReturnEnum Step(modigliani_base::Real newVm /* in mV */) {
       //ComputeRateConstants(newVm); /* UpdateRateConstantsAND*/
       voltage = newVm;
-      step_current();
-      compute_conductance();
+      StepCurrent();
+      ComputeConductance();
       compute_current(newVm);
       return (modigliani_base::ReturnEnum::SUCCESS);
     }
@@ -109,9 +109,9 @@ class Membrane_current : public Object {
       return (Set_current(_conductance() /* mSiemens */* 1000.0 /* mA/nA */* (vM
       /* mV */- _reversalPotential()/* mV */)));
     }
-    virtual modigliani_base::ReturnEnum step_current() = 0;
+    virtual modigliani_base::ReturnEnum StepCurrent() = 0;
     /** compute and return conductance in mSiemens */
-    virtual modigliani_base::Real compute_conductance() = 0;
+    virtual modigliani_base::Real ComputeConductance() = 0;
     /** compute the rate constants ( in ms^-1 ) */
     //virtual void ComputeRateConstants(modigliani_base::Real vM /* in mV */) = 0;
     /** Number of open ionic channels */
@@ -149,7 +149,7 @@ class Membrane_current : public Object {
       return (ComputeChannelStateTimeConstant());
     }
     bool GillespieStep() {/*2DO is this necessary here*/
-      step_current();
+      StepCurrent();
       return (ComputeGillespieStep());
     }
     virtual bool ComputeGillespieStep() {
@@ -193,7 +193,7 @@ class Membrane_current : public Object {
     modigliani_base::Real conductance;  // in mSiemens
     modigliani_base::Real reversalPotential;  // in mV
     modigliani_base::Real q10;  // the Q_10 value for temperature dependent reaction kinetics
-    enum NTBPstochasticType simulationMode;
+    enum StochasticType simulationMode;
 };
 }
 #endif /* _modigliani_core_membrane_current.h_ */

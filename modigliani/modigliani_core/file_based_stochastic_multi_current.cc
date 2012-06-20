@@ -115,7 +115,7 @@ void File_based_stochastic_multi_current::load_file(std::string fileName,
 		double q10 = transitions[index].get("q10", 1).asDouble();
 		double base_probability =
 				transitions[index].get("probability", 0).asDouble();
-		double probability = NTBP_temperature_rate_relation(temperature,
+		double probability = modigliani_core::TemperatureRateRelation(temperature,
 				base_temperature_map[fileName] /* C */, q10) * base_probability
 				* time_step;
 
@@ -135,21 +135,21 @@ void File_based_stochastic_multi_current::load_file(std::string fileName,
  \warning    unknown
  \bug        unknown
  */
-inline modigliani_base::ReturnEnum File_based_stochastic_multi_current::step_current() {
+inline modigliani_base::ReturnEnum File_based_stochastic_multi_current::StepCurrent() {
 	switch (_simulationMode()) {
-	case NTBP_BINOMIALPOPULATION: {
+	case BINOMIALPOPULATION: {
 		return (channelsPtr->BinomialStep(voltage));
 	}
 		break;
-	case NTBP_SINGLECHANNEL: {
-		return (channelsPtr->step(voltage));
+	case SINGLECHANNEL: {
+		return (channelsPtr->Step(voltage));
 	}
 		break;
-	case NTBP_GILLESPIE: {
+	case GILLESPIE: {
 		return (channelsPtr->GillespieStep(voltage));
 	}
 		break;
-	case NTBP_DETERMINISTIC: {
+	case DETERMINISTIC: {
 		return (channelsPtr->DeterministicStep(voltage));
 	}
 
@@ -177,7 +177,7 @@ inline modigliani_base::Real File_based_stochastic_multi_current::num_channels_i
 	return (channelsPtr->numChannelsInState(state));
 }
 
-inline modigliani_base::Real File_based_stochastic_multi_current::compute_conductance() {
+inline modigliani_base::Real File_based_stochastic_multi_current::ComputeConductance() {
 	return (Set_conductance(channelsPtr->NumOpen() * conductivity));
 }
 

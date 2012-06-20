@@ -35,7 +35,6 @@
 #include "modigliani_core/transition_rate_matrix.h"
 /* other includes */
 
-
 namespace modigliani_core {
 /**
  * @short Ion_channels class
@@ -49,22 +48,22 @@ class Ion_channels : public Object {
                  modigliani_base::Size numNewStates,
                  Transition_rate_matrix* probMatrix,
                  modigliani_base::Real newTimeStep = 0.1);
-    Ion_channels(const Ion_channels & original);
+    explicit Ion_channels(const Ion_channels & original);
     Ion_channels & operator=(const Ion_channels & right);
     virtual ~Ion_channels();
     /* ***  Methods              ***/
-    modigliani_base::Size _numChannels() const {
-      return (numChannels);
+    modigliani_base::Size num_channels() const {
+      return (num_channels_);
     }
-    modigliani_base::Size _numStates() const {
-      return (numStates);
+    modigliani_base::Size num_states() const {
+      return (num_states_);
     }
     modigliani_base::ReturnEnum GillespieStep(modigliani_base::Real voltage);
     void setAsOpenState(modigliani_base::Size newOpenState);
     modigliani_base::ReturnEnum BinomialStep(modigliani_base::Real voltage);
     modigliani_base::ReturnEnum DeterministicStep(
         modigliani_base::Real voltage);
-    modigliani_base::ReturnEnum step(modigliani_base::Real voltage);
+    modigliani_base::ReturnEnum Step(modigliani_base::Real voltage);
     void ShowStates() const;
     modigliani_base::Size NumOpen() const;
     modigliani_base::Size numChannelsInState(
@@ -72,21 +71,13 @@ class Ion_channels : public Object {
       return (stateCounterVec[state]);
     }
     modigliani_base::Size NumClosed() const {
-      return (_numChannels() - NumOpen());
+      return (num_channels() - NumOpen());
     }
     virtual modigliani_base::ReturnEnum SteadyStateDistribution(
         modigliani_base::Real voltage);
     /** Sum of escape rates from current state [1/s] */
     virtual modigliani_base::Real ComputeChannelStateTimeConstant(
         modigliani_base::Real voltage) const;
-    /**  */
-    void setRatesComputed(bool newValue) {
-      ratesComputed = newValue;
-    }
-    bool getRatesComputed() {
-      return (ratesComputed);
-    }
-    /* ***  Data                 ***/
 
   protected:
     /* ***  Methods              ***/
@@ -105,10 +96,8 @@ class Ion_channels : public Object {
     /* ***  Data                 ***/
     Transition_rate_matrix* _probMatrix;
     std::vector<modigliani_base::Size> openStates;
-    modigliani_base::Size numStates;
-    modigliani_base::Size numChannels;
-    bool ratesComputed;
+    modigliani_base::Size num_states_;
+    modigliani_base::Size num_channels_;
 };
 }
 #endif  // MODIGLIANI_MODIGLIANI_CORE_ION_CHANNELS_H_
-

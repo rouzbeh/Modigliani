@@ -30,7 +30,7 @@ namespace modigliani_core {
 Membrane_current::Membrane_current(
     modigliani_base::Real newReversalPotential /* in mV */)
     : Object() {
-  simulationMode = NTBP_DETERMINISTIC;
+  simulationMode = DETERMINISTIC;
   reversalPotential = newReversalPotential;  //in mV
   current_ = 0.0;  // nanoAmpere
   temperature = 6.3;  // SGA values
