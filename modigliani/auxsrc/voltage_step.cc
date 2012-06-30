@@ -124,11 +124,11 @@ int main(int argc, char** argv) {
   // Declare the supported options.
   po::options_description desc("Allowed options");
   desc.add_options()("channel", po::value<string>(), "which channel to use")(
-      "algorithm", po::value<int>(), "set algorithm")("trials",
+      "algorithm,a", po::value<int>(), "set algorithm")("trials",
                                                       po::value<Size>(),
                                                       "set number of trials")(
-      "step-length", po::value<Real>(), "set length of step (in ms)")(
-      "output-folder", po::value<string>(), "set output folder");
+      "step-length,s", po::value<Real>(), "set length of step (in ms)")(
+      "output-folder,o", po::value<string>(), "set output folder");
 
   po::positional_options_description p;
   p.add("channel", -1);
