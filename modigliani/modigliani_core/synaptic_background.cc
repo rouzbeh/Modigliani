@@ -45,7 +45,7 @@ modigliani_base::Real newVBase /* in mV */
 
 /* ***      COPY AND ASSIGNMENT	***/
 Synaptic_background::Synaptic_background(const Synaptic_background & original) :
-		Membrane_current(original._reversalPotential()) {
+		Membrane_current(original.reversal_potential()) {
 	// add assignment code here
 }
 
@@ -70,7 +70,7 @@ Synaptic_background::~Synaptic_background() {
  */
 
 modigliani_base::Real Synaptic_background::compute_conductance() {
-	return (Set_conductance(0.001 /* mS/nS */* gT /* nS */));
+	return (set_conductance(0.001 /* mS/nS */* gT /* nS */));
 }
 
 modigliani_base::ReturnEnum Synaptic_background::step_current() {

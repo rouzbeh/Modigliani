@@ -51,36 +51,29 @@ public:
 	}
 	/** compute and return conductance in mSiemens */
 	void UpdateConductance() {
-		Set_conductance(_maxConductivity() * _area() * 1.0e-8);
+		set_conductance(_maxConductivity() * area_ * 1.0e-8);
 	}
 	/** Return leak conductance in mSiemens  (note: function return constant value (leak!) set in constructor) */
-	modigliani_base::Real ComputeConductance() {
-		return (_conductance());
-	}
-	modigliani_base::ReturnEnum DeterministicStepCurrent() {
-		return (modigliani_base::ReturnEnum::SUCCESS);
+	modigliani_base::Real ComputeConductance() override {
+		return (conductance());
 	}
 	void Show() {
-		std::cout << "g_Leak [mSiemens]=" << _conductance();
+		std::cout << "g_Leak [mSiemens]=" << conductance();
 	}
 	/** Number of open ionic channels */
-	virtual modigliani_base::Real open_channels() const {
+	virtual modigliani_base::Real open_channels() const override {
 		return (0.0);
 	}
 	/** Total number of ionic channels */
-	virtual modigliani_base::Real NumChannels() const {
+	virtual modigliani_base::Real num_channels() const override {
 		return (0.0);
 	}
 	/** Number of open over total number of channels */
-	virtual modigliani_base::Real OpenChannelsRatio() const {
+	virtual modigliani_base::Real OpenChannelsRatio() const override {
 		return (0.0);
 	}
 
-	virtual modigliani_base::Real NumChannelsInState(
-			modigliani_base::Size __attribute__((__unused__)) state) const {
-		return (0);
-	}
-	modigliani_base::Real ComputeChannelStateTimeConstant() const {
+	modigliani_base::Real ComputeChannelStateTimeConstant() const override {
 		return (0); /* no stochasticity */
 	}
 	/** in mSiemens/cm^2 */
@@ -88,8 +81,8 @@ public:
 		return (maxConductivity);
 	}
 	/** in muMeter^2 */
-	modigliani_base::Real _area() const {
-		return (area);
+	modigliani_base::Real area() const {
+		return (area_);
 	}
 protected:
 	/* ***  Methods              ***/
@@ -98,9 +91,9 @@ private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
 	modigliani_base::Real maxConductivity; // in mSiemens / muMeter^2
-	modigliani_base::Real density; // channels per mumeter^2
-	modigliani_base::Real area; // in mumeter^2
-	modigliani_base::Real conductivity; // in mSiemens per channel
+	modigliani_base::Real density_; // channels per mumeter^2
+	modigliani_base::Real area_; // in mumeter^2
+	modigliani_base::Real conductivity_; // in mSiemens per channel
 };
 }
 #endif /* _modigliani_core_leak_current_h_ */

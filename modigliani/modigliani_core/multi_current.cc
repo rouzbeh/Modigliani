@@ -33,15 +33,15 @@ Multi_current::Multi_current(modigliani_base::Real newReversalPotential, //in mV
 		modigliani_base::Real newConductivity // in mSiemens per channel
 		) :
 		Membrane_current(newReversalPotential) {
-	density = newDensity;
-	area = newArea;
-	conductivity = newConductivity;
-	numChannels = area * density;
+	density_ = newDensity;
+	area_ = newArea;
+	conductivity_ = newConductivity;
+	num_channels_ = area_ * density_;
 }
 
 /* ***      COPY AND ASSIGNMENT	***/
 Multi_current::Multi_current(const Multi_current & original) :
-		Membrane_current(original._reversalPotential()) {
+		Membrane_current(original.reversal_potential()) {
 	// add assignment code here
 }
 

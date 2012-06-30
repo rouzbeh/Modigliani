@@ -56,48 +56,48 @@ class Membrane_current : public Object {
     /* in mSiemens/cm^2 */
     virtual modigliani_base::Real _maxConductivity() const = 0;
     /** momentary conductance in muFarad */
-    modigliani_base::Real _conductance() const {
-      return (conductance);
+    modigliani_base::Real conductance() const {
+      return (conductance_);
     }
     /** reversal potential in mV */
-    void Set_reversalPotential(modigliani_base::Real eRev /* mV */) {
-      reversalPotential = eRev;
+    void set_reversal_potential(modigliani_base::Real eRev /* mV */) {
+      reversal_potential_ = eRev;
     }
     /** reversal potential in mV */
-    modigliani_base::Real _reversalPotential() const {
-      return (reversalPotential);
+    modigliani_base::Real reversal_potential() const {
+      return (reversal_potential_);
     }
     /** temperature in Celsius */
-    modigliani_base::Real _temperature() const {
-      return (temperature);
+    modigliani_base::Real temperature() const {
+      return (temperature_);
     }
     /** Set temperature in Celsius */
-    modigliani_base::ReturnEnum Set_temperature(modigliani_base::Real newTemp) {
+    modigliani_base::ReturnEnum set_temperature(modigliani_base::Real newTemp) {
       M_ASSERT(newTemp > modigliani_base::ZERO_KELVIN);
-      temperature = newTemp;
+      temperature_ = newTemp;
       return (modigliani_base::ReturnEnum::SUCCESS);
     }
     /** Q10  */
-    modigliani_base::Real _q10() const {
-      return (q10);
+    modigliani_base::Real q10() const {
+      return (q10_);
     }
     /** Set Q10 */
-    virtual modigliani_base::ReturnEnum Set_q10(modigliani_base::Real newQ10) {
-      q10 = newQ10;
+    virtual modigliani_base::ReturnEnum set_q10(modigliani_base::Real newQ10) {
+      q10_ = newQ10;
       return (modigliani_base::ReturnEnum::SUCCESS);
     }
     /** Simulation mode */
-    enum StochasticType _simulationMode() const {
-      return (simulationMode);
+    enum StochasticType simulation_mode() const {
+      return (simulation_mode_);
     }
     /** Set simulation mode */
-    virtual void SetSimulationMode(enum StochasticType newMode) {
-      simulationMode = newMode;
+    virtual void set_simulation_mode(enum StochasticType newMode) {
+      simulation_mode_ = newMode;
     }
 
     modigliani_base::ReturnEnum Step(modigliani_base::Real newVm /* in mV */) {
       //ComputeRateConstants(newVm); /* UpdateRateConstantsAND*/
-      voltage = newVm;
+      voltage_ = newVm;
       StepCurrent();
       ComputeConductance();
       compute_current(newVm);
@@ -106,8 +106,8 @@ class Membrane_current : public Object {
     /* in nA */
     modigliani_base::Real compute_current(
         modigliani_base::Real vM /* in mV */) {
-      return (Set_current(_conductance() /* mSiemens */* 1000.0 /* mA/nA */* (vM
-      /* mV */- _reversalPotential()/* mV */)));
+      return (set_current(conductance() /* mSiemens */* 1000.0 /* mA/nA */* (vM
+      /* mV */- reversal_potential()/* mV */)));
     }
     virtual modigliani_base::ReturnEnum StepCurrent() = 0;
     /** compute and return conductance in mSiemens */
@@ -117,7 +117,7 @@ class Membrane_current : public Object {
     /** Number of open ionic channels */
     virtual modigliani_base::Real open_channels() const = 0;
     /** Total number of ionic channels */
-    virtual modigliani_base::Real NumChannels() const = 0;
+    virtual modigliani_base::Real num_channels() const = 0;
 
     virtual modigliani_base::Real num_channels_in_state(
         modigliani_base::Size __attribute__((__unused__)) state) const {
@@ -159,11 +159,11 @@ class Membrane_current : public Object {
       return (modigliani_base::ReturnEnum::NOT_DERIVED);
     }
 
-    modigliani_base::Real Get_voltage() {
-      return (voltage);
+    modigliani_base::Real voltage() {
+      return (voltage_);
     }
     void set_voltage(modigliani_base::Real newVoltage) {
-      voltage = newVoltage;
+      voltage_ = newVoltage;
     }
 
     modigliani_base::Real current() const {
@@ -174,26 +174,26 @@ class Membrane_current : public Object {
 
   protected:
     /* ***  Methods              ***/
-    modigliani_base::Real Set_current(
+    modigliani_base::Real set_current(
         modigliani_base::Real newVal /* in nA */) {
       return (current_ = newVal);
     }
-    modigliani_base::Real Set_conductance(
+    modigliani_base::Real set_conductance(
         modigliani_base::Real newVal /* in mSiemens */) {
-      return (conductance = newVal);
+      return (conductance_ = newVal);
     }
     /* ***  Data                 ***/
     modigliani_base::Uniform_rnd_dist uniform;
-    modigliani_base::Real voltage;
-    modigliani_base::Real temperature;  // in Celsius
+    modigliani_base::Real voltage_;
+    modigliani_base::Real temperature_;  // in Celsius
   private:
     /* ***  Methods              ***/
     /* ***  Data                 ***/
     modigliani_base::Real current_;  // in nanoAmpere
-    modigliani_base::Real conductance;  // in mSiemens
-    modigliani_base::Real reversalPotential;  // in mV
-    modigliani_base::Real q10;  // the Q_10 value for temperature dependent reaction kinetics
-    enum StochasticType simulationMode;
+    modigliani_base::Real conductance_;  // in mSiemens
+    modigliani_base::Real reversal_potential_;  // in mV
+    modigliani_base::Real q10_;  // the Q_10 value for temperature dependent reaction kinetics
+    enum StochasticType simulation_mode_;
 };
 }
 #endif /* _modigliani_core_membrane_current.h_ */

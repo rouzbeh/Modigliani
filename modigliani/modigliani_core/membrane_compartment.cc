@@ -112,7 +112,7 @@ modigliani_base::Real Membrane_compartment::total_conductance() const {
 	modigliani_base::Real result = 0.0;
 	std::vector<Membrane_current *>::const_iterator it = current_vec_.begin();
 	for (it = current_vec_.begin(); it != current_vec_.end(); it++) {
-		result += (*it)->_conductance();
+		result += (*it)->conductance();
 	}
 	return (result);
 }
@@ -128,7 +128,7 @@ modigliani_base::Real Membrane_compartment::WeightedConductance() const {
 
 	std::vector<Membrane_current *>::const_iterator it = current_vec_.begin();
 	for (it = current_vec_.begin(); it != current_vec_.end(); it++) {
-		result += ((*it)->_conductance()) * ((*it)->_reversalPotential());
+		result += ((*it)->conductance()) * ((*it)->reversal_potential());
 	}
 	return (result);
 }
@@ -143,7 +143,7 @@ modigliani_base::ReturnEnum Membrane_compartment::AttachCurrent(
 		Membrane_current * currentPtr, NTBPcurrentType type){
 	currentPtr->set_voltage(vm_);
 	currentPtr->setTimeStep(_timeStep());
-	currentPtr->Set_temperature(temperature_);
+	currentPtr->set_temperature(temperature_);
 	switch (type) {
 	case NTBP_LEAK:
 		current_vec_.push_back(currentPtr);

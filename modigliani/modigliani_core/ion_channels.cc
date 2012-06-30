@@ -42,14 +42,8 @@ Ion_channels::Ion_channels(modigliani_base::Size numNewChannels,
   uniformRnd = modigliani_base::Uniform_rnd_dist(0, 1);
   if (num_channels_)
     binomRnd = modigliani_base::Binomial_rnd_dist(0.0, num_channels_);
-  stateCounterVec[0] = num_channels();
+  stateCounterVec[0] = 0;
   stateCounterVec[1] = num_channels();
-  // Distribute channels evenly
-  modigliani_base::Size delta = num_channels() / num_states_;
-  for (modigliani_base::Size i = 1; i < num_states_; i++) {
-    stateCounterVec[1] -= delta;
-    stateCounterVec[i + 1] = delta;
-  }
 }
 
 // Copy and assignment
@@ -61,17 +55,10 @@ Ion_channels::Ion_channels(const Ion_channels & original)
   statePersistenceProbVec.resize(num_states_);
   stateCounterVec.resize(num_states() + 1);
   uniformRnd = modigliani_base::Uniform_rnd_dist(0, 1);
-  modigliani_base::Size tmpNumChannels = num_channels();
   if (num_channels_)
     this->binomRnd = modigliani_base::Binomial_rnd_dist(0.0, num_channels_);
-  stateCounterVec[0] = original.num_channels_;
+  stateCounterVec[0] = 0;
   stateCounterVec[1] = original.num_channels_;
-  // Distribute channels evenly
-  modigliani_base::Size delta = original.num_channels_ / original.num_states_;
-  for (modigliani_base::Size i = 1; i < num_states_; i++) {
-    stateCounterVec[1] -= delta;
-    stateCounterVec[i + 1] = delta;
-  }
 }
 
 /**
@@ -101,8 +88,8 @@ Ion_channels::~Ion_channels() {
  * 
  * @param newOpenState 
  */
-void Ion_channels::setAsOpenState(modigliani_base::Size newOpenState) {
-  openStates.push_back(newOpenState);
+void Ion_channels::SetAsOpenState(modigliani_base::Size newOpenState) {
+  open_states_.push_back(newOpenState);
 }
 
 /**  */
@@ -174,7 +161,6 @@ modigliani_base::ReturnEnum Ion_channels::Step(modigliani_base::Real voltage) {
 }
 
 void Ion_channels::ShowStates() const {
-  std::cout << "\tChannel:";
   for (modigliani_base::Size ll = 1; ll < num_states() + 1; ll++)
     std::cout << stateCounterVec[ll] << " ";
   std::cout << std::endl;
@@ -186,9 +172,7 @@ void Ion_channels::ShowStates() const {
 modigliani_base::Size Ion_channels::NumOpen() const {
   if (!num_channels_) return (0u);
   modigliani_base::Size count = 0;
-  for (std::vector<modigliani_base::Size>::const_iterator it =
-      openStates.begin(); it != openStates.end(); ++it) {
-    modigliani_base::Size state = *it;
+  for (auto state : open_states_) {
     count += stateCounterVec[state];
   }
   return (count);
@@ -280,6 +264,7 @@ modigliani_base::ReturnEnum Ion_channels::ComputeGillespieStep(
 
 modigliani_base::ReturnEnum Ion_channels::BinomialStep(
     modigliani_base::Real voltage) {
+  using modigliani_base::Size;
   if (!num_channels()) return (modigliani_base::ReturnEnum::SUCCESS);
   std::vector<int> newStateCounterVec = stateCounterVec;
   // This operation is costly. So we do it only once.
@@ -307,9 +292,12 @@ modigliani_base::ReturnEnum Ion_channels::BinomialStep(
     }
 
     /* CHECKING CODE */
-    modigliani_base::Size check = 0;
+    Size check = 0;
     for (modigliani_base::Size ll = 1; ll < num_states() + 1; ll++) {
-      if (newStateCounterVec[ll] < 0) loop = true;
+      if (newStateCounterVec[ll] < 0) {
+        loop = true;
+        break;
+      }
       check += newStateCounterVec[ll];
     }
     if (check != num_channels_) loop = true;
