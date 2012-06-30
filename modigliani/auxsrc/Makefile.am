@@ -56,7 +56,7 @@ resting_potential_CPPFLAGS = $(PLPLOTCPPFLAGS)
 resting_potential_LDADD = $(single_compartment_simulator_LDADD)
 
 voltage_step_SOURCES = voltage_step.cc
-voltage_step_LDADD = $(single_compartment_simulator_LDADD)
+voltage_step_LDADD = $(single_compartment_simulator_LDADD) -lboost_program_options
 
 
 # set the include path found by configure
