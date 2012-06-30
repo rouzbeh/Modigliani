@@ -22,7 +22,7 @@ Lua_based_deterministic_multi_current::Lua_based_deterministic_multi_current(
   UpdateNumChannels();  //TODO
   lua_script = new_lua_script;
   setTimeStep(newTimeStep);
-  Set_temperature(newTemperature);
+  set_temperature(newTemperature);
   L = luaL_newstate();
   luaL_openlibs(L);
   luaL_dofile(L, lua_script.c_str());
@@ -38,12 +38,12 @@ Lua_based_deterministic_multi_current::Lua_based_deterministic_multi_current(
 /* ***      COPY AND ASSIGNMENT	***/
 Lua_based_deterministic_multi_current::Lua_based_deterministic_multi_current(
     const Lua_based_deterministic_multi_current & original)
-    : Multi_current(original._reversalPotential(), original._density(),
-                    original._area(), original._conductivity()) {
+    : Multi_current(original.reversal_potential(), original.density(),
+                    original.area(), original.conductivity()) {
   UpdateNumChannels();
 
   setTimeStep(original._timeStep());
-  Set_temperature(original._temperature());
+  set_temperature(original.temperature());
   lua_script = original.lua_script;
   L = luaL_newstate();
   luaL_openlibs(L);
@@ -62,7 +62,7 @@ Lua_based_deterministic_multi_current::operator=(
     const Lua_based_deterministic_multi_current & right) {
   if (this == &right) return (*this);  // Gracefully handle self assignment
   setTimeStep(right._timeStep());
-  Set_temperature(_temperature());
+  set_temperature(temperature());
   lua_script = right.lua_script;
   L = luaL_newstate();
   luaL_openlibs(L);
@@ -89,16 +89,13 @@ Lua_based_deterministic_multi_current::~Lua_based_deterministic_multi_current() 
  \bug        unknown
  */
 inline modigliani_base::ReturnEnum Lua_based_deterministic_multi_current::StepCurrent(){
-  modigliani_base::Real rounded_voltage = floor((voltage / stepV) + 0.5)
-      * stepV;
-  switch (_simulationMode()) {
+  switch (simulation_mode()) {
     case DETERMINISTIC: {
       lua_getglobal(L, "step_current");
-      /* the first argument */
-      lua_pushnumber(L, rounded_voltage);
+      // the first argument
+      lua_pushnumber(L, voltage_);
 
-      /* call the function with 1
-       argument, return 0 result */
+      // call the function with 1 argument, return 0 result
       lua_call(L, 1, 0);
 
       return (modigliani_base::ReturnEnum::SUCCESS);
@@ -120,13 +117,12 @@ inline modigliani_base::ReturnEnum Lua_based_deterministic_multi_current::StepCu
 inline modigliani_base::Real Lua_based_deterministic_multi_current::open_channels() const {
   lua_getglobal(L, "open_channels");
 
-  /* call the function with 0
-   argument, return 1 result */
+  // call the function with 0 argument, return 1 result
   lua_call(L, 0, 1);
   modigliani_base::Real count = lua_tonumber(L, -1);
   lua_pop(L, 1);
 
-  return (count * NumChannels());
+  return (count * num_channels());
 }
 
 /**  */
@@ -146,14 +142,14 @@ inline modigliani_base::Real Lua_based_deterministic_multi_current::ComputeCondu
   modigliani_base::Real conduc = lua_tonumber(L, -1);
   lua_pop(L, 1);
   M_ASSERT(conduc == conduc);
-  return (Set_conductance(
-      conduc * _maxConductivity() * _area() /* muMeter^2 */* 1.0e-8));
+  return (set_conductance(
+      conduc * _maxConductivity() * area() /* muMeter^2 */* 1.0e-8));
 }
 
 void Lua_based_deterministic_multi_current::show_param() const {
   cout << "Na channel parameters:" << std::endl;
-  cout << "Single channel conductivity [nA]" << _conductivity() << std::endl;
-  cout << "Channel density [1/muMeter^2]" << _area() << std::endl;
+  cout << "Single channel conductivity [nA]" << conductivity() << std::endl;
+  cout << "Channel density [1/muMeter^2]" << area() << std::endl;
   cout << "MaxConductivity (all channels open) mSiemens/cm^2"
        << _maxConductivity() << std::endl;
 }

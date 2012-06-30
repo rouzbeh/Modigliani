@@ -41,8 +41,7 @@ class Lua_based_stochastic_multi_current : public Multi_current {
     static map<string, Transition_rate_matrix*> probability_matrix_map;
     static map<string, modigliani_base::Size> number_of_states_map;
     static map<string, double> base_temperature_map;
-    static map<string, std::vector<int> > open_states_map;
-    modigliani_base::Real num_channels_in_state(modigliani_base::Size state) const;
+    static map<string, std::vector<modigliani_base::Size> > open_states_map;
     modigliani_base::Real ComputeChannelStateTimeConstant() const;
     virtual modigliani_base::Real ComputeConductance();
 
@@ -57,10 +56,8 @@ class Lua_based_stochastic_multi_current : public Multi_current {
       }
     }
 
-    Ion_channels * channelsPtr;
-
     private:
-    static modigliani_base::Real lua_get_ntreal(lua_State* L, string name);
+    static modigliani_base::Real lua_get_real(lua_State* L, string name);
     static bool initTableLookUp;
     static std::vector<string> initialised_probability_matrices;
     modigliani_base::Real baseTemp;

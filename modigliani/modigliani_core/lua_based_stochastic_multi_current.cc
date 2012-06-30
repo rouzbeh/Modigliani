@@ -11,11 +11,9 @@ bool Lua_based_stochastic_multi_current::initTableLookUp = false;
 map<string, Transition_rate_matrix*> Lua_based_stochastic_multi_current::probability_matrix_map;
 map<string, modigliani_base::Size> Lua_based_stochastic_multi_current::number_of_states_map;
 map<string, double> Lua_based_stochastic_multi_current::base_temperature_map;
-map<string, std::vector<int> > Lua_based_stochastic_multi_current::open_states_map;
+map<string, std::vector<modigliani_base::Size> > Lua_based_stochastic_multi_current::open_states_map;
 
 /* ***      CONSTRUCTORS	***/
-/** Create a NTBP_hranvier_sodium_multi_current_o */
-
 Lua_based_stochastic_multi_current::Lua_based_stochastic_multi_current(
     modigliani_base::Real newArea, modigliani_base::Real newDensity,
     modigliani_base::Real newConductivity,
@@ -30,7 +28,7 @@ Lua_based_stochastic_multi_current::Lua_based_stochastic_multi_current(
   UpdateNumChannels();  // TODO(Ali)
 
   setTimeStep(newTimeStep);
-  Set_temperature(newTemperature);
+  set_temperature(newTemperature);
   if (number_of_states_map[fileName] == 0) {
     load_file(fileName, newTemperature, newTimeStep);
   }
@@ -41,18 +39,17 @@ Lua_based_stochastic_multi_current::Lua_based_stochastic_multi_current(
   if (false == initTableLookUp) {
     initTableLookUp = true;
   }
-  channelsPtr = new Ion_channels(_numChannels(), number_of_states_map[fileName],
+  channels_ptr_ = new Ion_channels(num_channels(), number_of_states_map[fileName],
                                  probability_matrix_map[fileName], newTimeStep);
-
   for (unsigned int i = 0; i < open_states_map[fileName].size(); i++) {
-    channelsPtr->setAsOpenState(open_states_map[fileName][i]);
+    channels_ptr_->SetAsOpenState(open_states_map[fileName][i]);
   }
-
 }
 
 /* ***      DESTRUCTOR		***/
 Lua_based_stochastic_multi_current::~Lua_based_stochastic_multi_current() {
-  delete channelsPtr;
+  delete channels_ptr_;
+  channels_ptr_ = 0;
 }
 
 /* ***  PUBLIC                                    ***   */
@@ -64,11 +61,11 @@ void Lua_based_stochastic_multi_current::load_file(string fileName,
   luaL_openlibs(L);
   luaL_dofile(L, fileName.c_str());
 
-  base_temperature_map[fileName] = lua_get_ntreal(L, "base_temp");
+  base_temperature_map[fileName] = lua_get_real(L, "base_temp");
 
-  number_of_states_map[fileName] = lua_get_ntreal(L, "number_states");
+  number_of_states_map[fileName] = lua_get_real(L, "number_states");
 
-  open_states_map[fileName] = std::vector<int>();
+  open_states_map[fileName] = std::vector<modigliani_base::Size>();
 
   lua_getglobal(L, "open_states");
   /* table is in the stack at index 't' */
@@ -80,9 +77,9 @@ void Lua_based_stochastic_multi_current::load_file(string fileName,
     lua_pop(L, 1);
   }
 
-  double minV = lua_get_ntreal(L, "minV");
-  double maxV = lua_get_ntreal(L, "maxV");
-  double step = lua_get_ntreal(L, "step");
+  double minV = lua_get_real(L, "minV");
+  double maxV = lua_get_real(L, "maxV");
+  double step = lua_get_real(L, "step");
 
   //const Json::Value transitions = root["transitions"];
 
@@ -127,21 +124,21 @@ void Lua_based_stochastic_multi_current::load_file(string fileName,
  \bug        unknown
  */
 inline modigliani_base::ReturnEnum Lua_based_stochastic_multi_current::StepCurrent() {
-  switch (_simulationMode()) {
+  switch (simulation_mode()) {
     case BINOMIALPOPULATION: {
-      return (channelsPtr->BinomialStep(voltage));
+      return (channels_ptr_->BinomialStep(voltage_));
     }
       break;
     case SINGLECHANNEL: {
-      return (channelsPtr->Step(voltage));
+      return (channels_ptr_->Step(voltage_));
     }
       break;
     case GILLESPIE: {
-      return (channelsPtr->GillespieStep(voltage));
+      return (channels_ptr_->GillespieStep(voltage_));
     }
       break;
     case DETERMINISTIC: {
-      return (channelsPtr->DeterministicStep(voltage));
+      return (channels_ptr_->DeterministicStep(voltage_));
     }
 
       break;
@@ -158,33 +155,26 @@ inline modigliani_base::ReturnEnum Lua_based_stochastic_multi_current::StepCurre
 /**  */
 /** No descriptions */
 inline modigliani_base::Real Lua_based_stochastic_multi_current::open_channels() const {
-  return (channelsPtr->NumOpen());
-}
-
-/**  */
-/** No descriptions */
-inline modigliani_base::Real Lua_based_stochastic_multi_current::num_channels_in_state(
-    modigliani_base::Size state) const {
-  return (channelsPtr->numChannelsInState(state));
+  return (channels_ptr_->NumOpen());
 }
 
 inline modigliani_base::Real Lua_based_stochastic_multi_current::ComputeConductance() {
-  return (Set_conductance(channelsPtr->NumOpen() * conductivity));
+  return (set_conductance(channels_ptr_->NumOpen() * conductivity_));
 }
 
 inline modigliani_base::Real Lua_based_stochastic_multi_current::ComputeChannelStateTimeConstant() const {
-  return (channelsPtr->ComputeChannelStateTimeConstant(voltage));
+  return (channels_ptr_->ComputeChannelStateTimeConstant(voltage_));
 }
 
 void Lua_based_stochastic_multi_current::show_param() const {
   cout << "Na channel parameters:" << std::endl;
-  cout << "Single channel conductivity [nA]" << _conductivity() << std::endl;
-  cout << "Channel density [1/muMeter^2]" << _area() << std::endl;
+  cout << "Single channel conductivity [nA]" << conductivity() << std::endl;
+  cout << "Channel density [1/muMeter^2]" << area() << std::endl;
   cout << "MaxConductivity (all channels open) mSiemens/cm^2"
        << _maxConductivity() << std::endl;
 }
 
-modigliani_base::Real Lua_based_stochastic_multi_current::lua_get_ntreal(
+modigliani_base::Real Lua_based_stochastic_multi_current::lua_get_real(
     lua_State* L, string name) {
   lua_getglobal(L, name.c_str());
   modigliani_base::Real ret = lua_tonumber(L, -1);

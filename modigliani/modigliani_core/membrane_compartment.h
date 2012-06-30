@@ -59,12 +59,12 @@ class Membrane_compartment : public Object {
     modigliani_base::Real AttachedConductance(
         modigliani_base::Size currentIndex) {
       M_ASSERT((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
-      return (current_vec_[currentIndex - 1]->_conductance());
+      return (current_vec_[currentIndex - 1]->conductance());
     }
     modigliani_base::Real AttachedReversalPotential(
         modigliani_base::Size currentIndex) {
       M_ASSERT((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
-      return (current_vec_[currentIndex - 1]->_reversalPotential());
+      return (current_vec_[currentIndex - 1]->reversal_potential());
     }
     /**  membrane time constant at instaneous membrane conductivity in ms */
     modigliani_base::Real TimeConstant() {
@@ -107,7 +107,7 @@ class Membrane_compartment : public Object {
         modigliani_base::Real newTemp /* in Celsius */) {
       temperature_ = newTemp;
       for (modigliani_base::Size i = 0; i < current_vec_.size(); i++)
-        current_vec_[i]->Set_temperature(newTemp);
+        current_vec_[i]->set_temperature(newTemp);
       return (modigliani_base::ReturnEnum::SUCCESS);
     }
     /* in Celsius */

@@ -51,59 +51,57 @@ public:
 	virtual ~Multi_current();
 	/* ***  Methods              ***/
 	/* mementary total conductance */
-	modigliani_base::Real _density() const {
-		return (density);
+	modigliani_base::Real density() const {
+		return (density_);
 	}
-	modigliani_base::Real _area() const {
-		return (area);
+	modigliani_base::Real area() const {
+		return (area_);
 	}
 	/* conductivity per channel in mSiemens */
-	modigliani_base::Real _conductivity() const {
-		return (conductivity);
+	modigliani_base::Real conductivity() const {
+		return (conductivity_);
 	}
 	/* conductivity if all channels open in mSiemens/cm^2, */
 	modigliani_base::Real _maxConductivity() const {
-		return (density /* num/muMeter^2 */* conductivity /* mSiemens */* 1.0e8 /* muMeter^2/cm^2 */);
+		return (density_ /* num/muMeter^2 */* conductivity_ /* mSiemens */* 1.0e8 /* muMeter^2/cm^2 */);
 	}
 	/**  */
 	bool ComputeGillespieStep() {
 		std::cerr << "NTBP_multi_current_o::ComputeGillespieStep()"
 				<< std::endl;
-		return (channelsPtr->GillespieStep(voltage));
+		return (channels_ptr_->GillespieStep(voltage_));
 	}
 	void UpdateNumChannels() {
-		numChannels = (modigliani_base::Size) ceil(density * area);
+		num_channels_ = (modigliani_base::Size) ceil(density_ * area_);
 	}
-	modigliani_base::Size _numChannels() const {
-		return (numChannels);
-	}
+
 	/** Number of total ionic channels */
-	modigliani_base::Real NumChannels() const {
-		return (_numChannels());
+	modigliani_base::Real num_channels() const {
+		return (num_channels_);
 	}
 	modigliani_base::Real OpenChannelsRatio() const {
-		return (open_channels() / NumChannels());
+		return (open_channels() / num_channels());
 	}
 // Dangerous: since cached values are not automatically recomputed in derived classes
 //void Set_vBase(modigliani_base::Real newVBase /* mV */){ vBase = newVBase; }
-	Ion_channels * getChannelsPtr() {
-		return (channelsPtr);
+	Ion_channels * channels_ptr() {
+		return (channels_ptr_);
 	}
 
 	/* ***  Data                 ***/
 public:
-	Ion_channels * channelsPtr;
+	Ion_channels * channels_ptr_;
 protected:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
 	static modigliani_base::Uniform_rnd_dist uniformRnd;
-	modigliani_base::Real conductivity; // in mSiemens per channel
-	modigliani_base::Real density; // channels per muMeter^2
+	modigliani_base::Real conductivity_; // in mSiemens per channel
+	modigliani_base::Real density_; // channels per muMeter^2
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	modigliani_base::Size numChannels;
-	modigliani_base::Real area; // in mumeter^2
+	modigliani_base::Size num_channels_;
+	modigliani_base::Real area_; // in mumeter^2
 	bool ratesComputed;
 
 };

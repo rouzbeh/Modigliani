@@ -11,7 +11,7 @@ bool File_based_stochastic_multi_current::initTableLookUp = false;
 std::map<std::string, Transition_rate_matrix*> File_based_stochastic_multi_current::probability_matrix_map;
 std::map<std::string, int> File_based_stochastic_multi_current::number_of_states_map;
 std::map<std::string, double> File_based_stochastic_multi_current::base_temperature_map;
-std::map<std::string, std::vector<int> > File_based_stochastic_multi_current::open_states_map;
+std::map<std::string, std::vector<modigliani_base::Size> > File_based_stochastic_multi_current::open_states_map;
 
 /* ***      CONSTRUCTORS	***/
 /** Create a NTBP_hranvier_sodium_multi_current_o */
@@ -29,7 +29,7 @@ File_based_stochastic_multi_current::File_based_stochastic_multi_current(
 	UpdateNumChannels(); //TODO
 
 	setTimeStep(newTimeStep);
-	Set_temperature(newTemperature);
+	set_temperature(newTemperature);
 	if (number_of_states_map[fileName] == 0) {
 		load_file(fileName, newTemperature, newTimeStep);
 	}
@@ -40,12 +40,12 @@ File_based_stochastic_multi_current::File_based_stochastic_multi_current(
 	if (false == initTableLookUp) {
 		initTableLookUp = true;
 	}
-	channelsPtr = new Ion_channels(_numChannels(),
+	channels_ptr_ = new Ion_channels(num_channels(),
 			number_of_states_map[fileName], probability_matrix_map[fileName],
 			newTimeStep);
 
 	for (unsigned int i = 0; i < open_states_map[fileName].size(); i++) {
-		channelsPtr->setAsOpenState(open_states_map[fileName][i]);
+	  channels_ptr_->SetAsOpenState(open_states_map[fileName][i]);
 	}
 
 }
@@ -72,7 +72,7 @@ File_based_stochastic_multi_current::File_based_stochastic_multi_current(
 //
 /* ***      DESTRUCTOR		***/
 File_based_stochastic_multi_current::~File_based_stochastic_multi_current() {
-	delete channelsPtr;
+	delete channels_ptr_;
 }
 
 /* ***  PUBLIC                                    ***   */
@@ -96,7 +96,7 @@ void File_based_stochastic_multi_current::load_file(std::string fileName,
 			root.get("base_temperature", 20).asDouble();
 	number_of_states_map[fileName] = root.get("number_of_states", 0).asInt();
 
-	open_states_map[fileName] = std::vector<int>();
+	open_states_map[fileName] = std::vector<modigliani_base::Size>();
 	const Json::Value open_states = root["open_states"];
 	for (unsigned int index = 0; index < open_states.size(); ++index) { // Iterates over the sequence elements.
 		open_states_map[fileName].push_back(open_states[index].asInt());
@@ -136,21 +136,21 @@ void File_based_stochastic_multi_current::load_file(std::string fileName,
  \bug        unknown
  */
 inline modigliani_base::ReturnEnum File_based_stochastic_multi_current::StepCurrent() {
-	switch (_simulationMode()) {
+	switch (simulation_mode()) {
 	case BINOMIALPOPULATION: {
-		return (channelsPtr->BinomialStep(voltage));
+		return (channels_ptr_->BinomialStep(voltage_));
 	}
 		break;
 	case SINGLECHANNEL: {
-		return (channelsPtr->Step(voltage));
+		return (channels_ptr_->Step(voltage_));
 	}
 		break;
 	case GILLESPIE: {
-		return (channelsPtr->GillespieStep(voltage));
+		return (channels_ptr_->GillespieStep(voltage_));
 	}
 		break;
 	case DETERMINISTIC: {
-		return (channelsPtr->DeterministicStep(voltage));
+		return (channels_ptr_->DeterministicStep(voltage_));
 	}
 
 		break;
@@ -167,29 +167,29 @@ inline modigliani_base::ReturnEnum File_based_stochastic_multi_current::StepCurr
 /**  */
 /** No descriptions */
 inline modigliani_base::Real File_based_stochastic_multi_current::open_channels() const {
-	return (channelsPtr->NumOpen());
+	return (channels_ptr_->NumOpen());
 }
 
 /**  */
 /** No descriptions */
 inline modigliani_base::Real File_based_stochastic_multi_current::num_channels_in_state(
 		modigliani_base::Size state) const {
-	return (channelsPtr->numChannelsInState(state));
+	return (channels_ptr_->numChannelsInState(state));
 }
 
 inline modigliani_base::Real File_based_stochastic_multi_current::ComputeConductance() {
-	return (Set_conductance(channelsPtr->NumOpen() * conductivity));
+	return (set_conductance(channels_ptr_->NumOpen() * conductivity_));
 }
 
 inline modigliani_base::Real File_based_stochastic_multi_current::ComputeChannelStateTimeConstant() const {
-	return (channelsPtr->ComputeChannelStateTimeConstant(voltage));
+	return (channels_ptr_->ComputeChannelStateTimeConstant(voltage_));
 }
 
 void File_based_stochastic_multi_current::show_param() const {
 	std::cout << "Na channel parameters:" << std::endl;
-	std::cout << "Single channel conductivity [nA]" << _conductivity()
+	std::cout << "Single channel conductivity [nA]" << conductivity()
 			<< std::endl;
-	std::cout << "Channel density [1/muMeter^2]" << _area() << std::endl;
+	std::cout << "Channel density [1/muMeter^2]" << area() << std::endl;
 	std::cout << "MaxConductivity (all channels open) mSiemens/cm^2"
 			<< _maxConductivity() << std::endl;
 }

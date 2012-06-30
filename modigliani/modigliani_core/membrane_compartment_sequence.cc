@@ -239,7 +239,7 @@ std::vector<modigliani_base::Real> Membrane_compartment_sequence::NumChannels(
 		modigliani_base::Size currIndex) const {
 	std::vector<modigliani_base::Real> tmp(_numCompartments());
 	for (modigliani_base::Size ll = 0; ll < _numCompartments(); ll++) {
-		tmp[ll] = compartmentVec[ll]->Current(currIndex)->NumChannels();
+		tmp[ll] = compartmentVec[ll]->Current(currIndex)->num_channels();
 	}
 	return (tmp);
 }

@@ -25,8 +25,6 @@
 #define MODIGLIANI_MODIGLIANI_CORE_ION_CHANNELS_H_
 
 #include <vector>
-#include <ostream>
-
 /* Parent includes */
 #include "modigliani_core/object.h"
 /* NT includes */
@@ -59,7 +57,7 @@ class Ion_channels : public Object {
       return (num_states_);
     }
     modigliani_base::ReturnEnum GillespieStep(modigliani_base::Real voltage);
-    void setAsOpenState(modigliani_base::Size newOpenState);
+    void SetAsOpenState(modigliani_base::Size newOpenState);
     modigliani_base::ReturnEnum BinomialStep(modigliani_base::Real voltage);
     modigliani_base::ReturnEnum DeterministicStep(
         modigliani_base::Real voltage);
@@ -95,7 +93,7 @@ class Ion_channels : public Object {
         modigliani_base::Size channelStateId, modigliani_base::Real voltage);
     /* ***  Data                 ***/
     Transition_rate_matrix* _probMatrix;
-    std::vector<modigliani_base::Size> openStates;
+    std::vector<modigliani_base::Size> open_states_;
     modigliani_base::Size num_states_;
     modigliani_base::Size num_channels_;
 };
