@@ -129,7 +129,6 @@ int Simulate(string fileName) {
 					&& lt
 							% config_root["simulation_parameters"]["sampN"].asInt()
 							== 0) {
-				modigliani_base::Size counter = 0;
 				modigliani_base::Size number_of_currents = oModel->NumberCurrents();
 				float data[1 + number_of_currents];
 				data[0] = oModel->vm();
