@@ -27,16 +27,21 @@ main(int argc, char* argv[])
 
     if (argc < NUM_NON_COLUMN_PARAM) {
         std::cerr << "Invalid arguments specified."<< std::endl
-             << argv[0] << " <target file name> <num of random numbers> " << std::endl
+             << argv[0] << " <target file name> <num of random numbers> [<ascii>]" << std::endl
              << "generates a binary file with 'float' normal random numbers."<< std::endl;
         exit(1);
     }
     std::string filename = argv[1];
     modigliani_base::Size numNumbers = atoi ( argv[2]);
 
-
-    std::ofstream file (filename.c_str(), std::ios::binary);
-    if (!file.good()) {
+    bool ascii=false;
+    auto mode = std::ios::binary;
+    if(argc > NUM_NON_COLUMN_PARAM){
+      ascii=true;
+      mode = std::ios::out;
+    }
+    std::ofstream output_file (filename.c_str(), mode);
+    if (!output_file.good()) {
         std::cerr <<"Something is bad with writing to file "<<filename<< std::endl;
         exit(2);
     }
@@ -47,7 +52,10 @@ main(int argc, char* argv[])
     for (modigliani_base::Size ll = 0; ll < numNumbers; ll++) {
         value = float(rnd.RndVal());
         stats.Add(value);
-        file.write( reinterpret_cast<char*>(&value), sizeof(float) );
+        if(argc > ascii)
+          output_file << value << std::endl;
+        else
+          output_file.write( reinterpret_cast<char*>(&value), sizeof(float) );
     }
 
 
@@ -56,7 +64,7 @@ main(int argc, char* argv[])
     std::cout << "Max val " << stats._max() << std::endl;
     std::cout << "Min val " << stats._min() << std::endl;
     std::cout << "In "<< stats._counter() << " values." << std::endl;
-    file.close();
+    output_file.close();
 
     return (0);
 }
