@@ -48,28 +48,28 @@ int activation(string channel_file_name, int alg,
                                   ".bin");
 
   Real time_step = 0.001;
-  int samp_n = 10;
+  int samp_n = 1;
   Real V_hold = -100;  // holding potential
   Real V_resting = -60;
 
   for (modigliani_base::Size iTrials = 0; iTrials < num_trials; iTrials++) {
-    for (int aim = V_hold + 5; aim <= V_resting + 100; aim += 5) {
+    for (int aim = V_hold + 5; aim <= V_resting + 50; aim += 5) {
       Multi_current *current_p = 0;
       if (alg == 1) {
-        current_p = new Lua_based_deterministic_multi_current(10,  // Area
-            200,  // density,
+        current_p = new Lua_based_deterministic_multi_current(100,  // Area
+            20,  // density,
             20,  // conductance
             -85,  // reversal potential
-            0.001, 24, channel_file_name);
+            time_step, 24, channel_file_name);
 
         current_p->set_simulation_mode(
             modigliani_core::StochasticType::DETERMINISTIC);
       } else {
-        current_p = new Lua_based_stochastic_multi_current(10,  // Area
-            200,  // density,
+        current_p = new Lua_based_stochastic_multi_current(100,  // Area
+            20,  // density,
             20,  // conductance
             -85,  // reversal potential
-            0.001, 24, channel_file_name);
+            time_step, 24, channel_file_name);
         switch (alg) {
           case 2:
             current_p->set_simulation_mode(StochasticType::SINGLECHANNEL);
@@ -79,9 +79,11 @@ int activation(string channel_file_name, int alg,
             break;
         }
       }
+
       // Normalise channel at resting potential for 100 ms
-      for (int t = 0; t < 100 / time_step; t++)
+      for (int t = 0; t < 100 / time_step; t++){
         current_p->Step(V_resting);
+      }
 
       // establish holding potential and hold for 50 ms
       for (int t = 0; t < 50 / time_step; t++)
@@ -99,7 +101,7 @@ int activation(string channel_file_name, int alg,
         }
       }
 
-      // step to new voltage, record for 20 ms
+      // step to new voltage, record for step_length ms
       for (int t = 0; t < step_length / time_step; t++) {
         current_p->Step(aim);
 
@@ -109,6 +111,8 @@ int activation(string channel_file_name, int alg,
                     << " " << aim << endl;
         }
       }
+      delete current_p;
+      current_p = 0;
     }  // main loop
   }  // iTrials
 
@@ -124,9 +128,8 @@ int main(int argc, char** argv) {
   // Declare the supported options.
   po::options_description desc("Allowed options");
   desc.add_options()("channel", po::value<string>(), "which channel to use")(
-      "algorithm,a", po::value<int>(), "set algorithm")("trials",
-                                                      po::value<Size>(),
-                                                      "set number of trials")(
+      "algorithm,a", po::value<int>(), "set algorithm")(
+      "trials,t", po::value<Size>(), "set number of trials")(
       "step-length,s", po::value<Real>(), "set length of step (in ms)")(
       "output-folder,o", po::value<string>(), "set output folder");
 
