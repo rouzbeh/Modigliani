@@ -240,14 +240,24 @@ int Simulate(string fileName) {
   return (0);
 }
 
-int Test() {
+int Test(int mode) {
   volatile modigliani_base::Real result = 0;
-  modigliani_base::Binomial_rnd_dist rnd(0.3, 100);
+  if(mode == 1) {
+    modigliani_base::Binomial_rnd_dist rnd(0.3, 100);
 
-//  for (int i=0; i< 100000000; i++){
-//    result = rnd.RndVal();
-//  }
+    for (int i=0; i< 100000000; i++){
+      result = rnd.Binomial(0.3,100);
+    }
+    return(0);
+  }
+  if(mode == 2) {
+    modigliani_base::Uniform_rnd_dist rnd(0.3, 100);
 
+    for (int i=0; i< 100000000; i++){
+      result = rnd.RndVal();
+    }
+    return(0);
+  }
   return (result == 0);
 }
 
@@ -259,8 +269,11 @@ int main(int argc, char* argv[]) {
   if (strcmp(argv[1], "simulate") == 0) {
     return (Simulate(argv[2]));
   }
-  if (strcmp(argv[1], "test") == 0) {
-    return (Test());
+  if (strcmp(argv[1], "test1") == 0) {
+    return (Test(1));
+  }
+  if (strcmp(argv[1], "test2") == 0) {
+    return (Test(2));
   }
   return (1);
 }
