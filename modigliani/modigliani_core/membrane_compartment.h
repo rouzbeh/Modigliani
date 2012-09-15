@@ -43,8 +43,9 @@ class Membrane_compartment : public Object {
     /***   Constructors, Copy/Assignment and Destructor  ***/
     Membrane_compartment(modigliani_base::Real area /* in muMeter^2 */,
                          modigliani_base::Real newTemperature = 6.3);
-    Membrane_compartment(const Membrane_compartment & original);
-    Membrane_compartment & operator=(const Membrane_compartment & right);
+    Membrane_compartment(const Membrane_compartment & original) = delete;
+    Membrane_compartment & operator=(const Membrane_compartment & right) = delete;
+
     virtual ~Membrane_compartment();
     /* ***  Methods              ***/
     modigliani_base::ReturnEnum AttachCurrent(Membrane_current * currentPtr,
