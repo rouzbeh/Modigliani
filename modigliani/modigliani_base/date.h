@@ -27,6 +27,7 @@
 
 #include <ostream>
 #include <ctime>
+#include <stdio.h>
 
 #include "main.h"
 #include "types.h"
