@@ -10,6 +10,7 @@ using namespace modigliani_core;
 Transition_rate_matrix::Transition_rate_matrix(
 		modigliani_base::Size new_num_states, modigliani_base::Real new_min, modigliani_base::Real new_max, modigliani_base::Real new_step) :
 		min(new_min), max(new_max), step(new_step), num_states(new_num_states) {
+  max_index = get_index(new_max);
 	int length = (floor((max - min) / step + 0.5) + 1)	* num_states * num_states;
 	_probMatrices = new modigliani_base::Real[length];
 	for (int i = 0; i< length; i++){
@@ -40,12 +41,20 @@ modigliani_base::Size Transition_rate_matrix::get_index(modigliani_base::Real vo
 
 modigliani_base::Real Transition_rate_matrix::getTransitionProbability(modigliani_base::Real voltage,
 		modigliani_base::Size start, modigliani_base::Size stop) {
+  if (voltage > max){
+    std::cerr << "Voltage greater than maximum authorized value: " << voltage << std::endl;
+    exit(1);
+  }
 	return (_probMatrices[get_index(voltage) * num_states * num_states
 			+ (start - 1) * num_states + (stop - 1)]);
 }
 
 modigliani_base::Real Transition_rate_matrix::getTransitionProbability(modigliani_base::Size index,
 		modigliani_base::Size start, modigliani_base::Size stop) {
+  if (index > max_index){
+      std::cerr << "Index greater than maximum authorized value: " << index << std::endl;
+      exit(1);
+    }
 	return (_probMatrices[index * num_states * num_states
 			+ (start - 1) * num_states + (stop - 1)]);
 }
