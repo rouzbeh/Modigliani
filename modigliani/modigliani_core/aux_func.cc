@@ -74,7 +74,8 @@ string modigliani_core::createOutputFolder(string outputFolder) {
 modigliani_core::Custom_cylindrical_compartment*
 modigliani_core::create_compartment(Json::Value config_root,
                                     Json::Value simulation_parameters,
-                                    Json::Value compartment_parameters) {
+                                    Json::Value compartment_parameters,
+                                    modigliani_base::Size force_alg) {
   Custom_cylindrical_compartment *tmpPtr = new Custom_cylindrical_compartment(
       compartment_parameters["length"].asDouble() /* muMeter */,
       config_root["diameter"].asDouble() /* muMeter */,
@@ -113,16 +114,17 @@ modigliani_core::create_compartment(Json::Value config_root,
               simulation_parameters["timeStep"].asDouble(),
               config_root["temperature"].asDouble() /* C */,
               current["chModel"].asString());
-      if (4 == current["chAlg"].asInt())
-        file_current->set_simulation_mode(BINOMIALPOPULATION);
-      if (2 == current["chAlg"].asInt())
-        file_current->set_simulation_mode(SINGLECHANNEL);
+      auto alg = current["chAlg"].asInt();
+      if (force_alg) alg = force_alg;
+      if (4 == alg) file_current->set_simulation_mode(BINOMIALPOPULATION);
+      if (2 == alg) file_current->set_simulation_mode(SINGLECHANNEL);
       tmpPtr->AttachCurrent(file_current, NTBP_IONIC);
       continue;
     }
 
     if ("lua" == current["type"].asString()) {
-      if (1 == current["chAlg"].asInt()) {
+      auto alg = (force_alg?force_alg:current["chAlg"].asInt());
+      if (1 == alg) {
         Lua_based_deterministic_multi_current * lua_current =
             new Lua_based_deterministic_multi_current(
                 tmpPtr->area(), current["chDen"].asDouble() /* mum^-2 */,
@@ -134,8 +136,7 @@ modigliani_core::create_compartment(Json::Value config_root,
         lua_current->set_simulation_mode(DETERMINISTIC);
         tmpPtr->AttachCurrent(lua_current, NTBP_IONIC);
         continue;
-      } else if (4 == current["chAlg"].asInt()
-          || 2 == current["chAlg"].asInt()) {
+      } else if (4 == alg || 2 == alg) {
         modigliani_base::Real indDensity = corrected_channel_density(
             current["chDen"].asDouble(), tmpPtr->area());
         Lua_based_stochastic_multi_current * lua_current =
@@ -147,10 +148,8 @@ modigliani_core::create_compartment(Json::Value config_root,
                 simulation_parameters["timeStep"].asDouble(),
                 config_root["temperature"].asDouble() /* C */,
                 current["chModel"].asString());
-        if (4 == current["chAlg"].asInt())
-          lua_current->set_simulation_mode(BINOMIALPOPULATION);
-        if (2 == current["chAlg"].asInt())
-          lua_current->set_simulation_mode(SINGLECHANNEL);
+        if (4 == alg) lua_current->set_simulation_mode(BINOMIALPOPULATION);
+        if (2 == alg) lua_current->set_simulation_mode(SINGLECHANNEL);
         tmpPtr->AttachCurrent(lua_current, NTBP_IONIC);
         continue;
       }
@@ -212,7 +211,7 @@ ofstream* modigliani_core::openOutputFile(string outputFolder, string prefix,
 
 modigliani_core::Membrane_compartment_sequence* modigliani_core::create_axon(
     Json::Value config_root, ofstream& TypePerCompartmentFile,
-    ofstream& LengthPerCompartmentFile) {
+    ofstream& LengthPerCompartmentFile, modigliani_base::Size force_alg) {
 
   string lua_script = config_root["anatomy_lua"].asString();
   lua_State* L = luaL_newstate();
@@ -245,7 +244,7 @@ modigliani_core::Membrane_compartment_sequence* modigliani_core::create_axon(
         << compartments_parameters[*it]["length"].asDouble() << std::endl;
     oModel->PushBack(
         create_compartment(config_root, config_root["simulation_parameters"],
-                           compartments_parameters[*it]));
+                           compartments_parameters[*it], force_alg));
   }
   return (oModel);
 }
@@ -291,3 +290,4 @@ std::vector<modigliani_base::Size> modigliani_core::get_electrods(
   lua_close(L);
   return (outvec);
 }
+
