@@ -36,6 +36,7 @@ private:
 	modigliani_base::Real max;
 	modigliani_base::Real step;
 	int num_states;
+	modigliani_base::Size max_index;
 };
 }
 
