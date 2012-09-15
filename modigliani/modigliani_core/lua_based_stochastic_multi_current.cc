@@ -44,6 +44,9 @@ Lua_based_stochastic_multi_current::Lua_based_stochastic_multi_current(
   for (unsigned int i = 0; i < open_states_map[fileName].size(); i++) {
     channels_ptr_->SetAsOpenState(open_states_map[fileName][i]);
   }
+
+  channels_ptr_ -> SteadyStateDistribution(0);
+  channels_ptr_ -> SteadyStateDistribution(-60);
 }
 
 /* ***      DESTRUCTOR		***/
