@@ -39,26 +39,6 @@ Membrane_compartment::Membrane_compartment(
 	temperature_ = newTemperature;
 }
 
-/* ***      COPY AND ASSIGNMENT	***/
-Membrane_compartment::Membrane_compartment(
-		const Membrane_compartment __attribute__((__unused__)) & original) :
-		Object() {
-	// should not be used
-	std::cerr
-			<< "Membrane_compartment::Membrane_compartment(const .. & original)= - ERROR : Not implemented."
-			<< std::endl;
-}
-
-Membrane_compartment&
-Membrane_compartment::operator=(const Membrane_compartment & right) {
-	if (this == &right)
-		return (*this); // Gracefully handle self assignment
-	// should not be used
-	std::cerr << "Membrane_compartment::operator= - ERROR : Not implemented."
-			<< std::endl;
-	return (*this);
-}
-
 /* ***      DESTRUCTOR		***/
 Membrane_compartment::~Membrane_compartment() {
 	for (auto it = current_vec_.begin(); it != current_vec_.end(); ++it) {
