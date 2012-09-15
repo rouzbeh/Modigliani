@@ -36,10 +36,11 @@
  * @param filename
  * @return Status
  */
-int Simulate(string fileName, bool verbose, string input,
-             modigliani_base::Size plot) {
-  modigliani_base::Size numCompartments;
-  Json::Value config_root = modigliani_core::read_config(fileName);
+int Simulate(boost::program_options::variables_map vm) {
+  using modigliani_base::Size;
+  Size numCompartments;
+  Json::Value config_root = modigliani_core::read_config(
+      vm["config-file"].as<string>());
   string timedOutputFolder;
   // What compartments to save
   auto electrods_vec = modigliani_core::get_electrods(config_root);
@@ -51,7 +52,7 @@ int Simulate(string fileName, bool verbose, string input,
     timedOutputFolder = modigliani_core::createOutputFolder(
         config_root["simulation_parameters"]["outputFolder"].asString());
 
-    std::ifstream ifs(fileName, std::ios::binary);
+    std::ifstream ifs(vm["config-file"].as<string>(), std::ios::binary);
     string temp_string = timedOutputFolder;
     std::ofstream ofs(temp_string.append("/conf.json").c_str(),
                       std::ios::binary);
@@ -81,16 +82,9 @@ int Simulate(string fileName, bool verbose, string input,
 
   lua_State* L_inject_current = luaL_newstate();
   std::vector<float> inputData(1000000);
-  if (input == "lua") {
-    string lua_inject_script =
-        config_root["simulation_parameters"]["inject_current_lua"].asString();
-    luaL_openlibs(L_inject_current);
-    luaL_dostring(L_inject_current, lua_inject_script.c_str());
-  } else {
+  if (vm.count("input-file")) {
     // Read input file only once. Store its content in memory.
-    ifstream dataFile(
-        config_root["simulation_parameters"]["inputFile"].asString().c_str(),
-        ios::binary);
+    ifstream dataFile(vm["input-file"].as<string>());
     if (dataFile.fail()) {
       std::cerr
           << "Could not open input file "
@@ -112,16 +106,38 @@ int Simulate(string fileName, bool verbose, string input,
       }
     }
     dataFile.close();
+  } else {
+    string lua_inject_script =
+        config_root["simulation_parameters"]["inject_current_lua"].asString();
+    luaL_openlibs(L_inject_current);
+    luaL_dostring(L_inject_current, lua_inject_script.c_str());
   }
 
+  bool verbose = false;
+  if (vm.count("verbose")) {
+    verbose = true;
+  }
+
+  Size plot = 0;
+  if (vm.count("plot")) {
+    plot = vm["plot"].as<Size>();
+  }
+
+  Size force_alg = 0;
+  if (vm.count("algorithm")) {
+    force_alg = vm["algorithm"].as<int>();
+  }
+
+  Size num_trials = config_root["simulation_parameters"]["numTrials"].asUInt();
+
   /* *** Trials loop *** */
-  for (modigliani_base::Size lTrials = 0;
-      lTrials < config_root["simulation_parameters"]["numTrials"].asUInt();
-      lTrials++) {
+  for (modigliani_base::Size lTrials = 0; lTrials < num_trials; lTrials++) {
+    modigliani_base::Real inp_current = 0;
+
     /* Model setup */
     modigliani_core::Membrane_compartment_sequence* oModel =
         modigliani_core::create_axon(config_root, TypePerCompartmentFile,
-                                     LengthPerCompartmentFile);
+                                     LengthPerCompartmentFile, force_alg);
 
     if (!lTrials) {
       TypePerCompartmentFile.close();
@@ -158,14 +174,14 @@ int Simulate(string fileName, bool verbose, string input,
     /* *** SIMULATION ITERATION LOOP *** */
     std::cerr << "MainLoop started" << std::endl;
 
-    modigliani_base::Uniform_rnd_dist uniformRnd;
+    //modigliani_base::Uniform_rnd_dist uniformRnd;
 
     modigliani_base::Real timeInMS = 0;
     int dataRead = 0;
     for (modigliani_base::Size lt = 0;
         lt < config_root["simulation_parameters"]["numIter"].asUInt(); lt++) {
       timeInMS += oModel->_timeStep();
-      //timeVar = timeInMS;
+
       // Write number of columns
       if (config_root["simulation_parameters"]["sampN"].asInt() > 0 && lt == 0
           && lTrials == 0) {
@@ -220,20 +236,20 @@ int Simulate(string fileName, bool verbose, string input,
         }
       }
 #endif
-      modigliani_base::Real inp_current = 0;
-      if (input == "lua") {
-        lua_getglobal(L_inject_current, "current");
-        lua_pushnumber(L_inject_current, timeInMS);
-        lua_call(L_inject_current, 1, 1);
-        inp_current = lua_tonumber(L_inject_current, -1);
-        lua_pop(L_inject_current, 1);
-      } else {
+      if (vm.count("input-file")) {
         if (lt % config_root["simulation_parameters"]["readN"].asInt() == 0) {
           inp_current = (inputData[dataRead]
               * config_root["simulation_parameters"]["inpISDV"].asDouble())
               + config_root["simulation_parameters"]["inpI"].asDouble();
           dataRead++;
+          cout <<  config_root["simulation_parameters"]["inpI"].asDouble() << endl;
         }
+      } else {
+        lua_getglobal(L_inject_current, "current");
+        lua_pushnumber(L_inject_current, timeInMS);
+        lua_call(L_inject_current, 1, 1);
+        inp_current = lua_tonumber(L_inject_current, -1);
+        lua_pop(L_inject_current, 1);
       }
       if (verbose) cout << lt << "\t" << inp_current << endl;
       oModel->InjectCurrent(inp_current, 1);
@@ -243,8 +259,8 @@ int Simulate(string fileName, bool verbose, string input,
     if (pls) delete pls;
 #endif
     delete oModel;
-    lua_close(L_inject_current);
   }  // lTrials
+  lua_close(L_inject_current);
   log_file << "Simulation completed." << std::endl;
   log_file.close();
   for (auto ci = pot_current_files.begin(); ci != pot_current_files.end();
@@ -261,18 +277,20 @@ int main(int argc, char* argv[]) {
   using modigliani_base::Real;
   using modigliani_base::Size;
   namespace po = boost::program_options;
-  // Declare the supported options.
+// Declare the supported options.
   po::options_description desc("Allowed options");
   desc.add_options()("help", "produce help message")(
       "config-file", po::value<string>(), "which configuration file to use")(
       "algorithm,a", po::value<int>(), "set algorithm")("trials,t",
                                                         po::value<Size>(),
                                                         "set number of trials")(
-      "verbose,v", "activate debug messages")("output-folder,o",
+      "verbose,v", "activate debug messages")("input-file,i",
                                               po::value<string>(),
-                                              "set output folder")(
-      "input-file,i", po::value<string>(), "set input file")(
-      "plot,p", po::value<Size>(), "plot every <arg> step.");
+                                              "set input file")
+#ifdef WITH_PLPLOT
+  ("plot,p", po::value<Size>(), "plot every <arg> step.")
+#endif
+   ;
 
   po::positional_options_description p;
   p.add("config-file", -1);
@@ -288,19 +306,5 @@ int main(int argc, char* argv[]) {
     return (1);
   }
 
-  bool verbose = false;
-  if (vm.count("verbose")) {
-    verbose = true;
-  }
-
-  string input = "lua";
-  if (vm.count("input-file")) {
-    input = vm["input-file"].as<string>();
-  }
-
-  Size plot = 0;
-  if (vm.count("plot")) {
-    plot = vm["plot"].as<Size>();
-  }
-  return (Simulate(vm["config-file"].as<string>(), verbose, input, plot));
+  return (Simulate(vm));
 }
