@@ -90,7 +90,7 @@ protected:
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	modigliani_base::Real maxConductivity; // in mSiemens / muMeter^2
+	modigliani_base::Real maxConductivity; // in mSiemens / centiMeter^2
 	modigliani_base::Real density_; // channels per mumeter^2
 	modigliani_base::Real area_; // in mumeter^2
 	modigliani_base::Real conductivity_; // in mSiemens per channel
