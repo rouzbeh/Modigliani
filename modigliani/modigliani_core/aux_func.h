@@ -24,7 +24,6 @@
 #ifndef MODIGLIANI_MODIGLIANI_CORE_AUX_FUNC_H_
 #define MODIGLIANI_MODIGLIANI_CORE_AUX_FUNC_H_
 
-
 #ifdef __MINGW32__
 #include <jsoncpp/json.h>
 #else
@@ -71,7 +70,7 @@ string createOutputFolder(string outputFolder);
 
 modigliani_core::Custom_cylindrical_compartment* create_compartment(
     Json::Value config_root, Json::Value simulation_parameters,
-    Json::Value compartment_parameters);
+    Json::Value compartment_parameters, modigliani_base::Size force_alg);
 
 /**
  * Opens a new file in write mode.
@@ -87,7 +86,7 @@ ofstream* openOutputFile(string outputFolder, string prefix, int counter,
 
 modigliani_core::Membrane_compartment_sequence* create_axon(
     Json::Value config_root, ofstream& TypePerCompartmentFile,
-    ofstream& LengthPerCompartmentFile);
+    ofstream& LengthPerCompartmentFile, modigliani_base::Size force_alg);
 
 /**
  * Reads the parameters in the file given as argument.

@@ -29,8 +29,7 @@
 /// @param alg Simulation algorithm
 int activation(string channel_file_name, int alg,
                modigliani_base::Real step_length,
-               modigliani_base::Size num_trials,
-               string output_folder) {
+               modigliani_base::Size num_trials, string output_folder) {
   using modigliani_base::Real;
   using modigliani_core::Lua_based_stochastic_multi_current;
   using modigliani_core::Lua_based_deterministic_multi_current;
@@ -45,11 +44,11 @@ int activation(string channel_file_name, int alg,
   modigliani_core::openOutputFile(timed_output_folder, "Time", time_file);
   modigliani_core::openOutputFile(timed_output_folder, "log", log_file, ".log");
   modigliani_core::openOutputFile(timed_output_folder, "data", data_file,
-                                  ".bin");
+                                  ".txt");
 
   Real time_step = 0.001;
   int samp_n = 1;
-  Real V_hold = -100;  // holding potential
+  Real V_hold = -110;  // holding potential
   Real V_resting = -60;
 
   for (modigliani_base::Size iTrials = 0; iTrials < num_trials; iTrials++) {
@@ -80,8 +79,15 @@ int activation(string channel_file_name, int alg,
         }
       }
 
+      // Shuffle channel states
+      for (int t = 0; t < 10 / time_step; t++) {
+        current_p->Step(0);
+      }
+      for (int t = 0; t < 10 / time_step; t++) {
+        current_p->Step(30);
+      }
       // Normalise channel at resting potential for 100 ms
-      for (int t = 0; t < 100 / time_step; t++){
+      for (int t = 0; t < 100 / time_step; t++) {
         current_p->Step(V_resting);
       }
 
@@ -128,8 +134,9 @@ int main(int argc, char** argv) {
   // Declare the supported options.
   po::options_description desc("Allowed options");
   desc.add_options()("channel", po::value<string>(), "which channel to use")(
-      "algorithm,a", po::value<int>(), "set algorithm")(
-      "trials,t", po::value<Size>(), "set number of trials")(
+      "algorithm,a", po::value<int>(), "set algorithm")("trials,t",
+                                                        po::value<Size>(),
+                                                        "set number of trials")(
       "step-length,s", po::value<Real>(), "set length of step (in ms)")(
       "output-folder,o", po::value<string>(), "set output folder");
 
@@ -167,7 +174,7 @@ int main(int argc, char** argv) {
     step_length = vm["step-length"].as<Real>();
   }
   cout << "step length was set to " << step_length << ".\n";
-  
+
   string output_folder = "/tmp/";
   if (vm.count("output-folder")) {
     output_folder = vm["output-folder"].as<string>();
@@ -175,6 +182,6 @@ int main(int argc, char** argv) {
   cout << "Output folder set to " << output_folder << ".\n";
 
   cout << vm["channel"].as<string>() << endl;
-  return (activation(vm["channel"].as<string>(), alg, step_length,
-   num_trials, output_folder));
+  return (activation(vm["channel"].as<string>(), alg, step_length, num_trials,
+                     output_folder));
 }
