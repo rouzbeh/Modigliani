@@ -43,7 +43,7 @@ Date::Date() {
   wday = 0;
   yday = 0;
   isdst = 0;
-  snprintf(zone,sizeof("UTC"), "UTC");
+  snprintf(zone, sizeof("UTC"), "UTC");
   gmtoff = 0;
 }
 
@@ -54,9 +54,19 @@ Date::Date() {
 //    Input :
 //    Output :
 //
-Date::Date(const Date &)
-    : Obj() {
-
+Date::Date(const Date & original) {
+  nsec = original.nsec;
+  sec = original.sec;
+  min = original.min;
+  hour = original.hour;
+  mday = original.mday;
+  mon = original.mon;
+  year = original.year;
+  wday = original.wday;
+  yday = original.yday;
+  isdst = original.isdst;
+  snprintf(zone, sizeof("UTC"), "UTC");
+  gmtoff = original.gmtoff;
 }
 
 //
