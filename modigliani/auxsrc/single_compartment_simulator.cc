@@ -34,136 +34,128 @@
  * @return Status
  */
 int Simulate(string fileName) {
-	Json::Value config_root = modigliani_core::read_config(fileName);
-	string timedOutputFolder;
+  Json::Value config_root = modigliani_core::read_config(fileName);
+  string timedOutputFolder;
 
-	// We write each compartment's potential and currents into a single file.
-	ofstream TimeFile, log_file;
+  // We write each compartment's potential and currents into a single file.
+  ofstream TimeFile, log_file;
 
-	ofstream* pot_current_file;
-	if (config_root["simulation_parameters"].get("sampN", 0).asUInt() > 0) {
-		timedOutputFolder =
-				modigliani_core::createOutputFolder(
-						config_root["simulation_parameters"]["outputFolder"].asString());
+  ofstream* pot_current_file;
+  if (config_root["simulation_parameters"].get("sampN", 0).asUInt() > 0) {
+    timedOutputFolder = modigliani_core::createOutputFolder(
+        config_root["simulation_parameters"]["outputFolder"].asString());
 
-		std::ifstream ifs(fileName, std::ios::binary);
-		string temp_string = timedOutputFolder;
-		std::ofstream ofs(temp_string.append("/conf.json").c_str(),
-				std::ios::binary);
+    std::ifstream ifs(fileName, std::ios::binary);
+    string temp_string = timedOutputFolder;
+    std::ofstream ofs(temp_string.append("/conf.json").c_str(),
+                      std::ios::binary);
 
-		ofs << ifs.rdbuf();
-		ofs.close();
-		ifs.close();
+    ofs << ifs.rdbuf();
+    ofs.close();
+    ifs.close();
 
-		modigliani_core::openOutputFile(timedOutputFolder, "Time", TimeFile);
-		modigliani_core::openOutputFile(timedOutputFolder, "log", log_file, ".log");
-		TimeFile << "% in ms" << std::endl;
-		pot_current_file = modigliani_core::openOutputFile(timedOutputFolder,
-				"compartment", 0, ".bin");
-	} else {
-		modigliani_core::openOutputFile("/tmp", "log", log_file, ".log");
-	}
+    modigliani_core::openOutputFile(timedOutputFolder, "Time", TimeFile);
+    modigliani_core::openOutputFile(timedOutputFolder, "log", log_file, ".log");
+    TimeFile << "% in ms" << std::endl;
+    pot_current_file = modigliani_core::openOutputFile(timedOutputFolder,
+                                                       "compartment", 0,
+                                                       ".bin");
+  } else {
+    modigliani_core::openOutputFile("/tmp", "log", log_file, ".log");
+  }
 
-	// Read input file only once. Store its content in memory.
-	ifstream dataFile(
-			config_root["simulation_parameters"]["inputFile"].asString().c_str(),
-			ios::binary);
-	if (dataFile.fail()) {
-		std::cerr << "Could not open input file "
-				<< config_root["simulation_parameters"]["inputFile"].asString().c_str()
-				<< std::endl;
-		exit(1);
-	}
+  // Read input file only once. Store its content in memory.
+  ifstream dataFile(
+      config_root["simulation_parameters"]["inputFile"].asString().c_str(),
+      ios::binary);
+  if (dataFile.fail()) {
+    std::cerr
+        << "Could not open input file "
+        << config_root["simulation_parameters"]["inputFile"].asString().c_str()
+        << std::endl;
+    exit(1);
+  }
 
-	std::vector<float> inputData(1000000);
-	modigliani_base::Size index = 0;
-	while (dataFile.good()) {
-		if (index < inputData.size()) {
-			char tmp[100];
-			dataFile.getline(tmp, 100);
-			sscanf(tmp, "%f", &inputData[index]);
-			index++;
-		} else {
-			inputData.resize(inputData.size() + 100000);
-		}
-	}
-	dataFile.close();
+  std::vector<float> inputData(1000000);
+  modigliani_base::Size index = 0;
+  while (dataFile.good()) {
+    if (index < inputData.size()) {
+      char tmp[100];
+      dataFile.getline(tmp, 100);
+      sscanf(tmp, "%f", &inputData[index]);
+      index++;
+    } else {
+      inputData.resize(inputData.size() + 100000);
+    }
+  }
+  dataFile.close();
 
-	// Trials loop
-	for (modigliani_base::Size lTrials = 0;
-			lTrials < config_root["simulation_parameters"]["numTrials"].asUInt();
-			lTrials++) {
-		/* Model setup */
-		Json::Value compartments_parameters =
-				config_root["compartments_parameters"];
-		Json::Value simulation_parameters = config_root["simulation_parameters"];
-		modigliani_core::Custom_cylindrical_compartment* oModel =
-				modigliani_core::create_compartment(config_root, simulation_parameters,
-						compartments_parameters[0u]);
+  // Trials loop
+  for (modigliani_base::Size lTrials = 0;
+      lTrials < config_root["simulation_parameters"]["numTrials"].asUInt();
+      lTrials++) {
+    /* Model setup */
+    Json::Value compartments_parameters = config_root["compartments_parameters"];
+    Json::Value simulation_parameters = config_root["simulation_parameters"];
+    modigliani_core::Custom_cylindrical_compartment* oModel =
+        modigliani_core::create_compartment(config_root, simulation_parameters,
+                                            compartments_parameters[0u], 0);
 
-		// SIMULATION ITERATION LOOP
-		std::cerr << "MainLoop started" << std::endl;
-		float timeVar = 0;
-		modigliani_base::Real inpCurrent = 0.0;
+    // SIMULATION ITERATION LOOP
+    std::cerr << "MainLoop started" << std::endl;
+    float timeVar = 0;
+    modigliani_base::Real inpCurrent = 0.0;
 
-		modigliani_base::Uniform_rnd_dist uniformRnd;
+    modigliani_base::Uniform_rnd_dist uniformRnd;
 
-		modigliani_base::Real timeInMS = 0;
-		int dataRead = 0;
-		for (modigliani_base::Size lt = 0;
-				lt < config_root["simulation_parameters"]["numIter"].asUInt();
-				lt++) {
-			timeInMS += oModel->_timeStep();
-			timeVar = timeInMS;
-			// Write number of columns
-			if (config_root["simulation_parameters"]["sampN"].asInt() > 0
-					&& lt == 0 && lTrials == 0) {
-				modigliani_base::Size number_of_currents = oModel->NumberCurrents()
-						+ 1;
-				pot_current_file->write(
-						reinterpret_cast<char*>(&number_of_currents),
-						sizeof(modigliani_base::Size));
-			}
-			/* the "sampling ratio" used for "measurement" to disk */
-			if (config_root["simulation_parameters"]["sampN"].asInt() > 0
-					&& lt
-							% config_root["simulation_parameters"]["sampN"].asInt()
-							== 0) {
-				modigliani_base::Size number_of_currents = oModel->NumberCurrents();
-				float data[1 + number_of_currents];
-				data[0] = oModel->vm();
-				for (modigliani_base::Size ll = 1; ll - 1 < number_of_currents; ++ll) {
-					data[ll] = oModel->AttachedCurrent(ll);
-				}
-				pot_current_file->write(reinterpret_cast<char*>(data),
-						(1 + number_of_currents) * sizeof(float));
-			}
-			if (!lTrials)
-				TimeFile << timeVar << std::endl;
+    modigliani_base::Real timeInMS = 0;
+    int dataRead = 0;
+    for (modigliani_base::Size lt = 0;
+        lt < config_root["simulation_parameters"]["numIter"].asUInt(); lt++) {
+      timeInMS += oModel->_timeStep();
+      timeVar = timeInMS;
+      // Write number of columns
+      if (config_root["simulation_parameters"]["sampN"].asInt() > 0 && lt == 0
+          && lTrials == 0) {
+        modigliani_base::Size number_of_currents = oModel->NumberCurrents() + 1;
+        pot_current_file->write(reinterpret_cast<char*>(&number_of_currents),
+                                sizeof(modigliani_base::Size));
+      }
+      /* the "sampling ratio" used for "measurement" to disk */
+      if (config_root["simulation_parameters"]["sampN"].asInt() > 0
+          && lt % config_root["simulation_parameters"]["sampN"].asInt() == 0) {
+        modigliani_base::Size number_of_currents = oModel->NumberCurrents();
+        float data[1 + number_of_currents];
+        data[0] = oModel->vm();
+        for (modigliani_base::Size ll = 1; ll - 1 < number_of_currents; ++ll) {
+          data[ll] = oModel->AttachedCurrent(ll);
+        }
+        pot_current_file->write(reinterpret_cast<char*>(data),
+                                (1 + number_of_currents) * sizeof(float));
+      }
+      if (!lTrials) TimeFile << timeVar << std::endl;
 
-			if (lt % config_root["simulation_parameters"]["readN"].asInt()
-					== 0) {
-				inpCurrent =
-						(inputData[dataRead]
-								* config_root["simulation_parameters"]["inpISDV"].asDouble())
-								+ config_root["simulation_parameters"]["inpI"].asDouble();
-				dataRead++;
-			}
-			oModel->InjectCurrent(inpCurrent);
+      if (lt % config_root["simulation_parameters"]["readN"].asInt() == 0) {
+        inpCurrent = (inputData[dataRead]
+            * config_root["simulation_parameters"]["inpISDV"].asDouble())
+            + config_root["simulation_parameters"]["inpI"].asDouble();
+        dataRead++;
+      }
+      oModel->InjectCurrent(inpCurrent);
 
-			oModel->step(oModel->vm());
-		}
+      oModel->step(oModel->vm());
+    }
 
-		delete oModel;
-	} // lTrials
-	log_file << "Simulation completed." << std::endl;
-	log_file.close();
-	pot_current_file->close();
-	delete pot_current_file;
+    delete oModel;
+  }  // lTrials
+  log_file << "Simulation completed." << std::endl;
+  log_file.close();
+  pot_current_file->close();
+  delete pot_current_file;
 
-	return (0);
+  return (0);
 }
 
 int main(int argc, char* argv[]) {
-	return (Simulate(argv[2]));
+  return (Simulate(argv[2]));
 }
