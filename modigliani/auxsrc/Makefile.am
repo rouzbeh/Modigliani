@@ -44,19 +44,22 @@ single_compartment_simulator_SOURCES = single_compartment_simulator.cc
 resting_potential_SOURCES = resting_potential.cc
 
 if MINGW
-  axon_simulator_LDADD = $(top_builddir)/modigliani/modigliani_core/libmodigliani_core.a $(top_builddir)/modigliani/modigliani_base/libmodigliani_base.a -lboost_filesystem-mt -lboost_system-mt -ljsoncc -lm -llua -lboost_program_options $(MAYBE_PLPLOT)
-  single_compartment_simulator_LDADD = $(top_builddir)/modigliani/modigliani_core/libmodigliani_core.a $(top_builddir)/modigliani/modigliani_base/libmodigliani_base.a -lboost_filesystem-mt -lboost_system-mt -ljsoncc -lm -llua
+  BOOST_LINKS = -lboost_filesystem-mt -lboost_system-mt -lboost_program_options-mt
+  JSON_LINKS = -ljsoncpp
 else
-  single_compartment_simulator_LDADD = $(top_builddir)/modigliani/modigliani_core/libmodigliani_core.a $(top_builddir)/modigliani/modigliani_base/libmodigliani_base.a -lboost_filesystem -lboost_system -ljson -lm -llua 
-  axon_simulator_LDADD = $(top_builddir)/modigliani/modigliani_core/libmodigliani_core.a $(top_builddir)/modigliani/modigliani_base/libmodigliani_base.a -lboost_filesystem -lboost_system -ljson -lm -llua -ldl $(MAYBE_PLPLOT) -lboost_program_options
+  BOOST_LINKS = -lboost_filesystem -lboost_system -lboost_program_options
+  JSON_LINKS = -ljson
 endif
+
+axon_simulator_LDADD = $(top_builddir)/modigliani/modigliani_core/libmodigliani_core.a $(top_builddir)/modigliani/modigliani_base/libmodigliani_base.a -lm -llua $(BOOST_LINKS) $(MAYBE_PLPLOT) $(JSON_LINKS)
+single_compartment_simulator_LDADD = $(top_builddir)/modigliani/modigliani_core/libmodigliani_core.a $(top_builddir)/modigliani/modigliani_base/libmodigliani_base.a $(BOOST_LINKS) $(JSON_LINKS) -lm -llua
 axon_simulator_CPPFLAGS = $(PLPLOTCPPFLAGS)
 resting_potential_CPPFLAGS = $(PLPLOTCPPFLAGS)
 
 resting_potential_LDADD = $(single_compartment_simulator_LDADD)
 
 voltage_step_SOURCES = voltage_step.cc
-voltage_step_LDADD = $(single_compartment_simulator_LDADD) -lboost_program_options
+voltage_step_LDADD = $(single_compartment_simulator_LDADD) 
 
 
 # set the include path found by configure
