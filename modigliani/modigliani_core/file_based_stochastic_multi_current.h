@@ -9,11 +9,7 @@
 #include "multi_current.h"
 #include "ion_channels.h"
 
-#ifdef __MINGW32__
 #include <jsoncpp/json.h>
-#else
-#include <json/json.h>
-#endif
 #include <fstream>
 #include <iostream>
 
