@@ -39,7 +39,7 @@ spherical_compartment.h\
 synaptic_background.h
 
 # set the include path found by configure
-INCLUDES= $(all_includes) -I$(top_srcdir)/modigliani
+AM_CPPFLAGS= $(all_includes) -I$(top_srcdir)/modigliani
 
 
 noinst_HEADERS = aux_func.h
