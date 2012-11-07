@@ -79,6 +79,7 @@ void Lua_based_stochastic_multi_current::load_file(string fileName,
     open_states_map[fileName].push_back(found);
     lua_pop(L, 1);
   }
+  lua_pop(L,1);
 
   double minV = lua_get_real(L, "minV");
   double maxV = lua_get_real(L, "maxV");
