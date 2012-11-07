@@ -24,11 +24,7 @@
 #ifndef MODIGLIANI_MODIGLIANI_CORE_AUX_FUNC_H_
 #define MODIGLIANI_MODIGLIANI_CORE_AUX_FUNC_H_
 
-#ifdef __MINGW32__
 #include <jsoncpp/json.h>
-#else
-#include <json/json.h>
-#endif
 
 #include <boost/filesystem.hpp>
 #include <tnt/tnt.h>
