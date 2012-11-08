@@ -29,7 +29,7 @@ using namespace modigliani_core;
 /** Create a Membrane_compartment_sequence */
 
 Membrane_compartment_sequence::Membrane_compartment_sequence() :
-		Membrane() {
+		Membrane(), initialised(false),swCrankNicholson(false) {
 	numCompartments = 0;
 
 	lVec.resize(1);
@@ -37,8 +37,6 @@ Membrane_compartment_sequence::Membrane_compartment_sequence() :
 	dVec.resize(1);
 	rVec.resize(1);
 
-	initialised = false;
-	swCrankNicholson = false;
 }
 
 /* ***      DESTRUCTOR		***/
