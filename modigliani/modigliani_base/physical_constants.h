@@ -24,7 +24,7 @@
 #ifndef MODIGLIANI_MODIGLIANI_BASE_PHYSICAL_CONSTANTS_H_
 #define MODIGLIANI_MODIGLIANI_BASE_PHYSICAL_CONSTANTS_H_
 
-#include "modigliani_base/main.h"
+#include <modigliani_base/main.h>
 
 namespace modigliani_base {
 /* Data from the IUPAC 2003 website */
