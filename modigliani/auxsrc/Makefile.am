@@ -59,8 +59,4 @@ resting_potential_LDADD = $(single_compartment_simulator_LDADD)
 voltage_step_SOURCES = voltage_step.cc
 voltage_step_LDADD = $(single_compartment_simulator_LDADD) 
 
-
-# set the include path found by configure
-AM_CPPFLAGS= $(all_includes)  -I$(top_srcdir)/modigliani
-
-
+AM_CXXFLAGS = $(all_includes) -I$(abs_top_srcdir)/modigliani -Ofast -march=native -mtune=native -ffast-math -ansi -pedantic -Wshadow -Wno-vla -malign-double -std=c++11
