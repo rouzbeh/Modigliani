@@ -31,7 +31,7 @@
 namespace modigliani_core {
 
 /**
- * @short NTBP_membrane_compartment_o class acts as a "container + glue" for the various membrane_current
+ * @short membrane_compartment class acts as a "container + glue" for the various membrane_current
  classes that can be attached to it.
 
  \bug unknown
