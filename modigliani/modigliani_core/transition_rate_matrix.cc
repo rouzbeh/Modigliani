@@ -43,7 +43,7 @@ modigliani_base::Real Transition_rate_matrix::getTransitionProbability(modiglian
 		modigliani_base::Size start, modigliani_base::Size stop) {
   if (voltage > max){
     std::cerr << "Voltage greater than maximum authorized value: " << voltage << std::endl;
-    exit(1);
+    std::exit(1);
   }
 	return (_probMatrices[get_index(voltage) * num_states * num_states
 			+ (start - 1) * num_states + (stop - 1)]);
@@ -53,7 +53,7 @@ modigliani_base::Real Transition_rate_matrix::getTransitionProbability(modiglian
 		modigliani_base::Size start, modigliani_base::Size stop) {
   if (index > max_index){
       std::cerr << "Index greater than maximum authorized value: " << index << std::endl;
-      exit(1);
+      std::exit(1);
     }
 	return (_probMatrices[index * num_states * num_states
 			+ (start - 1) * num_states + (stop - 1)]);

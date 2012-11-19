@@ -8,6 +8,7 @@
 #define TRANSITION_RATE_MATRIX_H_
 
 #include "modigliani_base/types.h"
+#include <cstdlib>
 // Boost's multi array class can be slow, if the data is not accessed properly.
 // See http://stackoverflow.com/questions/446866/boostmulti-array-performance-question
 
