@@ -291,6 +291,10 @@ int main(int argc, char* argv[]) {
   ("plot,p", po::value<Size>(), "plot every <arg> step.")
 #endif
    ;
+  if (argc < 2) {
+    cout << desc << "\n";
+    return (0);
+  }
 
   po::positional_options_description p;
   p.add("config-file", -1);
@@ -303,7 +307,7 @@ int main(int argc, char* argv[]) {
 
   if (vm.count("help")) {
     cout << desc << "\n";
-    return (1);
+    return (0);
   }
 
   return (Simulate(vm));
