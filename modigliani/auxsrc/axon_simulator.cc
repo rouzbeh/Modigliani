@@ -173,9 +173,6 @@ int Simulate(boost::program_options::variables_map vm) {
 
     /* *** SIMULATION ITERATION LOOP *** */
     std::cerr << "MainLoop started" << std::endl;
-
-    //modigliani_base::Uniform_rnd_dist uniformRnd;
-
     modigliani_base::Real timeInMS = 0;
     int dataRead = 0;
     for (modigliani_base::Size lt = 0;
@@ -187,7 +184,10 @@ int Simulate(boost::program_options::variables_map vm) {
           && lTrials == 0) {
         modigliani_base::Size counter = 0;
         for (auto ci = electrods_vec.begin(); ci != electrods_vec.end(); ci++) {
-          // For each current, we write the current and number of open channels
+          if(*ci >= oModel->compartmentVec.size())
+            std::cerr << "Warning : Electrod requested in non existing compartment "<< *ci << " ignored." << std::endl;
+          // For each current, we write the current and number of open
+          // channels
           modigliani_base::Size number_of_columns = 2
               * oModel->compartmentVec[*ci]->NumberCurrents() + 1;
           pot_current_files[counter++]->write(
@@ -195,6 +195,7 @@ int Simulate(boost::program_options::variables_map vm) {
               sizeof(modigliani_base::Size));
         }
       }
+
       // the "sampling ratio" used for "measurement" to disk
       if (config_root["simulation_parameters"]["sampN"].asInt() > 0
           && lt % config_root["simulation_parameters"]["sampN"].asInt() == 0) {
@@ -204,6 +205,8 @@ int Simulate(boost::program_options::variables_map vm) {
         }
         if (!lTrials) TimeFile << timeInMS << std::endl;
       }
+
+
 #ifdef WITH_PLPLOT
       if (plot > 0) {
         if (lt == 0) {
@@ -236,6 +239,7 @@ int Simulate(boost::program_options::variables_map vm) {
         }
       }
 #endif
+
       if (vm.count("input-file")) {
         if (lt % config_root["simulation_parameters"]["readN"].asInt() == 0) {
           inp_current = (inputData[dataRead]
