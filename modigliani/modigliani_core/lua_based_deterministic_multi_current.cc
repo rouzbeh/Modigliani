@@ -14,7 +14,7 @@ Lua_based_deterministic_multi_current::Lua_based_deterministic_multi_current(
     modigliani_base::Real newReversalPotential,
     modigliani_base::Real newTimeStep, modigliani_base::Real newTemperature,
     string new_lua_script)
-    : Multi_current(newReversalPotential /* in mV */,
+    : Voltage_gated_ion_channel_current(newReversalPotential /* in mV */,
                     newDensity /* channels per mu^2 */, newArea /* in mu^2 */,
                     newConductivity /* in mS per channel  */
                     ) {
@@ -38,7 +38,7 @@ Lua_based_deterministic_multi_current::Lua_based_deterministic_multi_current(
 /* ***      COPY AND ASSIGNMENT	***/
 Lua_based_deterministic_multi_current::Lua_based_deterministic_multi_current(
     const Lua_based_deterministic_multi_current & original)
-    : Multi_current(original.reversal_potential(), original.density(),
+    : Voltage_gated_ion_channel_current(original.reversal_potential(), original.density(),
                     original.area(), original.conductivity()) {
   UpdateNumChannels();
 
@@ -144,6 +144,10 @@ inline modigliani_base::Real Lua_based_deterministic_multi_current::ComputeCondu
   M_ASSERT(conduc == conduc);
   return (set_conductance(
       conduc * _maxConductivity() * area() /* muMeter^2 */* 1.0e-8));
+}
+
+inline modigliani_base::Real Lua_based_deterministic_multi_current::ComputeTimeConstant() const {
+  return (channels_ptr_->ComputeChannelStateTimeConstant(voltage_));
 }
 
 void Lua_based_deterministic_multi_current::show_param() const {

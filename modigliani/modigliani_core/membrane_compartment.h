@@ -25,6 +25,7 @@
 
 #include "modigliani_core/object.h"
 #include "modigliani_core/membrane_current.h"
+#include "modigliani_core/voltage_gated_ion_channel_current.h"
 /* other includes */
 #include <vector>
 

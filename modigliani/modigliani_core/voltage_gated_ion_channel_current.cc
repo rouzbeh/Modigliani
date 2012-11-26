@@ -1,6 +1,6 @@
 /**
  * @file multi_current.cc
- * Multi_current class implementation
+ * Voltage_gated_ion_channel_current class implementation
  * @author Ahmed Aldo Faisal &copy; created 16.3.2001
  * @version   0.5
  * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
@@ -21,40 +21,42 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include "multi_current.h"
+#include "voltage_gated_ion_channel_current.h"
 
 using namespace modigliani_core;
 
 /* ***      CONSTRUCTORS	***/
-/** Create a Multi_current */
-Multi_current::Multi_current(modigliani_base::Real newReversalPotential, //in mV
-		modigliani_base::Real newDensity, // channels per mumeter^2
-		modigliani_base::Real newArea, // in mumeter^2
-		modigliani_base::Real newConductivity // in mSiemens per channel
-		) :
-		Membrane_current(newReversalPotential) {
-	density_ = newDensity;
-	area_ = newArea;
-	conductivity_ = newConductivity;
-	num_channels_ = area_ * density_;
+/** Create a Voltage_gated_ion_channel_current */
+Voltage_gated_ion_channel_current::Voltage_gated_ion_channel_current(
+    modigliani_base::Real newReversalPotential,  //in mV
+    modigliani_base::Real newDensity,  // channels per mumeter^2
+    modigliani_base::Real newArea,  // in mumeter^2
+    modigliani_base::Real newConductivity  // in mSiemens per channel
+    )
+    : Membrane_current(newReversalPotential), ratesComputed(false) {
+  density_ = newDensity;
+  area_ = newArea;
+  conductivity_ = newConductivity;
+  num_channels_ = area_ * density_;
 }
 
 /* ***      COPY AND ASSIGNMENT	***/
-Multi_current::Multi_current(const Multi_current & original) :
-		Membrane_current(original.reversal_potential()) {
-	// add assignment code here
+Voltage_gated_ion_channel_current::Voltage_gated_ion_channel_current(
+    const Voltage_gated_ion_channel_current & original)
+    : Membrane_current(original.reversal_potential()), ratesComputed(false) {
+  // add assignment code here
 }
 
-Multi_current&
-Multi_current::operator=(const Multi_current & right) {
-	if (this == &right)
-		return (*this); // Gracefully handle self assignment
-	// add assignment code here
-	return (*this);
+Voltage_gated_ion_channel_current&
+Voltage_gated_ion_channel_current::operator=(
+    const Voltage_gated_ion_channel_current & right) {
+  if (this == &right) return (*this);  // Gracefully handle self assignment
+  // add assignment code here
+  return (*this);
 }
 
 /* ***      DESTRUCTOR		***/
-Multi_current::~Multi_current() {
+Voltage_gated_ion_channel_current::~Voltage_gated_ion_channel_current() {
 }
 
 /* ***  PUBLIC                                    ***   */

@@ -6,7 +6,7 @@
 #ifndef NTBP_file_based_stochastic_MULTI_CURRENT_O_H_
 #define NTBP_file_based_stochastic_MULTI_CURRENT_O_H_
 
-#include "multi_current.h"
+#include "voltage_gated_ion_channel_current.h"
 #include "ion_channels.h"
 
 #include <jsoncpp/json.h>
@@ -14,7 +14,7 @@
 #include <iostream>
 
 namespace modigliani_core {
-class File_based_stochastic_multi_current: public Multi_current {
+class File_based_stochastic_multi_current: public Voltage_gated_ion_channel_current {
 public:
 	File_based_stochastic_multi_current(modigliani_base::Real newArea,
 			modigliani_base::Real newDensity, modigliani_base::Real newConductivity,
@@ -32,7 +32,7 @@ public:
 	virtual modigliani_base::Real open_channels() const;
 	virtual modigliani_base::Real ComputeConductance() override;
 	modigliani_base::Real num_channels_in_state(modigliani_base::Size state) const;
-	modigliani_base::Real ComputeChannelStateTimeConstant() const override;
+	modigliani_base::Real ComputeTimeConstant() const override;
 	void show_param() const;
 	void printProb(std::string fileName) {
 		for (modigliani_base::Real v = 20; v < 130; v += 0.005) {

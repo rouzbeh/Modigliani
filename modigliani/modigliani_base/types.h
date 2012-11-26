@@ -24,6 +24,7 @@
 #define MODIGLIANI_MODIGLIANI_BASE_TYPES_H_
 
 #include <string>
+#include <cstdlib>
 #include <cmath>
 #include <iostream>
 

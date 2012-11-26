@@ -6,7 +6,7 @@
 #ifndef _modigliani_core_lua_based_deterministic_MULTI_CURRENT_O_H_
 #define _modigliani_core_lua_based_deterministic_MULTI_CURRENT_O_H_
 
-#include "multi_current.h"
+#include "voltage_gated_ion_channel_current.h"
 #include "ion_channels.h"
 
 extern "C" {
@@ -17,7 +17,7 @@ extern "C" {
 using namespace std;
 
 namespace modigliani_core {
-class Lua_based_deterministic_multi_current: public Multi_current {
+class Lua_based_deterministic_multi_current: public Voltage_gated_ion_channel_current {
 public:
 	Lua_based_deterministic_multi_current(modigliani_base::Real newArea,
 			modigliani_base::Real newDensity, modigliani_base::Real newConductivity,
@@ -36,6 +36,8 @@ public:
 	virtual modigliani_base::Real open_channels() const;
 	virtual modigliani_base::Real ComputeConductance() override;
 	virtual modigliani_base::Real num_channels_in_state(modigliani_base::Size state) const;
+  virtual modigliani_base::Real ComputeTimeConstant() const override;
+
 	void show_param() const;
 
 	string lua_script;

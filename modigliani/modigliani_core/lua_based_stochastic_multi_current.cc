@@ -20,7 +20,7 @@ Lua_based_stochastic_multi_current::Lua_based_stochastic_multi_current(
     modigliani_base::Real newReversalPotential,
     modigliani_base::Real newTimeStep, modigliani_base::Real newTemperature,
     string fileName)
-    : Multi_current(newReversalPotential /* in mV */,
+    : Voltage_gated_ion_channel_current(newReversalPotential /* in mV */,
                     newDensity /* channels per mu^2 */, newArea /* in mu^2 */,
                     newConductivity /* in mS per channel  */
                     ) {
@@ -166,7 +166,7 @@ inline modigliani_base::Real Lua_based_stochastic_multi_current::ComputeConducta
   return (set_conductance(channels_ptr_->NumOpen() * conductivity_));
 }
 
-inline modigliani_base::Real Lua_based_stochastic_multi_current::ComputeChannelStateTimeConstant() const {
+inline modigliani_base::Real Lua_based_stochastic_multi_current::ComputeTimeConstant() const {
   return (channels_ptr_->ComputeChannelStateTimeConstant(voltage_));
 }
 
