@@ -9,8 +9,7 @@ measure_mutual_information_in_binary_file \
 axon_simulator \
 resting_potential \
 single_compartment_simulator \
-voltage_step
-				
+voltage_step				
 LDADD = -lm
 
 show_binary_file_SOURCES = show_binary_file.cc
@@ -59,4 +58,4 @@ resting_potential_LDADD = $(single_compartment_simulator_LDADD)
 voltage_step_SOURCES = voltage_step.cc
 voltage_step_LDADD = $(single_compartment_simulator_LDADD) 
 
-AM_CXXFLAGS = $(all_includes) -I$(abs_top_srcdir)/modigliani -Ofast -march=native -mtune=native -ffast-math -ansi -pedantic -Wshadow -Wno-vla -malign-double -std=c++11
+AM_CXXFLAGS = $(all_includes) -I$(abs_top_srcdir)/modigliani -march=native -mtune=native -ansi -pedantic -Wshadow -Wno-vla -malign-double -std=c++11

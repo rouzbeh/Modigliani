@@ -8,7 +8,7 @@ lua_based_stochastic_multi_current.cc\
 membrane_compartment.cc\
 membrane_current.cc\
 membrane_patch.cc\
-multi_current.cc\
+voltage_gated_ion_channel_current.cc\
 aux_func.cc\
 custom_cylindrical_compartment.cc\
 cylindrical_compartment.cc\
@@ -27,7 +27,7 @@ lua_based_stochastic_multi_current.h\
 membrane_compartment.h\
 membrane_current.h\
 membrane_patch.h\
-multi_current.h\
+voltage_gated_ion_channel_current.h\
 aux_func.h\
 custom_cylindrical_compartment.h\
 cylindrical_compartment.h\
@@ -42,4 +42,4 @@ synaptic_background.h
 
 noinst_HEADERS = aux_func.h
 
-AM_CXXFLAGS = $(all_includes) -I$(abs_top_srcdir)/modigliani -Ofast -march=native -mtune=native -ffast-math -ansi -pedantic -Wshadow -Wno-vla -malign-double -std=c++11
+AM_CXXFLAGS = $(all_includes) -I$(abs_top_srcdir)/modigliani -ansi -pedantic -Wshadow -Wno-vla -malign-double -std=c++11
