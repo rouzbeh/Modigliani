@@ -62,7 +62,8 @@ string modigliani_core::createOutputFolder(string outputFolder) {
   string temp_folder_name;
   ss2 >> temp_folder_name;
 
-  boost::filesystem::create_directories(temp_folder_name);
+  boost::filesystem::path temp_folder_path(temp_folder_name);
+  boost::filesystem::create_directories(temp_folder_path.make_preferred().native());
 
   return (folderName);
 }
@@ -272,7 +273,7 @@ Json::Value modigliani_core::read_config(string fileName) {
 
 std::vector<modigliani_base::Size> modigliani_core::get_electrods(
     Json::Value root) {
-  auto outvec = std::vector<modigliani_base::Size>(100);
+  auto outvec = std::vector<modigliani_base::Size>();
   string lua_script = root["electrods_lua"].asString();
   lua_State* L = luaL_newstate();
   luaL_openlibs(L);
