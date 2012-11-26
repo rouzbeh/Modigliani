@@ -68,9 +68,6 @@ AC_FUNC_STRFTIME
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([alarm fesetround floor ftime getcwd gettimeofday memchr memmove memset pathconf pow regcomp rint select setlocale sqrt strchr strcspn strerror strpbrk strrchr strspn strstr strtol strtoul uname])
 
-dnl CXXFLAGS="-g -Wall -W -Wundef -Wshadow -ansi -pedantic -std=c++11 -Wno-vla"
-dnl CXXFLAGS="-Ofast -march=native -mtune=native -ffast-math -ansi -pedantic -Wshadow -Wno-vla -malign-double -std=c++11"
-
 dnl Make sure we register this option with Automake, so we know whether to
 dnl descend into ctempl ate for more configuration or not
 AM_CONDITIONAL([WITH_PLPLOT], [test "x$HAVE_PLPLOT" = "xyes"])
