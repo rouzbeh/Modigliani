@@ -41,10 +41,6 @@ public:
 	Leak_current(const Leak_current & original);
 	Leak_current & operator=(const Leak_current & right);
 	virtual ~Leak_current();
-	/* ***  Methods              ***/
-	void ComputeRateConstants(
-			modigliani_base::Real __attribute__((__unused__)) _voltage /* in mV */) {
-	}
 	/** in mSiemens */
 	modigliani_base::ReturnEnum StepCurrent() {
 		return (modigliani_base::ReturnEnum::SUCCESS);
@@ -60,22 +56,7 @@ public:
 	void Show() {
 		std::cout << "g_Leak [mSiemens]=" << conductance();
 	}
-	/** Number of open ionic channels */
-	virtual modigliani_base::Real open_channels() const override {
-		return (0.0);
-	}
-	/** Total number of ionic channels */
-	virtual modigliani_base::Real num_channels() const override {
-		return (0.0);
-	}
-	/** Number of open over total number of channels */
-	virtual modigliani_base::Real OpenChannelsRatio() const override {
-		return (0.0);
-	}
 
-	modigliani_base::Real ComputeChannelStateTimeConstant() const override {
-		return (0); /* no stochasticity */
-	}
 	/** in mSiemens/cm^2 */
 	modigliani_base::Real _maxConductivity() const {
 		return (maxConductivity);

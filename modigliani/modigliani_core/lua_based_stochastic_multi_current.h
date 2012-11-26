@@ -12,14 +12,14 @@ extern "C" {
 #include "lauxlib.h"
 }
 
-#include "modigliani_core/multi_current.h"
+#include "modigliani_core/voltage_gated_ion_channel_current.h"
 #include "modigliani_core/ion_channels.h"
 
 #include <map>
 using namespace std;
 
 namespace modigliani_core {
-class Lua_based_stochastic_multi_current : public Multi_current {
+class Lua_based_stochastic_multi_current : public Voltage_gated_ion_channel_current {
   public:
     Lua_based_stochastic_multi_current(modigliani_base::Real newArea,
                                        modigliani_base::Real newDensity,
@@ -42,7 +42,7 @@ class Lua_based_stochastic_multi_current : public Multi_current {
     static map<string, modigliani_base::Size> number_of_states_map;
     static map<string, double> base_temperature_map;
     static map<string, std::vector<modigliani_base::Size> > open_states_map;
-    modigliani_base::Real ComputeChannelStateTimeConstant() const;
+    virtual modigliani_base::Real ComputeTimeConstant() const;
     virtual modigliani_base::Real ComputeConductance();
 
     virtual modigliani_base::ReturnEnum StepCurrent();

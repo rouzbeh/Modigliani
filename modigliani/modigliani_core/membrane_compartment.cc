@@ -176,7 +176,7 @@ modigliani_base::Real Membrane_compartment::CompartmentChannelStateTimeConstant(
 	std::vector<Membrane_current *>::const_iterator it = current_vec_.begin();
 	for (it = current_vec_.begin(); it != current_vec_.end(); it++) {
 		//(*it)->ComputeRateConstants(_vM());
-		sum += (*it)->ChannelStateTimeConstant();
+		sum += (*it)->ComputeTimeConstant();
 		std::cerr << "Compartment Time constant sum=" << sum << std::endl;
 	}
 
@@ -196,7 +196,7 @@ bool Membrane_compartment::GillespieStep() {
 			<< std::endl;
 	std::vector<Membrane_current *>::iterator it = current_vec_.begin();
 	for (it = current_vec_.begin(); it != current_vec_.end(); it++) {
-		sum += (*it)->ChannelStateTimeConstant();
+		sum += (*it)->ComputeTimeConstant();
 		std::cerr << "COMPARTMENT -> SUM=" << sum << " VAL=" << val
 				<< std::endl;
 		if (val < sum / compartmentTau) {

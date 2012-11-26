@@ -220,7 +220,7 @@ std::vector<modigliani_base::Real> Membrane_compartment_sequence::open_channels(
 		modigliani_base::Size currIndex) const {
 	std::vector<modigliani_base::Real> tmp(_numCompartments());
 	for (modigliani_base::Size ll = 0; ll < _numCompartments(); ll++) {
-		tmp[ll] = compartmentVec[ll]->Current(currIndex)->open_channels();
+		tmp[ll] = _open_channels(compartmentVec[ll]->Current(currIndex));
 	}
 	return (tmp);
 }
@@ -237,17 +237,7 @@ std::vector<modigliani_base::Real> Membrane_compartment_sequence::NumChannels(
 		modigliani_base::Size currIndex) const {
 	std::vector<modigliani_base::Real> tmp(_numCompartments());
 	for (modigliani_base::Size ll = 0; ll < _numCompartments(); ll++) {
-		tmp[ll] = compartmentVec[ll]->Current(currIndex)->num_channels();
-	}
-	return (tmp);
-}
-
-std::vector<modigliani_base::Real> Membrane_compartment_sequence::NumChannelsInState(
-		modigliani_base::Size currIndex, modigliani_base::Size state) const {
-	std::vector<modigliani_base::Real> tmp(_numCompartments());
-	for (modigliani_base::Size ll = 0; ll < _numCompartments(); ll++) {
-		tmp[ll] = compartmentVec[ll]->Current(currIndex)->num_channels_in_state(
-				state);
+		tmp[ll] = _NumChannels(compartmentVec[ll]->Current(currIndex));
 	}
 	return (tmp);
 }
@@ -257,8 +247,7 @@ std::vector<modigliani_base::Real> Membrane_compartment_sequence::OpenChannelsRa
 	std::vector<modigliani_base::Real> tmp(_numCompartments());
 	for (modigliani_base::Size ll = 0; ll < _numCompartments(); ll++) {
 		if (currIndex - 1 < compartmentVec[ll]->NumberCurrents())
-			tmp[ll] =
-					compartmentVec[ll]->Current(currIndex)->OpenChannelsRatio();
+			tmp[ll] = _OpenChannelsRatio(compartmentVec[ll]->Current(currIndex));
 		else
 			tmp[ll] = 0;
 	}
@@ -318,7 +307,7 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::WriteCompartmentData(
 		data[ll] = compartmentVec[to_print]->AttachedCurrent(ll);
 	}
 	for (modigliani_base::Size ll = number_of_currents+1; ll - 1 < number_of_currents*2; ++ll) {
-		data[ll] = compartmentVec[to_print]->GetCurrent(ll-number_of_currents)->open_channels();
+		data[ll] = _open_channels(compartmentVec[to_print]->GetCurrent(ll-number_of_currents));
 	}
 	file->write(reinterpret_cast<char*>(data),
 			(1 + 2*number_of_currents) * sizeof(float));

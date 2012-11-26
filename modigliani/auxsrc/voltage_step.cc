@@ -33,7 +33,7 @@ int activation(string channel_file_name, int alg,
   using modigliani_base::Real;
   using modigliani_core::Lua_based_stochastic_multi_current;
   using modigliani_core::Lua_based_deterministic_multi_current;
-  using modigliani_core::Multi_current;
+  using modigliani_core::Voltage_gated_ion_channel_current;
   using modigliani_core::StochasticType;
   using std::endl;
   using std::cout;
@@ -53,7 +53,7 @@ int activation(string channel_file_name, int alg,
 
   for (modigliani_base::Size iTrials = 0; iTrials < num_trials; iTrials++) {
     for (int aim = V_hold + 5; aim <= V_resting + 50; aim += 5) {
-      Multi_current *current_p = 0;
+      Voltage_gated_ion_channel_current *current_p = 0;
       if (alg == 1) {
         current_p = new Lua_based_deterministic_multi_current(100,  // Area
             20,  // density,
