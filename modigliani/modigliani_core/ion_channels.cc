@@ -303,8 +303,7 @@ modigliani_base::ReturnEnum Ion_channels::BinomialStep(
     if (check != num_channels_) loop = true;
   } while ((true == loop) && (loopCounter < 100));
   if (loopCounter >= 100) {
-    std::cerr << "ERROR: Binominal step loop counter limit reached."
-              << std::endl;
+    debug_print("%s\n", "ERROR: Binominal step loop counter limit reached.");
     return (modigliani_base::ReturnEnum::SUCCESS);
   }
   stateCounterVec = newStateCounterVec;
