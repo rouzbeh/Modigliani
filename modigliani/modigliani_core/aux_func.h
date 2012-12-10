@@ -46,9 +46,9 @@ extern "C" {
 }
 
 #include "modigliani_core/membrane_compartment_sequence.h"
-#include "modigliani_core/file_based_stochastic_multi_current.h"
-#include "modigliani_core/lua_based_stochastic_multi_current.h"
-#include "modigliani_core/lua_based_deterministic_multi_current.h"
+#include "modigliani_core/file_based_stochastic_voltage_gated_channel.h"
+#include "modigliani_core/lua_based_stochastic_voltage_gated_channel.h"
+#include "modigliani_core/lua_based_deterministic_voltage_gated_channel.h"
 #include "modigliani_core/custom_cylindrical_compartment.h"
 #include "modigliani_core/leak_current.h"
 

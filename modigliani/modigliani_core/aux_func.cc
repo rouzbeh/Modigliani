@@ -106,8 +106,8 @@ modigliani_core::create_compartment(Json::Value config_root,
     if ("file" == current["type"].asString()) {
       modigliani_base::Real indDensity = corrected_channel_density(
           current["chDen"].asDouble(), tmpPtr->area());
-      File_based_stochastic_multi_current * file_current =
-          new File_based_stochastic_multi_current(
+      File_based_stochastic_voltage_gated_channel * file_current =
+          new File_based_stochastic_voltage_gated_channel(
               tmpPtr->area(),
               (randomise_densities ? indDensity : current["chDen"].asDouble()) /* mum^-2 */,
               current["chCond"].asDouble() * 1e-9 /* pS */,
@@ -126,8 +126,8 @@ modigliani_core::create_compartment(Json::Value config_root,
     if ("lua" == current["type"].asString()) {
       auto alg = (force_alg?force_alg:current["chAlg"].asInt());
       if (1 == alg) {
-        Lua_based_deterministic_multi_current * lua_current =
-            new Lua_based_deterministic_multi_current(
+        Lua_based_deterministic_voltage_gated_channel * lua_current =
+            new Lua_based_deterministic_voltage_gated_channel(
                 tmpPtr->area(), current["chDen"].asDouble() /* mum^-2 */,
                 current["chCond"].asDouble() * 1e-9 /* pS */,
                 current["chRevPot"].asDouble() /* mV */,
@@ -140,8 +140,8 @@ modigliani_core::create_compartment(Json::Value config_root,
       } else if (4 == alg || 2 == alg) {
         modigliani_base::Real indDensity = corrected_channel_density(
             current["chDen"].asDouble(), tmpPtr->area());
-        Lua_based_stochastic_multi_current * lua_current =
-            new Lua_based_stochastic_multi_current(
+        Lua_based_stochastic_voltage_gated_channel * lua_current =
+            new Lua_based_stochastic_voltage_gated_channel(
                 tmpPtr->area(),
                 (randomise_densities ? indDensity : current["chDen"].asDouble()) /* mum^-2 */,
                 current["chCond"].asDouble() * 1e-9 /* pS */,
