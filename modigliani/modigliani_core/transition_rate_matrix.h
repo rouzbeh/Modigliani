@@ -8,12 +8,13 @@
 #define TRANSITION_RATE_MATRIX_H_
 
 #include "modigliani_base/types.h"
+#include "object.h"
 #include <cstdlib>
 // Boost's multi array class can be slow, if the data is not accessed properly.
 // See http://stackoverflow.com/questions/446866/boostmulti-array-performance-question
 
 namespace modigliani_core {
-class Transition_rate_matrix {
+  class Transition_rate_matrix : public Object{
 public:
 	Transition_rate_matrix(modigliani_base::Size numNewStates, modigliani_base::Real min,
 			modigliani_base::Real max, modigliani_base::Real step);
