@@ -209,7 +209,6 @@ int Simulate(boost::program_options::variables_map vm) {
         if (!lTrials) TimeFile << timeInMS << std::endl;
       }
 
-
 #ifdef WITH_PLPLOT
       if (plot > 0) {
         if (lt == 0) {
