@@ -1,5 +1,6 @@
 /**
- *  @file error.h - general classes (!) for error handling
+ * @file error.h
+ * General classes (!) for error handling
  * @author Ahmed A. Faisal, 22. 5. 1998(c)
  * NetTrader - finance management, analysis and simulation system
  * @version  0.1
@@ -30,6 +31,14 @@
 #include "types.h"
 #include "obj.h"
 
+#ifdef DEBUG
+#define DEBUG_TEST 1
+#else
+#define DEBUG_TEST 0
+#endif
+#define debug_print(fmt, ...) \
+        do { if (DEBUG_TEST) fprintf(stderr, "%s:%d:%s(): " fmt, __FILE__, \
+                                __LINE__, __func__, __VA_ARGS__); } while (0)
 
 namespace modigliani_base {
 /**
