@@ -1,5 +1,6 @@
 /**
- * @file types.h - type declarations for modigliani
+ * @file types.h
+ * Type declarations for modigliani
  * @author Ali Neishabouri
  * @author Ahmed A. Faisal, 22. 5. 1998(c)
  * @version  1

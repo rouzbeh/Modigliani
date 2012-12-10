@@ -23,8 +23,8 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ifndef _mbase_ring_buffer_h_
-#define _mbase_ring_buffer_h_
+#ifndef _modigliani_base_ring_buffer_h_
+#define _modigliani_base_ring_buffer_h_
 
 /* M core includes */
 #include "main.h"
@@ -102,4 +102,4 @@ private:
     /* ***  Data                 ***/
 };
 }
-#endif /* _mbase_ring_buffer_h_ */
+#endif /* _modigliani_base_ring_buffer_h_ */

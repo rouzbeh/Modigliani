@@ -1,6 +1,6 @@
 
-#ifndef _mbase_moonmap_image_data_h_
-#define _mbase_moonmap_image_data_h_
+#ifndef _modigliani_base_moonmap_image_data_h_
+#define _modigliani_base_moonmap_image_data_h_
 
 /* This file contains an RGB image vector of the earth as a pseudo picture */
 static unsigned int  moonmap_RGB_uByte_128_64_image[] =
@@ -14,4 +14,4 @@ static unsigned int  moonmap_RGB_uByte_128_64_image[] =
      153,153,153,173,173,173,119,119,119
     };
 
-#endif /* _mbase_moonmap_image_data_h_ */
+#endif /* _modigliani_base_moonmap_image_data_h_ */

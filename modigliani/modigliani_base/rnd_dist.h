@@ -21,8 +21,8 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ifndef _mbase_rnd_dist_h_
-#define _mbase_rnd_dist_h_
+#ifndef _modigliani_base_rnd_dist_h_
+#define _modigliani_base_rnd_dist_h_
 
 #include "types.h"
 #include "obj.h"
@@ -66,7 +66,7 @@ private:
 };
 }
 
-#endif /* _mbase_rnd_dist_h_ */
+#endif /* _modigliani_base_rnd_dist_h_ */
 
 
 

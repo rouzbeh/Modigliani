@@ -21,8 +21,8 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ifndef _mbase_two_dim_histogram_h_
-#define _mbase_two_dim_histogram_h_
+#ifndef _modigliani_base_two_dim_histogram_h_
+#define _modigliani_base_two_dim_histogram_h_
 
 /* M core includes */
 #include "obj.h"
@@ -94,4 +94,4 @@ private:
 };
 }
 
-#endif /* _mbase_two_dim_histogram_h_ */
+#endif /* _modigliani_base_two_dim_histogram_h_ */

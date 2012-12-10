@@ -23,8 +23,8 @@
  */
 
 
-#ifndef _mbase_H_
-#define _mbase_H_
+#ifndef _modigliani_base_H_
+#define _modigliani_base_H_
 
 #include "types.h"
 
@@ -58,4 +58,4 @@ private:
 };
 }
 
-#endif /* _mbase_H_ */
+#endif /* _modigliani_base_H_ */

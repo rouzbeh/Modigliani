@@ -1,5 +1,6 @@
 /**
- * @file stock_value.h - base class for stock exchangable values
+ * @file stock_value.h
+ * Base class for stock exchangable values
  * @author Ahmed A. Faisal, 22. 5. 1998(c)
  * @version  0.1
  * Copyright (C) 1998 Ahmed Aldo Faisal
