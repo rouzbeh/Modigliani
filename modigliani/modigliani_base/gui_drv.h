@@ -21,8 +21,8 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ifndef _mbase_gui_drv_h_
-#define _mbase_gui_drv_h_
+#ifndef _modigliani_base_gui_drv_h_
+#define _modigliani_base_gui_drv_h_
 
 #include "main.h"
 #include "types.h"
@@ -56,5 +56,5 @@ private:
 };
 }
 
-#endif /* _mbase_gui_drv_h_ */
+#endif /* _modigliani_base_gui_drv_h_ */
 
