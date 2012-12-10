@@ -30,18 +30,24 @@ namespace modigliani_core {
 Membrane_current::Membrane_current(
     modigliani_base::Real newReversalPotential /* in mV */)
     : Object() {
-  simulation_mode_ = DETERMINISTIC;
-  reversal_potential_ = newReversalPotential;  //in mV
-  current_ = 0.0;  // nanoAmpere
-  temperature_ = 6.3;  // SGA values
-  q10_ = 2.0;  // SGA values
+  _init(newReversalPotential);
 }
 
 /* ***      COPY AND ASSIGNMENT	***/
 Membrane_current::Membrane_current(
     const Membrane_current __attribute__((unused)) & original)
     : Object() {
-  // add assignment code here
+  _init(original.reversal_potential());
+}
+
+void Membrane_current::_init(modigliani_base::Real newReversalPotential) {
+  voltage_ = -65;
+  conductance_ = 0;
+  simulation_mode_ = DETERMINISTIC;
+  reversal_potential_ = newReversalPotential;  //in mV
+  current_ = 0.0;  // nanoAmpere
+  temperature_ = 6.3;  // SGA values
+  q10_ = 2.0;  // SGA values
 }
 
 Membrane_current&

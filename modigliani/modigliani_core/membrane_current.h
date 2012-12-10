@@ -159,6 +159,7 @@ class Membrane_current : public Object {
     modigliani_base::Real temperature_;  // in Celsius
   private:
     /* ***  Methods              ***/
+    void _init(modigliani_base::Real newReversalPotential);
     /* ***  Data                 ***/
     modigliani_base::Real current_;  // in nanoAmpere
     modigliani_base::Real conductance_;  // in mSiemens
