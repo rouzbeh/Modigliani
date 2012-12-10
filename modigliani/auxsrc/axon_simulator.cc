@@ -185,8 +185,10 @@ int Simulate(boost::program_options::variables_map vm) {
           && lTrials == 0) {
         modigliani_base::Size counter = 0;
         for (auto ci = electrods_vec.begin(); ci != electrods_vec.end(); ci++) {
-          if(*ci >= oModel->compartmentVec.size())
-            std::cerr << "Warning : Electrod requested in non existing compartment "<< *ci << " ignored." << std::endl;
+          if (*ci >= oModel->compartmentVec.size())
+            std::cerr
+                << "Warning : Electrod requested in non existing compartment "
+                << *ci << " ignored." << std::endl;
           // For each current, we write the current and number of open
           // channels
           modigliani_base::Size number_of_columns = 2
@@ -247,7 +249,8 @@ int Simulate(boost::program_options::variables_map vm) {
               * config_root["simulation_parameters"]["inpISDV"].asDouble())
               + config_root["simulation_parameters"]["inpI"].asDouble();
           dataRead++;
-          cout <<  config_root["simulation_parameters"]["inpI"].asDouble() << endl;
+          cout << config_root["simulation_parameters"]["inpI"].asDouble()
+               << endl;
         }
       } else {
         lua_getglobal(L_inject_current, "current");
