@@ -1,10 +1,11 @@
 noinst_LIBRARIES = libmodigliani_core.a
 
-libmodigliani_core_a_SOURCES = file_based_stochastic_multi_current.cc\
+libmodigliani_core_a_SOURCES = \
 leak_current.cc\
 ion_channels.cc\
-lua_based_deterministic_multi_current.cc\
-lua_based_stochastic_multi_current.cc\
+lua_based_deterministic_voltage_gated_channel.cc\
+file_based_stochastic_voltage_gated_channel.cc\
+lua_based_stochastic_voltage_gated_channel.cc\
 membrane_compartment.cc\
 membrane_current.cc\
 membrane_patch.cc\
@@ -19,11 +20,12 @@ transition_rate_matrix.cc\
 spherical_compartment.cc\
 synaptic_background.cc
 
-EXTRA_DIST = $(libmodigliani_core_a_SOURCES) file_based_stochastic_multi_current.h\
+EXTRA_DIST = $(libmodigliani_core_a_SOURCES) \
 leak_current.h\
 ion_channels.h\
-lua_based_deterministic_multi_current.h\
-lua_based_stochastic_multi_current.h\
+lua_based_deterministic_voltage_gated_channel.h\
+file_based_stochastic_voltage_gated_channel.h\
+lua_based_stochastic_voltage_gated_channel.h\
 membrane_compartment.h\
 membrane_current.h\
 membrane_patch.h\
