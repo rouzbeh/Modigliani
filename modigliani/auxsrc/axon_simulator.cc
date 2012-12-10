@@ -301,7 +301,7 @@ int main(int argc, char* argv[]) {
    ;
   if (argc < 2) {
     cout << desc << "\n";
-    return (0);
+    return (1);
   }
 
   po::positional_options_description p;
