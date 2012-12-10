@@ -21,15 +21,15 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ifndef _mbase_header_string_h_
-#define _mbase_header_string_h_
+#ifndef _modigliani_base_header_string_h_
+#define _modigliani_base_header_string_h_
 
 #include "main.h"
 #include "types.h"
 #include "obj.h"
 #include "nt_error.h"
 
-namespace mbase {
+namespace modigliani_base {
 class Header_string: Obj
 /** PURPOSE:    The header block with reference count and available space
  REMARKS:    An instance of this structure is BELOW each string
@@ -70,4 +70,4 @@ private:
     friend class M_string_o;
 };
 }
-#endif /* _mbase_header_string_h_ */
+#endif /* _modigliani_base_header_string_h_ */

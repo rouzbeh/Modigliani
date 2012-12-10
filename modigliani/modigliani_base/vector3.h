@@ -22,8 +22,8 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ifndef _mbase_vector3_h_
-#define _mbase_vector3_h_
+#ifndef _modigliani_base_vector3_h_
+#define _modigliani_base_vector3_h_
 
 #include "types.h"
 #include "obj.h"
@@ -325,5 +325,5 @@ public:
 };
 
 }
-#endif /* _mbase_vector3_h_ */
+#endif /* _modigliani_base_vector3_h_ */
 

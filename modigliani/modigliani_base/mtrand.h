@@ -1,15 +1,16 @@
 /**
- * @file mtrand.h - uniform random number class 1:1 copy from
- MersenneTwister.h
- Mersenne Twister random number generator -- a C++ class MTRand
- Based on code by Makoto Matsumoto, Takuji Nishimura, and Shawn Cokus
- Richard J. Wagner  v0.7  12 July 2001  rjwagner@writeme.com
- The Mersenne Twister is an algorithm for generating random numbers.  It
- was designed with consideration of the flaws in various other generators.
- The period, 2^19937-1, and the order of equidistribution, 623 dimensions,
- are far greater.  The generator is also fast; it avoids multiplication and
- division, and it benefits from caches and pipelines.  For more information
- see the inventors' web page at http://www.math.keio.ac.jp/~matumoto/emt.html
+ * @file mtrand.h 
+ Uniform random number class 1:1 copy from
+ MersenneTwister.h Mersenne Twister random number generator -- a C++
+ class MTRand Based on code by Makoto Matsumoto, Takuji Nishimura, and
+ Shawn Cokus Richard J. Wagner v0.7 12 July 2001 rjwagner@writeme.com
+ The Mersenne Twister is an algorithm for generating random numbers.
+ It was designed with consideration of the flaws in various other
+ generators. The period, 2^19937-1, and the order of equidistribution,
+ 623 dimensions, are far greater. The generator is also fast; it
+ avoids multiplication and division, and it benefits from caches and
+ pipelines. For more information see the inventors' web page at
+ http://www.math.keio.ac.jp/~matumoto/emt.html
 
     IMPORTAM: CHECK ON UPDATES FOR THE C++ CODE (AS INITIALISATION WEAKNESS WAS
     DISCOVERED, 22.2.2002 AAF)
@@ -46,8 +47,8 @@
  when you write.
 */
 
-#ifndef _mbase_mtrand_h_
-#define _mbase_mtrand_h_
+#ifndef _modigliani_base_mtrand_h_
+#define _modigliani_base_mtrand_h_
 
 // Not thread safe (unless auto-initialization is avoided and each thread has
 // its own MTRand object)
@@ -350,7 +351,7 @@ inline std::istream& operator>>( std::istream& is, MTRand& mtrand )
     return (is);
 }
 }
-#endif  // _mbase_mtrand_h_
+#endif  // _modigliani_base_mtrand_h_
 
 // Change log:
 //

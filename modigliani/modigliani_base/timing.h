@@ -21,8 +21,8 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ifndef _mbase_timing_h_
-#define _mbase_timing_h_
+#ifndef _modigliani_base_timing_h_
+#define _modigliani_base_timing_h_
 
 #include <ctime>
 // for clock() and CLOCKS_PER_SEC
@@ -31,7 +31,7 @@
 #include "obj.h"
 #include "types.h"
 
-namespace mbase{
+namespace modigliani_base{
 
 /**  @class M_timing
  * a stopwatch like measurement object.
@@ -88,4 +88,4 @@ private:
 }
 
 
-#endif /* _mbase_timing_h_ */
+#endif /* _modigliani_base_timing_h_ */

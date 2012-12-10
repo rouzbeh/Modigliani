@@ -1,6 +1,5 @@
 /**
- * @file main.h - main header file for modigliani sources
- * @version:  2
+ * @file main.h Main header file for modigliani sources @version: 2
  * Copyright (C) 1998 Ahmed Aldo Faisal
  *
  * @section LICENSE
@@ -21,7 +20,7 @@
 
 
 /**
- * @namespace mbase
+ * @namespace modigliani_base
  * Base types and classes for Modigliani
  *
  */

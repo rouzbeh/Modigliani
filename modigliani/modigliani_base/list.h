@@ -21,8 +21,8 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ifndef _mbase_list_h_
-#define _mbase_list_h_
+#ifndef _modigliani_base_list_h_
+#define _modigliani_base_list_h_
 
 #include "types.h"
 #include "error.h"
@@ -386,5 +386,5 @@ template<class T> const T& Iterator_list<T>::current() const {
     return (cur ? cur->_info : Link_list<T>::defval);
 }
 }
-#endif /* _mbase_list_h_ */
+#endif /* _modigliani_base_list_h_ */
 

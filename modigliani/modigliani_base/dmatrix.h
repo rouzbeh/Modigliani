@@ -20,8 +20,8 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ifndef _mbase_dmatrix_h_
-#define _mbase_dmatrix_h_
+#ifndef _modigliani_base_dmatrix_h_
+#define _modigliani_base_dmatrix_h_
 
 #include <iostream>
 #include <cstdlib>
@@ -40,7 +40,7 @@
 #include <mset.h>
 #endif
 
-namespace mbase {
+namespace modigliani_base {
 /**
  Genuine double matrix class
  IMPORTAM : INDICES in Matrix START with (1,1)
@@ -84,44 +84,44 @@ public:
 };
 }
 
-mbase::DMatrix::DMatrix(int r, int c) {
+modigliani_base::DMatrix::DMatrix(int r, int c) {
     elements = new double[r * c + 1];
     memset(elements, ' ', (r * c + 1) * sizeof(double));
     row = r;
     col = c;
 }
 
-mbase::DMatrix::DMatrix(int r) {
+modigliani_base::DMatrix::DMatrix(int r) {
     elements = new double[r + 1];
     memset(elements, ' ', (r + 1) * sizeof(double));
     row = r;
     col = 1;
 }
 
-mbase::DMatrix::DMatrix(mbase::DMatrix &copy) {
+modigliani_base::DMatrix::DMatrix(modigliani_base::DMatrix &copy) {
     row = copy.row;
     col = copy.col;
     elements = new double[row * col + 1];
     memcpy(elements, copy.elements, (row * col + 1) * sizeof(double));
 }
 
-mbase::DMatrix mbase::DMatrix::operator+(mbase::DMatrix &right) {
-    mbase::DMatrix left(*this);
+modigliani_base::DMatrix modigliani_base::DMatrix::operator+(modigliani_base::DMatrix &right) {
+    modigliani_base::DMatrix left(*this);
     for (int i = 1; i <= row * col; i++)
         left.elements[i] = left.elements[i] + right.elements[i];
     return (left);
 }
 
-mbase::DMatrix mbase::DMatrix::operator-(mbase::DMatrix &right) {
-    mbase::DMatrix left(*this);
+modigliani_base::DMatrix modigliani_base::DMatrix::operator-(modigliani_base::DMatrix &right) {
+    modigliani_base::DMatrix left(*this);
     for (int i = 1; i <= row * col; i++) {
         left.elements[i] = left.elements[i] - right.elements[i];
     }
     return (left);
 }
 
-mbase::DMatrix mbase::DMatrix::operator*(mbase::DMatrix &right) {
-    mbase::DMatrix prod(row, right.col);
+modigliani_base::DMatrix modigliani_base::DMatrix::operator*(modigliani_base::DMatrix &right) {
+    modigliani_base::DMatrix prod(row, right.col);
     for (int i = 1; i <= row; i++) {
         for (int j = 1; j <= right.col; j++) {
             prod(i, j) = 0;
@@ -132,7 +132,7 @@ mbase::DMatrix mbase::DMatrix::operator*(mbase::DMatrix &right) {
     return (prod);
 }
 
-mbase::DMatrix mbase::DMatrix::operator*(double factor) {
+modigliani_base::DMatrix modigliani_base::DMatrix::operator*(double factor) {
     for (int i = 1; i <= row; i++) {
         for (int j = 1; j <= col; j++) {
             (*this)(i, j) = (*this)(i, j) * factor;
@@ -141,7 +141,7 @@ mbase::DMatrix mbase::DMatrix::operator*(double factor) {
     return (*this);
 }
 
-mbase::DMatrix &mbase::DMatrix::operator=(mbase::DMatrix &right) {
+modigliani_base::DMatrix &modigliani_base::DMatrix::operator=(modigliani_base::DMatrix &right) {
     if (this == &right)
         return (*this);
     else {
@@ -152,15 +152,15 @@ mbase::DMatrix &mbase::DMatrix::operator=(mbase::DMatrix &right) {
     }
 }
 
-double &mbase::DMatrix::operator()(int r, int c) {
+double &modigliani_base::DMatrix::operator()(int r, int c) {
     return (elements[(r - 1) * col + c]);
 }
 
-double &mbase::DMatrix::operator()(int r) {
+double &modigliani_base::DMatrix::operator()(int r) {
     return (elements[r]);
 }
 
-void mbase::DMatrix::print() {
+void modigliani_base::DMatrix::print() {
     std::cout.setf(std::ios::fixed);
     std::cout.precision(4);
     std::cout.width(8);
@@ -171,7 +171,7 @@ void mbase::DMatrix::print() {
     }
 }
 
-double mbase::DMatrix::sum() {
+double modigliani_base::DMatrix::sum() {
     double temp = 0.0;
     for (int i = 1; i <= row; i++)
         for (int j = 1; j <= col; j++)
@@ -179,7 +179,7 @@ double mbase::DMatrix::sum() {
     return (temp);
 }
 
-double mbase::DMatrix::quadSum() {
+double modigliani_base::DMatrix::quadSum() {
     double temp = 0.0;
     for (int i = 1; i <= row; i++)
         for (int j = 1; j <= col; j++)
@@ -188,13 +188,13 @@ double mbase::DMatrix::quadSum() {
 }
 
 /** compute inverse with  Gauss-elimination including Pivotizing */
-mbase::DMatrix mbase::DMatrix::operator~() {
+modigliani_base::DMatrix modigliani_base::DMatrix::operator~() {
     int i, j, k, n;
     int pivrow, tarrow;
     double pivelt, tarelt;
     n = row; // Zahl d.Gleich.
-    mbase::DMatrix aug(n, 2 * col);
-    mbase::DMatrix inverse(n, col);
+    modigliani_base::DMatrix aug(n, 2 * col);
+    modigliani_base::DMatrix inverse(n, col);
     for (i = 1; i <= n; i++)
         for (j = 1; j <= col; j++)
             aug(i, j) = (*this)(i, j);
@@ -217,7 +217,7 @@ mbase::DMatrix mbase::DMatrix::operator~() {
             }
         } else {
             k--;
-            mbase::DMatrix dum(2 * col);
+            modigliani_base::DMatrix dum(2 * col);
             for (i = 1; i <= 2 * col; i++)
                 dum(i) = aug(pivrow, i);
             for (i = 1; i <= 2 * col; i++)
@@ -241,12 +241,12 @@ mbase::DMatrix mbase::DMatrix::operator~() {
     return (inverse);
 }
 
-std::istream &operator>>(std::istream &is, mbase::DMatrix &m) {
+std::istream &operator>>(std::istream &is, modigliani_base::DMatrix &m) {
     for (int i = 1; i <= m.row; i++)
         for (int j = 1; j <= m.col; j++)
             is >> m(i, j);
     return (is);
 }
 
-#endif  /* _mbase_dmatrix_h_ */
+#endif  /* _modigliani_base_dmatrix_h_ */
 
