@@ -33,6 +33,7 @@ Membrane_compartment::Membrane_compartment(
 	area_ = newArea;
 
 	cm_ = 0;
+	compartment_membrane_capacitance_ = 0;
 	ra_ = 0;
 	vm_ = 0;
 	i_inj_ = 0;
