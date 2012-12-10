@@ -31,8 +31,8 @@ int activation(string channel_file_name, int alg,
                modigliani_base::Real step_length,
                modigliani_base::Size num_trials, string output_folder) {
   using modigliani_base::Real;
-  using modigliani_core::Lua_based_stochastic_multi_current;
-  using modigliani_core::Lua_based_deterministic_multi_current;
+  using modigliani_core::Lua_based_stochastic_voltage_gated_channel;
+  using modigliani_core::Lua_based_deterministic_voltage_gated_channel;
   using modigliani_core::Voltage_gated_ion_channel_current;
   using modigliani_core::StochasticType;
   using std::endl;
@@ -55,7 +55,7 @@ int activation(string channel_file_name, int alg,
     for (int aim = V_hold + 5; aim <= V_resting + 50; aim += 5) {
       Voltage_gated_ion_channel_current *current_p = 0;
       if (alg == 1) {
-        current_p = new Lua_based_deterministic_multi_current(100,  // Area
+        current_p = new Lua_based_deterministic_voltage_gated_channel(100,  // Area
             20,  // density,
             20,  // conductance
             -85,  // reversal potential
@@ -64,7 +64,7 @@ int activation(string channel_file_name, int alg,
         current_p->set_simulation_mode(
             modigliani_core::StochasticType::DETERMINISTIC);
       } else {
-        current_p = new Lua_based_stochastic_multi_current(100,  // Area
+        current_p = new Lua_based_stochastic_voltage_gated_channel(100,  // Area
             20,  // density,
             20,  // conductance
             -85,  // reversal potential
