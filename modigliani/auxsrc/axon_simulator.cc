@@ -1,9 +1,10 @@
 /**
  * @file axon_simulator.cc
- * Can simulate arbitrary axons
- * @version  2.0
- * @author Copyright (C) 1998,1999,2000,2001 Ahmed Aldo Faisal
- * @author Copyright (C) 2010, 2011 Mohammad Ali Neishabouri
+ * \brief Can simulate arbitrary axons using configuration
+ *        given in a json file.
+ * \version  2.0
+ * \author Copyright (C) 1998,1999,2000,2001 Ahmed Aldo Faisal
+ * \author Copyright (C) 2010, 2011 Mohammad Ali Neishabouri
  *
  * @section LICENSE
  * This library is free software; you can redistribute it and/or
