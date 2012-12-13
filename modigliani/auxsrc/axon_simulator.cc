@@ -286,7 +286,7 @@ int main(int argc, char* argv[]) {
   namespace po = boost::program_options;
 // Declare the supported options.
   po::options_description desc("Allowed options");
-  desc.add_options()("help", "produce help message")(
+  desc.add_options()("help,h", "produce help message")(
       "config-file", po::value<string>(), "which configuration file to use")(
       "algorithm,a", po::value<int>(), "set algorithm")("trials,t",
                                                         po::value<Size>(),
