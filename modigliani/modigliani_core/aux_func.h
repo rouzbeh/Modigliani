@@ -64,7 +64,7 @@ corrected_channel_density(modigliani_base::Real chDensity /* mum^-2 */,
 
 string createOutputFolder(string outputFolder);
 
-modigliani_core::Custom_cylindrical_compartment* create_compartment(
+modigliani_core::Cylindrical_compartment* create_compartment(
     Json::Value config_root, Json::Value simulation_parameters,
     Json::Value compartment_parameters, modigliani_base::Size force_alg);
 
