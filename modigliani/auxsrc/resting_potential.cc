@@ -40,8 +40,7 @@ int main(int argc, char* argv[]) {
       "target,t", po::value<double>(),
       "target reting potential in mV (default -65mV)")(
       "duration,d", po::value<modigliani_base::Size>(),
-      "How many iterations for each value")("verbose,v",
-                                            "activate debug messages");
+      "How many mS for each value")("verbose,v", "activate debug messages");
 
   if (argc < 2) {
     cout << desc << "\n";
@@ -70,14 +69,15 @@ int main(int argc, char* argv[]) {
     target = vm["target"].as<modigliani_base::Real>();
   }
 
-  modigliani_base::Size duration =
-      config_root["simulation_parameters"]["numIter"].asUInt();
+  modigliani_base::Size duration = 50.0
+      / config_root["simulation_parameters"]["timeStep"].asDouble();
   if (vm.count("duration")) {
-    duration = vm["duration"].as<modigliani_base::Size>();
+    duration = vm["duration"].as<modigliani_base::Size>() * 1.0
+        / config_root["simulation_parameters"]["timeStep"].asDouble();
   }
 
   double min = -90;
-  double max = -40;
+  double max = -20;
   double current_guess;
   double current_result = 100000;
 
@@ -92,26 +92,26 @@ int main(int argc, char* argv[]) {
     std::vector<modigliani_base::Size> nodes_vec, nodes_paranodes_vec;
 
     modigliani_core::Membrane_compartment_sequence* oModel =
-        modigliani_core::create_axon(config_root, temp, temp, 0);
+        modigliani_core::create_axon(config_root, temp, temp, 1);
 
     oModel->Init();
 
     double sum = 0;
     for (modigliani_base::Size lt = 0; lt < duration; lt++) {
-      if (lt == 5000) {
+      if (lt <= 5000) {
         modigliani_base::Real inpCurrent = (5
             * config_root["simulation_parameters"]["inpISDV"].asDouble())
             + config_root["simulation_parameters"]["inpI"].asDouble();
         oModel->InjectCurrent(inpCurrent, 1);
       }
-      if (duration - lt < 5000)
+      if (duration - lt < 50)
         for (modigliani_base::Size ll = 0; ll < oModel->_numCompartments();
             ll++) {
           sum += oModel->compartmentVec[ll]->vm();
         }
       oModel->step();
     }
-    current_result = sum / (oModel->_numCompartments() * 5000);
+    current_result = sum / (oModel->_numCompartments() * 50);
     std::cerr << "Mean voltage = " << current_result << " found for eLeak = "
               << current_guess << " max,min" << max << ',' << min << std::endl;
     if (current_result > target) {
