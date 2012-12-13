@@ -7,7 +7,9 @@ AC_CONFIG_SRCDIR([modigliani.lsm])
 AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.
+cxxflags_save="$CXXFLAGS"
 AC_PROG_CXX
+CXXFLAGS="$cxxflags_save"
 AC_PROG_CC
 AC_PROG_CPP
 AC_PROG_LEX
