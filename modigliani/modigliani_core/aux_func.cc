@@ -72,12 +72,12 @@ string modigliani_core::createOutputFolder(string outputFolder) {
  * Creates a compartment using the parameters supplied in the parameters structs supplied.
  * @return The constructed compartment.
  */
-modigliani_core::Custom_cylindrical_compartment*
+modigliani_core::Cylindrical_compartment*
 modigliani_core::create_compartment(Json::Value config_root,
                                     Json::Value simulation_parameters,
                                     Json::Value compartment_parameters,
                                     modigliani_base::Size force_alg) {
-  Custom_cylindrical_compartment *tmpPtr = new Custom_cylindrical_compartment(
+  Cylindrical_compartment *tmpPtr = new Custom_cylindrical_compartment(
       compartment_parameters["length"].asDouble() /* muMeter */,
       config_root["diameter"].asDouble() /* muMeter */,
       compartment_parameters["Cm"].asDouble()/*muFarad/cm^2 */,
