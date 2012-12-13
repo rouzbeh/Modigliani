@@ -9,7 +9,8 @@ measure_mutual_information_in_binary_file \
 axon_simulator \
 resting_potential \
 single_compartment_simulator \
-voltage_step				
+voltage_step \
+single_compartment_resting_potential
 LDADD = -lm
 
 show_binary_file_SOURCES = show_binary_file.cc
@@ -41,6 +42,7 @@ endif
 axon_simulator_SOURCES = axon_simulator.cc
 single_compartment_simulator_SOURCES = single_compartment_simulator.cc
 resting_potential_SOURCES = resting_potential.cc
+single_compartment_resting_potential_SOURCES = single_compartment_resting_potential.cc
 
 if MINGW
   BOOST_LINKS = -lboost_filesystem-mt -lboost_system-mt -lboost_program_options-mt
@@ -52,9 +54,9 @@ axon_simulator_LDADD = $(top_builddir)/modigliani/modigliani_core/libmodigliani_
 single_compartment_simulator_LDADD = $(top_builddir)/modigliani/modigliani_core/libmodigliani_core.a $(top_builddir)/modigliani/modigliani_base/libmodigliani_base.a $(BOOST_LINKS) $(JSON_LINKS) -lm -llua
 axon_simulator_CPPFLAGS = $(PLPLOTCPPFLAGS)
 resting_potential_CPPFLAGS = $(PLPLOTCPPFLAGS)
-
 resting_potential_LDADD = $(single_compartment_simulator_LDADD)
-
+single_compartment_resting_potential_CPPFLAGS = $(single_compartment_simulator_CPPFLAGS)
+single_compartment_resting_potential_LDADD = $(single_compartment_simulator_LDADD)
 voltage_step_SOURCES = voltage_step.cc
 voltage_step_LDADD = $(single_compartment_simulator_LDADD) 
 
