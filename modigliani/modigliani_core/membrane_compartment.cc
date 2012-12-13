@@ -74,7 +74,6 @@ Membrane_compartment::~Membrane_compartment() {
  */
 modigliani_base::ReturnEnum Membrane_compartment::step(modigliani_base::Real newVM) {
 	vm_ = newVM;
-
 	//for every current
 	for (modigliani_base::Size it = 0; it < current_vec_.size(); it++) {
 		(current_vec_[it])->Step(vm_);
