@@ -21,7 +21,7 @@
  */
 
 #include <modigliani_core/aux_func.h>
-
+#include <boost/program_options.hpp>
 /**
  * Runs a simulation using parameters in the given json file.
  *
@@ -33,8 +33,10 @@
  * @param filename
  * @return Status
  */
-int Simulate(string fileName) {
-  Json::Value config_root = modigliani_core::read_config(fileName);
+int Simulate(boost::program_options::variables_map vm) {
+  using modigliani_base::Size;
+  Json::Value config_root = modigliani_core::read_config(
+      vm["config-file"].as<string>());
   string timedOutputFolder;
 
   // We write each compartment's potential and currents into a single file.
@@ -45,7 +47,7 @@ int Simulate(string fileName) {
     timedOutputFolder = modigliani_core::createOutputFolder(
         config_root["simulation_parameters"]["outputFolder"].asString());
 
-    std::ifstream ifs(fileName, std::ios::binary);
+    std::ifstream ifs(vm["config-file"].as<string>(), std::ios::binary);
     string temp_string = timedOutputFolder;
     std::ofstream ofs(temp_string.append("/conf.json").c_str(),
                       std::ios::binary);
@@ -64,42 +66,60 @@ int Simulate(string fileName) {
     modigliani_core::openOutputFile("/tmp", "log", log_file, ".log");
   }
 
-  // Read input file only once. Store its content in memory.
-  ifstream dataFile(
-      config_root["simulation_parameters"]["inputFile"].asString().c_str(),
-      ios::binary);
-  if (dataFile.fail()) {
-    std::cerr
-        << "Could not open input file "
-        << config_root["simulation_parameters"]["inputFile"].asString().c_str()
-        << std::endl;
-    exit(1);
+  lua_State* L_inject_current = luaL_newstate();
+  std::vector<float> inputData(1000000);
+  if (vm.count("input-file")) {
+    // Read input file only once. Store its content in memory.
+    ifstream dataFile(vm["input-file"].as<string>());
+    if (dataFile.fail()) {
+      std::cerr
+          << "Could not open input file "
+          << config_root["simulation_parameters"]["inputFile"].asString().c_str()
+          << std::endl;
+      exit(1);
+    }
+    modigliani_base::Size index = 0;
+    while (dataFile.good()) {
+      if (index < inputData.size()) {
+        char tmp[100];
+        dataFile.getline(tmp, 100);
+        std::stringstream convertor(tmp);
+        convertor >> inputData[index];
+        index++;
+      } else {
+        inputData.resize(inputData.size() + 100000);
+      }
+    }
+    dataFile.close();
+  } else {
+    string lua_inject_script =
+        config_root["simulation_parameters"]["inject_current_lua"].asString();
+    luaL_openlibs(L_inject_current);
+    luaL_dostring(L_inject_current, lua_inject_script.c_str());
   }
 
-  std::vector<float> inputData(1000000);
-  modigliani_base::Size index = 0;
-  while (dataFile.good()) {
-    if (index < inputData.size()) {
-      char tmp[100];
-      dataFile.getline(tmp, 100);
-      sscanf(tmp, "%f", &inputData[index]);
-      index++;
-    } else {
-      inputData.resize(inputData.size() + 100000);
-    }
+  bool verbose = false;
+  if (vm.count("verbose")) {
+    verbose = true;
   }
-  dataFile.close();
+
+  Size force_alg = 0;
+  if (vm.count("algorithm")) {
+    force_alg = vm["algorithm"].as<int>();
+  }
 
   // Trials loop
   for (modigliani_base::Size lTrials = 0;
       lTrials < config_root["simulation_parameters"]["numTrials"].asUInt();
       lTrials++) {
+    modigliani_base::Real inp_current = 0;
     /* Model setup */
     Json::Value compartments_parameters = config_root["compartments_parameters"];
     Json::Value simulation_parameters = config_root["simulation_parameters"];
-    modigliani_core::Custom_cylindrical_compartment* oModel =
+    modigliani_core::Cylindrical_compartment* oModel =
         modigliani_core::create_compartment(config_root, simulation_parameters,
-                                            compartments_parameters[0u], 0);
+                                            compartments_parameters[0u],
+                                            force_alg);
 
     // SIMULATION ITERATION LOOP
     std::cerr << "MainLoop started" << std::endl;
@@ -141,7 +161,22 @@ int Simulate(string fileName) {
             + config_root["simulation_parameters"]["inpI"].asDouble();
         dataRead++;
       }
-      oModel->InjectCurrent(inpCurrent);
+      if (vm.count("input-file")) {
+        if (lt % config_root["simulation_parameters"]["readN"].asInt() == 0) {
+          inp_current = (inputData[dataRead]
+              * config_root["simulation_parameters"]["inpISDV"].asDouble())
+              + config_root["simulation_parameters"]["inpI"].asDouble();
+          dataRead++;
+          cout << config_root["simulation_parameters"]["inpI"].asDouble()
+               << endl;
+        }
+      } else {
+        lua_getglobal(L_inject_current, "current");
+        lua_pushnumber(L_inject_current, timeInMS);
+        lua_call(L_inject_current, 1, 1);
+        inp_current = lua_tonumber(L_inject_current, -1);
+        lua_pop(L_inject_current, 1);
+      }
 
       oModel->step(oModel->vm());
     }
@@ -157,5 +192,37 @@ int Simulate(string fileName) {
 }
 
 int main(int argc, char* argv[]) {
-  return (Simulate(argv[2]));
+  using modigliani_base::Real;
+  using modigliani_base::Size;
+  namespace po = boost::program_options;
+  // Declare the supported options.
+  po::options_description desc("Allowed options");
+  desc.add_options()("help,h", "produce help message")(
+      "config-file", po::value<string>(), "which configuration file to use")(
+      "algorithm,a", po::value<int>(), "set algorithm")("trials,t",
+                                                        po::value<Size>(),
+                                                        "set number of trials")(
+      "verbose,v", "activate debug messages")("input-file,i",
+                                              po::value<string>(),
+                                              "set input file");
+  if (argc < 2) {
+    cout << desc << "\n";
+    return (1);
+  }
+
+  po::positional_options_description p;
+  p.add("config-file", -1);
+
+  po::variables_map vm;
+  po::store(
+      po::command_line_parser(argc, argv).options(desc).positional(p).run(),
+      vm);
+  po::notify(vm);
+
+  if (vm.count("help")) {
+    cout << desc << "\n";
+    return (0);
+  }
+
+  return (Simulate(vm));
 }
