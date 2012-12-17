@@ -83,6 +83,10 @@ int Simulate(boost::program_options::variables_map vm) {
 
   lua_State* L_inject_current = luaL_newstate();
   std::vector<float> inputData(1000000);
+
+  // We can inject currents in two ways. Either execute a lua program,
+  // or read from a file. The choice is made depending on the presence of
+  // input-file in the command line interface.
   if (vm.count("input-file")) {
     // Read input file only once. Store its content in memory.
     ifstream dataFile(vm["input-file"].as<string>());
