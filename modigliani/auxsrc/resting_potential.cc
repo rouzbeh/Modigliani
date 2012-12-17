@@ -104,6 +104,8 @@ int main(int argc, char* argv[]) {
             + config_root["simulation_parameters"]["inpI"].asDouble();
         oModel->InjectCurrent(inpCurrent, 1);
       }
+
+      // The trouble is to know if this is an action potential
       if (duration - lt < 50)
         for (modigliani_base::Size ll = 0; ll < oModel->_numCompartments();
             ll++) {
