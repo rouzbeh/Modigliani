@@ -46,8 +46,6 @@ public:
 			const Custom_cylindrical_compartment & original);
 	Custom_cylindrical_compartment & operator=(
 			const Custom_cylindrical_compartment & right);
-	modigliani_base::Real getVoltage();
-	void setVoltage(modigliani_base::Real newVoltage);
 	virtual ~Custom_cylindrical_compartment();
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
@@ -57,7 +55,6 @@ protected:
 private:
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/
-	modigliani_base::Real voltage;
 };
 }
 #endif /* _ntbp_custom_cylindrical_compartment.h_ */ 
