@@ -18,7 +18,8 @@ membrane.cc\
 object.cc\
 transition_rate_matrix.cc\
 spherical_compartment.cc\
-synaptic_background.cc
+synaptic_background.cc\
+network_synapse.cc
 
 EXTRA_DIST = $(libmodigliani_core_a_SOURCES) \
 leak_current.h\
@@ -38,7 +39,8 @@ membrane.h\
 object.h\
 transition_rate_matrix.h\
 spherical_compartment.h\
-synaptic_background.h
+synaptic_background.h\
+network_synapse.h
 
 # set the include path found by configure
 
