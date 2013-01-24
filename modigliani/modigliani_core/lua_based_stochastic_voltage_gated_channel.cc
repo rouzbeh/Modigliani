@@ -59,8 +59,8 @@ Lua_based_stochastic_voltage_gated_channel::~Lua_based_stochastic_voltage_gated_
 
 /* ***  PUBLIC                                    ***   */
 void Lua_based_stochastic_voltage_gated_channel::load_file(string fileName,
-                                                   double temperature,
-                                                   double time_step) {
+                                                           double temperature,
+                                                           double time_step) {
   cout << "Getting probabilities from " << fileName << std::endl;
   lua_State* L = luaL_newstate();
   luaL_openlibs(L);
@@ -95,8 +95,6 @@ void Lua_based_stochastic_voltage_gated_channel::load_file(string fileName,
   double minV = lua_get_real(L, "minV");
   double maxV = lua_get_real(L, "maxV");
   double step = lua_get_real(L, "step");
-
-  //const Json::Value transitions = root["transitions"];
 
   probability_matrix_map[fileName] = new Transition_rate_matrix(
       number_of_states_map[fileName], minV, maxV, step);
