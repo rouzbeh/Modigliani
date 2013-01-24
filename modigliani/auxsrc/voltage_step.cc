@@ -166,7 +166,7 @@ int main(int argc, char** argv) {
     num_trials = vm["trials"].as<Size>();
     cout << "Number of trials was set to " << num_trials << ".\n";
   } else {
-    cout << "100 trials by default by default.\n";
+    cout << "100 trials by default.\n";
   }
 
   Real step_length = 20;
