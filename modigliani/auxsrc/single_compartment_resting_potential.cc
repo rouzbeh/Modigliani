@@ -5,7 +5,7 @@
  *
  * This program reads an axon configuration from a json file.
  * \version  2.0
- * \author Copyright (C) 2010, 2011 Mohammad Ali Neishabouri
+ * \author Copyright (C) 2011, 2012, 2013 Mohammad Ali Neishabouri
  *
  * \section LICENSE
  * This library is free software; you can redistribute it and/or

@@ -1,5 +1,8 @@
 /**
- * @file membrane_current.cc
+ * @file membrane_current.cc * \param      compartmentId refers to intuitive enumeriation, i.e. [1..m]
+ @return     none
+ \warning    unknown
+ \bug        unknown
  * Membrane_current class implementation
  * @author Ahmed Aldo Faisal &copy; created 16.3.2001  
  * @version   0.5

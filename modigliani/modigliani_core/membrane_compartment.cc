@@ -1,6 +1,7 @@
 /**
- * @file membrane_compartmentbj.cc
- * Membrane_compartment class implementation
+ * \file membrane_compartmentbj.cc
+ * \brief Membrane_compartment class implementation
+ *
  * @author Ahmed Aldo Faisal &copy; created 16.3.2001
  * @version   0.5
  * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
