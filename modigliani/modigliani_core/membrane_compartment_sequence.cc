@@ -106,7 +106,7 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::step() {
 	/* set new voltage */
 
 	for (ll = 0; ll < numCompartments; ll++) {
-		compartmentVec[ll]->step(vVec[ll]); // Step also advances the voltage -> ignore by using vVec
+		compartmentVec[ll]->Step(vVec[ll]); // Step also advances the voltage -> ignore by using vVec
 	}
 	return (modigliani_base::ReturnEnum::SUCCESS);
 }
@@ -204,8 +204,7 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::InitialStep() {
 	update_timeStep(_timeStep() / 2.0);
 	StepNTBP();
 	for (modigliani_base::Size ll = 0; ll < numCompartments; ll++) {
-		compartmentVec[ll]->step(compartmentVec[ll]->vm()); // Step also advances the voltage -> ignore by using vVec
-		// TODO why
+		compartmentVec[ll]->Step(compartmentVec[ll]->vm());
 	}
 
 	update_timeStep(_timeStep() * 2.0);
@@ -282,7 +281,7 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::WriteCurrentAscii(
 	} else {
 		for (modigliani_base::Size ll = 0; ll < _numCompartments(); ll++) {
 			if (index - 1 < compartmentVec[ll]->NumberCurrents())
-				file << compartmentVec[ll]->AttachedCurrent(index) << " ";
+				file << compartmentVec[ll]->Current(index)->current() << " ";
 		}
 	}
 	file << std::endl;
@@ -307,10 +306,10 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::WriteCompartmentData(
 	float data[1 + 2*number_of_currents];
 	data[0] = compartmentVec[to_print]->vm();
 	for (modigliani_base::Size ll = 1; ll - 1 < number_of_currents; ++ll) {
-		data[ll] = compartmentVec[to_print]->AttachedCurrent(ll);
+		data[ll] = compartmentVec[to_print]->Current(ll)->current();
 	}
 	for (modigliani_base::Size ll = number_of_currents+1; ll - 1 < number_of_currents*2; ++ll) {
-		data[ll] = _open_channels(compartmentVec[to_print]->GetCurrent(ll-number_of_currents));
+		data[ll] = _open_channels(compartmentVec[to_print]->Current(ll-number_of_currents));
 	}
 	file->write(reinterpret_cast<char*>(data),
 			(1 + 2*number_of_currents) * sizeof(float));
@@ -336,7 +335,7 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::WriteCurrent(std::ost
 		float data[numCompartments];
 		for (modigliani_base::Size ll = 0; ll < numCompartments; ll++) {
 			if (index - 1 < compartmentVec[ll]->NumberCurrents())
-				data[ll] = compartmentVec[ll]->AttachedCurrent(index);
+				data[ll] = compartmentVec[ll]->Current(index)->current();
 		}
 		file.write(reinterpret_cast<char*>(data),
 				_numCompartments() * sizeof(float));
@@ -359,7 +358,7 @@ std::vector<modigliani_base::Real> Membrane_compartment_sequence::GiveCurrent(
 		}
 	} else {
 		for (modigliani_base::Size ll = 0; ll < _numCompartments(); ll++) {
-			data[ll] = compartmentVec[ll]->AttachedCurrent(index);
+			data[ll] = compartmentVec[ll]->Current(index)->current();
 		}
 	}
 

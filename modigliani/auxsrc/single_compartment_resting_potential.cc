@@ -109,16 +109,16 @@ int main(int argc, char* argv[]) {
 
   for (modigliani_base::Size lt = 0; lt < duration; lt++) {
     if (lt <= 5000) {
-      oModel->step(0);
+      oModel->Step(0);
     } else {
-      oModel->step(target);
+      oModel->Step(target);
     }
   }
 
   modigliani_base::Real sum_currents = 0;
   for (modigliani_base::Size ll = 2; ll - 1 < oModel->NumberCurrents(); ++ll) {
-    cout << oModel->AttachedCurrent(ll) << endl;
-    sum_currents += oModel->AttachedCurrent(ll);
+    cout << oModel->Current(ll)->current() << endl;
+    sum_currents += oModel->Current(ll)->current();
   }
   cout << "Final currents sum " << sum_currents << endl;
   modigliani_base::Real calculated_eLeak = sum_currents / gleak + target;

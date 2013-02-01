@@ -77,7 +77,7 @@ class Membrane_compartment_sequence : public Membrane {
     void ShowHinesMatrix();
     modigliani_base::Real AttachedCurrent(modigliani_base::Size compIndex, modigliani_base::Size currIndex) {
       M_ASSERT(compIndex > 0);
-      return (compartmentVec[compIndex - 1]->AttachedCurrent(currIndex));
+      return (compartmentVec[compIndex - 1]->Current(currIndex)->current());
     }
     std::vector<modigliani_base::Real> open_channels(modigliani_base::Size currIndex) const;
     std::vector<modigliani_base::Real> OpenChannelsRatio(modigliani_base::Size currIndex) const;

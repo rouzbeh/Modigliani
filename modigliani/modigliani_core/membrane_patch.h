@@ -53,7 +53,7 @@ public:
 	/** Current [nA]  */
 	modigliani_base::Real MembraneCurrent(modigliani_base::Size currentIndex) const {
 		M_ASSERT((currentIndex > 0) && (currentIndex-1 < NumberCurrents()));
-		return (GetCurrent(currentIndex)->current());
+		return (Current(currentIndex)->current());
 	}
 	/* in muMeter^2 */
 

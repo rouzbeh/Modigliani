@@ -29,27 +29,28 @@ using namespace modigliani_core;
 /* ***      CONSTRUCTORS	***/
 /** Create a Cylindrical_compartment */
 Cylindrical_compartment::Cylindrical_compartment(
-		modigliani_base::Real newLength /* in muMeter */, modigliani_base::Real newDiameter /* in muMeter */, modigliani_base::Real newTemperature)
-:
-			Membrane_compartment(M_PI * newDiameter * newLength /* in muMeter^2 */, newTemperature) {
-	length = newLength;
-	diameter = newDiameter;
+    modigliani_base::Real newLength /* in muMeter */,
+    modigliani_base::Real newDiameter /* in muMeter */,
+    modigliani_base::Real newTemperature)
+    : Membrane_compartment(M_PI * newDiameter * newLength /* in muMeter^2 */,
+                           newTemperature) {
+  length = newLength;
+  diameter = newDiameter;
 }
 
 /* ***      COPY AND ASSIGNMENT	***/
 Cylindrical_compartment::Cylindrical_compartment(
-		const Cylindrical_compartment & original) :
-	Membrane_compartment(original.area()) {
-	// add assignment code here
+    const Cylindrical_compartment & original)
+    : Membrane_compartment(original.area()) {
+  length = original._length();
+  diameter = original._diameter();
 }
 
 Cylindrical_compartment&
-Cylindrical_compartment::operator=(
-		const Cylindrical_compartment & right) {
-	if (this == &right)
-		return (*this); // Gracefully handle self assignment
-	// add assignment code here
-	return (*this);
+Cylindrical_compartment::operator=(const Cylindrical_compartment & right) {
+  if (this == &right) return (*this);  // Gracefully handle self assignment
+  // add assignment code here
+  return (*this);
 }
 
 /* ***      DESTRUCTOR		***/

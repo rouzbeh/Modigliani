@@ -39,64 +39,62 @@ namespace modigliani_base {
  \bug unknown
  \warning unknown
  */
-template<class T> // with regards to Modula-3 :)
-class Multidim_array: public Obj {
-public:
+template<class T>  // with regards to Modula-3 :)
+class Multidim_array : public Obj {
+  public:
     /***   Constructors, Copy/Assignment and Destructor  ***/
     Multidim_array(Size d, Size n) {
-        M_ASSERT(d > 0);
-        dim = d;
-        M_ASSERT(n > 0);
-        num = n;
-        // implementation range checking
-        /* 2DO not working as numeric_limits not implemented in gcc 2.95
-         Real numElem = pow(n,d);
-         Real maxIndexRange = numeric_limits<Size_t>::max();
-         if (numElem >= maxIndexRange) {
-         std::cerr <<
-         "M_multidim_array_o::M_multidim_array_o - Error : array will contain to many elements"
-         << numElem << " for supported implementation range "
-         << maxIndexRange << " ("<< numeric_limits<Size_t>.max()
-         << "). Undefined behaviour may result." << std::endl;
-         }
-         */
-        // cache setup
-        powerSeriesCacheVec.resize(dim + 1);
-        // = {1,num,num^2,...,num^dim}
-        powerSeriesCacheVec[0] = 1;
-        for (Size ll = 1; ll < dim + 1; ll++) {
-            powerSeriesCacheVec[ll] = num * powerSeriesCacheVec[ll - 1];
-            std::cerr << powerSeriesCacheVec[ll] << std::endl;
-        }
-        // memory allocation
-        try {
-            dataVec.resize(powerSeriesCacheVec[dim]);
-        } catch (std::bad_alloc& ba) {
-            std::cerr
-                    << "M_multidim_array_o::M_multidim_array_o - Error : Memory exhausted by allocation of multidimensional array."
-                    << ">" << powerSeriesCacheVec[dim] * sizeof(T)
-                    << " bytes of memory are necessary for this object."
-                    << std::endl;
-        }
+      M_ASSERT(d > 0);
+      dim = d;
+      M_ASSERT(n > 0);
+      num = n;
+      // implementation range checking
+      /* 2DO not working as numeric_limits not implemented in gcc 2.95
+       Real numElem = pow(n,d);
+       Real maxIndexRange = numeric_limits<Size_t>::max();
+       if (numElem >= maxIndexRange) {
+       std::cerr <<
+       "M_multidim_array_o::M_multidim_array_o - Error : array will contain to many elements"
+       << numElem << " for supported implementation range "
+       << maxIndexRange << " ("<< numeric_limits<Size_t>.max()
+       << "). Undefined behaviour may result." << std::endl;
+       }
+       */
+      // cache setup
+      powerSeriesCacheVec.resize(dim + 1);
+      // = {1,num,num^2,...,num^dim}
+      powerSeriesCacheVec[0] = 1;
+      for (Size ll = 1; ll < dim + 1; ll++) {
+        powerSeriesCacheVec[ll] = num * powerSeriesCacheVec[ll - 1];
+        std::cerr << powerSeriesCacheVec[ll] << std::endl;
+      }
+      // memory allocation
+      try {
+        dataVec.resize(powerSeriesCacheVec[dim]);
+      } catch (std::bad_alloc& ba) {
+        std::cerr
+            << "M_multidim_array_o::M_multidim_array_o - Error : Memory exhausted by allocation of multidimensional array."
+            << ">" << powerSeriesCacheVec[dim] * sizeof(T)
+            << " bytes of memory are necessary for this object." << std::endl;
+      }
     }
 
     /* ***      COPY AND ASSIGNMEM    ***/
     /** copy constructor currently not to be implemented. */
     Multidim_array(const Multidim_array & original) {
-        std::cerr
-                << "Multidim_array::(const Multidim_array) - Error : Not implemented. Not to be supported ?"
-                << std::endl;
+      std::cerr
+          << "Multidim_array::(const Multidim_array) - Error : Not implemented. Not to be supported ?"
+          << std::endl;
     }
 
     /** assignment operator currently not to be implemented. */
     const Multidim_array&
     operator=(const Multidim_array & right) {
-        if (this == &right)
-            return (*this); // Gracefully handle self assignment
-        std::cerr
-                << "Multidim_array::operator= - Error : Not implemented. Not to be supported ?"
-                << std::endl;
-        return (*this);
+      if (this == &right) return (*this);  // Gracefully handle self assignment
+      std::cerr
+          << "Multidim_array::operator= - Error : Not implemented. Not to be supported ?"
+          << std::endl;
+      return (*this);
     }
 
     /* ***      DESTRUCTOR        ***/
@@ -104,72 +102,67 @@ public:
     }
 
     /* ***  PUBLIC                                    ***   */
-    /** @short    access element at given coordinate position
-     @param      none
-     @return     none
-     \warning    no range checking done on the coordinates
-     \bug        unknown
+    /** \brief    access element at given coordinate position
+     *
+     * \warning    no range checking done on the coordinates
      */
     T &
     Elem(const std::vector<Size> & coordinateVec) {
-        Size hash = Hash(coordinateVec);
-        M_ASSERT(dataVec.size() >= hash);
-        return (dataVec[hash]);
+      Size hash = Hash(coordinateVec);
+      M_ASSERT(dataVec.size() >= hash);
+      return (dataVec[hash]);
     }
 
-    /** @short    access a element with a "meaningless" index
-     @param     An index that is guaranteed to touch all elements
-     but has no assigned meaning as to the position of
-     element in relation to others. However
-     index $\in [0,num^dim]$ is guaranteed and will touch
-     all elements ones.
-     @return     none
-     \warning    Arbitrary index, no information inferable from the index,
-     might change anytime (only range remains guaranteed).
-     \bug        unknown
+    /** \brief access a element with a "meaningless" index
+     *
+     *\param index An index that is guaranteed to touch all elements
+     * but has no assigned meaning as to the position of
+     * element in relation to others. However index $\in [0,num^dim]$
+     * is guaranteed and will touch all elements ones.
+     * \return     none
+     * \warning    Arbitrary index, no information inferable from the index,
+     * might change anytime (only range remains guaranteed).
      */
     const T &
     ElemByIndex(Size index) const {
-        M_ASSERT((index < TotalNumElem()));
-        return (dataVec[index]);
+      M_ASSERT((index < TotalNumElem()));
+      return (dataVec[index]);
     }
 
     void SetAll(const T & val) {
-        for (Size ll = 0; ll < TotalNumElem(); ll++) {
-            dataVec[ll] = val;
-        }
+      for (Size ll = 0; ll < TotalNumElem(); ll++) {
+        dataVec[ll] = val;
+      }
     }
 
-    /** @short    access element at given coordinate position
-     @param      none
-     @return     none
-     \warning    no range checking done on the coordinates
-     \bug        unknown
+    /** \brief    access element at given coordinate position
+     *
+     *  \warning    no range checking done on the coordinates
      */
     T &
     Elem(Size index1...)
     {
-        std::vector <Size> coorVec(dim);
-        va_list args;
-        va_start(args,index1);
-        for (Size ld=0; ld < dim; ld++) {
-            coorVec[ld] = va_arg(args, Size);
-        }
-        va_end(args);
-        return (Elem(coorVec));
+      std::vector <Size> coorVec(dim);
+      va_list args;
+      va_start(args,index1);
+      for (Size ld=0; ld < dim; ld++) {
+        coorVec[ld] = va_arg(args, Size);
+      }
+      va_end(args);
+      return (Elem(coorVec));
     }
 
     Size
     TotalNumElem() const
     {
-        return (powerSeriesCacheVec[dim]);
+      return (powerSeriesCacheVec[dim]);
     }
 
     /* ***  Data                 ***/
-protected:
+    protected:
     /* ***  Methods              ***/
     /* ***  Data                 ***/
-private:
+    private:
     /* ***  Methods              ***/
     /** Generate an address out of the coordinates of the element
      in the multimensional array. The hash address is the
@@ -178,18 +171,18 @@ private:
      */
     Size Hash(const std::vector <Size> & coorVec) const
     {
-        M_ASSERT( coorVec.size() == dim );
-        Size addressIndex = 0;
-        for (Size ld = 0; ld < dim; ld++) { //2DO  WHY was ld < num+1 ?!?!?!
-                addressIndex += coorVec[ld] * powerSeriesCacheVec[ld];
-            }
-            return (addressIndex);
+      M_ASSERT( coorVec.size() == dim );
+      Size addressIndex = 0;
+      for (Size ld = 0; ld < dim; ld++) {  //2DO  WHY was ld < num+1 ?!?!?!
+          addressIndex += coorVec[ld] * powerSeriesCacheVec[ld];
         }
-        /* ***  Data                 ***/
-        std::vector <Size> dataVec;
-        std::vector <Size> powerSeriesCacheVec;
-        Size dim;
-        Size num; // number of elements per dimension
+        return (addressIndex);
+      }
+      /* ***  Data                 ***/
+      std::vector <Size> dataVec;
+      std::vector <Size> powerSeriesCacheVec;
+      Size dim;
+      Size num;  // number of elements per dimension
 
     };
 
