@@ -1,6 +1,7 @@
 /**
  * @file single_compartment_simulator.cc
- * Can simulate arbitrary axons
+ * \brief Can simulate arbitrary axons
+ *
  * @version  2.0
  * @author Copyright (C) 2010, 2011 Mohammad Ali Neishabouri
  *
@@ -23,15 +24,15 @@
 #include <modigliani_core/aux_func.h>
 #include <boost/program_options.hpp>
 /**
- * Runs a simulation using parameters in the given json file.
+ * \brief Runs a simulation using parameters in the given json file.
  *
  * This program only simulates a single compartment. If run using
  * a configuration file made for axon_simulator, the first compartment
  * found in compartment_parameters will be used. electrods_lua and
  * anatomy_lua are not used.
  *
- * @param filename
- * @return Status
+ * \param vm Command line options
+ * \return Status
  */
 int Simulate(boost::program_options::variables_map vm) {
   using modigliani_base::Size;

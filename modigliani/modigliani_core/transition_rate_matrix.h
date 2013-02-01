@@ -1,5 +1,6 @@
 /**
  * @file transition_rate_matrix.h
+ * @class Transition_rate_matrix
  * Transition_rate_matrix class declaration
  * @author Ali Neishabouri <ali@neishabouri.net>
  */

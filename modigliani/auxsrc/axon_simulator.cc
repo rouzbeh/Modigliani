@@ -32,10 +32,10 @@
 #include <boost/program_options.hpp>
 
 /**
- * Runs a simulation using parameters in the given json file.
+ * \brief Runs a simulation using parameters in the given json file.
  *
- * @param filename
- * @return Status
+ * \param vm Command line options
+ * \return Status
  */
 int Simulate(boost::program_options::variables_map vm) {
   using modigliani_base::Size;
@@ -176,7 +176,6 @@ int Simulate(boost::program_options::variables_map vm) {
     }
 #endif
 
-    /* *** SIMULATION ITERATION LOOP *** */
     std::cerr << "MainLoop started" << std::endl;
     modigliani_base::Real timeInMS = 0;
     int dataRead = 0;

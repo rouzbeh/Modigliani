@@ -1,5 +1,7 @@
-/**\file Spherical_compartment.h
- * Spherical_compartment class header
+/**
+ * \file spherical_compartment.h
+ * \brief Spherical_compartment class header
+ *
  * @author Ahmed Aldo Faisal &copy; created 19.3.2001  
  * @version   0.5
  * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    
@@ -25,24 +27,20 @@
 
 /* Parent includes */
 #include "membrane_compartment.h"
-/* NT includes */
-
-/* other includes */
 #include <cmath>
-//#include <math.h>
-
+#include <jsoncpp/json.h>
 
 namespace modigliani_core {
 /**
- * @short modigliani_core_spherical_compartment class
- * \bug unknown
- * \warning unknown
+ * \brief This class simulates a spherical Hodgkin-Huxley neuron
+ *
  */
 class Spherical_compartment: public Membrane_compartment {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
 	Spherical_compartment(modigliani_base::Real radius /* muMeter */,
 			modigliani_base::Real cM /* muFarad/cm^2 */);
+	Spherical_compartment(Json::Value compartment_parameters);
 	Spherical_compartment(const Spherical_compartment & original);
 	Spherical_compartment & operator=(
 			const Spherical_compartment & right);

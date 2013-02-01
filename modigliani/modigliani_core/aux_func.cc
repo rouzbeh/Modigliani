@@ -38,10 +38,11 @@ modigliani_base::Real modigliani_core::corrected_channel_density(
 }
 
 /**
- * Creates a new folder in the output directory
+ * \brief Creates a new folder in the output directory
  * and puts a timestamp in its name.
- * @param output Folder The folder in which to create the new folder.
- * @return Name of the newly created folder
+ *
+ * \param outputFolder The folder in which to create the new folder.
+ * \return Name of the newly created folder
  */
 string modigliani_core::createOutputFolder(string outputFolder) {
   /* open files */
@@ -63,26 +64,28 @@ string modigliani_core::createOutputFolder(string outputFolder) {
   ss2 >> temp_folder_name;
 
   boost::filesystem::path temp_folder_path(temp_folder_name);
-  boost::filesystem::create_directories(temp_folder_path.make_preferred().native());
+  boost::filesystem::create_directories(
+      temp_folder_path.make_preferred().native());
 
   return (folderName);
 }
 
 /**
- * Creates a compartment using the parameters supplied in the parameters structs supplied.
+ * Creates a cylindrical compartment using the parameters
+ * supplied in the parameters structs supplied.
  * @return The constructed compartment.
  */
-modigliani_core::Cylindrical_compartment*
-modigliani_core::create_compartment(Json::Value config_root,
-                                    Json::Value simulation_parameters,
-                                    Json::Value compartment_parameters,
-                                    modigliani_base::Size force_alg) {
-  Cylindrical_compartment *tmpPtr = new Custom_cylindrical_compartment(
-      compartment_parameters["length"].asDouble() /* muMeter */,
-      config_root["diameter"].asDouble() /* muMeter */,
-      compartment_parameters["Cm"].asDouble()/*muFarad/cm^2 */,
-      compartment_parameters["Ra"].asDouble() /* ohm cm */,
-      config_root["temperature"].asDouble());
+modigliani_core::Cylindrical_compartment* modigliani_core::create_compartment(
+    Json::Value config_root, Json::Value simulation_parameters,
+    Json::Value compartment_parameters, modigliani_base::Size force_alg) {
+
+  modigliani_core::Cylindrical_compartment *tmpPtr =
+      new modigliani_core::Custom_cylindrical_compartment(
+          compartment_parameters["length"].asDouble() /* muMeter */,
+          config_root["diameter"].asDouble() /* muMeter */,
+          compartment_parameters["Cm"].asDouble()/*muFarad/cm^2 */,
+          compartment_parameters["Ra"].asDouble() /* ohm cm */,
+          config_root["temperature"].asDouble());
 
   tmpPtr->update_timeStep(
       config_root["simulation_parameters"]["timeStep"].asDouble() /* mSec */);
@@ -92,12 +95,22 @@ modigliani_core::create_compartment(Json::Value config_root,
 
   // Read a list of currents for each compartments
   Json::Value currents = compartment_parameters["currents"];
+
+  attach_current(tmpPtr, currents, config_root, randomise_densities, force_alg);
+
+  return (tmpPtr);
+}
+
+void modigliani_core::attach_current(
+    modigliani_core::Membrane_compartment* compartment,
+    const Json::Value currents, Json::Value config_root,
+    bool randomise_densities, modigliani_base::Size force_alg) {
   for (unsigned int index = 0; index < currents.size(); ++index) {
     Json::Value current = currents[index];
 
     if ("leak" == current["type"].asString()) {
-      tmpPtr->AttachCurrent(
-          new Leak_current(tmpPtr->area(), current["GLeak"].asDouble(),
+      compartment->AttachCurrent(
+          new Leak_current(compartment->area(), current["GLeak"].asDouble(),
                            config_root["eLeak"].asDouble()),
           NTBP_LEAK);
       continue;
@@ -105,65 +118,66 @@ modigliani_core::create_compartment(Json::Value config_root,
 
     if ("file" == current["type"].asString()) {
       modigliani_base::Real indDensity = corrected_channel_density(
-          current["chDen"].asDouble(), tmpPtr->area());
+          current["chDen"].asDouble(), compartment->area());
       File_based_stochastic_voltage_gated_channel * file_current =
           new File_based_stochastic_voltage_gated_channel(
-              tmpPtr->area(),
-              (randomise_densities ? indDensity : current["chDen"].asDouble()) /* mum^-2 */,
+              compartment->area(),
+              (randomise_densities ? indDensity : current["chDen"].asDouble()),
+              /* mum^-2 */
               current["chCond"].asDouble() * 1e-9 /* pS */,
-              current["chRevPot"].asDouble() /* mV */,
-              simulation_parameters["timeStep"].asDouble(),
+              current["chRevPot"].asDouble() /* mV */, compartment->_timeStep(),
               config_root["temperature"].asDouble() /* C */,
               current["chModel"].asString());
       auto alg = current["chAlg"].asInt();
       if (force_alg) alg = force_alg;
       if (4 == alg) file_current->set_simulation_mode(BINOMIALPOPULATION);
       if (2 == alg) file_current->set_simulation_mode(SINGLECHANNEL);
-      tmpPtr->AttachCurrent(file_current, NTBP_IONIC);
+      compartment->AttachCurrent(file_current, NTBP_IONIC);
       continue;
     }
 
     if ("lua" == current["type"].asString()) {
-      auto alg = (force_alg?force_alg:current["chAlg"].asInt());
+      auto alg = (force_alg ? force_alg : current["chAlg"].asInt());
       if (1 == alg) {
         Lua_based_deterministic_voltage_gated_channel * lua_current =
             new Lua_based_deterministic_voltage_gated_channel(
-                tmpPtr->area(), current["chDen"].asDouble() /* mum^-2 */,
+                compartment->area(), current["chDen"].asDouble() /* mum^-2 */,
                 current["chCond"].asDouble() * 1e-9 /* pS */,
                 current["chRevPot"].asDouble() /* mV */,
-                simulation_parameters["timeStep"].asDouble(),
+                compartment->_timeStep(),
                 config_root["temperature"].asDouble() /* C */,
                 current["chModel"].asString());
         lua_current->set_simulation_mode(DETERMINISTIC);
-        tmpPtr->AttachCurrent(lua_current, NTBP_IONIC);
+        compartment->AttachCurrent(lua_current, NTBP_IONIC);
         continue;
       } else if (4 == alg || 2 == alg) {
         modigliani_base::Real indDensity = corrected_channel_density(
-            current["chDen"].asDouble(), tmpPtr->area());
+            current["chDen"].asDouble(), compartment->area());
         Lua_based_stochastic_voltage_gated_channel * lua_current =
             new Lua_based_stochastic_voltage_gated_channel(
-                tmpPtr->area(),
-                (randomise_densities ? indDensity : current["chDen"].asDouble()) /* mum^-2 */,
+                compartment->area(),
+                (randomise_densities ? indDensity : current["chDen"].asDouble()),
                 current["chCond"].asDouble() * 1e-9 /* pS */,
                 current["chRevPot"].asDouble() /* mV */,
-                simulation_parameters["timeStep"].asDouble(),
+                compartment->_timeStep(),
                 config_root["temperature"].asDouble() /* C */,
                 current["chModel"].asString());
         if (4 == alg) lua_current->set_simulation_mode(BINOMIALPOPULATION);
         if (2 == alg) lua_current->set_simulation_mode(SINGLECHANNEL);
-        tmpPtr->AttachCurrent(lua_current, NTBP_IONIC);
+        compartment->AttachCurrent(lua_current, NTBP_IONIC);
         continue;
       }
     }
   }
-  return (tmpPtr);
 }
 
 /**
- * Opens a new file in write mode.
- * @param output Folder The folder in which to create the new file.
- * @param prefix File name prefix
- * @param outStream Will contain an ofstream pointing to the newly
+ * \brief Opens a new file in write mode.
+ *
+ * \param outputFolder The folder in which to create the new file.
+ * \param prefix File name prefix
+ * \param outStream Will contain an ofstream pointing to the newly
+ * \param extension File extension
  * created file.
  */
 void modigliani_core::openOutputFile(string outputFolder, string prefix,
@@ -183,13 +197,14 @@ void modigliani_core::openOutputFile(string outputFolder, string prefix,
 }
 
 /**
- * @short Opens a new file in write mode, postfixing the name with
+ * \brief Opens a new file in write mode, postfixing the name with
  * the given number
- * @param output Folder The folder in which to create the new file.
- * @param prefix File name prefix
- * @param counter Number postfix
- * @param extenstion File extension
- * @return outStream Will contain an ofstream pointing to
+ *
+ * \param outputFolder The folder in which to create the new file.
+ * \param prefix File name prefix
+ * \param counter Number postfix
+ * \param extension File extension
+ * \return outStream Will contain an ofstream pointing to
  * the newly created file.
  */
 ofstream* modigliani_core::openOutputFile(string outputFolder, string prefix,
@@ -240,6 +255,15 @@ modigliani_core::Membrane_compartment_sequence* modigliani_core::create_axon(
 
   for (std::vector<int>::iterator it = compartment_types.begin();
       it != compartment_types.end(); ++it) {
+    if (!compartments_parameters[*it]["length"]) {
+      // We have probably tried to insert a non-existing compartment type.
+      cerr
+          << "You seem to be inserting a compartment of type "
+          << *it
+          << " which has a length of 0. This probably means you have not defined this diameter in the JSON file."
+          << endl;
+      exit(2);
+    }
     TypePerCompartmentFile << *it << std::endl;
     LengthPerCompartmentFile
         << compartments_parameters[*it]["length"].asDouble() << std::endl;

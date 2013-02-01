@@ -68,11 +68,18 @@ modigliani_core::Cylindrical_compartment* create_compartment(
     Json::Value config_root, Json::Value simulation_parameters,
     Json::Value compartment_parameters, modigliani_base::Size force_alg);
 
+void attach_current(
+    modigliani_core::Membrane_compartment* compartment,
+    const Json::Value currents, Json::Value config_root,
+    bool randomise_densities, modigliani_base::Size force_alg);
+
 /**
- * Opens a new file in write mode.
- * @param output Folder The folder in which to create the new file.
+ * \brief Opens a new file in write mode.
+ *
+ * @param outputFolder The folder in which to create the new file.
  * @param prefix File name prefix
  * @param outStream Will contain an ofstream pointing to the newly created file.
+ * @param extension The file extension. By default, .txt is used.
  */
 void openOutputFile(string outputFolder, string prefix, ofstream& outStream,
                     string extension = ".txt");

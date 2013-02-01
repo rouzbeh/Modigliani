@@ -264,12 +264,15 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::WriteMembranePotentia
 	return (modigliani_base::ReturnEnum::SUCCESS);
 }
 
-/** @short  Write compartment currents into a ascii file
- @param      reference to a file object and a current index (i.e. position of requested current in the currentVec of
- the membrane compartment). If current index == 0, the compartment net current is written.
- @return     none
- \warning    unknown
- \bug        unknown  */
+/** \brief Write compartment currents into a ascii file
+ *
+ * \param file reference to a file object and a current index
+ * (i.e. position of requested current in the currentVec of
+ * the membrane compartment). If current index == 0, the
+ * compartment net current is written.
+ * \param index
+ *
+ */
 modigliani_base::ReturnEnum Membrane_compartment_sequence::WriteCurrentAscii(
 		std::ostream & file, modigliani_base::Size index) const {
 	if (0 == index) {
@@ -379,10 +382,7 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::InjectCurrent(
 }
 
 /**
- @param      compartmentId refers to intuitive enumeriation, i.e. [1..m]
- @return     none
- \warning    unknown
- \bug        unknown
+ *
  */
 void Membrane_compartment_sequence::ShowHinesMatrix() {
 	using namespace TNT;
