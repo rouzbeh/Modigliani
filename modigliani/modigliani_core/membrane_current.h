@@ -82,7 +82,13 @@ class Membrane_current : public Object {
       return (q10_);
     }
     bool GillespieStep() {/*2DO is this necessary here*/
-      StepCurrent();
+      modigliani_base::ReturnEnum result = StepCurrent();
+      if (result != modigliani_base::ReturnEnum::SUCCESS) {
+        std::cerr
+            << "membrane_current::GillespieStep - ERROR : Current step failed."
+            << std::endl;
+        return (modigliani_base::ReturnEnum::FAIL);
+      }
       return (ComputeGillespieStep());
     }
     virtual bool ComputeGillespieStep() {
@@ -112,7 +118,13 @@ class Membrane_current : public Object {
     modigliani_base::ReturnEnum Step(modigliani_base::Real newVm /* in mV */) {
       //ComputeRateConstants(newVm); /* UpdateRateConstantsAND*/
       voltage_ = newVm;
-      StepCurrent();
+
+      modigliani_base::ReturnEnum result = StepCurrent();
+      if (result != modigliani_base::ReturnEnum::SUCCESS) {
+        std::cerr << "membrane_current::Step - ERROR : Current step failed at "
+                  << newVm << "mV. " << std::endl;
+        return (modigliani_base::ReturnEnum::FAIL);
+      }
       ComputeConductance();
       compute_current(newVm);
       return (modigliani_base::ReturnEnum::SUCCESS);

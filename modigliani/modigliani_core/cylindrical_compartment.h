@@ -50,7 +50,7 @@ public:
 	/* ***  Methods              ***/
 	/** length constant in muMeter for instantenous membrane conductance */
 	modigliani_base::Real ActiveLengthConstant() {
-		return (_diameter() / (4.0 * ra() * 1.0e4 * total_conductance()));
+		return (_diameter() / (4.0 * ra() * 1.0e4 * WeightedConductance()));
 	}
 	/* in muMeter^2 */
 	modigliani_base::Real _CrosssectionalArea() const {

@@ -149,7 +149,7 @@ int Simulate(boost::program_options::variables_map vm) {
         float data[1 + number_of_currents];
         data[0] = oModel->vm();
         for (modigliani_base::Size ll = 1; ll - 1 < number_of_currents; ++ll) {
-          data[ll] = oModel->AttachedCurrent(ll);
+          data[ll] = oModel->Current(ll)->current();
         }
         pot_current_file->write(reinterpret_cast<char*>(data),
                                 (1 + number_of_currents) * sizeof(float));
@@ -179,7 +179,7 @@ int Simulate(boost::program_options::variables_map vm) {
         lua_pop(L_inject_current, 1);
       }
 
-      oModel->step(oModel->vm());
+      oModel->Step();
     }
 
     delete oModel;

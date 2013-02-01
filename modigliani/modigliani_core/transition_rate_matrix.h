@@ -13,6 +13,7 @@
 #include <cstdlib>
 // Boost's multi array class can be slow, if the data is not accessed properly.
 // See http://stackoverflow.com/questions/446866/boostmulti-array-performance-question
+#include <stdexcept>
 
 namespace modigliani_core {
   class Transition_rate_matrix : public Object{

@@ -311,7 +311,7 @@ modigliani_base::ReturnEnum Ion_channels::BinomialStep(
 }
 
 modigliani_base::ReturnEnum Ion_channels::DeterministicStep(
-    modigliani_base::Real voltage) {
+    const modigliani_base::Real voltage) {
   std::vector<int> newStateCounterVec = stateCounterVec;
   // This operation is costly. So we do it only once.
   modigliani_base::Size matrix_index = _probMatrix->get_index(voltage);
@@ -326,8 +326,15 @@ modigliani_base::ReturnEnum Ion_channels::DeterministicStep(
       for (modigliani_base::Size nextState = 1; nextState < num_states() + 1;
           nextState++) {
         if (nextState == currentState) continue;
-        modigliani_base::Real prob = _probMatrix->getTransitionProbability(
-            matrix_index, currentState, nextState);
+        modigliani_base::Real prob = 0;
+        try {
+          prob = _probMatrix->getTransitionProbability(matrix_index,
+                                                       currentState, nextState);
+        } catch (std::out_of_range &e) {
+          std::cerr << e.what() << std::endl;
+          return (modigliani_base::ReturnEnum::FAIL);
+        }
+
         if (prob == 0) continue;
         int numberOfChannels = stateCounterVec[currentState];
         int delta = floor(prob * numberOfChannels);

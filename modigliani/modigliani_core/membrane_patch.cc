@@ -63,8 +63,8 @@ inline modigliani_base::ReturnEnum Membrane_patch::Step() {
   modigliani_base::Real deltaV = 1e-3 /* mV/muV */* _timeStep()
       * CompartmentMembraneNetCurrent() / CompartmentMembraneCapacitance();
   set_vm(vm() + deltaV);
-  Membrane_compartment::step (vm());return
-(  modigliani_base::ReturnEnum::SUCCESS);
+  Membrane_compartment::Step(vm());
+  return (modigliani_base::ReturnEnum::SUCCESS);
 }
 
 /** No descriptions */

@@ -60,7 +60,7 @@ class Ion_channels : public Object {
     void SetAsOpenState(modigliani_base::Size newOpenState);
     modigliani_base::ReturnEnum BinomialStep(modigliani_base::Real voltage);
     modigliani_base::ReturnEnum DeterministicStep(
-        modigliani_base::Real voltage);
+        const modigliani_base::Real voltage);
     modigliani_base::ReturnEnum Step(modigliani_base::Real voltage);
     void ShowStates() const;
     modigliani_base::Size NumOpen() const;

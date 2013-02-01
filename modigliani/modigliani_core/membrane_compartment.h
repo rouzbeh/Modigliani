@@ -43,21 +43,18 @@ class Membrane_compartment : public Object {
   public:
     /***   Constructors, Copy/Assignment and Destructor  ***/
     Membrane_compartment(modigliani_base::Real area /* in muMeter^2 */,
-                         modigliani_base::Real newTemperature = 6.3);
-    Membrane_compartment(const Membrane_compartment & original) = delete;
+                         modigliani_base::Real newTemperature = 6.3); Membrane_compartment(
+        const Membrane_compartment & original) = delete;
     Membrane_compartment & operator=(const Membrane_compartment & right) = delete;
-    
+
     virtual ~Membrane_compartment();
     /* ***  Methods              ***/
     modigliani_base::ReturnEnum AttachCurrent(Membrane_current * currentPtr,
         NTBPcurrentType type = NTBP_IONIC);
-    modigliani_base::ReturnEnum step(modigliani_base::Real newVM /* mV */);
+    modigliani_base::ReturnEnum Step(const modigliani_base::Real newVM /* mV */);
+    modigliani_base::ReturnEnum Step();
     modigliani_base::ReturnEnum InjectCurrent(
         modigliani_base::Real current /* in nA */);
-    modigliani_base::Real AttachedCurrent(modigliani_base::Size currentIndex) {
-      M_ASSERT((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
-      return (current_vec_[currentIndex - 1]->current());
-    }
     modigliani_base::Real AttachedConductance(
         modigliani_base::Size currentIndex) {
       M_ASSERT((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
@@ -68,11 +65,17 @@ class Membrane_compartment : public Object {
       M_ASSERT((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
       return (current_vec_[currentIndex - 1]->reversal_potential());
     }
-    /**  membrane time constant at instaneous membrane conductivity in ms */
+
+    /** \brief membrane time constant at instaneous membrane conductivity in ms
+     *
+     * \warning Uses weighted conductance
+     * @return Conductance
+     */
     modigliani_base::Real TimeConstant() {
-      return ((cm() / total_conductance()) * area() * 1.0e8);
+      return ((cm() / WeightedConductance()) * area() * 1.0e8);
     }
-    const Membrane_current * Current(modigliani_base::Size currentIndex) {
+
+    const Membrane_current * Current(modigliani_base::Size currentIndex) const {
       M_ASSERT((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
       return (current_vec_[currentIndex - 1]);
     }
@@ -129,15 +132,23 @@ class Membrane_compartment : public Object {
     /**  */
     bool GillespieStep();
     /**  */
-    void show_param() const;
     modigliani_base::Size NumberCurrents() const;
-    Membrane_current const * GetCurrent(modigliani_base::Size i) const;
+    //Membrane_current const * GetCurrent(modigliani_base::Size i) const;
+    float* data() const {
+      float* return_data = new float(1+NumberCurrents());
+      return_data[0] = vm();
+      for(unsigned int i=1; i<1+NumberCurrents(); i++) {
+        return_data[i]=Current(i)->current();
+      }
+      return(return_data);
+    }
+
     /* ***  Data                 ***/
 
     protected:
     /* ***  Methods              ***/
-    modigliani_base::Real total_conductance() const;
-    modigliani_base::Real WeightedConductance() const;  // OBSOLETE?
+    //modigliani_base::Real total_conductance() const;
+    modigliani_base::Real WeightedConductance() const;// OBSOLETE?
     /* ***  Data                 ***/
     modigliani_base::Real i_inj_;  // injected current into compartment in nA
     std::vector<Membrane_current *> current_vec_;
