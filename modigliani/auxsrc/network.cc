@@ -42,6 +42,7 @@ int Simulate(boost::program_options::variables_map vm) {
   using modigliani_base::Real;
   using modigliani_core::Spherical_compartment;
   using modigliani_core::Network_synapse;
+  using std::vector;
 
   Size num_neurons;
   Json::Value config_root = modigliani_core::read_config(
@@ -77,40 +78,29 @@ int Simulate(boost::program_options::variables_map vm) {
     modigliani_core::openOutputFile("/tmp", "log", log_file, ".log");
   }
 
-  lua_State* L_inject_current = luaL_newstate();
-  std::vector<float> inputData(1000000);
-
-  // We can inject currents in two ways. Either execute a lua program,
-  // or read from a file. The choice is made depending on the presence of
-  // input-file in the command line interface.
-  if (vm.count("input-file")) {
-    // Read input file only once. Store its content in memory.
-    ifstream dataFile(vm["input-file"].as<string>());
+  vector<vector<float>> input_data(0);
+  Json::Value inputs = config_root["input"];
+  for (unsigned int index = 0; index < inputs.size(); ++index) {
+    Json::Value input = inputs[index];
+    input_data.push_back(vector<float>(0));
+    ifstream dataFile(input["file"].asString());
     if (dataFile.fail()) {
-      std::cerr << "Could not open input file "
-                << config_root["simulation_parameters"]["inputFile"].asString()
-                << std::endl;
+      std::cerr
+          << "Could not open input file "
+          << config_root["simulation_parameters"]["inputFile"].asString().c_str()
+          << std::endl;
       exit(1);
     }
 
-    modigliani_base::Size index = 0;
     while (dataFile.good()) {
-      if (index < inputData.size()) {
-        char tmp[100];
-        dataFile.getline(tmp, 100);
-        std::stringstream convertor(tmp);
-        convertor >> inputData[index];
-        index++;
-      } else {
-        inputData.resize(inputData.size() + 100000);
-      }
+      char tmp[100];
+      dataFile.getline(tmp, 100);
+      std::stringstream convertor(tmp);
+      float tmp_data;
+      convertor >> tmp_data;
+      input_data[index].push_back(tmp_data);
     }
     dataFile.close();
-  } else {
-    string lua_inject_script =
-        config_root["simulation_parameters"]["inject_current_lua"].asString();
-    luaL_openlibs(L_inject_current);
-    luaL_dostring(L_inject_current, lua_inject_script.c_str());
   }
 
   bool verbose = false;
@@ -128,8 +118,7 @@ int Simulate(boost::program_options::variables_map vm) {
   std::vector<Spherical_compartment*> network_vector(0);
 
   for (Size lTrials = 0; lTrials < num_trials; lTrials++) {
-    Real inp_current = 0;
-
+    vector<Real> inp_current(inputs.size());
     for (int i = 0; i < num_neurons; i++) {
       Spherical_compartment* tmp_ptr = new Spherical_compartment(
           config_root["neuron_parameters"]);
@@ -183,28 +172,23 @@ int Simulate(boost::program_options::variables_map vm) {
         for (auto ci = network_vector.begin(); ci != network_vector.end();
             ci++) {
           float* data = (*ci)->data();
-          pot_current_files[counter++]->write(reinterpret_cast<char*>(data), sizeof(data));
+          pot_current_files[counter++]->write(reinterpret_cast<char*>(data),
+                                              sizeof(data));
         }
         if (!lTrials) time_file << timeInMS << std::endl;
       }
 
-      if (vm.count("input-file")) {
-        if (lt % config_root["simulation_parameters"]["readN"].asInt() == 0) {
-          inp_current = (inputData[dataRead]
-              * config_root["simulation_parameters"]["inpISDV"].asDouble())
-              + config_root["simulation_parameters"]["inpI"].asDouble();
+      if (lt % config_root["simulation_parameters"]["readN"].asInt() == 0) {
+        for (unsigned int index = 0; index < inputs.size(); ++index) {
+          inp_current[index] = (input_data[index][dataRead]);
           dataRead++;
-          cout << inp_current << endl;
         }
-      } else {
-        lua_getglobal(L_inject_current, "current");
-        lua_pushnumber(L_inject_current, timeInMS);
-        lua_call(L_inject_current, 1, 1);
-        inp_current = lua_tonumber(L_inject_current, -1);
-        lua_pop(L_inject_current, 1);
       }
-      if (verbose) cout << lt << "\t" << inp_current << endl;
-      // TODO(Ali): Inject current oModel->InjectCurrent(inp_current, 1);
+
+      for (unsigned int index = 0; index < inputs.size(); ++index) {
+        network_vector[inputs[index]["neuron"].asUInt()]->InjectCurrent(
+            inp_current[index]);
+      }
       for (auto ci = network_vector.begin(); ci != network_vector.end(); ci++) {
         (*ci)->Step();
       }
@@ -212,7 +196,6 @@ int Simulate(boost::program_options::variables_map vm) {
 
     network_vector.clear();
   }  // lTrials
-  lua_close(L_inject_current);
   log_file << "Simulation completed." << std::endl;
   log_file.close();
   for (auto ci = pot_current_files.begin(); ci != pot_current_files.end();
