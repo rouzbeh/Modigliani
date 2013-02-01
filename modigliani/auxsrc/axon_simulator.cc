@@ -251,8 +251,7 @@ int Simulate(boost::program_options::variables_map vm) {
               * config_root["simulation_parameters"]["inpISDV"].asDouble())
               + config_root["simulation_parameters"]["inpI"].asDouble();
           dataRead++;
-          cout << config_root["simulation_parameters"]["inpI"].asDouble()
-               << endl;
+          cout << inp_current << endl;
         }
       } else {
         lua_getglobal(L_inject_current, "current");
