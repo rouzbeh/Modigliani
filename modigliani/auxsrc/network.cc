@@ -44,9 +44,10 @@ int Simulate(boost::program_options::variables_map vm) {
   using modigliani_core::Network_synapse;
   using std::vector;
 
-  Size num_neurons;
   Json::Value config_root = modigliani_core::read_config(
       vm["config-file"].as<string>());
+
+  Size num_neurons = config_root["num_neurons"].asUInt();
   string timedOutputFolder;
   // We write each neuron's potential and currents into a single file.
   ofstream time_file, log_file;
