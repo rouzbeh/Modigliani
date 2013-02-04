@@ -1,6 +1,7 @@
 /**
- * @file leak_currentbj.cc
- * Leak_current class implementation
+ * @file leak_current.cc
+ * \brief Leak_current class implementation
+ *
  * @author Ahmed Aldo Faisal &copy; created 19.3.2001  
  * @version   0.5
  * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    

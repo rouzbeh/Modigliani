@@ -14,6 +14,9 @@ extern "C" {
 
 #include "modigliani_core/voltage_gated_ion_channel_current.h"
 #include "modigliani_core/ion_channels.h"
+#include "modigliani_core/aux_func.h"
+
+#include <boost/filesystem.hpp>
 
 #include <map>
 using namespace std;

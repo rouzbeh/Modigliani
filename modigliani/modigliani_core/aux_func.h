@@ -101,4 +101,6 @@ Json::Value read_config(string fileName);
 std::vector<modigliani_base::Size> get_electrods(Json::Value root);
 }
 
+int SetLuaPath( lua_State* L, const string path );
+
 #endif  // MODIGLIANI_MODIGLIANI_CORE_AUX_FUNC_H_
