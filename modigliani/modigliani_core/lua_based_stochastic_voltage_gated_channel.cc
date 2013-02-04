@@ -64,6 +64,11 @@ void Lua_based_stochastic_voltage_gated_channel::load_file(string fileName,
   cout << "Getting probabilities from " << fileName << std::endl;
   lua_State* L = luaL_newstate();
   luaL_openlibs(L);
+
+  // Add the folder of the lua to the LUA_PATH
+  boost::filesystem::path lua_path(fileName);
+  SetLuaPath(L, lua_path.parent_path().string());
+
   int status = luaL_dofile(L, fileName.c_str());
   if (status) {
     /* If something went wrong, error message is at the top of */
