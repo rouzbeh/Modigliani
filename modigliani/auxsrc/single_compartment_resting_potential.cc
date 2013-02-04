@@ -1,5 +1,5 @@
 /**
- * \file resting_potential.cc
+ * \file single_compartment_resting_potential.cc
  * \brief Find the resting potential of a compartment
  * by running simulations
  *
