@@ -1,6 +1,7 @@
 /**
- * @file ntbp_cylindrical_compartment.h
- * Cylindrical_compartment class header
+ * @file cylindrical_compartment.h
+ * \brief Cylindrical_compartment class header
+ *
  * @author Ahmed Aldo Faisal &copy; created 26.3.2001  
  * NetTrader - visualisation, scientific and financial analysis and simulation system
  * @version   0.5

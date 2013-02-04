@@ -24,9 +24,13 @@
 #include <boost/program_options.hpp>
 
 ///
-/// Activation voltage step
-/// @param channel_file_name Lua code for the channel
-/// @param alg Simulation algorithm
+/// \brief Activation voltage step
+///
+/// \param channel_file_name Lua code for the channel
+/// \param alg Simulation algorithm
+/// \param step_length How long to record at each step
+/// \param num_trials
+/// \param output_folder
 int activation(string channel_file_name, int alg,
                modigliani_base::Real step_length,
                modigliani_base::Size num_trials, string output_folder) {

@@ -3,9 +3,9 @@
  * \brief Find the resting potential of an axon by running simulations
  *
  * This program reads an axon configuration from a json file.
- * The axon is initialised and simulated for <duration> iterations.
- * The last 5000 iterations are avergaed together to provide a
- * resting potential, which compared against the <target>.
+ * The axon is initialised and simulated for a certain number of
+ * iterations. The last 5000 iterations are avergaed together to
+ * provide a resting potential, which compared against the target.
  * The leak reversal potential is then modified appropriately and
  * the simulations are repeated until the target is matched.
  * \version  2.0
