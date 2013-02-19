@@ -91,8 +91,10 @@ int main(int argc, char* argv[]) {
   // TODO : Calculate it !
   compartment_parameters["length"] = 500;
 
+  config_root["simulation_parameters"]["randomise_densities"] = "false";
+
   modigliani_base::Real target = -65;
-  if (vm.count("potential")) {
+  if (vm.count("target")) {
     target = vm["target"].as<modigliani_base::Real>();
   }
   modigliani_base::Size duration = 50.0
@@ -107,6 +109,7 @@ int main(int argc, char* argv[]) {
                                           config_root["simulation_parameters"],
                                           compartment_parameters, force_alg);
 
+  cout << target << endl;
   for (modigliani_base::Size lt = 0; lt < duration; lt++) {
     if (lt <= 5000) {
       oModel->Step(0);
@@ -121,8 +124,9 @@ int main(int argc, char* argv[]) {
     sum_currents += oModel->Current(ll)->current();
   }
   cout << "Final currents sum " << sum_currents << endl;
-  modigliani_base::Real calculated_eLeak = sum_currents / gleak + target;
+  modigliani_base::Real calculated_eLeak = sum_currents * 100000 / (gleak*oModel->area())+ target;
 
+  cout << sum_currents * 100000 / (gleak*oModel->area()) << endl;
   cout << "Eleak computed as " << calculated_eLeak << " mV" << endl;
 
   delete oModel;
