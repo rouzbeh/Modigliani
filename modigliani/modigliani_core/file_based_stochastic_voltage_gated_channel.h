@@ -37,6 +37,7 @@ class File_based_stochastic_voltage_gated_channel : public Voltage_gated_ion_cha
     static std::map<std::string, int> number_of_states_map;
     static std::map<std::string, double> base_temperature_map;
     static std::map<std::string, std::vector<modigliani_base::Size> > open_states_map;
+
     virtual modigliani_base::ReturnEnum StepCurrent() override;
     virtual modigliani_base::Real open_channels() const;
     virtual modigliani_base::Real ComputeConductance() override;

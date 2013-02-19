@@ -177,6 +177,6 @@ void File_based_stochastic_voltage_gated_channel::show_param() const {
             << std::endl;
   std::cout << "Channel density [1/muMeter^2]" << area() << std::endl;
   std::cout << "MaxConductivity (all channels open) mSiemens/cm^2"
-            << _maxConductivity() << std::endl;
+            << max_conductivity() << std::endl;
 }
 

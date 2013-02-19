@@ -29,14 +29,11 @@ using namespace modigliani_core;
 /* ***      CONSTRUCTORS	***/
 /** Create a Membrane_compartment */
 Membrane_compartment::Membrane_compartment(
-    modigliani_base::Real newArea /* in muMeter^2 */,
-    modigliani_base::Real newTemperature) {
-  M_ASSERT( newArea > 0);
-  area_ = newArea;
-
-  cm_ = 0;
-  compartment_membrane_capacitance_ = 0;
-  ra_ = 0;
+    const modigliani_base::Real newArea /* in muMeter^2 */,
+    const modigliani_base::Real newTemperature,
+    const modigliani_base::Real newCm, const modigliani_base::Real newRa)
+    : ra_(newRa), cm_(newCm), area_(newArea) {
+//  compartment_membrane_capacitance_ = 0;
   vm_ = 0;
   i_inj_ = 0;
   temperature_ = newTemperature;
@@ -91,25 +88,12 @@ modigliani_base::ReturnEnum Membrane_compartment::Step() {
     (current_vec_[it])->Step(vm_);
   }
   vm_ += 1.0e-3 * CompartmentMembraneNetCurrent()
-      / CompartmentMembraneCapacitance() * _timeStep();
+      / CompartmentMembraneCapacitance() * timeStep();
   return (modigliani_base::ReturnEnum::SUCCESS);
 }
 
-///** @short
-// *
-// * \warning    OBSOLETE
-// * \bug        unknown
-// */
-//modigliani_base::Real Membrane_compartment::total_conductance() const {
-//  modigliani_base::Real result = 0.0;
-//  std::vector<Membrane_current *>::const_iterator it = current_vec_.begin();
-//  for (it = current_vec_.begin(); it != current_vec_.end(); it++) {
-//    result += (*it)->conductance();
-//  }
-//  return (result);
-//}
-
-/** \brief Conductance weighted with reversal potential
+/**
+ *  \brief Conductance weighted with reversal potential
  *
  */
 modigliani_base::Real Membrane_compartment::WeightedConductance() const {
@@ -125,7 +109,7 @@ modigliani_base::Real Membrane_compartment::WeightedConductance() const {
 modigliani_base::ReturnEnum Membrane_compartment::AttachCurrent(
     Membrane_current * currentPtr, NTBPcurrentType type) {
   currentPtr->set_voltage(vm_);
-  currentPtr->setTimeStep(_timeStep());
+  currentPtr->setTimeStep(timeStep());
   currentPtr->set_temperature(temperature_);
   switch (type) {
     case NTBP_LEAK:

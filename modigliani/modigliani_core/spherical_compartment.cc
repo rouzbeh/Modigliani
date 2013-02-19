@@ -28,34 +28,17 @@ using namespace modigliani_core;
 
 Spherical_compartment::Spherical_compartment(modigliani_base::Real newRadius,
                                              modigliani_base::Real newCm)
-    : Membrane_compartment(4 * M_PI * newRadius * newRadius) {
+    : Membrane_compartment(4 * M_PI * newRadius * newRadius, 6.3, newCm, 35.4) {
   radius = newRadius;
-  SetCM(newCm);
-  Set_rA(35.4);
 }
 
 Spherical_compartment::Spherical_compartment(Json::Value compartment_parameters)
     : Membrane_compartment(
         4 * M_PI * compartment_parameters["radius"].asDouble()
-            * compartment_parameters["radius"].asDouble()) {
+            * compartment_parameters["radius"].asDouble(),
+        6.3, compartment_parameters["Cm"].asDouble(),
+        compartment_parameters["Ra"].asDouble()) {
   radius = compartment_parameters["radius"].asDouble();
-  SetCM(compartment_parameters["Cm"].asDouble());
-  Set_rA(compartment_parameters["Ra"].asDouble());
-}
-
-/* ***      COPY AND ASSIGNMENT	***/
-Spherical_compartment::Spherical_compartment(
-    const Spherical_compartment & original)
-    : Membrane_compartment(original.area()) {
-  // add assignment code here
-  radius = original.radius;
-}
-
-Spherical_compartment&
-Spherical_compartment::operator=(const Spherical_compartment & right) {
-  if (this == &right) return (*this);  // Gracefully handle self assignment
-  // add assignment code here
-  return (*this);
 }
 
 /* ***      DESTRUCTOR		***/

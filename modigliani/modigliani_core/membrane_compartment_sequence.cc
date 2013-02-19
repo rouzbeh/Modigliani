@@ -55,7 +55,7 @@ Membrane_compartment_sequence::~Membrane_compartment_sequence() {
  */
 modigliani_base::ReturnEnum Membrane_compartment_sequence::PushBack(
 		Cylindrical_compartment * compartPtr) {
-	compartPtr->setTimeStep(_timeStep());
+	compartPtr->setTimeStep(timeStep());
 	compartmentVec.push_back(compartPtr);
 	numCompartments++;
 
@@ -92,7 +92,7 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::step() {
 	for (ll = 0; ll < numCompartments; ll++) {
 		/* omega should have units of mV : mSec nA / muF = muV */
 		omega = 1e-3 /* mV/muV */
-		* (_timeStep() / compartmentVec[ll]->compartment_membrane_capacitance())
+		* (timeStep() / compartmentVec[ll]->CompartmentMembraneCapacitance())
 				* (compartmentVec[ll]->CompartmentMembraneNetCurrent());
 		rVec[ll] = compartmentVec[ll]->vm() + omega; // compute RHS of finite difference equation
 		// TODO it appears to be correct, but why is omega ADDED and not subtracted ?
@@ -126,9 +126,9 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::Init() {
 	rVec.resize(numCompartments);
 
 	modigliani_base::Real sigma = 0;
-	modigliani_base::Real radius = compartmentVec[0]->_radius(); // should be constant with present solution method
+	modigliani_base::Real radius = compartmentVec[0]->radius(); // should be constant with present solution method
 	modigliani_base::Real axoplasmicR = compartmentVec[0]->ra(); // (specific!) should be constant with present solution method
-	modigliani_base::Real deltaT = _timeStep();
+	modigliani_base::Real deltaT = timeStep();
 	modigliani_base::Real deltaXX = 0;
 
 	/* initialisation of left band l and right band u "std::vectors" */
@@ -139,13 +139,13 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::Init() {
 		compartmentVec[ll]->set_vm(0);
 		/* testing requirement for constant axo-geometric properties */
 		M_ASSERT(
-				compartmentVec[ll]->_radius() == compartmentVec[ll-1]->_radius());
+				compartmentVec[ll]->radius() == compartmentVec[ll-1]->radius());
 		M_ASSERT(compartmentVec[ll]->ra() == compartmentVec[ll-1]->ra());
 	}
 	compartmentVec[numCompartments - 1]->set_vm(0);
 
 	/* FIRST COMPARTMENT */
-	deltaXX = compartmentVec[0]->_length() * compartmentVec[0]->_length();
+	deltaXX = compartmentVec[0]->length() * compartmentVec[0]->length();
 	/* sigma is unit-free  (scaled by 0.1) [sigma] = mSec muM / (muM^2 Ohm cm) * (muM^2 / muF) */
 	sigma = (0.1 / 2.0) * (deltaT / deltaXX) * (radius / axoplasmicR)
 			* (compartmentVec[0]->area()
@@ -157,7 +157,7 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::Init() {
 	/* INTERMEDIATE COMPARTMENTS */
 	/* requirement for constant axo-geometric properties */
 	for (ll = 1; ll < numCompartments - 1; ll++) {
-		deltaXX = compartmentVec[ll]->_length() * compartmentVec[ll]->_length();
+		deltaXX = compartmentVec[ll]->length() * compartmentVec[ll]->length();
 		/* sigma is unit-free  (scaled by 0.1)     [sigma] = mSec muM / (muM^2 Ohm cm) * (muM^2 / muF) */
 		sigma = (0.1 / 2.0) * (deltaT / deltaXX) * (radius / axoplasmicR)
 				* (compartmentVec[ll]->area()
@@ -168,8 +168,8 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::Init() {
 	}
 
 	/* LAST COMPARTMENT */
-	deltaXX = compartmentVec[numCompartments - 1]->_length()
-			* compartmentVec[numCompartments - 1]->_length();
+	deltaXX = compartmentVec[numCompartments - 1]->length()
+			* compartmentVec[numCompartments - 1]->length();
 	/* sigma is unit-free  (scaled by 0.1)     [sigma] = mSec muM / (muM^2 Ohm cm) * (muM^2 / muF) */
 	sigma =
 			(0.1 / 2.0) * (deltaT / deltaXX) * (radius / axoplasmicR)
@@ -184,22 +184,24 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::Init() {
 	return (modigliani_base::ReturnEnum::SUCCESS);
 }
 
-/** @short Setup staggering PDE integration of compartments
- Internal - voltage related - states of compartments(i.e. currents) are ahead t+.5 baseTimeStep,
- while state of compartment sequence is unchanged. imposes crank nicholson staggering.
-
- \warning    Calling method activates Crank-Nicholson algorithm in Step()
+/**
+ * \brief Setup staggering PDE integration of compartments
+ * Internal - voltage related - states of compartments(i.e. currents)
+ * are ahead t+.5 baseTimeStep, while state of compartment sequence
+ * is unchanged. imposes crank nicholson staggering.
+ *
+ * \warning    Calling method activates Crank-Nicholson algorithm in Step()
  */
 modigliani_base::ReturnEnum Membrane_compartment_sequence::InitialStep() {
 
 	swCrankNicholson = true;
-	update_timeStep(_timeStep() / 2.0);
+	update_timeStep(timeStep() / 2.0);
 	StepNTBP();
 	for (modigliani_base::Size ll = 0; ll < numCompartments; ll++) {
 		compartmentVec[ll]->Step(compartmentVec[ll]->vm());
 	}
 
-	update_timeStep(_timeStep() * 2.0);
+	update_timeStep(timeStep() * 2.0);
 	StepNTBP();
 	std::cerr
 			<< "Membrane_compartment_sequence::InitialStep() - ERROR : not correctly implemented ? untested."

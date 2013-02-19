@@ -30,8 +30,7 @@ using namespace modigliani_core;
 /** Create a Membrane_patch */
 Membrane_patch::Membrane_patch(modigliani_base::Real newArea /* [muM^2] */,
                                modigliani_base::Real newCM /* muF/cm^2 */)
-    : Membrane_compartment(newArea) {
-  SetCM(newCM);
+    : Membrane_compartment(newArea, 6.3, newCM, 0) {
 }
 
 /* ***      DESTRUCTOR		***/
@@ -40,7 +39,7 @@ Membrane_patch::~Membrane_patch() {
 
 inline modigliani_base::ReturnEnum Membrane_patch::Step() {
   /*       [mV] == [10^-3 ms nA /muF] */
-  modigliani_base::Real deltaV = 1e-3 /* mV/muV */* _timeStep()
+  modigliani_base::Real deltaV = 1e-3 /* mV/muV */* timeStep()
       * CompartmentMembraneNetCurrent() / CompartmentMembraneCapacitance();
   set_vm(vm() + deltaV);
   Membrane_compartment::Step(vm());
@@ -51,11 +50,11 @@ inline modigliani_base::ReturnEnum Membrane_patch::Step() {
  * \short Initial step, needed if time staggering of the differential equations solution is desired.
  */
 modigliani_base::ReturnEnum Membrane_patch::InitialStep() {
-  update_timeStep(_timeStep() / 2.0);
+  update_timeStep(timeStep() / 2.0);
   StepNTBP();
   Step();
 
-  update_timeStep(_timeStep() * 2.0);
+  update_timeStep(timeStep() * 2.0);
   StepNTBP();
   std::cerr
       << "NTBP_membrane_compartment_sequence_o::InitialStep() - ERROR : not correctly implemented ? untested."

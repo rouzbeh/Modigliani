@@ -58,9 +58,9 @@ modigliani_base::Real Synaptic_background::compute_conductance() {
 
 modigliani_base::ReturnEnum Synaptic_background::step_current() {
   amplitude = sqrt(
-      (synVar * synTau / 2.0) * (1.0 - exp(-2.0 * _timeStep() / synTau)));
+      (synVar * synTau / 2.0) * (1.0 - exp(-2.0 * timeStep() / synTau)));
 
-  gT += avgSynBkCond + (gT - avgSynBkCond) * exp(-_timeStep() / synTau)
+  gT += avgSynBkCond + (gT - avgSynBkCond) * exp(- timeStep() / synTau)
       + amplitude * normRnd.RndVal();
 
   return (modigliani_base::ReturnEnum::SUCCESS);
