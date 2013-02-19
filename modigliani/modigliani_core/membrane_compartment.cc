@@ -49,30 +49,31 @@ Membrane_compartment::~Membrane_compartment() {
   }
 }
 
-/* ***  PUBLIC                                    ***   */
-/** @short      The membrane compartment has one modes of operation.
- If the voltage is specified externally at each time step,
- the compartment acts as a container for the occuring current
- objects, integratios has to be provided externally.
- e.g.
- Membrane_compartment c; [...]
- FLOAT voltage;
- LOOP
- voltage = IntegrateDifferentialEquation( c._vM() );
- c.Step( voltage );
- END LOOP;
- Additionally single compartment HodgkinHuxley simulation is possible using:
- where the voltage is updated at each step, if the
- old voltage is specified as input:
- e.g. LOOP
- Membrane_compartment c; [...]
- c.Step( c._vM() );	deltaVM = 1.0e-3 / sec /mSec / * CompartmentMembraneNetCurrent() / nA / /CompartmentMembraneCapacitance() / muF /;
- vM += deltaVM * _timeStep();
- END LOOP;
- @param      none
- @return     none
- \warning    Voltage is updated at Step
- \bug        unknown
+/** \brief      The membrane compartment has one
+ * mode of operation. If the voltage is specified
+ * externally at each time step, the compartment
+ * acts as a container for the occuring current
+ * objects, integratios has to be provided externally.
+ *
+ * \description
+ * e.g.
+ *  Membrane_compartment c; [...]
+ *   FLOAT voltage;
+ *   LOOP
+ *   voltage = IntegrateDifferentialEquation( c._vM() );
+ *   c.Step( voltage );
+ *   END LOOP;
+ *   Additionally single compartment HodgkinHuxley
+ *   simulation is possible using:
+ *   where the voltage is updated at each step, if the
+ *   old voltage is specified as input:
+ *   e.g. LOOP
+ *   Membrane_compartment c; [...]
+ *   c.Step( c._vM() );	deltaVM = 1.0e-3 / sec /mSec / * CompartmentMembraneNetCurrent() / nA / /CompartmentMembraneCapacitance() / muF /;
+ *   vM += deltaVM * _timeStep();
+ *   END LOOP;
+ * \param      newVM The membrane potential
+ * \return     none
  */
 modigliani_base::ReturnEnum Membrane_compartment::Step(
     const modigliani_base::Real newVM) {
