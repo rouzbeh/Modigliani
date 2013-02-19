@@ -148,15 +148,21 @@ class Membrane_compartment : public Object {
     /* ***  Methods              ***/
     //modigliani_base::Real total_conductance() const;
     modigliani_base::Real WeightedConductance() const;// OBSOLETE?
-    /* ***  Data                 ***/
-    modigliani_base::Real i_inj_;  // injected current into compartment in nA
+
+    /// injected current into compartment in nA
+    modigliani_base::Real i_inj_;
+    /// Contains pointers to attached currents
     std::vector<Membrane_current *> current_vec_;
-    const modigliani_base::Real cm_;// membrane capacity in muFarad/cm^2
-    const modigliani_base::Real ra_;// axoplasmatic resistance in Ohm cm
-    const modigliani_base::Real area_;// in muMeter^2
-    modigliani_base::Real temperature_;// in Celsius
-    //const modigliani_base::Real compartment_membrane_capacitance_;// in muFarad
-    modigliani_base::Real vm_;// membrane voltage in mV
+    /// membrane capacity in muFarad/cm^2
+    const modigliani_base::Real cm_;
+    /// axoplasmatic resistance in Ohm cm
+    const modigliani_base::Real ra_;
+    /// in muMeter^2
+    const modigliani_base::Real area_;
+    /// in Celsius
+    modigliani_base::Real temperature_;
+    /// membrane voltage in mV
+    modigliani_base::Real vm_;
     private:
   };}
 #endif /* _modigliani_core_membrane_compartment.h_ */

@@ -37,6 +37,7 @@ Membrane_compartment::Membrane_compartment(
   vm_ = 0;
   i_inj_ = 0;
   temperature_ = newTemperature;
+  current_vec_ = std::vector<Membrane_current *>(0);
 }
 
 /* ***      DESTRUCTOR		***/
@@ -83,13 +84,9 @@ modigliani_base::ReturnEnum Membrane_compartment::Step(
 }
 
 modigliani_base::ReturnEnum Membrane_compartment::Step() {
-  //for every current
-  for (modigliani_base::Size it = 0; it < current_vec_.size(); it++) {
-    (current_vec_[it])->Step(vm_);
-  }
-  vm_ += 1.0e-3 * CompartmentMembraneNetCurrent()
-      / CompartmentMembraneCapacitance() * timeStep();
-  return (modigliani_base::ReturnEnum::SUCCESS);
+  return (Step(
+      1.0e-3 * CompartmentMembraneNetCurrent()
+          / CompartmentMembraneCapacitance() * timeStep()));
 }
 
 /**
@@ -199,6 +196,3 @@ bool Membrane_compartment::GillespieStep() {
 modigliani_base::Size Membrane_compartment::NumberCurrents() const {
   return (current_vec_.size());
 }
-
-/* ***  PROTECTED                         ***   */
-/* ***  PRIVATE                           ***   */
