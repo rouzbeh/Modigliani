@@ -1,5 +1,5 @@
 /**
- * @file modigliani_core_voltage_gated_ion_channel_current.h
+ * @file voltage_gated_ion_channel_current.h
  * modigliani_core_voltage_gated_ion_channel_current class header
  * @author Ahmed Aldo Faisal &copy; created 16.3.2001
  * @author Ali Neishabouri
@@ -35,8 +35,6 @@
 
 namespace modigliani_core {
 /** @short Base class for voltage gated ion channels.
- \bug unknown
- \warning unknown
  */
 class Voltage_gated_ion_channel_current : public Membrane_current {
   public:

@@ -38,26 +38,6 @@ Membrane_patch::Membrane_patch(modigliani_base::Real newArea /* [muM^2] */,
 Membrane_patch::~Membrane_patch() {
 }
 
-/* ***  PUBLIC                                    ***   */
-/** @short       
- @param      none
- @return     none
- \warning    unknown
- \bug        unknown
-
- void
- Membrane_patch::() const
- {
- }
- */
-
-/** No descriptions */
-/** @short
- @param      none
- @return     none
- \warning    unknown
- \bug        unknown
- */
 inline modigliani_base::ReturnEnum Membrane_patch::Step() {
   /*       [mV] == [10^-3 ms nA /muF] */
   modigliani_base::Real deltaV = 1e-3 /* mV/muV */* _timeStep()
@@ -67,12 +47,8 @@ inline modigliani_base::ReturnEnum Membrane_patch::Step() {
   return (modigliani_base::ReturnEnum::SUCCESS);
 }
 
-/** No descriptions */
-/** @short Initial step, needed if time staggering of the differential equations solution is desired.
- @param      none
- @return     none
- \warning    unknown
- \bug        unknown
+/**
+ * \short Initial step, needed if time staggering of the differential equations solution is desired.
  */
 modigliani_base::ReturnEnum Membrane_patch::InitialStep() {
   update_timeStep(_timeStep() / 2.0);

@@ -66,11 +66,8 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::PushBack(
 	return (modigliani_base::ReturnEnum::SUCCESS);
 }
 
-/** @short Execute one time step on the compartments.      
- @param      none
- @return     none
- \warning    identical axo-geometric properties required for all compartments !
- \bug
+/** \brief Execute one time step on the compartments.
+ *  \warning    identical axo-geometric properties required for all compartments !
  */
 modigliani_base::ReturnEnum Membrane_compartment_sequence::step() {
 	//	std::cerr << "Membrane_compartment_sequence::Step()" << std::endl;
@@ -112,10 +109,7 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::step() {
 }
 
 /** @short       
- @param      none
- @return     none
  \warning    CONSTANT AXON diameter and axoplasmic RESISTANCE required
- \bug        unknown
  */
 modigliani_base::ReturnEnum Membrane_compartment_sequence::Init() {
 	if (compartmentVec.size() <= 0) {
@@ -193,10 +187,8 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::Init() {
 /** @short Setup staggering PDE integration of compartments
  Internal - voltage related - states of compartments(i.e. currents) are ahead t+.5 baseTimeStep,
  while state of compartment sequence is unchanged. imposes crank nicholson staggering.
- @param      none
- @return     none
+
  \warning    Calling method activates Crank-Nicholson algorithm in Step()
- \bug        !unknown!
  */
 modigliani_base::ReturnEnum Membrane_compartment_sequence::InitialStep() {
 
@@ -316,12 +308,13 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::WriteCompartmentData(
 	return (modigliani_base::ReturnEnum::SUCCESS);
 }
 
-/** @short  Write compartment currents into a binary file
- @param      reference to a file object and a current index (i.e. position of requested current in the currentVec of
- the membrane compartment). If current index == 0, the compartment net current is written.
- @return     none
- \warning    unknown
- \bug        unknown  */
+/** \brief  Write compartment currents into a binary file
+ *
+ *  \param file     reference to a file object
+ *  \param index current index (i.e. position of requested current in the currentVec of
+ *  the membrane compartment). If current index == 0, the
+ *  compartment net current is written.
+ *  */
 modigliani_base::ReturnEnum Membrane_compartment_sequence::WriteCurrent(std::ostream & file,
 		modigliani_base::Size index) const {
 	if (0 == index) {
@@ -343,12 +336,13 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::WriteCurrent(std::ost
 	return (modigliani_base::ReturnEnum::SUCCESS);
 }
 
-/** @short  Give compartment currents
- @param      reference to a file object and a current index (i.e. position of requested current in the currentVec of
- the membrane compartment). If current index == 0, the compartment net current is written.
- @return     none
- \warning    unknown
- \bug        unknown  */
+/** \brief Give compartment currents
+ *
+ * \param index reference to a current index
+ * (i.e. position of requested current in the currentVec of
+ * the membrane compartment). If current index == 0, the
+ * compartment net current is written.
+ */
 std::vector<modigliani_base::Real> Membrane_compartment_sequence::GiveCurrent(
 		modigliani_base::Size index) {
 	std::vector<modigliani_base::Real> data(_numCompartments());
@@ -368,11 +362,10 @@ std::vector<modigliani_base::Real> Membrane_compartment_sequence::GiveCurrent(
 /* ***  PROTECTED                         ***   */
 /* ***  PRIVATE                           ***   */
 
-/** @short
- @param      compartmentId refers to intuitive enumeriation, i.e. [1..m]
- @return     none
- \warning    unknown
- \bug        unknown  */
+/**
+ * \param current
+ * \param compartmentId refers to intuitive enumeriation, i.e. [1..m]
+ */
 modigliani_base::ReturnEnum Membrane_compartment_sequence::InjectCurrent(
 		modigliani_base::Real current /* in nA */, modigliani_base::Size compartmentId) {
 	if ((compartmentId < 1) || (compartmentId > _numCompartments()))

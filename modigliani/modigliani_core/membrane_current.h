@@ -48,8 +48,8 @@ class Membrane_current : public Object {
   public:
     /***   Constructors, Copy/Assignment and Destructor  ***/
     Membrane_current(modigliani_base::Real reversalPotential /* in mV */);
-    Membrane_current(const Membrane_current & original);
-    Membrane_current & operator=(const Membrane_current & right);
+    Membrane_current(const Membrane_current & original) = delete;
+    Membrane_current & operator=(const Membrane_current & right) = delete;
     virtual ~Membrane_current();
 
     /* ***  Methods              ***/
