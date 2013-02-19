@@ -36,13 +36,6 @@ Membrane_current::Membrane_current(
   _init(newReversalPotential);
 }
 
-/* ***      COPY AND ASSIGNMENT	***/
-Membrane_current::Membrane_current(
-    const Membrane_current __attribute__((unused)) & original)
-    : Object() {
-  _init(original.reversal_potential());
-}
-
 void Membrane_current::_init(modigliani_base::Real newReversalPotential) {
   voltage_ = -65;
   conductance_ = 0;
@@ -51,13 +44,6 @@ void Membrane_current::_init(modigliani_base::Real newReversalPotential) {
   current_ = 0.0;  // nanoAmpere
   temperature_ = 6.3;  // SGA values
   q10_ = 2.0;  // SGA values
-}
-
-Membrane_current&
-Membrane_current::operator=(const Membrane_current & right) {
-  if (this == &right) return (*this);  // Gracefully handle self assignment
-  // add assignment code here
-  return (*this);
 }
 
 /* ***      DESTRUCTOR		***/

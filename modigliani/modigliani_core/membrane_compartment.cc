@@ -1,5 +1,5 @@
 /**
- * \file membrane_compartmentbj.cc
+ * \file membrane_compartment.cc
  * \brief Membrane_compartment class implementation
  *
  * @author Ahmed Aldo Faisal &copy; created 16.3.2001
@@ -49,13 +49,12 @@ Membrane_compartment::~Membrane_compartment() {
   }
 }
 
-/** \brief      The membrane compartment has one
+/** \brief The membrane compartment has one
  * mode of operation. If the voltage is specified
  * externally at each time step, the compartment
  * acts as a container for the occuring current
  * objects, integratios has to be provided externally.
  *
- * \description
  * e.g.
  *  Membrane_compartment c; [...]
  *   FLOAT voltage;

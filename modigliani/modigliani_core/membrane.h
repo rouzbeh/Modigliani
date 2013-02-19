@@ -1,5 +1,5 @@
 /**
- * @file ntbp_membrane.h
+ * @file membrane.h
  * Membrane class header
  * @author Ahmed Aldo Faisal &copy; created 16.3.2001  
  * @version   0.5
@@ -49,8 +49,8 @@ class Membrane: public Object {
 public:
 	/***   Constructors, Copy/Assignment and Destructor  ***/
 	Membrane();
-	Membrane(const Membrane & original);
-	Membrane & operator=(const Membrane & right);
+	Membrane(const Membrane & original) = delete;
+	Membrane & operator=(const Membrane & right) = delete;
 	virtual ~Membrane();
 	/* ***  Methods              ***/
 	/* ***  Data                 ***/

@@ -40,19 +40,6 @@ using namespace modigliani_core;
 Membrane::Membrane() :
 		Object() {
 }
-/* ***      COPY AND ASSIGNMENT	***/
-Membrane::Membrane(const Membrane __attribute__((unused)) & original) :
-		Object() {
-	// add assignment code here
-}
-
-Membrane&
-Membrane::operator=(const Membrane & right) {
-	if (this == &right)
-		return (*this); // Gracefully handle self assignment
-	// add assignment code here
-	return (*this);
-}
 
 /* ***      DESTRUCTOR		***/
 Membrane::~Membrane() {
