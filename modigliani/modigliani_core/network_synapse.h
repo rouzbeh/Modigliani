@@ -47,7 +47,7 @@ class Network_synapse : public Membrane_current {
     modigliani_base::ReturnEnum StepCurrent();
     /** compute and return conductance in mSiemens */
     modigliani_base::Real ComputeConductance();
-    modigliani_base::Real _maxConductivity() const;
+    modigliani_base::Real max_conductivity() const;
 
     protected:
     private:

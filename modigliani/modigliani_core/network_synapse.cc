@@ -72,7 +72,7 @@ modigliani_base::Real Network_synapse::ComputeConductance() {
   return (set_conductance(conduc));
 }
 
-modigliani_base::Real Network_synapse::_maxConductivity() const {
+modigliani_base::Real Network_synapse::max_conductivity() const {
   return (0);
 }
 }

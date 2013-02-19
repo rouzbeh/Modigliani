@@ -185,7 +185,7 @@ int Simulate(boost::program_options::variables_map vm) {
     boost::progress_display show_progress( config_root["simulation_parameters"]["numIter"].asUInt()/100);
     for (modigliani_base::Size lt = 0;
         lt < config_root["simulation_parameters"]["numIter"].asUInt(); lt++) {
-      timeInMS += oModel->_timeStep();
+      timeInMS += oModel->timeStep();
 
       // Write number of columns
       if (config_root["simulation_parameters"]["sampN"].asInt() > 0 && lt == 0
@@ -220,7 +220,7 @@ int Simulate(boost::program_options::variables_map vm) {
       if (plot > 0) {
         if (lt == 0) {
           for (modigliani_base::Size lc = 1; lc < numCompartments; lc++) {
-            x[lc] = x[lc - 1] + oModel->compartmentVec[lc]->_length();
+            x[lc] = x[lc - 1] + oModel->compartmentVec[lc]->length();
           }
           pls->env(0, x[numCompartments - 1], -100, 100, 0, 0);
         }

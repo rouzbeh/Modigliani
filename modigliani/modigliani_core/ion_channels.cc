@@ -49,7 +49,7 @@ Ion_channels::Ion_channels(modigliani_base::Size numNewChannels,
 // Copy and assignment
 Ion_channels::Ion_channels(const Ion_channels & original)
     : Object(), _probMatrix(original._probMatrix) {
-  setTimeStep(original._timeStep());
+  setTimeStep(original.timeStep());
   num_channels_ = original.num_channels_;
   num_states_ = original.num_states_;
   statePersistenceProbVec.resize(num_states_);
@@ -98,7 +98,7 @@ modigliani_base::ReturnEnum Ion_channels::GillespieStep(
   if (!num_channels_) return (modigliani_base::ReturnEnum::SUCCESS);
   modigliani_base::Uniform_rnd_dist rnd;
   modigliani_base::Real val = rnd.RndVal();
-  modigliani_base::Real deltaT = _timeStep();
+  modigliani_base::Real deltaT = timeStep();
   modigliani_base::Real channelTau = ComputeChannelStateTimeConstant(voltage);
   std::cerr << "channelTau=" << channelTau << std::endl;
 
@@ -184,7 +184,7 @@ modigliani_base::Real Ion_channels::ComputeChannelStateTimeConstant(
   std::cerr << "NTBP_ion_channels_o::ComputeChannelStateTimeConstant()"
             << std::endl;
   modigliani_base::Real sum = 0.0;
-  modigliani_base::Real deltaT = _timeStep();
+  modigliani_base::Real deltaT = timeStep();
   for (modigliani_base::Size ll = 1; ll < num_states() + 1; ll++) {
     modigliani_base::Real stateChangeProbability = 0;
     for (modigliani_base::Size nextState = 1; nextState < num_states() + 1;
@@ -212,9 +212,9 @@ modigliani_base::ReturnEnum Ion_channels::ComputeGillespieStep(
   modigliani_base::Size matrix_index = _probMatrix->get_index(voltage);
 
   modigliani_base::Size oldOpen = NumOpen();
-  modigliani_base::Real deltaT = _timeStep();
+  modigliani_base::Real deltaT = timeStep();
 
-  modigliani_base::Real val = rnd.RndVal() * _timeStep();
+  modigliani_base::Real val = rnd.RndVal() * timeStep();
   // the probability has to be converted into a rate
 
   modigliani_base::Real stateChangeProbability = 0;

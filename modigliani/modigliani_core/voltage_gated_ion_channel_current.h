@@ -60,7 +60,7 @@ class Voltage_gated_ion_channel_current : public Membrane_current {
       return (conductivity_);
     }
     /* conductivity if all channels open in mSiemens/cm^2, */
-    modigliani_base::Real _maxConductivity() const {
+    modigliani_base::Real max_conductivity() const {
       return (density_ /* num/muMeter^2 */* conductivity_ /* mSiemens */* 1.0e8 /* muMeter^2/cm^2 */);
     }
     /**  */

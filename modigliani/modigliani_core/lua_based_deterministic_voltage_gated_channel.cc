@@ -53,7 +53,7 @@ Lua_based_deterministic_voltage_gated_channel::Lua_based_deterministic_voltage_g
                                         original.conductivity()) {
   UpdateNumChannels();
   stepV = _lua_get_real(L, "step");
-  setTimeStep(original._timeStep());
+  setTimeStep(original.timeStep());
   set_temperature(original.temperature());
   lua_script = original.lua_script;
   L = luaL_newstate();
@@ -70,7 +70,7 @@ Lua_based_deterministic_voltage_gated_channel::Lua_based_deterministic_voltage_g
   }
   lua_getglobal(L, "set_timestep");
   /* the first argument */
-  lua_pushnumber(L, _timeStep());
+  lua_pushnumber(L, timeStep());
 
   /* call the function with 1
    argument, return 0 result */
@@ -81,7 +81,7 @@ Lua_based_deterministic_voltage_gated_channel&
 Lua_based_deterministic_voltage_gated_channel::operator=(
     const Lua_based_deterministic_voltage_gated_channel & right) {
   if (this == &right) return (*this);  // Gracefully handle self assignment
-  setTimeStep(right._timeStep());
+  setTimeStep(right.timeStep());
   set_temperature(temperature());
   lua_script = right.lua_script;
   L = luaL_newstate();
@@ -98,7 +98,7 @@ Lua_based_deterministic_voltage_gated_channel::operator=(
   }
   lua_getglobal(L, "set_timestep");
   /* the first argument */
-  lua_pushnumber(L, _timeStep());
+  lua_pushnumber(L, timeStep());
 
   /* call the function with 1
    argument, return 0 result */
@@ -172,7 +172,7 @@ inline modigliani_base::Real Lua_based_deterministic_voltage_gated_channel::Comp
   lua_pop(L, 1);
   M_ASSERT(conduc == conduc);
   return (set_conductance(
-      conduc * _maxConductivity() * area() /* muMeter^2 */* 1.0e-8));
+      conduc * max_conductivity() * area() /* muMeter^2 */* 1.0e-8));
 }
 
 void Lua_based_deterministic_voltage_gated_channel::show_param() const {
@@ -180,7 +180,7 @@ void Lua_based_deterministic_voltage_gated_channel::show_param() const {
   cout << "Single channel conductivity [nA]" << conductivity() << std::endl;
   cout << "Channel density [1/muMeter^2]" << area() << std::endl;
   cout << "MaxConductivity (all channels open) mSiemens/cm^2"
-       << _maxConductivity() << std::endl;
+       << max_conductivity() << std::endl;
 }
 
 modigliani_base::Real Lua_based_deterministic_voltage_gated_channel::_lua_get_real(

@@ -44,7 +44,7 @@ modigliani_base::Real NTBP_length_constant_passive_cable(modigliani_base::Real d
 							/ (gLeak * rAxoplasmic * 4.0)));
 }
 
-modigliani_base::Real Object::timeStep = NTBP_TIMESTEP; //in msec
+modigliani_base::Real Object::timeStep_ = NTBP_TIMESTEP; //in msec
 modigliani_base::Real Object::suggestedTimeStep = NTBP_TIMESTEP; //in msec
 
 /* ***      CONSTRUCTORS	***/

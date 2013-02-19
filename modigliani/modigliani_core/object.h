@@ -85,9 +85,6 @@ class Object : public modigliani_base::Obj {
     Object & operator=(const Object & right);
     virtual ~Object();
     /* ***  Methods              ***/
-    modigliani_base::Real _timeStep() const {
-      return (timeStep);
-    }
     /** @short  update of explicitly time dependent variables using a deltaT = timeStep, NO update
      of dependent variables
      @param      none
@@ -107,17 +104,17 @@ class Object : public modigliani_base::Obj {
       return (modigliani_base::ReturnEnum::NOT_IMPLEMENTED);
     }
     modigliani_base::ReturnEnum StepNTBP() {
-      timeStep = suggestedTimeStep;
+      timeStep_ = suggestedTimeStep;
       return (modigliani_base::ReturnEnum::SUCCESS);
     }
-    modigliani_base::Real _timeStep() {
-      return (timeStep);
+    modigliani_base::Real timeStep() const {
+      return (timeStep_);
     }
-    modigliani_base::Real _baseTimeStep() {
+    modigliani_base::Real _baseTimeStep() const {
       return (baseTimeStep);
     }
     void setTimeStep(modigliani_base::Real newTimeStep) {
-      timeStep = newTimeStep;
+      timeStep_ = newTimeStep;
     }
     /* ***  Data                 ***/
   protected:
@@ -127,7 +124,7 @@ class Object : public modigliani_base::Obj {
     /* ***  Methods              ***/
     /* ***  Data                 ***/
     modigliani_base::Real baseTimeStep;  // time step size in msec;
-    static modigliani_base::Real timeStep;  // time step size in msec;
+    static modigliani_base::Real timeStep_;  // time step size in msec;
     static modigliani_base::Real suggestedTimeStep;  // time step size in msec;
 };
 }

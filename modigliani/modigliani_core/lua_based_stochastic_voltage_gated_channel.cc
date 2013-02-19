@@ -189,7 +189,7 @@ void Lua_based_stochastic_voltage_gated_channel::show_param() const {
   cout << "Single channel conductivity [nA]" << conductivity() << std::endl;
   cout << "Channel density [1/muMeter^2]" << area() << std::endl;
   cout << "MaxConductivity (all channels open) mSiemens/cm^2"
-       << _maxConductivity() << std::endl;
+       << max_conductivity() << std::endl;
 }
 
 modigliani_base::Real Lua_based_stochastic_voltage_gated_channel::lua_get_real(

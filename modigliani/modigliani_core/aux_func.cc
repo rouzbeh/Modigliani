@@ -80,7 +80,7 @@ modigliani_core::Cylindrical_compartment* modigliani_core::create_compartment(
     Json::Value compartment_parameters, modigliani_base::Size force_alg) {
 
   modigliani_core::Cylindrical_compartment *tmpPtr =
-      new modigliani_core::Custom_cylindrical_compartment(
+      new modigliani_core::Cylindrical_compartment(
           compartment_parameters["length"].asDouble() /* muMeter */,
           config_root["diameter"].asDouble() /* muMeter */,
           compartment_parameters["Cm"].asDouble()/*muFarad/cm^2 */,
@@ -125,7 +125,7 @@ void modigliani_core::attach_current(
               (randomise_densities ? indDensity : current["chDen"].asDouble()),
               /* mum^-2 */
               current["chCond"].asDouble() * 1e-9 /* pS */,
-              current["chRevPot"].asDouble() /* mV */, compartment->_timeStep(),
+              current["chRevPot"].asDouble() /* mV */, compartment->timeStep(),
               config_root["temperature"].asDouble() /* C */,
               current["chModel"].asString());
       auto alg = current["chAlg"].asInt();
@@ -144,7 +144,7 @@ void modigliani_core::attach_current(
                 compartment->area(), current["chDen"].asDouble() /* mum^-2 */,
                 current["chCond"].asDouble() * 1e-9 /* pS */,
                 current["chRevPot"].asDouble() /* mV */,
-                compartment->_timeStep(),
+                compartment->timeStep(),
                 config_root["temperature"].asDouble() /* C */,
                 current["chModel"].asString());
         lua_current->set_simulation_mode(DETERMINISTIC);
@@ -159,7 +159,7 @@ void modigliani_core::attach_current(
                 (randomise_densities ? indDensity : current["chDen"].asDouble()),
                 current["chCond"].asDouble() * 1e-9 /* pS */,
                 current["chRevPot"].asDouble() /* mV */,
-                compartment->_timeStep(),
+                compartment->timeStep(),
                 config_root["temperature"].asDouble() /* C */,
                 current["chModel"].asString());
         if (4 == alg) lua_current->set_simulation_mode(BINOMIALPOPULATION);
