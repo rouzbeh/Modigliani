@@ -46,12 +46,12 @@ Membrane_compartment_sequence::~Membrane_compartment_sequence() {
 	}
 }
 
-/* ***  PUBLIC                                    ***   */
-/** @short
- @param      none
- @return     none
- \warning    no update of SOLVER dimensionality or SOVLER INIT done
- \bug        unknown
+/**
+ * \brief Adds a compartment to the axon.
+ *
+ * \param      compartPtr Pointer to the compartment to add
+ * \return     none
+ * \warning    no update of SOLVER dimensionality or SOVLER INIT done
  */
 modigliani_base::ReturnEnum Membrane_compartment_sequence::PushBack(
 		Cylindrical_compartment * compartPtr) {
