@@ -30,6 +30,9 @@
 
 #include <modigliani_core/aux_func.h>
 #include <boost/program_options.hpp>
+#include <boost/progress.hpp>
+#include <boost/timer.hpp>
+#include <vector>
 
 /**
  * \brief Runs a simulation using parameters in the given json file.
@@ -179,6 +182,7 @@ int Simulate(boost::program_options::variables_map vm) {
     std::cerr << "MainLoop started" << std::endl;
     modigliani_base::Real timeInMS = 0;
     int dataRead = 0;
+    boost::progress_display show_progress( config_root["simulation_parameters"]["numIter"].asUInt()/100);
     for (modigliani_base::Size lt = 0;
         lt < config_root["simulation_parameters"]["numIter"].asUInt(); lt++) {
       timeInMS += oModel->_timeStep();
@@ -263,6 +267,8 @@ int Simulate(boost::program_options::variables_map vm) {
       if (verbose) cout << lt << "\t" << inp_current << endl;
       oModel->InjectCurrent(inp_current, 1);
       oModel->step();
+      if (lt % 100 == 0)
+        ++show_progress;
     }
 #ifdef WITH_PLPLOT
     if (pls) delete pls;
