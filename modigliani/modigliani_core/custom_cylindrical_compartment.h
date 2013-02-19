@@ -34,8 +34,16 @@
 namespace modigliani_core {
 
 using modigliani_base::Real;
+
+struct custom_current {
+    Membrane_current* current_ptr;
+    Real inside_concentration;
+    Real outside_concentration;
+    bool track;
+};
 /**
- * \brief Custom_cylindrical_compartment class
+ * \brief This compartment can track ionic concentrations
+ * to change reversal potentials.
  */
 class Custom_cylindrical_compartment : public Cylindrical_compartment {
   public:
@@ -58,13 +66,14 @@ class Custom_cylindrical_compartment : public Cylindrical_compartment {
     /* ***  Methods              ***/
     modigliani_base::ReturnEnum AttachCurrentWithConcentrations(
         Membrane_current * currentPtr, Real concentration_inside, Real concentration_outside);
+    modigliani_base::ReturnEnum AttachCurrent(
+        Membrane_current * currentPtr, NTBPcurrentType type = NTBP_IONIC);
+    modigliani_base::ReturnEnum Step(const modigliani_base::Real newVM);
     /* ***  Data                 ***/
     protected:
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
-    private:
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
-  };}
+    std::vector<custom_current> current_vec_;
+  };
+
+  }
 #endif /* _modigliani_core_custom_cylindrical_compartment.h_ */
 

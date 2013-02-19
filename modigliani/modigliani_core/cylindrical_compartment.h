@@ -82,8 +82,12 @@ class Cylindrical_compartment : public Membrane_compartment {
     protected:
     /* ***  Methods              ***/
     /* ***  Data                 ***/
-    const modigliani_base::Real diameter_;  // in muMeter
-    const modigliani_base::Real length_;// in muMeter
+    /// in muMeter
+    const modigliani_base::Real diameter_;
+    /// in muMeter
+    const modigliani_base::Real length_;
+    /// in muMeter^3
+    const modigliani_base::Real volume_;
     private:
     /* ***  Methods              ***/
     /* ***  Data                 ***/

@@ -94,8 +94,8 @@ class Ion_channels : public Object {
     /* ***  Data                 ***/
     Transition_rate_matrix* _probMatrix;
     std::vector<modigliani_base::Size> open_states_;
-    modigliani_base::Size num_states_;
-    modigliani_base::Size num_channels_;
+    const modigliani_base::Size num_states_;
+    const modigliani_base::Size num_channels_;
 };
 }
 #endif  // MODIGLIANI_MODIGLIANI_CORE_ION_CHANNELS_H_
