@@ -37,10 +37,6 @@ namespace modigliani_core {
  */
 class Cylindrical_compartment : public Membrane_compartment {
   public:
-    /***   Constructors, Copy/Assignment and Destructor  ***/
-//	Cylindrical_compartment(modigliani_base::Real length /* in muMeter */,
-//			modigliani_base::Real diameter /* in muMeter */, modigliani_base::Real newTemperature =
-//					6.3);
     Cylindrical_compartment(const modigliani_base::Real newLength,
                             const modigliani_base::Real newDiameter,
                             const modigliani_base::Real newCm,
@@ -55,11 +51,13 @@ class Cylindrical_compartment : public Membrane_compartment {
     /**
      * \brief length constant in muMeter for instantenous membrane conductance
      */
-    modigliani_base::Real ActiveLengthConstant() const {
+    virtual modigliani_base::Real ActiveLengthConstant() const {
       return (diameter() / (4.0 * ra() * 1.0e4 * WeightedConductance()));
     }
 
-    /* in muMeter^2 */
+    /**
+     * \return Cross-sectionam area in muMeter^2
+     */
     modigliani_base::Real _CrosssectionalArea() const {
       return (radius() * radius() * M_PI);
     }
@@ -74,9 +72,21 @@ class Cylindrical_compartment : public Membrane_compartment {
     modigliani_base::Real radius() const {
       return (diameter() / 2.0);
     }
-    /* in muMeter */
+    /**
+     * \return length in muMeter
+     */
     modigliani_base::Real length() const {
       return (length_);
+    }
+    /**
+     * \return volume in muMeter^3
+     */
+    modigliani_base::Real volume() const {
+      return (volume_);
+    }
+
+    modigliani_base::Real area() const{
+      return (area_);
     }
     /* ***  Data                 ***/
     protected:
@@ -86,6 +96,8 @@ class Cylindrical_compartment : public Membrane_compartment {
     const modigliani_base::Real diameter_;
     /// in muMeter
     const modigliani_base::Real length_;
+    /// in muMeter^2
+    const modigliani_base::Real area_;
     /// in muMeter^3
     const modigliani_base::Real volume_;
     private:

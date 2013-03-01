@@ -39,6 +39,7 @@ struct custom_current {
     Membrane_current* current_ptr;
     Real inside_concentration;
     Real outside_concentration;
+    Real reversal_potential;
     bool track;
 };
 /**
@@ -64,14 +65,49 @@ class Custom_cylindrical_compartment : public Cylindrical_compartment {
     virtual ~Custom_cylindrical_compartment();
 
     /* ***  Methods              ***/
-    modigliani_base::ReturnEnum AttachCurrentWithConcentrations(
+    virtual modigliani_base::ReturnEnum AttachCurrentWithConcentrations(
         Membrane_current * currentPtr, Real concentration_inside, Real concentration_outside);
     modigliani_base::ReturnEnum AttachCurrent(
         Membrane_current * currentPtr, NTBPcurrentType type = NTBP_IONIC);
-    modigliani_base::ReturnEnum Step(const modigliani_base::Real newVM);
+    virtual modigliani_base::ReturnEnum Step(const modigliani_base::Real newVM);
+    /**
+     * \brief Opens an output file, writes the header, and use it
+     * to write data at each step.
+     *
+     * \param output_file_name
+     * \return Success status
+     * \warning Call after having attached all currents.
+     */
+    virtual modigliani_base::ReturnEnum SetupOutput(std::string output_file_name);
+
+    virtual modigliani_base::ReturnEnum WriteOutput() const;
+
+    const Membrane_current * Current(modigliani_base::Size currentIndex) const {
+      M_ASSERT((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
+      return (custom_current_vec_[currentIndex - 1].current_ptr);
+    }
+
+    const Real ReversalPotential(modigliani_base::Size currentIndex) const {
+      M_ASSERT((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
+      return (custom_current_vec_[currentIndex - 1].reversal_potential);
+    }
+
+    const Real InsideConcentration(modigliani_base::Size currentIndex) const {
+      M_ASSERT((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
+      return (custom_current_vec_[currentIndex - 1].inside_concentration);
+    }
+
+    const Real OutsideConcentration(modigliani_base::Size currentIndex) const {
+      M_ASSERT((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
+      return (custom_current_vec_[currentIndex - 1].outside_concentration);
+    }
+
+    void SetInsideConcentration(modigliani_base::Size currentIndex, Real new_concentration);
+    void SetOutsideConcentration(modigliani_base::Size currentIndex, Real new_concentration);
+
     /* ***  Data                 ***/
     protected:
-    std::vector<custom_current> current_vec_;
+    std::vector<custom_current> custom_current_vec_;
   };
 
   }

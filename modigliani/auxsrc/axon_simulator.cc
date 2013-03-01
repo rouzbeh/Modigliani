@@ -51,7 +51,6 @@ int Simulate(boost::program_options::variables_map vm) {
   // We write each compartment's potential and currents into a single file.
   ofstream TimeFile, LengthPerCompartmentFile, TypePerCompartmentFile, log_file;
 
-  std::vector<ofstream*> pot_current_files;
   if (config_root["simulation_parameters"].get("sampN", 0).asUInt() > 0) {
     timedOutputFolder = modigliani_core::createOutputFolder(
         config_root["simulation_parameters"]["outputFolder"].asString());
@@ -73,13 +72,6 @@ int Simulate(boost::program_options::variables_map vm) {
     modigliani_core::openOutputFile(timedOutputFolder, "log", log_file, ".log");
     TimeFile << "% in ms" << std::endl;
 
-    for_each(
-        electrods_vec.begin(), electrods_vec.end(),
-        [&pot_current_files, timedOutputFolder](modigliani_base::Size ll) {
-          pot_current_files.push_back(
-              modigliani_core::openOutputFile(timedOutputFolder, "compartment",
-                  ll, ".bin"));
-        });
   } else {
     modigliani_core::openOutputFile("/tmp", "log", log_file, ".log");
   }
@@ -196,13 +188,14 @@ int Simulate(boost::program_options::variables_map vm) {
             std::cerr
                 << "Warning : Electrod requested in non existing compartment "
                 << *ci << " ignored." << std::endl;
-          // For each current, we write the current and number of open
-          // channels
-          modigliani_base::Size number_of_columns = 2
-              * oModel->compartmentVec[*ci]->NumberCurrents() + 1;
-          pot_current_files[counter++]->write(
-              reinterpret_cast<char*>(&number_of_columns),
-              sizeof(modigliani_base::Size));
+
+          stringstream ss(stringstream::in | stringstream::out);
+          ss << timedOutputFolder << "/compartments/" << "compartment" << "_"
+             << counter << ".bin";
+          string temp_name;
+          ss >> temp_name;
+          oModel->compartmentVec[*ci]->SetupOutput(temp_name);
+          counter++;
         }
       }
 
@@ -278,12 +271,6 @@ int Simulate(boost::program_options::variables_map vm) {
   lua_close(L_inject_current);
   log_file << "Simulation completed." << std::endl;
   log_file.close();
-  for (auto ci = pot_current_files.begin(); ci != pot_current_files.end();
-      ++ci) {
-    auto file = *ci;
-    file->close();
-    delete file;
-  }
 
   return (0);
 }

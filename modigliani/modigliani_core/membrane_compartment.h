@@ -32,6 +32,7 @@
 #include "modigliani_core/voltage_gated_ion_channel_current.h"
 
 #include <vector>
+#include <fstream>
 
 namespace modigliani_core {
 
@@ -57,10 +58,10 @@ class Membrane_compartment : public Object {
     virtual ~Membrane_compartment();
 
     /* ***  Methods              ***/
-    modigliani_base::ReturnEnum AttachCurrent(Membrane_current * currentPtr,
+    virtual modigliani_base::ReturnEnum AttachCurrent(Membrane_current * currentPtr,
         NTBPcurrentType type = NTBP_IONIC);
-    modigliani_base::ReturnEnum Step(const modigliani_base::Real newVM /* mV */);
-    modigliani_base::ReturnEnum Step();
+    virtual modigliani_base::ReturnEnum Step(const modigliani_base::Real newVM /* mV */);
+    virtual modigliani_base::ReturnEnum Step();
     modigliani_base::ReturnEnum InjectCurrent(
         modigliani_base::Real current /* in nA */);
     modigliani_base::Real AttachedConductance(
@@ -75,12 +76,24 @@ class Membrane_compartment : public Object {
       return (current_vec_[currentIndex - 1]->reversal_potential());
     }
 
+    /**
+     * \brief Opens an output file, writes the header, and use it
+     * to write data at each step.
+     *
+     * \param output_file_name
+     * \return Success status
+     * \warning Call after having attached all currents.
+     */
+    virtual modigliani_base::ReturnEnum SetupOutput(std::string output_file_name);
+
+    virtual modigliani_base::ReturnEnum WriteOutput() const;
+
     /** \brief membrane time constant at instaneous membrane conductivity in ms
      *
      * \warning Uses weighted conductance
      * @return Conductance
      */
-    modigliani_base::Real TimeConstant() {
+    modigliani_base::Real TimeConstant() const {
       return ((cm() / WeightedConductance()) * area() * 1.0e8);
     }
 
@@ -109,6 +122,7 @@ class Membrane_compartment : public Object {
     modigliani_base::Real ra() const {
       return (ra_);
     }
+
     /* Set temperature [Celsius] in compartment and for all currents within compartment (affects future attached ones also) */
     modigliani_base::ReturnEnum set_temperature(
         modigliani_base::Real newTemp /* in Celsius */) {
@@ -163,6 +177,8 @@ class Membrane_compartment : public Object {
     modigliani_base::Real temperature_;
     /// membrane voltage in mV
     modigliani_base::Real vm_;
+
+    std::ofstream* output_file = 0;
     private:
   };}
 #endif /* _modigliani_core_membrane_compartment.h_ */
