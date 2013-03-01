@@ -174,7 +174,8 @@ int Simulate(boost::program_options::variables_map vm) {
     std::cerr << "MainLoop started" << std::endl;
     modigliani_base::Real timeInMS = 0;
     int dataRead = 0;
-    boost::progress_display show_progress( config_root["simulation_parameters"]["numIter"].asUInt()/100);
+    boost::progress_display show_progress(
+        config_root["simulation_parameters"]["numIter"].asUInt() / 100);
     for (modigliani_base::Size lt = 0;
         lt < config_root["simulation_parameters"]["numIter"].asUInt(); lt++) {
       timeInMS += oModel->timeStep();
@@ -204,7 +205,7 @@ int Simulate(boost::program_options::variables_map vm) {
           && lt % config_root["simulation_parameters"]["sampN"].asInt() == 0) {
         modigliani_base::Size counter = 0;
         for (auto ci = electrods_vec.begin(); ci != electrods_vec.end(); ci++) {
-          oModel->WriteCompartmentData(pot_current_files[counter++], *ci);
+          oModel->compartmentVec[*ci]->WriteOutput();
         }
         if (!lTrials) TimeFile << timeInMS << std::endl;
       }
@@ -260,8 +261,7 @@ int Simulate(boost::program_options::variables_map vm) {
       if (verbose) cout << lt << "\t" << inp_current << endl;
       oModel->InjectCurrent(inp_current, 1);
       oModel->step();
-      if (lt % 100 == 0)
-        ++show_progress;
+      if (lt % 100 == 0) ++show_progress;
     }
 #ifdef WITH_PLPLOT
     if (pls) delete pls;

@@ -81,21 +81,11 @@ class Multidim_array : public Obj {
 
     /* ***      COPY AND ASSIGNMEM    ***/
     /** copy constructor currently not to be implemented. */
-    Multidim_array(const Multidim_array & original) {
-      std::cerr
-          << "Multidim_array::(const Multidim_array) - Error : Not implemented. Not to be supported ?"
-          << std::endl;
-    }
+    Multidim_array(const Multidim_array & original) = delete;
 
     /** assignment operator currently not to be implemented. */
     const Multidim_array&
-    operator=(const Multidim_array & right) {
-      if (this == &right) return (*this);  // Gracefully handle self assignment
-      std::cerr
-          << "Multidim_array::operator= - Error : Not implemented. Not to be supported ?"
-          << std::endl;
-      return (*this);
-    }
+    operator=(const Multidim_array & right) = delete;
 
     /* ***      DESTRUCTOR        ***/
     virtual ~Multidim_array() {

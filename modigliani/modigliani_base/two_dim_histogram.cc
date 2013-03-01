@@ -49,22 +49,6 @@ Two_dim_histogram::Two_dim_histogram(Size newNumBinsA, Real newMinA, Real newMax
     table = null;
 }
 
-
-/* ***      COPY AND ASSIGNMEM    ***/
-Two_dim_histogram::Two_dim_histogram(const Two_dim_histogram __attribute__((__unused__)) & original):
-        Obj()
-{
-// add assignment code here
-}
-
-const Two_dim_histogram&
-Two_dim_histogram::operator= (const Two_dim_histogram & right)
-{
-    if (this == &right) return (*this); // Gracefully handle self assignment
-// add assignment code here
-    return (*this);
-}
-
 /* ***      DESTRUCTOR        ***/
 Two_dim_histogram::~Two_dim_histogram()
 {
