@@ -120,7 +120,7 @@ int main(int argc, char* argv[]) {
 
   modigliani_base::Real sum_currents = 0;
   for (modigliani_base::Size ll = 2; ll - 1 < oModel->NumberCurrents(); ++ll) {
-    cout << oModel->Current(ll)->current() << endl;
+    cout << oModel->Current(ll)->current()/ oModel->area() << endl;
     sum_currents += oModel->Current(ll)->current();
   }
   cout << "Final currents sum " << sum_currents << endl;

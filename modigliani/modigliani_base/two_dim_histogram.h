@@ -46,8 +46,8 @@ class Two_dim_histogram : public Obj {
 public:
     /***   Constructors, Copy/Assignment and Destructor  ***/
     Two_dim_histogram(Size numBinsA, Real minA, Real maxA, Size numBinsB, Real minB, Real maxB);
-    Two_dim_histogram(const Two_dim_histogram & original);
-    const Two_dim_histogram & operator= (const Two_dim_histogram & right);
+    Two_dim_histogram(const Two_dim_histogram & original) = delete;
+    const Two_dim_histogram & operator= (const Two_dim_histogram & right) = delete;
     virtual ~Two_dim_histogram();
     /* ***  Methods              ***/
     /** No descriptions */
