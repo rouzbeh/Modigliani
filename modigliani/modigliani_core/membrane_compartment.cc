@@ -38,6 +38,7 @@ Membrane_compartment::Membrane_compartment(
   i_inj_ = 0;
   temperature_ = newTemperature;
   current_vec_ = std::vector<Membrane_current *>(0);
+  output_file = 0;
 }
 
 /* ***      DESTRUCTOR		***/
@@ -45,6 +46,49 @@ Membrane_compartment::~Membrane_compartment() {
   for (auto it = current_vec_.begin(); it != current_vec_.end(); ++it) {
     delete *it;
   }
+  if (output_file) output_file->close();
+}
+
+modigliani_base::ReturnEnum Membrane_compartment::SetupOutput(
+    std::string output_file_name) {
+  std::ifstream filestr;
+  filestr.open(output_file_name.c_str(), std::ios::binary);  // open your file
+  filestr.seekg(0, std::ios::end);  // put the "cursor" at the end of the file
+  int file_length = filestr.tellg();  // find the position of the cursor
+  filestr.close();  // close your file
+  if (file_length > 0) {
+    output_file = new std::ofstream(output_file_name.c_str(),
+                                    std::ios::binary | std::ios::app);
+
+    if (output_file->fail()) {
+      std::cerr << "Could not open output file " << output_file_name
+                << std::endl;
+      return (modigliani_base::ReturnEnum::FAIL);
+    }
+  } else {
+    output_file = new std::ofstream(output_file_name.c_str(), std::ios::binary);
+
+    if (output_file->fail()) {
+      std::cerr << "Could not open output file " << output_file_name
+                << std::endl;
+      return (modigliani_base::ReturnEnum::FAIL);
+    }
+    modigliani_base::Size number_of_columns = NumberCurrents() + 1;
+    output_file->write(reinterpret_cast<char*>(&number_of_columns),
+                       sizeof(modigliani_base::Size));
+  }
+  return (modigliani_base::ReturnEnum::SUCCESS);
+}
+
+modigliani_base::ReturnEnum Membrane_compartment::WriteOutput() const {
+  float out_data[1 + NumberCurrents()];
+  out_data[0] = vm();
+  for (modigliani_base::Size ll = 1; ll - 1 < NumberCurrents(); ++ll) {
+    out_data[ll] = Current(ll)->current();
+  }
+  output_file->write(reinterpret_cast<char*>(out_data),
+                     (1 + NumberCurrents()) * sizeof(float));
+  return (modigliani_base::ReturnEnum::SUCCESS);
 }
 
 /** \brief The membrane compartment has one

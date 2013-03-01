@@ -83,16 +83,6 @@ class Membrane_compartment_sequence : public Membrane {
     std::vector<modigliani_base::Real> OpenChannelsRatio(modigliani_base::Size currIndex) const;
     std::vector<modigliani_base::Real> NumChannels(modigliani_base::Size currIndex) const;
     std::vector<modigliani_base::Real> _vVec() const;
-    modigliani_base::ReturnEnum WriteMembranePotential(std::ostream & file) const;
-    modigliani_base::ReturnEnum WriteCompartmentData(std::ostream* file, modigliani_base::Size to_print) const;
-    modigliani_base::ReturnEnum WriteCurrent(std::ostream & file,
-        modigliani_base::Size currentIndex /* 1..numCurrents in compartment */) const;
-    modigliani_base::ReturnEnum WriteCurrent(std::ostream & file,
-        modigliani_base::Size currentIndex /* 1..numCurrents in compartment */,
-        std::vector<modigliani_base::Size> to_print) const;
-    modigliani_base::ReturnEnum WriteMembranePotentialASCII(std::ostream & file) const;
-    modigliani_base::ReturnEnum WriteCurrentAscii(std::ostream & file,
-        modigliani_base::Size currentIndex /* 1..numCurrents in compartment */) const;
     Cylindrical_compartment* ReturnCompartmentVec(modigliani_base::Size index);
     /**  */
     bool GillespieStep();

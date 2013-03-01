@@ -39,7 +39,7 @@ Custom_cylindrical_compartment::Custom_cylindrical_compartment(
     const modigliani_base::Real newTemperature)
     : Cylindrical_compartment(newLength, newDiameter, newCm, newRa,
                               newTemperature) {
-  current_vec_ = std::vector<custom_current>(0);
+  custom_current_vec_ = std::vector<custom_current>(0);
 }
 
 /* ***      DESTRUCTOR		***/
@@ -47,8 +47,6 @@ Custom_cylindrical_compartment::~Custom_cylindrical_compartment() {
 }
 
 /* ***  PUBLIC                                    ***   */
-//    modigliani_base::ReturnEnum Step(const modigliani_base::Real newVM /* mV */);
-//    modigliani_base::ReturnEnum Step();
 modigliani_base::ReturnEnum Custom_cylindrical_compartment::AttachCurrentWithConcentrations(
     Membrane_current * currentPtr, Real concentration_inside,
     Real concentration_outside) {
@@ -61,8 +59,10 @@ modigliani_base::ReturnEnum Custom_cylindrical_compartment::AttachCurrentWithCon
   new_current.current_ptr = currentPtr;
   new_current.inside_concentration = concentration_inside;
   new_current.outside_concentration = concentration_outside;
+  new_current.reversal_potential = currentPtr->reversal_potential();
   new_current.track = true;
-  current_vec_.push_back(new_current);
+  custom_current_vec_.push_back(new_current);
+  current_vec_.push_back(currentPtr);
   return (modigliani_base::ReturnEnum::SUCCESS);
 }
 
@@ -76,8 +76,10 @@ modigliani_base::ReturnEnum Custom_cylindrical_compartment::AttachCurrent(
   new_current.current_ptr = currentPtr;
   new_current.inside_concentration = 0;
   new_current.outside_concentration = 0;
+  new_current.reversal_potential = currentPtr->reversal_potential();
   new_current.track = false;
-  current_vec_.push_back(new_current);
+  custom_current_vec_.push_back(new_current);
+  current_vec_.push_back(currentPtr);
   return (modigliani_base::ReturnEnum::SUCCESS);
 }
 
@@ -86,22 +88,98 @@ modigliani_base::ReturnEnum Custom_cylindrical_compartment::Step(
   vm_ = newVM;
   //for every current
   for (modigliani_base::Size it = 0; it < current_vec_.size(); it++) {
-    Membrane_current* current = current_vec_[it].current_ptr;
+    Membrane_current* current = custom_current_vec_[it].current_ptr;
     current->Step(vm_);
-    if ((current_vec_[it]).track) {
+    if ((custom_current_vec_[it]).track) {
       // Count how many ions got in, in picomoles
-      modigliani_base::Size ions_picomoles = current->current() * timeStep()
+      modigliani_base::Real ions_picomoles = current->current() * timeStep()
           / 96485.3415;
-      current_vec_[it].inside_concentration -= ions_picomoles * 6 / volume_;
+      custom_current_vec_[it].inside_concentration -= ions_picomoles * 1000000
+          / volume_;
+      //custom_current_vec_[it].outside_concentration += ions_picomoles * 1000000
+      //    / (volume_ / 2);
       // TODO(Ali): What to do with outside concentration?
+      custom_current_vec_[it].reversal_potential = 26.64
+          * log(
+              custom_current_vec_[it].outside_concentration
+                  / custom_current_vec_[it].inside_concentration);
       current->set_reversal_potential(
-          26.64
-              * log(
-                  current_vec_[it].outside_concentration
-                      / current_vec_[it].inside_concentration));
+          custom_current_vec_[it].reversal_potential);
     }
     // TODO(Ali): pumps!
   }
-
   return (modigliani_base::ReturnEnum::SUCCESS);
+}
+
+modigliani_base::ReturnEnum Custom_cylindrical_compartment::SetupOutput(
+    std::string output_file_name) {
+  std::ifstream filestr;
+  filestr.open(output_file_name.c_str(), std::ios::binary);  // open your file
+  filestr.seekg(0, std::ios::end);  // put the "cursor" at the end of the file
+  int file_length = filestr.tellg();  // find the position of the cursor
+  filestr.close();  // close your file
+  if (file_length > 0 ) {
+    output_file = new std::ofstream(output_file_name.c_str(),
+                                    std::ios::binary | std::ios::app);
+
+    if (output_file->fail()) {
+      std::cerr << "Could not open output file " << output_file_name
+                << std::endl;
+      return (modigliani_base::ReturnEnum::FAIL);
+    }
+  } else {
+    output_file = new std::ofstream(output_file_name.c_str(), std::ios::binary);
+
+    if (output_file->fail()) {
+      std::cerr << "Could not open output file " << output_file_name
+                << std::endl;
+      return (modigliani_base::ReturnEnum::FAIL);
+    }
+    modigliani_base::Size number_of_columns = 4 * NumberCurrents() + 1;
+    output_file->write(reinterpret_cast<char*>(&number_of_columns),
+                       sizeof(modigliani_base::Size));
+  }
+  return (modigliani_base::ReturnEnum::SUCCESS);
+}
+
+modigliani_base::ReturnEnum Custom_cylindrical_compartment::WriteOutput() const {
+  float out_data[1 + 4 * NumberCurrents()];
+
+  out_data[0] = vm();
+  int counter = 1;
+  for (modigliani_base::Size ll = 1; ll - 1 < NumberCurrents(); ++ll) {
+    out_data[counter++] = Current(ll)->current();
+    out_data[counter++] = custom_current_vec_[ll - 1].inside_concentration;
+    out_data[counter++] = custom_current_vec_[ll - 1].outside_concentration;
+    out_data[counter++] = custom_current_vec_[ll - 1].reversal_potential;
+  }
+  output_file->write(reinterpret_cast<char*>(out_data),
+                     (1 + 4 * NumberCurrents()) * sizeof(float));
+  return (modigliani_base::ReturnEnum::SUCCESS);
+}
+
+void Custom_cylindrical_compartment::SetInsideConcentration(
+    modigliani_base::Size currentIndex, Real new_concentration) {
+  M_ASSERT((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
+  custom_current_vec_[currentIndex - 1].inside_concentration =
+      new_concentration;
+  custom_current_vec_[currentIndex - 1].reversal_potential = 26.64
+      * log(
+          custom_current_vec_[currentIndex - 1].outside_concentration
+              / custom_current_vec_[currentIndex - 1].inside_concentration);
+  custom_current_vec_[currentIndex - 1].current_ptr->set_reversal_potential(
+      custom_current_vec_[currentIndex - 1].reversal_potential);
+}
+
+void Custom_cylindrical_compartment::SetOutsideConcentration(
+    modigliani_base::Size currentIndex, Real new_concentration) {
+  M_ASSERT((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
+  custom_current_vec_[currentIndex - 1].outside_concentration =
+      new_concentration;
+  custom_current_vec_[currentIndex - 1].reversal_potential = 26.64
+      * log(
+          custom_current_vec_[currentIndex - 1].outside_concentration
+              / custom_current_vec_[currentIndex - 1].inside_concentration);
+  custom_current_vec_[currentIndex - 1].current_ptr->set_reversal_potential(
+      custom_current_vec_[currentIndex - 1].reversal_potential);
 }
