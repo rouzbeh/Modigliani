@@ -57,9 +57,8 @@ File_based_stochastic_voltage_gated_channel::~File_based_stochastic_voltage_gate
 
 /* ***  PUBLIC                                    ***   */
 
-void File_based_stochastic_voltage_gated_channel::load_file(std::string fileName,
-                                                    double temperature,
-                                                    double time_step) {
+void File_based_stochastic_voltage_gated_channel::load_file(
+    std::string fileName, double temperature, double time_step) {
   std::cout << "Loading probabilities from " << fileName << std::endl;
   Json::Value root;  // will contains the root value after parsing.
   Json::Reader reader;
