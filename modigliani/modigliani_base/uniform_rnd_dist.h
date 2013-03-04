@@ -25,7 +25,7 @@
 #define _modigliani_base_uniform_rnd_dist_h_
 
 #include "rnd_dist.h"
-#include "vector.h"
+#include "error.h"
 
 namespace modigliani_base {
 //

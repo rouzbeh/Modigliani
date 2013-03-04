@@ -26,7 +26,7 @@
 using namespace modigliani_base;
 
 long Rnd_dist::seed = (long) time(NULL);  // 2DO improve initialization of seed
-MTRand Rnd_dist::randgen = modigliani_base::MMakeMTRandFunction(
+MTRand Rnd_dist::randgen = MMakeMTRandFunction(
     MTRand::uint32(~time(NULL)));
 
 Rnd_dist::Rnd_dist()

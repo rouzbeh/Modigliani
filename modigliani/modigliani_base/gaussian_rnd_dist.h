@@ -25,7 +25,7 @@
 #define _modigliani_base_gaussian_rnd_dist_h_
 
 #include "rnd_dist.h"
-#include "vector.h"
+#include "error.h"
 
 namespace modigliani_base{
 /**    Gaussian_rnd_dist returns values out of a gaussian

@@ -27,6 +27,7 @@
 /* M core includes */
 #include "types.h"
 #include "obj.h"
+#include "error.h"
 /* Parent includes */
 #include "rnd_dist.h"
 /* M includes */
