@@ -26,9 +26,8 @@
 
 #include "types.h"
 #include "obj.h"
-#include "vector.h"
-
 #include "mtrand.h"
+#include "aux_math_func.h"
 
 namespace modigliani_base{
 class Rnd_dist : public Obj {
