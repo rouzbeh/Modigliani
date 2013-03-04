@@ -26,7 +26,7 @@
 namespace modigliani_core {
 
 modigliani_base::Uniform_rnd_dist Ion_channels::uniformRnd;
-modigliani_base::Binomial_rnd_dist Ion_channels::binomRnd(0.0, 1);
+//modigliani_base::Binomial_rnd_dist Ion_channels::binomRnd(0.0, 1);
 
 // Constructors
 Ion_channels::Ion_channels(modigliani_base::Size numNewChannels,
@@ -41,38 +41,16 @@ Ion_channels::Ion_channels(modigliani_base::Size numNewChannels,
   statePersistenceProbVec.resize(num_states());
   stateCounterVec.resize(num_states() + 1);
   uniformRnd = modigliani_base::Uniform_rnd_dist(0, 1);
-  if (num_channels_)
-    binomRnd = modigliani_base::Binomial_rnd_dist(0.0, num_channels_);
+//  if (num_channels_)
+//    binomRnd = modigliani_base::Binomial_rnd_dist(0.0, num_channels_);
+  if (Ion_channels::seed == 0) {
+    Ion_channels::seed = time(NULL);
+    std::cout << "Initial seed = " << Ion_channels::seed << std::endl;
+  }
+  rng.seed(Ion_channels::seed++);
+  bin = boost::random::binomial_distribution<>(10, 0);
   stateCounterVec[0] = 0;
   stateCounterVec[1] = num_channels();
-}
-
-// Copy and assignment
-Ion_channels::Ion_channels(const Ion_channels & original)
-    : Object(), _probMatrix(original._probMatrix), num_channels_(
-        original.num_channels_), num_states_(original.num_states_) {
-  setTimeStep(original.timeStep());
-  statePersistenceProbVec.resize(num_states_);
-  stateCounterVec.resize(num_states() + 1);
-  uniformRnd = modigliani_base::Uniform_rnd_dist(0, 1);
-  if (num_channels_)
-    this->binomRnd = modigliani_base::Binomial_rnd_dist(0.0, num_channels_);
-  stateCounterVec[0] = 0;
-  stateCounterVec[1] = original.num_channels_;
-}
-
-/**
- * Copy constructor
- *
- * @param right
- *
- * @return
- */
-Ion_channels&
-Ion_channels::operator=(const Ion_channels & right) {
-  if (this == &right) return (*this);  // Gracefully handle self assignment
-  // add assignment code here
-  return (*this);
 }
 
 /**
@@ -207,15 +185,15 @@ modigliani_base::ReturnEnum Ion_channels::ComputeGillespieStep(
     modigliani_base::Size stateId, modigliani_base::Real voltage) {
   std::cerr << "NTBP_ion_channels_o::ComputeGillespieStep" << std::endl;
   modigliani_base::Uniform_rnd_dist rnd;
-  // int index = (voltage + 100) * 1000;
-  // This operation is costly. So we do it only once.
+// int index = (voltage + 100) * 1000;
+// This operation is costly. So we do it only once.
   modigliani_base::Size matrix_index = _probMatrix->get_index(voltage);
 
   modigliani_base::Size oldOpen = NumOpen();
   modigliani_base::Real deltaT = timeStep();
 
   modigliani_base::Real val = rnd.RndVal() * timeStep();
-  // the probability has to be converted into a rate
+// the probability has to be converted into a rate
 
   modigliani_base::Real stateChangeProbability = 0;
   for (modigliani_base::Size nextState = 1; nextState < num_states() + 1;
@@ -267,7 +245,7 @@ modigliani_base::ReturnEnum Ion_channels::BinomialStep(
   using modigliani_base::Size;
   if (!num_channels()) return (modigliani_base::ReturnEnum::SUCCESS);
   std::vector<int> newStateCounterVec = stateCounterVec;
-  // This operation is costly. So we do it only once.
+// This operation is costly. So we do it only once.
   modigliani_base::Size matrix_index = _probMatrix->get_index(voltage);
   bool loop = false;
   modigliani_base::Size loopCounter = 0;
@@ -285,7 +263,10 @@ modigliani_base::ReturnEnum Ion_channels::BinomialStep(
         if (prob == 0) continue;
         // M_ASSERT(prob>0 && prob<=1);
         int numberOfChannels = stateCounterVec[currentState];
-        modigliani_base::Real delta = binomRnd.Binomial(prob, numberOfChannels);
+        //modigliani_base::Real delta = binomRnd.Binomial(prob, numberOfChannels);
+        bin.param(boost::random::binomial_distribution<>::param_type {
+            numberOfChannels, prob });
+        modigliani_base::Real delta = bin(rng);
         newStateCounterVec[nextState] += delta;
         newStateCounterVec[currentState] -= delta;
       }
@@ -313,7 +294,7 @@ modigliani_base::ReturnEnum Ion_channels::BinomialStep(
 modigliani_base::ReturnEnum Ion_channels::DeterministicStep(
     const modigliani_base::Real voltage) {
   std::vector<int> newStateCounterVec = stateCounterVec;
-  // This operation is costly. So we do it only once.
+// This operation is costly. So we do it only once.
   modigliani_base::Size matrix_index = _probMatrix->get_index(voltage);
   bool loop = false;
   modigliani_base::Size loopCounter = 0;
@@ -363,8 +344,8 @@ modigliani_base::ReturnEnum Ion_channels::DeterministicStep(
 /** Do not call before rate constants were set. */
 modigliani_base::ReturnEnum Ion_channels::SteadyStateDistribution(
     modigliani_base::Real voltage) {
-  // TODO(Ali) dirty hack ... make time step dependent
-  // and maybe compute directly state values
+// TODO(Ali) dirty hack ... make time step dependent
+// and maybe compute directly state values
   for (modigliani_base::Size ll = 0; ll < 1000; ll++) {
     BinomialStep(voltage);  // much faster then having to wait for Step()
   }
