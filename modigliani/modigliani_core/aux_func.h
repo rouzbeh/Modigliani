@@ -68,10 +68,9 @@ modigliani_core::Cylindrical_compartment* create_compartment(
     Json::Value config_root, Json::Value simulation_parameters,
     Json::Value compartment_parameters, modigliani_base::Size force_alg);
 
-void attach_current(
-    modigliani_core::Membrane_compartment* compartment,
-    const Json::Value currents, Json::Value config_root,
-    bool randomise_densities, modigliani_base::Size force_alg);
+void attach_current(modigliani_core::Membrane_compartment* compartment,
+                    const Json::Value currents, Json::Value config_root,
+                    bool randomise_densities, modigliani_base::Size force_alg);
 
 /**
  * \brief Opens a new file in write mode.
@@ -101,6 +100,6 @@ Json::Value read_config(string fileName);
 std::vector<modigliani_base::Size> get_electrods(Json::Value root);
 }
 
-int SetLuaPath( lua_State* L, const string path );
+int SetLuaPath(lua_State* L, const string path);
 
 #endif  // MODIGLIANI_MODIGLIANI_CORE_AUX_FUNC_H_
