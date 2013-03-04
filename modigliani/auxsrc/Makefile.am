@@ -11,8 +11,10 @@ resting_potential \
 single_compartment_simulator \
 voltage_step \
 single_compartment_resting_potential\
-network
-LDADD = -lm
+network\
+benchmark_rng
+
+LDADD = -lgsl -lgslcblas -lm
 
 show_binary_file_SOURCES = show_binary_file.cc
 
@@ -25,6 +27,9 @@ find_spikes_in_binary_file_SOURCES = find_spikes_in_binary_file.cc
 find_spikewords_in_binary_file_SOURCES = find_spikewords_in_binary_file.cc
 
 make_histogram_from_txt_file_SOURCES = make_histogram_from_txt_file.cc
+
+benchmark_rng_SOURCES = benchmark_rng.cc
+benchmark_rng_LDADD = $(top_builddir)/modigliani/modigliani_base/libmodigliani_base.a -lgsl -lgslcblas -lm -lboost_program_options
 
 test_ring_buffer_SOURCES = test_ring_buffer.cc
 test_ring_buffer_LDADD = $(top_builddir)/modigliani/modigliani_base/libmodigliani_base.a
@@ -52,8 +57,8 @@ else
 endif
 
 JSON_LINKS = -ljsoncpp
-axon_simulator_LDADD = $(top_builddir)/modigliani/modigliani_core/libmodigliani_core.a $(top_builddir)/modigliani/modigliani_base/libmodigliani_base.a -lm -llua $(BOOST_LINKS) $(MAYBE_PLPLOT) $(JSON_LINKS)
-single_compartment_simulator_LDADD = $(top_builddir)/modigliani/modigliani_core/libmodigliani_core.a $(top_builddir)/modigliani/modigliani_base/libmodigliani_base.a $(BOOST_LINKS) $(JSON_LINKS) -lm -llua
+axon_simulator_LDADD = $(top_builddir)/modigliani/modigliani_core/libmodigliani_core.a $(top_builddir)/modigliani/modigliani_base/libmodigliani_base.a -lgsl -lgslcblas -lm -llua $(BOOST_LINKS) $(MAYBE_PLPLOT) $(JSON_LINKS)
+single_compartment_simulator_LDADD = $(top_builddir)/modigliani/modigliani_core/libmodigliani_core.a -lgsl -lgslcblas -lm $(top_builddir)/modigliani/modigliani_base/libmodigliani_base.a $(BOOST_LINKS) $(JSON_LINKS) -llua
 axon_simulator_CPPFLAGS = $(PLPLOTCPPFLAGS)
 resting_potential_CPPFLAGS = $(PLPLOTCPPFLAGS)
 resting_potential_LDADD = $(single_compartment_simulator_LDADD)
