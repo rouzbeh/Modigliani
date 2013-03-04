@@ -25,11 +25,9 @@ AC_CHECK_LIB([lua],[main], [HAVE_LUA=1], [AC_MSG_ERROR([Lua is not installed.])]
 AC_CHECK_LIB([m], [sqrt],[HAVE_LIBM=1], AC_MSG_ERROR([libm not found.]))
 AC_CHECK_LIB([plplotd], [c_plwid],[HAVE_PLPLOT="yes"])
 if test "x$host" = xi486-mingw32; then
-	AC_CHECK_LIB([jsoncpp], [main],[HAVE_JSONCPP=1],[AC_MSG_ERROR([libjson missing])])
 	AC_CHECK_LIB([boost_system-mt], [main],[HAVE_BOOSTSYSTEM=1],[AC_MSG_ERROR([libboost_system missing])])
 	AC_CHECK_LIB([boost_filesystem-mt], [main],[HAVE_BOOSTFILESYSTEM=1],[AC_MSG_ERROR([libboost_filesystem missing])])
 elif test 1; then
-	AC_CHECK_LIB([json], [main],[HAVE_JSON=1],[AC_MSG_ERROR([libjson missing])])
 	AC_CHECK_LIB([boost_filesystem], [main],[HAVE_BOOSTFILESYSTEM=1],[AC_MSG_ERROR([libboost_filesystem missing])])
 	AC_CHECK_LIB([boost_system], [main],[HAVE_BOOSTSYSTEM=1],[AC_MSG_ERROR([libboost_system missing])])
 fi
