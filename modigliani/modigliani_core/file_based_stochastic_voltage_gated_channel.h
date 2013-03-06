@@ -8,8 +8,8 @@
 
 #include "voltage_gated_ion_channel_current.h"
 #include "ion_channels.h"
-
-#include <jsoncpp/json.h>
+#include "aux_func.h"
+#include <boost/property_tree/ptree.hpp>
 #include <fstream>
 #include <iostream>
 

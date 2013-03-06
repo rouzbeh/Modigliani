@@ -61,8 +61,14 @@ int main(int argc, char* argv[]) {
     return (0);
   }
 
-  string filename = vm["config-file"].as<string>();
-  Json::Value config_root = modigliani_core::read_config(filename);
+  boost::property_tree::ptree config_root;
+  try {
+    read_json(vm["config-file"].as<string>(), config_root);
+  } catch (exception &e) {
+    // report to the user the failure and their locations in the document.
+    std::cerr << "Failed to parse configuration\n" << e.what();
+    exit(1);
+  }
 
   modigliani_base::Real target = -65;
   if (vm.count("potential")) {
@@ -70,10 +76,10 @@ int main(int argc, char* argv[]) {
   }
 
   modigliani_base::Size duration = 50.0
-      / config_root["simulation_parameters"]["timeStep"].asDouble();
+      / config_root.get<double>("simulation_parameters.timeStep");
   if (vm.count("duration")) {
     duration = vm["duration"].as<modigliani_base::Size>() * 1.0
-        / config_root["simulation_parameters"]["timeStep"].asDouble();
+        / config_root.get<double>("simulation_parameters.timeStep");
   }
 
   double min = -90;
@@ -88,7 +94,7 @@ int main(int argc, char* argv[]) {
     current_guess = (min + max) / 2;
     std::cout << "Trying with " << current_guess << std::endl;
 
-    config_root["eLeak"] = current_guess;
+    config_root.put("eLeak", current_guess);
     std::vector<modigliani_base::Size> nodes_vec, nodes_paranodes_vec;
 
     modigliani_core::Membrane_compartment_sequence* oModel =
@@ -100,8 +106,8 @@ int main(int argc, char* argv[]) {
     for (modigliani_base::Size lt = 0; lt < duration; lt++) {
       if (lt <= 5000) {
         modigliani_base::Real inpCurrent = (5
-            * config_root["simulation_parameters"]["inpISDV"].asDouble())
-            + config_root["simulation_parameters"]["inpI"].asDouble();
+            * config_root.get<double>("simulation_parameters.inpISDV"))
+            + config_root.get<double>("simulation_parameters.inpI");
         oModel->InjectCurrent(inpCurrent, 1);
       }
 

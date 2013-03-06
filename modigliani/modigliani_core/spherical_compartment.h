@@ -28,7 +28,7 @@
 /* Parent includes */
 #include "membrane_compartment.h"
 #include <cmath>
-#include <jsoncpp/json.h>
+#include <boost/property_tree/ptree.hpp>
 
 namespace modigliani_core {
 /**
@@ -40,7 +40,7 @@ class Spherical_compartment : public Membrane_compartment {
     /***   Constructors, Copy/Assignment and Destructor  ***/
     Spherical_compartment(modigliani_base::Real radius /* muMeter */,
                           modigliani_base::Real cM /* muFarad/cm^2 */);
-    Spherical_compartment(Json::Value compartment_parameters); Spherical_compartment(
+    Spherical_compartment(boost::property_tree::ptree compartment_parameters); Spherical_compartment(
         const Spherical_compartment & original) = delete;
     Spherical_compartment & operator=(
         const Spherical_compartment & right) = delete;
@@ -54,9 +54,7 @@ class Spherical_compartment : public Membrane_compartment {
     /* ***  Methods              ***/
     /* ***  Data                 ***/
     private:
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
-    modigliani_base::Real radius;  // in
+    const modigliani_base::Real radius;  // in
   };}
 #endif /* _modigliani_core_spherical_compartment.h_ */
 

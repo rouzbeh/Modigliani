@@ -57,8 +57,8 @@ else
 endif
 
 JSON_LINKS = -ljsoncpp
-axon_simulator_LDADD = $(top_builddir)/modigliani/modigliani_core/libmodigliani_core.a $(top_builddir)/modigliani/modigliani_base/libmodigliani_base.a -lgsl -lgslcblas -lm -llua $(BOOST_LINKS) $(MAYBE_PLPLOT) $(JSON_LINKS)
-single_compartment_simulator_LDADD = $(top_builddir)/modigliani/modigliani_core/libmodigliani_core.a -lgsl -lgslcblas -lm $(top_builddir)/modigliani/modigliani_base/libmodigliani_base.a $(BOOST_LINKS) $(JSON_LINKS) -llua
+axon_simulator_LDADD = $(top_builddir)/modigliani/modigliani_core/libmodigliani_core.a $(top_builddir)/modigliani/modigliani_base/libmodigliani_base.a -lgsl -lgslcblas -lm -llua $(BOOST_LINKS) $(MAYBE_PLPLOT)
+single_compartment_simulator_LDADD = $(top_builddir)/modigliani/modigliani_core/libmodigliani_core.a -lgsl -lgslcblas -lm $(top_builddir)/modigliani/modigliani_base/libmodigliani_base.a $(BOOST_LINKS) -llua
 axon_simulator_CPPFLAGS = $(PLPLOTCPPFLAGS)
 resting_potential_CPPFLAGS = $(PLPLOTCPPFLAGS)
 resting_potential_LDADD = $(single_compartment_simulator_LDADD)
