@@ -7,9 +7,11 @@
 #include "modigliani_base/uniform_rnd_dist.h"
 #include "modigliani_base/binomial_rnd_dist.h"
 #include <time.h>
+#ifdef WITH_GSL
 extern "C" {
 #include <gsl/gsl_randist.h>
 }
+#endif
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/binomial_distribution.hpp>
 #include <boost/program_options.hpp>
@@ -46,21 +48,24 @@ int main(int argc, char* argv[]) {
     return (test + 1);
   }
 
+#ifdef WITH_GSL
   if (std::string("gsl") == vm["algorithm"].as<std::string>()) {
+    std::cout << "%Using gnu science library" << std::endl;
     long seed;
     gsl_rng *rng;  // random number generator
 
-    rng = gsl_rng_alloc(gsl_rng_rand48);     // pick random number generator
+    rng = gsl_rng_alloc(gsl_rng_rand48);// pick random number generator
     seed = time(NULL);
-    gsl_rng_set(rng, seed);  // set seed
+    gsl_rng_set(rng, seed);// set seed
     for (int i = 0; i < iterations; i++) {
       if (vm.count("write")) std::cout << gsl_ran_binomial(rng, 0.5, 100)
-                                       << std::endl;
+      << std::endl;
       else test += gsl_ran_binomial(rng, 0.5, 100);  // get a random number
     }
     gsl_rng_free(rng);                       // dealloc the rng
     return (test + 1);
   }
+#endif
 
   if (std::string("boost") == vm["algorithm"].as<std::string>()) {
     boost::random::mt19937 rng;
