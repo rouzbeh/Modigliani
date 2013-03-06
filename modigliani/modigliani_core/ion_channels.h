@@ -47,8 +47,8 @@ class Ion_channels : public Object {
     Ion_channels(modigliani_base::Size numNewChannels,
                  modigliani_base::Size numNewStates,
                  Transition_rate_matrix* probMatrix,
-                 modigliani_base::Real newTimeStep);
-    explicit Ion_channels(const Ion_channels & original) = delete;
+                 modigliani_base::Real newTimeStep);explicit Ion_channels(
+        const Ion_channels & original) = delete;
     Ion_channels & operator=(const Ion_channels & right) = delete;
     virtual ~Ion_channels();
     /* ***  Methods              ***/
@@ -79,7 +79,7 @@ class Ion_channels : public Object {
     virtual modigliani_base::Real ComputeChannelStateTimeConstant(
         modigliani_base::Real voltage) const;
 
-  protected:
+    protected:
     /* ***  Methods              ***/
     /* ***  Data                 ***/
     // TODO(Ali) remove this
@@ -91,7 +91,7 @@ class Ion_channels : public Object {
     boost::random::mt19937 rng;
     boost::random::binomial_distribution<> bin;
 
-  private:
+    private:
     /* ***  Methods              ***/
     modigliani_base::ReturnEnum ComputeGillespieStep(
         modigliani_base::Size channelStateId, modigliani_base::Real voltage);
@@ -100,7 +100,6 @@ class Ion_channels : public Object {
     std::vector<modigliani_base::Size> open_states_;
     const modigliani_base::Size num_states_;
     const modigliani_base::Size num_channels_;
-    unsigned int seed = 0;
-};
-}
+    static unsigned int seed;
+  };}
 #endif  // MODIGLIANI_MODIGLIANI_CORE_ION_CHANNELS_H_

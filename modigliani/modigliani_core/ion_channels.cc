@@ -26,6 +26,7 @@
 namespace modigliani_core {
 
 modigliani_base::Uniform_rnd_dist Ion_channels::uniformRnd;
+modigliani_base::Size Ion_channels::seed = 0;
 //modigliani_base::Binomial_rnd_dist Ion_channels::binomRnd(0.0, 1);
 
 // Constructors
