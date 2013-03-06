@@ -24,6 +24,7 @@ AC_LANG(C++)
 AC_CHECK_LIB([lua],[main], [HAVE_LUA=1], [AC_MSG_ERROR([Lua is not installed.])])
 AC_CHECK_LIB([m], [sqrt],[HAVE_LIBM=1], AC_MSG_ERROR([libm not found.]))
 AC_CHECK_LIB([plplotd], [c_plwid],[HAVE_PLPLOT="yes"])
+AC_CHECK_LIB([gslcblas],[cblas_dgemm],[HAVE_GSL="yes"])
 if test "x$host" = xi486-mingw32; then
 	AC_CHECK_LIB([boost_system-mt], [main],[HAVE_BOOSTSYSTEM=1],[AC_MSG_ERROR([libboost_system missing])])
 	AC_CHECK_LIB([boost_filesystem-mt], [main],[HAVE_BOOSTFILESYSTEM=1],[AC_MSG_ERROR([libboost_filesystem missing])])
@@ -71,6 +72,7 @@ AC_CHECK_FUNCS([alarm fesetround floor ftime getcwd gettimeofday memchr memmove 
 dnl Make sure we register this option with Automake, so we know whether to
 dnl descend into ctempl ate for more configuration or not
 AM_CONDITIONAL([WITH_PLPLOT], [test "x$HAVE_PLPLOT" = "xyes"])
+AM_CONDITIONAL([WITH_GSL], [test "x$HAVE_GSL" = "xyes"])
 
 # Define CTEMPLATE in config.h if we're going to compile against it
 if test "x$HAVE_PLPLOT" = "xyes"; then
@@ -78,6 +80,12 @@ if test "x$HAVE_PLPLOT" = "xyes"; then
     AC_MSG_NOTICE([PLPlot will be used])
 else
     AC_MSG_NOTICE([PLPlot will not be used])
+fi
+if test "x$HAVE_GSL" = "xyes"; then
+    AC_DEFINE([GSL], [], ["build using GSL library"])
+    AC_MSG_NOTICE([GSL will be used])
+else
+    AC_MSG_NOTICE([GSL will not be used])
 fi
 
 all_includes="$all_includes $USER_INCLUDES"
