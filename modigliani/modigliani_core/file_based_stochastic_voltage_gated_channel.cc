@@ -13,6 +13,8 @@ std::map<std::string, int> File_based_stochastic_voltage_gated_channel::number_o
 std::map<std::string, double> File_based_stochastic_voltage_gated_channel::base_temperature_map;
 std::map<std::string, std::vector<modigliani_base::Size> > File_based_stochastic_voltage_gated_channel::open_states_map;
 
+using boost::property_tree::ptree;
+using modigliani_base::Size;
 /* ***      CONSTRUCTORS	***/
 File_based_stochastic_voltage_gated_channel::File_based_stochastic_voltage_gated_channel(
     modigliani_base::Real newArea, modigliani_base::Real newDensity,
@@ -60,57 +62,51 @@ File_based_stochastic_voltage_gated_channel::~File_based_stochastic_voltage_gate
 void File_based_stochastic_voltage_gated_channel::load_file(
     std::string fileName, double temperature, double time_step) {
   std::cout << "Loading probabilities from " << fileName << std::endl;
-  Json::Value root;  // will contains the root value after parsing.
-  Json::Reader reader;
-  std::ifstream config_doc;
-  config_doc.open(fileName.c_str(), std::ifstream::in);
-  if (!config_doc.good()) {
+  boost::property_tree::ptree root;
+  try {
+    read_json(fileName, root);
+  } catch (exception &e) {
     // report to the user the failure and their locations in the document.
-    std::cout << "Failed to open configuration file " << fileName << std::endl;
+    std::cerr << "Failed to parse configuration\n" << e.what();
     exit(1);
   }
 
-  bool parsingSuccessful = reader.parse(config_doc, root);
-
-  if (!parsingSuccessful) {
-    // report to the user the failure and their locations in the document.
-    std::cout << "Failed to parse configuration\n"
-              << reader.getFormatedErrorMessages() << std::endl;
-    exit(1);
-  }
-
-  base_temperature_map[fileName] = root.get("base_temperature", 20).asDouble();
-  number_of_states_map[fileName] = root.get("number_of_states", 0).asInt();
+  base_temperature_map[fileName] = root.get<double>("base_temperature", 20);
+  number_of_states_map[fileName] = root.get<Size>("number_of_states", 0);
 
   open_states_map[fileName] = std::vector<modigliani_base::Size>();
-  const Json::Value open_states = root["open_states"];
-  for (unsigned int index = 0; index < open_states.size(); ++index) {  // Iterates over the sequence elements.
-    open_states_map[fileName].push_back(open_states[index].asInt());
+  BOOST_FOREACH(boost::property_tree::ptree::value_type const &v, root.get_child(
+          "open_states")) {
+    open_states_map[fileName].push_back(
+        v.second.get<modigliani_base::Size>(""));
   }
 
-  double minV = root.get("minV", 0).asDouble();
-  double maxV = root.get("maxV", 0).asDouble();
-  double step = root.get("step", 0).asDouble();
+  double minV = root.get<double>("minV", 0);
+  double maxV = root.get<double>("maxV", 0);
+  double step = root.get<double>("step", 0);
 
-  const Json::Value transitions = root["transitions"];
+  std::vector<boost::property_tree::ptree> transitions(0);
+  BOOST_FOREACH(boost::property_tree::ptree::value_type const &v, root.get_child(
+          "transitions")) {
+    transitions.push_back(v.second);
+  }
 
   probability_matrix_map[fileName] = new Transition_rate_matrix(
       number_of_states_map[fileName], minV, maxV, step);
 
   for (unsigned int index = 0; index < transitions.size(); ++index) {  // Iterates over the sequence elements.
-    double q10 = transitions[index].get("q10", 1).asDouble();
-    double base_probability =
-        transitions[index].get("probability", 0).asDouble();
+    double q10 = transitions[index].get<double>("q10", 1);
+    double base_probability = transitions[index].get<double>("probability", 0);
     double probability = modigliani_core::TemperatureRateRelation(
         temperature, base_temperature_map[fileName] /* C */, q10)
         * base_probability * time_step;
 
     //M_ASSERT(probability>0 && probability<=1);
     // Converted voltage is real_voltage
-    double converted_voltage = transitions[index].get("voltage", 0).asDouble();
+    double converted_voltage = transitions[index].get<double>("voltage", 0);
     probability_matrix_map[fileName]->setTransitionProbability(
-        converted_voltage, transitions[index].get("start", 1).asInt(),
-        transitions[index].get("stop", 1).asInt(), probability);
+        converted_voltage, transitions[index].get<Size>("start", 1),
+        transitions[index].get<Size>("stop", 1), probability);
   }
 }
 

@@ -76,25 +76,28 @@ string modigliani_core::createOutputFolder(string outputFolder) {
  * @return The constructed compartment.
  */
 modigliani_core::Cylindrical_compartment* modigliani_core::create_compartment(
-    Json::Value config_root, Json::Value simulation_parameters,
-    Json::Value compartment_parameters, modigliani_base::Size force_alg) {
+    boost::property_tree::ptree config_root,
+    boost::property_tree::ptree simulation_parameters,
+    boost::property_tree::ptree compartment_parameters,
+    modigliani_base::Size force_alg) {
 
   modigliani_core::Cylindrical_compartment *tmpPtr =
       new modigliani_core::Cylindrical_compartment(
-          compartment_parameters["length"].asDouble() /* muMeter */,
-          config_root["diameter"].asDouble() /* muMeter */,
-          compartment_parameters["Cm"].asDouble()/*muFarad/cm^2 */,
-          compartment_parameters["Ra"].asDouble() /* ohm cm */,
-          config_root["temperature"].asDouble());
+          compartment_parameters.get<double>("length") /* muMeter */,
+          config_root.get<double>("diameter") /* muMeter */,
+          compartment_parameters.get<double>("Cm")/*muFarad/cm^2 */,
+          compartment_parameters.get<double>("Ra") /* ohm cm */,
+          config_root.get<double>("temperature"));
 
   tmpPtr->update_timeStep(
-      config_root["simulation_parameters"]["timeStep"].asDouble() /* mSec */);
+      config_root.get<double>("simulation_parameters.timeStep") /* mSec */);
 
-  bool randomise_densities =
-      simulation_parameters["randomise_densities"].asBool();
+  bool randomise_densities = simulation_parameters.get<bool>(
+      "randomise_densities");
 
   // Read a list of currents for each compartments
-  Json::Value currents = compartment_parameters["currents"];
+  boost::property_tree::ptree currents = compartment_parameters.get_child(
+      "currents");
 
   attach_current(tmpPtr, currents, config_root, randomise_densities, force_alg);
 
@@ -103,32 +106,37 @@ modigliani_core::Cylindrical_compartment* modigliani_core::create_compartment(
 
 void modigliani_core::attach_current(
     modigliani_core::Membrane_compartment* compartment,
-    const Json::Value currents, Json::Value config_root,
-    bool randomise_densities, modigliani_base::Size force_alg) {
-  for (unsigned int index = 0; index < currents.size(); ++index) {
-    Json::Value current = currents[index];
+    const boost::property_tree::ptree currents,
+    boost::property_tree::ptree config_root, bool randomise_densities,
+    modigliani_base::Size force_alg) {
+  //for (unsigned int index = 0; index < currents.size(); ++index) {
 
-    if ("leak" == current["type"].asString()) {
+  BOOST_FOREACH(boost::property_tree::ptree::value_type const &v, currents) {
+    // v.first is the name of the child.
+    // v.second is the child tree.
+    boost::property_tree::ptree current = v.second;
+
+    if (string("leak") == current.get<string>("type")) {
       compartment->AttachCurrent(
-          new Leak_current(compartment->area(), current["GLeak"].asDouble(),
-                           config_root["eLeak"].asDouble()),
+          new Leak_current(compartment->area(), current.get<double>("GLeak"),
+                           config_root.get<double>("eLeak")),
           NTBP_LEAK);
       continue;
     }
 
-    if ("file" == current["type"].asString()) {
+    if (string("file") == current.get<string>("type")) {
       modigliani_base::Real indDensity = corrected_channel_density(
-          current["chDen"].asDouble(), compartment->area());
+          current.get<double>("chDen"), compartment->area());
       File_based_stochastic_voltage_gated_channel * file_current =
           new File_based_stochastic_voltage_gated_channel(
               compartment->area(),
-              (randomise_densities ? indDensity : current["chDen"].asDouble()),
+              (randomise_densities ? indDensity : current.get<double>("chDen")),
               /* mum^-2 */
-              current["chCond"].asDouble() * 1e-9 /* pS */,
-              current["chRevPot"].asDouble() /* mV */, compartment->timeStep(),
-              config_root["temperature"].asDouble() /* C */,
-              current["chModel"].asString());
-      auto alg = current["chAlg"].asInt();
+              current.get<double>("chCond") * 1e-9 /* pS */,
+              current.get<double>("chRevPot") /* mV */, compartment->timeStep(),
+              config_root.get<double>("temperature") /* C */,
+              current.get<string>("chModel"));
+      auto alg = current.get<int>("chAlg");
       if (force_alg) alg = force_alg;
       if (4 == alg) file_current->set_simulation_mode(BINOMIALPOPULATION);
       if (2 == alg) file_current->set_simulation_mode(SINGLECHANNEL);
@@ -136,32 +144,32 @@ void modigliani_core::attach_current(
       continue;
     }
 
-    if ("lua" == current["type"].asString()) {
-      auto alg = (force_alg ? force_alg : current["chAlg"].asInt());
+    if (string("lua") == current.get<string>("type")) {
+      auto alg = (force_alg ? force_alg : current.get<int>("chAlg"));
       if (1 == alg) {
         Lua_based_deterministic_voltage_gated_channel * lua_current =
             new Lua_based_deterministic_voltage_gated_channel(
-                compartment->area(), current["chDen"].asDouble() /* mum^-2 */,
-                current["chCond"].asDouble() * 1e-9 /* pS */,
-                current["chRevPot"].asDouble() /* mV */,
+                compartment->area(), current.get<double>("chDen") /* mum^-2 */,
+                current.get<double>("chCond") * 1e-9 /* pS */,
+                current.get<double>("chRevPot") /* mV */,
                 compartment->timeStep(),
-                config_root["temperature"].asDouble() /* C */,
-                current["chModel"].asString());
+                config_root.get<double>("temperature") /* C */,
+                current.get<string>("chModel"));
         lua_current->set_simulation_mode(DETERMINISTIC);
         compartment->AttachCurrent(lua_current, NTBP_IONIC);
         continue;
       } else if (4 == alg || 2 == alg) {
         modigliani_base::Real indDensity = corrected_channel_density(
-            current["chDen"].asDouble(), compartment->area());
+            current.get<double>("chDen"), compartment->area());
         Lua_based_stochastic_voltage_gated_channel * lua_current =
             new Lua_based_stochastic_voltage_gated_channel(
                 compartment->area(),
-                (randomise_densities ? indDensity : current["chDen"].asDouble()),
-                current["chCond"].asDouble() * 1e-9 /* pS */,
-                current["chRevPot"].asDouble() /* mV */,
+                (randomise_densities ? indDensity : current.get<double>("chDen")),
+                current.get<double>("chCond") * 1e-9 /* pS */,
+                current.get<double>("chRevPot") /* mV */,
                 compartment->timeStep(),
-                config_root["temperature"].asDouble() /* C */,
-                current["chModel"].asString());
+                config_root.get<double>("temperature") /* C */,
+                current.get<string>("chModel"));
         if (4 == alg) lua_current->set_simulation_mode(BINOMIALPOPULATION);
         if (2 == alg) lua_current->set_simulation_mode(SINGLECHANNEL);
         compartment->AttachCurrent(lua_current, NTBP_IONIC);
@@ -226,10 +234,10 @@ ofstream* modigliani_core::openOutputFile(string outputFolder, string prefix,
 }
 
 modigliani_core::Membrane_compartment_sequence* modigliani_core::create_axon(
-    Json::Value config_root, ofstream& TypePerCompartmentFile,
+    boost::property_tree::ptree config_root, ofstream& TypePerCompartmentFile,
     ofstream& LengthPerCompartmentFile, modigliani_base::Size force_alg) {
 
-  string lua_script = config_root["anatomy_lua"].asString();
+  string lua_script = config_root.get<string>("anatomy_lua");
   lua_State* L = luaL_newstate();
   luaL_openlibs(L);
   luaL_dostring(L, lua_script.c_str());
@@ -248,27 +256,24 @@ modigliani_core::Membrane_compartment_sequence* modigliani_core::create_axon(
 
   auto oModel = new Membrane_compartment_sequence();
   oModel->update_timeStep(
-      config_root["simulation_parameters"]["timeStep"].asDouble() /* mSec */);
+      config_root.get<double>("simulation_parameters.timeStep") /* mSec */);
   oModel->StepNTBP();
 
-  Json::Value compartments_parameters = config_root["compartments_parameters"];
+  std::vector<boost::property_tree::ptree> compartments_parameters(0);
+
+  BOOST_FOREACH(boost::property_tree::ptree::value_type const &v, config_root.get_child(
+          "compartments_parameters")) {
+    compartments_parameters.push_back(v.second);
+  }
 
   for (std::vector<int>::iterator it = compartment_types.begin();
       it != compartment_types.end(); ++it) {
-    if (!compartments_parameters[*it]["length"]) {
-      // We have probably tried to insert a non-existing compartment type.
-      cerr
-          << "You seem to be inserting a compartment of type "
-          << *it
-          << " which has a length of 0. This probably means you have not defined this diameter in the JSON file."
-          << endl;
-      exit(2);
-    }
     TypePerCompartmentFile << *it << std::endl;
     LengthPerCompartmentFile
-        << compartments_parameters[*it]["length"].asDouble() << std::endl;
+        << compartments_parameters[*it].get<std::string>("length") << std::endl;
     oModel->PushBack(
-        create_compartment(config_root, config_root["simulation_parameters"],
+        create_compartment(config_root,
+                           config_root.get_child("simulation_parameters"),
                            compartments_parameters[*it], force_alg));
   }
   return (oModel);
@@ -279,26 +284,22 @@ modigliani_core::Membrane_compartment_sequence* modigliani_core::create_axon(
  * @param fileName Input file.
  * @return A JSON structure containing the parameters
  */
-Json::Value modigliani_core::read_config(string fileName) {
-  Json::Value config_root;
-  // Remember that data file should have more lines than Num iterations.
-  Json::Reader config_reader;
-  ifstream config_doc;
-  config_doc.open(fileName.c_str(), ifstream::in);
-  bool parsingSuccessful = config_reader.parse(config_doc, config_root);
-  if (!parsingSuccessful) {
+boost::property_tree::ptree modigliani_core::read_config(string fileName) {
+  boost::property_tree::ptree config_root;
+  try {
+    read_json(fileName, config_root);
+  } catch (exception &e) {
     // report to the user the failure and their locations in the document.
-    std::cerr << "Failed to parse configuration\n"
-              << config_reader.getFormatedErrorMessages();
+    std::cerr << "Failed to parse configuration\n" << e.what();
     exit(1);
   }
   return (config_root);
 }
 
 std::vector<modigliani_base::Size> modigliani_core::get_electrods(
-    Json::Value root) {
+    boost::property_tree::ptree root) {
   auto outvec = std::vector<modigliani_base::Size>();
-  string lua_script = root["electrods_lua"].asString();
+  string lua_script = root.get<string>("electrods_lua");
   lua_State* L = luaL_newstate();
   luaL_openlibs(L);
   luaL_dostring(L, lua_script.c_str());
@@ -316,17 +317,18 @@ std::vector<modigliani_base::Size> modigliani_core::get_electrods(
   return (outvec);
 }
 
-int SetLuaPath( lua_State* L, const string path )
-{
-    lua_getglobal( L, "package" );
-    lua_getfield( L, -1, "path" ); // get field "path" from table at top of stack (-1)
-    std::string cur_path = lua_tostring( L, -1 ); // grab path string from top of stack
-    cur_path.append( ";" ); // do your path magic her
-    cur_path.append( path );
-    lua_pop( L, 1 ); // get rid of the string on the stack we just pushed on line 5
-    lua_pushstring( L, cur_path.c_str() ); // push the new one
-    lua_setfield( L, -2, "path" ); // set the field "path" in table at -2 with value at top of stack
-    lua_pop( L, 1 ); // get rid of package table from top of stack
-    return (0); // all done!
+int SetLuaPath(lua_State* L, const string path) {
+  lua_getglobal( L, "package");
+  lua_getfield(L, -1, "path");  // get field "path" from table at top of stack (-1)
+  std::string cur_path = lua_tostring( L, -1 );  // grab path string from top of stack
+  cur_path.append(";");  // do your path magic her
+  cur_path.append(path);
+  lua_pop( L, 1);
+  // get rid of the string on the stack we just pushed on line 5
+  lua_pushstring(L, cur_path.c_str());  // push the new one
+  lua_setfield(L, -2, "path");  // set the field "path" in table at -2 with value at top of stack
+  lua_pop( L, 1);
+  // get rid of package table from top of stack
+  return (0);  // all done!
 }
 

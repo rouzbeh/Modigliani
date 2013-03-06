@@ -44,18 +44,24 @@ int Simulate(boost::program_options::variables_map vm) {
   using modigliani_core::Network_synapse;
   using std::vector;
 
-  Json::Value config_root = modigliani_core::read_config(
-      vm["config-file"].as<string>());
+  boost::property_tree::ptree config_root;
+  try {
+    read_json(vm["config-file"].as<string>(), config_root);
+  } catch (exception &e) {
+    // report to the user the failure and their locations in the document.
+    std::cerr << "Failed to parse configuration\n" << e.what();
+    exit(1);
+  }
 
-  Size num_neurons = config_root["num_neurons"].asUInt();
+  Size num_neurons = config_root.get<Size>("num_neurons");
   string timedOutputFolder;
   // We write each neuron's potential and currents into a single file.
   ofstream time_file, log_file;
 
   std::vector<ofstream*> pot_current_files;
-  if (config_root["simulation_parameters"].get("sampN", 0).asUInt() > 0) {
+  if (config_root.get<Size>("simulation_parameters.sampN") > 0) {
     timedOutputFolder = modigliani_core::createOutputFolder(
-        config_root["simulation_parameters"]["outputFolder"].asString());
+        config_root.get<string>("simulation_parameters.outputFolder"));
 
     std::ifstream ifs(vm["config-file"].as<string>(), std::ios::binary);
     string temp_string = timedOutputFolder;
@@ -80,15 +86,19 @@ int Simulate(boost::program_options::variables_map vm) {
   }
 
   vector<vector<float>> input_data(0);
-  Json::Value inputs = config_root["input"];
+  std::vector<boost::property_tree::ptree> inputs(0);
+  BOOST_FOREACH(boost::property_tree::ptree::value_type const &v, config_root.get_child(
+          "input")) {
+    inputs.push_back(v.second);
+  }
   for (unsigned int index = 0; index < inputs.size(); ++index) {
-    Json::Value input = inputs[index];
+    boost::property_tree::ptree input = inputs[index];
     input_data.push_back(vector<float>(0));
-    ifstream dataFile(input["file"].asString());
+    ifstream dataFile(input.get<string>("file"));
     if (dataFile.fail()) {
       std::cerr
           << "Could not open input file "
-          << config_root["simulation_parameters"]["inputFile"].asString().c_str()
+          << config_root.get<string>("simulation_parameters.inputFile").c_str()
           << std::endl;
       exit(1);
     }
@@ -114,7 +124,7 @@ int Simulate(boost::program_options::variables_map vm) {
     force_alg = vm["algorithm"].as<int>();
   }
 
-  Size num_trials = config_root["simulation_parameters"]["numTrials"].asUInt();
+  Size num_trials = config_root.get<Size>("simulation_parameters.numTrials");
 
   std::vector<Spherical_compartment*> network_vector(0);
 
@@ -122,39 +132,52 @@ int Simulate(boost::program_options::variables_map vm) {
     vector<Real> inp_current(inputs.size());
     for (int i = 0; i < num_neurons; i++) {
       Spherical_compartment* tmp_ptr = new Spherical_compartment(
-          config_root["neuron_parameters"]);
+          config_root.get_child("neuron_parameters"));
       tmp_ptr->update_timeStep(
-          config_root["simulation_parameters"]["timeStep"].asDouble());
-      bool randomise_densities =
-          config_root["simulation_parameters"]["randomise_densities"].asBool();
+          config_root.get<double>("simulation_parameters.timeStep"));
+      bool randomise_densities = config_root.get<bool>(
+          "simulation_parameters.randomise_densities");
 
-      attach_current(tmp_ptr, config_root["neuron_parameters"]["currents"],
+      attach_current(tmp_ptr,
+                     config_root.get_child("neuron_parameters.currents"),
                      config_root, randomise_densities, force_alg);
       network_vector.push_back(tmp_ptr);
     }
 
     // Now we connect neurons
-    Json::Value synapses = config_root["synapses"];
-    Json::Value synapse_parameters = config_root["synapse_parameters"];
+
+    std::vector<boost::property_tree::ptree> synapses(0);
+    BOOST_FOREACH(boost::property_tree::ptree::value_type const &v, config_root.get_child(
+            "synapses")) {
+      synapses.push_back(v.second);
+    }
+
+    std::vector<boost::property_tree::ptree> synapse_parameters(0);
+    BOOST_FOREACH(boost::property_tree::ptree::value_type const &v, config_root.get_child(
+            "synapse_parameters")) {
+      synapse_parameters.push_back(v.second);
+    }
     for (unsigned int index = 0; index < synapses.size(); ++index) {
-      Json::Value synapse = synapses[index];
-      network_vector[synapse["destination"].asUInt()]->AttachCurrent(
+      boost::property_tree::ptree synapse = synapses[index];
+      network_vector[synapse.get<Size>("destination")]->AttachCurrent(
           new Network_synapse(
-              synapse_parameters[synapse["type"].asUInt()]["ReversalPotential"].asDouble(),
-              network_vector[synapse["destination"].asUInt()],
-              config_root["simulation_parameters"]["timeStep"].asDouble(),
-              synapse_parameters[synapse["type"].asUInt()]["Model"].asString(),
-              synapse["strength"].asDouble()));
+              synapse_parameters[synapse.get<Size>("type")].get<double>(
+                  "ReversalPotential"),
+              network_vector[synapse.get<Size>("destination")],
+              config_root.get<double>("simulation_parameters.timeStep"),
+              synapse_parameters[synapse.get<Size>("type")].get<string>(
+                  "Model"),
+              synapse.get<double>("strength")));
     }
 
     std::cerr << "MainLoop started" << std::endl;
     modigliani_base::Real timeInMS = 0;
     int dataRead = 0;
     for (modigliani_base::Size lt = 0;
-        lt < config_root["simulation_parameters"]["numIter"].asUInt(); lt++) {
-      timeInMS += config_root["simulation_parameters"]["timeStep"].asDouble();
+        lt < config_root.get<Size>("simulation_parameters.numIter"); lt++) {
+      timeInMS += config_root.get<double>("simulation_parameters.timeStep");
       // Write number of columns
-      if (config_root["simulation_parameters"]["sampN"].asInt() > 0 && lt == 0
+      if (config_root.get<int>("simulation_parameters.sampN") > 0 && lt == 0
           && lTrials == 0) {
         modigliani_base::Size counter = 0;
         for (auto ci = network_vector.begin(); ci != network_vector.end();
@@ -167,8 +190,8 @@ int Simulate(boost::program_options::variables_map vm) {
       }
 
       // the "sampling ratio" used for "measurement" to disk
-      if (config_root["simulation_parameters"]["sampN"].asInt() > 0
-          && lt % config_root["simulation_parameters"]["sampN"].asInt() == 0) {
+      if (config_root.get<int>("simulation_parameters.sampN") > 0
+          && lt % config_root.get<int>("simulation_parameters.sampN") == 0) {
         modigliani_base::Size counter = 0;
         for (auto ci = network_vector.begin(); ci != network_vector.end();
             ci++) {
@@ -179,7 +202,7 @@ int Simulate(boost::program_options::variables_map vm) {
         if (!lTrials) time_file << timeInMS << std::endl;
       }
 
-      if (lt % config_root["simulation_parameters"]["readN"].asInt() == 0) {
+      if (lt % config_root.get<int>("simulation_parameters.readN") == 0) {
         for (unsigned int index = 0; index < inputs.size(); ++index) {
           inp_current[index] = (input_data[index][dataRead]);
           dataRead++;
@@ -187,7 +210,7 @@ int Simulate(boost::program_options::variables_map vm) {
       }
 
       for (unsigned int index = 0; index < inputs.size(); ++index) {
-        network_vector[inputs[index]["neuron"].asUInt()]->InjectCurrent(
+        network_vector[inputs[index].get<Size>("neuron")]->InjectCurrent(
             inp_current[index]);
       }
       for (auto ci = network_vector.begin(); ci != network_vector.end(); ci++) {

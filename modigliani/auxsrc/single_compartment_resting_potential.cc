@@ -66,48 +66,61 @@ int main(int argc, char* argv[]) {
     force_alg = vm["algorithm"].as<int>();
   }
 
-  string filename = vm["config-file"].as<string>();
-  Json::Value config_root = modigliani_core::read_config(filename);
+  boost::property_tree::ptree config_root;
+  try {
+    read_json(vm["config-file"].as<string>(), config_root);
+  } catch (exception &e) {
+    // report to the user the failure and their locations in the document.
+    std::cerr << "Failed to parse configuration\n" << e.what();
+    exit(1);
+  }
 
   modigliani_base::Size compartment_type = 0;
   if (vm.count("compartment-type")) {
     compartment_type = vm["compartment-type"].as<modigliani_base::Size>();
   }
   // We need to remove possible attached leak currents from this
-  Json::Value compartment_parameters =
-      config_root["compartments_parameters"][compartment_type];
+  std::vector<boost::property_tree::ptree> compartments_parameters(0);
+
+  BOOST_FOREACH(boost::property_tree::ptree::value_type const &v, config_root.get_child(
+          "compartments_parameters")) {
+    compartments_parameters.push_back(v.second);
+  }
   modigliani_base::Real gleak;
-  Json::Value currents = compartment_parameters["currents"];
-  for (unsigned int index = 0; index < currents.size(); ++index) {
-    Json::Value current = currents[index];
-    if ("leak" == current["type"].asString()) {
-      gleak = compartment_parameters["currents"][index]["GLeak"].asDouble();
-      compartment_parameters["currents"][index]["GLeak"] = 0;
+  boost::property_tree::ptree compartment_parameters =
+      compartments_parameters[0];
+  boost::property_tree::ptree currents = compartment_parameters.get_child(
+      "currents");
+  BOOST_FOREACH(boost::property_tree::ptree::value_type const &v, currents) {
+    boost::property_tree::ptree current = v.second;
+    if ("leak" == current.get<string>("type")) {
+      gleak = current.get<double>("GLeak");
+      current.put("GLeak", 0);
       continue;
     }
   }
 
   // Has to be big enough so that we definitely have channels in this compartment.
   // TODO : Calculate it !
-  compartment_parameters["length"] = 500;
+  compartment_parameters.put("length", 500);
 
-  config_root["simulation_parameters"]["randomise_densities"] = "false";
+  config_root.put("simulation_parameters.randomise_densities", "false");
 
   modigliani_base::Real target = -65;
   if (vm.count("target")) {
     target = vm["target"].as<modigliani_base::Real>();
   }
   modigliani_base::Size duration = 50.0
-      / config_root["simulation_parameters"]["timeStep"].asDouble();
+      / config_root.get<double>("simulation_parameters.timeStep");
   if (vm.count("duration")) {
     duration = vm["duration"].as<modigliani_base::Size>() * 1.0
-        / config_root["simulation_parameters"]["timeStep"].asDouble();
+        / config_root.get<double>("simulation_parameters.timeStep");
   }
 
   modigliani_core::Cylindrical_compartment* oModel =
-      modigliani_core::create_compartment(config_root,
-                                          config_root["simulation_parameters"],
-                                          compartment_parameters, force_alg);
+      modigliani_core::create_compartment(
+          config_root, config_root.get_child("simulation_parameters"),
+          compartment_parameters, force_alg);
 
   cout << target << endl;
   for (modigliani_base::Size lt = 0; lt < duration; lt++) {
@@ -120,13 +133,14 @@ int main(int argc, char* argv[]) {
 
   modigliani_base::Real sum_currents = 0;
   for (modigliani_base::Size ll = 2; ll - 1 < oModel->NumberCurrents(); ++ll) {
-    cout << oModel->Current(ll)->current()/ oModel->area() << endl;
+    cout << oModel->Current(ll)->current() / oModel->area() << endl;
     sum_currents += oModel->Current(ll)->current();
   }
   cout << "Final currents sum " << sum_currents << endl;
-  modigliani_base::Real calculated_eLeak = sum_currents * 100000 / (gleak*oModel->area())+ target;
+  modigliani_base::Real calculated_eLeak = sum_currents * 100000
+      / (gleak * oModel->area()) + target;
 
-  cout << sum_currents * 100000 / (gleak*oModel->area()) << endl;
+  cout << sum_currents * 100000 / (gleak * oModel->area()) << endl;
   cout << "Eleak computed as " << calculated_eLeak << " mV" << endl;
 
   delete oModel;

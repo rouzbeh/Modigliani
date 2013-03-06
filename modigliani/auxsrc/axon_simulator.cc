@@ -43,17 +43,23 @@
 int Simulate(boost::program_options::variables_map vm) {
   using modigliani_base::Size;
   Size numCompartments;
-  Json::Value config_root = modigliani_core::read_config(
-      vm["config-file"].as<string>());
+  boost::property_tree::ptree config_root;
+  try {
+    read_json(vm["config-file"].as<string>(), config_root);
+  } catch (exception &e) {
+    // report to the user the failure and their locations in the document.
+    std::cerr << "Failed to parse configuration\n" << e.what();
+    exit(1);
+  }
   string timedOutputFolder;
   // What compartments to save
   auto electrods_vec = modigliani_core::get_electrods(config_root);
   // We write each compartment's potential and currents into a single file.
   ofstream TimeFile, LengthPerCompartmentFile, TypePerCompartmentFile, log_file;
 
-  if (config_root["simulation_parameters"].get("sampN", 0).asUInt() > 0) {
+  if (config_root.get<Size>("simulation_parameters.sampN") > 0) {
     timedOutputFolder = modigliani_core::createOutputFolder(
-        config_root["simulation_parameters"]["outputFolder"].asString());
+        config_root.get<string>("simulation_parameters.outputFolder"));
 
     std::ifstream ifs(vm["config-file"].as<string>(), std::ios::binary);
     string temp_string = timedOutputFolder;
@@ -88,7 +94,7 @@ int Simulate(boost::program_options::variables_map vm) {
     if (dataFile.fail()) {
       std::cerr
           << "Could not open input file "
-          << config_root["simulation_parameters"]["inputFile"].asString().c_str()
+          << config_root.get<string>("simulation_parameters.inputFile").c_str()
           << std::endl;
       exit(1);
     }
@@ -107,8 +113,8 @@ int Simulate(boost::program_options::variables_map vm) {
     }
     dataFile.close();
   } else {
-    string lua_inject_script =
-        config_root["simulation_parameters"]["inject_current_lua"].asString();
+    string lua_inject_script = config_root.get<string>(
+        "simulation_parameters.inject_current_lua");
     luaL_openlibs(L_inject_current);
     luaL_dostring(L_inject_current, lua_inject_script.c_str());
   }
@@ -128,7 +134,7 @@ int Simulate(boost::program_options::variables_map vm) {
     force_alg = vm["algorithm"].as<int>();
   }
 
-  Size num_trials = config_root["simulation_parameters"]["numTrials"].asUInt();
+  Size num_trials = config_root.get<Size>("simulation_parameters.numTrials");
 
   /* *** Trials loop *** */
   for (modigliani_base::Size lTrials = 0; lTrials < num_trials; lTrials++) {
@@ -175,13 +181,13 @@ int Simulate(boost::program_options::variables_map vm) {
     modigliani_base::Real timeInMS = 0;
     int dataRead = 0;
     boost::progress_display show_progress(
-        config_root["simulation_parameters"]["numIter"].asUInt() / 100);
+        config_root.get<Size>("simulation_parameters.numIter") / 100);
     for (modigliani_base::Size lt = 0;
-        lt < config_root["simulation_parameters"]["numIter"].asUInt(); lt++) {
+        lt < config_root.get<Size>("simulation_parameters.numIter"); lt++) {
       timeInMS += oModel->timeStep();
 
       // Write number of columns
-      if (config_root["simulation_parameters"]["sampN"].asInt() > 0 && lt == 0
+      if (config_root.get<int>("simulation_parameters.sampN") > 0 && lt == 0
           && lTrials == 0) {
         modigliani_base::Size counter = 0;
         for (auto ci = electrods_vec.begin(); ci != electrods_vec.end(); ci++) {
@@ -201,8 +207,8 @@ int Simulate(boost::program_options::variables_map vm) {
       }
 
       // the "sampling ratio" used for "measurement" to disk
-      if (config_root["simulation_parameters"]["sampN"].asInt() > 0
-          && lt % config_root["simulation_parameters"]["sampN"].asInt() == 0) {
+      if (config_root.get<int>("simulation_parameters.sampN") > 0
+          && lt % config_root.get<int>("simulation_parameters.sampN") == 0) {
         modigliani_base::Size counter = 0;
         for (auto ci = electrods_vec.begin(); ci != electrods_vec.end(); ci++) {
           oModel->compartmentVec[*ci]->WriteOutput();
@@ -244,10 +250,10 @@ int Simulate(boost::program_options::variables_map vm) {
 #endif
 
       if (vm.count("input-file")) {
-        if (lt % config_root["simulation_parameters"]["readN"].asInt() == 0) {
+        if (lt % config_root.get<int>("simulation_parameters.readN") == 0) {
           inp_current = (inputData[dataRead]
-              * config_root["simulation_parameters"]["inpISDV"].asDouble())
-              + config_root["simulation_parameters"]["inpI"].asDouble();
+              * config_root.get<double>("simulation_parameters.inpISDV"))
+              + config_root.get<double>("simulation_parameters.inpI");
           dataRead++;
           cout << inp_current << endl;
         }

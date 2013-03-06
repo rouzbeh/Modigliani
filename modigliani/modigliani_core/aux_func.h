@@ -24,7 +24,10 @@
 #ifndef MODIGLIANI_MODIGLIANI_CORE_AUX_FUNC_H_
 #define MODIGLIANI_MODIGLIANI_CORE_AUX_FUNC_H_
 
-#include <jsoncpp/json.h>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
+#include <exception>
+#include <boost/foreach.hpp>
 
 #include <boost/filesystem.hpp>
 #include <tnt/tnt.h>
@@ -65,11 +68,11 @@ corrected_channel_density(modigliani_base::Real chDensity /* mum^-2 */,
 string createOutputFolder(string outputFolder);
 
 modigliani_core::Cylindrical_compartment* create_compartment(
-    Json::Value config_root, Json::Value simulation_parameters,
-    Json::Value compartment_parameters, modigliani_base::Size force_alg);
+    boost::property_tree::ptree config_root, boost::property_tree::ptree simulation_parameters,
+    boost::property_tree::ptree compartment_parameters, modigliani_base::Size force_alg);
 
 void attach_current(modigliani_core::Membrane_compartment* compartment,
-                    const Json::Value currents, Json::Value config_root,
+                    const boost::property_tree::ptree currents, boost::property_tree::ptree config_root,
                     bool randomise_densities, modigliani_base::Size force_alg);
 
 /**
@@ -87,7 +90,7 @@ ofstream* openOutputFile(string outputFolder, string prefix, int counter,
                          string extension = ".txt");
 
 modigliani_core::Membrane_compartment_sequence* create_axon(
-    Json::Value config_root, ofstream& TypePerCompartmentFile,
+    boost::property_tree::ptree config_root, ofstream& TypePerCompartmentFile,
     ofstream& LengthPerCompartmentFile, modigliani_base::Size force_alg);
 
 /**
@@ -95,9 +98,9 @@ modigliani_core::Membrane_compartment_sequence* create_axon(
  * @param fileName Input file.
  * @return A JSON structure containing the parameters
  */
-Json::Value read_config(string fileName);
+boost::property_tree::ptree read_config(string fileName);
 
-std::vector<modigliani_base::Size> get_electrods(Json::Value root);
+std::vector<modigliani_base::Size> get_electrods(boost::property_tree::ptree root);
 }
 
 int SetLuaPath(lua_State* L, const string path);

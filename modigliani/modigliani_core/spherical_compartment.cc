@@ -28,17 +28,18 @@ using namespace modigliani_core;
 
 Spherical_compartment::Spherical_compartment(modigliani_base::Real newRadius,
                                              modigliani_base::Real newCm)
-    : Membrane_compartment(4 * M_PI * newRadius * newRadius, 6.3, newCm, 35.4) {
-  radius = newRadius;
+    : Membrane_compartment(4 * M_PI * newRadius * newRadius, 6.3, newCm, 35.4), radius(
+        newRadius) {
 }
 
-Spherical_compartment::Spherical_compartment(Json::Value compartment_parameters)
+Spherical_compartment::Spherical_compartment(
+    boost::property_tree::ptree compartment_parameters)
     : Membrane_compartment(
-        4 * M_PI * compartment_parameters["radius"].asDouble()
-            * compartment_parameters["radius"].asDouble(),
-        6.3, compartment_parameters["Cm"].asDouble(),
-        compartment_parameters["Ra"].asDouble()) {
-  radius = compartment_parameters["radius"].asDouble();
+        4 * M_PI * compartment_parameters.get<double>("radius")
+            * compartment_parameters.get<double>("radius"),
+        6.3, compartment_parameters.get<double>("Cm"),
+        compartment_parameters.get<double>("Ra")), radius(
+        compartment_parameters.get<double>("radius")) {
 }
 
 /* ***      DESTRUCTOR		***/
