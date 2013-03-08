@@ -40,6 +40,12 @@ AC_HEADER_DIRENT
 AC_HEADER_STDC
 AC_REQUIRE_CPP
 AC_CHECK_HEADER([tnt/tnt.h],[],[AC_MSG_ERROR([TNT is not installed.])])
+AC_LANG_PUSH([C++])
+AC_CHECK_HEADERS([boost/random/mersenne_twister.hpp], [],
+    [AC_MSG_ERROR(You need the Boost libraries.)])
+AC_CHECK_HEADERS([boost/random/binomial_distribution.hpp], [],
+    [AC_MSG_ERROR(You need the Boost libraries.)])
+AC_LANG_POP([C++])
 
 
 # Checks for typedefs, structures, and compiler characteristics.
