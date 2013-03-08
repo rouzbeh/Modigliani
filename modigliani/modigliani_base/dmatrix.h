@@ -1,5 +1,5 @@
 /**
- * @file dmatrix
+ * @file dmatrix.h
  * A straight-forward double matrix class
  * @version  0.1
  * Copyright (C) 1997 Ahmed Aldo Faisal

@@ -30,30 +30,12 @@ using namespace modigliani_base;
 Gui_drv::Gui_drv() {
 }
 
-/*     COPY AND ASSIGNMEM     */
-Gui_drv::Gui_drv(
-        const Gui_drv __attribute__((unused)) & original) :
-        Obj() {
-}
-
-const Gui_drv&
-Gui_drv::operator=(const Gui_drv & right) {
-    if (this == &right)
-        return (*this); // Gracefully handle self assignment
-    // add assignment code here
-    return (*this);
-}
-
 /*     DESTRUCTOR         */
 Gui_drv::~Gui_drv() {
 }
 
 /* ***     PUBLIC                          ***    */
 /** @short
- @param     none
- @return     none
- \warning     unknown
- \bug     unknown
  */
 void Gui_drv::SwapBuffer() const {
 }

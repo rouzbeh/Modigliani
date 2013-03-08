@@ -1,5 +1,5 @@
 /**
- * @file aux_math.h
+ * @file aux_math_func.h
  * Auxiliary functions header
  * @author Ahmed Aldo Faisal &copy; created 27.4.2000
  * @version  0.4

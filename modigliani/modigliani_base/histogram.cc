@@ -1,4 +1,4 @@
-/**\file Histogram.cc - Histogram class implementation
+/**\file histogram.cc - Histogram class implementation
  * @author Ahmed Aldo Faisal &copy; created 11.10.2000
  * @version  0.5
  * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
@@ -70,10 +70,6 @@ Histogram::~Histogram() {
 
 /* ***  PUBLIC                                    ***   */
 /** @short    Reset the histogram class to object creation values
- @param      none
- @return     none
- \warning    unknown
- \bug        unknown
  */
 void Histogram::Reset() {
     bins.clear();
@@ -117,10 +113,7 @@ Real Histogram::ShannonEntropy() const {
 }
 
 /** @short
- @param      none
- @return     none
- \warning
- \bug        unknown
+ @param      showHeader Show the header
  */
 void Histogram::Show(bool showHeader) const {
     if (showHeader == true)

@@ -103,7 +103,8 @@ class Multidim_array : public Obj {
       return (dataVec[hash]);
     }
 
-    /** \brief access a element with a "meaningless" index
+    /**
+     * \brief access a element with a "meaningless" index
      *
      *\param index An index that is guaranteed to touch all elements
      * but has no assigned meaning as to the position of
