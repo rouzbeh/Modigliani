@@ -32,13 +32,13 @@ using namespace modigliani_core;
 Synaptic_background::Synaptic_background(
     modigliani_base::Real newAvgSynBkCond, /* in nS */
     modigliani_base::Real newESynBk, /* Synaptic background reversal potential mV */
-    modigliani_base::Real __attribute__((unused)) newSynSigma, /* Synaptic noise "diffusion" nS */
+    modigliani_base::Real newSynSigma, /* Synaptic noise "diffusion" nS */
     modigliani_base::Real newSynTau, /* Synaptic time constant ms */
     modigliani_base::Real newVBase /* in mV */
     )
     : Membrane_current(newESynBk - newVBase) {
   avgSynBkCond = newAvgSynBkCond;
-  synSigma = newAvgSynBkCond;
+  synSigma = newSynSigma;
   synTau = newSynTau;
   synVar = synSigma * synSigma;
   vBase = newVBase;
