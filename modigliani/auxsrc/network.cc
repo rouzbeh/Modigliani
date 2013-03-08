@@ -87,7 +87,7 @@ int Simulate(boost::program_options::variables_map vm) {
 
   vector<vector<float>> input_data(0);
   std::vector<boost::property_tree::ptree> inputs(0);
-  BOOST_FOREACH(boost::property_tree::ptree::value_type const &v, config_root.get_child(
+  for(boost::property_tree::ptree::value_type const &v: config_root.get_child(
           "input")) {
     inputs.push_back(v.second);
   }
@@ -147,13 +147,13 @@ int Simulate(boost::program_options::variables_map vm) {
     // Now we connect neurons
 
     std::vector<boost::property_tree::ptree> synapses(0);
-    BOOST_FOREACH(boost::property_tree::ptree::value_type const &v, config_root.get_child(
+    for(boost::property_tree::ptree::value_type const &v: config_root.get_child(
             "synapses")) {
       synapses.push_back(v.second);
     }
 
     std::vector<boost::property_tree::ptree> synapse_parameters(0);
-    BOOST_FOREACH(boost::property_tree::ptree::value_type const &v, config_root.get_child(
+    for(boost::property_tree::ptree::value_type const &v: config_root.get_child(
             "synapse_parameters")) {
       synapse_parameters.push_back(v.second);
     }

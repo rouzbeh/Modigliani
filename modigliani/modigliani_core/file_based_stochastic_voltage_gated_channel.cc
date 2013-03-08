@@ -15,6 +15,7 @@ std::map<std::string, std::vector<modigliani_base::Size> > File_based_stochastic
 
 using boost::property_tree::ptree;
 using modigliani_base::Size;
+using modigliani_base::Real;
 /* ***      CONSTRUCTORS	***/
 File_based_stochastic_voltage_gated_channel::File_based_stochastic_voltage_gated_channel(
     modigliani_base::Real newArea, modigliani_base::Real newDensity,
@@ -81,12 +82,12 @@ void File_based_stochastic_voltage_gated_channel::load_file(
         v.second.get<modigliani_base::Size>(""));
   }
 
-  double minV = root.get<double>("minV", 0);
-  double maxV = root.get<double>("maxV", 0);
-  double step = root.get<double>("step", 0);
+  Real minV = root.get<double>("minV", 0);
+  Real maxV = root.get<double>("maxV", 0);
+  Real step = root.get<double>("step", 0);
 
   std::vector<boost::property_tree::ptree> transitions(0);
-  BOOST_FOREACH(boost::property_tree::ptree::value_type const &v, root.get_child(
+  for(boost::property_tree::ptree::value_type const &v: root.get_child(
           "transitions")) {
     transitions.push_back(v.second);
   }
@@ -97,16 +98,16 @@ void File_based_stochastic_voltage_gated_channel::load_file(
   for (unsigned int index = 0; index < transitions.size(); ++index) {  // Iterates over the sequence elements.
     double q10 = transitions[index].get<double>("q10", 1);
     double base_probability = transitions[index].get<double>("probability", 0);
-    double probability = modigliani_core::TemperatureRateRelation(
+    Real probability = modigliani_core::TemperatureRateRelation(
         temperature, base_temperature_map[fileName] /* C */, q10)
         * base_probability * time_step;
 
     //M_ASSERT(probability>0 && probability<=1);
     // Converted voltage is real_voltage
-    double converted_voltage = transitions[index].get<double>("voltage", 0);
+    Real converted_voltage = transitions[index].get<double>("voltage", 0);
     probability_matrix_map[fileName]->setTransitionProbability(
-        converted_voltage, transitions[index].get<Size>("start", 1),
-        transitions[index].get<Size>("stop", 1), probability);
+        converted_voltage, transitions[index].get<Size>("start"),
+        transitions[index].get<Size>("stop"), probability);
   }
 }
 
