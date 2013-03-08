@@ -1,4 +1,4 @@
-/**\file Sequential_statistics.h - Sequential_statistics class header
+/**\file sequential_statistics.h - Sequential_statistics class header
  * @author Ahmed Aldo Faisal &copy; created 5.11.2000
  * @version  0.5
  * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal

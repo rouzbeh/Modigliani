@@ -28,106 +28,89 @@ using namespace modigliani_base;
 
 /* ***      CONSTRUCTORS    ***/
 /** Create a Sequential_statistics */
-Sequential_statistics::Sequential_statistics()
-{
-    Reset();
+Sequential_statistics::Sequential_statistics() {
+  Reset();
 }
-
 
 /* ***      COPY AND ASSIGNMEM    ***/
 Sequential_statistics::Sequential_statistics(
-        const Sequential_statistics & original) :
-        Obj()
-{
+    const Sequential_statistics & original)
+    : Obj() {
 // add assignment code here
-    counter = original.counter;
-    average = original.average;
-    valSquareAverage = original.valSquareAverage;
-    variance = original.variance;
-    min = original.min;
-    max = original.max;
+  counter = original.counter;
+  average = original.average;
+  valSquareAverage = original.valSquareAverage;
+  variance = original.variance;
+  min = original.min;
+  max = original.max;
 }
 
 const Sequential_statistics&
-Sequential_statistics::operator= (const Sequential_statistics & right)
-{
-    if (this == &right) return (*this); // Gracefully handle self assignment
+Sequential_statistics::operator=(const Sequential_statistics & right) {
+  if (this == &right) return (*this);  // Gracefully handle self assignment
 // add assignment code here
-    counter = right.counter;
-    average = right.average;
-    valSquareAverage = right.valSquareAverage;
-    variance = right.variance;
-    min = right.min;
-    max = right.max;
-    return (*this);
+  counter = right.counter;
+  average = right.average;
+  valSquareAverage = right.valSquareAverage;
+  variance = right.variance;
+  min = right.min;
+  max = right.max;
+  return (*this);
 }
 
 /* ***      DESTRUCTOR        ***/
-Sequential_statistics::~Sequential_statistics()
-{
+Sequential_statistics::~Sequential_statistics() {
 }
 
 /* ***  PUBLIC                                    ***   */
 /** @short
-    @param      none
-    @return     none
-   \warning    unknown
-   \bug        unknown
  */
-void
-Sequential_statistics::Reset()
-{
-    counter = 0;
-    average = 0.0;
-    valSquareAverage = 0.0;
-    variance = 0.0;
-    min = 1/0.0;//MAXFLOAT;//numeric_limits<Real>::max();
-    max = -1/0.0;//MINFLOAT;//numeric_limits<Real>::min();
+void Sequential_statistics::Reset() {
+  counter = 0;
+  average = 0.0;
+  valSquareAverage = 0.0;
+  variance = 0.0;
+  min = 1 / 0.0;  //MAXFLOAT;//numeric_limits<Real>::max();
+  max = -1 / 0.0;  //MINFLOAT;//numeric_limits<Real>::min();
 }
 
 /** @short
-    @param      none
-    @return     none
-   \warning    unknown
-   \bug        unknown
+ @param      val value to add
  */
-void
-Sequential_statistics::Add(Real val)
-{
-    counter++;
+void Sequential_statistics::Add(Real val) {
+  counter++;
 
-    average = UpdateAverage(average, val, counter);
-    valSquareAverage = UpdateAverage(valSquareAverage, val*val, counter);
-    variance = valSquareAverage - average*average;
+  average = UpdateAverage(average, val, counter);
+  valSquareAverage = UpdateAverage(valSquareAverage, val * val, counter);
+  variance = valSquareAverage - average * average;
 
-    if (val < min) min = val;
-    else if ( val > max ) max = val;
+  if (val < min) min = val;
+  else if (val > max) max = val;
 }
 
-/** @short
-    @param      none
-    @return     none
-   \warning    unknown
-   \bug        unknown
+/**
+ *  @short
+ *  \param  str ostream to output into
+ *  \param  self
+ *  \return ostream
  */
-std::ostream& operator<< (std::ostream& str, const Sequential_statistics & self)
-{
-    str << self._counter() << "\t" << self._average() <<  "\t" <<self._valSquareAverage()  <<"\t" << self._variance() << "\t" << self._min() <<  "\t" << self._max() ;
-    return (str);
+std::ostream& operator<<(std::ostream& str,
+                         const Sequential_statistics & self) {
+  str << self._counter() << "\t" << self._average() << "\t"
+      << self._valSquareAverage() << "\t" << self._variance() << "\t"
+      << self._min() << "\t" << self._max();
+  return (str);
 }
-
 
 /* ***  PROTECTED                         ***   */
 /* ***  PRIVATE                           ***   */
 /** @short
-    @param      none
-    @return     none
-   \warning    unknown
-   \bug        unknown
+ @param      none
+ @return     none
+ \warning    unknown
+ \bug        unknown
  */
 
-Real
-Sequential_statistics::UpdateAverage(Real avg, Real val, Size n) const
-{
-    return ( val * (1.0/n) + avg * (1.0 - 1.0/n)    );
+Real Sequential_statistics::UpdateAverage(Real avg, Real val, Size n) const {
+  return (val * (1.0 / n) + avg * (1.0 - 1.0 / n));
 }

@@ -71,10 +71,6 @@ Multidim_histogram::~Multidim_histogram() {
 
 /* ***  PUBLIC                                    ***   */
 /** @short
- @param      none
- @return     none
- \warning    unknown
- \bug        unknown
  */
 void Multidim_histogram::Reset() {
     numBinned = 0;
@@ -85,10 +81,8 @@ void Multidim_histogram::Reset() {
 }
 
 /** @short
- @param      none
- @return     none
- \warning    unknown
- \bug        unknown
+ @param      valueVec
+ @return     Size
  */
 Size Multidim_histogram::BinValue(const std::vector<Real> & valueVec) {
     M_ASSERT(valueVec.size() == dim);

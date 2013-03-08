@@ -47,7 +47,7 @@ public:
         return (--_rc);
     }
 
-    Size_t length() const {
+    Size length() const {
         return (_length);
     }
 
@@ -65,7 +65,7 @@ private:
     }
 
     unsigned _rc; // reference count
-    Size_t _length;
+    Size _length;
 
     friend class M_string_o;
 };

@@ -38,8 +38,8 @@ namespace modigliani_base {
 class Gui_drv: public Obj {
 public:
     Gui_drv();
-    Gui_drv(const Gui_drv & original);
-    const Gui_drv& operator=(const Gui_drv & right);
+    Gui_drv(const Gui_drv & original) = delete;
+    const Gui_drv& operator=(const Gui_drv & right) = delete;
     virtual ~Gui_drv();
     /*   Methods                */
     virtual void MakeCurrent() const;

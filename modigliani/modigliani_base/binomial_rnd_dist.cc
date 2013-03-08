@@ -1,5 +1,5 @@
 /**
- * @file binomial_rnd_dist.cpp
+ * @file binomial_rnd_dist.cc
  * Binomial_rnd_dist class implementation
  * @author Ahmed Aldo Faisal &copy; created 19.6.2001
  * NetTrader - visualisation, scientific and financial analysis and simulation system
@@ -52,16 +52,15 @@ Binomial_rnd_dist::Initializer::Initializer() {
 /** Create a Binomial_rnd_dist */
 Binomial_rnd_dist::Binomial_rnd_dist(Real pp, Size num)
     : Rnd_dist() {
-  M_ASSERT( (pp >= 0) && (pp <= 1));
+  M_ASSERT((pp >= 0) && (pp <= 1));
   p = pp;
   M_ASSERT(num > 0);
   n = num;
 }
 
 /* ***      COPY AND ASSIGNMEM    ***/
-Binomial_rnd_dist::Binomial_rnd_dist(
-    const Binomial_rnd_dist __attribute__((unused)) & original)
-    : Rnd_dist() {
+Binomial_rnd_dist::Binomial_rnd_dist(const Binomial_rnd_dist& original)
+    : Rnd_dist()  {
   p = original.p;
   n = original.n;
 }
@@ -79,10 +78,7 @@ Binomial_rnd_dist::~Binomial_rnd_dist() {
 
 /* ***  PUBLIC                                    ***   */
 /** @short
- @param      none
- @return     none
- \warning    unknown
- \bug        unknown
+ @return     Random value
  */
 inline Real Binomial_rnd_dist::RndVal() const {
   /*    This is algorithm BTPE from:

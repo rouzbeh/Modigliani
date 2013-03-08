@@ -1,5 +1,5 @@
 /**
- * @file ggaussian_rnd_dist.cc
+ * @file gaussian_rnd_dist.cc
  * Methods for gaussian random distribution class
  * @author Ahmed A. Faisal, 15. 10. 1998(c)
  * NetTrader - finance management, analysis and simulation system

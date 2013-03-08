@@ -43,9 +43,9 @@ namespace modigliani_base{
  */
 class Timing : public Obj {
 private:
-    Mbool isRunning;
-    Mdouble last_time;
-    Mdouble total;
+    bool isRunning;
+    Real last_time;
+    Real total;
 
 public:
     Timing() {
@@ -63,7 +63,7 @@ public:
             isRunning = true;
         }
     }
-    Mdouble stop()  {
+    Real stop()  {
         if (isRunning)
         {
             total += seconds() - last_time;
@@ -71,7 +71,7 @@ public:
         }
         return (total);
     }
-    Mdouble read()   {
+    Real read()   {
         if (isRunning)
         {
             total+= seconds() - last_time;
@@ -79,11 +79,11 @@ public:
         }
         return (total);
     }
-    Mdouble seconds() {
-        return (((Mdouble) clock() ) * secs_per_tick);
+    Real seconds() {
+        return (((Real) clock() ) * secs_per_tick);
     }
 private:
-    Mdouble secs_per_tick;
+    Real secs_per_tick;
 };
 }
 
