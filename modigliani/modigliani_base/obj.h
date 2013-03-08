@@ -28,6 +28,10 @@
 
 #include "types.h"
 
+#ifdef __INTEL_COMPILER
+#define override
+#endif
+
 namespace modigliani_base{
 /**
  * @class Obj

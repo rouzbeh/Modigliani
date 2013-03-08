@@ -34,6 +34,10 @@
 #ifndef _Object_h_
 #define _Object_h_
 
+#ifdef __INTEL_COMPILER
+#define override
+#endif
+
 #define NTBP_TIMESTEP 0.001 /* in msec */
 
 /* NT includes */
