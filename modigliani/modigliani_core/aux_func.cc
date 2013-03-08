@@ -111,7 +111,7 @@ void modigliani_core::attach_current(
     modigliani_base::Size force_alg) {
   //for (unsigned int index = 0; index < currents.size(); ++index) {
 
-  BOOST_FOREACH(boost::property_tree::ptree::value_type const &v, currents) {
+  for(boost::property_tree::ptree::value_type const &v : currents) {
     // v.first is the name of the child.
     // v.second is the child tree.
     boost::property_tree::ptree current = v.second;
@@ -261,7 +261,7 @@ modigliani_core::Membrane_compartment_sequence* modigliani_core::create_axon(
 
   std::vector<boost::property_tree::ptree> compartments_parameters(0);
 
-  BOOST_FOREACH(boost::property_tree::ptree::value_type const &v, config_root.get_child(
+  for(boost::property_tree::ptree::value_type const &v: config_root.get_child(
           "compartments_parameters")) {
     compartments_parameters.push_back(v.second);
   }
