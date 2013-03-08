@@ -8,16 +8,13 @@ uniform_rnd_dist.cc \
 sequential_statistics.cc \
 rnd_dist.cc \
 obj.cc \
-image.cc \
 id_management.cc \
 histogram.cc \
 gui_drv.cc \
 gaussian_rnd_dist.cc \
 error.cc \
 date.cc \
-aux_math_func.cc \
-config_file_parser.cc \
-str2real.cc
+aux_math_func.cc
 
 EXTRA_DIST= $(libmodigliani_base_a_SOURCES) dmatrix.h\
 aux_math_func.h\
@@ -29,7 +26,6 @@ gui_drv.cc gui_drv.h\
 header_string.h\
 histogram.h\
 id_management.h\
-image.h\
 main.h\
 moonmap_image_data.h\
 obj.h\
@@ -40,15 +36,12 @@ timing.h\
 types.h\
 uniform_rnd_dist.cc uniform_rnd_dist.h\
 value.h\
-worldmap_image_data.h\
 binomial_rnd_dist.h\
 multidim_array.h\
 multidim_histogram.h\
 ring_buffer.h\
 two_dim_histogram.h\
 mtrand.h\
-physical_constants.h\
-config_file_parser.h\
-str2real.h
+physical_constants.h
 
 AM_CXXFLAGS = $(all_includes) -I$(abs_top_srcdir)/modigliani -ansi -pedantic -Wshadow -Wno-vla -malign-double -std=c++11
