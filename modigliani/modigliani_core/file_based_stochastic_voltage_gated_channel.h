@@ -31,8 +31,12 @@ class File_based_stochastic_voltage_gated_channel : public Voltage_gated_ion_cha
 
     virtual ~File_based_stochastic_voltage_gated_channel();
 
+    void reset() override {
+      channels_ptr_->reset();
+    }
+
     static void load_file(std::string fileName, double temperature,
-        double time_step);
+                          double time_step);
     static std::map<std::string, Transition_rate_matrix*> probability_matrix_map;
     static std::map<std::string, int> number_of_states_map;
     static std::map<std::string, double> base_temperature_map;
@@ -41,22 +45,25 @@ class File_based_stochastic_voltage_gated_channel : public Voltage_gated_ion_cha
     virtual modigliani_base::ReturnEnum StepCurrent() override;
     virtual modigliani_base::Real open_channels() const;
     virtual modigliani_base::Real ComputeConductance() override;
-    modigliani_base::Real num_channels_in_state(modigliani_base::Size state) const;
+    modigliani_base::Real num_channels_in_state(
+        modigliani_base::Size state) const;
     modigliani_base::Real ComputeTimeConstant() const;
     void show_param() const;
     void printProb(std::string fileName) {
       for (modigliani_base::Real v = 20; v < 130; v += 0.005) {
         std::cout
-        << probability_matrix_map[fileName]->getTransitionProbability(
-            v, 2, 1) << std::endl;
+            << probability_matrix_map[fileName]->getTransitionProbability(v, 2,
+                                                                          1)
+            << std::endl;
       }
     }
 
-    private:
+  private:
     Ion_channels* channels_ptr_;
     static bool initTableLookUp;
     static std::vector<std::string> initialised_probability_matrices;
     modigliani_base::Real baseTemp;
 
-  };}
+};
+}
 #endif /* FILE_BASED_STOCHASTIC_VOLTAGE_GATED_CHANNEL_H_ */
