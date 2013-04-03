@@ -33,6 +33,7 @@
 #include <boost/progress.hpp>
 #include <boost/timer.hpp>
 #include <vector>
+#include <boost/property_tree/exceptions.hpp>
 
 /**
  * \brief Runs a simulation using parameters in the given json file.
@@ -55,6 +56,7 @@ int Simulate(boost::program_options::variables_map vm) {
   // What compartments to save
   auto electrods_vec = modigliani_core::get_electrods(config_root);
   // We write each compartment's potential and currents into a single file.
+
   ofstream TimeFile, LengthPerCompartmentFile, TypePerCompartmentFile, log_file;
 
   if (config_root.get<Size>("simulation_parameters.sampN") > 0) {
@@ -124,6 +126,11 @@ int Simulate(boost::program_options::variables_map vm) {
     verbose = true;
   }
 
+  bool show_bar = false;
+  if (vm.count("progress-bar")) {
+    show_bar = true;
+  }
+
   Size plot = 0;
   if (vm.count("plot")) {
     plot = vm["plot"].as<Size>();
@@ -142,6 +149,27 @@ int Simulate(boost::program_options::variables_map vm) {
               << std::endl;
   }
 
+  // Do we want to simulate an electrod injecting current somewhere?
+  lua_State* L_change_potential = luaL_newstate();
+  bool change_potentials = true;
+  try {
+    string lua_change_potential_script = config_root.get<string>(
+        "simulation_parameters.change_potential_lua");
+    luaL_openlibs(L_change_potential);
+    luaL_dostring(L_change_potential, lua_change_potential_script.c_str());
+    change_potentials = true;
+  } catch (boost::property_tree::ptree_bad_path& e) {
+    //No need to change potentials
+    change_potentials = false;
+    lua_close(L_change_potential);
+  }
+
+  auto output_files = vector<string>(0);
+  boost::progress_display* show_progress;
+  if (show_bar)
+    show_progress = new boost::progress_display(
+        config_root.get<Size>("simulation_parameters.numIter") * num_trials
+            / 100);
   /* *** Trials loop *** */
   for (modigliani_base::Size lTrials = 0; lTrials < num_trials; lTrials++) {
     modigliani_base::Real inp_current = 0;
@@ -186,8 +214,6 @@ int Simulate(boost::program_options::variables_map vm) {
     std::cerr << "MainLoop started" << std::endl;
     modigliani_base::Real timeInMS = 0;
     int dataRead = 0;
-    boost::progress_display show_progress(
-        config_root.get<Size>("simulation_parameters.numIter") / 100);
     for (modigliani_base::Size lt = 0;
         lt < config_root.get<Size>("simulation_parameters.numIter"); lt++) {
       timeInMS += oModel->timeStep();
@@ -207,8 +233,16 @@ int Simulate(boost::program_options::variables_map vm) {
              << counter << ".bin";
           string temp_name;
           ss >> temp_name;
+          output_files.push_back(temp_name);
           oModel->compartmentVec[*ci]->SetupOutput(temp_name);
           counter++;
+        }
+      }
+      if (config_root.get<int>("simulation_parameters.sampN") > 0 && lt == 0
+          && lTrials != 0) {
+        modigliani_base::Size counter = 0;
+        for (auto ci : electrods_vec) {
+          oModel->compartmentVec[ci]->SetupOutput(output_files[counter++]);
         }
       }
 
@@ -272,8 +306,24 @@ int Simulate(boost::program_options::variables_map vm) {
       }
       if (verbose) cout << lt << "\t" << inp_current << endl;
       oModel->InjectCurrent(inp_current, 1);
+
+      if (change_potentials) {
+        for (modigliani_base::Size lc = 1; lc < numCompartments; lc++) {
+          // Get value from lua
+          lua_getglobal(L_change_potential, "change_in_potential");
+          lua_pushnumber(L_change_potential, timeInMS);
+          lua_pushnumber(L_change_potential, lc);
+          lua_call(L_change_potential, 1, 1);
+          auto change_in_potential = lua_tonumber(L_change_potential, -1);
+          lua_pop(L_change_potential, 1);
+          oModel->compartmentVec[lc]->set_vm(
+              oModel->compartmentVec[lc]->vm() + change_in_potential);
+        }
+      }
+
       oModel->step();
-      if (lt % 100 == 0) ++show_progress;
+
+      if (show_bar && lt % 100 == 0) show_progress->operator ++();
     }
 #ifdef WITH_PLPLOT
     if (pls) delete pls;
