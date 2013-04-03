@@ -58,9 +58,12 @@ class Membrane_compartment : public Object {
     virtual ~Membrane_compartment();
 
     /* ***  Methods              ***/
-    virtual modigliani_base::ReturnEnum AttachCurrent(Membrane_current * currentPtr,
-        NTBPcurrentType type = NTBP_IONIC);
-    virtual modigliani_base::ReturnEnum Step(const modigliani_base::Real newVM /* mV */);
+    virtual void reset();
+
+    virtual modigliani_base::ReturnEnum AttachCurrent(
+        Membrane_current * currentPtr, NTBPcurrentType type = NTBP_IONIC);
+    virtual modigliani_base::ReturnEnum Step(
+        const modigliani_base::Real newVM /* mV */);
     virtual modigliani_base::ReturnEnum Step();
     modigliani_base::ReturnEnum InjectCurrent(
         modigliani_base::Real current /* in nA */);
@@ -128,7 +131,7 @@ class Membrane_compartment : public Object {
         modigliani_base::Real newTemp /* in Celsius */) {
       temperature_ = newTemp;
       for (modigliani_base::Size i = 0; i < current_vec_.size(); i++)
-      current_vec_[i]->set_temperature(newTemp);
+        current_vec_[i]->set_temperature(newTemp);
       return (modigliani_base::ReturnEnum::SUCCESS);
     }
     /* in Celsius */
@@ -148,20 +151,20 @@ class Membrane_compartment : public Object {
     modigliani_base::Size NumberCurrents() const;
     //Membrane_current const * GetCurrent(modigliani_base::Size i) const;
     float* data() const {
-      float* return_data = new float(1+NumberCurrents());
+      float* return_data = new float(1 + NumberCurrents());
       return_data[0] = vm();
-      for(unsigned int i=1; i<1+NumberCurrents(); i++) {
-        return_data[i]=Current(i)->current();
+      for (unsigned int i = 1; i < 1 + NumberCurrents(); i++) {
+        return_data[i] = Current(i)->current();
       }
-      return(return_data);
+      return (return_data);
     }
 
     /* ***  Data                 ***/
 
-    protected:
+  protected:
     /* ***  Methods              ***/
     //modigliani_base::Real total_conductance() const;
-    modigliani_base::Real WeightedConductance() const;// OBSOLETE?
+    modigliani_base::Real WeightedConductance() const;  // OBSOLETE?
 
     /// injected current into compartment in nA
     modigliani_base::Real i_inj_;
@@ -179,6 +182,7 @@ class Membrane_compartment : public Object {
     modigliani_base::Real vm_;
 
     std::ofstream* output_file = 0;
-    private:
-  };}
+  private:
+};
+}
 #endif /* _modigliani_core_membrane_compartment.h_ */

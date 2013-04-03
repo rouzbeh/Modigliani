@@ -45,8 +45,11 @@ class Lua_based_deterministic_voltage_gated_channel : public Voltage_gated_ion_c
     virtual modigliani_base::Real num_channels_in_state(
         modigliani_base::Size state) const;
 
-    void show_param() const;
+    virtual void reset() override{
+      exit(2);
+    }
 
+    void show_param() const;
     string lua_script;
   private:
     static modigliani_base::Real _lua_get_real(lua_State* L, string name);

@@ -39,9 +39,13 @@ class Leak_current : public Membrane_current {
                  modigliani_base::Real newLeakConductance = 0.3 /* mS/cm^2 */,
                  modigliani_base::Real newReversalPotential = 10.613 /* mV */);
 
-    Leak_current(const Leak_current & original)=delete;
-    Leak_current & operator=(const Leak_current & right)=delete;
+    Leak_current(const Leak_current & original) = delete;
+    Leak_current & operator=(const Leak_current & right) = delete;
     virtual ~Leak_current();
+
+    virtual void reset() override {
+    }
+    ;
     /** in mSiemens */
     modigliani_base::ReturnEnum StepCurrent() {
       return (modigliani_base::ReturnEnum::SUCCESS);
@@ -66,10 +70,10 @@ class Leak_current : public Membrane_current {
     modigliani_base::Real area() const {
       return (area_);
     }
-    protected:
+  protected:
     /* ***  Methods              ***/
     /* ***  Data                 ***/
-    private:
+  private:
     /* ***  Methods              ***/
     /* ***  Data                 ***/
     /// in mSiemens / centiMeter^2
@@ -78,5 +82,6 @@ class Leak_current : public Membrane_current {
     const modigliani_base::Real area_;
     /// in mSiemens per channel
     modigliani_base::Real conductivity_;
-  };}
+};
+}
 #endif /* _modigliani_core_leak_current_h_ */
