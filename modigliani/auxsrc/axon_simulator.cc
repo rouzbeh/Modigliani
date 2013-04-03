@@ -134,7 +134,13 @@ int Simulate(boost::program_options::variables_map vm) {
     force_alg = vm["algorithm"].as<int>();
   }
 
-  Size num_trials = config_root.get<Size>("simulation_parameters.numTrials");
+  Size num_trials = 1;
+  try {
+    num_trials = config_root.get<Size>("simulation_parameters.numTrials");
+  } catch (boost::property_tree::ptree_bad_path& e) {
+    std::cout << "Warning : numTrials not found in simulation parameters."
+              << std::endl;
+  }
 
   /* *** Trials loop *** */
   for (modigliani_base::Size lTrials = 0; lTrials < num_trials; lTrials++) {
