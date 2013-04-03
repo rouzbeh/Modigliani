@@ -52,6 +52,9 @@ class Ion_channels : public Object {
     Ion_channels & operator=(const Ion_channels & right) = delete;
     virtual ~Ion_channels();
     /* ***  Methods              ***/
+
+    void reset();
+
     modigliani_base::Size num_channels() const {
       return (num_channels_);
     }

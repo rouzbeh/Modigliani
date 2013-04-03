@@ -71,6 +71,11 @@ void Ion_channels::SetAsOpenState(modigliani_base::Size newOpenState) {
   open_states_.push_back(newOpenState);
 }
 
+void Ion_channels::reset() {
+  stateCounterVec[0] = 0;
+  stateCounterVec[1] = num_channels();
+}
+
 /**  */
 modigliani_base::ReturnEnum Ion_channels::GillespieStep(
     modigliani_base::Real voltage) {
@@ -232,7 +237,7 @@ modigliani_base::ReturnEnum Ion_channels::ComputeGillespieStep(
     std::cerr << check << std::endl;
   }
   std::cerr << num_channels() << std::endl;
-  M_ASSERT((unsigned int) check == num_channels());
+  M_ASSERT((unsigned int ) check == num_channels());
 
   if (NumOpen() == oldOpen) {
     return (modigliani_base::ReturnEnum::FAIL);

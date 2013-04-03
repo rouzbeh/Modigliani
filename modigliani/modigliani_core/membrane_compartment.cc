@@ -49,6 +49,14 @@ Membrane_compartment::~Membrane_compartment() {
   if (output_file) output_file->close();
 }
 
+void Membrane_compartment::reset() {
+  vm_ = 0;
+  i_inj_ = 0;
+  for (auto current : current_vec_) {
+    current->reset();
+  }
+}
+
 modigliani_base::ReturnEnum Membrane_compartment::SetupOutput(
     std::string output_file_name) {
   std::ifstream filestr;

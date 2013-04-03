@@ -60,13 +60,14 @@ class Custom_cylindrical_compartment : public Cylindrical_compartment {
         const Custom_cylindrical_compartment & original) = delete;
 
     Custom_cylindrical_compartment & operator=(
-        const Custom_cylindrical_compartment & right) =delete;
+        const Custom_cylindrical_compartment & right) = delete;
 
     virtual ~Custom_cylindrical_compartment();
 
     /* ***  Methods              ***/
     virtual modigliani_base::ReturnEnum AttachCurrentWithConcentrations(
-        Membrane_current * currentPtr, Real concentration_inside, Real concentration_outside);
+        Membrane_current * currentPtr, Real concentration_inside,
+        Real concentration_outside);
     modigliani_base::ReturnEnum AttachCurrent(
         Membrane_current * currentPtr, NTBPcurrentType type = NTBP_IONIC);
     virtual modigliani_base::ReturnEnum Step(const modigliani_base::Real newVM);
@@ -78,9 +79,10 @@ class Custom_cylindrical_compartment : public Cylindrical_compartment {
      * \return Success status
      * \warning Call after having attached all currents.
      */
-    virtual modigliani_base::ReturnEnum SetupOutput(std::string output_file_name);
+    virtual modigliani_base::ReturnEnum SetupOutput(
+        std::string output_file_name) override;
 
-    virtual modigliani_base::ReturnEnum WriteOutput() const;
+    virtual modigliani_base::ReturnEnum WriteOutput() const override;
 
     const Membrane_current * Current(modigliani_base::Size currentIndex) const {
       M_ASSERT((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
@@ -102,14 +104,16 @@ class Custom_cylindrical_compartment : public Cylindrical_compartment {
       return (custom_current_vec_[currentIndex - 1].outside_concentration);
     }
 
-    void SetInsideConcentration(modigliani_base::Size currentIndex, Real new_concentration);
-    void SetOutsideConcentration(modigliani_base::Size currentIndex, Real new_concentration);
+    void SetInsideConcentration(modigliani_base::Size currentIndex,
+                                Real new_concentration);
+    void SetOutsideConcentration(modigliani_base::Size currentIndex,
+                                 Real new_concentration);
 
     /* ***  Data                 ***/
-    protected:
+  protected:
     std::vector<custom_current> custom_current_vec_;
-  };
+};
 
-  }
+}
 #endif /* _modigliani_core_custom_cylindrical_compartment.h_ */
 

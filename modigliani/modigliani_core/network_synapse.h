@@ -48,15 +48,17 @@ class Network_synapse : public Membrane_current {
     /** compute and return conductance in mSiemens */
     modigliani_base::Real ComputeConductance();
     modigliani_base::Real max_conductivity() const;
-
-    protected:
-    private:
+    virtual void reset() override {
+      exit(2);
+    }
+  protected:
+  private:
     Membrane_compartment* source;
     modigliani_base::Real v_input;
     std::string _lua_script;
     lua_State* _L;
     //modigliani_base::Real avgSynBkCond; /* ns */
-  };
+};
 
-  } /* namespace modigliani_core */
+} /* namespace modigliani_core */
 #endif /* NETWORK_SYNAPSE_H_ */

@@ -118,7 +118,7 @@ modigliani_base::ReturnEnum Custom_cylindrical_compartment::SetupOutput(
   filestr.seekg(0, std::ios::end);  // put the "cursor" at the end of the file
   int file_length = filestr.tellg();  // find the position of the cursor
   filestr.close();  // close your file
-  if (file_length > 0 ) {
+  if (file_length > 0) {
     output_file = new std::ofstream(output_file_name.c_str(),
                                     std::ios::binary | std::ios::app);
 
