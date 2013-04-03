@@ -287,18 +287,19 @@ int main(int argc, char* argv[]) {
   namespace po = boost::program_options;
 // Declare the supported options.
   po::options_description desc("Allowed options");
-  desc.add_options()("help,h", "produce help message")(
-      "config-file", po::value<string>(), "which configuration file to use")(
-      "algorithm,a", po::value<int>(), "set algorithm")("trials,t",
-                                                        po::value<Size>(),
-                                                        "set number of trials")(
-      "verbose,v", "activate debug messages")("input-file,i",
-                                              po::value<string>(),
-                                              "set input file")
+  desc.add_options()
+      ("help,h", "produce help message")
+      ("config-file", po::value<string>(), "which configuration file to use")
+      ("algorithm,a", po::value<int>(), "set algorithm")
+      ("trials,t", po::value<Size>(), "set number of trials")
+      ("verbose,v", "activate debug messages")("input-file,i", po::value<string>(),
+          "set input file")
+      ("progress-bar,b", po::value<bool>(), "Show a progress bar")
 #ifdef WITH_PLPLOT
-  ("plot,p", po::value<Size>(), "plot every <arg> step.")
+      ("plot,p", po::value<Size>(), "plot every <arg> step.")
 #endif
-   ;
+  ;
+
   if (argc < 2) {
     cout << desc << "\n";
     return (1);
