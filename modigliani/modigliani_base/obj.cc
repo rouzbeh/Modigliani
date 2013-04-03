@@ -38,22 +38,23 @@ Long Obj::runnId = 0;
 //    Output :
 //
 Obj::Obj() {
+  uniqId = 0;
 #ifdef M_DEBUG_OBJECT_ID
-    runnId++;
-    uniqId = runnId;
+  runnId++;
+  uniqId = runnId;
 #endif
 }
 
 Obj::Obj(Obj const __attribute__((unused)) & right) {
+  uniqId = 0;
 #ifdef M_DEBUG_OBJECT_ID
-    runnId++;
-    uniqId = runnId;
+  runnId++;
+  uniqId = runnId;
 #endif
 }
 
 Obj::~Obj() {
 }
-
 
 //
 //    Method name : _runnId
@@ -62,11 +63,9 @@ Obj::~Obj() {
 //    Input :
 //    Output :
 //
-inline Long Obj::_runnId() const
-{
-    return (runnId);
+inline Long Obj::_runnId() const {
+  return (runnId);
 }
-
 
 //
 //    Method name : _uniqId
@@ -75,8 +74,7 @@ inline Long Obj::_runnId() const
 //    Input :
 //    Output :
 //
-inline Long Obj::_uniqId() const
-{
-    return (uniqId);
+inline Long Obj::_uniqId() const {
+  return (uniqId);
 }
 
