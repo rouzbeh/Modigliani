@@ -22,8 +22,32 @@ extern "C" {
 using namespace std;
 
 namespace modigliani_core {
+///@brief Stochastic ion channel with transition probabilities read from a lua script
+///
+/// Transition probabilities are read for a range of membrane potentials by calling a lua
+/// script. The actual simulations are carried inside the program.
 class Lua_based_stochastic_voltage_gated_channel : public Voltage_gated_ion_channel_current {
   public:
+    ///@brief Loads transition probabilities by running a lua script.
+    ///@param newArea Membrane area
+    ///@param newDensity Channel density
+    ///@param newConductivity Max conductivity
+    ///@param reversalPotential Current reversal potential
+    ///@param newTimeStep Simulation time step
+    ///@param newTemperature Simulation temperature
+    ///@param fileName Lua script
+    ///
+    /// The lua script must define the following variables :
+    /// - float base_temp
+    /// - uint number_states
+    /// - array(uint) open_states
+    /// - float minV
+    /// - float maxV
+    /// - float step
+    /// .
+    /// The lua script must define the following functions :
+    /// - get_probability(uint, uint, float)
+    /// - get_q10(uint, uint)
     Lua_based_stochastic_voltage_gated_channel(
         modigliani_base::Real newArea, modigliani_base::Real newDensity,
         modigliani_base::Real newConductivity,
@@ -40,15 +64,13 @@ class Lua_based_stochastic_voltage_gated_channel : public Voltage_gated_ion_chan
     void reset() override {
       channels_ptr_->reset();
     }
-    static void load_file(string fileName, double temperature,
-                          double time_step);
-    static map<string, Transition_rate_matrix*> probability_matrix_map;
-    static map<string, modigliani_base::Size> number_of_states_map;
-    static map<string, double> base_temperature_map;
-    static map<string, std::vector<modigliani_base::Size> > open_states_map;
+
     virtual modigliani_base::Real ComputeTimeConstant() const;
     virtual modigliani_base::Real ComputeConductance();
 
+    ///@brief Calculates all transitions in ion channels.
+    ///@return Status
+    ///@warning Does not update conductance
     virtual modigliani_base::ReturnEnum StepCurrent();
     virtual modigliani_base::Real open_channels() const;
     void show_param() const;
@@ -62,6 +84,13 @@ class Lua_based_stochastic_voltage_gated_channel : public Voltage_gated_ion_chan
     }
 
   private:
+
+    static void load_file(string fileName, double temperature,
+                          double time_step);
+    static map<string, Transition_rate_matrix*> probability_matrix_map;
+    static map<string, modigliani_base::Size> number_of_states_map;
+    static map<string, double> base_temperature_map;
+    static map<string, std::vector<modigliani_base::Size> > open_states_map;
     Ion_channels* channels_ptr_;
     static modigliani_base::Real lua_get_real(lua_State* L, string name);
     static bool initTableLookUp;
