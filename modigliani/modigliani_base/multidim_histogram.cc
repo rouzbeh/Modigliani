@@ -80,10 +80,9 @@ void Multidim_histogram::Reset() {
     oCube.SetAll(0);
 }
 
-/** @short
- @param      valueVec
- @return     Size
- */
+/// @short
+/// @param      valueVec
+/// @return     Size
 Size Multidim_histogram::BinValue(const std::vector<Real> & valueVec) {
     M_ASSERT(valueVec.size() == dim);
 

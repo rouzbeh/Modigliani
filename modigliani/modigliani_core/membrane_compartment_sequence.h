@@ -40,12 +40,12 @@ namespace modigliani_core {
  */
 class Membrane_compartment_sequence : public Membrane {
   public:
-    /***   Constructors, Copy/Assignment and Destructor  ***/
 // see .cpp comments : Membrane_compartment_sequence();
 // RESTRUCTURING GOING ON HERE
 //transforming everything in  here into AddCompartment(NTBP_com..._o * compPtr) to allow
 //polymorphic usage of different compartments
 //
+    /** Create a Membrane_compartment_sequence */
     Membrane_compartment_sequence(); Membrane_compartment_sequence(
         const Membrane_compartment_sequence & original) = delete;
     const Membrane_compartment_sequence & operator=(

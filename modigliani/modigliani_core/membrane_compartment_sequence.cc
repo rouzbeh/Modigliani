@@ -26,8 +26,6 @@
 using namespace modigliani_core;
 
 /* ***      CONSTRUCTORS	***/
-/** Create a Membrane_compartment_sequence */
-
 Membrane_compartment_sequence::Membrane_compartment_sequence() :
 		Membrane(), initialised(false),swCrankNicholson(false) {
 	numCompartments = 0;

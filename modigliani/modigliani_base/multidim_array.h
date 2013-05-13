@@ -33,11 +33,10 @@
 #include <cstdarg>
 
 namespace modigliani_base {
-/** @short Multidim_array class
- Implements a regular - multidimensional, i.e.
- a "dim"-diemsional hypercube with "num" elements per dimension.
- \bug unknown
- \warning unknown
+/** @short Multidimensional array
+ *
+ * Implements a regular - multidimensional, i.e.
+ * a "dim"-diemsional hypercube with "num" elements per dimension.
  */
 template<class T>  // with regards to Modula-3 :)
 class Multidim_array : public Obj {
@@ -104,13 +103,13 @@ class Multidim_array : public Obj {
     }
 
     /**
-     * \brief access a element with a "meaningless" index
+     * @brief access a element with a "meaningless" index
      *
-     *\param index An index that is guaranteed to touch all elements
+     * @param index An index that is guaranteed to touch all elements
      * but has no assigned meaning as to the position of
-     * element in relation to others. However index $\in [0,num^dim]$
+     * element in relation to others. However index in $[0,num^dim]$
      * is guaranteed and will touch all elements ones.
-     * \return     none
+     * @return     The element at given index
      * \warning    Arbitrary index, no information inferable from the index,
      * might change anytime (only range remains guaranteed).
      */

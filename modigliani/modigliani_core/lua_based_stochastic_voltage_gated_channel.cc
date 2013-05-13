@@ -34,7 +34,7 @@ Lua_based_stochastic_voltage_gated_channel::Lua_based_stochastic_voltage_gated_c
   }
   baseTemp = base_temperature_map[fileName];
 
-  M_ASSERT(number_of_states_map[fileName]>0);
+  M_ASSERT(number_of_states_map[fileName] > 0);
 
   if (false == initTableLookUp) {
     initTableLookUp = true;
@@ -135,12 +135,6 @@ void Lua_based_stochastic_voltage_gated_channel::load_file(string fileName,
   lua_close(L);
 }
 
-/** @short
- @param      none
- @return     none
- \warning    unknown
- \bug        unknown
- */
 inline modigliani_base::ReturnEnum Lua_based_stochastic_voltage_gated_channel::StepCurrent() {
   switch (simulation_mode()) {
     case BINOMIALPOPULATION: {
