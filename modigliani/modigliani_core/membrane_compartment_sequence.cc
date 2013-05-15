@@ -125,14 +125,12 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::Init() {
   dVec.resize(numCompartments);
   rVec.resize(numCompartments);
 
-  modigliani_base::Real sigma = 0;
-  modigliani_base::Real radius = compartmentVec[0]->radius();  // should be constant with present solution method
-  modigliani_base::Real axoplasmicR = compartmentVec[0]->ra();  // (specific!) should be constant with present solution method
-  modigliani_base::Real deltaT = timeStep();
-  modigliani_base::Real deltaXX = 0;
+  //modigliani_base::Real sigma = 0;
+  //modigliani_base::Real radius = compartmentVec[0]->radius();  // should be constant with present solution method
+  //modigliani_base::Real axoplasmicR = compartmentVec[0]->ra();  // (specific!) should be constant with present solution method
+  //modigliani_base::Real deltaT = timeStep();
+  //modigliani_base::Real deltaXX = 0;
 
-  /* requirement for constant axo-geometric properties */
-  //vVec[0] = 0;
   compartmentVec[0]->set_vm(-65);
   modigliani_base::Size ll = 1;
   for (ll = 1; ll < numCompartments; ll++) {
@@ -145,43 +143,43 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::Init() {
 
   /* initialisation of left band l and right band u "std::vectors" */
   /* FIRST COMPARTMENT */
-  deltaXX = compartmentVec[0]->length() * compartmentVec[0]->length();
-  /* sigma is unit-free  (scaled by 0.1) [sigma] = mSec muM / (muM^2 Ohm cm) * (muM^2 / muF) */
-  sigma = (0.1 / 2.0) * (deltaT / deltaXX) * (radius / axoplasmicR)
-      * (compartmentVec[0]->area()
-          / compartmentVec[0]->CompartmentMembraneCapacitance());
+  auto sigma_forward = _sigma(compartmentVec[0], compartmentVec[1]);
 
-  uVec[0] = -2.0 * sigma;  // vonNeumann boundary conditions
-  dVec[0] = 2.0 * sigma + 1.0;
+  uVec[0] = -2.0 * sigma_forward;  // vonNeumann boundary conditions
+  dVec[0] = 2.0 * sigma_forward + 1.0;
 
   /* INTERMEDIATE COMPARTMENTS */
-
   for (ll = 1; ll < numCompartments - 1; ll++) {
-    deltaXX = compartmentVec[ll]->length() * compartmentVec[ll]->length();
-    /* sigma is unit-free  (scaled by 0.1)     [sigma] = mSec muM / (muM^2 Ohm cm) * (muM^2 / muF) */
-    sigma = (0.1 / 2.0) * (deltaT / deltaXX) * (radius / axoplasmicR)
-        * (compartmentVec[ll]->area()
-            / compartmentVec[ll]->CompartmentMembraneCapacitance());
-    lVec[ll] = -sigma;
-    dVec[ll] = 2.0 * sigma + 1.0;
-    uVec[ll] = -sigma;
+    sigma_forward = _sigma(compartmentVec[ll], compartmentVec[ll + 1]);
+    auto sigma_backward = _sigma(compartmentVec[ll], compartmentVec[ll-1]);
+    auto sigma = sigma_forward + sigma_backward;
+    lVec[ll] = -sigma_backward;
+    dVec[ll] = sigma + 1.0;
+    uVec[ll] = -sigma_forward;
   }
 
   /* LAST COMPARTMENT */
-  deltaXX = compartmentVec[numCompartments - 1]->length()
-      * compartmentVec[numCompartments - 1]->length();
-  /* sigma is unit-free  (scaled by 0.1)     [sigma] = mSec muM / (muM^2 Ohm cm) * (muM^2 / muF) */
-  sigma =
-      (0.1 / 2.0) * (deltaT / deltaXX) * (radius / axoplasmicR)
-          * (compartmentVec[numCompartments - 1]->area()
-              / compartmentVec[numCompartments - 1]->CompartmentMembraneCapacitance());
-  dVec[numCompartments - 1] = 2.0 * sigma + 1.0;
-  lVec[numCompartments - 1] = -2.0 * sigma;  // vonNeumann boundary conditions
+  auto sigma_backward = _sigma(compartmentVec[numCompartments - 1],
+                               compartmentVec[numCompartments - 2]);
+  dVec[numCompartments - 1] = 2.0 * sigma_backward + 1.0;
+  lVec[numCompartments - 1] = -2.0 * sigma_backward;  // vonNeumann boundary conditions
 
   /* completed initialisation */
   initialised = true;
 
   return (modigliani_base::ReturnEnum::SUCCESS);
+}
+
+modigliani_base::Real Membrane_compartment_sequence::_sigma(
+    const Cylindrical_compartment* from,
+    const Cylindrical_compartment* to) const {
+  modigliani_base::Real deltaT = timeStep();
+  modigliani_base::Real deltaXX = from->length() * to->length();
+  modigliani_base::Real output = (0.1 / 2.0) * (deltaT / deltaXX)
+      * (from->radius() / from->ra())
+      * (from->area() / from->CompartmentMembraneCapacitance());
+
+  return (output);
 }
 
 /**
