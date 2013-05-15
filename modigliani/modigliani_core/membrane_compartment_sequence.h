@@ -46,7 +46,8 @@ class Membrane_compartment_sequence : public Membrane {
 //polymorphic usage of different compartments
 //
     /** Create a Membrane_compartment_sequence */
-    Membrane_compartment_sequence(); Membrane_compartment_sequence(
+    Membrane_compartment_sequence();
+    Membrane_compartment_sequence(
         const Membrane_compartment_sequence & original) = delete;
     const Membrane_compartment_sequence & operator=(
         const Membrane_compartment_sequence & right) = delete;
@@ -64,10 +65,13 @@ class Membrane_compartment_sequence : public Membrane {
       }
       std::cerr << "]" << std::endl;
     }
-    modigliani_base::Real MembraneVoltage(modigliani_base::Size compartmentId /* 1..numCompartments*/) {
+    modigliani_base::Real MembraneVoltage(
+        modigliani_base::Size compartmentId /* 1..numCompartments*/) {
       return (compartmentVec[compartmentId - 1]->vm());
     }
-    modigliani_base::ReturnEnum InjectCurrent(modigliani_base::Real current /* in nA */, modigliani_base::Size compartmentId);
+    modigliani_base::ReturnEnum InjectCurrent(
+        modigliani_base::Real current /* in nA */,
+        modigliani_base::Size compartmentId);
     modigliani_base::Size _numCompartments() const {
       return (numCompartments);
     }
@@ -75,13 +79,17 @@ class Membrane_compartment_sequence : public Membrane {
     /**  */
     modigliani_base::Real CompartmentSequenceChannelStateTimeConstant() const;
     void ShowHinesMatrix();
-    modigliani_base::Real AttachedCurrent(modigliani_base::Size compIndex, modigliani_base::Size currIndex) {
+    modigliani_base::Real AttachedCurrent(modigliani_base::Size compIndex,
+                                          modigliani_base::Size currIndex) {
       M_ASSERT(compIndex > 0);
       return (compartmentVec[compIndex - 1]->Current(currIndex)->current());
     }
-    std::vector<modigliani_base::Real> open_channels(modigliani_base::Size currIndex) const;
-    std::vector<modigliani_base::Real> OpenChannelsRatio(modigliani_base::Size currIndex) const;
-    std::vector<modigliani_base::Real> NumChannels(modigliani_base::Size currIndex) const;
+    std::vector<modigliani_base::Real> open_channels(
+        modigliani_base::Size currIndex) const;
+    std::vector<modigliani_base::Real> OpenChannelsRatio(
+        modigliani_base::Size currIndex) const;
+    std::vector<modigliani_base::Real> NumChannels(
+        modigliani_base::Size currIndex) const;
     std::vector<modigliani_base::Real> _vVec() const;
     Cylindrical_compartment* ReturnCompartmentVec(modigliani_base::Size index);
     /**  */
@@ -91,53 +99,50 @@ class Membrane_compartment_sequence : public Membrane {
     /* ***  Data                 ***/
     std::vector<Cylindrical_compartment*> compartmentVec;
 
-    protected:
+  protected:
     /* ***  Methods              ***/
-    /** CRAP not working */
-    std::vector<modigliani_base::Real> ZadorPearlmutterSolveTriDiag(std::vector<modigliani_base::Real> lNewVec,
-        std::vector<modigliani_base::Real> dNewVec, std::vector<modigliani_base::Real> uNewVec,
-        std::vector<modigliani_base::Real> rNewVec) const;
-    /** CRAP not working */
-    std::vector<modigliani_base::Real> MascagniSolveTriDiag(std::vector<modigliani_base::Real> lNewVec,
-        std::vector<modigliani_base::Real> dNewVec, std::vector<modigliani_base::Real> uNewVec,
-        std::vector<modigliani_base::Real> rNewVec) const;
     /** WORKING ! */
-    std::vector<modigliani_base::Real> NumericalRecipesSolveTriDiag(const std::vector<modigliani_base::Real> & l,
-        const std::vector<modigliani_base::Real> & d, const std::vector<modigliani_base::Real> & u,
+    std::vector<modigliani_base::Real> NumericalRecipesSolveTriDiag(
+        const std::vector<modigliani_base::Real> & l,
+        const std::vector<modigliani_base::Real> & d,
+        const std::vector<modigliani_base::Real> & u,
         const std::vector<modigliani_base::Real> & r) const;
     /* ***  Data                 ***/
 
-    private:
+  private:
     /* ***  Methods              ***/
-    modigliani_base::Real _OpenChannelsRatio(const
-        Membrane_current* in_current) const {
-      return(0);
+    modigliani_base::Real _OpenChannelsRatio(
+        const Membrane_current* in_current) const {
+      return (0);
     }
 
-    modigliani_base::Real _OpenChannelsRatio(const
-        Voltage_gated_ion_channel_current* in_current) const {
-      return(in_current->OpenChannelsRatio());
+    modigliani_base::Real _OpenChannelsRatio(
+        const Voltage_gated_ion_channel_current* in_current) const {
+      return (in_current->OpenChannelsRatio());
     }
 
-    modigliani_base::Real _open_channels(const
-        Membrane_current* in_current) const {
-      return(0);
+    modigliani_base::Real _open_channels(
+        const Membrane_current* in_current) const {
+      return (0);
     }
 
-    modigliani_base::Real _open_channels(const
-        Voltage_gated_ion_channel_current* in_current) const {
-      return(in_current->open_channels());
+    modigliani_base::Real _open_channels(
+        const Voltage_gated_ion_channel_current* in_current) const {
+      return (in_current->open_channels());
     }
 
-    modigliani_base::Real _NumChannels(const
-        Membrane_current* in_current) const {
-      return(0);
+    modigliani_base::Real _NumChannels(
+        const Membrane_current* in_current) const {
+      return (0);
     }
 
-    modigliani_base::Real _NumChannels(const
-        Voltage_gated_ion_channel_current* in_current) const {
-      return(in_current->num_channels());
+    modigliani_base::Real _NumChannels(
+        const Voltage_gated_ion_channel_current* in_current) const {
+      return (in_current->num_channels());
     }
+
+    modigliani_base::Real _sigma(const Cylindrical_compartment* from,
+                                 const Cylindrical_compartment* to) const;
 
     /* ***  Data                 ***/
     std::vector<modigliani_base::Real> lVec;
@@ -150,6 +155,7 @@ class Membrane_compartment_sequence : public Membrane {
     modigliani_base::Size numCompartments;
     bool initialised;
     bool swCrankNicholson;
-  };}
+};
+}
 #endif /* _ntbp_membrane_compartment_sequence.h_ */ 
 
