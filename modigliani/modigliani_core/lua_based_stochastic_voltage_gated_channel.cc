@@ -67,7 +67,12 @@ void Lua_based_stochastic_voltage_gated_channel::load_file(string fileName,
 
   // Add the folder of the lua to the LUA_PATH
   boost::filesystem::path lua_path(fileName);
-  SetLuaPath(L, lua_path.parent_path().string());
+  auto lua_path_parent = lua_path.parent_path();
+  auto lua_path_common = lua_path.parent_path();
+  lua_path_parent /= "?.lua";
+  lua_path_common /= "common/?.lua";
+  SetLuaPath(L, lua_path_common.string());
+  SetLuaPath(L, lua_path_parent.string());
 
   int status = luaL_dofile(L, fileName.c_str());
   if (status) {
