@@ -212,13 +212,14 @@ modigliani_base::Real Lua_based_deterministic_voltage_gated_channel::num_channel
 
 inline modigliani_base::Real Lua_based_deterministic_voltage_gated_channel::ComputeConductance() {
   lua_getglobal(L, "compute_conductance");
-
   /* call the function with 0
    argument, return 1 result */
   lua_call(L, 0, 1);
   modigliani_base::Real conduc = lua_tonumber(L, -1);
   lua_pop(L, 1);
+
   M_ASSERT(conduc == conduc);
+  M_ASSERT(conduc < 10);
   return (set_conductance(
       conduc * max_conductivity() * area() /* muMeter^2 */* 1.0e-8));
 }
