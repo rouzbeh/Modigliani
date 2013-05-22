@@ -52,6 +52,14 @@ Lua_based_deterministic_voltage_gated_channel::Lua_based_deterministic_voltage_g
   /* call the function with 1
    argument, return 0 result */
   lua_call(L, 1, 0);
+
+  // Set temperature
+  lua_getglobal(L, "set_temp");
+  /* the first argument */
+  lua_pushnumber(L, newTemperature);
+  /* call the function with 1
+   argument, return 0 result */
+  lua_call(L, 1, 0);
 }
 
 /* ***      COPY AND ASSIGNMENT	***/
@@ -88,7 +96,14 @@ Lua_based_deterministic_voltage_gated_channel::Lua_based_deterministic_voltage_g
   lua_getglobal(L, "set_timestep");
   /* the first argument */
   lua_pushnumber(L, timeStep());
+  /* call the function with 1
+   argument, return 0 result */
+  lua_call(L, 1, 0);
 
+  // Set temperature
+  lua_getglobal(L, "set_temp");
+  /* the first argument */
+  lua_pushnumber(L, original.temperature());
   /* call the function with 1
    argument, return 0 result */
   lua_call(L, 1, 0);
@@ -125,6 +140,14 @@ Lua_based_deterministic_voltage_gated_channel::operator=(
   /* the first argument */
   lua_pushnumber(L, timeStep());
 
+  /* call the function with 1
+   argument, return 0 result */
+  lua_call(L, 1, 0);
+
+  // Set temperature
+  lua_getglobal(L, "set_temp");
+  /* the first argument */
+  lua_pushnumber(L, right.temperature());
   /* call the function with 1
    argument, return 0 result */
   lua_call(L, 1, 0);
