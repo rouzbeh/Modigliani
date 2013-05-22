@@ -70,7 +70,8 @@ void Lua_based_stochastic_voltage_gated_channel::load_file(string fileName,
   auto lua_path_parent = lua_path.parent_path();
   auto lua_path_common = lua_path.parent_path();
   lua_path_parent /= "?.lua";
-  lua_path_common /= "common/?.lua";
+  lua_path_common /= "common";
+  lua_path_common /= "?.lua";
   SetLuaPath(L, lua_path_common.string());
   SetLuaPath(L, lua_path_parent.string());
 

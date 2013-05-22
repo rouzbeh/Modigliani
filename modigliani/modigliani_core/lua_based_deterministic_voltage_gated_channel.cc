@@ -26,6 +26,15 @@ Lua_based_deterministic_voltage_gated_channel::Lua_based_deterministic_voltage_g
   set_temperature(newTemperature);
   L = luaL_newstate();
   luaL_openlibs(L);
+
+  boost::filesystem::path lua_path(lua_script);
+  auto lua_path_parent = lua_path.parent_path();
+  auto lua_path_common = lua_path.parent_path();
+  lua_path_parent /= "?.lua";
+  lua_path_common /= "common";
+  lua_path_common /= "?.lua";
+  SetLuaPath(L, lua_path_common.string());
+  SetLuaPath(L, lua_path_parent.string());
   int status = luaL_dofile(L, lua_script.c_str());
   if (status) {
     /* If something went wrong, error message is at the top of */
@@ -58,6 +67,14 @@ Lua_based_deterministic_voltage_gated_channel::Lua_based_deterministic_voltage_g
   lua_script = original.lua_script;
   L = luaL_newstate();
   luaL_openlibs(L);
+  boost::filesystem::path lua_path(original.lua_script);
+  auto lua_path_parent = lua_path.parent_path();
+  auto lua_path_common = lua_path.parent_path();
+  lua_path_parent /= "?.lua";
+  lua_path_common /= "common";
+  lua_path_common /= "?.lua";
+  SetLuaPath(L, lua_path_common.string());
+  SetLuaPath(L, lua_path_parent.string());
   int status = luaL_dofile(L, lua_script.c_str());
   if (status) {
     /* If something went wrong, error message is at the top of */
@@ -86,6 +103,14 @@ Lua_based_deterministic_voltage_gated_channel::operator=(
   lua_script = right.lua_script;
   L = luaL_newstate();
   luaL_openlibs(L);
+  boost::filesystem::path lua_path(lua_script);
+  auto lua_path_parent = lua_path.parent_path();
+  auto lua_path_common = lua_path.parent_path();
+  lua_path_parent /= "?.lua";
+  lua_path_common /= "common";
+  lua_path_common /= "?.lua";
+  SetLuaPath(L, lua_path_common.string());
+  SetLuaPath(L, lua_path_parent.string());
   int status = luaL_dofile(L, lua_script.c_str());
   if (status) {
     /* If something went wrong, error message is at the top of */
