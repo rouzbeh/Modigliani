@@ -101,7 +101,6 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::step() {
                                                                          uVec,
                                                                          rVec);
   /* set new voltage */
-
   for (ll = 0; ll < numCompartments; ll++) {
     compartmentVec[ll]->Step(vVec[ll]);  // Step also advances the voltage -> ignore by using vVec
   }
@@ -262,11 +261,11 @@ std::vector<modigliani_base::Real> Membrane_compartment_sequence::NumericalRecip
   modigliani_base::Real bet;
   std::vector<modigliani_base::Real> gam(n);
 
-  // a is l
-  // b is d
-  // c is u
-  // u is v
-  // r is r
+// a is l
+// b is d
+// c is u
+// u is v
+// r is r
 
   vNewVec[0] = rNewVec[0] / (bet = dNewVec[0]);
   modigliani_base::Size j = 0;
