@@ -52,11 +52,11 @@ int Simulate(boost::program_options::variables_map vm) {
     std::cerr << "Failed to parse configuration\n" << e.what();
     exit(1);
   }
+
   string timedOutputFolder;
   // What compartments to save
   auto electrods_vec = modigliani_core::get_electrods(config_root);
   // We write each compartment's potential and currents into a single file.
-
   ofstream TimeFile, LengthPerCompartmentFile, TypePerCompartmentFile, log_file;
 
   if (config_root.get<Size>("simulation_parameters.sampN") > 0) {
@@ -127,7 +127,7 @@ int Simulate(boost::program_options::variables_map vm) {
   }
 
   bool show_bar = false;
-  if (vm.count("progress-bar")) {
+  if (vm.count("progressbar")) {
     show_bar = true;
   }
 
@@ -165,11 +165,8 @@ int Simulate(boost::program_options::variables_map vm) {
   }
 
   auto output_files = vector<string>(0);
-  boost::progress_display* show_progress;
-  if (show_bar)
-    show_progress = new boost::progress_display(
-        config_root.get<Size>("simulation_parameters.numIter") * num_trials
-            / 100);
+  boost::progress_display* show_progress = 0;
+
   /* *** Trials loop *** */
   for (modigliani_base::Size lTrials = 0; lTrials < num_trials; lTrials++) {
     modigliani_base::Real inp_current = 0;
@@ -212,6 +209,12 @@ int Simulate(boost::program_options::variables_map vm) {
 #endif
 
     std::cerr << "MainLoop started" << std::endl;
+
+    if (show_bar && show_progress == 0)
+      show_progress = new boost::progress_display(
+          config_root.get<Size>("simulation_parameters.numIter") * num_trials
+              / 100);
+
     modigliani_base::Real timeInMS = 0;
     int dataRead = 0;
     for (modigliani_base::Size lt = 0;
@@ -326,7 +329,9 @@ int Simulate(boost::program_options::variables_map vm) {
       if (show_bar && lt % 100 == 0) show_progress->operator ++();
     }
 #ifdef WITH_PLPLOT
-    if (pls) delete pls;
+    if (pls) {
+      delete pls;
+    }
 #endif
     delete oModel;
   }  // lTrials
@@ -343,18 +348,19 @@ int main(int argc, char* argv[]) {
   namespace po = boost::program_options;
 // Declare the supported options.
   po::options_description desc("Allowed options");
-  desc.add_options()
-      ("help,h", "produce help message")
-      ("config-file", po::value<string>(), "which configuration file to use")
-      ("algorithm,a", po::value<int>(), "set algorithm")
-      ("trials,t", po::value<Size>(), "set number of trials")
-      ("verbose,v", "activate debug messages")("input-file,i", po::value<string>(),
-          "set input file")
-      ("progress-bar,b", po::value<bool>(), "Show a progress bar")
+  desc.add_options()("help,h", "produce help message")(
+      "config-file", po::value<string>(), "which configuration file to use")(
+      "algorithm,a", po::value<int>(), "set algorithm")("trials,t",
+                                                        po::value<Size>(),
+                                                        "set number of trials")(
+      "verbose,v", "activate debug messages")("input-file,i",
+                                              po::value<string>(),
+                                              "set input file")(
+      "progressbar,b", "Show a progress bar")
 #ifdef WITH_PLPLOT
-      ("plot,p", po::value<Size>(), "plot every <arg> step.")
+  ("plot,p", po::value<Size>(), "plot every <arg> step.")
 #endif
-  ;
+   ;
 
   if (argc < 2) {
     cout << desc << "\n";
