@@ -201,7 +201,7 @@ int Simulate(boost::program_options::variables_map vm) {
     if (plot > 0) {
       pls = new plstream();
       // Initialize plplot.
-      pls->sdev("wxwidgets");
+      // pls->sdev("qt");
       pls->scolbg(255, 255, 255);
       pls->scol0(1, 0, 0, 0);
       pls->init();
