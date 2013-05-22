@@ -125,12 +125,6 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::Init() {
   dVec.resize(numCompartments);
   rVec.resize(numCompartments);
 
-  //modigliani_base::Real sigma = 0;
-  //modigliani_base::Real radius = compartmentVec[0]->radius();  // should be constant with present solution method
-  //modigliani_base::Real axoplasmicR = compartmentVec[0]->ra();  // (specific!) should be constant with present solution method
-  //modigliani_base::Real deltaT = timeStep();
-  //modigliani_base::Real deltaXX = 0;
-
   compartmentVec[0]->set_vm(-65);
   modigliani_base::Size ll = 1;
   for (ll = 1; ll < numCompartments; ll++) {
@@ -143,24 +137,23 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::Init() {
 
   /* initialisation of left band l and right band u "std::vectors" */
   /* FIRST COMPARTMENT */
-  auto sigma_forward = _sigma(compartmentVec[0], compartmentVec[1]);
+  auto sigma_forward = _sigma(compartmentVec[1], compartmentVec[0]);
 
   uVec[0] = -2.0 * sigma_forward;  // vonNeumann boundary conditions
   dVec[0] = 2.0 * sigma_forward + 1.0;
 
   /* INTERMEDIATE COMPARTMENTS */
   for (ll = 1; ll < numCompartments - 1; ll++) {
-    sigma_forward = _sigma(compartmentVec[ll], compartmentVec[ll + 1]);
-    auto sigma_backward = _sigma(compartmentVec[ll], compartmentVec[ll-1]);
-    auto sigma = sigma_forward + sigma_backward;
+    sigma_forward = _sigma(compartmentVec[ll + 1], compartmentVec[ll]);
+    auto sigma_backward = _sigma(compartmentVec[ll - 1], compartmentVec[ll]);
     lVec[ll] = -sigma_backward;
-    dVec[ll] = sigma + 1.0;
+    dVec[ll] = sigma_forward + sigma_backward + 1.0;
     uVec[ll] = -sigma_forward;
   }
 
   /* LAST COMPARTMENT */
-  auto sigma_backward = _sigma(compartmentVec[numCompartments - 1],
-                               compartmentVec[numCompartments - 2]);
+  auto sigma_backward = _sigma(compartmentVec[numCompartments - 2],
+                               compartmentVec[numCompartments - 1]);
   dVec[numCompartments - 1] = 2.0 * sigma_backward + 1.0;
   lVec[numCompartments - 1] = -2.0 * sigma_backward;  // vonNeumann boundary conditions
 
@@ -174,11 +167,12 @@ modigliani_base::Real Membrane_compartment_sequence::_sigma(
     const Cylindrical_compartment* from,
     const Cylindrical_compartment* to) const {
   modigliani_base::Real deltaT = timeStep();
-  modigliani_base::Real deltaXX = from->length() * to->length();
-  modigliani_base::Real output = (0.1 / 2.0) * (deltaT / deltaXX)
-      * (from->radius() / from->ra())
-      * (from->area() / from->CompartmentMembraneCapacitance());
-
+  // sigma is unit-free  (scaled by 0.1) [sigma] = mSec muM / (muM^2 Ohm cm) * (muM^2 / muF)
+  modigliani_base::Real output = 0.1
+      * (deltaT / to->CompartmentMembraneCapacitance())
+      / (to->ra()
+          * ((2 * to->length() / (4 * 3.1415 * pow(to->radius(), 2)))
+              + (2 * from->length() / (4 * 3.1415 * pow(from->radius(), 2)))));
   return (output);
 }
 
