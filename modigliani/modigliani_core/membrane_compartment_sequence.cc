@@ -93,7 +93,7 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::step() {
     * (timeStep() / compartmentVec[ll]->CompartmentMembraneCapacitance())
         * (compartmentVec[ll]->CompartmentMembraneNetCurrent());
     rVec[ll] = compartmentVec[ll]->vm() + omega;  // compute RHS of finite difference equation
-    // TODO it appears to be correct, but why is omega ADDED and not subtracted ?
+    // OMEGA is substracted because the currents are of the opposite sign to Aldo's PhD thesis
   }
 
   std::vector<modigliani_base::Real> vVec = NumericalRecipesSolveTriDiag(lVec,
