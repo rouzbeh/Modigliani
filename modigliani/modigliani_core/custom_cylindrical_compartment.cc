@@ -96,8 +96,8 @@ modigliani_base::ReturnEnum Custom_cylindrical_compartment::Step(
           / 96485.3415;
       custom_current_vec_[it].inside_concentration -= ions_picomoles * 1000000
           / volume_;
-      //custom_current_vec_[it].outside_concentration += ions_picomoles * 1000000
-      //    / (volume_ / 2);
+      custom_current_vec_[it].outside_concentration += ions_picomoles * 1000000
+          / (volume_ * 7);
       // TODO(Ali): What to do with outside concentration?
       custom_current_vec_[it].reversal_potential = 26.64
           * log(
