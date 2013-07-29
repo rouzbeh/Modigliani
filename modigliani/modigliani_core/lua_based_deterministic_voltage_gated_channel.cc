@@ -218,8 +218,12 @@ inline modigliani_base::Real Lua_based_deterministic_voltage_gated_channel::Comp
   modigliani_base::Real conduc = lua_tonumber(L, -1);
   lua_pop(L, 1);
 
-  M_ASSERT(conduc == conduc);
-  M_ASSERT(conduc < 10);
+  if(conduc != conduc){
+    cerr << "Lua_based_deterministic_voltage_gated_channel : conduc != conduc !" << endl;
+    cerr << "Voltage was " << voltage_ << endl;
+    M_ASSERT(conduc == conduc);
+  }
+
   return (set_conductance(
       conduc * max_conductivity() * area() /* muMeter^2 */* 1.0e-8));
 }
