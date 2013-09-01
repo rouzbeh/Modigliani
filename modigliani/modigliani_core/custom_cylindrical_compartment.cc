@@ -36,9 +36,10 @@ Custom_cylindrical_compartment::Custom_cylindrical_compartment(
     const modigliani_base::Real newLength,
     const modigliani_base::Real newDiameter, const modigliani_base::Real newCm,
     const modigliani_base::Real newRa,
-    const modigliani_base::Real newTemperature)
+    const modigliani_base::Real newTemperature,
+    const modigliani_base::Real voutvinratio)
     : Cylindrical_compartment(newLength, newDiameter, newCm, newRa,
-                              newTemperature) {
+                              newTemperature),volumeratio(voutvinratio) {
   custom_current_vec_ = std::vector<custom_current>(0);
 }
 
@@ -97,7 +98,7 @@ modigliani_base::ReturnEnum Custom_cylindrical_compartment::Step(
       custom_current_vec_[it].inside_concentration -= ions_picomoles * 1000000
           / volume_;
       custom_current_vec_[it].outside_concentration += ions_picomoles * 1000000
-          / (volume_ * 7);
+          / (volume_ * volumeratio);
       // TODO(Ali): What to do with outside concentration?
       custom_current_vec_[it].reversal_potential = 26.64
           * log(

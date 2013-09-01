@@ -54,7 +54,8 @@ class Custom_cylindrical_compartment : public Cylindrical_compartment {
         const modigliani_base::Real diameter /* muMeter */,
         const modigliani_base::Real cM /* muFarad/cm^2 */,
         const modigliani_base::Real rA /* ohm cm */,
-        const modigliani_base::Real newTemperature);
+        const modigliani_base::Real newTemperature,
+        const modigliani_base::Real vouvinratio = 8); //Ng, L.J. (2013). Computer Modeling of Mild Axonal Injury. Neural Comput.
 
     Custom_cylindrical_compartment(
         const Custom_cylindrical_compartment & original) = delete;
@@ -112,6 +113,7 @@ class Custom_cylindrical_compartment : public Cylindrical_compartment {
     /* ***  Data                 ***/
   protected:
     std::vector<custom_current> custom_current_vec_;
+    const modigliani_base::Real volumeratio;
 };
 
 }
