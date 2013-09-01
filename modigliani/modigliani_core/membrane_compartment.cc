@@ -36,7 +36,7 @@ Membrane_compartment::Membrane_compartment(
 //  compartment_membrane_capacitance_ = 0;
   vm_ = 0;
   i_inj_ = 0;
-  temperature_ = newTemperature;
+  set_temperature(newTemperature);
   current_vec_ = std::vector<Membrane_current *>(0);
   output_file = 0;
 }
