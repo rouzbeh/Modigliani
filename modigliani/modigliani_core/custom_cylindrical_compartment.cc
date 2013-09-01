@@ -54,7 +54,7 @@ modigliani_base::ReturnEnum Custom_cylindrical_compartment::AttachCurrentWithCon
 
   currentPtr->set_voltage(vm());
   currentPtr->setTimeStep(timeStep());
-  currentPtr->set_temperature(temperature_);
+  currentPtr->set_temperature(temperature());
 
   custom_current new_current;
   new_current.current_ptr = currentPtr;
@@ -71,7 +71,7 @@ modigliani_base::ReturnEnum Custom_cylindrical_compartment::AttachCurrent(
     Membrane_current * currentPtr, NTBPcurrentType type) {
   currentPtr->set_voltage(vm());
   currentPtr->setTimeStep(timeStep());
-  currentPtr->set_temperature(temperature_);
+  currentPtr->set_temperature(temperature());
 
   custom_current new_current;
   new_current.current_ptr = currentPtr;
@@ -100,7 +100,7 @@ modigliani_base::ReturnEnum Custom_cylindrical_compartment::Step(
       custom_current_vec_[it].outside_concentration += ions_picomoles * 1000000
           / (volume_ * volumeratio);
       // TODO(Ali): What to do with outside concentration?
-      custom_current_vec_[it].reversal_potential = 26.64
+      custom_current_vec_[it].reversal_potential = nernst_multiplier
           * log(
               custom_current_vec_[it].outside_concentration
                   / custom_current_vec_[it].inside_concentration);
@@ -164,7 +164,7 @@ void Custom_cylindrical_compartment::SetInsideConcentration(
   M_ASSERT((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
   custom_current_vec_[currentIndex - 1].inside_concentration =
       new_concentration;
-  custom_current_vec_[currentIndex - 1].reversal_potential = 26.64
+  custom_current_vec_[currentIndex - 1].reversal_potential = nernst_multiplier
       * log(
           custom_current_vec_[currentIndex - 1].outside_concentration
               / custom_current_vec_[currentIndex - 1].inside_concentration);
@@ -177,7 +177,7 @@ void Custom_cylindrical_compartment::SetOutsideConcentration(
   M_ASSERT((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
   custom_current_vec_[currentIndex - 1].outside_concentration =
       new_concentration;
-  custom_current_vec_[currentIndex - 1].reversal_potential = 26.64
+  custom_current_vec_[currentIndex - 1].reversal_potential = nernst_multiplier
       * log(
           custom_current_vec_[currentIndex - 1].outside_concentration
               / custom_current_vec_[currentIndex - 1].inside_concentration);
