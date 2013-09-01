@@ -33,5 +33,8 @@ const Real ZERO_KELVIN = Real(-273.15) /* [C] */;
 const Real kBoltzmann = Real(1.380658*10e-23);  // [J K^-1]
 const Real PLANCK = Real(6.6260755*10e-34) /* [J s], Planck's constant (h) */;
 const Real kProtonCharge = Real(1.60217733*10e-19);  // [C]
+
+const Real R = 8.3144621;
+const Real F = 96485.3415;
 }
 #endif  // MODIGLIANI_MODIGLIANI_BASE_PHYSICAL_CONSTANTS_H_

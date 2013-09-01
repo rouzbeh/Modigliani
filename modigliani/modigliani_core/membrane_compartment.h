@@ -127,7 +127,7 @@ class Membrane_compartment : public Object {
     }
 
     /* Set temperature [Celsius] in compartment and for all currents within compartment (affects future attached ones also) */
-    modigliani_base::ReturnEnum set_temperature(
+    virtual modigliani_base::ReturnEnum set_temperature(
         modigliani_base::Real newTemp /* in Celsius */) {
       temperature_ = newTemp;
       for (modigliani_base::Size i = 0; i < current_vec_.size(); i++)
