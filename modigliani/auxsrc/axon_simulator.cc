@@ -311,12 +311,12 @@ int Simulate(boost::program_options::variables_map vm) {
       oModel->InjectCurrent(inp_current, 1);
 
       if (change_potentials) {
-        for (modigliani_base::Size lc = 1; lc < numCompartments; lc++) {
+        for (modigliani_base::Size lc = 0; lc < numCompartments; lc++) {
           // Get value from lua
           lua_getglobal(L_change_potential, "change_in_potential");
           lua_pushnumber(L_change_potential, timeInMS);
           lua_pushnumber(L_change_potential, lc);
-          lua_call(L_change_potential, 1, 1);
+          lua_call(L_change_potential, 2, 1);
           auto change_in_potential = lua_tonumber(L_change_potential, -1);
           lua_pop(L_change_potential, 1);
           oModel->compartmentVec[lc]->set_vm(
