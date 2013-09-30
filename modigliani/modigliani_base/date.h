@@ -25,13 +25,14 @@
 #ifndef MODIGLIANI_MODIGLIANI_BASE_DATE_H_
 #define MODIGLIANI_MODIGLIANI_BASE_DATE_H_
 
-#include <ostream>
-#include <ctime>
-#include <stdio.h>
 
-#include "main.h"
-#include "types.h"
-#include "obj.h"
+#include <stdio.h>
+#include <ctime>
+// #include <ostream>
+
+#include "modigliani_base/main.h"
+#include "modigliani_base/types.h"
+#include "modigliani_base/obj.h"
 
 namespace modigliani_base {
 /**
@@ -93,6 +94,6 @@ class Date : public Obj {
 
     friend std::ostream & operator<<(std::ostream & os, const Date & self);
 };
-}
+}  // namespace modigliani_base
 #endif  // MODIGLIANI_MODIGLIANI_BASE_DATE_H_
 
