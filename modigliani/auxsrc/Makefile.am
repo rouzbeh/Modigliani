@@ -1,9 +1,4 @@
-bin_PROGRAMS = show_binary_file make_nt_class_files \
-compute_derivative_from_column \
-find_spikes_in_binary_file \
-make_histogram_from_txt_file \
-test_ring_buffer \
-find_spikewords_in_binary_file \
+bin_PROGRAMS = show_binary_file \
 generate_white_noise \
 axon_simulator \
 resting_potential \
@@ -30,19 +25,6 @@ endif
 LDADD = $(MAYBE_GSL) -lm
 
 show_binary_file_SOURCES = show_binary_file.cc
-
-make_nt_class_files_SOURCES = make_nt_class_files.cc
-
-compute_derivative_from_column_SOURCES = compute_derivative_from_column.cc
-
-find_spikes_in_binary_file_SOURCES = find_spikes_in_binary_file.cc
-
-find_spikewords_in_binary_file_SOURCES = find_spikewords_in_binary_file.cc
-
-make_histogram_from_txt_file_SOURCES = make_histogram_from_txt_file.cc
-
-test_ring_buffer_SOURCES = test_ring_buffer.cc
-test_ring_buffer_LDADD = $(top_builddir)/modigliani/modigliani_base/libmodigliani_base.a
 
 generate_white_noise_SOURCES = generate_white_noise.cc
 generate_white_noise_LDADD = $(top_builddir)/modigliani/modigliani_base/libmodigliani_base.a

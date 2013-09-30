@@ -4,7 +4,7 @@
  *        given in a json file.
  * \version  2.0
  * \author Copyright (C) 1998,1999,2000,2001 Ahmed Aldo Faisal
- * \author Copyright (C) 2010, 2011 Mohammad Ali Neishabouri
+ * \author Copyright (C) 2010, 2011, 2012, 2013 Mohammad Ali Neishabouri
  *
  * @section LICENSE
  * This library is free software; you can redistribute it and/or
@@ -22,19 +22,21 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
+#include <modigliani_core/aux_func.h>
+#include <modigliani_base/aux_math_func.h>
+
+#include <boost/program_options.hpp>
+#include <boost/progress.hpp>
+#include <boost/timer.hpp>
+#include <boost/property_tree/exceptions.hpp>
+
 #ifdef WITH_PLPLOT
 #include <plplot/plplot.h>
 #include <plplot/plstream.h>
 #endif
-#include <sstream>
 
-#include <modigliani_core/aux_func.h>
-#include <modigliani_base/aux_math_func.h>
-#include <boost/program_options.hpp>
-#include <boost/progress.hpp>
-#include <boost/timer.hpp>
 #include <vector>
-#include <boost/property_tree/exceptions.hpp>
+#include <sstream>
 
 /**
  * \brief Runs a simulation using parameters in the given json file.
@@ -48,7 +50,7 @@ int Simulate(boost::program_options::variables_map vm) {
   boost::property_tree::ptree config_root;
   try {
     read_json(vm["config-file"].as<string>(), config_root);
-  } catch (exception &e) {
+  } catch(const exception &e) {
     // report to the user the failure and their locations in the document.
     std::cerr << "Failed to parse configuration\n" << e.what();
     exit(1);
@@ -145,7 +147,7 @@ int Simulate(boost::program_options::variables_map vm) {
   Size num_trials = 1;
   try {
     num_trials = config_root.get<Size>("simulation_parameters.numTrials");
-  } catch (boost::property_tree::ptree_bad_path& e) {
+  } catch(const boost::property_tree::ptree_bad_path& e) {
     std::cout << "Warning : numTrials not found in simulation parameters."
               << std::endl;
   }
@@ -159,8 +161,8 @@ int Simulate(boost::program_options::variables_map vm) {
     luaL_openlibs(L_change_potential);
     luaL_dostring(L_change_potential, lua_change_potential_script.c_str());
     change_potentials = true;
-  } catch (boost::property_tree::ptree_bad_path& e) {
-    //No need to change potentials
+  } catch(const boost::property_tree::ptree_bad_path& e) {
+    // No need to change potentials
     change_potentials = false;
     lua_close(L_change_potential);
   }
@@ -361,7 +363,7 @@ int main(int argc, char* argv[]) {
 #ifdef WITH_PLPLOT
   ("plot,p", po::value<Size>(), "plot every <arg> step.")
 #endif
-   ;
+  ;
 
   if (argc < 2) {
     cout << desc << "\n";
