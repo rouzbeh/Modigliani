@@ -5,7 +5,8 @@
  *
  * This program reads an axon configuration from a json file.
  * \version  2.0
- * \author Copyright (C) 2011, 2012, 2013 Mohammad Ali Neishabouri
+ * \author Mohammad Ali Neishabouri
+ * Copyright (C) 2011, 2012, 2013 Mohammad Ali Neishabouri
  *
  * \section LICENSE
  * This library is free software; you can redistribute it and/or
@@ -68,7 +69,7 @@ int main(int argc, char* argv[]) {
   boost::property_tree::ptree config_root;
   try {
     read_json(vm["config-file"].as<string>(), config_root);
-  } catch (exception &e) {
+  } catch(const exception &e) {
     // report to the user the failure and their locations in the document.
     std::cerr << "Failed to parse configuration\n" << e.what();
     exit(1);
@@ -81,7 +82,8 @@ int main(int argc, char* argv[]) {
   // We need to remove possible attached leak currents from this
   std::vector<boost::property_tree::ptree> compartments_parameters(0);
 
-  BOOST_FOREACH(boost::property_tree::ptree::value_type const &v, config_root.get_child(
+  BOOST_FOREACH(boost::property_tree::ptree::value_type
+                const &v, config_root.get_child(
           "compartments_parameters")) {
     compartments_parameters.push_back(v.second);
   }
@@ -99,8 +101,9 @@ int main(int argc, char* argv[]) {
     }
   }
 
-  // Has to be big enough so that we definitely have channels in this compartment.
-  // TODO : Calculate it !
+  // Has to be big enough so that we definitely have
+  // channels in this compartment.
+  // TODO(Ali) Calculate it !
   compartment_parameters.put("length", 500);
 
   config_root.put("simulation_parameters.randomise_densities", "false");
