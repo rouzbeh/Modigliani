@@ -3,7 +3,7 @@
  * General classes (!) for error handling
  * @author Ahmed A. Faisal, 22. 5. 1998(c)
  * NetTrader - finance management, analysis and simulation system
- * @version  0.1
+ * @version  0.2
  * Copyright (C) 1998 Ahmed Aldo Faisal
  *
  * @section LICENSE
@@ -22,14 +22,13 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ifndef _modigliani_base_error_h_
-#define _modigliani_base_error_h_
+#ifndef MODIGLIANI_MODIGLIANI_BASE_ERROR_H_
+#define MODIGLIANI_MODIGLIANI_BASE_ERROR_H_
 
-#include <iostream>
 #include <cstdlib>
 
-#include "types.h"
-#include "obj.h"
+#include "modigliani_base/types.h"
+#include "modigliani_base/obj.h"
 
 #ifdef DEBUG
 #define DEBUG_TEST 1
@@ -42,86 +41,69 @@
 
 namespace modigliani_base {
 /**
- *  superclass to report an error
- *
+ *  @brief superclass to report an error
  */
-
-class Error: public Obj {
-public:
-    Error(const char* f, int l, const char* expr = 0, const char* msg = 0);
+  class Error:public Obj {
+  public:
+    Error(const char *f, int l, const char *expr = 0, const char *msg = 0);
     void abort();
-    virtual void message(std::ostream&) const;
+    virtual void message(std::ostream &) const;
 
-private:
-    const char* _file;
+  private:
+    const char *_file;
     int _line;
-    const char* _expr;
-    const char* _msg;
-};
+    const char *_expr;
+    const char *_msg;
+  };
 
-/*-------------------------------------------------------------------------*/
-
-/** Class to report an integer bound error
+/** @brief Class to report an integer bound error
  */
-class Bounds_error: public Error {
-public:
-    Bounds_error(const char* f, int l, int i, int lo, int hi);
-    virtual void message(std::ostream&) const;
-private:
+  class Bounds_error:public Error {
+  public:
+    Bounds_error(const char *f, int l, int i, int lo, int hi);
+    virtual void message(std::ostream &) const;
+  private:
     int _actual;
     int _low;
     int _high;
-};
+  };
 
-/** Class to report an dimension mismatch error */
-class Dimension_error: public Error {
-public:
-    Dimension_error(const char* f, int l, int left, int right);
-    virtual void message(std::ostream&) const;
-private:
+/** @brief Class to report an dimension mismatch error */
+  class Dimension_error:public Error {
+  public:
+    Dimension_error(const char *f, int l, int left, int right);
+    virtual void message(std::ostream &) const;
+  private:
     int _left;
     int _right;
-};
+  };
 
-/*-------------------------------------------------------------------------*/
+/** @brief Class to report a precondition failure */
+  class Precond_error:public Error  {
+  public:
+    Precond_error(const char *f, int l, const char *expr);
+  };
 
-class Precond_error: public Error
-/** Class to report a precondition failure */
-{
-public:
-    Precond_error(const char* f, int l, const char* expr);
-};
-
-/*-------------------------------------------------------------------------*/
-
-class Postcond_error: public Error
-/** Class to report a postondition failure
+/** @brief Class to report a postondition failure
  */
-{
-public:
-    Postcond_error(const char* f, int l, const char* expr);
-};
+  class Postcond_error:public Error  {
+  public:
+    Postcond_error(const char *f, int l, const char *expr);
+  };
 
-/*-------------------------------------------------------------------------*/
-
-class Invariant_error: public Error
 /** Class to report an invariant failure
  */
+  class Invariant_error:public Error  {
+  public:
+    Invariant_error(const char *f, int l, const char *expr);
+  };
 
-{
-public:
-    Invariant_error(const char* f, int l, const char* expr);
-};
-
-/*-------------------------------------------------------------------------*/
-
-class Mem_error: public Error
 /** Class to report memory exhaustion
  */
-{
-public:
-    Mem_error(const char* f, int l, const char* expr);
-};
+  class Mem_error:public Error  {
+  public:
+    Mem_error(const char *f, int l, const char *expr);
+  };
 
 #ifdef M_THROW_ERRORS
 #define M_THROW(E) (throw E)
@@ -137,7 +119,7 @@ public:
 #define M_ASSERT_BOUNDS(I, L, H) (checkBounds(__FILE__, __LINE__, I, L, H))
 #define M_ASSERT_DIM(L, R) (checkDimension(__FILE__, __LINE__, L, R))
 
-extern void checkBounds(const char* f, int l, int i, int lo, int hi);
-extern void checkDimension(const char* f, int l, int leftDim, int rightDim);
-}
-#endif /* _M_ERROR_OBJ_H_ */
+  extern void CheckBounds(const char *f, int l, int i, int lo, int hi);
+  extern void CheckDimension(const char *f, int l, int leftDim, int rightDim);
+}  // namespace modigliani_base
+#endif  // MODIGLIANI_MODIGLIANI_BASE_ERROR_H_
