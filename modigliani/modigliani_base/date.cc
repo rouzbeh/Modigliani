@@ -1,5 +1,5 @@
 /**
- * @fileDate.cc
+ * @file date.cc
  * Date/time class implementations
  * @author Ahmed A. Faisal, 22. 5. 1998(c)
  * @version  0.1
@@ -21,9 +21,9 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include "date.h"
+#include "modigliani_base/date.h"
 
-using namespace modigliani_base;
+using modigliani_base::Date;
 
 //
 //    Method name : Datebj()
@@ -77,7 +77,6 @@ Date::Date(const Date & original) {
 //    Output :
 //
 Date::~Date() {
-
 }
 
 //
@@ -89,7 +88,7 @@ Date::~Date() {
 //
 struct tm * Date::_tm() const {
   struct tm * tmPtr;
-  tmPtr = new (struct tm);
+  tmPtr = new struct tm;
 
   tmPtr->tm_sec = sec; /* seconds */
   tmPtr->tm_min = min; /* minutes */
@@ -100,10 +99,6 @@ struct tm * Date::_tm() const {
   tmPtr->tm_wday = wday; /* day of the week */
   tmPtr->tm_yday = yday; /* day in the year */
   tmPtr->tm_isdst = isdst; /* daylight saving time */
-  /** apparently timezone features unsupported by glibc2  */
-//  tmPtr->__tm_zone__ = new Mchar[M_STRING_LENGTH];
-// strcpy((char *)(tmPtr->__tm_zone__),zone);   /* abbreviation of timezone name */
-  //  tmPtr->__tm_gmtoff__=gmtoff;  /* offset from UTC in seconds */
   return (tmPtr);
 }
 
@@ -112,8 +107,6 @@ std::ostream & operator<<(std::ostream & os, const Date & self) {
   tmPtr = self._tm();
   os << asctime(tmPtr);
 
-  /** apparently timezone features unsupported by glibc2  */
-  //     delete(tmPtr->__tm_zone__);
   delete (tmPtr);
   return (os);
 }
