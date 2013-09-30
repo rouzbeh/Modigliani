@@ -101,7 +101,7 @@ modigliani_core::Membrane_compartment_sequence* create_axon(
 boost::property_tree::ptree read_config(string fileName);
 
 std::vector<modigliani_base::Size> get_electrods(boost::property_tree::ptree root);
-}
+}  // namespace modigliani_core
 
 int SetLuaPath(lua_State* L, const string path);
 

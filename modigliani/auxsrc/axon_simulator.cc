@@ -29,6 +29,7 @@
 #include <sstream>
 
 #include <modigliani_core/aux_func.h>
+#include <modigliani_base/aux_math_func.h>
 #include <boost/program_options.hpp>
 #include <boost/progress.hpp>
 #include <boost/timer.hpp>

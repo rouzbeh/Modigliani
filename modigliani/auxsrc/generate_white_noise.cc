@@ -12,7 +12,8 @@
 
 #include <vector>
 
-#include "modigliani_base/gaussian_rnd_dist.h"
+#include <boost/random/mersenne_twister.hpp>
+#include <boost/random/normal_distribution.hpp>
 #include "modigliani_base/sequential_statistics.h"
 
 #define NUM_NON_COLUMN_PARAM 3
@@ -20,10 +21,13 @@
 int
 main(int argc, char* argv[])
 {
-    modigliani_base::Gaussian_rnd_dist rnd;
+    boost::random::mt19937 rng;
+    boost::random::normal_distribution<> norm =
+        boost::random::normal_distribution<>();
+
+    rng.seed(time(NULL));
+    
     float value = 0.0;
-
-
 
     if (argc < NUM_NON_COLUMN_PARAM) {
         std::cerr << "Invalid arguments specified."<< std::endl
@@ -50,7 +54,7 @@ main(int argc, char* argv[])
     modigliani_base::Sequential_statistics stats;
 
     for (modigliani_base::Size ll = 0; ll < numNumbers; ll++) {
-        value = float(rnd.RndVal());
+value = float(norm(rng));
         stats.Add(value);
         if(argc > ascii)
           output_file << value << std::endl;
