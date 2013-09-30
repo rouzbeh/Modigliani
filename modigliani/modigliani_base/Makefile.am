@@ -14,7 +14,6 @@ EXTRA_DIST= $(libmodigliani_base_a_SOURCES) dmatrix.h\
 aux_math_func.h\
 codes.h\
 error.h\
-header_string.h\
 histogram.h\
 id_management.h\
 main.h\
