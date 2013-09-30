@@ -23,10 +23,12 @@
 
 #include "rnd_dist.h"
 
-using namespace modigliani_base;
+using modigliani_base::Real;
+using modigliani_base::MTRand;
+using modigliani_base::Rnd_dist;
 
 long Rnd_dist::seed = (long) time(NULL);  // 2DO improve initialization of seed
-MTRand Rnd_dist::randgen = MMakeMTRandFunction(
+MTRand Rnd_dist::randgen = MakeMTRandFunction(
     MTRand::uint32(~time(NULL)));
 
 Rnd_dist::Rnd_dist()

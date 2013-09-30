@@ -111,7 +111,7 @@ Real Multidim_histogram::ShannonEntropy() const {
     Real sum = 0;
     for (Size ll = 0; ll < oCube.TotalNumElem(); ll++) {
         tmp = oCube.ElemByIndex(ll);
-        sum -= modigliani_base::MComputePLogP(tmp);
+        sum -= modigliani_base::ComputePLogP(tmp);
     }
     return (sum / (log(2.0) * oCube.TotalNumElem()));
 }

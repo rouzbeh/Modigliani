@@ -125,7 +125,7 @@ Real Two_dim_histogram::ShannonEntropy() const {
 
   for (Size lla = 0; lla < numBinsA; lla++) {
     for (Size llb = 0; llb < numBinsB; llb++) {
-      entropy -= MComputePLogP(tmpMtr[lla][llb]);
+      entropy -= ComputePLogP(tmpMtr[lla][llb]);
     }
   }
 
