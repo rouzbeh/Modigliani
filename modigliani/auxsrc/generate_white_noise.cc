@@ -63,11 +63,11 @@ value = float(norm(rng));
     }
 
 
-    std::cout << "Mean " << stats._average() << std::endl;
-    std::cout << "StdDev " << sqrt(stats._variance()) << std::endl;
-    std::cout << "Max val " << stats._max() << std::endl;
-    std::cout << "Min val " << stats._min() << std::endl;
-    std::cout << "In "<< stats._counter() << " values." << std::endl;
+    std::cout << "Mean " << stats.average() << std::endl;
+    std::cout << "StdDev " << sqrt(stats.variance()) << std::endl;
+    std::cout << "Max val " << stats.max() << std::endl;
+    std::cout << "Min val " << stats.min() << std::endl;
+    std::cout << "In "<< stats.counter() << " values." << std::endl;
     output_file.close();
 
     return (0);

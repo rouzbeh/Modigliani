@@ -23,83 +23,74 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ifndef _modigliani_base_ring_buffer_h_
-#define _modigliani_base_ring_buffer_h_
-
-/* M core includes */
-#include "main.h"
-#include "types.h"
-#include "obj.h"
-/* M includes */
-#include "error.h"
-
-/* other includes */
+#ifndef MODIGLIANI_MODIGLIANI_BASE_RING_BUFFER_H_
+#define MODIGLIANI_MODIGLIANI_BASE_RING_BUFFER_H_
 
 #include <vector>
 
+#include "modigliani_base/main.h"
+#include "modigliani_base/types.h"
+#include "modigliani_base/obj.h"
+#include "modigliani_base/error.h"
+
 namespace modigliani_base {
-/** @short Ring_buffer class
- \bug unknown
- \warning unknown
+/**
+   @brief Ring_buffer class
  */
-template<class T>
-class Ring_buffer {
-public:
+  template < class T > class Ring_buffer {
+  public:
     /***   Constructors, Copy/Assignment and Destructor  ***/
-    Ring_buffer(Size newRingLength = 2) {
-        Init(newRingLength);
-    }
-    Ring_buffer(const Ring_buffer & original);
-    const Ring_buffer & operator=(const Ring_buffer & right);
+    explicit Ring_buffer(Size newRingLength = 2) {
+      Init(newRingLength);
+    } Ring_buffer(const Ring_buffer & original) = delete;
+    const Ring_buffer & operator=(const Ring_buffer & right) = delete;
     virtual ~Ring_buffer() {
     }
-    /* ***  Methods              ***/
+    /* ***  Methods              ** */
     Size _ringLength() const {
-        return (ringLength);
+      return (ringLength);
     }
     /** after resize states are reset to scratch */
-    ReturnEnum Resize(Size newRingLength) {
-        Init(newRingLength);
-        return (ReturnEnum::SUCCESS);
+      ReturnEnum Resize(Size newRingLength) {
+      Init(newRingLength);
+      return (ReturnEnum::SUCCESS);
     }
     void Push(T value) {
-        bufferVec[IncreaseCounter()] = value;
+      bufferVec[IncreaseCounter()] = value;
     }
     void Show() {
-        std::vector<T> tmpVec = Buffer();
-        for (Size ll = 0; ll < _ringLength(); ll++)
-            std::cout << tmpVec[ll] << " ";
-        std::cout << std::endl;
+      std::vector < T > tmpVec = Buffer();
+      for (Size ll = 0; ll < _ringLength(); ll++)
+        std::cout << tmpVec[ll] << " ";
+      std::cout << std::endl;
     }
     /* highest index is newest entry */
-    std::vector<T> Buffer() {
-        std::vector<T> tmpVec(ringLength);
-        for (Size ll = 0; ll < _ringLength(); ll++)
-            tmpVec[ll] = bufferVec[(_counter() + ll + 1) % ringLength];
-        return (tmpVec);
+    std::vector < T > Buffer() {
+      std::vector < T > tmpVec(ringLength);
+      for (Size ll = 0; ll < _ringLength(); ll++)
+        tmpVec[ll] = bufferVec[(_counter() + ll + 1) % ringLength];
+      return (tmpVec);
     }
-    /* ***  Data                 ***/
-protected:
-    /* ***  Methods              ***/
+
+  protected:
+    /* ***  Methods              ** */
     Size IncreaseCounter() {
-        counter = (counter + 1) % ringLength;
-        return (counter);
+      counter = (counter + 1) % ringLength;
+      return (counter);
     }
     Size _counter() {
-        return (counter);
+      return (counter);
     }
-    /* ***  Data                 ***/
     Size ringLength;
-private:
-    /* ***  Methods              ***/
-    std::vector<T> bufferVec;
+
+  private:
+    std::vector < T > bufferVec;
     Size counter;
     void Init(Size newRingLength) {
-        counter = 0;
-        ringLength = newRingLength;
-        bufferVec.resize(ringLength);
+      counter = 0;
+      ringLength = newRingLength;
+      bufferVec.resize(ringLength);
     }
-    /* ***  Data                 ***/
-};
-}
-#endif /* _modigliani_base_ring_buffer_h_ */
+  };
+}  // namespace modigliani_base
+#endif  // MODIGLIANI_MODIGLIANI_BASE_RING_BUFFER_H_
