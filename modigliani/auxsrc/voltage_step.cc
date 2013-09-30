@@ -2,7 +2,8 @@
 /// @file voltage_step.cc
 /// Performs voltage step experiments on a given Lua channel
 /// @version  1.1
-/// @author Copyright (C) 2010, 2011 Mohammad Ali Neishabouri
+/// \author Mohammad Ali Neishabouri
+/// Copyright (C) 2010, 2011 Mohammad Ali Neishabouri
 ///
 /// @section LICENSE
 /// This library is free software; you can redistribute it and/or
@@ -59,7 +60,8 @@ int activation(string channel_file_name, int alg,
     for (int aim = V_hold + 5; aim <= V_resting + 50; aim += 5) {
       Voltage_gated_ion_channel_current *current_p = 0;
       if (alg == 1) {
-        current_p = new Lua_based_deterministic_voltage_gated_channel(100,  // Area
+        current_p = new Lua_based_deterministic_voltage_gated_channel
+            (100,  // Area
             20,  // density,
             20,  // conductance
             -85,  // reversal potential
