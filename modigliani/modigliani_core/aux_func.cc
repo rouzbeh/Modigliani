@@ -28,10 +28,12 @@ modigliani_base::Real modigliani_core::corrected_channel_density(
   modigliani_base::Real chPerCompartment = compArea * chDensity;
   modigliani_base::Real pChFloor = (ceil(chPerCompartment) - chPerCompartment);
 
-  modigliani_base::Uniform_rnd_dist uniRnd;
+  boost::random::uniform_01<> uni = boost::random::uniform_01<>();
+  boost::random::mt19937 rng =   boost::random::mt19937();
+  rng.seed(time(NULL));
   /* compute number of channels, such that average density is achieved */
   modigliani_base::Real indChDensity = (
-      uniRnd.RndVal() > pChFloor ? ceil(chPerCompartment) / compArea :
+      uni(rng) > pChFloor ? ceil(chPerCompartment) / compArea :
           floor(chPerCompartment) / compArea);
 
   return (indChDensity);

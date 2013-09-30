@@ -159,8 +159,8 @@ class Membrane_compartment : public Object {
       return (return_data);
     }
 
-    /* ***  Data                 ***/
-
+    static bool seed_set_;
+    
   protected:
     /* ***  Methods              ***/
     //modigliani_base::Real total_conductance() const;
@@ -183,6 +183,10 @@ class Membrane_compartment : public Object {
 
     std::ofstream* output_file = 0;
   private:
+    boost::random::mt19937 rng_;
+    boost::random::binomial_distribution<> bin_;
+    boost::random::uniform_01<> uni_;
+    unsigned int seed_;
 };
 }
 #endif /* _modigliani_core_membrane_compartment.h_ */

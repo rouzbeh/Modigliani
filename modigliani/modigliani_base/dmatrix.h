@@ -20,25 +20,11 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ifndef _modigliani_base_dmatrix_h_
-#define _modigliani_base_dmatrix_h_
+#ifndef MODIGLIANI_MODIGLIANI_BASE_DMATRIX_H_
+#define MODIGLIANI_MODIGLIANI_BASE_DMATRIX_H_
 
-#include <iostream>
 #include <cstdlib>
-
-//   needed for memcpy:
 #include <cstring>
-//   i know, it`s not very nice
-//   actually memory.h would be
-//   nicer, though I don`t know
-//   if it is a standard (in UNIX)
-//   the rest is the nicer compatibility stuff (cutted`n pasted)
-#ifdef _MSC_VER
-#include <memory.h>
-#endif
-#ifdef _BORLANDC_
-#include <mset.h>
-#endif
 
 namespace modigliani_base {
 /**
@@ -52,201 +38,203 @@ namespace modigliani_base {
  might modify the (*this) object and some generate a new
  one
  */
-class DMatrix {
-private:
+  class DMatrix {
+  private:
     int row, col;
     double *elements;
 
-public:
-    DMatrix(int, int);/** init Matrix */
-    DMatrix(int); /** init Vector */
-    DMatrix(DMatrix &); /** duplicate from existent DMatrix object */
+  public:
+     DMatrix(int sizz_x, int size_y);
+                      /** init Matrix */
+     explicit DMatrix(int size); /** init Vector */
+     DMatrix(DMatrix &); /** duplicate from existent DMatrix object */
 
     ~DMatrix() {
-        delete elements;
-    }
+      delete elements;
+    } DMatrix operator+(DMatrix &);  // !< addition C = A+B
+    DMatrix operator-(DMatrix &);  // !< subtraction C = A-B
+    DMatrix operator*(DMatrix &);  // !< multiplication A = A*B
+    DMatrix operator*(double factor);  // !< Scaling, factor multiplication
+     DMatrix & operator=(DMatrix &);    // !< equalizing :) A=B
 
-    DMatrix operator+(DMatrix &); //!< addition C = A+B
-    DMatrix operator-(DMatrix &); //!< subtraction C = A-B
-    DMatrix operator*(DMatrix &); //!< multiplication A = A*B
-    DMatrix operator*(double); //!< Scaling, factor multiplication (from the RIGHT)
-    DMatrix &operator=(DMatrix &); //!< equalizing :) A=B
-
-    double &operator()(int, int); //!< Access matrix components
-    double &operator()(int); //!< Access vector components
+    double &operator() (int size_x, int size_y);  // !< Access matrix components
+    double &operator() (int size);   // !< Access vector components
 
     void print();
     double sum();
     double quadSum();
     DMatrix operator~();
-    friend std::istream &operator>>(std::istream &, DMatrix &);
+    friend std::istream & operator>>(std::istream &, DMatrix &);
+  };
+}  // namespace modigliani_base
 
-};
+modigliani_base::DMatrix(int r, int c) {
+  elements = new double[r * c + 1];
+  memset(elements, ' ', (r * c + 1) * sizeof(elements[0]));
+  row = r;
+  col = c;
 }
 
-modigliani_base::DMatrix::DMatrix(int r, int c) {
-    elements = new double[r * c + 1];
-    memset(elements, ' ', (r * c + 1) * sizeof(double));
-    row = r;
-    col = c;
+modigliani_base::DMatrix(int r) {
+  elements = new double[r + 1];
+  memset(elements, ' ', (r + 1) * sizeof(elements[0]));
+  row = r;
+  col = 1;
 }
 
-modigliani_base::DMatrix::DMatrix(int r) {
-    elements = new double[r + 1];
-    memset(elements, ' ', (r + 1) * sizeof(double));
-    row = r;
-    col = 1;
+modigliani_base::DMatrix(modigliani_base::DMatrix & copy) {
+  row = copy.row;
+  col = copy.col;
+  elements = new double[row * col + 1];
+  memcpy(elements, copy.elements, (row * col + 1) * sizeof(elements[0]));
 }
 
-modigliani_base::DMatrix::DMatrix(modigliani_base::DMatrix &copy) {
-    row = copy.row;
-    col = copy.col;
-    elements = new double[row * col + 1];
-    memcpy(elements, copy.elements, (row * col + 1) * sizeof(double));
+modigliani_base::DMatrix modigliani_base::DMatrix::operator+(modigliani_base::
+                                                             DMatrix & right) {
+  modigliani_base::DMatrix left(*this);
+  for (int i = 1; i <= row * col; i++)
+    left.elements[i] = left.elements[i] + right.elements[i];
+  return (left);
 }
 
-modigliani_base::DMatrix modigliani_base::DMatrix::operator+(modigliani_base::DMatrix &right) {
-    modigliani_base::DMatrix left(*this);
-    for (int i = 1; i <= row * col; i++)
-        left.elements[i] = left.elements[i] + right.elements[i];
-    return (left);
+modigliani_base::DMatrix modigliani_base::DMatrix::operator-(modigliani_base::
+                                                             DMatrix & right) {
+  modigliani_base::DMatrix left(*this);
+  for (int i = 1; i <= row * col; i++) {
+    left.elements[i] = left.elements[i] - right.elements[i];
+  }
+  return (left);
 }
 
-modigliani_base::DMatrix modigliani_base::DMatrix::operator-(modigliani_base::DMatrix &right) {
-    modigliani_base::DMatrix left(*this);
-    for (int i = 1; i <= row * col; i++) {
-        left.elements[i] = left.elements[i] - right.elements[i];
+modigliani_base::DMatrix modigliani_base::DMatrix::operator*(modigliani_base::
+                                                             DMatrix & right) {
+  modigliani_base::DMatrix prod(row, right.col);
+  for (int i = 1; i <= row; i++) {
+    for (int j = 1; j <= right.col; j++) {
+      prod(i, j) = 0;
+      for (int k = 1; k <= col; k++)
+        prod(i, j) = prod(i, j) + (*this) (i, k) * right(k, j);
     }
-    return (left);
-}
-
-modigliani_base::DMatrix modigliani_base::DMatrix::operator*(modigliani_base::DMatrix &right) {
-    modigliani_base::DMatrix prod(row, right.col);
-    for (int i = 1; i <= row; i++) {
-        for (int j = 1; j <= right.col; j++) {
-            prod(i, j) = 0;
-            for (int k = 1; k <= col; k++)
-                prod(i, j) = prod(i, j) + (*this)(i, k) * right(k, j);
-        }
-    }
-    return (prod);
+  }
+  return (prod);
 }
 
 modigliani_base::DMatrix modigliani_base::DMatrix::operator*(double factor) {
-    for (int i = 1; i <= row; i++) {
-        for (int j = 1; j <= col; j++) {
-            (*this)(i, j) = (*this)(i, j) * factor;
-        }
+  for (int i = 1; i <= row; i++) {
+    for (int j = 1; j <= col; j++) {
+      (*this) (i, j) = (*this) (i, j) * factor;
     }
+  }
+  return (*this);
+}
+
+modigliani_base::DMatrix &
+modigliani_base::DMatrix::operator=(modigliani_base::
+                                    DMatrix & right) {
+  if (this == &right) {
     return (*this);
+  } else {
+    delete elements;
+    elements = new double[row * col + 1];
+    memcpy(elements, right.elements, (row * col + 1) * sizeof(elements[0]));
+    return (*this);
+  }
 }
 
-modigliani_base::DMatrix &modigliani_base::DMatrix::operator=(modigliani_base::DMatrix &right) {
-    if (this == &right)
-        return (*this);
-    else {
-        delete elements;
-        elements = new double[row * col + 1];
-        memcpy(elements, right.elements, (row * col + 1) * sizeof(double));
-        return (*this);
-    }
+double &modigliani_base::DMatrix::operator() (int r, int c) {
+  return (elements[(r - 1) * col + c]);
 }
 
-double &modigliani_base::DMatrix::operator()(int r, int c) {
-    return (elements[(r - 1) * col + c]);
-}
-
-double &modigliani_base::DMatrix::operator()(int r) {
-    return (elements[r]);
+double &modigliani_base::DMatrix::operator() (int r) {
+  return (elements[r]);
 }
 
 void modigliani_base::DMatrix::print() {
-    std::cout.setf(std::ios::fixed);
-    std::cout.precision(4);
-    std::cout.width(8);
-    for (int i = 1; i <= row; i++) {
-        for (int j = 1; j <= col; j++)
-            std::cout << (*this)(i, j);
-        std::cout << std::endl;
-    }
+  std::cout.setf(std::ios::fixed);
+  std::cout.precision(4);
+  std::cout.width(8);
+  for (int i = 1; i <= row; i++) {
+    for (int j = 1; j <= col; j++)
+      std::cout << (*this) (i, j);
+    std::cout << std::endl;
+  }
 }
 
 double modigliani_base::DMatrix::sum() {
-    double temp = 0.0;
-    for (int i = 1; i <= row; i++)
-        for (int j = 1; j <= col; j++)
-            temp += (*this)(i, j);
-    return (temp);
+  double temp = 0.0;
+  for (int i = 1; i <= row; i++)
+    for (int j = 1; j <= col; j++)
+      temp += (*this) (i, j);
+  return (temp);
 }
 
 double modigliani_base::DMatrix::quadSum() {
-    double temp = 0.0;
-    for (int i = 1; i <= row; i++)
-        for (int j = 1; j <= col; j++)
-            temp += (*this)(i, j) * (*this)(i, j);
-    return (temp);
+  double temp = 0.0;
+  for (int i = 1; i <= row; i++)
+    for (int j = 1; j <= col; j++)
+      temp += (*this) (i, j) * (*this) (i, j);
+  return (temp);
 }
 
 /** compute inverse with  Gauss-elimination including Pivotizing */
 modigliani_base::DMatrix modigliani_base::DMatrix::operator~() {
-    int i, j, k, n;
-    int pivrow, tarrow;
-    double pivelt, tarelt;
-    n = row; // Zahl d.Gleich.
-    modigliani_base::DMatrix aug(n, 2 * col);
-    modigliani_base::DMatrix inverse(n, col);
-    for (i = 1; i <= n; i++)
-        for (j = 1; j <= col; j++)
-            aug(i, j) = (*this)(i, j);
-    for (i = 1; i <= n; i++)
-        for (j = n + 1; j <= aug.col; j++)
-            if (i == j - n)
-                aug(i, j) = 1; // Einheitsmatrix
-    for (pivrow = 1; pivrow <= n; pivrow++) {
-        pivelt = aug(pivrow, pivrow);
-        if (pivelt == 0) {
-            k = pivrow + 1; // Pivotsuche
-            while (pivelt == 0 && k <= n) {
-                pivelt = aug(k, pivrow);
-                k++;
-            }
-            if (pivelt == 0) {
-                std::cerr
-                        << "dmatrix : ERROR - Inversion attempted, but matrix is singular!";
-                exit(1);
-            }
-        } else {
-            k--;
-            modigliani_base::DMatrix dum(2 * col);
-            for (i = 1; i <= 2 * col; i++)
-                dum(i) = aug(pivrow, i);
-            for (i = 1; i <= 2 * col; i++)
-                aug(pivrow, i) = aug(k, i);
-            for (i = 1; i <= 2 * col; i++)
-                aug(k, i) = dum(i);
-        }
+  int i, j, k, n;
+  int pivrow, tarrow;
+  double pivelt, tarelt;
+  n = row;                      // Zahl d.Gleich.
+  modigliani_base::DMatrix aug(n, 2 * col);
+  modigliani_base::DMatrix inverse(n, col);
+  for (i = 1; i <= n; i++)
+    for (j = 1; j <= col; j++)
+      aug(i, j) = (*this) (i, j);
+  for (i = 1; i <= n; i++)
+    for (j = n + 1; j <= aug.col; j++)
+      if (i == j - n)
+        aug(i, j) = 1;          // Einheitsmatrix
+  for (pivrow = 1; pivrow <= n; pivrow++) {
+    pivelt = aug(pivrow, pivrow);
+    if (pivelt == 0) {
+      k = pivrow + 1;           // Pivotsuche
+      while (pivelt == 0 && k <= n) {
+        pivelt = aug(k, pivrow);
+        k++;
+      }
+      if (pivelt == 0) {
+        std::cerr
+          << "dmatrix : ERROR - Inversion attempted, but matrix is singular!";
+        exit(1);
+      }
+    } else {
+      k--;
+      modigliani_base::DMatrix dum(2 * col);
+      for (i = 1; i <= 2 * col; i++)
+        dum(i) = aug(pivrow, i);
+      for (i = 1; i <= 2 * col; i++)
+        aug(pivrow, i) = aug(k, i);
+      for (i = 1; i <= 2 * col; i++)
+        aug(k, i) = dum(i);
     }
+  }
 
-    for (j = 1; j <= 2 * col; j++)
-        aug(pivrow, j) = aug(pivrow, j) / pivelt;
-    for (tarrow = 1; tarrow <= n; tarrow++)
-        if (tarrow != pivrow) {
-            tarelt = aug(tarrow, pivrow);
-            for (j = 1; j <= 2 * col; j++)
-                aug(tarrow, j) = aug(tarrow, j) - aug(pivrow, j) * tarelt;
-        }
-    for (i = 1; i <= n; i++)
-        for (j = n + 1; j <= aug.col; j++)
-            inverse(i, j - n) = aug(i, j);
-    return (inverse);
+  for (j = 1; j <= 2 * col; j++)
+    aug(pivrow, j) = aug(pivrow, j) / pivelt;
+  for (tarrow = 1; tarrow <= n; tarrow++)
+    if (tarrow != pivrow) {
+      tarelt = aug(tarrow, pivrow);
+      for (j = 1; j <= 2 * col; j++)
+        aug(tarrow, j) = aug(tarrow, j) - aug(pivrow, j) * tarelt;
+    }
+  for (i = 1; i <= n; i++)
+    for (j = n + 1; j <= aug.col; j++)
+      inverse(i, j - n) = aug(i, j);
+  return (inverse);
 }
 
-std::istream &operator>>(std::istream &is, modigliani_base::DMatrix &m) {
-    for (int i = 1; i <= m.row; i++)
-        for (int j = 1; j <= m.col; j++)
-            is >> m(i, j);
-    return (is);
+std::istream & operator>>(std::istream & is, modigliani_base::DMatrix & m) {
+  for (int i = 1; i <= m.row; i++)
+    for (int j = 1; j <= m.col; j++)
+      is >> m(i, j);
+  return (is);
 }
 
-#endif  /* _modigliani_base_dmatrix_h_ */
-
+#endif  // MODIGLIANI_MODIGLIANI_BASE_DMATRIX_H_

@@ -23,7 +23,9 @@
 
 #include "membrane_compartment_sequence.h"
 
-using namespace modigliani_core;
+namespace modigliani_core{
+
+bool Membrane_compartment_sequence::seed_set_ = false;
 
 /* ***      CONSTRUCTORS	***/
 Membrane_compartment_sequence::Membrane_compartment_sequence()
@@ -35,6 +37,14 @@ Membrane_compartment_sequence::Membrane_compartment_sequence()
   dVec.resize(1);
   rVec.resize(1);
 
+  if (Membrane_compartment_sequence::seed_set_ == false) {
+    seed_ = time(NULL);
+    std::cout << "Initial seed = " <<seed_ << std::endl;
+    Membrane_compartment_sequence::seed_set_ = true;
+  }
+  rng_ = boost::random::mt19937();
+  rng_.seed(seed_++);
+  uni_ = boost::random::uniform_01<>();
 }
 
 /* ***      DESTRUCTOR		***/
@@ -290,7 +300,6 @@ std::vector<modigliani_base::Real> Membrane_compartment_sequence::NumericalRecip
 bool Membrane_compartment_sequence::GillespieStep() {
   std::cerr << "Membrane_compartment_sequence::GillespieStep()" << std::endl;
   std::vector<modigliani_base::Real> compartmentTauVec(_numCompartments());
-  modigliani_base::Uniform_rnd_dist rnd;
   modigliani_base::Real val;
   modigliani_base::Real sum;
   modigliani_base::Real sequenceTau;
@@ -305,7 +314,7 @@ bool Membrane_compartment_sequence::GillespieStep() {
     std::cerr << "GILLESPIE STEP" << std::endl;
     sequenceTau = CompartmentSequenceChannelStateTimeConstant();
     sum = 0.0;
-    val = rnd.RndVal();
+    val = uni_(rng_);
     for (modigliani_base::Size ll = 0; ll < _numCompartments(); ll++) {
       sum += compartmentVec[ll]->CompartmentChannelStateTimeConstant();
       if (val < sum / sequenceTau) {
@@ -317,7 +326,7 @@ bool Membrane_compartment_sequence::GillespieStep() {
     /** BLOCK 2 */
     /** BLOCK 1 */
     // this is a sum of rate constants !
-    newDeltaT = log(1 / rnd.RndVal()) / sequenceTau;  //sequenceTau in [kHz] while newDeltaT in [ms]
+    newDeltaT = log(1 / uni_(rng_)) / sequenceTau;  //sequenceTau in [kHz] while newDeltaT in [ms]
     std::cerr << "NEW DELTA T=" << newDeltaT << std::endl;
     maxDeltaT = 1;  // maximumTimeStep ought to be 1 ms
     if (newDeltaT > maxDeltaT) {
@@ -337,3 +346,5 @@ bool Membrane_compartment_sequence::GillespieStep() {
 
   return (modigliani_base::ReturnEnum::SUCCESS);
 }
+
+}  // namespace modigliani_core

@@ -24,7 +24,9 @@
 
 #include "membrane_compartment.h"
 
-using namespace modigliani_core;
+namespace modigliani_core {
+
+bool Membrane_compartment::seed_set_ = false;
 
 /* ***      CONSTRUCTORS	***/
 /** Create a Membrane_compartment */
@@ -39,6 +41,15 @@ Membrane_compartment::Membrane_compartment(
   set_temperature(newTemperature);
   current_vec_ = std::vector<Membrane_current *>(0);
   output_file = 0;
+
+  if (Membrane_compartment::seed_set_ == false) {
+    Membrane_compartment::seed_ = time(NULL);
+    std::cout << "Initial seed = " << Membrane_compartment::seed_ << std::endl;
+    Membrane_compartment::seed_set_ = true;
+  }
+  rng_ = boost::random::mt19937();
+  rng_.seed(Membrane_compartment::seed_++);
+  uni_ = boost::random::uniform_01<>();
 }
 
 /* ***      DESTRUCTOR		***/
@@ -222,8 +233,7 @@ modigliani_base::Real Membrane_compartment::CompartmentChannelStateTimeConstant(
 
 bool Membrane_compartment::GillespieStep() {
   std::cerr << "Membrane_compartment::GillespieStep()" << std::endl;
-  modigliani_base::Uniform_rnd_dist rnd;
-  modigliani_base::Real val = rnd.RndVal();
+  modigliani_base::Real val = uni_(rng_);
   modigliani_base::Real sum = 0.0;
 
   // 2DO this might be actually called more then once in one total iteration time step
@@ -248,3 +258,5 @@ bool Membrane_compartment::GillespieStep() {
 modigliani_base::Size Membrane_compartment::NumberCurrents() const {
   return (current_vec_.size());
 }
+
+}  // namespace modigliani_core

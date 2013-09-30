@@ -1,6 +1,6 @@
 /**
  * @file sequential_statistics.cc
- * Sequential_statistics class implementation
+ * @brief Sequential_statistics class implementation
  * @author Ahmed Aldo Faisal &copy; created 5.11.2000
  * NetTrader - visualisation, scientific and financial analysis and simulation system
  * @version  0.5
@@ -22,43 +22,17 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include "sequential_statistics.h"
+#include "modigliani_base/sequential_statistics.h"
 
-using namespace modigliani_base;
+namespace modigliani_base {
 
-/* ***      CONSTRUCTORS    ***/
-/** Create a Sequential_statistics */
+/**
+   @brief Create a Sequential_statistics
+*/
 Sequential_statistics::Sequential_statistics() {
   Reset();
 }
 
-/* ***      COPY AND ASSIGNMEM    ***/
-Sequential_statistics::Sequential_statistics(
-    const Sequential_statistics & original)
-    : Obj() {
-// add assignment code here
-  counter = original.counter;
-  average = original.average;
-  valSquareAverage = original.valSquareAverage;
-  variance = original.variance;
-  min = original.min;
-  max = original.max;
-}
-
-const Sequential_statistics&
-Sequential_statistics::operator=(const Sequential_statistics & right) {
-  if (this == &right) return (*this);  // Gracefully handle self assignment
-// add assignment code here
-  counter = right.counter;
-  average = right.average;
-  valSquareAverage = right.valSquareAverage;
-  variance = right.variance;
-  min = right.min;
-  max = right.max;
-  return (*this);
-}
-
-/* ***      DESTRUCTOR        ***/
 Sequential_statistics::~Sequential_statistics() {
 }
 
@@ -66,26 +40,28 @@ Sequential_statistics::~Sequential_statistics() {
 /** @short
  */
 void Sequential_statistics::Reset() {
-  counter = 0;
-  average = 0.0;
-  valSquareAverage = 0.0;
-  variance = 0.0;
-  min = 1 / 0.0;  //MAXFLOAT;//numeric_limits<Real>::max();
-  max = -1 / 0.0;  //MINFLOAT;//numeric_limits<Real>::min();
+  counter_ = 0;
+  average_ = 0.0;
+  val_square_average_ = 0.0;
+  variance_ = 0.0;
+  min_ = 1 / 0.0;  // MAXFLOAT;//numeric_limits<Real>::max();
+  max_ = -1 / 0.0;  // MINFLOAT;//numeric_limits<Real>::min();
 }
 
 /** @short
  @param      val value to add
  */
 void Sequential_statistics::Add(Real val) {
-  counter++;
+  counter_++;
 
-  average = UpdateAverage(average, val, counter);
-  valSquareAverage = UpdateAverage(valSquareAverage, val * val, counter);
-  variance = valSquareAverage - average * average;
+  average_ = UpdateAverage(average_, val, counter_);
+  val_square_average_ = UpdateAverage(val_square_average_, val * val, counter_);
+  variance_ = val_square_average_ - average_ * average_;
 
-  if (val < min) min = val;
-  else if (val > max) max = val;
+  if (val < min_)
+    min_ = val;
+  else if (val > max_)
+    max_ = val;
 }
 
 /**
@@ -94,23 +70,24 @@ void Sequential_statistics::Add(Real val) {
  *  \param  self
  *  \return ostream
  */
-std::ostream& operator<<(std::ostream& str,
-                         const Sequential_statistics & self) {
-  str << self._counter() << "\t" << self._average() << "\t"
-      << self._valSquareAverage() << "\t" << self._variance() << "\t"
-      << self._min() << "\t" << self._max();
+std::ostream & operator<<(std::ostream & str,
+                          const Sequential_statistics & self) {
+  str << self.counter() << "\t" << self.average() << "\t"
+    << self.val_square_average() << "\t" << self.variance() << "\t"
+    << self.min() << "\t" << self.max();
   return (str);
 }
 
-/* ***  PROTECTED                         ***   */
-/* ***  PRIVATE                           ***   */
 /** @short
- @param      none
- @return     none
- \warning    unknown
- \bug        unknown
+ @param avg the current average
+ @param val the value
+ @param n size
+ @return The new average
+ @warning Does not update anything!
  */
 
 Real Sequential_statistics::UpdateAverage(Real avg, Real val, Size n) const {
   return (val * (1.0 / n) + avg * (1.0 - 1.0 / n));
 }
+
+}  // namespace modigliani_base

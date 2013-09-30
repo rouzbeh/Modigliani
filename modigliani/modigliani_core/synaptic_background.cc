@@ -25,10 +25,12 @@
 
 #include "synaptic_background.h"
 
-using namespace modigliani_core;
+namespace modigliani_core {
 
-/* ***      CONSTRUCTORS	***/
-/** Create a Synaptic_background */
+bool Synaptic_background::seed_set_ = false;
+
+/** @brief Create a Synaptic_background current
+ */
 Synaptic_background::Synaptic_background(
     modigliani_base::Real newAvgSynBkCond, /* in nS */
     modigliani_base::Real newESynBk, /* Synaptic background reversal potential mV */
@@ -43,6 +45,15 @@ Synaptic_background::Synaptic_background(
   synVar = synSigma * synSigma;
   vBase = newVBase;
 
+  if (Synaptic_background::seed_set_ == false) {
+    Synaptic_background::seed_ = time(NULL);
+    std::cout << "Initial seed = " << Synaptic_background::seed_ << std::endl;
+    Synaptic_background::seed_set_ = true;
+  }
+  rng_ = boost::random::mt19937();
+  rng_.seed(Synaptic_background::seed_++);
+  norm_ = boost::random::normal_distribution<>();
+  
   gT = 0.0;
   amplitude = 0.0;
 }
@@ -61,7 +72,9 @@ modigliani_base::ReturnEnum Synaptic_background::step_current() {
       (synVar * synTau / 2.0) * (1.0 - exp(-2.0 * timeStep() / synTau)));
 
   gT += avgSynBkCond + (gT - avgSynBkCond) * exp(- timeStep() / synTau)
-      + amplitude * normRnd.RndVal();
+      + amplitude * norm_(rng_);
 
   return (modigliani_base::ReturnEnum::SUCCESS);
 }
+
+}  // namespace modigliani_core

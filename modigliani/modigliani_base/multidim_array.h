@@ -21,25 +21,25 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ifndef _modigliani_base_multidim_array_h_
-#define _modigliani_base_multidim_array_h_
+#ifndef MODIGLIANI_MODIGLIANI_BASE_MULTIDIM_ARRAY_H_
+#define MODIGLIANI_MODIGLIANI_BASE_MULTIDIM_ARRAY_H_
 
-#include "types.h"
-#include "obj.h"
-#include "error.h"
 
-/* other includes */
 #include <vector>
 #include <cstdarg>
 
+#include "modigliani_base/types.h"
+#include "modigliani_base/obj.h"
+#include "modigliani_base/error.h"
+
 namespace modigliani_base {
-/** @short Multidimensional array
+/** @brief  Multidimensional array
  *
  * Implements a regular - multidimensional, i.e.
  * a "dim"-diemsional hypercube with "num" elements per dimension.
  */
-template<class T>  // with regards to Modula-3 :)
-class Multidim_array : public Obj {
+  template < class T >          // with regards to Modula-3 :)
+  class Multidim_array:public Obj {
   public:
     /***   Constructors, Copy/Assignment and Destructor  ***/
     Multidim_array(Size d, Size n) {
@@ -49,15 +49,15 @@ class Multidim_array : public Obj {
       num = n;
       // implementation range checking
       /* 2DO not working as numeric_limits not implemented in gcc 2.95
-       Real numElem = pow(n,d);
-       Real maxIndexRange = numeric_limits<Size_t>::max();
-       if (numElem >= maxIndexRange) {
-       std::cerr <<
-       "M_multidim_array_o::M_multidim_array_o - Error : array will contain to many elements"
-       << numElem << " for supported implementation range "
-       << maxIndexRange << " ("<< numeric_limits<Size_t>.max()
-       << "). Undefined behaviour may result." << std::endl;
-       }
+         Real numElem = pow(n,d);
+         Real maxIndexRange = numeric_limits<Size_t>::max();
+         if (numElem >= maxIndexRange) {
+         std::cerr <<
+         "M_multidim_array_o::M_multidim_array_o - Error : array will contain to many elements"
+         << numElem << " for supported implementation range "
+         << maxIndexRange << " ("<< numeric_limits<Size_t>.max()
+         << "). Undefined behaviour may result." << std::endl;
+         }
        */
       // cache setup
       powerSeriesCacheVec.resize(dim + 1);
@@ -70,23 +70,26 @@ class Multidim_array : public Obj {
       // memory allocation
       try {
         dataVec.resize(powerSeriesCacheVec[dim]);
-      } catch (std::bad_alloc& ba) {
+      }
+      catch(std::bad_alloc & ba) {
         std::cerr
-            << "M_multidim_array_o::M_multidim_array_o - Error : Memory exhausted by allocation of multidimensional array."
-            << ">" << powerSeriesCacheVec[dim] * sizeof(T)
-            << " bytes of memory are necessary for this object." << std::endl;
+          <<
+          "M_multidim_array_o::M_multidim_array_o -"
+          << " Error : Memory exhausted by allocation"
+          << " of multidimensional array."
+          << ">" << powerSeriesCacheVec[dim] * sizeof(T)
+          << " bytes of memory are necessary for this object." << std::endl;
       }
     }
 
-    /* ***      COPY AND ASSIGNMEM    ***/
+    /* ***      COPY AND ASSIGNMEM    ** */
     /** copy constructor currently not to be implemented. */
     Multidim_array(const Multidim_array & original) = delete;
 
     /** assignment operator currently not to be implemented. */
-    const Multidim_array&
-    operator=(const Multidim_array & right) = delete;
+    const Multidim_array & operator=(const Multidim_array & right) = delete;
 
-    /* ***      DESTRUCTOR        ***/
+    /* ***      DESTRUCTOR        ** */
     virtual ~Multidim_array() {
     }
 
@@ -95,8 +98,7 @@ class Multidim_array : public Obj {
      *
      * \warning    no range checking done on the coordinates
      */
-    T &
-    Elem(const std::vector<Size> & coordinateVec) {
+    T & Elem(const std::vector < Size > &coordinateVec) {
       Size hash = Hash(coordinateVec);
       M_ASSERT(dataVec.size() >= hash);
       return (dataVec[hash]);
@@ -113,12 +115,10 @@ class Multidim_array : public Obj {
      * \warning    Arbitrary index, no information inferable from the index,
      * might change anytime (only range remains guaranteed).
      */
-    const T &
-    ElemByIndex(Size index) const {
+    const T & ElemByIndex(Size index) const {
       M_ASSERT((index < TotalNumElem()));
       return (dataVec[index]);
     }
-
     void SetAll(const T & val) {
       for (Size ll = 0; ll < TotalNumElem(); ll++) {
         dataVec[ll] = val;
@@ -129,53 +129,41 @@ class Multidim_array : public Obj {
      *
      *  \warning    no range checking done on the coordinates
      */
-    T &
-    Elem(Size index1...)
-    {
-      std::vector <Size> coorVec(dim);
+    T & Elem(Size index1 ...) {
+      std::vector < Size > coorVec(dim);
       va_list args;
-      va_start(args,index1);
-      for (Size ld=0; ld < dim; ld++) {
+      va_start(args, index1);
+      for (Size ld = 0; ld < dim; ld++) {
         coorVec[ld] = va_arg(args, Size);
       }
       va_end(args);
       return (Elem(coorVec));
     }
 
-    Size
-    TotalNumElem() const
-    {
+    Size TotalNumElem()const {
       return (powerSeriesCacheVec[dim]);
     }
 
-    /* ***  Data                 ***/
-    protected:
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
-    private:
-    /* ***  Methods              ***/
+  private:
+    /* ***  Methods              ** */
     /** Generate an address out of the coordinates of the element
      in the multimensional array. The hash address is the
      decimal representation of the num-ary dim-digit coordinate "number".
      \warning range of coordinates values (0..num-1) is not tested
      */
-    Size Hash(const std::vector <Size> & coorVec) const
-    {
-      M_ASSERT( coorVec.size() == dim );
+     Size Hash(const std::vector < Size > &coorVec) const {
+      M_ASSERT(coorVec.size() == dim);
       Size addressIndex = 0;
-      for (Size ld = 0; ld < dim; ld++) {  //2DO  WHY was ld < num+1 ?!?!?!
-          addressIndex += coorVec[ld] * powerSeriesCacheVec[ld];
-        }
-        return (addressIndex);
-      }
-      /* ***  Data                 ***/
-      std::vector <Size> dataVec;
-      std::vector <Size> powerSeriesCacheVec;
-      Size dim;
-      Size num;  // number of elements per dimension
-
-    };
-
+      for (Size ld = 0; ld < dim; ld++) {
+        // TODO(Ali) WHY was ld < num+1 ?!?!?!
+        addressIndex += coorVec[ld] * powerSeriesCacheVec[ld];
+      } return (addressIndex);
     }
-
-#endif /* _Multidim_array_h_ */
+    /* ***  Data                 ** */
+    std::vector < Size > dataVec;
+    std::vector < Size > powerSeriesCacheVec;
+    Size dim;
+    Size num;  // number of elements per dimension
+  };
+}   // namespace modigliani_base
+#endif  // MODIGLIANI_MODIGLIANI_BASE_MULTIDIM_ARRAY_H_
