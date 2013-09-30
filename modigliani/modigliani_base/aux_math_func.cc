@@ -22,22 +22,23 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include "aux_math_func.h"
+#include "modigliani_base/aux_math_func.h"
 
-using namespace modigliani_base;
+using modigliani_base::Real;
+using modigliani_base::MTRand;
 
-MTRand modigliani_base::MMakeMTRandFunction(MTRand::uint32 oneSeed) {
+MTRand modigliani_base::MakeMTRandFunction(MTRand::uint32 oneSeed) {
     MTRand tmp(oneSeed);
     return (tmp);
 }
 
-Real modigliani_base::MComputePLogP(Real prob) {
-
+Real modigliani_base::ComputePLogP(Real prob) {
     if (0.0 == prob)
         return (0);
     else if (prob < 0.0) {
         std::cerr
-                << "ComputeEntropyElement - Error : Negative probability encountered."
+            << "ComputeEntropyElement - Error :"
+            << " Negative probability encountered."
                 << std::endl;
         return (0);
     } else {
@@ -45,12 +46,7 @@ Real modigliani_base::MComputePLogP(Real prob) {
     }
 }
 
-/** @short limit01
- Limit a value between [0,1]
- \bug unknown
- \warning unknown
- */
-Real modigliani_base::Mlimit01(Real value) {
+Real modigliani_base::Limit01(Real value) {
     if (value > 1.0)
         return (1.0);
     else if (value < 0.0)
@@ -59,14 +55,14 @@ Real modigliani_base::Mlimit01(Real value) {
         return (value);
 }
 
-Real modigliani_base::Mround(Real value) {
+Real modigliani_base::Round(Real value) {
     return ((Real) (floor(value + 0.5)));
 }
 
 /**    Compute the logarithm of the Gamma function
  Taken from function 'gammln' Numerical Recipes in C (Press et al.)
  */
-Real modigliani_base::MLogGammaFunction(Real arg) {
+Real modigliani_base::LogGammaFunction(Real arg) {
     double x, tmp, ser;
     static double cof[6] = { 76.18009173, -86.50532033, 24.01409822,
             -1.231739516, 0.120858003e-2, -0.536382e-5 };
@@ -83,11 +79,11 @@ Real modigliani_base::MLogGammaFunction(Real arg) {
     return (-tmp + log(2.50662827465 * ser));
 }
 
-int modigliani_base::Misnan(double value) {
-    return (int(value != value));
+int modigliani_base::IsNAN(const Real value) {
+  return (static_cast<int>(value != value));
 }
 
-int modigliani_base::Misinf(const double x) {
+int modigliani_base::IsInf(const Real x) {
     double y = x - x;
     int s = (y != y);
 

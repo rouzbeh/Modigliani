@@ -42,7 +42,7 @@ Binomial_rnd_dist::Initializer::Initializer() {
       "%s\n",
       "Binomial_rnd_dist::Binomial_rnd_dist - Talk : This may take a while, populating LogGamma tables");
   for (Size ll = 0; ll < M_LOGGAMMATABLEMAX; ll++) {
-    logGammaTable[ll] = MLogGammaFunction(Real(ll));
+    logGammaTable[ll] = LogGammaFunction(Real(ll));
   }
 }
 
@@ -385,7 +385,7 @@ inline Real Binomial_rnd_dist::LogGamma(Real val) const {
   if ((val == (Real) rVal) && (rVal < M_LOGGAMMATABLEMAX)) {
     return (static_table.logGammaTable[rVal]);
   } else {
-    return (MLogGammaFunction(val));
+    return (LogGammaFunction(val));
   }
 }
 

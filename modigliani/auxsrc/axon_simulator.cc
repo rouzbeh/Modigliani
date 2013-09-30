@@ -275,7 +275,7 @@ int Simulate(boost::program_options::variables_map vm) {
             voltVec[ll] = oModel->compartmentVec[ll]->vm();
           }
           for (auto iv : voltVec) {
-            if (modigliani_base::Misnan(iv)) {
+            if (modigliani_base::IsNAN(iv)) {
               log_file << "ERROR at t=" << timeInMS << " voltage is NaN."
                        << std::endl;
               std::exit(1);
