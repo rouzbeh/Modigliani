@@ -29,6 +29,7 @@
 #include <sstream>
 
 #include <modigliani_core/aux_func.h>
+#include <modigliani_base/aux_math_func.h>
 #include <boost/program_options.hpp>
 #include <boost/progress.hpp>
 #include <boost/timer.hpp>
@@ -275,7 +276,7 @@ int Simulate(boost::program_options::variables_map vm) {
             voltVec[ll] = oModel->compartmentVec[ll]->vm();
           }
           for (auto iv : voltVec) {
-            if (modigliani_base::Misnan(iv)) {
+            if (modigliani_base::IsNAN(iv)) {
               log_file << "ERROR at t=" << timeInMS << " voltage is NaN."
                        << std::endl;
               std::exit(1);

@@ -23,6 +23,8 @@
 
 #include <modigliani_core/aux_func.h>
 #include <boost/program_options.hpp>
+#include <boost/random/mersenne_twister.hpp>
+#include <boost/random/uniform_01.hpp>
 /**
  * \brief Runs a simulation using parameters in the given json file.
  *
@@ -36,6 +38,10 @@
  */
 int Simulate(boost::program_options::variables_map vm) {
   using modigliani_base::Size;
+
+  boost::random::mt19937 rng;
+  boost::random::uniform_01<> uni =  boost::random::uniform_01<>();
+  rng.seed(time(NULL));
   boost::property_tree::ptree config_root;
   try {
     read_json(vm["config-file"].as<string>(), config_root);
@@ -138,9 +144,7 @@ int Simulate(boost::program_options::variables_map vm) {
     std::cerr << "MainLoop started" << std::endl;
     float timeVar = 0;
     modigliani_base::Real inpCurrent = 0.0;
-
-    modigliani_base::Uniform_rnd_dist uniformRnd;
-
+    
     modigliani_base::Real timeInMS = 0;
     int dataRead = 0;
     for (modigliani_base::Size lt = 0;

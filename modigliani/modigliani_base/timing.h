@@ -1,6 +1,7 @@
 /**
  * @file timing.h
- * Measure timings with a stopwatch like class
+ * @brief Measure timings with a stopwatch like class
+ *
  * @author Ahmed A. Faisal, 15. 10. 1998(c)
  * @version  0.1
  * Copyright (C) 1998 Ahmed Aldo Faisal
@@ -21,71 +22,83 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ifndef _modigliani_base_timing_h_
-#define _modigliani_base_timing_h_
+#ifndef MODIGLIANI_MODIGLIANI_BASE_TIMING_H_
+#define MODIGLIANI_MODIGLIANI_BASE_TIMING_H_
 
 #include <ctime>
 // for clock() and CLOCKS_PER_SEC
 
-#include "main.h"
-#include "obj.h"
-#include "types.h"
+#include "modigliani_base/main.h"
+#include "modigliani_base/obj.h"
+#include "modigliani_base/types.h"
 
-namespace modigliani_base{
+namespace modigliani_base {
 
-/**  @class M_timing
- * a stopwatch like measurement object.
+/**
+ * @class Timing
+ * @brief a stopwatch like measurement object.
  *
-        void    start()     : start timing
-        double  stop()      : stop timing
-        void    reset()     : set elapsed time to 0.0
-        double  read()      : read elapsed time (in seconds)
  */
-class Timing : public Obj {
-private:
-    bool isRunning;
-    Real last_time;
-    Real total;
-
-public:
-    Timing() {
-        reset();
-        secs_per_tick = 1.0 / CLOCKS_PER_SEC;
+  class Timing:public Obj {
+  public:
+     Timing() {
+      reset();
+      secs_per_tick_ = 1.0 / CLOCKS_PER_SEC;
     }
+
+     /**
+        @brief set elapsed time to 0.0
+     */
     void reset() {
-        isRunning = false;
-        last_time = 0.0;
-        total=0.0;
+      is_running_ = false;
+      last_time_ = 0.0;
+      total_ = 0.0;
     }
+
+    /**
+       @brief Start timing
+    */
     void start() {
-        if (!isRunning) {
-            last_time = seconds();
-            isRunning = true;
-        }
+      if (!isRunning) {
+        last_time_ = seconds();
+        is_running = true;
+      }
     }
-    Real stop()  {
-        if (isRunning)
-        {
-            total += seconds() - last_time;
-            isRunning = false;
-        }
-        return (total);
+
+    /**
+       @brief stop timing
+       @return elapsed time in seconds
+    */
+    Real stop() {
+      if (is_running_) {
+        total += seconds() - last_time;
+        isRunning = false;
+      }
+      return (total_);
     }
-    Real read()   {
-        if (isRunning)
-        {
-            total+= seconds() - last_time;
-            last_time = seconds();
-        }
-        return (total);
+
+     /**
+       @brief Read elapsed time in seconds
+       @return elapsed time in seconds
+    */
+    Real read() {
+      if (isRunning) {
+        total += seconds() - last_time_;
+        last_time_ = seconds();
+      }
+      return (total_);
     }
+
     Real seconds() {
-        return (((Real) clock() ) * secs_per_tick);
+      return (((Real) clock()) * secs_per_tick_);
     }
-private:
-    Real secs_per_tick;
-};
-}
 
+  private:
+    Real secs_per_tick_;
+    bool is_running_;
+    Real last_time_;
+    Real total_;
+  };
+}  // namespace modigliani_base
 
-#endif /* _modigliani_base_timing_h_ */
+#endif  // MODIGLIANI_MODIGLIANI_BASE_TIMING_H_

@@ -21,24 +21,25 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ifndef _MMATH_CODES_H_
-#define _MMATH_CODES_H_
+#ifndef MODIGLIANI_MODIGLIANI_BASE_CODES_H_
+#define MODIGLIANI_MODIGLIANI_BASE_CODES_H_
 
-#include "main.h"
+#include <string>
+#include "modigliani_base/main.h"
 
 namespace modigliani_base {
 /**
  *  CLASS CODES
  */
-enum ClassCode {
+  enum ClassCode {
     /** M class */
     MMATH_O = 1,
     /** M3D classes */
     M3D_O = 1000000
-};
+  };
 
 /** image/bitmap related  CODES */
-enum ImageFileType {
+  enum ImageFileType {
     AUTO,
     RAW,
     M = 1,
@@ -49,8 +50,8 @@ enum ImageFileType {
     JPG,
     PNG,
     UNKNOWN
-};
-enum ImageDataFormat {
+  };
+  enum ImageDataFormat {
     SINGLE_CHANNEL = 1,
     RGB = 3,
     RGBA = 4,
@@ -58,33 +59,30 @@ enum ImageDataFormat {
     GREEN,
     BLUE,
     ALPHA
-};
-/* SINGLE-channel corresponds to a single "gray" channel */
+  };
 
 /** COUMRY CODES == intl. phone code */
-enum CountryCode {
+  enum CountryCode {
     EU = -1, USA = 1, ITALY = 39, UK = 44, GERMANY = 49
-};
+  };
 
 /* *** CURRENCY NAMES *** */
-const std::string EURO_CURRENCY = "Euro";
-const std::string USA_CURRENCY = "US-Dollar";
-const std::string ITALY_CURRENCY = "Lira Italiane";
-const std::string GERMANY_CURRENCY = "Deutsche Mark";
+  const std::string EURO_CURRENCY = "Euro";
+  const std::string USA_CURRENCY = "US-Dollar";
+  const std::string ITALY_CURRENCY = "Lira Italiane";
+  const std::string GERMANY_CURRENCY = "Deutsche Mark";
 
-enum StockExchangeId {
+  enum StockExchangeId {
     STKEXC_UNDEF = 0,
     /* USA */
     STKEXC_NYSE = 1000, STKEXC_NASDAQ = 2000,
     /* EUROPE */
     STKEXC_FTSE = 10000, STKEXC_FSE = 20000
-};
+  };
 
-/* *** VALUE OBJ TYPE ID *** */
-const int UNDEF = 0;
-const int CURRENCY = 100;
-const int STOCK_VALUE = 200;
+  const int UNDEF = 0;
+  const int CURRENCY = 100;
+  const int STOCK_VALUE = 200;
 
-}
-#endif /* _MMATH_CODES_H_ */
-
+}  // namespace modigliani_base
+#endif  // MODIGLIANI_MODIGLIANI_BASE_CODES_H_

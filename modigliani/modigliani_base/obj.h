@@ -23,43 +23,43 @@
  */
 
 
-#ifndef _modigliani_base_H_
-#define _modigliani_base_H_
+#ifndef MODIGLIANI_MODIGLIANI_BASE_OBJ_H_
+#define MODIGLIANI_MODIGLIANI_BASE_OBJ_H_
 
-#include "types.h"
+#include "modigliani_base/types.h"
 
 #ifdef __INTEL_COMPILER
 #define override
 #endif
 
-namespace modigliani_base{
+namespace modigliani_base {
 /**
  * @class Obj
- * @short Master class for all M objects.
+ * @brief Master class for all objects.
+ *
  * It provides object accounting, and a unique identifier (uniqId) for
  * each object.  The unique id might become ambigous when uniqId gets
  * greater LONG_MAX. However, the initialisation of each M object with
  * this class might help in synchronisation of a threaded version.
  */
-class Obj {
-public:
-    Obj(); // 2DO : the constructor is not thread safe !
+  class Obj {
+  public:
+    Obj();                      // 2DO : the constructor is not thread safe !
     Obj(const Obj &);
     virtual ~Obj();
 
-    //protected:
     Long _runnId() const;
     Long _uniqId() const;
 
-
-
-private:
-    /** unique Id number of the object
+  private:
+    /**
+       @brief unique Id number of the object
       static data member,  see implementation */
-    Long uniqId;
-    /** uniqId of the last created Obj */
+     Long uniqId;
+    /**
+     *  @brief uniqId of the last created Obj
+    */
     static Long runnId;
-};
-}
-
-#endif /* _modigliani_base_H_ */
+  };
+}  // namespace modigliani_base
+#endif  // MODIGLIANI_MODIGLIANI_BASE_OBJ_H_

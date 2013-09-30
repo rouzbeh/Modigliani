@@ -99,6 +99,8 @@ class Membrane_compartment_sequence : public Membrane {
     /* ***  Data                 ***/
     std::vector<Cylindrical_compartment*> compartmentVec;
 
+    static bool seed_set_;
+
   protected:
     /* ***  Methods              ***/
     /** WORKING ! */
@@ -155,6 +157,11 @@ class Membrane_compartment_sequence : public Membrane {
     modigliani_base::Size numCompartments;
     bool initialised;
     bool swCrankNicholson;
+
+    boost::random::mt19937 rng_;
+    boost::random::binomial_distribution<> bin_;
+    boost::random::uniform_01<> uni_;
+    unsigned int seed_;
 };
 }
 #endif /* _ntbp_membrane_compartment_sequence.h_ */ 

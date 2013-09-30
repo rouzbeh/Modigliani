@@ -25,9 +25,7 @@
 
 namespace modigliani_core {
 
-modigliani_base::Uniform_rnd_dist Ion_channels::uniformRnd;
-modigliani_base::Size Ion_channels::seed = 0;
-//modigliani_base::Binomial_rnd_dist Ion_channels::binomRnd(0.0, 1);
+bool Ion_channels::seed_set_ = 0;
 
 // Constructors
 Ion_channels::Ion_channels(modigliani_base::Size numNewChannels,
@@ -41,15 +39,16 @@ Ion_channels::Ion_channels(modigliani_base::Size numNewChannels,
 
   statePersistenceProbVec.resize(num_states());
   stateCounterVec.resize(num_states() + 1);
-  uniformRnd = modigliani_base::Uniform_rnd_dist(0, 1);
-//  if (num_channels_)
-//    binomRnd = modigliani_base::Binomial_rnd_dist(0.0, num_channels_);
-  if (Ion_channels::seed == 0) {
+  
+  if (!Ion_channels::seed_set_) {
     Ion_channels::seed = time(NULL);
     std::cout << "Initial seed = " << Ion_channels::seed << std::endl;
+    Ion_channels::seed_set_ = true;
   }
+  rng = boost::random::mt19937();
   rng.seed(Ion_channels::seed++);
   bin = boost::random::binomial_distribution<>(10, 0);
+  uni = boost::random::uniform_01<>();
   stateCounterVec[0] = 0;
   stateCounterVec[1] = num_channels();
 }
@@ -79,9 +78,10 @@ void Ion_channels::reset() {
 /**  */
 modigliani_base::ReturnEnum Ion_channels::GillespieStep(
     modigliani_base::Real voltage) {
-  if (!num_channels_) return (modigliani_base::ReturnEnum::SUCCESS);
-  modigliani_base::Uniform_rnd_dist rnd;
-  modigliani_base::Real val = rnd.RndVal();
+  if (!num_channels_) {
+    return (modigliani_base::ReturnEnum::SUCCESS);
+  }
+  modigliani_base::Real val = uni(rng);
   modigliani_base::Real deltaT = timeStep();
   modigliani_base::Real channelTau = ComputeChannelStateTimeConstant(voltage);
   std::cerr << "channelTau=" << channelTau << std::endl;
@@ -119,7 +119,7 @@ modigliani_base::ReturnEnum Ion_channels::Step(modigliani_base::Real voltage) {
   for (modigliani_base::Size current_state = 1;
       current_state < num_states() + 1; current_state++) {
     for (int llc = 1; llc < oldStateCounterVec[current_state] + 1; llc++) {
-      rv = uniformRnd.RndVal();
+      rv = uni(rng);
       modigliani_base::Real accumulatedProb = 0;
       for (modigliani_base::Size nextState = 1; nextState < num_states() + 1;
           nextState++) {
@@ -190,7 +190,6 @@ modigliani_base::Real Ion_channels::ComputeChannelStateTimeConstant(
 modigliani_base::ReturnEnum Ion_channels::ComputeGillespieStep(
     modigliani_base::Size stateId, modigliani_base::Real voltage) {
   std::cerr << "NTBP_ion_channels_o::ComputeGillespieStep" << std::endl;
-  modigliani_base::Uniform_rnd_dist rnd;
 // int index = (voltage + 100) * 1000;
 // This operation is costly. So we do it only once.
   modigliani_base::Size matrix_index = _probMatrix->get_index(voltage);
@@ -198,7 +197,7 @@ modigliani_base::ReturnEnum Ion_channels::ComputeGillespieStep(
   modigliani_base::Size oldOpen = NumOpen();
   modigliani_base::Real deltaT = timeStep();
 
-  modigliani_base::Real val = rnd.RndVal() * timeStep();
+  modigliani_base::Real val = uni(rng) * timeStep();
 // the probability has to be converted into a rate
 
   modigliani_base::Real stateChangeProbability = 0;

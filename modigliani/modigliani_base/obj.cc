@@ -3,7 +3,6 @@
  * Master object implementation
  *
  * @author Ahmed A. Faisal, 22. 5. 1998(c)
- * NetTrader - finance management, analysis and simulation system
  * @version  0.1
  * Copyright (C) 1998 Ahmed Aldo Faisal
  *
@@ -23,9 +22,9 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include "obj.h"
+#include "modigliani_base/obj.h"
 
-using namespace modigliani_base;
+namespace modigliani_base {
 
 /* static data member declaration in C++ part 2, see declaration */
 Long Obj::runnId = 0;
@@ -78,3 +77,4 @@ inline Long Obj::_uniqId() const {
   return (uniqId);
 }
 
+}  // namespace modigliani_base
