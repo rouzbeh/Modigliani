@@ -27,7 +27,6 @@
 #include "modigliani_base/main.h"
 #include "modigliani_base/types.h"
 #include "object.h"
-#include "modigliani_base/uniform_rnd_dist.h"
 
 namespace modigliani_core {
 

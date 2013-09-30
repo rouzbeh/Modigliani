@@ -11,8 +11,7 @@ resting_potential \
 single_compartment_simulator \
 voltage_step \
 single_compartment_resting_potential\
-network\
-benchmark_rng
+network
 
 if WITH_PLPLOT
   MAYBE_PLPLOT = -lplplotcxxd -lplplotd
@@ -42,10 +41,6 @@ find_spikes_in_binary_file_SOURCES = find_spikes_in_binary_file.cc
 find_spikewords_in_binary_file_SOURCES = find_spikewords_in_binary_file.cc
 
 make_histogram_from_txt_file_SOURCES = make_histogram_from_txt_file.cc
-
-benchmark_rng_SOURCES = benchmark_rng.cc
-benchmark_rng_LDADD = $(top_builddir)/modigliani/modigliani_base/libmodigliani_base.a $(BOOST_LINKS) $(MAYBE_GSL)
-benchmark_rng_CPPFLAGS = $(GSLCPPFLAGS)
 
 test_ring_buffer_SOURCES = test_ring_buffer.cc
 test_ring_buffer_LDADD = $(top_builddir)/modigliani/modigliani_base/libmodigliani_base.a

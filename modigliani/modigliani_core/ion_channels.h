@@ -25,16 +25,12 @@
 #define MODIGLIANI_MODIGLIANI_CORE_ION_CHANNELS_H_
 
 #include <vector>
-/* Parent includes */
-#include "modigliani_core/object.h"
-/* NT includes */
-#include "modigliani_base/uniform_rnd_dist.h"
-#include "modigliani_base/binomial_rnd_dist.h"
-#include "modigliani_core/transition_rate_matrix.h"
-/* other includes */
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/binomial_distribution.hpp>
 
+/* Parent includes */
+#include "modigliani_core/object.h"
+#include "modigliani_core/transition_rate_matrix.h"
 namespace modigliani_core {
 /**
  * @short Ion_channels class
@@ -82,17 +78,14 @@ class Ion_channels : public Object {
     virtual modigliani_base::Real ComputeChannelStateTimeConstant(
         modigliani_base::Real voltage) const;
 
+    static bool seed_set_;
     protected:
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
     // TODO(Ali) remove this
-    std::vector<modigliani_base::Real> statePersistenceProbVec;
-    std::vector<int> stateCounterVec;
-    // [0,1] random number generation
-    static modigliani_base::Uniform_rnd_dist uniformRnd;
-    //static modigliani_base::Binomial_rnd_dist binomRnd;
-    boost::random::mt19937 rng;
-    boost::random::binomial_distribution<> bin;
+      std::vector<modigliani_base::Real> statePersistenceProbVec;
+      std::vector<int> stateCounterVec;
+      boost::random::mt19937 rng;
+      boost::random::binomial_distribution<> bin;
+      boost::random::uniform_01<> uni;
 
     private:
     /* ***  Methods              ***/
@@ -103,6 +96,6 @@ class Ion_channels : public Object {
     std::vector<modigliani_base::Size> open_states_;
     const modigliani_base::Size num_states_;
     const modigliani_base::Size num_channels_;
-    static unsigned int seed;
+    unsigned int seed;
   };}
 #endif  // MODIGLIANI_MODIGLIANI_CORE_ION_CHANNELS_H_
