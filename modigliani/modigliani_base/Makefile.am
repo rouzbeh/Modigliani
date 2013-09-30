@@ -1,7 +1,6 @@
 noinst_LIBRARIES = libmodigliani_base.a
 
-libmodigliani_base_a_SOURCES = value.cc \
-sequential_statistics.cc \
+libmodigliani_base_a_SOURCES = sequential_statistics.cc \
 obj.cc \
 error.cc \
 aux_math_func.cc
@@ -15,7 +14,6 @@ obj.h\
 sequential_statistics.h\
 timing.h\
 types.h\
-value.h\
 multidim_array.h\
 ring_buffer.h\
 physical_constants.h
