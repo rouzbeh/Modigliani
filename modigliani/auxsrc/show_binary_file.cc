@@ -24,7 +24,7 @@ int main(int argc, char *argv[]) {
       << std::endl;
     exit(1);
   }
-  string filename = argv[1];
+  std::string filename = argv[1];
   unsigned int columns = atoi(argv[2]);
   int every = atoi(argv[3]);
 
@@ -43,7 +43,7 @@ int main(int argc, char *argv[]) {
   float buffer[columns];
   unsigned int rows = 0;
 
-  ifstream file(filename.c_str(), std::ios::binary);
+  std::ifstream file(filename.c_str(), std::ios::binary);
   if (!file.good()) {
     std::cerr << "Something is bad with reading from file " << filename << std::
       endl;
