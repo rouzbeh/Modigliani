@@ -10,7 +10,6 @@ rnd_dist.cc \
 obj.cc \
 id_management.cc \
 histogram.cc \
-gui_drv.cc \
 gaussian_rnd_dist.cc \
 error.cc \
 aux_math_func.cc
@@ -20,7 +19,6 @@ aux_math_func.h\
 codes.h\
 error.h\
 gaussian_rnd_dist.h\
-gui_drv.cc gui_drv.h\
 header_string.h\
 histogram.h\
 id_management.h\
