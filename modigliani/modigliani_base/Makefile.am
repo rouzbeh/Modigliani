@@ -15,7 +15,6 @@ codes.h\
 error.h\
 histogram.h\
 main.h\
-moonmap_image_data.h\
 obj.h\
 sequential_statistics.h\
 stock_value.h\
