@@ -1,6 +1,6 @@
 /**
- * \file resting_potential.cc
- * \brief Find the resting potential of an axon by running simulations
+ * @file resting_potential.cc
+ * @brief Find the resting potential of an axon by running simulations
  *
  * This program reads an axon configuration from a json file.
  * The axon is initialised and simulated for a certain number of
@@ -8,10 +8,12 @@
  * provide a resting potential, which compared against the target.
  * The leak reversal potential is then modified appropriately and
  * the simulations are repeated until the target is matched.
- * \version  2.0
- * \author Copyright (C) 2010, 2011 Mohammad Ali Neishabouri
  *
- * \section LICENSE
+ * @version  2.0
+ * @author Mohammad Ali Neishabouri
+ * Copyright 2013 Mohammad Ali Neishabouri
+ *
+ * @section LICENSE
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
  * License as published by the Free Software Foundation; either
@@ -31,7 +33,6 @@
 #include <boost/program_options.hpp>
 
 int main(int argc, char* argv[]) {
-
   namespace po = boost::program_options;
   // Declare the supported options.
   po::options_description desc("Allowed options");
@@ -64,7 +65,7 @@ int main(int argc, char* argv[]) {
   boost::property_tree::ptree config_root;
   try {
     read_json(vm["config-file"].as<string>(), config_root);
-  } catch (exception &e) {
+  } catch(const exception &e) {
     // report to the user the failure and their locations in the document.
     std::cerr << "Failed to parse configuration\n" << e.what();
     exit(1);
