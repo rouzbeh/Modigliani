@@ -26,7 +26,6 @@ multidim_array.h\
 multidim_histogram.h\
 ring_buffer.h\
 two_dim_histogram.h\
-mtrand.h\
 physical_constants.h
 
 AM_CXXFLAGS = $(all_includes) -I$(abs_top_srcdir)/modigliani -ansi -pedantic -Wshadow -Wno-vla -malign-double -std=c++11

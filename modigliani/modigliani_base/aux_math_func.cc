@@ -25,12 +25,6 @@
 #include "modigliani_base/aux_math_func.h"
 
 using modigliani_base::Real;
-using modigliani_base::MTRand;
-
-MTRand modigliani_base::MakeMTRandFunction(MTRand::uint32 oneSeed) {
-    MTRand tmp(oneSeed);
-    return (tmp);
-}
 
 Real modigliani_base::ComputePLogP(Real prob) {
     if (0.0 == prob)
