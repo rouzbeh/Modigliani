@@ -5,7 +5,6 @@ multidim_histogram.cc \
 value.cc \
 sequential_statistics.cc \
 obj.cc \
-id_management.cc \
 histogram.cc \
 error.cc \
 aux_math_func.cc
@@ -15,7 +14,6 @@ aux_math_func.h\
 codes.h\
 error.h\
 histogram.h\
-id_management.h\
 main.h\
 moonmap_image_data.h\
 obj.h\
