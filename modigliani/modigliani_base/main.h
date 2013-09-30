@@ -1,5 +1,6 @@
 /**
- * @file main.h Main header file for modigliani sources @version: 2
+ * @file main.h Main header file for modigliani sources
+ * @version: 2
  * Copyright (C) 1998 Ahmed Aldo Faisal
  *
  * @section LICENSE
@@ -24,27 +25,18 @@
  * Base types and classes for Modigliani
  *
  */
-/* 2DO for some bizarre reason lrand48 is not included/implemented
- * and random_shuffle (STL) needs it or will have to use rand()
- */
-#define __STL_NO_DRAND48
-/* which is switched on with the above statement */
 
-#ifndef _M_MAIN_H_
-#define _M_MAIN_H_
+#ifndef MODIGLIANI_MODIGLIANI_BASE_MAIN_H_
+#define MODIGLIANI_MODIGLIANI_BASE_MAIN_H_
 
-#define M_MAJOR_VERSION 0
-#define M_MINOR_VERSION 5
+#define M_MAJOR_VERSION 2
+#define M_MINOR_VERSION 3
 
 #define M_STRING_LENGTH 255
 #define M_SEPARATOR " ;; "
 
 #define M_EXPORT extern
 #define M_TALKLEVEL 9
-
-
-#define M_GL_SUPPORT M_TRUE
-#define M_GLX_SUPPORT M_TRUE
 
 #define M_DEBUG true
 
@@ -82,5 +74,4 @@
 
    */
 
-#endif /* _M_MAIN_H_ */
-
+#endif  // MODIGLIANI_MODIGLIANI_BASE_MAIN_H_
