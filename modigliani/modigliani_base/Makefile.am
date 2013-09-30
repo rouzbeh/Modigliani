@@ -13,13 +13,11 @@ histogram.cc \
 gui_drv.cc \
 gaussian_rnd_dist.cc \
 error.cc \
-date.cc \
 aux_math_func.cc
 
 EXTRA_DIST= $(libmodigliani_base_a_SOURCES) dmatrix.h\
 aux_math_func.h\
 codes.h\
-date.h\
 error.h\
 gaussian_rnd_dist.h\
 gui_drv.cc gui_drv.h\
@@ -29,12 +27,12 @@ id_management.h\
 main.h\
 moonmap_image_data.h\
 obj.h\
-rnd_dist.cc rnd_dist.h\
+rnd_dist.h\
 sequential_statistics.h\
 stock_value.h\
 timing.h\
 types.h\
-uniform_rnd_dist.cc uniform_rnd_dist.h\
+uniform_rnd_dist.h\
 value.h\
 binomial_rnd_dist.h\
 multidim_array.h\
