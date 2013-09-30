@@ -5,7 +5,6 @@ make_histogram_from_txt_file \
 test_ring_buffer \
 find_spikewords_in_binary_file \
 generate_white_noise \
-measure_mutual_information_in_binary_file \
 axon_simulator \
 resting_potential \
 single_compartment_simulator \
@@ -47,9 +46,6 @@ test_ring_buffer_LDADD = $(top_builddir)/modigliani/modigliani_base/libmodiglian
 
 generate_white_noise_SOURCES = generate_white_noise.cc
 generate_white_noise_LDADD = $(top_builddir)/modigliani/modigliani_base/libmodigliani_base.a
-
-measure_mutual_information_in_binary_file_SOURCES = measure_mutual_information_in_binary_file.cc
-measure_mutual_information_in_binary_file_LDADD = $(top_builddir)/modigliani/modigliani_base/libmodigliani_base.a
 
 axon_simulator_SOURCES = axon_simulator.cc
 single_compartment_simulator_SOURCES = single_compartment_simulator.cc
