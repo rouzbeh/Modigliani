@@ -2,8 +2,10 @@
  * @file membrane_compartment_sequence.h
  * Membrane_compartment_sequence class header
  * @author Ahmed Aldo Faisal &copy; created 26.3.2001
- * @version   0.5
- * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    
+ * @authro Mohammad Ali Neishabouri &copy; 2013
+ * @version   1
+ * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
+ * Copyright (C) 2011,2012,2013 Mohammad Ali Neishabouri
  *
  * @section LICENSE
  * This library is free software; you can redistribute it and/or
@@ -21,148 +23,183 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ifndef _modigliani_core_membrane_compartment_sequence_h_
-#define _modigliani_core_membrane_compartment_sequence_h_
-
-/* Parent includes */
-#include "membrane.h"
-/* NT includes */
-#include "cylindrical_compartment.h"
-/* other includes */
-#include <fstream>
-#include <vector>
+#ifndef MODIGLIANI_MODIGLIANI_CORE_MEMBRANE_COMPARTMENT_SEQUENCE_H_
+#define MODIGLIANI_MODIGLIANI_CORE_MEMBRANE_COMPARTMENT_SEQUENCE_H_
 #include <tnt/tnt_cmat.h>
+#include <vector>
+#include <fstream>
+#include "modigliani_core/membrane.h"
+#include "modigliani_core/cylindrical_compartment.h"
 
 namespace modigliani_core {
-/** @short Membrane_compartment_sequence class
- \bug unknown
- \warning unknown
+/**
+ *  @class Membrane_compartment_sequence
+ *
+ * This class provides an easy way to arrange compartments
+ * linearly, i.e. to simulate axons or dendrites. The class
+ * takes care of propagating the membrane potential along
+ * its member compartments.
  */
-class Membrane_compartment_sequence : public Membrane {
+  class Membrane_compartment_sequence:public Membrane {
   public:
-// see .cpp comments : Membrane_compartment_sequence();
-// RESTRUCTURING GOING ON HERE
-//transforming everything in  here into AddCompartment(NTBP_com..._o * compPtr) to allow
-//polymorphic usage of different compartments
-//
-    /** Create a Membrane_compartment_sequence */
+/**
+ *  @brief Constructor
+ *
+ * Initialises variables, and sets the seed according to the current time.
+ */
     Membrane_compartment_sequence();
-    Membrane_compartment_sequence(
-        const Membrane_compartment_sequence & original) = delete;
-    const Membrane_compartment_sequence & operator=(
-        const Membrane_compartment_sequence & right) = delete;
-    virtual ~Membrane_compartment_sequence();
-    /* ***  Methods              ***/
-    modigliani_base::ReturnEnum PushBack(Cylindrical_compartment * compartPtr);
-    modigliani_base::ReturnEnum Init();
-    modigliani_base::ReturnEnum InitialStep();
-    modigliani_base::ReturnEnum step();
-    void ShowVoltage() {
-      std::cerr << "Voltage [";
-      for (modigliani_base::Size ll = 0; ll < _numCompartments(); ll++) {
-        std::cout << compartmentVec[ll]->vm() << "\t";
-        std::cerr << compartmentVec[ll]->vm() << " ";
-      }
-      std::cerr << "]" << std::endl;
+    Membrane_compartment_sequence(const Membrane_compartment_sequence &
+                                  original) = delete;
+    const Membrane_compartment_sequence
+        & operator=(const
+                    Membrane_compartment_sequence
+                    & right) = delete;
+     virtual ~Membrane_compartment_sequence();
+
+/**
+ * @brief Adds a compartment to the axon.
+ *
+ * @param      compartPtr Pointer to the compartment to add
+ * @return     Whether the compartment was added successfully
+ * @warning    no update of SOLVER dimensionality or SOVLER INIT done
+ */
+     modigliani_base::ReturnEnum PushBack(Cylindrical_compartment * compartPtr);
+
+/**
+   @brief Initialises the propagation compartment sequence
+
+   The most important operation here is to initialise the propagation
+   matrix used at every step. This uses a technique developed in
+   Aldo's PhD thesis. It accelerates calculations but seems to require
+   a constant diameter.
+   @warning    Constant axon diameter required
+ */
+     modigliani_base::ReturnEnum Init();
+
+/**
+ * @brief Setup staggering PDE integration of compartments
+ *
+ * Internal - voltage related - states of compartments(i.e. currents)
+ * are ahead t+.5 baseTimeStep, while state of compartment sequence
+ * is unchanged. imposes crank nicholson staggering.
+ *
+ * @warning    Calling method activates Crank-Nicholson algorithm in Step()
+ */
+     modigliani_base::ReturnEnum InitialStep();
+
+/**
+ * @brief Execute one time step on the compartments.
+ * @warning Identical axo-geometric properties required for all compartments !
+ */
+     modigliani_base::ReturnEnum step();
+
+/**
+ * @brief Inject current into a compartment
+ *
+ * This is very useful in all sorts of experiments. Usually the
+ * current is injected into the first compartment (1).
+ * @param current is nano amperes
+ * @param compartmentId refers to intuitive enumeriation, i.e. [1..m]
+ * @return Success state
+ * @warning Compartments numbered [1..m]
+ */
+    modigliani_base::ReturnEnum InjectCurrent(modigliani_base::
+                                              Real current /* in nA */ ,
+                                              modigliani_base::
+                                              Size compartmentId);
+
+/**
+ * @brief Return the number of compartments
+ *
+ * @return Number of compartments
+ */   
+    modigliani_base::Size num_compartments()const {
+      return (num_compartments_);
     }
-    modigliani_base::Real MembraneVoltage(
-        modigliani_base::Size compartmentId /* 1..numCompartments*/) {
-      return (compartmentVec[compartmentId - 1]->vm());
-    }
-    modigliani_base::ReturnEnum InjectCurrent(
-        modigliani_base::Real current /* in nA */,
-        modigliani_base::Size compartmentId);
-    modigliani_base::Size _numCompartments() const {
-      return (numCompartments);
-    }
-    /**  */
-    /**  */
+
+/**
+ * @brief Compute sum of escape rates over current state
+ *
+ * This is simply the sum of time constants of all compartments
+ * @return Time constant in [kHz]
+ */  
     modigliani_base::Real CompartmentSequenceChannelStateTimeConstant() const;
-    void ShowHinesMatrix();
+
+/**
+ * @brief Returns the amount of current for the given index in the
+ * compartment
+ * @param compIndex compartment index
+ * @param currIndex current index
+ * @return Current
+ * @warning Currents indexed [1..m]
+ */   
     modigliani_base::Real AttachedCurrent(modigliani_base::Size compIndex,
                                           modigliani_base::Size currIndex) {
       M_ASSERT(compIndex > 0);
-      return (compartmentVec[compIndex - 1]->Current(currIndex)->current());
+      return (compartment_vec_[compIndex - 1]->Current(currIndex)->current());
     }
-    std::vector<modigliani_base::Real> open_channels(
-        modigliani_base::Size currIndex) const;
-    std::vector<modigliani_base::Real> OpenChannelsRatio(
-        modigliani_base::Size currIndex) const;
-    std::vector<modigliani_base::Real> NumChannels(
-        modigliani_base::Size currIndex) const;
-    std::vector<modigliani_base::Real> _vVec() const;
-    Cylindrical_compartment* ReturnCompartmentVec(modigliani_base::Size index);
-    /**  */
-    bool GillespieStep();
-    /**  */
-    std::vector<modigliani_base::Real> GiveCurrent(modigliani_base::Size index);
-    /* ***  Data                 ***/
-    std::vector<Cylindrical_compartment*> compartmentVec;
+
+/**
+ * @brief Returns the requested compartment
+ * @param index compartment index
+ * @return Pointer to the requested compartment
+ * @warning Currents indexed [1..m]
+ */     
+    Cylindrical_compartment *ReturnCompartment(modigliani_base::Size index);
+
+/**
+ * @brief Run a Gillespie step
+ * @return Success
+ * @warning Untested by Ali
+ */    
+    modigliani_base::ReturnEnum GillespieStep();
+
+/**
+ * @brief Holds pointers to member compartments
+ */     
+    std::vector < Cylindrical_compartment * >compartment_vec_;
 
     static bool seed_set_;
 
   protected:
-    /* ***  Methods              ***/
-    /** WORKING ! */
-    std::vector<modigliani_base::Real> NumericalRecipesSolveTriDiag(
-        const std::vector<modigliani_base::Real> & l,
-        const std::vector<modigliani_base::Real> & d,
-        const std::vector<modigliani_base::Real> & u,
-        const std::vector<modigliani_base::Real> & r) const;
-    /* ***  Data                 ***/
+
+/**
+ * @brief Solves a tri-diagonal matrix system
+ *
+ * The algorithm is taken from the book numerical receipes
+ * @param l Lower diagonal
+ * @param d Diagonal
+ * @param u Upper diagonal
+ * @param r Right hand side
+ * @return Solution vector
+ */
+    std::vector < modigliani_base::Real >
+      NumericalRecipesSolveTriDiag(const std::vector < modigliani_base::Real >
+                                   &l,
+                                   const std::vector < modigliani_base::Real >
+                                   &d,
+                                   const std::vector < modigliani_base::Real >
+                                   &u,
+                                   const std::vector < modigliani_base::Real >
+                                   &r) const;
 
   private:
-    /* ***  Methods              ***/
-    modigliani_base::Real _OpenChannelsRatio(
-        const Membrane_current* in_current) const {
-      return (0);
-    }
+    modigliani_base::Real _sigma(const Cylindrical_compartment * from,
+                                   const Cylindrical_compartment * to) const;
 
-    modigliani_base::Real _OpenChannelsRatio(
-        const Voltage_gated_ion_channel_current* in_current) const {
-      return (in_current->OpenChannelsRatio());
-    }
-
-    modigliani_base::Real _open_channels(
-        const Membrane_current* in_current) const {
-      return (0);
-    }
-
-    modigliani_base::Real _open_channels(
-        const Voltage_gated_ion_channel_current* in_current) const {
-      return (in_current->open_channels());
-    }
-
-    modigliani_base::Real _NumChannels(
-        const Membrane_current* in_current) const {
-      return (0);
-    }
-
-    modigliani_base::Real _NumChannels(
-        const Voltage_gated_ion_channel_current* in_current) const {
-      return (in_current->num_channels());
-    }
-
-    modigliani_base::Real _sigma(const Cylindrical_compartment* from,
-                                 const Cylindrical_compartment* to) const;
-
-    /* ***  Data                 ***/
-    std::vector<modigliani_base::Real> lVec;
-    std::vector<modigliani_base::Real> dVec;
-    std::vector<modigliani_base::Real> uVec;
-
-//This should be in each compartment
-//std::vector <modigliani_base::Real> vVec;
-    std::vector<modigliani_base::Real> rVec;
-    modigliani_base::Size numCompartments;
-    bool initialised;
-    bool swCrankNicholson;
+    std::vector < modigliani_base::Real > l_vec_;
+    std::vector < modigliani_base::Real > d_vec_;
+    std::vector < modigliani_base::Real > u_vec_;
+    std::vector < modigliani_base::Real > r_vec_;
+    
+    modigliani_base::Size num_compartments_;
+    bool initialised_;
+    bool sw_crank_nicholson_;
 
     boost::random::mt19937 rng_;
-    boost::random::binomial_distribution<> bin_;
-    boost::random::uniform_01<> uni_;
+    boost::random::binomial_distribution <> bin_;
+    boost::random::uniform_01 <> uni_;
     unsigned int seed_;
-};
-}
-#endif /* _ntbp_membrane_compartment_sequence.h_ */ 
-
+  };
+}  // namespace modigliani_core
+#endif  // MODIGLIANI_MODIGLIANI_CORE_MEMBRANE_COMPARTMENT_SEQUENCE_H_

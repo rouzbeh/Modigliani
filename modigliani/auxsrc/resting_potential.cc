@@ -114,13 +114,13 @@ int main(int argc, char* argv[]) {
 
       // The trouble is to know if this is an action potential
       if (duration - lt < 50)
-        for (modigliani_base::Size ll = 0; ll < oModel->_numCompartments();
+        for (modigliani_base::Size ll = 0; ll < oModel->num_compartments();
             ll++) {
-          sum += oModel->compartmentVec[ll]->vm();
+          sum += oModel->compartment_vec_[ll]->vm();
         }
       oModel->step();
     }
-    current_result = sum / (oModel->_numCompartments() * 50);
+    current_result = sum / (oModel->num_compartments() * 50);
     std::cerr << "Mean voltage = " << current_result << " found for eLeak = "
               << current_guess << " max,min" << max << ',' << min << std::endl;
     if (current_result > target) {
