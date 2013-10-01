@@ -92,7 +92,7 @@ modigliani_base::ReturnEnum Ion_channels::GillespieStep(
     for (modigliani_base::Size nextState = 1; nextState < num_states() + 1;
         nextState++) {
       if (ll == nextState) continue;
-      stateChangeProbability += _probMatrix->getTransitionProbability(
+      stateChangeProbability += _probMatrix->GetTransitionProbability(
           voltage, ll, nextState);
     }
     sum += (stateChangeProbability / deltaT) * stateCounterVec[ll];
@@ -115,7 +115,7 @@ modigliani_base::ReturnEnum Ion_channels::Step(modigliani_base::Real voltage) {
   if (!num_channels_) return (modigliani_base::ReturnEnum::SUCCESS);
   modigliani_base::Real rv = 0;
   std::vector<int> oldStateCounterVec = stateCounterVec;
-  modigliani_base::Size matrix_index = _probMatrix->get_index(voltage);
+  modigliani_base::Size matrix_index = _probMatrix->GetIndex(voltage);
   for (modigliani_base::Size current_state = 1;
       current_state < num_states() + 1; current_state++) {
     for (int llc = 1; llc < oldStateCounterVec[current_state] + 1; llc++) {
@@ -123,11 +123,11 @@ modigliani_base::ReturnEnum Ion_channels::Step(modigliani_base::Real voltage) {
       modigliani_base::Real accumulatedProb = 0;
       for (modigliani_base::Size nextState = 1; nextState < num_states() + 1;
           nextState++) {
-        if (_probMatrix->getTransitionProbability(matrix_index, current_state,
+        if (_probMatrix->GetTransitionProbability(matrix_index, current_state,
                                                   nextState) == 0) continue;
         if (nextState == current_state) continue;
         // This replaces awkward tNN probabilities
-        accumulatedProb += _probMatrix->getTransitionProbability(matrix_index,
+        accumulatedProb += _probMatrix->GetTransitionProbability(matrix_index,
                                                                  current_state,
                                                                  nextState);
         if (rv <= accumulatedProb && stateCounterVec[current_state] > 0) {
@@ -174,7 +174,7 @@ modigliani_base::Real Ion_channels::ComputeChannelStateTimeConstant(
     for (modigliani_base::Size nextState = 1; nextState < num_states() + 1;
         nextState++) {
       if (ll == nextState) continue;
-      stateChangeProbability += _probMatrix->getTransitionProbability(
+      stateChangeProbability += _probMatrix->GetTransitionProbability(
           voltage, ll, nextState);
     }
     sum += (stateChangeProbability / deltaT) * stateCounterVec[ll];
@@ -192,7 +192,7 @@ modigliani_base::ReturnEnum Ion_channels::ComputeGillespieStep(
   std::cerr << "NTBP_ion_channels_o::ComputeGillespieStep" << std::endl;
 // int index = (voltage + 100) * 1000;
 // This operation is costly. So we do it only once.
-  modigliani_base::Size matrix_index = _probMatrix->get_index(voltage);
+  modigliani_base::Size matrix_index = _probMatrix->GetIndex(voltage);
 
   modigliani_base::Size oldOpen = NumOpen();
   modigliani_base::Real deltaT = timeStep();
@@ -204,7 +204,7 @@ modigliani_base::ReturnEnum Ion_channels::ComputeGillespieStep(
   for (modigliani_base::Size nextState = 1; nextState < num_states() + 1;
       nextState++) {
     if (stateId == nextState) continue;
-    stateChangeProbability += _probMatrix->getTransitionProbability(
+    stateChangeProbability += _probMatrix->GetTransitionProbability(
         matrix_index, stateId, nextState);
   }
   modigliani_base::Real accumulatedProb = 0;
@@ -212,10 +212,10 @@ modigliani_base::ReturnEnum Ion_channels::ComputeGillespieStep(
   for (modigliani_base::Size nextState = 1; nextState < num_states() + 1;
       nextState++) {
     if (stateId == nextState
-        || !_probMatrix->getTransitionProbability(matrix_index, stateId,
+        || !_probMatrix->GetTransitionProbability(matrix_index, stateId,
                                                   nextState)) continue;
 
-    accumulatedProb += _probMatrix->getTransitionProbability(matrix_index,
+    accumulatedProb += _probMatrix->GetTransitionProbability(matrix_index,
                                                              stateId, nextState)
         / stateChangeProbability;
 
@@ -251,7 +251,7 @@ modigliani_base::ReturnEnum Ion_channels::BinomialStep(
   if (!num_channels()) return (modigliani_base::ReturnEnum::SUCCESS);
   std::vector<int> newStateCounterVec = stateCounterVec;
 // This operation is costly. So we do it only once.
-  modigliani_base::Size matrix_index = _probMatrix->get_index(voltage);
+  modigliani_base::Size matrix_index = _probMatrix->GetIndex(voltage);
   bool loop = false;
   modigliani_base::Size loopCounter = 0;
 
@@ -263,7 +263,7 @@ modigliani_base::ReturnEnum Ion_channels::BinomialStep(
       for (modigliani_base::Size nextState = 1; nextState < num_states() + 1;
           nextState++) {
         if (nextState == currentState) continue;
-        modigliani_base::Real prob = _probMatrix->getTransitionProbability(
+        modigliani_base::Real prob = _probMatrix->GetTransitionProbability(
             matrix_index, currentState, nextState);
         if (prob == 0) continue;
         // M_ASSERT(prob>0 && prob<=1);
@@ -300,7 +300,7 @@ modigliani_base::ReturnEnum Ion_channels::DeterministicStep(
     const modigliani_base::Real voltage) {
   std::vector<int> newStateCounterVec = stateCounterVec;
 // This operation is costly. So we do it only once.
-  modigliani_base::Size matrix_index = _probMatrix->get_index(voltage);
+  modigliani_base::Size matrix_index = _probMatrix->GetIndex(voltage);
   bool loop = false;
   modigliani_base::Size loopCounter = 0;
 
@@ -314,7 +314,7 @@ modigliani_base::ReturnEnum Ion_channels::DeterministicStep(
         if (nextState == currentState) continue;
         modigliani_base::Real prob = 0;
         try {
-          prob = _probMatrix->getTransitionProbability(matrix_index,
+          prob = _probMatrix->GetTransitionProbability(matrix_index,
                                                        currentState, nextState);
         } catch (std::out_of_range &e) {
           std::cerr << e.what() << std::endl;

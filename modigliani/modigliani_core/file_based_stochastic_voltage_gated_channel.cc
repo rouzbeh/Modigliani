@@ -105,7 +105,7 @@ void File_based_stochastic_voltage_gated_channel::load_file(
     //M_ASSERT(probability>0 && probability<=1);
     // Converted voltage is real_voltage
     Real converted_voltage = transitions[index].get<double>("voltage", 0);
-    probability_matrix_map[fileName]->setTransitionProbability(
+    probability_matrix_map[fileName]->SetTransitionProbability(
         converted_voltage, transitions[index].get<Size>("start"),
         transitions[index].get<Size>("stop"), probability);
   }
