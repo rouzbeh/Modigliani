@@ -186,12 +186,12 @@ int Simulate(boost::program_options::variables_map vm) {
     oModel->Init();
 
 #ifdef WITH_PLPLOT
-    PLFLT voltVec[oModel->_numCompartments()];
-    PLFLT x[oModel->_numCompartments()];
+    PLFLT voltVec[oModel->num_compartments()];
+    PLFLT x[oModel->num_compartments()];
     x[0] = 0;
 #endif
 
-    numCompartments = oModel->_numCompartments();
+    numCompartments = oModel->num_compartments();
     log_file << "Total number of compartments(in oModel)" << numCompartments
              << std::endl;
     std::vector<modigliani_base::Real> leakCurrVec(numCompartments);
@@ -229,7 +229,7 @@ int Simulate(boost::program_options::variables_map vm) {
           && lTrials == 0) {
         modigliani_base::Size counter = 0;
         for (auto ci = electrods_vec.begin(); ci != electrods_vec.end(); ci++) {
-          if (*ci >= oModel->compartmentVec.size())
+          if (*ci >= oModel->compartment_vec_.size())
             std::cerr
                 << "Warning : Electrod requested in non existing compartment "
                 << *ci << " ignored." << std::endl;
@@ -240,7 +240,7 @@ int Simulate(boost::program_options::variables_map vm) {
           string temp_name;
           ss >> temp_name;
           output_files.push_back(temp_name);
-          oModel->compartmentVec[*ci]->SetupOutput(temp_name);
+          oModel->compartment_vec_[*ci]->SetupOutput(temp_name);
           counter++;
         }
       }
@@ -248,7 +248,7 @@ int Simulate(boost::program_options::variables_map vm) {
           && lTrials != 0) {
         modigliani_base::Size counter = 0;
         for (auto ci : electrods_vec) {
-          oModel->compartmentVec[ci]->SetupOutput(output_files[counter++]);
+          oModel->compartment_vec_[ci]->SetupOutput(output_files[counter++]);
         }
       }
 
@@ -257,7 +257,7 @@ int Simulate(boost::program_options::variables_map vm) {
           && lt % config_root.get<int>("simulation_parameters.sampN") == 0) {
         modigliani_base::Size counter = 0;
         for (auto ci = electrods_vec.begin(); ci != electrods_vec.end(); ci++) {
-          oModel->compartmentVec[*ci]->WriteOutput();
+          oModel->compartment_vec_[*ci]->WriteOutput();
         }
         if (!lTrials) TimeFile << timeInMS << std::endl;
       }
@@ -266,16 +266,16 @@ int Simulate(boost::program_options::variables_map vm) {
       if (plot > 0) {
         if (lt == 0) {
           for (modigliani_base::Size lc = 1; lc < numCompartments; lc++) {
-            x[lc] = x[lc - 1] + oModel->compartmentVec[lc]->length();
+            x[lc] = x[lc - 1] + oModel->compartment_vec_[lc]->length();
           }
           pls->env(0, x[numCompartments - 1], -100, 100, 0, 0);
         }
         if (lt % plot == 0) {
           pls->clear();
           pls->box("abcnt", 0, 0, "anvbct", 0, 0);
-          for (modigliani_base::Size ll = 0; ll < oModel->_numCompartments();
+          for (modigliani_base::Size ll = 0; ll < oModel->num_compartments();
               ll++) {
-            voltVec[ll] = oModel->compartmentVec[ll]->vm();
+            voltVec[ll] = oModel->compartment_vec_[ll]->vm();
           }
           for (auto iv : voltVec) {
             if (modigliani_base::IsNAN(iv)) {
@@ -289,7 +289,7 @@ int Simulate(boost::program_options::variables_map vm) {
               std::exit(1);
             }
           }
-          pls->line((PLINT) oModel->_numCompartments(), x, voltVec);
+          pls->line((PLINT) oModel->num_compartments(), x, voltVec);
           pls->flush();
         }
       }
@@ -322,8 +322,8 @@ int Simulate(boost::program_options::variables_map vm) {
           lua_call(L_change_potential, 2, 1);
           auto change_in_potential = lua_tonumber(L_change_potential, -1);
           lua_pop(L_change_potential, 1);
-          oModel->compartmentVec[lc]->set_vm(
-              oModel->compartmentVec[lc]->vm() + change_in_potential);
+          oModel->compartment_vec_[lc]->set_vm(
+              oModel->compartment_vec_[lc]->vm() + change_in_potential);
         }
       }
 

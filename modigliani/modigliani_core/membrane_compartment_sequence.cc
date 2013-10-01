@@ -27,15 +27,14 @@ namespace modigliani_core{
 
 bool Membrane_compartment_sequence::seed_set_ = false;
 
-/* ***      CONSTRUCTORS	***/
 Membrane_compartment_sequence::Membrane_compartment_sequence()
-    : Membrane(), initialised(false), swCrankNicholson(false) {
-  numCompartments = 0;
+    : Membrane(), initialised_(false), sw_crank_nicholson_(false) {
+  num_compartments_ = 0;
 
-  lVec.resize(1);
-  uVec.resize(1);
-  dVec.resize(1);
-  rVec.resize(1);
+  l_vec_.resize(1);
+  u_vec_.resize(1);
+  d_vec_.resize(1);
+  r_vec_.resize(1);
 
   if (Membrane_compartment_sequence::seed_set_ == false) {
     seed_ = time(NULL);
@@ -47,45 +46,47 @@ Membrane_compartment_sequence::Membrane_compartment_sequence()
   uni_ = boost::random::uniform_01<>();
 }
 
-/* ***      DESTRUCTOR		***/
 Membrane_compartment_sequence::~Membrane_compartment_sequence() {
-  for (auto it = compartmentVec.begin(); it != compartmentVec.end(); it++) {
+  for (auto it = compartment_vec_.begin(); it != compartment_vec_.end(); it++) {
     delete *it;
   }
 }
 
-/**
- * \brief Adds a compartment to the axon.
- *
- * \param      compartPtr Pointer to the compartment to add
- * \return     none
- * \warning    no update of SOLVER dimensionality or SOVLER INIT done
- */
 modigliani_base::ReturnEnum Membrane_compartment_sequence::PushBack(
     Cylindrical_compartment * compartPtr) {
   compartPtr->setTimeStep(timeStep());
-  compartmentVec.push_back(compartPtr);
-  numCompartments++;
+  compartment_vec_.push_back(compartPtr);
+  num_compartments_++;
 
-  initialised = false;
+  initialised_ = false;
 
-  if (compartmentVec.size() != numCompartments)
+  if (compartment_vec_.size() != num_compartments_)
     return (modigliani_base::ReturnEnum::FAIL);
   return (modigliani_base::ReturnEnum::SUCCESS);
 }
 
-/** \brief Execute one time step on the compartments.
- *  \warning    identical axo-geometric properties required for all compartments !
- */
+modigliani_base::ReturnEnum Membrane_compartment_sequence::InjectCurrent(
+    modigliani_base::Real current,
+    modigliani_base::Size compartmentId) {
+  if ((compartmentId < 1) || (compartmentId > num_compartments()))
+    return (modigliani_base::ReturnEnum::PARAM_OUT_OF_RANGE);
+  return (compartment_vec_[compartmentId - 1]->InjectCurrent(current));
+}
+
+
 modigliani_base::ReturnEnum Membrane_compartment_sequence::step() {
   //	std::cerr << "Membrane_compartment_sequence::Step()" << std::endl;
-  if (true != initialised) {
+  if (!initialised_) {
     std::cerr
-        << "Membrane_compartment_sequence::Step() - Warning : Called method without Init() beeing called after instantiation or AddCompartment. Calling Init() now"
+        << "Membrane_compartment_sequence::Step() "
+        << "- Warning : Called method without Init()"
+        << " beeing called after instantiation or "
+        << "AddCompartment. Calling Init() now"
         << std::endl;
     if (Init() != modigliani_base::ReturnEnum::SUCCESS) {
       std::cerr
-          << "Membrane_compartment_sequence::Step() - Error : Call to Init failed (No compartments present ?)."
+          << "Membrane_compartment_sequence::Step() "
+          << "- Error : Call to Init failed (No compartments present ?)."
           << std::endl;
       return (modigliani_base::ReturnEnum::FAIL);
     }
@@ -97,77 +98,75 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::step() {
 
   /* load voltage std::vector and rhs-std::vector */
 
-  for (ll = 0; ll < numCompartments; ll++) {
+  for (ll = 0; ll < num_compartments_; ll++) {
     /* omega should have units of mV : mSec nA / muF = muV */
     omega = 1e-3 /* mV/muV */
-    * (timeStep() / compartmentVec[ll]->CompartmentMembraneCapacitance())
-        * (compartmentVec[ll]->CompartmentMembraneNetCurrent());
-    rVec[ll] = compartmentVec[ll]->vm() + omega;  // compute RHS of finite difference equation
+    * (timeStep() / compartment_vec_[ll]->CompartmentMembraneCapacitance())
+        * (compartment_vec_[ll]->CompartmentMembraneNetCurrent());
+    r_vec_[ll] = compartment_vec_[ll]->vm() + omega;  // compute RHS of finite difference equation
     // OMEGA is substracted because the currents are of the opposite sign to Aldo's PhD thesis
   }
 
-  std::vector<modigliani_base::Real> vVec = NumericalRecipesSolveTriDiag(lVec,
-                                                                         dVec,
-                                                                         uVec,
-                                                                         rVec);
+  std::vector<modigliani_base::Real> vVec = NumericalRecipesSolveTriDiag(l_vec_,
+                                                                         d_vec_,
+                                                                         u_vec_,
+                                                                         r_vec_);
   /* set new voltage */
-  for (ll = 0; ll < numCompartments; ll++) {
-    compartmentVec[ll]->Step(vVec[ll]);  // Step also advances the voltage -> ignore by using vVec
+  for (ll = 0; ll < num_compartments_; ll++) {
+    compartment_vec_[ll]->Step(vVec[ll]);  // Step also advances the voltage -> ignore by using vVec
   }
   return (modigliani_base::ReturnEnum::SUCCESS);
 }
 
-/** @short       
- \warning    CONSTANT AXON diameter and axoplasmic RESISTANCE required
- */
 modigliani_base::ReturnEnum Membrane_compartment_sequence::Init() {
-  if (compartmentVec.size() <= 0) {
+  if (compartment_vec_.size() <= 0) {
     std::cerr
-        << "NTBPCompartmentMembraneNetCurrent()_membrane_compartment_sequence_o::Init - ERROR : No compartments present."
+        << "membrane_compartment_sequence_o::Init -"
+        << " ERROR : No compartments present."
         << std::endl;
-    initialised = false;
+    initialised_ = false;
     return (modigliani_base::ReturnEnum::FAIL);
   }
 
-  lVec.resize(numCompartments);
-  uVec.resize(numCompartments);
-  dVec.resize(numCompartments);
-  rVec.resize(numCompartments);
+  l_vec_.resize(num_compartments_);
+  u_vec_.resize(num_compartments_);
+  d_vec_.resize(num_compartments_);
+  r_vec_.resize(num_compartments_);
 
-  compartmentVec[0]->set_vm(-65);
+  compartment_vec_[0]->set_vm(-65);
   modigliani_base::Size ll = 1;
-  for (ll = 1; ll < numCompartments; ll++) {
-    compartmentVec[ll]->set_vm(-65);
+  for (ll = 1; ll < num_compartments_; ll++) {
+    compartment_vec_[ll]->set_vm(-65);
     /* testing requirement for constant axo-geometric properties */
-    M_ASSERT(compartmentVec[ll]->radius() == compartmentVec[ll - 1]->radius());
-    M_ASSERT(compartmentVec[ll]->ra() == compartmentVec[ll - 1]->ra());
+    M_ASSERT(compartment_vec_[ll]->radius() == compartment_vec_[ll - 1]->radius());
+    M_ASSERT(compartment_vec_[ll]->ra() == compartment_vec_[ll - 1]->ra());
   }
-  compartmentVec[numCompartments - 1]->set_vm(-65);
+  compartment_vec_[num_compartments_ - 1]->set_vm(-65);
 
   /* initialisation of left band l and right band u "std::vectors" */
   /* FIRST COMPARTMENT */
-  auto sigma_forward = _sigma(compartmentVec[1], compartmentVec[0]);
+  auto sigma_forward = _sigma(compartment_vec_[1], compartment_vec_[0]);
 
-  uVec[0] = -2.0 * sigma_forward;  // vonNeumann boundary conditions
-  dVec[0] = 2.0 * sigma_forward + 1.0;
+  u_vec_[0] = -2.0 * sigma_forward;  // vonNeumann boundary conditions
+  d_vec_[0] = 2.0 * sigma_forward + 1.0;
 
   /* INTERMEDIATE COMPARTMENTS */
-  for (ll = 1; ll < numCompartments - 1; ll++) {
-    sigma_forward = _sigma(compartmentVec[ll + 1], compartmentVec[ll]);
-    auto sigma_backward = _sigma(compartmentVec[ll - 1], compartmentVec[ll]);
-    lVec[ll] = -sigma_backward;
-    dVec[ll] = sigma_forward + sigma_backward + 1.0;
-    uVec[ll] = -sigma_forward;
+  for (ll = 1; ll < num_compartments_ - 1; ll++) {
+    sigma_forward = _sigma(compartment_vec_[ll + 1], compartment_vec_[ll]);
+    auto sigma_backward = _sigma(compartment_vec_[ll - 1], compartment_vec_[ll]);
+    l_vec_[ll] = -sigma_backward;
+    d_vec_[ll] = sigma_forward + sigma_backward + 1.0;
+    u_vec_[ll] = -sigma_forward;
   }
 
   /* LAST COMPARTMENT */
-  auto sigma_backward = _sigma(compartmentVec[numCompartments - 2],
-                               compartmentVec[numCompartments - 1]);
-  dVec[numCompartments - 1] = 2.0 * sigma_backward + 1.0;
-  lVec[numCompartments - 1] = -2.0 * sigma_backward;  // vonNeumann boundary conditions
+  auto sigma_backward = _sigma(compartment_vec_[num_compartments_ - 2],
+                               compartment_vec_[num_compartments_ - 1]);
+  d_vec_[num_compartments_ - 1] = 2.0 * sigma_backward + 1.0;
+  l_vec_[num_compartments_ - 1] = -2.0 * sigma_backward;  // vonNeumann boundary conditions
 
   /* completed initialisation */
-  initialised = true;
+  initialised_ = true;
 
   return (modigliani_base::ReturnEnum::SUCCESS);
 }
@@ -185,21 +184,13 @@ modigliani_base::Real Membrane_compartment_sequence::_sigma(
   return (output);
 }
 
-/**
- * \brief Setup staggering PDE integration of compartments
- * Internal - voltage related - states of compartments(i.e. currents)
- * are ahead t+.5 baseTimeStep, while state of compartment sequence
- * is unchanged. imposes crank nicholson staggering.
- *
- * \warning    Calling method activates Crank-Nicholson algorithm in Step()
- */
 modigliani_base::ReturnEnum Membrane_compartment_sequence::InitialStep() {
 
-  swCrankNicholson = true;
+  sw_crank_nicholson_ = true;
   update_timeStep(timeStep() / 2.0);
   StepNTBP();
-  for (modigliani_base::Size ll = 0; ll < numCompartments; ll++) {
-    compartmentVec[ll]->Step(compartmentVec[ll]->vm());
+  for (modigliani_base::Size ll = 0; ll < num_compartments(); ll++) {
+    compartment_vec_[ll]->Step(compartment_vec_[ll]->vm());
   }
 
   update_timeStep(timeStep() * 2.0);
@@ -210,53 +201,19 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::InitialStep() {
   return (modigliani_base::ReturnEnum::SUCCESS);
 }
 
-std::vector<modigliani_base::Real> Membrane_compartment_sequence::open_channels(
-    modigliani_base::Size currIndex) const {
-  std::vector<modigliani_base::Real> tmp(_numCompartments());
-  for (modigliani_base::Size ll = 0; ll < _numCompartments(); ll++) {
-    tmp[ll] = _open_channels(compartmentVec[ll]->Current(currIndex));
-  }
-  return (tmp);
-}
-
-std::vector<modigliani_base::Real> Membrane_compartment_sequence::_vVec() const {
-  std::vector<modigliani_base::Real> out;
-  for (modigliani_base::Size ll = 0; ll < _numCompartments(); ll++) {
-    out.push_back(compartmentVec[ll]->vm());
-  }
-  return (out);
-}
-
-/* ***  PROTECTED                         ***   */
-/* ***  PRIVATE                           ***   */
-
-/**
- * \param current
- * \param compartmentId refers to intuitive enumeriation, i.e. [1..m]
- */
-modigliani_base::ReturnEnum Membrane_compartment_sequence::InjectCurrent(
-    modigliani_base::Real current /* in nA */,
-    modigliani_base::Size compartmentId) {
-  if ((compartmentId < 1) || (compartmentId > _numCompartments()))
-    return (modigliani_base::ReturnEnum::PARAM_OUT_OF_RANGE);
-  return (compartmentVec[compartmentId - 1]->InjectCurrent(current));
-}
-
-/**  Compute sum of escape rates over current state in [kHz] */
 modigliani_base::Real Membrane_compartment_sequence::CompartmentSequenceChannelStateTimeConstant() const {
   std::cerr
       << "Membrane_compartment_sequence::CompartmentSequenceChannelStateTimeConstant()"
       << std::endl;
   modigliani_base::Real sum = 0.0;
-  for (modigliani_base::Size ll = 0; ll < numCompartments; ll++) {
+  for (modigliani_base::Size ll = 0; ll < num_compartments(); ll++) {
     //		cout <<"Membrane_compartment_sequence::CompartmentSequenceChannelStateTimeConstant  SEQ" << std::endl;
-    sum += compartmentVec[ll]->CompartmentChannelStateTimeConstant();
+    sum += compartment_vec_[ll]->CompartmentChannelStateTimeConstant();
     //		cout << "SEQ " << std::endl;
   }
   return (sum);
 }
 
-/**  */
 std::vector<modigliani_base::Real> Membrane_compartment_sequence::NumericalRecipesSolveTriDiag(
     const std::vector<modigliani_base::Real> & lNewVec,
     const std::vector<modigliani_base::Real> & dNewVec,
@@ -296,10 +253,9 @@ std::vector<modigliani_base::Real> Membrane_compartment_sequence::NumericalRecip
   return (vNewVec);
 }
 
-/**  */
-bool Membrane_compartment_sequence::GillespieStep() {
+modigliani_base::ReturnEnum Membrane_compartment_sequence::GillespieStep() {
   std::cerr << "Membrane_compartment_sequence::GillespieStep()" << std::endl;
-  std::vector<modigliani_base::Real> compartmentTauVec(_numCompartments());
+  std::vector<modigliani_base::Real> compartmentTau_vec_(num_compartments());
   modigliani_base::Real val;
   modigliani_base::Real sum;
   modigliani_base::Real sequenceTau;
@@ -310,21 +266,20 @@ bool Membrane_compartment_sequence::GillespieStep() {
   modigliani_base::Real tStar = 0.0;
 
   do {
-    /** BLOCK 2 */
+    // BLOCK 2
     std::cerr << "GILLESPIE STEP" << std::endl;
     sequenceTau = CompartmentSequenceChannelStateTimeConstant();
     sum = 0.0;
     val = uni_(rng_);
-    for (modigliani_base::Size ll = 0; ll < _numCompartments(); ll++) {
-      sum += compartmentVec[ll]->CompartmentChannelStateTimeConstant();
+    for (modigliani_base::Size ll = 0; ll < num_compartments(); ll++) {
+      sum += compartment_vec_[ll]->CompartmentChannelStateTimeConstant();
       if (val < sum / sequenceTau) {
         std::cerr << "STEPING COMPARTMENT " << ll << std::endl;
-        integrateStep = compartmentVec[ll]->GillespieStep();
+        integrateStep = compartment_vec_[ll]->GillespieStep();
         break;
       }
     }
-    /** BLOCK 2 */
-    /** BLOCK 1 */
+    // BLOCK 1
     // this is a sum of rate constants !
     newDeltaT = log(1 / uni_(rng_)) / sequenceTau;  //sequenceTau in [kHz] while newDeltaT in [ms]
     std::cerr << "NEW DELTA T=" << newDeltaT << std::endl;
@@ -335,14 +290,12 @@ bool Membrane_compartment_sequence::GillespieStep() {
     update_timeStep(newDeltaT);
     StepNTBP();
     tStar += newDeltaT;
-    /** BLOCK 1 */
   } while (integrateStep == false);
 
   std::cerr << "INTEGRATOR STEP WITH T_STAR=" << tStar << std::endl;
   update_timeStep(tStar);
   StepNTBP();
   step();
-  ShowVoltage();
 
   return (modigliani_base::ReturnEnum::SUCCESS);
 }
