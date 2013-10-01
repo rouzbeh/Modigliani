@@ -132,7 +132,7 @@ void Lua_based_stochastic_voltage_gated_channel::load_file(string fileName,
         double probability = TemperatureRateRelation(
             temperature, base_temperature_map[fileName] /* C */, prob_q10)
             * base_probability * time_step;
-        probability_matrix_map[fileName]->setTransitionProbability(voltage, i,
+        probability_matrix_map[fileName]->SetTransitionProbability(voltage, i,
                                                                    j,
                                                                    probability);
       }

@@ -52,7 +52,7 @@ class File_based_stochastic_voltage_gated_channel : public Voltage_gated_ion_cha
     void printProb(std::string fileName) {
       for (modigliani_base::Real v = 20; v < 130; v += 0.005) {
         std::cout
-            << probability_matrix_map[fileName]->getTransitionProbability(v, 2,
+            << probability_matrix_map[fileName]->GetTransitionProbability(v, 2,
                                                                           1)
             << std::endl;
       }
