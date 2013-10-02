@@ -39,15 +39,7 @@ modigliani_base::Real modigliani_core::corrected_channel_density(
   return (indChDensity);
 }
 
-/**
- * \brief Creates a new folder in the output directory
- * and puts a timestamp in its name.
- *
- * \param outputFolder The folder in which to create the new folder.
- * \return Name of the newly created folder
- */
 string modigliani_core::createOutputFolder(string outputFolder) {
-  /* open files */
   time_t rawtime;
   struct tm * timeinfo;
   stringstream ss(stringstream::in | stringstream::out);
@@ -72,11 +64,6 @@ string modigliani_core::createOutputFolder(string outputFolder) {
   return (folderName);
 }
 
-/**
- * Creates a cylindrical compartment using the parameters
- * supplied in the parameters structs supplied.
- * @return The constructed compartment.
- */
 modigliani_core::Cylindrical_compartment* modigliani_core::create_compartment(
     boost::property_tree::ptree config_root,
     boost::property_tree::ptree simulation_parameters,
@@ -85,14 +72,14 @@ modigliani_core::Cylindrical_compartment* modigliani_core::create_compartment(
 
   modigliani_core::Cylindrical_compartment *tmpPtr =
       new modigliani_core::Cylindrical_compartment(
-          compartment_parameters.get<double>("length") /* muMeter */,
-          config_root.get<double>("diameter") /* muMeter */,
-          compartment_parameters.get<double>("Cm")/*muFarad/cm^2 */,
-          compartment_parameters.get<double>("Ra") /* ohm cm */,
+          compartment_parameters.get<double>("length"),
+          config_root.get<double>("diameter"),
+          compartment_parameters.get<double>("Cm"),
+          compartment_parameters.get<double>("Ra"),
           config_root.get<double>("temperature"));
 
   tmpPtr->update_timeStep(
-      config_root.get<double>("simulation_parameters.timeStep") /* mSec */);
+      simulation_parameters.get<double>("timeStep") /* mSec */);
 
   bool randomise_densities = simulation_parameters.get<bool>(
       "randomise_densities");
@@ -111,9 +98,7 @@ void modigliani_core::attach_current(
     const boost::property_tree::ptree currents,
     boost::property_tree::ptree config_root, bool randomise_densities,
     modigliani_base::Size force_alg) {
-  //for (unsigned int index = 0; index < currents.size(); ++index) {
-
-  for(boost::property_tree::ptree::value_type const &v : currents) {
+  for (boost::property_tree::ptree::value_type const &v : currents) {
     // v.first is the name of the child.
     // v.second is the child tree.
     boost::property_tree::ptree current = v.second;
@@ -166,7 +151,8 @@ void modigliani_core::attach_current(
         Lua_based_stochastic_voltage_gated_channel * lua_current =
             new Lua_based_stochastic_voltage_gated_channel(
                 compartment->area(),
-                (randomise_densities ? indDensity : current.get<double>("chDen")),
+                (randomise_densities ? indDensity :
+                 current.get<double>("chDen")),
                 current.get<double>("chCond") * 1e-9 /* pS */,
                 current.get<double>("chRevPot") /* mV */,
                 compartment->timeStep(),
@@ -181,15 +167,6 @@ void modigliani_core::attach_current(
   }
 }
 
-/**
- * \brief Opens a new file in write mode.
- *
- * \param outputFolder The folder in which to create the new file.
- * \param prefix File name prefix
- * \param outStream Will contain an ofstream pointing to the newly
- * \param extension File extension
- * created file.
- */
 void modigliani_core::openOutputFile(string outputFolder, string prefix,
                                      ofstream& outStream, string extension) {
   /* open files */
@@ -206,17 +183,6 @@ void modigliani_core::openOutputFile(string outputFolder, string prefix,
   }
 }
 
-/**
- * \brief Opens a new file in write mode, postfixing the name with
- * the given number
- *
- * \param outputFolder The folder in which to create the new file.
- * \param prefix File name prefix
- * \param counter Number postfix
- * \param extension File extension
- * \return outStream Will contain an ofstream pointing to
- * the newly created file.
- */
 ofstream* modigliani_core::openOutputFile(string outputFolder, string prefix,
                                           int counter, string extension) {
   /* open files */
@@ -263,8 +229,8 @@ modigliani_core::Membrane_compartment_sequence* modigliani_core::create_axon(
 
   std::vector<boost::property_tree::ptree> compartments_parameters(0);
 
-  for(boost::property_tree::ptree::value_type const &v: config_root.get_child(
-          "compartments_parameters")) {
+  for (boost::property_tree::ptree::value_type const &v
+           : config_root.get_child("compartments_parameters")) {
     compartments_parameters.push_back(v.second);
   }
 
@@ -290,7 +256,7 @@ boost::property_tree::ptree modigliani_core::read_config(string fileName) {
   boost::property_tree::ptree config_root;
   try {
     read_json(fileName, config_root);
-  } catch (exception &e) {
+  } catch(const exception &e) {
     // report to the user the failure and their locations in the document.
     std::cerr << "Failed to parse configuration\n" << e.what();
     exit(1);
@@ -320,16 +286,20 @@ std::vector<modigliani_base::Size> modigliani_core::get_electrods(
 }
 
 int SetLuaPath(lua_State* L, const string path) {
-  lua_getglobal( L, "package");
-  lua_getfield(L, -1, "path");  // get field "path" from table at top of stack (-1)
-  std::string cur_path = lua_tostring( L, -1 );  // grab path string from top of stack
-  cur_path.append(";");  // do your path magic her
+  lua_getglobal(L, "package");
+  // get field "path" from table at top of stack (-1)
+  lua_getfield(L, -1, "path");
+  // grab path string from top of stack
+  std::string cur_path = lua_tostring(L, -1);
+  // do your path magic her
+  cur_path.append(";");
   cur_path.append(path);
-  lua_pop( L, 1);
+  lua_pop(L, 1);
   // get rid of the string on the stack we just pushed on line 5
   lua_pushstring(L, cur_path.c_str());  // push the new one
-  lua_setfield(L, -2, "path");  // set the field "path" in table at -2 with value at top of stack
-  lua_pop( L, 1);
+  // set the field "path" in table at -2 with value at top of stack
+  lua_setfield(L, -2, "path");
+  lua_pop(L, 1);
   // get rid of package table from top of stack
   return (0);  // all done!
 }
