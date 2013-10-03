@@ -52,13 +52,14 @@ namespace modigliani_base {
     Long _uniqId() const;
 
   private:
-    /**
-       @brief unique Id number of the object
-      static data member,  see implementation */
+/**
+ * @brief unique Id number of the object
+ * static data member,  see implementation
+ */
      Long uniqId;
-    /**
-     *  @brief uniqId of the last created Obj
-    */
+/**
+ *  @brief uniqId of the last created Obj
+ */
     static Long runnId;
   };
 }  // namespace modigliani_base

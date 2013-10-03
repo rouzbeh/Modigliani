@@ -24,9 +24,11 @@
 #ifndef _modigliani_core_membrane_current_h_
 #define _modigliani_core_membrane_current_h_
 
+#include <assert.h>
+
 #include "modigliani_base/main.h"
 #include "modigliani_base/types.h"
-#include "object.h"
+#include "modigliani_core/object.h"
 
 namespace modigliani_core {
 
@@ -39,8 +41,6 @@ namespace modigliani_core {
  *  the membrane neglecting diffusion/concentration effects
  *  and the conductivity values provided by the hh_current
  *  or channel_current classes.
- *  @bug unknown
- *  @warning unknown
  */
 
 class Membrane_current : public Object {
@@ -74,7 +74,7 @@ class Membrane_current : public Object {
     }
     /** Set temperature in Celsius */
     modigliani_base::ReturnEnum set_temperature(modigliani_base::Real newTemp) {
-      M_ASSERT(newTemp > modigliani_base::ZERO_KELVIN);
+      assert(newTemp > modigliani_base::ZERO_KELVIN);
       temperature_ = newTemp;
       return (modigliani_base::ReturnEnum::SUCCESS);
     }
@@ -155,8 +155,6 @@ class Membrane_current : public Object {
       return (current_);
     }
 
-    /* ***  Data                 ***/
-
   protected:
     /* ***  Methods              ***/
     modigliani_base::Real set_current(
@@ -170,6 +168,7 @@ class Membrane_current : public Object {
     /* ***  Data                 ***/
     modigliani_base::Real voltage_;
     modigliani_base::Real temperature_;  // in Celsius
+    
   private:
     /* ***  Methods              ***/
     void _init(modigliani_base::Real newReversalPotential);

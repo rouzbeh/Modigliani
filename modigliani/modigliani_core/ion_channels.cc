@@ -236,7 +236,7 @@ modigliani_base::ReturnEnum Ion_channels::ComputeGillespieStep(
     std::cerr << check << std::endl;
   }
   std::cerr << num_channels() << std::endl;
-  M_ASSERT((unsigned int ) check == num_channels());
+  assert((unsigned int ) check == num_channels());
 
   if (NumOpen() == oldOpen) {
     return (modigliani_base::ReturnEnum::FAIL);
@@ -266,7 +266,7 @@ modigliani_base::ReturnEnum Ion_channels::BinomialStep(
         modigliani_base::Real prob = _probMatrix->GetTransitionProbability(
             matrix_index, currentState, nextState);
         if (prob == 0) continue;
-        // M_ASSERT(prob>0 && prob<=1);
+        // assert(prob>0 && prob<=1);
         int numberOfChannels = stateCounterVec[currentState];
         //modigliani_base::Real delta = binomRnd.Binomial(prob, numberOfChannels);
         bin.param(boost::random::binomial_distribution<>::param_type {
@@ -289,7 +289,7 @@ modigliani_base::ReturnEnum Ion_channels::BinomialStep(
     if (check != num_channels_) loop = true;
   } while ((true == loop) && (loopCounter < 100));
   if (loopCounter >= 100) {
-    debug_print("%s\n", "ERROR: Binominal step loop counter limit reached.");
+    std::cerr << "ERROR: Binominal step loop counter limit reached." << std::endl;
     return (modigliani_base::ReturnEnum::SUCCESS);
   }
   stateCounterVec = newStateCounterVec;

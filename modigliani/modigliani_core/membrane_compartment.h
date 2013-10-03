@@ -69,13 +69,13 @@ class Membrane_compartment : public Object {
         modigliani_base::Real current /* in nA */);
     modigliani_base::Real AttachedConductance(
         modigliani_base::Size currentIndex) {
-      M_ASSERT((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
+      assert((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
       return (current_vec_[currentIndex - 1]->conductance());
     }
 
     modigliani_base::Real AttachedReversalPotential(
         modigliani_base::Size currentIndex) {
-      M_ASSERT((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
+      assert((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
       return (current_vec_[currentIndex - 1]->reversal_potential());
     }
 
@@ -101,7 +101,7 @@ class Membrane_compartment : public Object {
     }
 
     const Membrane_current * Current(modigliani_base::Size currentIndex) const {
-      M_ASSERT((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
+      assert((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
       return (current_vec_[currentIndex - 1]);
     }
     /* in muMeter^2 */

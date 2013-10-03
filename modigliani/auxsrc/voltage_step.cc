@@ -43,12 +43,12 @@ int activation(string channel_file_name, int alg,
   using std::endl;
   using std::cout;
 
-  string timed_output_folder = modigliani_core::createOutputFolder(
+  string timed_output_folder = modigliani_core::CreateOutputFolder(
       output_folder);
   ofstream time_file, log_file, data_file;
-  modigliani_core::openOutputFile(timed_output_folder, "Time", time_file);
-  modigliani_core::openOutputFile(timed_output_folder, "log", log_file, ".log");
-  modigliani_core::openOutputFile(timed_output_folder, "data", data_file,
+  modigliani_core::OpenOutputFile(timed_output_folder, "Time", time_file);
+  modigliani_core::OpenOutputFile(timed_output_folder, "log", log_file, ".log");
+  modigliani_core::OpenOutputFile(timed_output_folder, "data", data_file,
                                   ".txt");
 
   Real time_step = 0.001;

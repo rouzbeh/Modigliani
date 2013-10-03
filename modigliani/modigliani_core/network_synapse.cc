@@ -67,7 +67,7 @@ modigliani_base::Real Network_synapse::ComputeConductance() {
   lua_pop(_L, 1);
 
   // Make sure it's a number
-  M_ASSERT(conduc == conduc);
+  assert(conduc == conduc);
 
   return (set_conductance(conduc));
 }

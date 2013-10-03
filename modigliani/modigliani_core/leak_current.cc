@@ -30,8 +30,8 @@ using namespace modigliani_core;
 Leak_current::Leak_current(modigliani_base::Real newArea, modigliani_base::Real newLeakConductance,
 		modigliani_base::Real newReversalPotential /* mV */) :
 		Membrane_current(newReversalPotential), area_(newArea),max_conductivity_(newLeakConductance) {
-	M_ASSERT(max_conductivity_ >= 0);
-	M_ASSERT(area_ >= 0);
+	assert(max_conductivity_ >= 0);
+	assert(area_ >= 0);
 	set_simulation_mode(DETERMINISTIC);
 
 	UpdateConductance();

@@ -25,17 +25,12 @@
 
 namespace modigliani_core{
 
-modigliani_base::Real NTBP_temperature_rate_relation(modigliani_base::Real temp, modigliani_base::Real q10) {
-	return (pow(q10, (temp - NTBP_STD_TEMPERATURE) / 10.0));
-}
-
 modigliani_base::Real TemperatureRateRelation(modigliani_base::Real temp,
 		modigliani_base::Real baseTemp, modigliani_base::Real q10) {
 	return (pow(q10, (temp - baseTemp) / 10.0));
 }
 
-/** Compute length constant in muMeter */
-modigliani_base::Real NTBP_length_constant_passive_cable(modigliani_base::Real diameter /* muM */,
+modigliani_base::Real LengthConstantPassiveCable(modigliani_base::Real diameter /* muM */,
 		modigliani_base::Real rAxoplasmic /* Ohm cm */,
 		modigliani_base::Real gLeak /* mSiemens/cm^2 */) {
 	return (1.0e6 /* muMeter/m */
@@ -68,7 +63,6 @@ Object::operator=(const Object & right) {
 	return (*this);
 }
 
-/* ***      DESTRUCTOR		***/
 Object::~Object() {
 }
 

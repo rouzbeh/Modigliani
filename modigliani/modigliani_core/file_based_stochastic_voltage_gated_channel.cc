@@ -37,7 +37,7 @@ File_based_stochastic_voltage_gated_channel::File_based_stochastic_voltage_gated
   }
   baseTemp = base_temperature_map[fileName];
 
-  M_ASSERT(number_of_states_map[fileName]>0);
+  assert(number_of_states_map[fileName]>0);
 
   if (false == initTableLookUp) {
     initTableLookUp = true;
@@ -102,7 +102,7 @@ void File_based_stochastic_voltage_gated_channel::load_file(
         temperature, base_temperature_map[fileName] /* C */, q10)
         * base_probability * time_step;
 
-    //M_ASSERT(probability>0 && probability<=1);
+    //assert(probability>0 && probability<=1);
     // Converted voltage is real_voltage
     Real converted_voltage = transitions[index].get<double>("voltage", 0);
     probability_matrix_map[fileName]->SetTransitionProbability(

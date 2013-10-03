@@ -34,7 +34,7 @@ Lua_based_stochastic_voltage_gated_channel::Lua_based_stochastic_voltage_gated_c
   }
   baseTemp = base_temperature_map[fileName];
 
-  M_ASSERT(number_of_states_map[fileName] > 0);
+  assert(number_of_states_map[fileName] > 0);
 
   if (false == initTableLookUp) {
     initTableLookUp = true;

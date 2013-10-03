@@ -23,7 +23,7 @@
 
 #ifndef _modigliani_core_leak_current_h_
 #define _modigliani_core_leak_current_h_
-
+#include <assert.h>
 #include "membrane_current.h"
 
 namespace modigliani_core {

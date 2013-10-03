@@ -138,8 +138,8 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::Init() {
   for (ll = 1; ll < num_compartments_; ll++) {
     compartment_vec_[ll]->set_vm(-65);
     /* testing requirement for constant axo-geometric properties */
-    M_ASSERT(compartment_vec_[ll]->radius() == compartment_vec_[ll - 1]->radius());
-    M_ASSERT(compartment_vec_[ll]->ra() == compartment_vec_[ll - 1]->ra());
+    assert(compartment_vec_[ll]->radius() == compartment_vec_[ll - 1]->radius());
+    assert(compartment_vec_[ll]->ra() == compartment_vec_[ll - 1]->ra());
   }
   compartment_vec_[num_compartments_ - 1]->set_vm(-65);
 
@@ -221,7 +221,7 @@ std::vector<modigliani_base::Real> Membrane_compartment_sequence::NumericalRecip
     const std::vector<modigliani_base::Real> & rNewVec) const {
   modigliani_base::Size n = lNewVec.size();
   std::vector<modigliani_base::Real> vNewVec(n);
-  M_ASSERT(
+  assert(
       (n == dNewVec.size()) && (dNewVec.size() == uNewVec.size())
           && (uNewVec.size() == vNewVec.size())
           && (vNewVec.size() == rNewVec.size()));
