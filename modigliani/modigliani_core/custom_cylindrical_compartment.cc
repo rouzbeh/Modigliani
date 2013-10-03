@@ -162,7 +162,7 @@ modigliani_base::ReturnEnum Custom_cylindrical_compartment::WriteOutput() const 
 
 void Custom_cylindrical_compartment::SetInsideConcentration(
     modigliani_base::Size currentIndex, Real new_concentration) {
-  M_ASSERT((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
+  assert((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
   custom_current_vec_[currentIndex - 1].inside_concentration =
       new_concentration;
   custom_current_vec_[currentIndex - 1].reversal_potential = nernst_multiplier
@@ -175,7 +175,7 @@ void Custom_cylindrical_compartment::SetInsideConcentration(
 
 void Custom_cylindrical_compartment::SetOutsideConcentration(
     modigliani_base::Size currentIndex, Real new_concentration) {
-  M_ASSERT((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
+  assert((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
   custom_current_vec_[currentIndex - 1].outside_concentration =
       new_concentration;
   custom_current_vec_[currentIndex - 1].reversal_potential = nernst_multiplier

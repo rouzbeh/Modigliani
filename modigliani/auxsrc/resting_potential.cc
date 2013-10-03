@@ -99,7 +99,7 @@ int main(int argc, char* argv[]) {
     std::vector<modigliani_base::Size> nodes_vec, nodes_paranodes_vec;
 
     modigliani_core::Membrane_compartment_sequence* oModel =
-        modigliani_core::create_axon(config_root, temp, temp, 1);
+        modigliani_core::CreateAxon(config_root, temp, temp, 1);
 
     oModel->Init();
 

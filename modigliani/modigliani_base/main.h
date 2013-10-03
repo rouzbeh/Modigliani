@@ -40,38 +40,4 @@
 
 #define M_DEBUG true
 
-/*
-   M naming conventions:
-   M objects :
-   M_<indiviual name>_[<base class name>_]_o
-   M_stock_value_o
-
-   M object methods :
-   returning value of a non-public variable:
-   _<variable name>
-   _amount()
-
-   setting value of a non-public variable:
-   set_<variable name>
-   set_amount( int a )
-
-   M object methods :
-   <UP-lo case>
-   Sum
-
-   "loneley" (non-object) M functions :
-   M_<UP-lo case>
-   Msum
-
-   M variables :
-   compond name variables, as runnId
-   <lower case><Up-lo case>
-
-   single name variables, as ll
-   <lower case>
-
-
-
-   */
-
 #endif  // MODIGLIANI_MODIGLIANI_BASE_MAIN_H_

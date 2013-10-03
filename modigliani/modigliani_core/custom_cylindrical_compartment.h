@@ -86,22 +86,22 @@ class Custom_cylindrical_compartment : public Cylindrical_compartment {
     virtual modigliani_base::ReturnEnum WriteOutput() const override;
 
     const Membrane_current * Current(modigliani_base::Size currentIndex) const {
-      M_ASSERT((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
+      assert((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
       return (custom_current_vec_[currentIndex - 1].current_ptr);
     }
 
     const Real ReversalPotential(modigliani_base::Size currentIndex) const {
-      M_ASSERT((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
+      assert((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
       return (custom_current_vec_[currentIndex - 1].reversal_potential);
     }
 
     const Real InsideConcentration(modigliani_base::Size currentIndex) const {
-      M_ASSERT((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
+      assert((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
       return (custom_current_vec_[currentIndex - 1].inside_concentration);
     }
 
     const Real OutsideConcentration(modigliani_base::Size currentIndex) const {
-      M_ASSERT((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
+      assert((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
       return (custom_current_vec_[currentIndex - 1].outside_concentration);
     }
 

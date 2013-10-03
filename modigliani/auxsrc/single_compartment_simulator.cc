@@ -57,7 +57,7 @@ int Simulate(boost::program_options::variables_map vm) {
 
   ofstream* pot_current_file;
   if (config_root.get<double>("simulation_parameters.sampN", 0) > 0) {
-    timedOutputFolder = modigliani_core::createOutputFolder(
+    timedOutputFolder = modigliani_core::CreateOutputFolder(
         config_root.get<string>("simulation_parameters.outputFolder"));
 
     std::ifstream ifs(vm["config-file"].as<string>(), std::ios::binary);
@@ -69,14 +69,14 @@ int Simulate(boost::program_options::variables_map vm) {
     ofs.close();
     ifs.close();
 
-    modigliani_core::openOutputFile(timedOutputFolder, "Time", TimeFile);
-    modigliani_core::openOutputFile(timedOutputFolder, "log", log_file, ".log");
+    modigliani_core::OpenOutputFile(timedOutputFolder, "Time", TimeFile);
+    modigliani_core::OpenOutputFile(timedOutputFolder, "log", log_file, ".log");
     TimeFile << "% in ms" << std::endl;
-    pot_current_file = modigliani_core::openOutputFile(timedOutputFolder,
+    pot_current_file = modigliani_core::OpenOutputFile(timedOutputFolder,
                                                        "compartment", 0,
                                                        ".bin");
   } else {
-    modigliani_core::openOutputFile("/tmp", "log", log_file, ".log");
+    modigliani_core::OpenOutputFile("/tmp", "log", log_file, ".log");
   }
 
   lua_State* L_inject_current = luaL_newstate();
@@ -137,7 +137,7 @@ int Simulate(boost::program_options::variables_map vm) {
     boost::property_tree::ptree simulation_parameters = config_root.get_child(
         "simulation_parameters");
     modigliani_core::Cylindrical_compartment* oModel =
-        modigliani_core::create_compartment(config_root, simulation_parameters,
+        modigliani_core::CreateCompartment(config_root, simulation_parameters,
                                             compartments_parameters[0u],
                                             force_alg);
 

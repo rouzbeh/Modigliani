@@ -120,7 +120,7 @@ int main(int argc, char* argv[]) {
   }
 
   modigliani_core::Cylindrical_compartment* oModel =
-      modigliani_core::create_compartment(
+      modigliani_core::CreateCompartment(
           config_root, config_root.get_child("simulation_parameters"),
           compartment_parameters, force_alg);
 

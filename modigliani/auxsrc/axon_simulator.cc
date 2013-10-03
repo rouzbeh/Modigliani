@@ -58,12 +58,12 @@ int Simulate(boost::program_options::variables_map vm) {
 
   string timedOutputFolder;
   // What compartments to save
-  auto electrods_vec = modigliani_core::get_electrods(config_root);
+  auto electrods_vec = modigliani_core::GetElectrods(config_root);
   // We write each compartment's potential and currents into a single file.
   ofstream TimeFile, LengthPerCompartmentFile, TypePerCompartmentFile, log_file;
 
   if (config_root.get<Size>("simulation_parameters.sampN") > 0) {
-    timedOutputFolder = modigliani_core::createOutputFolder(
+    timedOutputFolder = modigliani_core::CreateOutputFolder(
         config_root.get<string>("simulation_parameters.outputFolder"));
 
     std::ifstream ifs(vm["config-file"].as<string>(), std::ios::binary);
@@ -75,16 +75,16 @@ int Simulate(boost::program_options::variables_map vm) {
     ofs.close();
     ifs.close();
 
-    modigliani_core::openOutputFile(timedOutputFolder, "Time", TimeFile);
-    modigliani_core::openOutputFile(timedOutputFolder, "TypePerCompartment",
+    modigliani_core::OpenOutputFile(timedOutputFolder, "Time", TimeFile);
+    modigliani_core::OpenOutputFile(timedOutputFolder, "TypePerCompartment",
                                     TypePerCompartmentFile);
-    modigliani_core::openOutputFile(timedOutputFolder, "LengthPerCompartment",
+    modigliani_core::OpenOutputFile(timedOutputFolder, "LengthPerCompartment",
                                     LengthPerCompartmentFile);
-    modigliani_core::openOutputFile(timedOutputFolder, "log", log_file, ".log");
+    modigliani_core::OpenOutputFile(timedOutputFolder, "log", log_file, ".log");
     TimeFile << "% in ms" << std::endl;
 
   } else {
-    modigliani_core::openOutputFile("/tmp", "log", log_file, ".log");
+    modigliani_core::OpenOutputFile("/tmp", "log", log_file, ".log");
   }
 
   lua_State* L_inject_current = luaL_newstate();
@@ -176,7 +176,7 @@ int Simulate(boost::program_options::variables_map vm) {
 
     /* Model setup */
     modigliani_core::Membrane_compartment_sequence* oModel =
-        modigliani_core::create_axon(config_root, TypePerCompartmentFile,
+        modigliani_core::CreateAxon(config_root, TypePerCompartmentFile,
                                      LengthPerCompartmentFile, force_alg);
 
     if (!lTrials) {

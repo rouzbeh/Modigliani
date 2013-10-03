@@ -190,7 +190,7 @@ modigliani_base::ReturnEnum Membrane_compartment::AttachCurrent(
 
 modigliani_base::ReturnEnum Membrane_compartment::InjectCurrent(
     modigliani_base::Real current /* in nA */) {
-//	M_ASSERT(current >=0 ); 2DO is this necessary
+//	assert(current >=0 ); 2DO is this necessary
   i_inj_ = current;
   return (modigliani_base::ReturnEnum::SUCCESS);
 }

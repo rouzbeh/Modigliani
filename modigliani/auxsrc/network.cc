@@ -60,7 +60,7 @@ int Simulate(boost::program_options::variables_map vm) {
 
   std::vector<ofstream*> pot_current_files;
   if (config_root.get<Size>("simulation_parameters.sampN") > 0) {
-    timedOutputFolder = modigliani_core::createOutputFolder(
+    timedOutputFolder = modigliani_core::CreateOutputFolder(
         config_root.get<string>("simulation_parameters.outputFolder"));
 
     std::ifstream ifs(vm["config-file"].as<string>(), std::ios::binary);
@@ -72,17 +72,17 @@ int Simulate(boost::program_options::variables_map vm) {
     ofs.close();
     ifs.close();
 
-    modigliani_core::openOutputFile(timedOutputFolder, "Time", time_file);
-    modigliani_core::openOutputFile(timedOutputFolder, "log", log_file, ".log");
+    modigliani_core::OpenOutputFile(timedOutputFolder, "Time", time_file);
+    modigliani_core::OpenOutputFile(timedOutputFolder, "log", log_file, ".log");
     time_file << "% in ms" << std::endl;
 
     for (int i = 0; i < num_neurons; i++) {
       pot_current_files.push_back(
-          modigliani_core::openOutputFile(timedOutputFolder, "neuron", i,
+          modigliani_core::OpenOutputFile(timedOutputFolder, "neuron", i,
                                           ".bin"));
     };
   } else {
-    modigliani_core::openOutputFile("/tmp", "log", log_file, ".log");
+    modigliani_core::OpenOutputFile("/tmp", "log", log_file, ".log");
   }
 
   vector<vector<float>> input_data(0);
@@ -138,7 +138,7 @@ int Simulate(boost::program_options::variables_map vm) {
       bool randomise_densities = config_root.get<bool>(
           "simulation_parameters.randomise_densities");
 
-      attach_current(tmp_ptr,
+      AttachCurrent(tmp_ptr,
                      config_root.get_child("neuron_parameters.currents"),
                      config_root, randomise_densities, force_alg);
       network_vector.push_back(tmp_ptr);

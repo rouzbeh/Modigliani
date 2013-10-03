@@ -221,7 +221,7 @@ inline modigliani_base::Real Lua_based_deterministic_voltage_gated_channel::Comp
   if(conduc != conduc){
     cerr << "Lua_based_deterministic_voltage_gated_channel : conduc != conduc !" << endl;
     cerr << "Voltage was " << voltage_ << endl;
-    M_ASSERT(conduc == conduc);
+    assert(conduc == conduc);
   }
 
   return (set_conductance(

@@ -135,7 +135,7 @@ namespace modigliani_core {
  */   
     modigliani_base::Real AttachedCurrent(modigliani_base::Size compIndex,
                                           modigliani_base::Size currIndex) {
-      M_ASSERT(compIndex > 0);
+      assert(compIndex > 0);
       return (compartment_vec_[compIndex - 1]->Current(currIndex)->current());
     }
 
