@@ -1,9 +1,9 @@
 /**
  * @file aux_func.cc
  * Auxiliary function implementation for heterogeneous object creation
- * @author Ahmed Ali Neishabouri &copy; created 01.4.2012
- * @version   0.5
- * Copyright (C) 1998-2005 Ahmed Aldo Faisal    
+ *
+ * Copyright (C) 1998-2005 Ahmed Aldo Faisal
+ * Copyright (C) 2013 Mohammad Ali Neishabouri
  *
  * @section LICENSE
  * This library is free software; you can redistribute it and/or
@@ -108,11 +108,11 @@ namespace modigliani_core {
                      boost::property_tree::ptree config_root,
                      bool randomise_densities,
                      modigliani_base::Size force_alg) {
-  for (boost::property_tree::ptree::value_type const &v : currents) {
+    for (boost::property_tree::ptree::value_type const &v : currents) {
       // v.first is the name of the child.
       // v.second is the child tree.
       boost::property_tree::ptree current = v.second;
-
+      
       if (string("leak") == current.get < string > ("type")) {
         compartment->
           AttachCurrent(new
@@ -199,7 +199,7 @@ namespace modigliani_core {
                                                             double >("chDen")),
                                                            current.get <
                                                            double >("chCond") *
-                                                           1e-9 /* pS */ ,
+                                                           1e-9,
                                                            current.get <
                                                            double >("chRevPot")
                                                            /* mV */ ,
@@ -207,8 +207,7 @@ namespace modigliani_core {
                                                            timeStep(),
                                                            config_root.get <
                                                            double
-                                                           >("temperature")
-                                                           /* C */ ,
+                                                           >("temperature"),
                                                            current.get <
                                                            string >
                                                            ("chModel"));

@@ -32,6 +32,11 @@
 #define override
 #endif
 
+/**
+ * @namespace modigliani_base
+ * @brief Base types, constants and classes for Modigliani
+ *
+ */
 namespace modigliani_base {
 /**
  * @class Obj

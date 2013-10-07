@@ -1,9 +1,6 @@
 /**
  * @file membrane_compartment_sequence.h
  * Membrane_compartment_sequence class header
- * @author Ahmed Aldo Faisal &copy; created 26.3.2001
- * @authro Mohammad Ali Neishabouri &copy; 2013
- * @version   1
  * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
  * Copyright (C) 2011,2012,2013 Mohammad Ali Neishabouri
  *
