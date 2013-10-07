@@ -197,7 +197,12 @@ int Simulate(boost::program_options::variables_map vm) {
         modigliani_base::Size counter = 0;
         for (auto ci = network_vector.begin(); ci != network_vector.end();
             ci++) {
-          float* data = (*ci)->data();
+
+          float * data = new float (1 + (*ci)->NumberCurrents());
+          data[0] = (*ci)->vm();
+          for (unsigned int i = 1; i < 1 + (*ci)->NumberCurrents(); i++) {
+            data[i] = (*ci)->Current(i)->current();
+          }
           pot_current_files[counter++]->write(reinterpret_cast<char*>(data),
                                               sizeof(data));
         }

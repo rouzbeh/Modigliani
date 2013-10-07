@@ -28,14 +28,11 @@ namespace modigliani_core {
 
 bool Membrane_compartment::seed_set_ = false;
 
-/* ***      CONSTRUCTORS	***/
-/** Create a Membrane_compartment */
 Membrane_compartment::Membrane_compartment(
     const modigliani_base::Real newArea /* in muMeter^2 */,
     const modigliani_base::Real newTemperature,
     const modigliani_base::Real newCm, const modigliani_base::Real newRa)
     : ra_(newRa), cm_(newCm), area_(newArea) {
-//  compartment_membrane_capacitance_ = 0;
   vm_ = 0;
   i_inj_ = 0;
   set_temperature(newTemperature);
@@ -52,20 +49,11 @@ Membrane_compartment::Membrane_compartment(
   uni_ = boost::random::uniform_01<>();
 }
 
-/* ***      DESTRUCTOR		***/
 Membrane_compartment::~Membrane_compartment() {
   for (auto it = current_vec_.begin(); it != current_vec_.end(); ++it) {
     delete *it;
   }
   if (output_file) output_file->close();
-}
-
-void Membrane_compartment::reset() {
-  vm_ = 0;
-  i_inj_ = 0;
-  for (auto current : current_vec_) {
-    current->reset();
-  }
 }
 
 modigliani_base::ReturnEnum Membrane_compartment::SetupOutput(
@@ -110,31 +98,6 @@ modigliani_base::ReturnEnum Membrane_compartment::WriteOutput() const {
   return (modigliani_base::ReturnEnum::SUCCESS);
 }
 
-/** \brief The membrane compartment has one
- * mode of operation. If the voltage is specified
- * externally at each time step, the compartment
- * acts as a container for the occuring current
- * objects, integratios has to be provided externally.
- *
- * e.g.
- *  Membrane_compartment c; [...]
- *   FLOAT voltage;
- *   LOOP
- *   voltage = IntegrateDifferentialEquation( c._vM() );
- *   c.Step( voltage );
- *   END LOOP;
- *   Additionally single compartment HodgkinHuxley
- *   simulation is possible using:
- *   where the voltage is updated at each step, if the
- *   old voltage is specified as input:
- *   e.g. LOOP
- *   Membrane_compartment c; [...]
- *   c.Step( c._vM() );	deltaVM = 1.0e-3 / sec /mSec / * CompartmentMembraneNetCurrent() / nA / /CompartmentMembraneCapacitance() / muF /;
- *   vM += deltaVM * _timeStep();
- *   END LOOP;
- * \param      newVM The membrane potential
- * \return     none
- */
 modigliani_base::ReturnEnum Membrane_compartment::Step(
     const modigliani_base::Real newVM) {
   vm_ = newVM;
@@ -152,10 +115,6 @@ modigliani_base::ReturnEnum Membrane_compartment::Step() {
           / CompartmentMembraneCapacitance() * timeStep()));
 }
 
-/**
- *  \brief Conductance weighted with reversal potential
- *
- */
 modigliani_base::Real Membrane_compartment::WeightedConductance() const {
   modigliani_base::Real result = 0.0;
 
@@ -189,34 +148,25 @@ modigliani_base::ReturnEnum Membrane_compartment::AttachCurrent(
 }
 
 modigliani_base::ReturnEnum Membrane_compartment::InjectCurrent(
-    modigliani_base::Real current /* in nA */) {
-//	assert(current >=0 ); 2DO is this necessary
+    modigliani_base::Real current) {
   i_inj_ = current;
   return (modigliani_base::ReturnEnum::SUCCESS);
 }
 
-/** \brief The total membrane capacitance of the compartment
- *
- * \return muF
- */
 modigliani_base::Real Membrane_compartment::CompartmentMembraneCapacitance() const {
   return (cm_ /* muF/cm^2 */* area_ /* muMeter^2 */* 1.0e-8 /* cm^2/muMeter^2 */);
 }
 
-/** The net flowing current through the membrane of the compartment
- @return ?
- */
 modigliani_base::Real Membrane_compartment::CompartmentMembraneNetCurrent() const {
   modigliani_base::Real sumDeltaI = 0.0;
   for (modigliani_base::Size it = 0; it < current_vec_.size(); it++) {
-    sumDeltaI -= (current_vec_[it])->current();  // i.e. ionic current is subtracted (modern  current convention)
+    sumDeltaI -= (current_vec_[it])->current();
+    // i.e. ionic current is subtracted (modern  current convention)
   }
-//	std::cerr << "\t Membrane capacitance [muF]"<< CompartmentMembraneCapacitance() << "\t Injected current [nA] "<< iInj <<  "\tionicCurrent="<<sumDeltaI << std::endl;	
-  sumDeltaI += i_inj_;  // the is  sign correct
+  sumDeltaI += i_inj_;
   return (sumDeltaI);
 }
 
-/** Sum of escape rates from current state [1/kHz] */
 modigliani_base::Real Membrane_compartment::CompartmentChannelStateTimeConstant() const {
   std::cerr << "Membrane_compartment::CompartmentChannelStateTimeConstant"
             << std::endl;

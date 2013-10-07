@@ -72,6 +72,7 @@ class Custom_cylindrical_compartment : public Cylindrical_compartment {
     modigliani_base::ReturnEnum AttachCurrent(
         Membrane_current * currentPtr, NTBPcurrentType type = NTBP_IONIC);
     virtual modigliani_base::ReturnEnum Step(const modigliani_base::Real newVM);
+
     /**
      * \brief Opens an output file, writes the header, and use it
      * to write data at each step.
@@ -85,30 +86,18 @@ class Custom_cylindrical_compartment : public Cylindrical_compartment {
 
     virtual modigliani_base::ReturnEnum WriteOutput() const override;
 
-    const Membrane_current * Current(modigliani_base::Size currentIndex) const {
-      assert((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
-      return (custom_current_vec_[currentIndex - 1].current_ptr);
-    }
-
-    const Real ReversalPotential(modigliani_base::Size currentIndex) const {
-      assert((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
-      return (custom_current_vec_[currentIndex - 1].reversal_potential);
-    }
-
     const Real InsideConcentration(modigliani_base::Size currentIndex) const {
-      assert((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
+      assert((currentIndex > 0) && (currentIndex - 1 < NumberCurrents()));
       return (custom_current_vec_[currentIndex - 1].inside_concentration);
     }
 
     const Real OutsideConcentration(modigliani_base::Size currentIndex) const {
-      assert((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
+      assert((currentIndex > 0) && (currentIndex - 1 < NumberCurrents()));
       return (custom_current_vec_[currentIndex - 1].outside_concentration);
     }
 
     virtual modigliani_base::ReturnEnum  set_temperature(modigliani_base::Real newTemp) override {
-      temperature_ = newTemp;
-      for (modigliani_base::Size i = 0; i < current_vec_.size(); i++)
-        current_vec_[i]->set_temperature(newTemp);
+      Membrane_compartment::set_temperature(newTemp);
       nernst_multiplier = 1000 * modigliani_base::R * (newTemp + modigliani_base::ZERO_CELSIUS) / modigliani_base::F;
       return (modigliani_base::ReturnEnum::SUCCESS);
     }
@@ -118,13 +107,11 @@ class Custom_cylindrical_compartment : public Cylindrical_compartment {
     void SetOutsideConcentration(modigliani_base::Size currentIndex,
                                  Real new_concentration);
 
-    /* ***  Data                 ***/
-  protected:
+
+private :
     std::vector<custom_current> custom_current_vec_;
     const modigliani_base::Real volumeratio;
     modigliani_base::Real nernst_multiplier;
 };
-
-}
+}  // namespace modigliani_core
 #endif /* _modigliani_core_custom_cylindrical_compartment.h_ */
-
