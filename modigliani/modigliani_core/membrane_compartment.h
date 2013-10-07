@@ -1,14 +1,12 @@
 /**
- * \file membrane_compartment.h
+ * @file membrane_compartment.h
  *
- * \brief Membrane_compartment class header
+ * @brief Membrane_compartment class header
  *
- * \author Ahmed Aldo Faisal &copy; created 16.3.2001
- * \version   1
+ * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
+ * Copyright (C) 2013 Mohammad Ali Neishabouri
  *
- * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    
- *
- * \section LICENSE
+ * @3section LICENSE
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
  * License as published by the Free Software Foundation; either
@@ -24,169 +22,335 @@
  *
  */
 
-#ifndef _modigliani_core_membrane_compartment_h_
-#define _modigliani_core_membrane_compartment_h_
+#ifndef MODIGLIANI_MODIGLIANI_CORE_MEMBRANE_COMPARTMENT_H_
+#define MODIGLIANI_MODIGLIANI_CORE_MEMBRANE_COMPARTMENT_H_
+
+#include <vector>
+#include <fstream>
+#include <string>
 
 #include "modigliani_core/object.h"
 #include "modigliani_core/membrane_current.h"
 #include "modigliani_core/voltage_gated_ion_channel_current.h"
 
-#include <vector>
-#include <fstream>
-
 namespace modigliani_core {
 
 /**
- * \brief Membrane_compartment class acts as a "container + glue" for the various membrane_current
+ * @brief Membrane_compartment class acts as a "container + glue" for the various membrane_current
  * classes that can be attached to it.
- *
- * \warning 1. rA, rM and cM are set to (arbitrary) standard values, overwrite in derived class
- *  2. leak current IS incorported into the COMPARTMENT VECTOR
- *
  */
-class Membrane_compartment : public Object {
-  public:
-    /***   Constructors, Copy/Assignment and Destructor  ***/
-    Membrane_compartment(const modigliani_base::Real newArea /* in muMeter^2 */,
+  class Membrane_compartment:public Object {
+ public :
+
+/**
+ * @brief Constructor
+ *
+ * @param newArea Membrane surface area in [@f$\mu m^2@f$]
+ * @param newTemperature Temperature in [C]
+ * @param newCm Membrane capacitance in [@f$\mu F / cm^2@f$]
+ * @param newRa Axoplasmic resistance in [@f$\Omega cm@f$]
+ */
+    Membrane_compartment(const modigliani_base::Real newArea /* in muMeter^2 */
+                         ,
                          const modigliani_base::Real newTemperature,
                          const modigliani_base::Real newCm,
                          const modigliani_base::Real newRa);
 
     Membrane_compartment(const Membrane_compartment & original) = delete;
-    Membrane_compartment & operator=(const Membrane_compartment & right) = delete;
+
+    Membrane_compartment & operator=(const Membrane_compartment & right) =
+        delete;
 
     virtual ~Membrane_compartment();
 
-    /* ***  Methods              ***/
-    virtual void reset();
+    virtual modigliani_base::ReturnEnum AttachCurrent(Membrane_current *
+                                                      currentPtr,
+                                                      NTBPcurrentType type =
+                                                      NTBP_IONIC);
 
-    virtual modigliani_base::ReturnEnum AttachCurrent(
-        Membrane_current * currentPtr, NTBPcurrentType type = NTBP_IONIC);
-    virtual modigliani_base::ReturnEnum Step(
-        const modigliani_base::Real newVM /* mV */);
+/**
+ * @brief Sets the membrane potential to the specified value and runs of step of simulation.
+ *
+ * The membrane compartment has one mode of operation. If the voltage
+ * is specified externally at each time step, the compartment acts as
+ * a container for the occuring current objects, integratios has to be
+ * provided externally.
+ * e.g.
+ *  Membrane_compartment c; [...]
+ *   FLOAT voltage;
+ *   LOOP
+ *     voltage = IntegrateDifferentialEquation( c.vm() );
+ *     c.Step( voltage );
+ *   END LOOP;
+ * Additionally single compartment HodgkinHuxley simulation is
+ * possible using this where the voltage is updated at each step, if
+ * the old voltage is specified as input. e.g. :
+ *   LOOP
+ *     Membrane_compartment c; [...]
+ *     c.Step( c.vm() );
+ *     deltaVM = 1.0e-3 * CompartmentMembraneNetCurrent() / CompartmentMembraneCapacitance() ;
+ *     vM += deltaVM * _timeStep();
+ *   END LOOP;
+ * @param newVM The membrane potential in [mV]
+ * @return Success or failure
+ */
+    virtual modigliani_base::ReturnEnum Step(const modigliani_base::Real newVM);
+
+/**
+ * @brief Sets the membrane potential according to membrane current and runs of step of simulation.
+ *
+ * @see Step()
+ * @return Success or failure
+ */
     virtual modigliani_base::ReturnEnum Step();
-    modigliani_base::ReturnEnum InjectCurrent(
-        modigliani_base::Real current /* in nA */);
-    modigliani_base::Real AttachedConductance(
-        modigliani_base::Size currentIndex) {
+
+/**
+ * @brief Injects current into the compartment.
+ *
+ * This funcion is used to mimic the effects of a current injection in
+ * to cell.
+ * @param current Current to inject in [nA]
+ * @return Success or failure
+ */   
+    modigliani_base::ReturnEnum InjectCurrent(modigliani_base::Real current);
+
+/**
+ * @brief Returns the current conductance of the attached conductance
+ * source.
+ *
+ * You can think of this as returning @f$G*m(t)^3*h(t)@f$ for a
+ * Hodgkin-Huxley sodium channel.
+ * @param currentIndex The current source we are interested in. 
+ * @return Conductance in [mS]
+ * @warning Currents are index as in Matlab : [1..m]
+ */   
+    modigliani_base::
+      Real AttachedConductance(modigliani_base::Size currentIndex) {
       assert((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
       return (current_vec_[currentIndex - 1]->conductance());
     }
 
-    modigliani_base::Real AttachedReversalPotential(
-        modigliani_base::Size currentIndex) {
+/**
+ * @brief Returns the reversal potential of the attached conductance
+ * source.
+ *
+ * @param currentIndex The current source we are interested in. 
+ * @return Reversal potential in [mV]
+ * @warning Currents are index as in Matlab : [1..m]
+ */      
+    modigliani_base::
+      Real AttachedReversalPotential(modigliani_base::Size currentIndex) {
       assert((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
       return (current_vec_[currentIndex - 1]->reversal_potential());
     }
 
-    /**
-     * \brief Opens an output file, writes the header, and use it
-     * to write data at each step.
-     *
-     * \param output_file_name
-     * \return Success status
-     * \warning Call after having attached all currents.
-     */
-    virtual modigliani_base::ReturnEnum SetupOutput(std::string output_file_name);
+/**
+ * @brief Opens an output file and writes the header.
+ *
+ * This function is used to create a file in which to dump data during
+ * the simulation. For performance reasons (mainly when loading output
+ * files into Matlab) we use a binary file format. Data is dumped
+ * sequentially into the file, and the header is a simple float32
+ * stating the number of columns that should be used to reshape the
+ * data.
+ * @see WriteOutput()
+ * @param output_file_name
+ * @return Success status
+ * @warning Call after having attached all currents.
+ */
+    virtual modigliani_base::ReturnEnum SetupOutput(std::
+                                                        string
+                                                        output_file_name);
 
+/**
+ * @brief Writes the current flwoing through all attached
+ * Membrane_current instances to a binary file.   
+ *
+ * The values are written sequentially as float32. There are no
+ * delimiters. They can be reshaped into a matrix using the number
+ * of columns written into the header by SetupOutput().
+ * @see SetupOutput()
+ * @return Success or Failure
+ */
     virtual modigliani_base::ReturnEnum WriteOutput() const;
 
-    /** \brief membrane time constant at instaneous membrane conductivity in ms
-     *
-     * \warning Uses weighted conductance
-     * @return Conductance
-     */
-    modigliani_base::Real TimeConstant() const {
+/**
+ * @brief Membrane time constant at instaneous membrane conductivity
+ *
+ * @warning Uses weighted conductance
+ * @return Time constant in [ms]
+ */
+    modigliani_base::Real TimeConstant()const {
       return ((cm() / WeightedConductance()) * area() * 1.0e8);
     }
 
-    const Membrane_current * Current(modigliani_base::Size currentIndex) const {
+/**
+ * @brief Returns the current object at the given index
+ *
+ * @return Pointer to the Membrane_current object
+ * @warning Currents are index as in Matlab : [1..m]
+ */  
+    const Membrane_current* Current(modigliani_base::Size currentIndex) const {
       assert((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
       return (current_vec_[currentIndex - 1]);
     }
-    /* in muMeter^2 */
-    modigliani_base::Real area() /* in muMeter^2 */const {
+
+/**
+ * @brief Returns the membrane surface area
+ *
+ * @return Membrane area in [@f$\mu m^2@f$]
+ */   
+    modigliani_base::Real area() const {
       return (area_);
     }
-    /* in mV */
-    modigliani_base::Real vm() /* in mV muMeter */const {
+
+/**
+ * @brief Returns the membrane potential
+ *
+ * @return Membrane potential in [mV]
+ */ 
+    modigliani_base::Real vm() const {
       return (vm_);
     }
+
+/**
+ * @brief Sets the membrane potential
+ *
+ * @param newVoltage Membrane potential in [mV]
+ */ 
     void set_vm(modigliani_base::Real newVoltage) {
       vm_ = newVoltage;
     }
 
-    /* in muF / cm^2 */
+
+/**
+ * @brief Sets the membrane capacitance per surface area
+ *
+ * @return capacitance in [@f$\mu F cm^{-2}@f$]
+ */ 
     modigliani_base::Real cm() const {
       return (cm_);
     }
 
-    /* in Ohm cm */
+/**
+ * @brief Sets the axial resistance
+ *
+ * @return axial resistance in [@f$\Omega cm@f$]
+ */
     modigliani_base::Real ra() const {
       return (ra_);
     }
 
-    /* Set temperature [Celsius] in compartment and for all currents within compartment (affects future attached ones also) */
+/**
+ * @brief  Set temperature in compartment and for all
+ * currents within the compartments.
+ *
+ * This also affects future attached currents.
+ *
+ * @param newTemp New temperature in [C]
+ */
     virtual modigliani_base::ReturnEnum set_temperature(
-        modigliani_base::Real newTemp /* in Celsius */) {
+        modigliani_base::Real newTemp) {
       temperature_ = newTemp;
       for (modigliani_base::Size i = 0; i < current_vec_.size(); i++)
         current_vec_[i]->set_temperature(newTemp);
       return (modigliani_base::ReturnEnum::SUCCESS);
     }
-    /* in Celsius */
-    modigliani_base::Real temperature() const {
+
+/**
+ * @brief  Returns temperature in compartment
+ *
+ * @return Temperature in [C]
+ */
+    modigliani_base::Real temperature()const {
       return (temperature_);
     }
 
-    /* in muF */
+/**
+ * @brief Returns total compartment capacitance
+ *
+ * @return Capacitance in [@f$\mu F@f$]
+ */    
     modigliani_base::Real CompartmentMembraneCapacitance() const;
-    /* in nA */
-    modigliani_base::Real CompartmentMembraneNetCurrent() const;
-    /** in 1/mSec or 1 kHz*/
-    modigliani_base::Real CompartmentChannelStateTimeConstant() const;
-    /**  */
+
+/**
+ * @brief Returns net membrane current
+ *
+ * @return Current in [nA]
+ */      
+    modigliani_base::Real CompartmentMembraneNetCurrent()const;
+
+/**
+ * @brief Sum of escape rates from current state [1/kHz]
+ *
+ * This is useful for the Gillespie algorithm.
+ * @return Escape rate in [kHz]
+ */
+    modigliani_base::Real CompartmentChannelStateTimeConstant()const;
+
+/**
+ * @brief Perform one step of the Gillespie algorithm.
+ *
+ * @warning This is not as well tested as the binomial algorithm.
+ */
     bool GillespieStep();
-    /**  */
+
+/**
+ * @brief Returns the number of currents attached to the compartment.
+ *
+ * This includes both ion channels and leak currents.
+ * @return Number of currents
+ */
     modigliani_base::Size NumberCurrents() const;
-    //Membrane_current const * GetCurrent(modigliani_base::Size i) const;
-    float* data() const {
-      float* return_data = new float(1 + NumberCurrents());
-      return_data[0] = vm();
-      for (unsigned int i = 1; i < 1 + NumberCurrents(); i++) {
-        return_data[i] = Current(i)->current();
-      }
-      return (return_data);
+
+/**
+ * @brief Returns the sum of attached conductance weighted by the
+ * difference between the membrane potential and the reversal potential.
+ *
+ * @return Current in [@f$\mu A@f$]
+ */
+    modigliani_base::Real WeightedConductance() const;
+
+/**
+ * @brief Returns the vector of attached currents
+ *
+ * @return Vector of Membrane_current pointers
+ */
+    const std::vector< Membrane_current * > current_vec() const {
+      return current_vec_;
     }
 
     static bool seed_set_;
-    
-  protected:
-    /* ***  Methods              ***/
-    //modigliani_base::Real total_conductance() const;
-    modigliani_base::Real WeightedConductance() const;  // OBSOLETE?
 
-    /// injected current into compartment in nA
+ protected :
+    std::ofstream * output_file = 0;
+
+ private :
+    // injected current into compartment in nA
     modigliani_base::Real i_inj_;
-    /// Contains pointers to attached currents
-    std::vector<Membrane_current *> current_vec_;
-    /// membrane capacity in muFarad/cm^2
+
+    // Contains pointers to attached currents
+    std::vector < Membrane_current * >current_vec_;
+
+    // membrane capacity in muFarad/cm^2
     const modigliani_base::Real cm_;
-    /// axoplasmatic resistance in Ohm cm
+
+    // axoplasmatic resistance in Ohm cm
     const modigliani_base::Real ra_;
-    /// in muMeter^2
+
+    // in muMeter^2
     const modigliani_base::Real area_;
-    /// in Celsius
+
+    // in Celsius
     modigliani_base::Real temperature_;
-    /// membrane voltage in mV
+
+    // membrane voltage in mV
     modigliani_base::Real vm_;
 
-    std::ofstream* output_file = 0;
-  private:
     boost::random::mt19937 rng_;
-    boost::random::binomial_distribution<> bin_;
-    boost::random::uniform_01<> uni_;
+    boost::random::binomial_distribution <> bin_;
+    boost::random::uniform_01 <> uni_;
     unsigned int seed_;
-};
-}
-#endif /* _modigliani_core_membrane_compartment.h_ */
+  };
+}  // namespace modigliani_core
+#endif  // MODIGLIANI_MODIGLIANI_CORE_MEMBRANE_COMPARTMENT_H_

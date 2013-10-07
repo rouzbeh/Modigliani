@@ -1,10 +1,8 @@
 /**
  * @file cylindrical_compartment.cc
  * Cylindrical_compartment class implementation
- * @author Ahmed Aldo Faisal &copy; created 26.3.2001  
- * NetTrader - visualisation, scientific and financial analysis and simulation system
- * @version   0.5
- * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    
+ * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
+ * Copyright (C) 2013 Mohammad Ali Neishabouri
  *
  * @section LICENSE
  * This library is free software; you can redistribute it and/or
@@ -22,32 +20,23 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include "cylindrical_compartment.h"
+#include "modigliani_core/cylindrical_compartment.h"
 
-using namespace modigliani_core;
+namespace modigliani_core {
 
-/* ***      CONSTRUCTORS	***/
-/** Create a Cylindrical_compartment */
-//Cylindrical_compartment::Cylindrical_compartment(
-//    modigliani_base::Real newLength /* in muMeter */,
-//    modigliani_base::Real newDiameter /* in muMeter */,
-//    modigliani_base::Real newTemperature)
-//    : Membrane_compartment(M_PI * newDiameter * newLength /* in muMeter^2 */,
-//                           newTemperature) {
-//
-//}
 Cylindrical_compartment::Cylindrical_compartment(
     const modigliani_base::Real newLength,
     const modigliani_base::Real newDiameter, const modigliani_base::Real newCm,
     const modigliani_base::Real newRa,
     const modigliani_base::Real newTemperature)
-    : Membrane_compartment(M_PI * newDiameter * newLength /* in muMeter^2 */,
-                           newTemperature, newCm, newRa), length_(newLength), diameter_(
-        newDiameter), area_(newDiameter * M_PI * newLength), volume_(
-        M_PI * (newDiameter * newDiameter / 4) * newLength) {
-
+    : Membrane_compartment(M_PI * newDiameter * newLength,
+                           newTemperature, newCm, newRa),
+      length_(newLength), diameter_(
+          newDiameter), volume_(M_PI *
+                                (newDiameter *
+                                 newDiameter / 4) * newLength) {
 }
 
-/* ***      DESTRUCTOR		***/
 Cylindrical_compartment::~Cylindrical_compartment() {
 }
+}  // namespace modigliani_core

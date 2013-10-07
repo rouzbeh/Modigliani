@@ -64,7 +64,7 @@ modigliani_base::ReturnEnum Custom_cylindrical_compartment::AttachCurrentWithCon
   new_current.reversal_potential = currentPtr->reversal_potential();
   new_current.track = true;
   custom_current_vec_.push_back(new_current);
-  current_vec_.push_back(currentPtr);
+  Membrane_compartment::AttachCurrent(currentPtr);
   return (modigliani_base::ReturnEnum::SUCCESS);
 }
 
@@ -81,25 +81,25 @@ modigliani_base::ReturnEnum Custom_cylindrical_compartment::AttachCurrent(
   new_current.reversal_potential = currentPtr->reversal_potential();
   new_current.track = false;
   custom_current_vec_.push_back(new_current);
-  current_vec_.push_back(currentPtr);
+  Membrane_compartment::AttachCurrent(currentPtr);
   return (modigliani_base::ReturnEnum::SUCCESS);
 }
 
 modigliani_base::ReturnEnum Custom_cylindrical_compartment::Step(
     const modigliani_base::Real newVM) {
-  vm_ = newVM;
+  set_vm(newVM);
   //for every current
-  for (modigliani_base::Size it = 0; it < current_vec_.size(); it++) {
+  for (modigliani_base::Size it = 0; it < NumberCurrents(); it++) {
     Membrane_current* current = custom_current_vec_[it].current_ptr;
-    current->Step(vm_);
+    current->Step(newVM);
     if ((custom_current_vec_[it]).track) {
       // Count how many ions got in, in picomoles
       modigliani_base::Real ions_picomoles = current->current() * timeStep()
           / 96485.3415;
       custom_current_vec_[it].inside_concentration -= ions_picomoles * 1000000
-          / volume_;
+          / volume();
       custom_current_vec_[it].outside_concentration += ions_picomoles * 1000000
-          / (volume_ * volumeratio);
+          / (volume() * volumeratio);
       // TODO(Ali): What to do with outside concentration?
       custom_current_vec_[it].reversal_potential = nernst_multiplier
           * log(
@@ -162,7 +162,7 @@ modigliani_base::ReturnEnum Custom_cylindrical_compartment::WriteOutput() const 
 
 void Custom_cylindrical_compartment::SetInsideConcentration(
     modigliani_base::Size currentIndex, Real new_concentration) {
-  assert((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
+  assert((currentIndex > 0) && (currentIndex - 1 < NumberCurrents()));
   custom_current_vec_[currentIndex - 1].inside_concentration =
       new_concentration;
   custom_current_vec_[currentIndex - 1].reversal_potential = nernst_multiplier
@@ -175,7 +175,7 @@ void Custom_cylindrical_compartment::SetInsideConcentration(
 
 void Custom_cylindrical_compartment::SetOutsideConcentration(
     modigliani_base::Size currentIndex, Real new_concentration) {
-  assert((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
+  assert((currentIndex > 0) && (currentIndex - 1 < NumberCurrents()));
   custom_current_vec_[currentIndex - 1].outside_concentration =
       new_concentration;
   custom_current_vec_[currentIndex - 1].reversal_potential = nernst_multiplier
