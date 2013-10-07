@@ -22,15 +22,6 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-/**
- * @namespace modigliani_core
- * @short Core classes
- *
- * This namespace contains classes directly used for simulations.
- * Notably, it contains ion channels and membrane classes.
- *
- */
-
 #ifndef _Object_h_
 #define _Object_h_
 
@@ -43,12 +34,15 @@
 #include "../modigliani_base/obj.h"
 #include "../modigliani_base/physical_constants.h"
 
-/** @short Object class
- \bug unknown
- \warning unknown
- TIMESTEP SHOULD BECOME STATIC! FOR GLOBAL CHANGES!
+/**
+ * @namespace modigliani_core
+ * @brief Core classes for Modigliani
+ *
+ * This namespace contains classes directly used for simulations.
+ * Notably, it contains ion channels and membrane classes. This is the
+ * core of modigliani.
+ *
  */
-
 namespace modigliani_core {
 
 enum NTBPKineticFunctionType {
@@ -81,6 +75,11 @@ modigliani_base::Real LengthConstantPassiveCable(
     modigliani_base::Real rAxoplasmic /* Ohm cm */,
     modigliani_base::Real gLeak /* mSiemens/cm^2 */);
 
+/** Base class for all objects in modigliani_core
+ *
+ * TIMESTEP SHOULD BECOME STATIC! FOR GLOBAL CHANGES!
+ */
+
 class Object : public modigliani_base::Obj {
   public:
     /***   Constructors, Copy/Assignment and Destructor  ***/
@@ -91,8 +90,7 @@ class Object : public modigliani_base::Obj {
     /* ***  Methods              ***/
     /** @short  update of explicitly time dependent variables using a deltaT = timeStep, NO update
      of dependent variables
-     @param      none
-     @return     none
+     @param      newSuggestedTimeStep New timestep
      */
     modigliani_base::Real update_timeStep(
         modigliani_base::Real newSuggestedTimeStep) { /* if (suggestedTimeStep > newSuggestedTimeStep) */
