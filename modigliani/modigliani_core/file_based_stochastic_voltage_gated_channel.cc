@@ -148,7 +148,7 @@ inline modigliani_base::ReturnEnum File_based_stochastic_voltage_gated_channel::
 
 /**  */
 /** No descriptions */
-inline modigliani_base::Real File_based_stochastic_voltage_gated_channel::open_channels() const {
+inline modigliani_base::Real File_based_stochastic_voltage_gated_channel::OpenChannels() const {
   return (channels_ptr_->NumOpen());
 }
 
@@ -173,6 +173,6 @@ void File_based_stochastic_voltage_gated_channel::show_param() const {
             << std::endl;
   std::cout << "Channel density [1/muMeter^2]" << area() << std::endl;
   std::cout << "MaxConductivity (all channels open) mSiemens/cm^2"
-            << max_conductivity() << std::endl;
+            << MaxConductivity() << std::endl;
 }
 

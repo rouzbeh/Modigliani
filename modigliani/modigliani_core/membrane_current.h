@@ -54,7 +54,7 @@ class Membrane_current : public Object {
     /* ***  Methods              ***/
     virtual void reset() = 0;
     /// in mSiemens/cm^2
-    virtual modigliani_base::Real max_conductivity() const = 0;
+    virtual modigliani_base::Real MaxConductivity() const = 0;
 
     /** momentary conductance in muFarad */
     modigliani_base::Real conductance() const {

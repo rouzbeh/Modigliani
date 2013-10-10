@@ -41,7 +41,7 @@ class Lua_based_deterministic_voltage_gated_channel : public Voltage_gated_ion_c
         const Lua_based_deterministic_voltage_gated_channel & right);
 
     virtual modigliani_base::ReturnEnum StepCurrent() override;
-    virtual modigliani_base::Real open_channels() const;
+    virtual modigliani_base::Real OpenChannels() const;
     virtual modigliani_base::Real ComputeConductance() override;
     virtual modigliani_base::Real num_channels_in_state(
         modigliani_base::Size state) const;

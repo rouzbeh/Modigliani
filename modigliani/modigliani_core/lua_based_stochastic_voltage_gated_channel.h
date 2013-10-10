@@ -72,7 +72,7 @@ class Lua_based_stochastic_voltage_gated_channel : public Voltage_gated_ion_chan
     ///@return Status
     ///@warning Does not update conductance
     virtual modigliani_base::ReturnEnum StepCurrent();
-    virtual modigliani_base::Real open_channels() const;
+    virtual modigliani_base::Real OpenChannels() const;
     void show_param() const;
     void printProb(string fileName) {
       for (modigliani_base::Real v = 20; v < 130; v += 0.005) {

@@ -1,10 +1,9 @@
 /**
  * @file voltage_gated_ion_channel_current.h
  * modigliani_core_voltage_gated_ion_channel_current class header
- * @author Ahmed Aldo Faisal &copy; created 16.3.2001
- * @author Ali Neishabouri
- * @version   1
+ *
  * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
+ * Copyright (C) 2013 Mohammad Ali Neishabouri
  *
  * @section LICENSE
  * This library is free software; you can redistribute it and/or
@@ -22,79 +21,111 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ifndef _modigliani_core_voltage_gated_ion_channel_current_h_
-#define _modigliani_core_voltage_gated_ion_channel_current_h_
+#ifndef MODIGLIANI_MODIGLIANI_CORE_VOLTAGE_GATED_ION_CHANNEL_CURRENT_H_
+#define MODIGLIANI_MODIGLIANI_CORE_VOLTAGE_GATED_ION_CHANNEL_CURRENT_H_
 
-/* NT core includes */
 #include "modigliani_base/obj.h"
-/* Parent includes */
-#include "membrane_current.h"
-/* NT includes */
-#include "ion_channels.h"
-/* other includes */
+#include "modigliani_core/membrane_current.h"
+#include "modigliani_core/ion_channels.h"
 
 namespace modigliani_core {
-/** @short Base class for voltage gated ion channels.
+/**
+ * @brief Base class for voltage gated ion channels.
  */
 class Voltage_gated_ion_channel_current : public Membrane_current {
   public:
-    /***   Constructors, Copy/Assignment and Destructor  ***/
-    Voltage_gated_ion_channel_current(modigliani_base::Real reversalPotential,  // in mV
-        modigliani_base::Real density,  // channels per mumeter^2
-        modigliani_base::Real area,  // in mumeter^2
-        modigliani_base::Real conductivity  // in mSiemens per channel
-        );
-    Voltage_gated_ion_channel_current(const Voltage_gated_ion_channel_current & original);
-    Voltage_gated_ion_channel_current & operator=(const Voltage_gated_ion_channel_current & right);
+/**
+ * @brief Constructor
+ * @param reversalPotential Reversal potential in [@f$\si{\milli\volt}@f$]
+ * @param density Channel density in [@f$\si{\per\micro\meter\squared}@f$]
+ * @param area Membrane area in [@f$\si{\micro\meter\squared}@f$]
+ * @param conductivity Single channel conductivity in [@f$\si{\milli\siemens}@f$]
+ */
+    Voltage_gated_ion_channel_current(modigliani_base::Real reversalPotential,
+        modigliani_base::Real density,
+        modigliani_base::Real area,
+        modigliani_base::Real conductivity);
+
+    Voltage_gated_ion_channel_current(
+        const Voltage_gated_ion_channel_current & original) = delete;
+    Voltage_gated_ion_channel_current & operator=(
+        const Voltage_gated_ion_channel_current & right) = delete;
+
     virtual ~Voltage_gated_ion_channel_current();
-    /* ***  Methods              ***/
-    /* mementary total conductance */
+
+/**
+ * @brief Returns channel density
+ * @return Channel density in [@f$\si{\per\micro\meter\squared}@f$]
+ */
     modigliani_base::Real density() const {
       return (density_);
     }
+
+/**
+ * @brief Returns membrane surface area
+ * @return Area in [@f$\si{\micro\meter\squared}@f$]
+ */    
     modigliani_base::Real area() const {
       return (area_);
     }
-    /* conductivity per channel in mSiemens */
+
+/**
+ * @brief Returns conductivity per channel
+ * @return conductivity per channel [@f$\si{\milli\siemens}@f$]
+ */      
     modigliani_base::Real conductivity() const {
       return (conductivity_);
     }
-    /* conductivity if all channels open in mSiemens/cm^2, */
-    modigliani_base::Real max_conductivity() const {
-      return (density_ /* num/muMeter^2 */* conductivity_ /* mSiemens */* 1.0e8 /* muMeter^2/cm^2 */);
+
+/**    
+ * @brief Conductivity if all channels open
+ * @return Conductivity in [@f$\si{\milli\siemens\per\centi\meter\squared}@f$]
+ */
+    modigliani_base::Real MaxConductivity() const {
+      return (density_ * conductivity_ * 1.0e8);
     }
-    /**  */
+
+/**
+ * @brief Sets the number of channels to agree with the membrane area and the
+ * density of channels
+ */
     void UpdateNumChannels() {
       num_channels_ = (modigliani_base::Size) ceil(density_ * area_);
     }
 
-    /** Number of total ionic channels */
+/**
+ * @brief Returns number of ionic channels
+ * @return Total number of channels
+ */
     modigliani_base::Real num_channels() const {
       return (num_channels_);
     }
+
+/**
+ * @brief Returns ratio of open channels over total number of channels
+ * @return Ratio of open channels
+ */
     modigliani_base::Real OpenChannelsRatio() const {
-      return (open_channels() / num_channels());
+      return (OpenChannels() / num_channels());
     }
-    /** Number of open ionic channels */
-    virtual modigliani_base::Real open_channels() const = 0;
 
-    // Dangerous: since cached values are not automatically recomputed in derived classes
-    //void Set_vBase(modigliani_base::Real newVBase /* mV */){ vBase = newVBase; }
+/**
+ * @brief Returns number of open ionic channels
+ * @return Number of open channels
+ */
+    virtual modigliani_base::Real OpenChannels() const = 0;
 
-    /* ***  Data                 ***/
-  public:
   protected:
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
-    modigliani_base::Real conductivity_;  // in mSiemens per channel
-    modigliani_base::Real density_;  // channels per muMeter^2
-  private:
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
-    modigliani_base::Size num_channels_;
-    modigliani_base::Real area_;  // in mumeter^2
-    bool ratesComputed;
+    // in mSiemens per channel
+    modigliani_base::Real conductivity_;
+    // channels per muMeter^2
+    modigliani_base::Real density_;
 
+  private:
+    modigliani_base::Size num_channels_;
+    // in mumeter^2
+    modigliani_base::Real area_;
+    bool ratesComputed;
 };
-}
-#endif /* _modigliani_core_voltage_gated_ion_channel_current_h_ */
+}  // namespace modigliani_core
+#endif  // MODIGLIANI_MODIGLIANI_CORE_VOLTAGE_GATED_ION_CHANNEL_CURRENT_H_

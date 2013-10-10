@@ -52,7 +52,7 @@ class Leak_current : public Membrane_current {
     }
     /** compute and return conductance in mSiemens */
     void UpdateConductance() {
-      set_conductance(max_conductivity() * area_ * 1.0e-8);
+      set_conductance(MaxConductivity() * area_ * 1.0e-8);
     }
     /** Return leak conductance in mSiemens  (note: function return constant value (leak!) set in constructor) */
     modigliani_base::Real ComputeConductance() override {
@@ -63,7 +63,7 @@ class Leak_current : public Membrane_current {
     }
 
     /** in mSiemens/cm^2 */
-    modigliani_base::Real max_conductivity() const {
+    modigliani_base::Real MaxConductivity() const {
       return (max_conductivity_);
     }
     /** in muMeter^2 */

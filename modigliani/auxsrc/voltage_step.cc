@@ -108,7 +108,7 @@ int activation(string channel_file_name, int alg,
       for (int t = 0; t < 5 / time_step; t++) {
         current_p->Step(V_hold);
         if (t % static_cast<int>(samp_n) == 0) {
-          data_file << current_p->current() << " " << current_p->open_channels()
+          data_file << current_p->current() << " " << current_p->OpenChannels()
                     << " " << V_hold << endl;
         }
       }
@@ -119,7 +119,7 @@ int activation(string channel_file_name, int alg,
 
         // print to file
         if (t % static_cast<int>(samp_n) == 0) {
-          data_file << current_p->current() << " " << current_p->open_channels()
+          data_file << current_p->current() << " " << current_p->OpenChannels()
                     << " " << aim << endl;
         }
       }

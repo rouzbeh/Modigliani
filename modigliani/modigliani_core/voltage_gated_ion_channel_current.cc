@@ -2,10 +2,8 @@
  * \file voltage_gated_ion_channel_current.cc
  * \brief Voltage_gated_ion_channel_current class implementation
  *
- * \author Ahmed Aldo Faisal &copy; created 16.3.2001
- * \author Ali Neishabouri &copy; created 16.3.2012
- * \version   2
  * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
+ * Copyright (C) 2013 Mohammad Ali Neishabouri
  *
  * \section LICENSE
  * This library is free software; you can redistribute it and/or
@@ -23,18 +21,14 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include "voltage_gated_ion_channel_current.h"
+#include "modigliani_core/voltage_gated_ion_channel_current.h"
 
-using namespace modigliani_core;
-
-/* ***      CONSTRUCTORS	***/
-/** Create a Voltage_gated_ion_channel_current */
+namespace modigliani_core {
 Voltage_gated_ion_channel_current::Voltage_gated_ion_channel_current(
-    modigliani_base::Real newReversalPotential,  //in mV
-    modigliani_base::Real newDensity,  // channels per mumeter^2
-    modigliani_base::Real newArea,  // in mumeter^2
-    modigliani_base::Real newConductivity  // in mSiemens per channel
-    )
+    modigliani_base::Real newReversalPotential,
+    modigliani_base::Real newDensity,
+    modigliani_base::Real newArea,
+    modigliani_base::Real newConductivity)
     : Membrane_current(newReversalPotential), ratesComputed(false) {
   density_ = newDensity;
   area_ = newArea;
@@ -42,24 +36,6 @@ Voltage_gated_ion_channel_current::Voltage_gated_ion_channel_current(
   num_channels_ = area_ * density_;
 }
 
-/* ***      COPY AND ASSIGNMENT	***/
-Voltage_gated_ion_channel_current::Voltage_gated_ion_channel_current(
-    const Voltage_gated_ion_channel_current & original)
-    : Membrane_current(original.reversal_potential()), ratesComputed(false) {
-  density_ = original.density();
-  area_ = original.area();
-  conductivity_ = original.conductivity();
-  num_channels_ = area_ * density_;
-}
-
-Voltage_gated_ion_channel_current&
-Voltage_gated_ion_channel_current::operator=(
-    const Voltage_gated_ion_channel_current & right) {
-  if (this == &right) return (*this);  // Gracefully handle self assignment
-  // add assignment code here
-  return (*this);
-}
-
-/* ***      DESTRUCTOR		***/
 Voltage_gated_ion_channel_current::~Voltage_gated_ion_channel_current() {
 }
+}  // namespace modigliani_core

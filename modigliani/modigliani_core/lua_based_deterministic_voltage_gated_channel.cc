@@ -191,7 +191,7 @@ inline modigliani_base::ReturnEnum Lua_based_deterministic_voltage_gated_channel
 
 /**  */
 /** No descriptions */
-inline modigliani_base::Real Lua_based_deterministic_voltage_gated_channel::open_channels() const {
+inline modigliani_base::Real Lua_based_deterministic_voltage_gated_channel::OpenChannels() const {
   lua_getglobal(L, "open_channels");
 
   // call the function with 0 argument, return 1 result
@@ -225,7 +225,7 @@ inline modigliani_base::Real Lua_based_deterministic_voltage_gated_channel::Comp
   }
 
   return (set_conductance(
-      conduc * max_conductivity() * area() /* muMeter^2 */* 1.0e-8));
+      conduc * MaxConductivity() * area() /* muMeter^2 */* 1.0e-8));
 }
 
 void Lua_based_deterministic_voltage_gated_channel::show_param() const {
@@ -233,7 +233,7 @@ void Lua_based_deterministic_voltage_gated_channel::show_param() const {
   cout << "Single channel conductivity [nA]" << conductivity() << std::endl;
   cout << "Channel density [1/muMeter^2]" << area() << std::endl;
   cout << "MaxConductivity (all channels open) mSiemens/cm^2"
-       << max_conductivity() << std::endl;
+       << MaxConductivity() << std::endl;
 }
 
 modigliani_base::Real Lua_based_deterministic_voltage_gated_channel::_lua_get_real(
