@@ -61,10 +61,6 @@ class Lua_based_stochastic_voltage_gated_channel : public Voltage_gated_ion_chan
     operator=(const Lua_based_stochastic_voltage_gated_channel & right) = delete;
     virtual ~Lua_based_stochastic_voltage_gated_channel();
 
-    void reset() override {
-      channels_ptr_->reset();
-    }
-
     virtual modigliani_base::Real ComputeTimeConstant() const;
     virtual modigliani_base::Real ComputeConductance();
 
@@ -73,6 +69,7 @@ class Lua_based_stochastic_voltage_gated_channel : public Voltage_gated_ion_chan
     ///@warning Does not update conductance
     virtual modigliani_base::ReturnEnum StepCurrent();
     virtual modigliani_base::Real OpenChannels() const;
+
     void show_param() const;
     void printProb(string fileName) {
       for (modigliani_base::Real v = 20; v < 130; v += 0.005) {

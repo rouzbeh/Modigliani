@@ -1,7 +1,7 @@
 /**
  * @file dmatrix.h
- * A straight-forward double matrix class
- * @version  0.1
+ * @brief A straight-forward double matrix class
+ *
  * Copyright (C) 1997 Ahmed Aldo Faisal
  *
  * @section LICENSE
@@ -28,53 +28,48 @@
 
 namespace modigliani_base {
 /**
- Genuine double matrix class
- IMPORTAM : INDICES in Matrix START with (1,1)
- and end with (row,col) !
-
- NOTE :
- DESTRUCTIVE methods used!
- Be carefull because currently methods and operators
- might modify the (*this) object and some generate a new
- one
+ * @brief Genuine double matrix class
+ *
+ * @warning INDICES in Matrix START with (1,1) and end with (row,col) !
+ * @warning DESTRUCTIVE methods used! Be carefull because currently methods and operators
+ * might modify the (*this) object and some generate a new one
  */
   class DMatrix {
-  private:
+ private:
     int row, col;
     double *elements;
-
-  public:
-     DMatrix(int sizz_x, int size_y);
-                      /** init Matrix */
-     explicit DMatrix(int size); /** init Vector */
+    
+ public:
+    DMatrix(int sizz_x, int size_y);
+    /** init Matrix */
+    explicit DMatrix(int size); /** init Vector */
      DMatrix(DMatrix &); /** duplicate from existent DMatrix object */
-
-    ~DMatrix() {
-      delete elements;
-    } DMatrix operator+(DMatrix &);  // !< addition C = A+B
+     
+     ~DMatrix() {
+       delete elements;
+     } DMatrix operator+(DMatrix &);  // !< addition C = A+B
     DMatrix operator-(DMatrix &);  // !< subtraction C = A-B
     DMatrix operator*(DMatrix &);  // !< multiplication A = A*B
     DMatrix operator*(double factor);  // !< Scaling, factor multiplication
-     DMatrix & operator=(DMatrix &);    // !< equalizing :) A=B
-
+    DMatrix & operator=(DMatrix &);    // !< equalizing :) A=B
+    
     double &operator() (int size_x, int size_y);  // !< Access matrix components
     double &operator() (int size);   // !< Access vector components
-
+    
     void print();
     double sum();
     double quadSum();
     DMatrix operator~();
     friend std::istream & operator>>(std::istream &, DMatrix &);
   };
-}  // namespace modigliani_base
-
-modigliani_base::DMatrix(int r, int c) {
-  elements = new double[r * c + 1];
-  memset(elements, ' ', (r * c + 1) * sizeof(elements[0]));
-  row = r;
-  col = c;
-}
-
+  
+  modigliani_base::DMatrix(int r, int c) {
+    elements = new double[r * c + 1];
+    memset(elements, ' ', (r * c + 1) * sizeof(elements[0]));
+    row = r;
+    col = c;
+  }
+  
 modigliani_base::DMatrix(int r) {
   elements = new double[r + 1];
   memset(elements, ' ', (r + 1) * sizeof(elements[0]));
@@ -236,5 +231,5 @@ std::istream & operator>>(std::istream & is, modigliani_base::DMatrix & m) {
       is >> m(i, j);
   return (is);
 }
-
+}  // namespace modigliani_base
 #endif  // MODIGLIANI_MODIGLIANI_BASE_DMATRIX_H_

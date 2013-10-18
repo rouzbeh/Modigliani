@@ -1,12 +1,9 @@
 /**
- * @file membrane_current.cc * \param      compartmentId refers to intuitive enumeriation, i.e. [1..m]
- @return     none
- \warning    unknown
- \bug        unknown
- * Membrane_current class implementation
- * @author Ahmed Aldo Faisal &copy; created 16.3.2001  
- * @version   0.5
- * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    
+ * @file membrane_current.cc
+ * @brief Membrane_current class implementation
+ *
+ * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
+ * Copyright (C) 2013 Mohammad Ali Neishabouri
  *
  * @section LICENSE
  * This library is free software; you can redistribute it and/or
@@ -28,25 +25,22 @@
 
 namespace modigliani_core {
 
-/* ***      CONSTRUCTORS	***/
-/** Create a Membrane_current */
 Membrane_current::Membrane_current(
-    modigliani_base::Real newReversalPotential /* in mV */)
+    modigliani_base::Real newReversalPotential)
     : Object() {
   _init(newReversalPotential);
 }
 
 void Membrane_current::_init(modigliani_base::Real newReversalPotential) {
-  voltage_ = -65;
-  conductance_ = 0;
+  voltage_;
+  conductance_;
   simulation_mode_ = DETERMINISTIC;
-  reversal_potential_ = newReversalPotential;  //in mV
-  current_ = 0.0;  // nanoAmpere
-  temperature_ = 6.3;  // SGA values
-  q10_ = 2.0;  // SGA values
+  reversal_potential_ = newReversalPotential;
+  current_;
+  temperature_;
+  q10_;
 }
 
-/* ***      DESTRUCTOR		***/
 Membrane_current::~Membrane_current() {
 }
-}
+}  // namespace modigliani_core

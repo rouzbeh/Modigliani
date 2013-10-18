@@ -2,9 +2,8 @@
  * @file leak_current.cc
  * \brief Leak_current class implementation
  *
- * @author Ahmed Aldo Faisal &copy; created 19.3.2001  
- * @version   0.5
  * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    
+ * Copyright (C) 2013 Mohammad Ali Neishabouri
  *
  * @section LICENSE
  * This library is free software; you can redistribute it and/or
@@ -22,21 +21,22 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include "leak_current.h"
-using namespace modigliani_core;
+#include "modigliani_core/leak_current.h"
+namespace modigliani_core {
 
-/* ***      CONSTRUCTORS	***/
-/** Create a Leak_current */
-Leak_current::Leak_current(modigliani_base::Real newArea, modigliani_base::Real newLeakConductance,
-		modigliani_base::Real newReversalPotential /* mV */) :
-		Membrane_current(newReversalPotential), area_(newArea),max_conductivity_(newLeakConductance) {
-	assert(max_conductivity_ >= 0);
-	assert(area_ >= 0);
-	set_simulation_mode(DETERMINISTIC);
-
-	UpdateConductance();
+Leak_current::Leak_current(modigliani_base::Real newArea,
+                           modigliani_base::Real newLeakConductance,
+                           modigliani_base::Real newReversalPotential) :
+    Membrane_current(newReversalPotential),
+    area_(newArea),
+    max_conductivity_(newLeakConductance) {
+  assert(max_conductivity_ >= 0);
+  assert(area_ >= 0);
+  set_simulation_mode(DETERMINISTIC);
+  UpdateConductance();
 }
 
-/* ***      DESTRUCTOR		***/
 Leak_current::~Leak_current() {
 }
+
+}  // namespace modigliani_core

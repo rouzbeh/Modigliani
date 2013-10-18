@@ -50,7 +50,7 @@ namespace modigliani_base {
   class Obj {
   public:
     Obj();                      // 2DO : the constructor is not thread safe !
-    Obj(const Obj &);
+    Obj(Obj const __attribute__((unused))& right);
     virtual ~Obj();
 
     Long _runnId() const;

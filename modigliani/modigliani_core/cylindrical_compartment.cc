@@ -1,6 +1,8 @@
 /**
  * @file cylindrical_compartment.cc
- * Cylindrical_compartment class implementation
+ *
+ * @brief Cylindrical_compartment class implementation
+ *
  * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
  * Copyright (C) 2013 Mohammad Ali Neishabouri
  *

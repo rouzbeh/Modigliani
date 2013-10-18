@@ -87,7 +87,7 @@ namespace modigliani_core {
                                                    config_root.get <
                                                    double >("temperature"));
 
-    tmpPtr->update_timeStep(simulation_parameters.get <
+    tmpPtr->set_timestep(simulation_parameters.get <
                             double >("timeStep") /* mSec */ );
 
     bool randomise_densities =
@@ -119,7 +119,7 @@ namespace modigliani_core {
                         Leak_current(compartment->area(),
                                      current.get < double >("GLeak"),
                                      config_root.get < double >("eLeak")),
-                        NTBP_LEAK);
+                        LEAK);
         continue;
       }
 
@@ -141,7 +141,7 @@ namespace modigliani_core {
                                                           double >("chRevPot")
                                                           /* mV */ ,
                                                           compartment->
-                                                          timeStep(),
+                                                          timestep(),
                                                           config_root.get <
                                                           double
                                                           >("temperature")
@@ -155,7 +155,7 @@ namespace modigliani_core {
           file_current->set_simulation_mode(BINOMIALPOPULATION);
         if (2 == alg)
           file_current->set_simulation_mode(SINGLECHANNEL);
-        compartment->AttachCurrent(file_current, NTBP_IONIC);
+        compartment->AttachCurrent(file_current, IONIC);
         continue;
       }
 
@@ -176,7 +176,7 @@ namespace modigliani_core {
                                                               >("chRevPot")
                                                               /* mV */ ,
                                                               compartment->
-                                                              timeStep(),
+                                                              timestep(),
                                                               config_root.get <
                                                               double
                                                               >("temperature")
@@ -185,7 +185,7 @@ namespace modigliani_core {
                                                               string >
                                                               ("chModel"));
           lua_current->set_simulation_mode(DETERMINISTIC);
-          compartment->AttachCurrent(lua_current, NTBP_IONIC);
+          compartment->AttachCurrent(lua_current, IONIC);
           continue;
         } else if (4 == alg || 2 == alg) {
           modigliani_base::Real indDensity =
@@ -204,7 +204,7 @@ namespace modigliani_core {
                                                            double >("chRevPot")
                                                            /* mV */ ,
                                                            compartment->
-                                                           timeStep(),
+                                                           timestep(),
                                                            config_root.get <
                                                            double
                                                            >("temperature"),
@@ -215,7 +215,7 @@ namespace modigliani_core {
             lua_current->set_simulation_mode(BINOMIALPOPULATION);
           if (2 == alg)
             lua_current->set_simulation_mode(SINGLECHANNEL);
-          compartment->AttachCurrent(lua_current, NTBP_IONIC);
+          compartment->AttachCurrent(lua_current, IONIC);
           continue;
         }
       }
@@ -279,11 +279,9 @@ namespace modigliani_core {
     lua_close(L);
 
     auto oModel = new Membrane_compartment_sequence();
-    oModel->update_timeStep(config_root.get <
+    oModel->set_timestep(config_root.get <
                             double >("simulation_parameters.timeStep")
                             /* mSec */ );
-    oModel->StepNTBP();
-
     std::vector < boost::property_tree::ptree > compartments_parameters(0);
 
   for (boost::property_tree::ptree::value_type const &v : config_root.

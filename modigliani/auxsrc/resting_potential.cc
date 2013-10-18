@@ -118,7 +118,7 @@ int main(int argc, char* argv[]) {
             ll++) {
           sum += oModel->compartment_vec_[ll]->vm();
         }
-      oModel->step();
+      oModel->Step();
     }
     current_result = sum / (oModel->num_compartments() * 50);
     std::cerr << "Mean voltage = " << current_result << " found for eLeak = "

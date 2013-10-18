@@ -5,8 +5,7 @@
  * The configuration of each neurons is given in a JSON file similar, but
  * not identical, to the one used for axon_simulator.
  *
- * \version  0.1
- * \author Copyright (C) 2013, Mohammad Ali Neishabouri
+ * Copyright (C) 2013, Mohammad Ali Neishabouri
  *
  * @section LICENSE
  * This library is free software; you can redistribute it and/or
@@ -133,7 +132,7 @@ int Simulate(boost::program_options::variables_map vm) {
     for (int i = 0; i < num_neurons; i++) {
       Spherical_compartment* tmp_ptr = new Spherical_compartment(
           config_root.get_child("neuron_parameters"));
-      tmp_ptr->update_timeStep(
+      tmp_ptr->set_timestep(
           config_root.get<double>("simulation_parameters.timeStep"));
       bool randomise_densities = config_root.get<bool>(
           "simulation_parameters.randomise_densities");

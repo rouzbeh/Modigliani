@@ -112,7 +112,7 @@ modigliani_base::ReturnEnum Membrane_compartment::Step(
 modigliani_base::ReturnEnum Membrane_compartment::Step() {
   return (Step(
       1.0e-3 * CompartmentMembraneNetCurrent()
-          / CompartmentMembraneCapacitance() * timeStep()));
+          / CompartmentMembraneCapacitance() * timestep()));
 }
 
 modigliani_base::Real Membrane_compartment::WeightedConductance() const {
@@ -126,15 +126,15 @@ modigliani_base::Real Membrane_compartment::WeightedConductance() const {
 }
 
 modigliani_base::ReturnEnum Membrane_compartment::AttachCurrent(
-    Membrane_current * currentPtr, NTBPcurrentType type) {
+    Membrane_current * currentPtr, CurrentType type) {
   currentPtr->set_voltage(vm_);
-  currentPtr->setTimeStep(timeStep());
+  currentPtr->set_timestep(timestep());
   currentPtr->set_temperature(temperature_);
   switch (type) {
-    case NTBP_LEAK:
+    case LEAK:
       current_vec_.push_back(currentPtr);
       break;
-    case NTBP_IONIC:
+    case IONIC:
       current_vec_.push_back(currentPtr);
       break;
     default:
@@ -195,7 +195,7 @@ bool Membrane_compartment::GillespieStep() {
     sum += (*it)->ComputeTimeConstant();
     std::cerr << "COMPARTMENT -> SUM=" << sum << " VAL=" << val << std::endl;
     if (val < sum / compartmentTau) {
-      return ((*it)->GillespieStep());
+      return ((*it)->StepCurrent());
       break;
     }
   }

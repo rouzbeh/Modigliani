@@ -38,10 +38,10 @@ class Cylindrical_compartment : public Membrane_compartment {
  * @brief Constructs a cylindrical compartment from dimensions and
  *    electrophysiological data.
  *
- * @param newLength length in [@f$\mu m@f$]
- * @param newDiameter diameter in [@f$\mu m@f$]
- * @param newCm Membrane capacitance in [@f$\mu F / cm^2@f$]
- * @param newRa Axoplasmic resistance in [@f$\Omega cm@f$]
+ * @param newLength length in [@f$\si{\micro\meter}@f$]
+ * @param newDiameter diameter in [@f$\si{\micro\meter}@f$]
+ * @param newCm Membrane capacitance in [@f$\si{\micro\farad\per\centi\meter\squared}@f$]
+ * @param newRa Axoplasmic resistance in [@f$\si{\ohm\centi\meter}@f$]
  * @param newTemperature Temperature in [C]
  */
     Cylindrical_compartment(const modigliani_base::Real newLength,
@@ -60,7 +60,7 @@ class Cylindrical_compartment : public Membrane_compartment {
 /**
  * @brief length constant in muMeter for instantenous membrane
  * conductance
- * @return Length constant in [@f$\mu m@f$]
+ * @return Length constant in [@f$\si{\micro\meter}@f$]
  */
     virtual modigliani_base::Real ActiveLengthConstant() const {
       return (diameter() / (4.0 * ra() * 1.0e4 * WeightedConductance()));
@@ -68,35 +68,35 @@ class Cylindrical_compartment : public Membrane_compartment {
 
 /**
  * @brief Returns the cross-sectional area of the cylinder
- * @return Cross-sectional area in [@f$\mu m^2@f$]
+ * @return Cross-sectional area in [@f$\si{\micro\meter\squared}@f$]
  */
     modigliani_base::Real CrosssectionalArea() const {
       return (radius() * radius() * M_PI);
     }
 
 /**
- * @return Diameter in [@f$\mu m@f$]
+ * @return Diameter in [@f$\si{\micro\meter}@f$]
  */
     modigliani_base::Real diameter() const {
       return (diameter_);
     }
 
 /**
- * @return Radus of the cylinder in [@f$\mu m@f$]
+ * @return Radius of the cylinder in [@f$\si{\micro\meter}@f$]
  */
     modigliani_base::Real radius() const {
       return (diameter() / 2.0);
     }
 
 /**
- * @return length in [@f$\mu m@f$]
+ * @return length in [@f$\si{\micro\meter}@f$]
  */
     modigliani_base::Real length() const {
       return (length_);
     }
 
 /**
- * @return volume in [@f$\mu m^3@f$]
+ * @return volume in [@f$\si{\micro\meter\cubed}@f$]
  */
     modigliani_base::Real volume() const {
       return (volume_);

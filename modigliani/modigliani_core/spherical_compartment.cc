@@ -22,14 +22,13 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#include "spherical_compartment.h"
+#include "modigliani_core/spherical_compartment.h"
 
-using namespace modigliani_core;
-
+namespace modigliani_core {
 Spherical_compartment::Spherical_compartment(modigliani_base::Real newRadius,
                                              modigliani_base::Real newCm)
-    : Membrane_compartment(4 * M_PI * newRadius * newRadius, 6.3, newCm, 35.4), radius(
-        newRadius) {
+    : Membrane_compartment(4 * M_PI * newRadius * newRadius, 6.3,
+                           newCm, 35.4), radius_(newRadius) {
 }
 
 Spherical_compartment::Spherical_compartment(
@@ -38,10 +37,10 @@ Spherical_compartment::Spherical_compartment(
         4 * M_PI * compartment_parameters.get<double>("radius")
             * compartment_parameters.get<double>("radius"),
         6.3, compartment_parameters.get<double>("Cm"),
-        compartment_parameters.get<double>("Ra")), radius(
+        compartment_parameters.get<double>("Ra")), radius_(
         compartment_parameters.get<double>("radius")) {
 }
 
-/* ***      DESTRUCTOR		***/
 Spherical_compartment::~Spherical_compartment() {
 }
+}  // namespace modigliani_core

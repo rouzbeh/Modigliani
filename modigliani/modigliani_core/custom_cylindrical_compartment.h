@@ -1,12 +1,8 @@
 /**
- * \file custom_cylindrical_compartment.h
+ * @file custom_cylindrical_compartment.h
  *
- * \brief This class is used to take concentrations into account
+ * @brief This class is used to take concentrations into account
  *
- * \author Ahmed Aldo Faisal &copy; created 26.3.2001
- * \author Ali Neishabouri &copy; created 19.2.2013
- *
- * @version 1
  * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
  * Copyright (C) 2013 Ali Neishabouri
  *
@@ -43,7 +39,7 @@ struct custom_current {
     bool track;
 };
 /**
- * \brief This compartment can track ionic concentrations
+ * @brief This compartment can track ionic concentrations
  * to change reversal potentials.
  */
 class Custom_cylindrical_compartment : public Cylindrical_compartment {
@@ -69,12 +65,14 @@ class Custom_cylindrical_compartment : public Cylindrical_compartment {
     virtual modigliani_base::ReturnEnum AttachCurrentWithConcentrations(
         Membrane_current * currentPtr, Real concentration_inside,
         Real concentration_outside);
+
     modigliani_base::ReturnEnum AttachCurrent(
-        Membrane_current * currentPtr, NTBPcurrentType type = NTBP_IONIC);
+        Membrane_current * currentPtr, CurrentType type = IONIC);
+
     virtual modigliani_base::ReturnEnum Step(const modigliani_base::Real newVM);
 
     /**
-     * \brief Opens an output file, writes the header, and use it
+     * @brief Opens an output file, writes the header, and use it
      * to write data at each step.
      *
      * \param output_file_name
@@ -96,6 +94,11 @@ class Custom_cylindrical_compartment : public Cylindrical_compartment {
       return (custom_current_vec_[currentIndex - 1].outside_concentration);
     }
 
+    const Real ReversalPotential(modigliani_base::Size currentIndex) const {
+      assert((currentIndex > 0) && (currentIndex - 1 < NumberCurrents()));
+      return (custom_current_vec_[currentIndex - 1].reversal_potential);
+    }
+
     virtual modigliani_base::ReturnEnum  set_temperature(modigliani_base::Real newTemp) override {
       Membrane_compartment::set_temperature(newTemp);
       nernst_multiplier = 1000 * modigliani_base::R * (newTemp + modigliani_base::ZERO_CELSIUS) / modigliani_base::F;
@@ -104,6 +107,7 @@ class Custom_cylindrical_compartment : public Cylindrical_compartment {
 
     void SetInsideConcentration(modigliani_base::Size currentIndex,
                                 Real new_concentration);
+
     void SetOutsideConcentration(modigliani_base::Size currentIndex,
                                  Real new_concentration);
 

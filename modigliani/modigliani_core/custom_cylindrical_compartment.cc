@@ -54,7 +54,7 @@ modigliani_base::ReturnEnum Custom_cylindrical_compartment::AttachCurrentWithCon
     Real concentration_outside) {
 
   currentPtr->set_voltage(vm());
-  currentPtr->setTimeStep(timeStep());
+  currentPtr->set_timestep(timestep());
   currentPtr->set_temperature(temperature());
 
   custom_current new_current;
@@ -69,9 +69,9 @@ modigliani_base::ReturnEnum Custom_cylindrical_compartment::AttachCurrentWithCon
 }
 
 modigliani_base::ReturnEnum Custom_cylindrical_compartment::AttachCurrent(
-    Membrane_current * currentPtr, NTBPcurrentType type) {
+    Membrane_current * currentPtr, CurrentType type) {
   currentPtr->set_voltage(vm());
-  currentPtr->setTimeStep(timeStep());
+  currentPtr->set_timestep(timestep());
   currentPtr->set_temperature(temperature());
 
   custom_current new_current;
@@ -94,7 +94,7 @@ modigliani_base::ReturnEnum Custom_cylindrical_compartment::Step(
     current->Step(newVM);
     if ((custom_current_vec_[it]).track) {
       // Count how many ions got in, in picomoles
-      modigliani_base::Real ions_picomoles = current->current() * timeStep()
+      modigliani_base::Real ions_picomoles = current->current() * timestep()
           / 96485.3415;
       custom_current_vec_[it].inside_concentration -= ions_picomoles * 1000000
           / volume();

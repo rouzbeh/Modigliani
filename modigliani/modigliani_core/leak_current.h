@@ -1,9 +1,9 @@
 /**
  * @file leak_current.h
- * Leak_current class header
- * @author Ahmed Aldo Faisal &copy; created 19.3.2001
- * @version   0.5
- * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    
+ * @brief Leak_current class header
+ *
+ * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
+ * Copyright (C) 2013 Mohammad Ali Neishabouri
  *
  * @section LICENSE
  * This library is free software; you can redistribute it and/or
@@ -21,67 +21,76 @@
  * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-#ifndef _modigliani_core_leak_current_h_
-#define _modigliani_core_leak_current_h_
+#ifndef MODIGLIANI_MODIGLIANI_CORE_LEAK_CURRENT_H_
+#define MODIGLIANI_MODIGLIANI_CORE_LEAK_CURRENT_H_
 #include <assert.h>
-#include "membrane_current.h"
+#include "modigliani_core/membrane_current.h"
 
 namespace modigliani_core {
 /**
- * @short Leak_current class
- * \bug unknown
- * \warning unknown
+ * @brief Simulates a leak current
  */
 class Leak_current : public Membrane_current {
   public:
-    /***   Constructors, Copy/Assignment and Destructor  ***/
-    Leak_current(modigliani_base::Real newArea /* in mu^2 */,
-                 modigliani_base::Real newLeakConductance = 0.3 /* mS/cm^2 */,
-                 modigliani_base::Real newReversalPotential = 10.613 /* mV */);
+/**
+ * @brief Constructs a leak current instance
+ * @param newArea Membrane surface area in
+ * [@f$\si{\micro\meter\squared}@f$]
+ * @param newLeakConductance Leak conductance in
+ * [@f$\si{\milli\siemens\per\centi\meter\squared}@f$]
+ * @param newReversalPotential Reversal potential in [@f$\si{\milli\volt}@f$]
+ */
+    Leak_current(modigliani_base::Real newArea,
+                 modigliani_base::Real newLeakConductance,
+                 modigliani_base::Real newReversalPotential);
 
     Leak_current(const Leak_current & original) = delete;
     Leak_current & operator=(const Leak_current & right) = delete;
     virtual ~Leak_current();
 
-    virtual void reset() override {
-    }
-    ;
-    /** in mSiemens */
+/**
+ * @brief Runs one step of the simulation
+ *
+ * This function simply returns SUCCESS
+ * @return SUCCESS
+ */
     modigliani_base::ReturnEnum StepCurrent() {
       return (modigliani_base::ReturnEnum::SUCCESS);
     }
-    /** compute and return conductance in mSiemens */
+
+/**
+ * @brief Compute and return conductance
+ * @return Conductance in [@f$\si{\milli\siemens}@f$]
+ */
     void UpdateConductance() {
       set_conductance(MaxConductivity() * area_ * 1.0e-8);
     }
-    /** Return leak conductance in mSiemens  (note: function return constant value (leak!) set in constructor) */
+
+/**
+ * @brief Return leak conductance
+ * @return Leak conductance in [@f$\si{\milli\siemens}@f$]
+ * @warning function return constant value (leak!) set in
+ * constructor)
+ */
     modigliani_base::Real ComputeConductance() override {
       return (conductance());
     }
-    void Show() {
-      std::cout << "g_Leak [mSiemens]=" << conductance();
-    }
 
-    /** in mSiemens/cm^2 */
+/**
+ * @brief Return leak conductanceleak conductivity
+ * @return Leak conductivity in [@f$\si{\milli\siemens\per\centi\meter\squared}@f$]
+ */
     modigliani_base::Real MaxConductivity() const {
       return (max_conductivity_);
     }
-    /** in muMeter^2 */
-    modigliani_base::Real area() const {
-      return (area_);
-    }
-  protected:
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
+
   private:
-    /* ***  Methods              ***/
-    /* ***  Data                 ***/
-    /// in mSiemens / centiMeter^2
+    // in mSiemens / centiMeter^2
     const modigliani_base::Real max_conductivity_;
-    /// in mumeter^2
+    // in mumeter^2
     const modigliani_base::Real area_;
-    /// in mSiemens per channel
+    // in mSiemens per channel
     modigliani_base::Real conductivity_;
 };
-}
-#endif /* _modigliani_core_leak_current_h_ */
+}  // namespace modigliani_core
+#endif  // MODIGLIANI_MODIGLIANI_CORE_LEAK_CURRENT_H_

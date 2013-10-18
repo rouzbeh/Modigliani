@@ -1,7 +1,8 @@
 /**
  * @file lua_based_deterministic_voltage_gated_channel.cc
- * Contains the Lua_based_deterministic_voltage_gated_channel class implementation.
- * @author Ali Neishabouri
+ * @brief Lua_based_deterministic_voltage_gated_channel class implementation.
+ *
+ * Copyright 2013 Mohammad Ali Neishabouri
  */
 
 #include "lua_based_deterministic_voltage_gated_channel.h"
@@ -22,7 +23,7 @@ Lua_based_deterministic_voltage_gated_channel::Lua_based_deterministic_voltage_g
 
   UpdateNumChannels();  //TODO
   lua_script = new_lua_script;
-  setTimeStep(newTimeStep);
+  set_timestep(newTimeStep);
   set_temperature(newTemperature);
   L = luaL_newstate();
   luaL_openlibs(L);
@@ -70,7 +71,7 @@ Lua_based_deterministic_voltage_gated_channel::Lua_based_deterministic_voltage_g
                                         original.conductivity()) {
   UpdateNumChannels();
   stepV = _lua_get_real(L, "step");
-  setTimeStep(original.timeStep());
+  set_timestep(original.timestep());
   set_temperature(original.temperature());
   lua_script = original.lua_script;
   L = luaL_newstate();
@@ -95,7 +96,7 @@ Lua_based_deterministic_voltage_gated_channel::Lua_based_deterministic_voltage_g
   }
   lua_getglobal(L, "set_timestep");
   /* the first argument */
-  lua_pushnumber(L, timeStep());
+  lua_pushnumber(L, timestep());
   /* call the function with 1
    argument, return 0 result */
   lua_call(L, 1, 0);
@@ -113,7 +114,7 @@ Lua_based_deterministic_voltage_gated_channel&
 Lua_based_deterministic_voltage_gated_channel::operator=(
     const Lua_based_deterministic_voltage_gated_channel & right) {
   if (this == &right) return (*this);  // Gracefully handle self assignment
-  setTimeStep(right.timeStep());
+  set_timestep(right.timestep());
   set_temperature(temperature());
   lua_script = right.lua_script;
   L = luaL_newstate();
@@ -138,7 +139,7 @@ Lua_based_deterministic_voltage_gated_channel::operator=(
   }
   lua_getglobal(L, "set_timestep");
   /* the first argument */
-  lua_pushnumber(L, timeStep());
+  lua_pushnumber(L, timestep());
 
   /* call the function with 1
    argument, return 0 result */
@@ -159,11 +160,9 @@ Lua_based_deterministic_voltage_gated_channel::~Lua_based_deterministic_voltage_
   lua_close(L);
 }
 
-/** @short
- @param      none
- @return     none
- \warning    unknown
- \bug        unknown
+/**
+ * @brief Runs one step of simulation
+ * @return Success or failure
  */
 inline modigliani_base::ReturnEnum Lua_based_deterministic_voltage_gated_channel::StepCurrent() {
   switch (simulation_mode()) {
@@ -200,14 +199,6 @@ inline modigliani_base::Real Lua_based_deterministic_voltage_gated_channel::Open
   lua_pop(L, 1);
 
   return (count * num_channels());
-}
-
-/**  */
-/** No descriptions */
-modigliani_base::Real Lua_based_deterministic_voltage_gated_channel::num_channels_in_state(
-    modigliani_base::Size __attribute__((__unused__)) state) const {
-  std::cerr << "Deterministic channel does not have states" << std::endl;
-  return (0);
 }
 
 inline modigliani_base::Real Lua_based_deterministic_voltage_gated_channel::ComputeConductance() {

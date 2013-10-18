@@ -45,13 +45,12 @@ namespace modigliani_core {
 /**
  * @brief Constructor
  *
- * @param newArea Membrane surface area in [@f$\mu m^2@f$]
+ * @param newArea Membrane surface area in [@f$\si{\micro\meter\squared}@f$]
  * @param newTemperature Temperature in [C]
- * @param newCm Membrane capacitance in [@f$\mu F / cm^2@f$]
- * @param newRa Axoplasmic resistance in [@f$\Omega cm@f$]
+ * @param newCm Membrane capacitance in [@f$\si{\micro\farad\per\centi\meter\squared}@f$]
+ * @param newRa Axoplasmic resistance in [@f$\si{ohm,\centi\meter}@f$]
  */
-    Membrane_compartment(const modigliani_base::Real newArea /* in muMeter^2 */
-                         ,
+    Membrane_compartment(const modigliani_base::Real newArea,
                          const modigliani_base::Real newTemperature,
                          const modigliani_base::Real newCm,
                          const modigliani_base::Real newRa);
@@ -65,8 +64,8 @@ namespace modigliani_core {
 
     virtual modigliani_base::ReturnEnum AttachCurrent(Membrane_current *
                                                       currentPtr,
-                                                      NTBPcurrentType type =
-                                                      NTBP_IONIC);
+                                                      CurrentType type =
+                                                      IONIC);
 
 /**
  * @brief Sets the membrane potential to the specified value and runs of step of simulation.
@@ -198,7 +197,7 @@ namespace modigliani_core {
 /**
  * @brief Returns the membrane surface area
  *
- * @return Membrane area in [@f$\mu m^2@f$]
+ * @return Membrane area in [@f$\si{\micro\meter\squared}@f$]
  */   
     modigliani_base::Real area() const {
       return (area_);
@@ -207,7 +206,7 @@ namespace modigliani_core {
 /**
  * @brief Returns the membrane potential
  *
- * @return Membrane potential in [mV]
+ * @return Membrane potential in [@f$\si{\milli\volt}@f$]
  */ 
     modigliani_base::Real vm() const {
       return (vm_);
@@ -216,7 +215,7 @@ namespace modigliani_core {
 /**
  * @brief Sets the membrane potential
  *
- * @param newVoltage Membrane potential in [mV]
+ * @param newVoltage Membrane potential in [@f$\si{milli\volt}@f$]
  */ 
     void set_vm(modigliani_base::Real newVoltage) {
       vm_ = newVoltage;
@@ -226,7 +225,7 @@ namespace modigliani_core {
 /**
  * @brief Sets the membrane capacitance per surface area
  *
- * @return capacitance in [@f$\mu F cm^{-2}@f$]
+ * @return capacitance in [@f$\si{\micro\farad\per\centi\meter\squared}@f$]
  */ 
     modigliani_base::Real cm() const {
       return (cm_);
@@ -235,7 +234,7 @@ namespace modigliani_core {
 /**
  * @brief Sets the axial resistance
  *
- * @return axial resistance in [@f$\Omega cm@f$]
+ * @return axial resistance in [@f$\si{\ohm\centi\meter}@f$]
  */
     modigliani_base::Real ra() const {
       return (ra_);
@@ -247,7 +246,7 @@ namespace modigliani_core {
  *
  * This also affects future attached currents.
  *
- * @param newTemp New temperature in [C]
+ * @param newTemp New temperature in [@f$\si{\celsius}@f$]
  */
     virtual modigliani_base::ReturnEnum set_temperature(
         modigliani_base::Real newTemp) {
@@ -260,7 +259,7 @@ namespace modigliani_core {
 /**
  * @brief  Returns temperature in compartment
  *
- * @return Temperature in [C]
+ * @return Temperature in [@f$\si{\celsius}@f$]
  */
     modigliani_base::Real temperature()const {
       return (temperature_);
@@ -269,22 +268,22 @@ namespace modigliani_core {
 /**
  * @brief Returns total compartment capacitance
  *
- * @return Capacitance in [@f$\mu F@f$]
+ * @return Capacitance in [@f$\si{\micro\farad}@f$]
  */    
     modigliani_base::Real CompartmentMembraneCapacitance() const;
 
 /**
  * @brief Returns net membrane current
  *
- * @return Current in [nA]
+ * @return Current in [@f$\si{\nano\ampere}@f$]
  */      
     modigliani_base::Real CompartmentMembraneNetCurrent()const;
 
 /**
- * @brief Sum of escape rates from current state [1/kHz]
+ * @brief Sum of escape rates from current state
  *
  * This is useful for the Gillespie algorithm.
- * @return Escape rate in [kHz]
+ * @return Escape rate in @f$[\si{\kilo\hertz}@f$]
  */
     modigliani_base::Real CompartmentChannelStateTimeConstant()const;
 
@@ -307,7 +306,7 @@ namespace modigliani_core {
  * @brief Returns the sum of attached conductance weighted by the
  * difference between the membrane potential and the reversal potential.
  *
- * @return Current in [@f$\mu A@f$]
+ * @return Current in [@f$\si{\micro\ampere}@f$]
  */
     modigliani_base::Real WeightedConductance() const;
 

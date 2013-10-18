@@ -1,21 +1,46 @@
 /**
  * @file file_based_stochastic_voltage_gated_channel.h
- * @author man210
+ * @brief Header file for File_based_stochastic_voltage_gated_channel class
+ *
+ * Copyright 2013 Mohammad Ali Neishabouri
  */
 
-#ifndef FILE_BASED_STOCHASTIC_VOLTAGE_GATED_CHANNEL_H_
-#define FILE_BASED_STOCHASTIC_VOLTAGE_GATED_CHANNEL_H_
+#ifndef MODIGLIANI_MODIGLIANI_CORE_FILE_BASED_STOCHASTIC_VOLTAGE_GATED_CHANNEL_H_
+#define MODIGLIANI_MODIGLIANI_CORE_FILE_BASED_STOCHASTIC_VOLTAGE_GATED_CHANNEL_H_
 
-#include "voltage_gated_ion_channel_current.h"
-#include "ion_channels.h"
-#include "aux_func.h"
 #include <boost/property_tree/ptree.hpp>
 #include <fstream>
 #include <iostream>
+#include <vector>
+#include <map>
+#include <string>
+#include "modigliani_core/voltage_gated_ion_channel_current.h"
+#include "modigliani_core/ion_channels.h"
+#include "modigliani_core/aux_func.h"
 
 namespace modigliani_core {
-class File_based_stochastic_voltage_gated_channel : public Voltage_gated_ion_channel_current {
+/**
+ * @class File_based_stochastic_voltage_gated_channel
+ * @brief Voltage gated ion channel with transition probabilities stored in a file
+ */
+class File_based_stochastic_voltage_gated_channel
+:public Voltage_gated_ion_channel_current {
   public:
+/**
+ * @brief Instantiates a new ion channel by reading data from a JSON
+ * file
+ * @param newArea Compartment surface area in [@f$\si{\micro\meter\squared}@f$]
+ * @param newDensity Channel density in
+ * [@f$\si{\per\micro\meter\squared}@f$]
+ * @param newConductivity Single channel conductivity in
+ * [@f$\si{\milli\siemens}@f$]
+ * @param reversalPotential Ionic reversal potential in
+ * [@f$\si{\milli\volt}@f$]
+ * @param newTimeStep Simulation timestep in
+ * [@f$\si{\milli\second}@f$]
+ * @param newTemperature Temperature in [@f$\si{\celsius}@f$]
+ * @param fileName JSON file path
+ */
     File_based_stochastic_voltage_gated_channel(
         modigliani_base::Real newArea, modigliani_base::Real newDensity,
         modigliani_base::Real newConductivity,
@@ -31,39 +56,79 @@ class File_based_stochastic_voltage_gated_channel : public Voltage_gated_ion_cha
 
     virtual ~File_based_stochastic_voltage_gated_channel();
 
-    void reset() override {
-      channels_ptr_->reset();
-    }
-
-    static void load_file(std::string fileName, double temperature,
+/**
+ * @brief Opens, reads and parses the JSON file. Uses data to populate
+ *  the transition matrix.
+ *
+ * The JSON file is expected to contain the following information
+ *   - base_temperature The temperature at which recordings were
+ * done, in [@f$\si{\celsius}@f$]
+ *   - number_of_states Number of states
+ *   - open_states List of states in which the channel is conducting
+ * ([1..m])
+ *   - maxV Maximum voltage in [@f$\si{\milli\volt}@f$]
+ *   - minV Minimum voltage in [@f$\si{\milli\volt}@f$]
+ *   - step Voltage step in [@f$\si{\milli\volt}@f$]
+ *   - transitions List of structure containing
+ *     - voltage Membrane potential in [@f$\si{\milli\volt}@f$]
+ *     - probability Transition probability
+ *     - start Start state [1..]
+ *     - stop End state [1..m]
+ *     - q10 Dependency on temperature
+ *
+ * For an example, see \ref sodium_channel.json
+ * @param fileName JSON file path
+ * @param temperature Temperature for simulations in
+ * [@f$\si{\celsius}@f$]
+ * @param time_step Timestep in [@f$\si{\milli\second}@f$]
+ */
+    static void LoadFile(std::string fileName, double temperature,
                           double time_step);
-    static std::map<std::string, Transition_rate_matrix*> probability_matrix_map;
+
+/**
+ * @short This function simulates one timestep.
+ * @return Success or Failure
+ */
+    virtual modigliani_base::ReturnEnum StepCurrent() override;
+
+/**
+ * @brief Returns number of open ionic channels
+ * @return Number of open channels
+ */
+    virtual modigliani_base::Real OpenChannels() const override;
+
+/**
+ * @brief Sets the conductance of the membrane current to the value
+ * given by the number of open channels.
+ * @return Conductance in [@f$\si{\milli\siemens}@f$]
+ */
+    virtual modigliani_base::Real ComputeConductance() override;
+
+/**
+ * @brief Returns channels time constant
+ * @return Time constant in [@f$\si{\per\second}@f$]
+ */
+    modigliani_base::Real ComputeTimeConstant() const;
+
+    static std::map<std::string,
+      Transition_rate_matrix*> probability_matrix_map;
     static std::map<std::string, int> number_of_states_map;
     static std::map<std::string, double> base_temperature_map;
-    static std::map<std::string, std::vector<modigliani_base::Size> > open_states_map;
-
-    virtual modigliani_base::ReturnEnum StepCurrent() override;
-    virtual modigliani_base::Real OpenChannels() const;
-    virtual modigliani_base::Real ComputeConductance() override;
-    modigliani_base::Real num_channels_in_state(
-        modigliani_base::Size state) const;
-    modigliani_base::Real ComputeTimeConstant() const;
-    void show_param() const;
-    void printProb(std::string fileName) {
-      for (modigliani_base::Real v = 20; v < 130; v += 0.005) {
-        std::cout
-            << probability_matrix_map[fileName]->GetTransitionProbability(v, 2,
-                                                                          1)
-            << std::endl;
-      }
-    }
+    static std::map<std::string,
+      std::vector<modigliani_base::Size> > open_states_map;
 
   private:
     Ion_channels* channels_ptr_;
     static bool initTableLookUp;
     static std::vector<std::string> initialised_probability_matrices;
     modigliani_base::Real baseTemp;
-
 };
-}
-#endif /* FILE_BASED_STOCHASTIC_VOLTAGE_GATED_CHANNEL_H_ */
+/**
+ * @example sodium_channel.json
+ * This is an example of a JSON file for a sodium channel.
+ *
+ * Note that the voltage step here is deliberately too big (@f$\SI{10}{\milli\volt}@f$)
+ * to make the example file smaller.
+ */ 
+}  // namespace modigliani_core
+#endif  // MODIGLIANI_MODIGLIANI_CORE_FILE_BASED_STOCHASTIC_VOLTAGE_GATED_CHANNEL_H_

@@ -1,6 +1,7 @@
 /**
  * @file membrane_compartment_sequence.h
- * Membrane_compartment_sequence class header
+ * @brief Membrane_compartment_sequence class header
+ *
  * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
  * Copyright (C) 2011,2012,2013 Mohammad Ali Neishabouri
  *
@@ -30,7 +31,8 @@
 
 namespace modigliani_core {
 /**
- *  @class Membrane_compartment_sequence
+ * @class Membrane_compartment_sequence
+ * @brief Sequence of cylindrical membrane compartments, basically a cable
  *
  * This class provides an easy way to arrange compartments
  * linearly, i.e. to simulate axons or dendrites. The class
@@ -88,7 +90,7 @@ namespace modigliani_core {
  * @brief Execute one time step on the compartments.
  * @warning Identical axo-geometric properties required for all compartments !
  */
-     modigliani_base::ReturnEnum step();
+     modigliani_base::ReturnEnum Step();
 
 /**
  * @brief Inject current into a compartment
@@ -154,7 +156,7 @@ namespace modigliani_core {
 /**
  * @brief Holds pointers to member compartments
  */     
-    std::vector < Cylindrical_compartment * >compartment_vec_;
+    std::vector < Cylindrical_compartment * > compartment_vec_;
 
     static bool seed_set_;
 

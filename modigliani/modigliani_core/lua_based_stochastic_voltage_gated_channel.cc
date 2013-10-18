@@ -27,7 +27,7 @@ Lua_based_stochastic_voltage_gated_channel::Lua_based_stochastic_voltage_gated_c
 
   UpdateNumChannels();  // TODO(Ali)
 
-  setTimeStep(newTimeStep);
+  set_timestep(newTimeStep);
   set_temperature(newTemperature);
   if (number_of_states_map[fileName] == 0) {
     load_file(fileName, newTemperature, newTimeStep);
@@ -148,7 +148,7 @@ inline modigliani_base::ReturnEnum Lua_based_stochastic_voltage_gated_channel::S
     }
       break;
     case SINGLECHANNEL: {
-      return (channels_ptr_->Step(voltage_));
+      return (channels_ptr_->SingleChannelStep(voltage_));
     }
       break;
     case GILLESPIE: {

@@ -15,7 +15,7 @@ Network_synapse::Network_synapse(
     : Membrane_current(new_reversal_potential), source(src) {
   v_input = 0;
   _lua_script = lua_file;
-  setTimeStep(newTimeStep);
+  set_timestep(newTimeStep);
   _L = luaL_newstate();
   luaL_openlibs(_L);
   int status = luaL_dofile(_L, _lua_script.c_str());

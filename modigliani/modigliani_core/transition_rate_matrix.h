@@ -16,6 +16,7 @@
 namespace modigliani_core {
 /**
   * @class Transition_rate_matrix
+  * @brief Holds voltage dependent transition rates for a Markov chain
   *
   * This classes goal is to hold the transition rates for all pairs of
   * states. Transition rates are stored independently for a range of

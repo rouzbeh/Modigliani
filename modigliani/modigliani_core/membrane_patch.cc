@@ -39,7 +39,7 @@ Membrane_patch::~Membrane_patch() {
 
 inline modigliani_base::ReturnEnum Membrane_patch::Step() {
   /*       [mV] == [10^-3 ms nA /muF] */
-  modigliani_base::Real deltaV = 1e-3 /* mV/muV */* timeStep()
+  modigliani_base::Real deltaV = 1e-3 /* mV/muV */* timestep()
       * CompartmentMembraneNetCurrent() / CompartmentMembraneCapacitance();
   set_vm(vm() + deltaV);
   Membrane_compartment::Step(vm());
@@ -50,12 +50,10 @@ inline modigliani_base::ReturnEnum Membrane_patch::Step() {
  * \short Initial step, needed if time staggering of the differential equations solution is desired.
  */
 modigliani_base::ReturnEnum Membrane_patch::InitialStep() {
-  update_timeStep(timeStep() / 2.0);
-  StepNTBP();
+  set_timestep(timestep() / 2.0);
   Step();
+  set_timestep(timestep() * 2.0);
 
-  update_timeStep(timeStep() * 2.0);
-  StepNTBP();
   std::cerr
       << "NTBP_membrane_compartment_sequence_o::InitialStep() - ERROR : not correctly implemented ? untested."
       << std::endl;

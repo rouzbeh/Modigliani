@@ -222,7 +222,7 @@ int Simulate(boost::program_options::variables_map vm) {
     int dataRead = 0;
     for (modigliani_base::Size lt = 0;
         lt < config_root.get<Size>("simulation_parameters.numIter"); lt++) {
-      timeInMS += oModel->timeStep();
+      timeInMS += oModel->timestep();
 
       // Write number of columns
       if (config_root.get<int>("simulation_parameters.sampN") > 0 && lt == 0
@@ -327,7 +327,7 @@ int Simulate(boost::program_options::variables_map vm) {
         }
       }
 
-      oModel->step();
+      oModel->Step();
 
       if (show_bar && lt % 100 == 0) show_progress->operator ++();
     }

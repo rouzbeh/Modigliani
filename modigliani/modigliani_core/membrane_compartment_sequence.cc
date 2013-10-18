@@ -54,7 +54,7 @@ Membrane_compartment_sequence::~Membrane_compartment_sequence() {
 
 modigliani_base::ReturnEnum Membrane_compartment_sequence::PushBack(
     Cylindrical_compartment * compartPtr) {
-  compartPtr->setTimeStep(timeStep());
+  compartPtr->set_timestep(timestep());
   compartment_vec_.push_back(compartPtr);
   num_compartments_++;
 
@@ -74,7 +74,7 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::InjectCurrent(
 }
 
 
-modigliani_base::ReturnEnum Membrane_compartment_sequence::step() {
+modigliani_base::ReturnEnum Membrane_compartment_sequence::Step() {
   //	std::cerr << "Membrane_compartment_sequence::Step()" << std::endl;
   if (!initialised_) {
     std::cerr
@@ -101,7 +101,7 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::step() {
   for (ll = 0; ll < num_compartments_; ll++) {
     /* omega should have units of mV : mSec nA / muF = muV */
     omega = 1e-3 /* mV/muV */
-    * (timeStep() / compartment_vec_[ll]->CompartmentMembraneCapacitance())
+    * (timestep() / compartment_vec_[ll]->CompartmentMembraneCapacitance())
         * (compartment_vec_[ll]->CompartmentMembraneNetCurrent());
     r_vec_[ll] = compartment_vec_[ll]->vm() + omega;  // compute RHS of finite difference equation
     // OMEGA is substracted because the currents are of the opposite sign to Aldo's PhD thesis
@@ -174,7 +174,7 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::Init() {
 modigliani_base::Real Membrane_compartment_sequence::_sigma(
     const Cylindrical_compartment* from,
     const Cylindrical_compartment* to) const {
-  modigliani_base::Real deltaT = timeStep();
+  modigliani_base::Real deltaT = timestep();
   // sigma is unit-free  (scaled by 0.1) [sigma] = mSec muM / (muM^2 Ohm cm) * (muM^2 / muF)
   modigliani_base::Real output = 0.1
       * (deltaT / to->CompartmentMembraneCapacitance())
@@ -187,14 +187,12 @@ modigliani_base::Real Membrane_compartment_sequence::_sigma(
 modigliani_base::ReturnEnum Membrane_compartment_sequence::InitialStep() {
 
   sw_crank_nicholson_ = true;
-  update_timeStep(timeStep() / 2.0);
-  StepNTBP();
+  set_timestep(timestep() / 2.0);
   for (modigliani_base::Size ll = 0; ll < num_compartments(); ll++) {
     compartment_vec_[ll]->Step(compartment_vec_[ll]->vm());
   }
 
-  update_timeStep(timeStep() * 2.0);
-  StepNTBP();
+  set_timestep(timestep() * 2.0);
   std::cerr
       << "Membrane_compartment_sequence::InitialStep() - ERROR : not correctly implemented ? untested."
       << std::endl;
@@ -287,15 +285,13 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::GillespieStep() {
     if (newDeltaT > maxDeltaT) {
       newDeltaT = maxDeltaT;
     }
-    update_timeStep(newDeltaT);
-    StepNTBP();
+    set_timestep(newDeltaT);
     tStar += newDeltaT;
   } while (integrateStep == false);
 
   std::cerr << "INTEGRATOR STEP WITH T_STAR=" << tStar << std::endl;
-  update_timeStep(tStar);
-  StepNTBP();
-  step();
+  set_timestep(tStar);
+  Step();
 
   return (modigliani_base::ReturnEnum::SUCCESS);
 }

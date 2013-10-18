@@ -1,6 +1,6 @@
-/**\file histogram.cc - Histogram class implementation
- * @author Ahmed Aldo Faisal &copy; created 11.10.2000
- * @version  0.5
+/**\file histogram.cc
+ * @brief Histogram class implementation
+ * 
  * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
  *
  * @section LICENSE
