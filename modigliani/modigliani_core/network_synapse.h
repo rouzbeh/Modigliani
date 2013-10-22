@@ -32,7 +32,7 @@ class Network_synapse : public Membrane_current {
    * @brief The constructor initialises the lua interpreter.
    *
    * @param new_reversal_potential Reversal potential in
-   * [@f$\si{\milli\volt@f$]
+   * [@f$\si{\milli\volt}@f$]
    * @param src The presynaptic membrane compartment
    * @param newTimeStep Timestep in [@f$\si{\milli\second}@f$]
    * @param lua_file File containing the lua script governing the
