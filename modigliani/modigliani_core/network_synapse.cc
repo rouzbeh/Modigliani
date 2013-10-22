@@ -1,10 +1,11 @@
-///
-/// \file network_synapse.cc
-/// \author Ali Neishabouri &copy; created 24/01/2013
-/// \version   0.1
-/// Copyright (C) 2013 Ali Neishabouri
+/**
+ * @file network_synapse.cc
+ * @brief Network_synapse class implementation
+ *
+ * Copyright (C) 2013 Ali Neishabouri
+ */
 
-#include "network_synapse.h"
+#include "modigliani_core/network_synapse.h"
 
 namespace modigliani_core {
 
@@ -75,4 +76,4 @@ modigliani_base::Real Network_synapse::ComputeConductance() {
 modigliani_base::Real Network_synapse::MaxConductivity() const {
   return (0);
 }
-}
+}  // namespace modigliani_core
