@@ -44,9 +44,11 @@ namespace modigliani_core {
 /**
  *  @brief Constructor
  *
- * Initialises variables, and sets the seed according to the current time.
+ * Initialises variables, and sets the seed according to the current
+ * time.
+ * @param use_gillespie Are we going to use the gillespie algortihm?
  */
-    Membrane_compartment_sequence();
+    Membrane_compartment_sequence(bool use_gillespie = false);
     Membrane_compartment_sequence(const Membrane_compartment_sequence &
                                   original) = delete;
     const Membrane_compartment_sequence
@@ -147,13 +149,6 @@ namespace modigliani_core {
     Cylindrical_compartment *ReturnCompartment(modigliani_base::Size index);
 
 /**
- * @brief Run a Gillespie step
- * @return Success
- * @warning Untested by Ali
- */    
-    modigliani_base::ReturnEnum GillespieStep();
-
-/**
  * @brief Holds pointers to member compartments
  */     
     std::vector < Cylindrical_compartment * > compartment_vec_;
@@ -194,7 +189,7 @@ namespace modigliani_core {
     modigliani_base::Size num_compartments_;
     bool initialised_;
     bool sw_crank_nicholson_;
-
+    bool use_gillespie_;
     boost::random::mt19937 rng_;
     boost::random::binomial_distribution <> bin_;
     boost::random::uniform_01 <> uni_;

@@ -27,8 +27,11 @@ namespace modigliani_core{
 
 bool Membrane_compartment_sequence::seed_set_ = false;
 
-Membrane_compartment_sequence::Membrane_compartment_sequence()
-    : Membrane(), initialised_(false), sw_crank_nicholson_(false) {
+Membrane_compartment_sequence::Membrane_compartment_sequence(bool use_gillespie)
+    : Membrane(),
+      initialised_(false),
+      sw_crank_nicholson_(false),
+      use_gillespie_(use_gillespie) {
   num_compartments_ = 0;
 
   l_vec_.resize(1);
@@ -75,7 +78,6 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::InjectCurrent(
 
 
 modigliani_base::ReturnEnum Membrane_compartment_sequence::Step() {
-  //	std::cerr << "Membrane_compartment_sequence::Step()" << std::endl;
   if (!initialised_) {
     std::cerr
         << "Membrane_compartment_sequence::Step() "
@@ -92,6 +94,49 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::Step() {
     }
   }
 
+  // Necessary work for Gillespie algorithm. I have not tested this.
+  if (use_gillespie_){
+    std::cerr << "Membrane_compartment_sequence::GillespieStep()" << std::endl;
+    std::vector<modigliani_base::Real> compartmentTau_vec_(num_compartments());
+    modigliani_base::Real val;
+    modigliani_base::Real sum;
+    modigliani_base::Real sequenceTau;
+    bool integrateStep = false;
+    modigliani_base::Real newDeltaT;
+    modigliani_base::Real maxDeltaT;
+    
+    modigliani_base::Real tStar = 0.0;
+    
+    do {
+      // BLOCK 2
+      std::cerr << "GILLESPIE STEP" << std::endl;
+      sequenceTau = CompartmentSequenceChannelStateTimeConstant();
+      sum = 0.0;
+      val = uni_(rng_);
+      for (modigliani_base::Size ll = 0; ll < num_compartments(); ll++) {
+        sum += compartment_vec_[ll]->CompartmentChannelStateTimeConstant();
+        if (val < sum / sequenceTau) {
+          std::cerr << "STEPING COMPARTMENT " << ll << std::endl;
+          integrateStep = compartment_vec_[ll]->GillespieStep();
+          break;
+        }
+      }
+      // BLOCK 1
+      // this is a sum of rate constants !
+      newDeltaT = log(1 / uni_(rng_)) / sequenceTau;  //sequenceTau in [kHz] while newDeltaT in [ms]
+      std::cerr << "NEW DELTA T=" << newDeltaT << std::endl;
+      maxDeltaT = 1;  // maximumTimeStep ought to be 1 ms
+      if (newDeltaT > maxDeltaT) {
+        newDeltaT = maxDeltaT;
+      }
+      set_timestep(newDeltaT);
+      tStar += newDeltaT;
+    } while (integrateStep == false);
+    
+    std::cerr << "INTEGRATOR STEP WITH T_STAR=" << tStar << std::endl;
+    set_timestep(tStar);
+  }
+  
   std::vector<modigliani_base::Real> tmpVVec;
   modigliani_base::Real omega = 0.0;
   modigliani_base::Size ll = 0;
@@ -250,50 +295,4 @@ std::vector<modigliani_base::Real> Membrane_compartment_sequence::NumericalRecip
 
   return (vNewVec);
 }
-
-modigliani_base::ReturnEnum Membrane_compartment_sequence::GillespieStep() {
-  std::cerr << "Membrane_compartment_sequence::GillespieStep()" << std::endl;
-  std::vector<modigliani_base::Real> compartmentTau_vec_(num_compartments());
-  modigliani_base::Real val;
-  modigliani_base::Real sum;
-  modigliani_base::Real sequenceTau;
-  bool integrateStep = false;
-  modigliani_base::Real newDeltaT;
-  modigliani_base::Real maxDeltaT;
-
-  modigliani_base::Real tStar = 0.0;
-
-  do {
-    // BLOCK 2
-    std::cerr << "GILLESPIE STEP" << std::endl;
-    sequenceTau = CompartmentSequenceChannelStateTimeConstant();
-    sum = 0.0;
-    val = uni_(rng_);
-    for (modigliani_base::Size ll = 0; ll < num_compartments(); ll++) {
-      sum += compartment_vec_[ll]->CompartmentChannelStateTimeConstant();
-      if (val < sum / sequenceTau) {
-        std::cerr << "STEPING COMPARTMENT " << ll << std::endl;
-        integrateStep = compartment_vec_[ll]->GillespieStep();
-        break;
-      }
-    }
-    // BLOCK 1
-    // this is a sum of rate constants !
-    newDeltaT = log(1 / uni_(rng_)) / sequenceTau;  //sequenceTau in [kHz] while newDeltaT in [ms]
-    std::cerr << "NEW DELTA T=" << newDeltaT << std::endl;
-    maxDeltaT = 1;  // maximumTimeStep ought to be 1 ms
-    if (newDeltaT > maxDeltaT) {
-      newDeltaT = maxDeltaT;
-    }
-    set_timestep(newDeltaT);
-    tStar += newDeltaT;
-  } while (integrateStep == false);
-
-  std::cerr << "INTEGRATOR STEP WITH T_STAR=" << tStar << std::endl;
-  set_timestep(tStar);
-  Step();
-
-  return (modigliani_base::ReturnEnum::SUCCESS);
-}
-
 }  // namespace modigliani_core
