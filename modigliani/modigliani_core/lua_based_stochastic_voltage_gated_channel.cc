@@ -1,30 +1,49 @@
 /**
  * @file lua_based_stochastic_voltage_gated_channel.cc
- * @author Ali Neishabouri
+ * @brief Lua_based_stochastic_voltage_gated_channel class implementation
+ *
+ * Copyright 2013 Mohammad Ali Neishabouri
+ *
+ * This file is part of Modigliani.
+ *
+ * Modigliani is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Foobar is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modigliani.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "lua_based_stochastic_voltage_gated_channel.h"
+#include "modigliani_core/lua_based_stochastic_voltage_gated_channel.h"
 
-using namespace modigliani_core;
-
+namespace modigliani_core {
 bool Lua_based_stochastic_voltage_gated_channel::initTableLookUp = false;
-map<string, Transition_rate_matrix*> Lua_based_stochastic_voltage_gated_channel::probability_matrix_map;
-map<string, modigliani_base::Size> Lua_based_stochastic_voltage_gated_channel::number_of_states_map;
-map<string, double> Lua_based_stochastic_voltage_gated_channel::base_temperature_map;
-map<string, std::vector<modigliani_base::Size> > Lua_based_stochastic_voltage_gated_channel::open_states_map;
+std::map<string, Transition_rate_matrix*>
+Lua_based_stochastic_voltage_gated_channel::probability_matrix_map;
+std::map<string, modigliani_base::Size>
+Lua_based_stochastic_voltage_gated_channel::number_of_states_map;
+std::map<string, double>
+Lua_based_stochastic_voltage_gated_channel::base_temperature_map;
+std::map<string, std::vector<modigliani_base::Size> >
+Lua_based_stochastic_voltage_gated_channel::open_states_map;
 
-/* ***      CONSTRUCTORS	***/
-Lua_based_stochastic_voltage_gated_channel::Lua_based_stochastic_voltage_gated_channel(
+Lua_based_stochastic_voltage_gated_channel::
+Lua_based_stochastic_voltage_gated_channel(
     modigliani_base::Real newArea, modigliani_base::Real newDensity,
     modigliani_base::Real newConductivity,
     modigliani_base::Real newReversalPotential,
     modigliani_base::Real newTimeStep, modigliani_base::Real newTemperature,
     string fileName)
-    : Voltage_gated_ion_channel_current(newReversalPotential /* in mV */,
-                                        newDensity /* channels per mu^2 */,
-                                        newArea /* in mu^2 */, newConductivity /* in mS per channel  */
+    : Voltage_gated_ion_channel_current(newReversalPotential,
+                                        newDensity,
+                                        newArea, newConductivity
                                         ) {
-
   UpdateNumChannels();  // TODO(Ali)
 
   set_timestep(newTimeStep);
@@ -51,13 +70,12 @@ Lua_based_stochastic_voltage_gated_channel::Lua_based_stochastic_voltage_gated_c
   channels_ptr_->SteadyStateDistribution(-60);
 }
 
-/* ***      DESTRUCTOR		***/
-Lua_based_stochastic_voltage_gated_channel::~Lua_based_stochastic_voltage_gated_channel() {
+Lua_based_stochastic_voltage_gated_channel::
+~Lua_based_stochastic_voltage_gated_channel() {
   delete channels_ptr_;
   channels_ptr_ = 0;
 }
 
-/* ***  PUBLIC                                    ***   */
 void Lua_based_stochastic_voltage_gated_channel::load_file(string fileName,
                                                            double temperature,
                                                            double time_step) {
@@ -130,7 +148,7 @@ void Lua_based_stochastic_voltage_gated_channel::load_file(string fileName,
         double prob_q10 = lua_tonumber(L, -1);
         lua_pop(L, 1);
         double probability = TemperatureRateRelation(
-            temperature, base_temperature_map[fileName] /* C */, prob_q10)
+            temperature, base_temperature_map[fileName], prob_q10)
             * base_probability * time_step;
         probability_matrix_map[fileName]->SetTransitionProbability(voltage, i,
                                                                    j,
@@ -141,7 +159,8 @@ void Lua_based_stochastic_voltage_gated_channel::load_file(string fileName,
   lua_close(L);
 }
 
-inline modigliani_base::ReturnEnum Lua_based_stochastic_voltage_gated_channel::StepCurrent() {
+inline modigliani_base::ReturnEnum
+Lua_based_stochastic_voltage_gated_channel::StepCurrent() {
   switch (simulation_mode()) {
     case BINOMIALPOPULATION: {
       return (channels_ptr_->BinomialStep(voltage_));
@@ -162,7 +181,8 @@ inline modigliani_base::ReturnEnum Lua_based_stochastic_voltage_gated_channel::S
       break;
     default:
       std::cerr
-          << "Lua_based_stochastic_voltage_gated_channel::StepCurrent - ERROR : Unsupported simulation mode."
+          << "Lua_based_stochastic_voltage_gated_channel::StepCurrent"
+          << " - ERROR : Unsupported simulation mode."
           << std::endl;
       return (modigliani_base::ReturnEnum::PARAM_UNSUPPORTED);
       break;
@@ -170,26 +190,19 @@ inline modigliani_base::ReturnEnum Lua_based_stochastic_voltage_gated_channel::S
   return (modigliani_base::ReturnEnum::FAIL);
 }
 
-/**  */
-/** No descriptions */
-inline modigliani_base::Real Lua_based_stochastic_voltage_gated_channel::OpenChannels() const {
+inline modigliani_base::Real Lua_based_stochastic_voltage_gated_channel::
+OpenChannels() const {
   return (channels_ptr_->NumOpen());
 }
 
-inline modigliani_base::Real Lua_based_stochastic_voltage_gated_channel::ComputeConductance() {
+inline modigliani_base::Real Lua_based_stochastic_voltage_gated_channel::
+ComputeConductance() {
   return (set_conductance(channels_ptr_->NumOpen() * conductivity_));
 }
 
-inline modigliani_base::Real Lua_based_stochastic_voltage_gated_channel::ComputeTimeConstant() const {
+inline modigliani_base::Real Lua_based_stochastic_voltage_gated_channel::
+ComputeTimeConstant() const {
   return (channels_ptr_->ComputeChannelStateTimeConstant(voltage_));
-}
-
-void Lua_based_stochastic_voltage_gated_channel::show_param() const {
-  cout << "Na channel parameters:" << std::endl;
-  cout << "Single channel conductivity [nA]" << conductivity() << std::endl;
-  cout << "Channel density [1/muMeter^2]" << area() << std::endl;
-  cout << "MaxConductivity (all channels open) mSiemens/cm^2"
-       << MaxConductivity() << std::endl;
 }
 
 modigliani_base::Real Lua_based_stochastic_voltage_gated_channel::lua_get_real(
@@ -199,3 +212,4 @@ modigliani_base::Real Lua_based_stochastic_voltage_gated_channel::lua_get_real(
   lua_pop(L, 1);
   return (ret);
 }
+}  // namespace modigliani_core
