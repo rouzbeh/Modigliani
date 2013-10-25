@@ -3,6 +3,22 @@
  * @brief File_based_stochastic_voltage_gated_channel implementation
  *
  * Copyright 2013 Mohammad Ali Neishabouri
+ *
+ * @section LICENCE
+ * This file is part of Modigliani.
+ *
+ * Modigliani is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modigliani is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modigliani.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include "modigliani_core/file_based_stochastic_voltage_gated_channel.h"
@@ -80,7 +96,7 @@ namespace modigliani_core {
     boost::property_tree::ptree root;
     try {
       read_json(fileName, root);
-    } catch(exception & e) {
+    } catch(std::exception & e) {
       // report to the user the failure and their locations in the document.
       std::cerr << "Failed to parse configuration\n" << e.what();
       exit(1);
@@ -102,8 +118,8 @@ namespace modigliani_core {
     Real step = root.get < double >("step", 0);
 
     std::vector < boost::property_tree::ptree > transitions(0);
-  for (boost::property_tree::ptree::value_type const
-           &v:root.get_child("transitions")) {
+    for (boost::property_tree::ptree::value_type const
+             &v:root.get_child("transitions")) {
       transitions.push_back(v.second);
     }
 
@@ -166,6 +182,7 @@ namespace modigliani_core {
     Real File_based_stochastic_voltage_gated_channel::OpenChannels() const {
     return (channels_ptr_->NumOpen());
   }
+
   inline modigliani_base::
     Real File_based_stochastic_voltage_gated_channel::ComputeConductance() {
     return (set_conductance(channels_ptr_->NumOpen() * conductivity()));

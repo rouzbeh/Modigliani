@@ -3,235 +3,148 @@
  * @brief Lua_based_deterministic_voltage_gated_channel class implementation.
  *
  * Copyright 2013 Mohammad Ali Neishabouri
+ *
+ * @section LICENCE
+ * This file is part of Modigliani.
+ *
+ * Modigliani is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modigliani is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modigliani.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "lua_based_deterministic_voltage_gated_channel.h"
+#include "modigliani_core/lua_based_deterministic_voltage_gated_channel.h"
 
-using namespace modigliani_core;
+namespace modigliani_core {
+  Lua_based_deterministic_voltage_gated_channel::
+  Lua_based_deterministic_voltage_gated_channel
+    (modigliani_base::Real newArea,
+     modigliani_base::Real newDensity,
+     modigliani_base::Real newConductivity,
+     modigliani_base::Real newReversalPotential,
+     modigliani_base::Real newTimeStep,
+     modigliani_base::Real newTemperature,
+     string new_lua_script)
+  :Voltage_gated_ion_channel_current(newReversalPotential,
+                                     newDensity,
+                                     newArea,
+                                     newConductivity) {
+    UpdateNumChannels();        // TODO(Ali)
+    lua_script = new_lua_script;
+    set_timestep(newTimeStep);
+    set_temperature(newTemperature);
+    L = luaL_newstate();
+    luaL_openlibs(L);
 
-/* ***      CONSTRUCTORS	***/
-Lua_based_deterministic_voltage_gated_channel::Lua_based_deterministic_voltage_gated_channel(
-    modigliani_base::Real newArea, modigliani_base::Real newDensity,
-    modigliani_base::Real newConductivity,
-    modigliani_base::Real newReversalPotential,
-    modigliani_base::Real newTimeStep, modigliani_base::Real newTemperature,
-    string new_lua_script)
-    : Voltage_gated_ion_channel_current(newReversalPotential /* in mV */,
-                                        newDensity /* channels per mu^2 */,
-                                        newArea /* in mu^2 */, newConductivity /* in mS per channel  */
-                                        ) {
+    boost::filesystem::path lua_path(lua_script);
+    auto lua_path_parent = lua_path.parent_path();
+    auto lua_path_common = lua_path.parent_path();
+     lua_path_parent /= "?.lua";
+     lua_path_common /= "common";
+     lua_path_common /= "?.lua";
+     SetLuaPath(L, lua_path_common.string());
+     SetLuaPath(L, lua_path_parent.string());
+    int status = luaL_dofile(L, lua_script.c_str());
+    if (status) {
+      /* If something went wrong, error message is at the top of */
+      /* the stack */
+      fprintf(stderr,
+              "Lua_based_deterministic_voltage_gated_channel says : Couldn't load file %s: %s\n",
+              lua_script.c_str(), lua_tostring(L, -1));
+      exit(1);
+    }
+    stepV = _lua_get_real(L, "step");
+    lua_getglobal(L, "set_timestep");
+    /* the first argument */
+    lua_pushnumber(L, newTimeStep);
+    /* call the function with 1
+       argument, return 0 result */
+    lua_call(L, 1, 0);
 
-  UpdateNumChannels();  //TODO
-  lua_script = new_lua_script;
-  set_timestep(newTimeStep);
-  set_temperature(newTemperature);
-  L = luaL_newstate();
-  luaL_openlibs(L);
-
-  boost::filesystem::path lua_path(lua_script);
-  auto lua_path_parent = lua_path.parent_path();
-  auto lua_path_common = lua_path.parent_path();
-  lua_path_parent /= "?.lua";
-  lua_path_common /= "common";
-  lua_path_common /= "?.lua";
-  SetLuaPath(L, lua_path_common.string());
-  SetLuaPath(L, lua_path_parent.string());
-  int status = luaL_dofile(L, lua_script.c_str());
-  if (status) {
-    /* If something went wrong, error message is at the top of */
-    /* the stack */
-    fprintf(
-        stderr,
-        "Lua_based_deterministic_voltage_gated_channel says : Couldn't load file %s: %s\n",
-        lua_script.c_str(), lua_tostring(L, -1));
-    exit(1);
+    // Set temperature
+    lua_getglobal(L, "set_temp");
+    /* the first argument */
+    lua_pushnumber(L, newTemperature);
+    /* call the function with 1
+       argument, return 0 result */
+    lua_call(L, 1, 0);
   }
-  stepV = _lua_get_real(L, "step");
-  lua_getglobal(L, "set_timestep");
-  /* the first argument */
-  lua_pushnumber(L, newTimeStep);
-  /* call the function with 1
-   argument, return 0 result */
-  lua_call(L, 1, 0);
 
-  // Set temperature
-  lua_getglobal(L, "set_temp");
-  /* the first argument */
-  lua_pushnumber(L, newTemperature);
-  /* call the function with 1
-   argument, return 0 result */
-  lua_call(L, 1, 0);
-}
-
-/* ***      COPY AND ASSIGNMENT	***/
-Lua_based_deterministic_voltage_gated_channel::Lua_based_deterministic_voltage_gated_channel(
-    const Lua_based_deterministic_voltage_gated_channel & original)
-    : Voltage_gated_ion_channel_current(original.reversal_potential(),
-                                        original.density(), original.area(),
-                                        original.conductivity()) {
-  UpdateNumChannels();
-  stepV = _lua_get_real(L, "step");
-  set_timestep(original.timestep());
-  set_temperature(original.temperature());
-  lua_script = original.lua_script;
-  L = luaL_newstate();
-  luaL_openlibs(L);
-  boost::filesystem::path lua_path(original.lua_script);
-  auto lua_path_parent = lua_path.parent_path();
-  auto lua_path_common = lua_path.parent_path();
-  lua_path_parent /= "?.lua";
-  lua_path_common /= "common";
-  lua_path_common /= "?.lua";
-  SetLuaPath(L, lua_path_common.string());
-  SetLuaPath(L, lua_path_parent.string());
-  int status = luaL_dofile(L, lua_script.c_str());
-  if (status) {
-    /* If something went wrong, error message is at the top of */
-    /* the stack */
-    fprintf(
-        stderr,
-        "Lua_based_deterministic_voltage_gated_channel says : Couldn't load file %s: %s\n",
-        lua_script.c_str(), lua_tostring(L, -1));
-    exit(1);
+  Lua_based_deterministic_voltage_gated_channel::
+  ~Lua_based_deterministic_voltage_gated_channel() {
+    lua_close(L);
   }
-  lua_getglobal(L, "set_timestep");
-  /* the first argument */
-  lua_pushnumber(L, timestep());
-  /* call the function with 1
-   argument, return 0 result */
-  lua_call(L, 1, 0);
 
-  // Set temperature
-  lua_getglobal(L, "set_temp");
-  /* the first argument */
-  lua_pushnumber(L, original.temperature());
-  /* call the function with 1
-   argument, return 0 result */
-  lua_call(L, 1, 0);
-}
+  inline modigliani_base::ReturnEnum
+    Lua_based_deterministic_voltage_gated_channel::StepCurrent() {
+    switch (simulation_mode()) {
+      case DETERMINISTIC: {
+          lua_getglobal(L, "step_current");
+          // the first argument
+          lua_pushnumber(L, voltage_);
 
-Lua_based_deterministic_voltage_gated_channel&
-Lua_based_deterministic_voltage_gated_channel::operator=(
-    const Lua_based_deterministic_voltage_gated_channel & right) {
-  if (this == &right) return (*this);  // Gracefully handle self assignment
-  set_timestep(right.timestep());
-  set_temperature(temperature());
-  lua_script = right.lua_script;
-  L = luaL_newstate();
-  luaL_openlibs(L);
-  boost::filesystem::path lua_path(lua_script);
-  auto lua_path_parent = lua_path.parent_path();
-  auto lua_path_common = lua_path.parent_path();
-  lua_path_parent /= "?.lua";
-  lua_path_common /= "common";
-  lua_path_common /= "?.lua";
-  SetLuaPath(L, lua_path_common.string());
-  SetLuaPath(L, lua_path_parent.string());
-  int status = luaL_dofile(L, lua_script.c_str());
-  if (status) {
-    /* If something went wrong, error message is at the top of */
-    /* the stack */
-    fprintf(
-        stderr,
-        "Lua_based_deterministic_voltage_gated_channel says : Couldn't load file %s: %s\n",
-        lua_script.c_str(), lua_tostring(L, -1));
-    exit(1);
+          // call the function with 1 argument, return 0 result
+          lua_call(L, 1, 0);
+
+          return (modigliani_base::ReturnEnum::SUCCESS);
+        }
+
+        break;
+      default:
+        std::cerr
+          << "Lua_based_deterministic_voltage_gated_channel::StepCurrent - "
+          << "ERROR : Unsupported simulation mode."
+          << std::endl;
+        return (modigliani_base::ReturnEnum::PARAM_UNSUPPORTED);
+        break;
+    }
+    return (modigliani_base::ReturnEnum::FAIL);
   }
-  lua_getglobal(L, "set_timestep");
-  /* the first argument */
-  lua_pushnumber(L, timestep());
 
-  /* call the function with 1
-   argument, return 0 result */
-  lua_call(L, 1, 0);
+  inline modigliani_base::
+    Real Lua_based_deterministic_voltage_gated_channel::OpenChannels() const {
+    lua_getglobal(L, "open_channels");
 
-  // Set temperature
-  lua_getglobal(L, "set_temp");
-  /* the first argument */
-  lua_pushnumber(L, right.temperature());
-  /* call the function with 1
-   argument, return 0 result */
-  lua_call(L, 1, 0);
-  return (*this);
-}
+    // call the function with 0 argument, return 1 result
+    lua_call(L, 0, 1);
+    modigliani_base::Real count = lua_tonumber(L, -1);
+    lua_pop(L, 1);
 
-/* ***      DESTRUCTOR		***/
-Lua_based_deterministic_voltage_gated_channel::~Lua_based_deterministic_voltage_gated_channel() {
-  lua_close(L);
-}
+    return (count * num_channels());
+  } inline modigliani_base::
+    Real Lua_based_deterministic_voltage_gated_channel::ComputeConductance() {
+    lua_getglobal(L, "compute_conductance");
+    /* call the function with 0
+       argument, return 1 result */
+    lua_call(L, 0, 1);
+    modigliani_base::Real conduc = lua_tonumber(L, -1);
+    lua_pop(L, 1);
 
-/**
- * @brief Runs one step of simulation
- * @return Success or failure
- */
-inline modigliani_base::ReturnEnum Lua_based_deterministic_voltage_gated_channel::StepCurrent() {
-  switch (simulation_mode()) {
-    case DETERMINISTIC: {
-      lua_getglobal(L, "step_current");
-      // the first argument
-      lua_pushnumber(L, voltage_);
-
-      // call the function with 1 argument, return 0 result
-      lua_call(L, 1, 0);
-
-      return (modigliani_base::ReturnEnum::SUCCESS);
+    if (conduc != conduc) {
+      std::cerr << "Lua_based_deterministic_voltage_gated_channel : "
+                << "conduc != conduc !" << std::endl;
+      std::cerr << "Voltage was " << voltage_ << std::endl;
+      assert(conduc == conduc);
     }
 
-      break;
-    default:
-      std::cerr
-          << "Lua_based_deterministic_voltage_gated_channel::StepCurrent - ERROR : Unsupported simulation mode."
-          << std::endl;
-      return (modigliani_base::ReturnEnum::PARAM_UNSUPPORTED);
-      break;
-  }
-  return (modigliani_base::ReturnEnum::FAIL);
-}
-
-/**  */
-/** No descriptions */
-inline modigliani_base::Real Lua_based_deterministic_voltage_gated_channel::OpenChannels() const {
-  lua_getglobal(L, "open_channels");
-
-  // call the function with 0 argument, return 1 result
-  lua_call(L, 0, 1);
-  modigliani_base::Real count = lua_tonumber(L, -1);
-  lua_pop(L, 1);
-
-  return (count * num_channels());
-}
-
-inline modigliani_base::Real Lua_based_deterministic_voltage_gated_channel::ComputeConductance() {
-  lua_getglobal(L, "compute_conductance");
-  /* call the function with 0
-   argument, return 1 result */
-  lua_call(L, 0, 1);
-  modigliani_base::Real conduc = lua_tonumber(L, -1);
-  lua_pop(L, 1);
-
-  if(conduc != conduc){
-    cerr << "Lua_based_deterministic_voltage_gated_channel : conduc != conduc !" << endl;
-    cerr << "Voltage was " << voltage_ << endl;
-    assert(conduc == conduc);
+    return (set_conductance
+            (conduc * MaxConductivity() * area() /* muMeter^2 */ *1.0e-8));
   }
 
-  return (set_conductance(
-      conduc * MaxConductivity() * area() /* muMeter^2 */* 1.0e-8));
-}
-
-void Lua_based_deterministic_voltage_gated_channel::show_param() const {
-  cout << "Na channel parameters:" << std::endl;
-  cout << "Single channel conductivity [nA]" << conductivity() << std::endl;
-  cout << "Channel density [1/muMeter^2]" << area() << std::endl;
-  cout << "MaxConductivity (all channels open) mSiemens/cm^2"
-       << MaxConductivity() << std::endl;
-}
-
-modigliani_base::Real Lua_based_deterministic_voltage_gated_channel::_lua_get_real(
-    lua_State* L, string name) {
-  lua_getglobal(L, name.c_str());
-  modigliani_base::Real ret = lua_tonumber(L, -1);
-  lua_pop(L, 1);
-  return (ret);
-}
-
+  modigliani_base::Real
+  Lua_based_deterministic_voltage_gated_channel::_lua_get_real(lua_State * L,
+                                                               string name) {
+    lua_getglobal(L, name.c_str());
+    modigliani_base::Real ret = lua_tonumber(L, -1);
+    lua_pop(L, 1);
+    return (ret);
+  }
+}                               // namespace modigliani_core
