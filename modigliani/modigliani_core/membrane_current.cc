@@ -36,7 +36,7 @@ void Membrane_current::_init(modigliani_base::Real newReversalPotential) {
   conductance_;
   simulation_mode_ = DETERMINISTIC;
   reversal_potential_ = newReversalPotential;
-  current_;
+  current_ = 0;
   temperature_;
   q10_;
 }
