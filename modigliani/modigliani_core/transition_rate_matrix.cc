@@ -1,7 +1,24 @@
 /**
  * @file transition_rate_matrix.cc
- * @author Ali Neishabouri
+ * @brief Transition_rate_matrix class implementation
+ *
  * Copyright 2011 Ali Neishabouri
+ *
+ * @section LICENCE
+ * This file is part of Modigliani.
+ *
+ * Modigliani is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modigliani is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modigliani.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include "modigliani_core/transition_rate_matrix.h"
