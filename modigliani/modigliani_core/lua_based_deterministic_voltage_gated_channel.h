@@ -53,13 +53,13 @@ namespace modigliani_core {
     * [@f$\si{\per\micro\meter\squared}@f$]
     * @param newConductivity Single channel conductance in
     * [@f$\si{\milli\siemens}@f$]
-    * @param reversalPotential Current reversal potential in
+    * @param newReversalPotential Current reversal potential in
     * [@f$\si{\milli\volt}@f$]
     * @param newTimeStep Simulation timestep in
     * [@f$\si{\milli\second}@f$]
     * @param newTemperature Simulation temperature in
     * [@f$\si{\celsius}@f$]
-    * @param fileName Lua script
+    * @param new_lua_script Lua script
     * 
     *  The lua script must define the following variables :
     *  - float step
@@ -74,17 +74,12 @@ namespace modigliani_core {
     * See @ref SGA_sodium.lua for an example of such a lua script.
     */
     Lua_based_deterministic_voltage_gated_channel(modigliani_base::Real newArea,
-                                                  modigliani_base::
-                                                  Real newDensity,
-                                                  modigliani_base::
-                                                  Real newConductivity,
-                                                  modigliani_base::
-                                                  Real reversalPotential,
-                                                  modigliani_base::
-                                                  Real newTimeStep,
-                                                  modigliani_base::
-                                                  Real newTemperature,
-                                                  std::string fileName);
+                                                  modigliani_base::Real newDensity,
+                                                  modigliani_base::Real newConductivity,
+                                                  modigliani_base::Real newReversalPotential,
+                                                  modigliani_base::Real newTimeStep,
+                                                  modigliani_base::Real newTemperature,
+                                                  std::string new_lua_script);
 
     Lua_based_deterministic_voltage_gated_channel
         (const

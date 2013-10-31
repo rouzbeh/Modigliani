@@ -184,7 +184,11 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::Init() {
     compartment_vec_[ll]->set_vm(-65);
     /* testing requirement for constant axo-geometric properties */
     assert(compartment_vec_[ll]->radius() == compartment_vec_[ll - 1]->radius());
-    assert(compartment_vec_[ll]->ra() == compartment_vec_[ll - 1]->ra());
+    if(!compartment_vec_[ll]->ra() == compartment_vec_[ll - 1]->ra()) {
+      std::cerr << "WARNING : Non-uniform axoplasmic resistance "
+                << "is not thoroughly tested."
+                << std::endl;
+    }
   }
   compartment_vec_[num_compartments_ - 1]->set_vm(-65);
 
@@ -224,8 +228,9 @@ modigliani_base::Real Membrane_compartment_sequence::_sigma(
   modigliani_base::Real output = 0.1
       * (deltaT / to->CompartmentMembraneCapacitance())
       / (to->ra()
-          * ((2 * to->length() / (4 * 3.1415 * pow(to->radius(), 2)))
-              + (2 * from->length() / (4 * 3.1415 * pow(from->radius(), 2)))));
+         * (2 * to->length() / (4 * 3.1415 * pow(to->radius(), 2)))
+         + from->ra()
+         * (2 * from->length() / (4 * 3.1415 * pow(from->radius(), 2))));
   return (output);
 }
 

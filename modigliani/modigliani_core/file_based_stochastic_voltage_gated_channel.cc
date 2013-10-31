@@ -1,8 +1,9 @@
 /**
  * @file file_based_stochastic_voltage_gated_channel.cc
- * @brief File_based_stochastic_voltage_gated_channel implementation
+ * @brief File_based_stochastic_voltage_gated_channel class
+ * implementation
  *
- * Copyright 2013 Mohammad Ali Neishabouri
+ * Copyright (C) 2013 Mohammad Ali Neishabouri
  *
  * @section LICENCE
  * This file is part of Modigliani.

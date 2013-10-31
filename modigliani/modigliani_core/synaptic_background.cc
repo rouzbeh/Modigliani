@@ -29,8 +29,6 @@ namespace modigliani_core {
 
 bool Synaptic_background::seed_set_ = false;
 
-/** @brief Create a Synaptic_background current
- */
 Synaptic_background::Synaptic_background(
     modigliani_base::Real newAvgSynBkCond, /* in nS */
     modigliani_base::Real newESynBk, /* Synaptic background reversal potential mV */

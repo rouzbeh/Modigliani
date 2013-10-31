@@ -32,7 +32,7 @@ namespace modigliani_core {
      modigliani_base::Real newReversalPotential,
      modigliani_base::Real newTimeStep,
      modigliani_base::Real newTemperature,
-     string new_lua_script)
+     std::string new_lua_script)
   :Voltage_gated_ion_channel_current(newReversalPotential,
                                      newDensity,
                                      newArea,
@@ -147,4 +147,4 @@ namespace modigliani_core {
     lua_pop(L, 1);
     return (ret);
   }
-}                               // namespace modigliani_core
+}  // namespace modigliani_core

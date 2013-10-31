@@ -62,6 +62,12 @@ namespace modigliani_core {
 
     virtual ~Membrane_compartment();
 
+    /**
+     * @brief Adds a new current to the compartment
+     *
+     * @param currentPtr Pointer to the Membrane_current object
+     * @param type Current type
+     */
     virtual modigliani_base::ReturnEnum AttachCurrent(Membrane_current *
                                                       currentPtr,
                                                       CurrentType type =
