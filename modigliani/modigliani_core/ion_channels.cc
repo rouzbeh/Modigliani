@@ -226,7 +226,7 @@ modigliani_base::ReturnEnum Ion_channels::BinomialStep(
         modigliani_base::Real prob = _probMatrix->GetTransitionProbability(
             matrix_index, currentState, nextState);
         if (prob == 0) continue;
-        // assert(prob>0 && prob<=1);
+        assert(prob>0 && prob<=1);
         int numberOfChannels = stateCounterVec[currentState];
         bin.param(boost::random::binomial_distribution<>::param_type {
             numberOfChannels, prob });
