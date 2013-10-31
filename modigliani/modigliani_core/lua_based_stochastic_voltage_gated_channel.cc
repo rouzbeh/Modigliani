@@ -110,7 +110,7 @@ namespace modigliani_core {
       exit(1);
     }
 
-    base_temperature_map[fileName] = lua_get_real(L, "base_temp");
+    base_temperature_map[fileName] = lua_get_real(L, "base_temperature");
 
     number_of_states_map[fileName] = lua_get_real(L, "number_states");
 
