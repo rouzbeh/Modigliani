@@ -128,8 +128,11 @@ class File_based_stochastic_voltage_gated_channel
 
     static std::map<std::string,
       Transition_rate_matrix*> probability_matrix_map;
+    
     static std::map<std::string, int> number_of_states_map;
+    
     static std::map<std::string, double> base_temperature_map;
+    
     static std::map<std::string,
       std::vector<modigliani_base::Size> > open_states_map;
 

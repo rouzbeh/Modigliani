@@ -1,10 +1,26 @@
 /**
-   @file show_binary_file.cc
-   @brief print a binary, columns organised float data file (without formatting) to stdout
- * @author Ahmed Aldo Faisal
-   Copyright 2000 Ahmed Aldo Faisal
+ * @file show_binary_file.cc
+ * @brief print a binary, columns organised float data file (without formatting) to stdout
  *
- * compile with: g++ -o show_binary_file show_binary_file.cpp
+ * Compile with: g++ -o show_binary_file show_binary_file.cpp
+ *
+ * Copyright 2000 Ahmed Aldo Faisal
+ *
+ * @section LICENSE
+ * This file is part of Modigliani.
+ *
+ * Modigliani is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modigliani is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modigliani.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <iostream>

@@ -1,9 +1,10 @@
 /**
  * @file axon_simulator.cc
- * @brief Can simulate arbitrary axons using configuration
- *        given in a json file.
+ * @brief Can simulate arbitrary axons using configuration given in a
+ * json file. 
  *
  * Copyright (C) 1998,1999,2000,2001 Ahmed Aldo Faisal
+ *
  * Copyright (C) 2010, 2011, 2012, 2013 Mohammad Ali Neishabouri
  *
  * @section LICENCE

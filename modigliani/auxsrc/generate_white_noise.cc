@@ -2,10 +2,23 @@
  * @file generate_white_noise.cc
  * @brief Generates white noise
  *
- * @author Ahmed Aldo Faisal
- * Copyright 2001 Ahmed Aldo Faisal
+ * Copyright (C) 2001 Ahmed Aldo Faisal
  *
- * Compile with: g++ -o show_binary_file show_binary_file.cpp
+ * @section LICENSE
+ * This file is part of Modigliani.
+ *
+ * Modigliani is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Modigliani is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modigliani.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/normal_distribution.hpp>
@@ -15,7 +28,6 @@
 #include <cstdlib>
 #include <vector>
 #include "modigliani_base/sequential_statistics.h"
-
 
 #define NUM_NON_COLUMN_PARAM 3
 
@@ -56,7 +68,6 @@ main(int argc, char* argv[]) {
         exit(2);
     }
 
-
     modigliani_base::Sequential_statistics stats;
 
     for (modigliani_base::Size ll = 0; ll < numNumbers; ll++) {
@@ -67,7 +78,6 @@ main(int argc, char* argv[]) {
       else
         output_file.write(reinterpret_cast<char*>(&value), sizeof(value));
     }
-
 
     std::cout << "Mean " << stats.average() << std::endl;
     std::cout << "StdDev " << sqrt(stats.variance()) << std::endl;

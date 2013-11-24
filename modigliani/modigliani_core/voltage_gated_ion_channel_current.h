@@ -3,6 +3,7 @@
  * @brief Voltage_gated_ion_channel_current class header
  *
  * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
+ *
  * Copyright (C) 2013 Mohammad Ali Neishabouri
  *
  * @section LICENSE

@@ -159,7 +159,7 @@ namespace modigliani_core {
  * stating the number of columns that should be used to reshape the
  * data.
  * @see WriteOutput()
- * @param output_file_name
+ * @param output_file_name Output file name
  * @return Success status
  * @warning Call after having attached all currents.
  */

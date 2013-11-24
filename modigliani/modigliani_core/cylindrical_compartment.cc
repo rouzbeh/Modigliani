@@ -4,6 +4,7 @@
  * @brief Cylindrical_compartment class implementation
  *
  * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
+ *
  * Copyright (C) 2013 Mohammad Ali Neishabouri
  *
  * @section LICENCE
@@ -26,7 +27,6 @@
 #include "modigliani_core/cylindrical_compartment.h"
 
 namespace modigliani_core {
-
 Cylindrical_compartment::Cylindrical_compartment(
     const modigliani_base::Real newLength,
     const modigliani_base::Real newDiameter, const modigliani_base::Real newCm,
