@@ -1,24 +1,24 @@
 /**
  * @file aux_math_func.h
- * Auxiliary math functions header
- * @author Ahmed Aldo Faisal &copy; created 27.4.2000
- * @version  0.4
+ * @brief Auxiliary math functions header
+ *
  * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
  *
- * @section LICENSE
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
+ * @section LICENCE
+ * This file is part of Modigliani.
  *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRAMY; without even the implied warranty of
- * MERCHAMABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
+ * Modigliani is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the Free
- * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ * Foobar is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modigliani.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #ifndef MODIGLIANI_MODIGLIANI_BASE_AUX_MATH_FUNC_H_
@@ -30,21 +30,47 @@
 #include "modigliani_base/obj.h"
 
 namespace modigliani_base {
+  /**
+   * @brief Computes @f$p\times log(p)@f$
+   * @param prob p value
+   * @return @f$p\times log(p)@f$
+   */
+  extern Real ComputePLogP(Real prob);
+  
+  /**
+   * @brief Limit a value between [0,1]
+   */
+  extern Real Limit01(Real value);
 
-extern Real ComputePLogP(Real prob);
-/**
- * @short Mlimit01
- * Limit a value between [0,1]
- */
-extern Real Limit01(Real value);
-extern Real Round(Real value);
-extern Real LogGammaFunction(Real arg);
-extern int IsNAN(const Real value);
-extern int IsInf(const Real value);
+  /**
+   * @brief Rounds a value to the nearest integer.
+   * @param value Value to round
+   * @return Rounded value
+   */   
+   Real Round(Real value);
 
-#ifndef PI
-#define PI 3.14159265358979323846
-#endif
+  /**
+   * @brief Compute the logarithm of the Gamma function.
+   *
+   * Taken from function 'gammln' Numerical Recipes in C (Press et
+   * al.)
+   * @param arg Function argument
+   * @return Result
+   */
+  extern Real LogGammaFunction(Real arg);
+
+  /**
+   * @brief Checks for NaN
+   * @param value The value to check
+   * @return 0 if NaN, rounded value otherwise
+   */
+  extern int IsNAN(const Real value);
+
+  /**
+   * @brief Checks infinity
+   * @param value The value to check
+   * @return 1 for +infinity, -1 for -infinity, 0 otherwise
+   */
+  extern int IsInf(const Real value);
 }  // namespace modigliani_base
-
 #endif  // MODIGLIANI_MODIGLIANI_BASE_AUX_MATH_FUNC_H_

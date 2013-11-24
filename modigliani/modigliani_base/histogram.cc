@@ -1,4 +1,4 @@
-/**\file histogram.cc
+/**@file histogram.cc
  * @brief Histogram class implementation
  * 
  * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
@@ -22,9 +22,6 @@
 #include "modigliani_base/histogram.h"
 
 namespace modigliani_base {
-
-/** @brief Creates a Histogram
- */
 Histogram::Histogram(Real minVal,
                      Real maxVal,
                      Size numberOfBins):bins(static_cast<int>(numberOfBins)) {
@@ -38,51 +35,15 @@ Histogram::Histogram(Real minVal,
   M_ASSERT(numberOfBins > 0);
 }
 
-/* ***      COPY AND ASSIGNMEM    ***/
-Histogram::Histogram(const Histogram & original):Obj() {
-  bins = original.bins;
-  min = original.min;
-  max = original.max;
-  numBins = original.numBins;
-  binWidth = original.binWidth;
-  numDataPoints = original.numDataPoints;
-  numOutliers = original.numOutliers;
-}
-
-const Histogram & Histogram::operator=(const Histogram & right) {
-  if (this == &right)
-    return (*this);             // Gracefully handle self assignment
-  bins = right.bins;
-  min = right.min;
-  max = right.max;
-  numBins = right.numBins;
-  binWidth = right.binWidth;
-  numDataPoints = right.numDataPoints;
-  numOutliers = right.numOutliers;
-  return (*this);
-}
-
-/* ***      DESTRUCTOR        ***/
 Histogram::~Histogram() {
 }
 
-/* ***  PUBLIC                                    ***   */
-/** @short    Reset the histogram class to object creation values
- */
 void Histogram::Reset() {
   bins.clear();
   numDataPoints = 0;
   numOutliers = 0;
 }
 
-/** @short      Insert the value in the appropriate bin,
- if the value is outside the range the numOutliers
- counter variable will be increased instead.
- @param      value
- @return     none
- \warning    Bound checking is implicitly done by increasing numOutliers
- \bug        unknown
- */
 void Histogram::BinValue(Real value) {
   numDataPoints++;
   if ((value > max) || (value < min))
@@ -110,10 +71,6 @@ Real Histogram::ShannonEntropy() const {
   return (h / log(2.0));
 }
 
-/**
-   @brief
-   @param showHeader Whether to show the header
- */
 void Histogram::Show(bool showHeader) const {
   if (showHeader == true)
     std::cout << "Histogram " << numBins << " bins [" << min << "," << max

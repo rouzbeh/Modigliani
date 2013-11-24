@@ -4,20 +4,21 @@
  *
  * Copyright (C) 1997 Ahmed Aldo Faisal
  *
- * @section LICENSE
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
+ * @section LICENCE
+ * This file is part of Modigliani.
  *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRAMY; without even the implied warranty of
- * MERCHAMABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
+ * Modigliani is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the Free
- * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ * Foobar is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modigliani.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #ifndef MODIGLIANI_MODIGLIANI_BASE_DMATRIX_H_
@@ -27,66 +28,135 @@
 #include <string>
 
 namespace modigliani_base {
-/**
- * @brief A straight-forward double matrix class
- *
- * @warning INDICES in Matrix START with (1,1) and end with (row,col) !
- * @warning DESTRUCTIVE methods used! Be carefull because currently methods and operators
- * might modify the (*this) object and some generate a new one
- */
+  /**
+   * @brief A straight-forward double matrix class
+   *
+   * @warning INDICES in Matrix START with (1,1) and end with (row,col) !
+   * @warning DESTRUCTIVE methods used! Be carefull because currently methods and operators
+   * might modify the (*this) object and some generate a new one
+   */
   class DMatrix {
-  public:
-    /** init Matrix */
-    DMatrix(int sizz_x, int size_y);
+ public:
+    /**
+     * @brief Construct a matrix
+     * @param r Number of rows
+     * @param c Number of columns
+     */
+    DMatrix(int r, int c);
+    
+    /**
+     * @brief Construct a vector
+     * @param r Number of elements
+     */
+    explicit DMatrix(int r);
 
-    /** init Vector */
-    explicit DMatrix(int size);
-
-    /** duplicate from existent DMatrix object */
-     DMatrix(DMatrix & copy);
-
+    /**
+     * @brief Duplicate from existent DMatrix object
+     * @param copy Original matrix
+     */
+    DMatrix(DMatrix & copy);
+    
+    /**
+     * @brief Destructor
+     */
     ~DMatrix() {
       delete elements;
     }
 
-    DMatrix operator+(DMatrix &);     // !< addition C = A+B
+    /**
+     * @brief Adds two matrices
+     * @param right Matrix to add
+     * @return Result
+     */
+    DMatrix operator+(DMatrix & right);
 
-    DMatrix operator-(DMatrix &);       // !< subtraction C = A-B
+    /**
+     * @brief Substracts two matrices
+     * @param right Matrix to substract
+     * @return Result
+     */
+    DMatrix operator-(DMatrix & right);
 
-    DMatrix operator*(DMatrix &);       // !< multiplication A = A*B
+    /**
+     * @brief Multiplies two matrices
+     * @param right Matrix to multiply
+     * @return Result
+     */
+    DMatrix operator*(DMatrix & right);
 
-    DMatrix operator*(double factor);   // !< Scaling, factor
-    // !multiplication
+    /**
+     * @brief Scales a matric with a scalar factor
+     * @param factor Scale factor
+     * @return Result
+     */
+    DMatrix operator*(double factor);
 
-     DMatrix & operator=(DMatrix &);    // !< equalizing :) A=B
+    /**
+     * @brief Copies the content of one matrix into another
+     * @param right Matrix to copy data from
+     * @return Result
+     */
+    DMatrix & operator=(DMatrix &);
 
-    double &operator() (int size_x, int size_y);        // !< Access matrix
-    // !components
+    /**
+     * @brief Access matrix components
+     * @param size_x Row
+     * @param size_y Column
+     * @return Element
+     */
+    double &operator() (int size_x, int size_y);
 
-    double &operator() (int size);      // !< Access vector components
+    /**
+     * @brief Access vector components
+     * @param size Index
+     * @return Element
+     */
+    double &operator() (int size);
 
+    /**
+     * @brief Writes the matrix to stdout.
+     */
     void print();
 
+    /**
+     * @brief Returns the sum of all elements in the matrix
+     * @return The sum of elements
+     */
     double sum();
 
+    /**
+     * @brief Returns the quadratic sum of all elements in the matrix
+     * @return The quadratic sum of elements
+     */
     double quadSum();
 
+    /**
+     * @brief Compute inverse with Gauss-elimination including
+     * Pivotizing
+     * @return Inverse matrix
+     */
     DMatrix operator~();
 
+    /**
+     * @brief Prints the matrix
+     * @param  str ostream to output into
+     * @param  self
+     * @return ostream
+     */
     friend std::istream & operator>>(std::istream &, DMatrix &);
-
-  private:
+    
+ private:
     int row, col;
     double *elements;
   };
-
+  
   DMatrix(int r, int c) {
     elements = new double[r * c + 1];
     memset(elements, ' ', (r * c + 1) * sizeof(elements[0]));
     row = r;
     col = c;
   }
-
+  
   DMatrix(int r) {
     elements = new double[r + 1];
     memset(elements, ' ', (r + 1) * sizeof(elements[0]));
@@ -187,7 +257,6 @@ namespace modigliani_base {
     return (temp);
   }
 
-/** compute inverse with  Gauss-elimination including Pivotizing */
   modigliani_base::DMatrix modigliani_base::DMatrix::operator~() {
     int i, j, k, n;
     int pivrow, tarrow;

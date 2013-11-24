@@ -1,29 +1,28 @@
 /**
  * @file multidim_array.h
- * Multidim_array class header
- * @author Ahmed Aldo Faisal &copy; created 28.6.2001
- * @version  0.5
+ * @brief Multidim_array class header
+ *
  * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
  *
- * @section LICENSE
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
+ * @section LICENCE
+ * This file is part of Modigliani.
  *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRAMY; without even the implied warranty of
- * MERCHAMABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
+ * Modigliani is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the Free
- * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ * Foobar is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modigliani.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #ifndef MODIGLIANI_MODIGLIANI_BASE_MULTIDIM_ARRAY_H_
 #define MODIGLIANI_MODIGLIANI_BASE_MULTIDIM_ARRAY_H_
-
 
 #include <vector>
 #include <cstdarg>
@@ -33,15 +32,20 @@
 #include "modigliani_base/error.h"
 
 namespace modigliani_base {
-/** @brief  Multidimensional array
- *
- * Implements a regular - multidimensional, i.e.
- * a "dim"-diemsional hypercube with "num" elements per dimension.
- */
+  /**
+   * @brief  Multidimensional array
+   *
+   * Implements a regular - multidimensional, i.e.
+   * a "dim"-diemsional hypercube with "num" elements per dimension.
+   */
   template < class T >          // with regards to Modula-3 :)
-  class Multidim_array:public Obj {
-  public:
-    /***   Constructors, Copy/Assignment and Destructor  ***/
+      class Multidim_array:public Obj {
+ public:
+    /**
+     * @brief Constructs a multidim array
+     * @param d Number of dimensions
+     * @param n Number of elements
+     */
     Multidim_array(Size d, Size n) {
       M_ASSERT(d > 0);
       dim = d;
@@ -82,21 +86,21 @@ namespace modigliani_base {
       }
     }
 
-    /* ***      COPY AND ASSIGNMEM    ** */
-    /** copy constructor currently not to be implemented. */
     Multidim_array(const Multidim_array & original) = delete;
 
-    /** assignment operator currently not to be implemented. */
     const Multidim_array & operator=(const Multidim_array & right) = delete;
 
-    /* ***      DESTRUCTOR        ** */
+    /**
+     * @brief Destructor
+     */
     virtual ~Multidim_array() {
     }
 
-    /* ***  PUBLIC                                    ***   */
-    /** \brief    access element at given coordinate position
-     *
-     * \warning    no range checking done on the coordinates
+    /**
+     * @brief Access element at given coordinate position
+     * @param coordinteVec Vector of coordinates
+     * @return Element
+     * @warning    no range checking done on the coordinates
      */
     T & Elem(const std::vector < Size > &coordinateVec) {
       Size hash = Hash(coordinateVec);
@@ -107,27 +111,35 @@ namespace modigliani_base {
     /**
      * @brief access a element with a "meaningless" index
      *
-     * @param index An index that is guaranteed to touch all elements
+     * The index is guaranteed to touch all elements
      * but has no assigned meaning as to the position of
      * element in relation to others. However index in $[0,num^dim]$
-     * is guaranteed and will touch all elements ones.
+     * is guaranteed and will touch all elements once.
+     * @param index The index
      * @return     The element at given index
-     * \warning    Arbitrary index, no information inferable from the index,
+     * @warning    Arbitrary index, no information inferable from the index,
      * might change anytime (only range remains guaranteed).
      */
     const T & ElemByIndex(Size index) const {
       M_ASSERT((index < TotalNumElem()));
       return (dataVec[index]);
     }
+
+    /**
+     * @brief Sets all the elements to the given input
+     * @param val Input value
+     */
     void SetAll(const T & val) {
       for (Size ll = 0; ll < TotalNumElem(); ll++) {
         dataVec[ll] = val;
       }
     }
 
-    /** \brief    access element at given coordinate position
-     *
-     *  \warning    no range checking done on the coordinates
+    /**
+     * @brief Access element at given coordinate position
+     * @param index1 Indexes
+     * @return Element
+     * @warning No range checking done on the coordinates
      */
     T & Elem(Size index1 ...) {
       std::vector < Size > coorVec(dim);
@@ -140,16 +152,22 @@ namespace modigliani_base {
       return (Elem(coorVec));
     }
 
+    /**
+     * @brief Returns total number of elements in the array
+     * @return Number of elements
+     */
     Size TotalNumElem()const {
       return (powerSeriesCacheVec[dim]);
     }
 
   private:
-    /* ***  Methods              ** */
-    /** Generate an address out of the coordinates of the element
-     in the multimensional array. The hash address is the
-     decimal representation of the num-ary dim-digit coordinate "number".
-     \warning range of coordinates values (0..num-1) is not tested
+    /**
+     * @brief Generate an address out of the coordinates of the
+     * element in the multimensional array.
+     *
+     * The hash address is the decimal representation of the num-ary
+     * dim-digit coordinate "number".
+     * @warning range of coordinates values (0..num-1) is not tested
      */
      Size Hash(const std::vector < Size > &coorVec) const {
       M_ASSERT(coorVec.size() == dim);
@@ -159,7 +177,7 @@ namespace modigliani_base {
         addressIndex += coorVec[ld] * powerSeriesCacheVec[ld];
       } return (addressIndex);
     }
-    /* ***  Data                 ** */
+    
     std::vector < Size > dataVec;
     std::vector < Size > powerSeriesCacheVec;
     Size dim;

@@ -1,8 +1,9 @@
 /**
  * @file aux_func.h
- * Auxiliary function headers  for heteregenous object creation
+ * @brief Auxiliary function headers  for heteregenous object creation
  *
  * Copyright (C) 1998-2005 Ahmed Aldo Faisal
+ *
  * Copyright (C) 2013 Mohammad Ali Neishabouri
  *
  * @section LICENCE

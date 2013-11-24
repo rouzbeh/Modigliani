@@ -25,7 +25,6 @@
 
 #include <assert.h>
 
-#include "modigliani_base/main.h"
 #include "modigliani_base/types.h"
 #include "modigliani_core/object.h"
 

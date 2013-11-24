@@ -6,8 +6,6 @@ aux_math_func.cc
 
 EXTRA_DIST= $(libmodigliani_base_a_SOURCES) dmatrix.h\
 aux_math_func.h\
-codes.h\
-main.h\
 obj.h\
 sequential_statistics.h\
 timing.h\

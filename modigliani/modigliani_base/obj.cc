@@ -1,41 +1,32 @@
 /**
  * @file obj.cc
- * Master object implementation
+ * @brief Obj class implementation
  *
- * @author Ahmed A. Faisal, 22. 5. 1998(c)
- * @version  0.1
  * Copyright (C) 1998 Ahmed Aldo Faisal
  *
- * @section LICENSE
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Library General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
+ * @section LICENCE
+ * This file is part of Modigliani.
  *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRAMY; without even the implied warranty of
- * MERCHAMABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
+ * Modigliani is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * You should have received a copy of the GNU Library General Public
- * License along with this library; if not, write to the Free
- * Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ * Foobar is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Modigliani.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include "modigliani_base/obj.h"
 
 namespace modigliani_base {
-
 /* static data member declaration in C++ part 2, see declaration */
 Long Obj::runnId = 0;
 
-//
-//    Method name : Obj
-//
-//    Description : standard constructor
-//    Input :
-//    Output :
-//
 Obj::Obj() {
   uniqId = 0;
 #ifdef M_DEBUG_OBJECT_ID
@@ -55,24 +46,10 @@ Obj::Obj(Obj const __attribute__((unused)) & right) {
 Obj::~Obj() {
 }
 
-//
-//    Method name : _runnId
-//
-//    Description :
-//    Input :
-//    Output :
-//
 inline Long Obj::_runnId() const {
   return (runnId);
 }
 
-//
-//    Method name : _uniqId
-//
-//    Description :
-//    Input :
-//    Output :
-//
 inline Long Obj::_uniqId() const {
   return (uniqId);
 }
