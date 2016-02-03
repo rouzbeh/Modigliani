@@ -184,7 +184,7 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::Init() {
     compartment_vec_[ll]->set_vm(-65);
     /* testing requirement for constant axo-geometric properties */
     assert(compartment_vec_[ll]->radius() == compartment_vec_[ll - 1]->radius());
-    if(!compartment_vec_[ll]->ra() == compartment_vec_[ll - 1]->ra()) {
+    if(compartment_vec_[ll]->ra() != compartment_vec_[ll - 1]->ra()) {
       std::cerr << "WARNING : Non-uniform axoplasmic resistance "
                 << "is not thoroughly tested."
                 << std::endl;
