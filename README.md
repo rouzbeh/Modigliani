@@ -10,8 +10,8 @@ Doxygen generated documentation is available at http://rouzbeh.github.io/Modigli
 ## Build instructions
 Run `autoreconf -f -v -i`
 
-Optional : Create a folder somewhere. Compiled binaries will go there.
+Optional: Create a folder somewhere. Compiled binaries will go there.
 
-Optional : Go to the newly created folder.
-* Run the configure script : ./configure
-* Run : make -j.
+Optional: Go to the newly created folder.
+* Run the configure script: ./configure
+* Run: make -j.
