@@ -81,3 +81,4 @@ modigliani/auxsrc/single_compartment_resting_potential
 modigliani/auxsrc/single_compartment_simulator
 modigliani/auxsrc/voltage_step
 stamp-h1
+depcomp
