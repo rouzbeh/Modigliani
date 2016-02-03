@@ -13,5 +13,7 @@ Run `autoreconf -f -v -i`
 Optional: Create a folder somewhere. Compiled binaries will go there.
 
 Optional: Go to the newly created folder.
-* Run the configure script: ./configure
-* Run: make -j.
+
+Run the configure script `./configure`
+
+Run `make -j`
