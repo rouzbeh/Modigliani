@@ -71,4 +71,13 @@ config.h.in
 
 /aclocal.m4
 doc/html/
-doc/html/
+compile
+install-sh
+missing
+modigliani/auxsrc/axon_simulator
+modigliani/auxsrc/network
+modigliani/auxsrc/resting_potential
+modigliani/auxsrc/single_compartment_resting_potential
+modigliani/auxsrc/single_compartment_simulator
+modigliani/auxsrc/voltage_step
+stamp-h1
