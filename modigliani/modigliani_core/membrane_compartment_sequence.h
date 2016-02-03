@@ -23,7 +23,6 @@
 
 #ifndef MODIGLIANI_MODIGLIANI_CORE_MEMBRANE_COMPARTMENT_SEQUENCE_H_
 #define MODIGLIANI_MODIGLIANI_CORE_MEMBRANE_COMPARTMENT_SEQUENCE_H_
-#include <tnt/tnt_cmat.h>
 #include <vector>
 #include <fstream>
 #include "modigliani_core/membrane.h"
@@ -113,7 +112,7 @@ namespace modigliani_core {
  * @brief Return the number of compartments
  *
  * @return Number of compartments
- */   
+ */
     modigliani_base::Size num_compartments()const {
       return (num_compartments_);
     }
@@ -123,7 +122,7 @@ namespace modigliani_core {
  *
  * This is simply the sum of time constants of all compartments
  * @return Time constant in [kHz]
- */  
+ */
     modigliani_base::Real CompartmentSequenceChannelStateTimeConstant() const;
 
 /**
@@ -133,7 +132,7 @@ namespace modigliani_core {
  * @param currIndex current index
  * @return Current
  * @warning Currents indexed [1..m]
- */   
+ */
     modigliani_base::Real AttachedCurrent(modigliani_base::Size compIndex,
                                           modigliani_base::Size currIndex) {
       assert(compIndex > 0);
@@ -145,12 +144,12 @@ namespace modigliani_core {
  * @param index compartment index
  * @return Pointer to the requested compartment
  * @warning Currents indexed [1..m]
- */     
+ */
     Cylindrical_compartment *ReturnCompartment(modigliani_base::Size index);
 
 /**
  * @brief Holds pointers to member compartments
- */     
+ */
     std::vector < Cylindrical_compartment * > compartment_vec_;
 
     static bool seed_set_;
@@ -185,7 +184,7 @@ namespace modigliani_core {
     std::vector < modigliani_base::Real > d_vec_;
     std::vector < modigliani_base::Real > u_vec_;
     std::vector < modigliani_base::Real > r_vec_;
-    
+
     modigliani_base::Size num_compartments_;
     bool initialised_;
     bool sw_crank_nicholson_;
