@@ -1,0 +1,6 @@
+<map id="modigliani_core::Custom_cylindrical_compartment" name="modigliani_core::Custom_cylindrical_compartment">
+<area shape="rect" id="node2" href="$classmodigliani__core_1_1Cylindrical__compartment.html" title="Cylindrical membrane compartment. " alt="" coords="40,689,343,913"/>
+<area shape="rect" id="node3" href="$classmodigliani__core_1_1Membrane__compartment.html" title="Membrane_compartment class acts as a &quot;container + glue&quot; for the various membrane_current classes that..." alt="" coords="35,388,347,641"/>
+<area shape="rect" id="node4" href="$classmodigliani__core_1_1Object.html" title="Base class for all objects in modigliani_core. " alt="" coords="65,189,317,340"/>
+<area shape="rect" id="node5" href="$classmodigliani__base_1_1Obj.html" title="Master class for all objects. " alt="" coords="80,5,303,141"/>
+</map>
