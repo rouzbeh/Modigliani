@@ -70,3 +70,5 @@ configure
 config.h.in
 
 /aclocal.m4
+doc/html/
+doc/html/
