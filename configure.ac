@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.57)
 AC_INIT(Modigliani, 2.0 , ali@neishabouri.net)
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([foreign])
 AC_CONFIG_SRCDIR([modigliani.lsm])
 AC_CONFIG_HEADERS([config.h])
 
