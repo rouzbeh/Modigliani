@@ -1,7 +1,7 @@
 /**
  * @file axon_simulator.cc
  * @brief Can simulate arbitrary axons using configuration given in a
- * json file. 
+ * json file.
  *
  * Copyright (C) 1998,1999,2000,2001 Ahmed Aldo Faisal
  *
@@ -136,10 +136,12 @@ int Simulate(boost::program_options::variables_map vm) {
     show_bar = true;
   }
 
+#ifdef WITH_PLPLOT
   Size plot = 0;
   if (vm.count("plot")) {
     plot = vm["plot"].as<Size>();
   }
+#endif
 
   Size force_alg = 0;
   if (vm.count("algorithm")) {
@@ -257,7 +259,6 @@ int Simulate(boost::program_options::variables_map vm) {
       // the "sampling ratio" used for "measurement" to disk
       if (config_root.get<int>("simulation_parameters.sampN") > 0
           && (lt+1) % config_root.get<int>("simulation_parameters.sampN") == 0) {
-        modigliani_base::Size counter = 0;
         for (auto ci = electrods_vec.begin(); ci != electrods_vec.end(); ci++) {
           oModel->compartment_vec_[*ci]->WriteOutput();
         }

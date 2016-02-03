@@ -39,9 +39,6 @@
 int Simulate(boost::program_options::variables_map vm) {
   using modigliani_base::Size;
 
-  boost::random::mt19937 rng;
-  boost::random::uniform_01<> uni =  boost::random::uniform_01<>();
-  rng.seed(time(NULL));
   boost::property_tree::ptree config_root;
   try {
     read_json(vm["config-file"].as<string>(), config_root);
@@ -55,7 +52,7 @@ int Simulate(boost::program_options::variables_map vm) {
   // We write each compartment's potential and currents into a single file.
   ofstream TimeFile, log_file;
 
-  ofstream* pot_current_file;
+  ofstream* pot_current_file = 0;
   if (config_root.get<double>("simulation_parameters.sampN", 0) > 0) {
     timedOutputFolder = modigliani_core::CreateOutputFolder(
         config_root.get<string>("simulation_parameters.outputFolder"));
@@ -144,7 +141,6 @@ int Simulate(boost::program_options::variables_map vm) {
     // SIMULATION ITERATION LOOP
     std::cerr << "MainLoop started" << std::endl;
     float timeVar = 0;
-    modigliani_base::Real inpCurrent = 0.0;
 
     modigliani_base::Real timeInMS = 0;
     int dataRead = 0;
@@ -174,7 +170,7 @@ int Simulate(boost::program_options::variables_map vm) {
       if (!lTrials) TimeFile << timeVar << std::endl;
 
       if (lt % config_root.get<int>("simulation_parameters.readN") == 0) {
-        inpCurrent = (inputData[dataRead]
+        inp_current = (inputData[dataRead]
             * config_root.get<double>("simulation_parameters.inpISDV"))
             + config_root.get<double>("simulation_parameters.inpI");
         dataRead++;
@@ -185,11 +181,14 @@ int Simulate(boost::program_options::variables_map vm) {
               * config_root.get<double>("simulation_parameters.inpISDV"))
               + config_root.get<double>("simulation_parameters.inpI");
           dataRead++;
-          cout << config_root.get<double>("simulation_parameters.inpI") << endl;
+          if(verbose) {
+            cout << config_root.get<double>("simulation_parameters.inpI")
+                 << endl;
+          }
         }
       } else {
         lua_getglobal(L_inject_current, "current");
-        lua_pushnumber(L_inject_current, timeInMS);
+        lua_pushnumber(L_inject_current, inp_current);
         lua_call(L_inject_current, 1, 1);
         inp_current = lua_tonumber(L_inject_current, -1);
         lua_pop(L_inject_current, 1);
@@ -202,8 +201,10 @@ int Simulate(boost::program_options::variables_map vm) {
   }  // lTrials
   log_file << "Simulation completed." << std::endl;
   log_file.close();
-  pot_current_file->close();
-  delete pot_current_file;
+  if (pot_current_file) {
+    pot_current_file->close();
+    delete pot_current_file;
+  }
 
   return (0);
 }

@@ -76,7 +76,7 @@ int Simulate(boost::program_options::variables_map vm) {
     modigliani_core::OpenOutputFile(timedOutputFolder, "log", log_file, ".log");
     time_file << "% in ms" << std::endl;
 
-    for (int i = 0; i < num_neurons; i++) {
+    for (Size i = 0; i < num_neurons; i++) {
       pot_current_files.push_back(
           modigliani_core::OpenOutputFile(timedOutputFolder, "neuron", i,
                                           ".bin"));
@@ -130,7 +130,7 @@ int Simulate(boost::program_options::variables_map vm) {
 
   for (Size lTrials = 0; lTrials < num_trials; lTrials++) {
     vector<Real> inp_current(inputs.size());
-    for (int i = 0; i < num_neurons; i++) {
+    for (Size i = 0; i < num_neurons; i++) {
       Spherical_compartment* tmp_ptr = new Spherical_compartment(
           config_root.get_child("neuron_parameters"));
       tmp_ptr->set_timestep(
@@ -172,7 +172,9 @@ int Simulate(boost::program_options::variables_map vm) {
               synapse.get<double>("strength")));
     }
 
-    std::cerr << "MainLoop started" << std::endl;
+    if(verbose) {
+      std::cout << "MainLoop started" << std::endl;
+    }
     modigliani_base::Real timeInMS = 0;
     int dataRead = 0;
     for (modigliani_base::Size lt = 0;

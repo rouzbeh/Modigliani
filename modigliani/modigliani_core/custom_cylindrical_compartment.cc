@@ -85,7 +85,7 @@ namespace modigliani_core {
     new_current.reversal_potential = currentPtr->reversal_potential();
     new_current.track = false;
     custom_current_vec_.push_back(new_current);
-    Membrane_compartment::AttachCurrent(currentPtr);
+    Membrane_compartment::AttachCurrent(currentPtr, type);
     return (modigliani_base::ReturnEnum::SUCCESS);
   }
 

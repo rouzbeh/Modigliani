@@ -75,10 +75,6 @@ int main(int argc, char* argv[]) {
     exit(1);
   }
 
-  modigliani_base::Size compartment_type = 0;
-  if (vm.count("compartment-type")) {
-    compartment_type = vm["compartment-type"].as<modigliani_base::Size>();
-  }
   // We need to remove possible attached leak currents from this
   std::vector<boost::property_tree::ptree> compartments_parameters(0);
 
@@ -87,7 +83,7 @@ int main(int argc, char* argv[]) {
           "compartments_parameters")) {
     compartments_parameters.push_back(v.second);
   }
-  modigliani_base::Real gleak;
+  modigliani_base::Real gleak = 0;
   boost::property_tree::ptree compartment_parameters =
       compartments_parameters[0];
   boost::property_tree::ptree currents = compartment_parameters.get_child(

@@ -149,7 +149,7 @@ namespace modigliani_core {
      * @return Inside concentration in [@f$\si{\milli M}@f$]
      * @warning Current indexed [1..m]
      */
-    const Real InsideConcentration(modigliani_base::Size currentIndex) const {
+    Real InsideConcentration(modigliani_base::Size currentIndex) const {
       assert((currentIndex > 0) && (currentIndex - 1 < NumberCurrents()));
       return (custom_current_vec_[currentIndex - 1].inside_concentration);
     }
@@ -159,7 +159,8 @@ namespace modigliani_core {
      * @param currentIndex Index of the current
      * @return Outside concentration in [@f$\si{\milli M}@f$]
      * @warning Current indexed [1..m]
-     */ const Real OutsideConcentration(modigliani_base::Size currentIndex) const {
+     */
+    Real OutsideConcentration(modigliani_base::Size currentIndex) const {
       assert((currentIndex > 0) && (currentIndex - 1 < NumberCurrents()));
       return (custom_current_vec_[currentIndex - 1].outside_concentration);
     }
@@ -169,7 +170,8 @@ namespace modigliani_core {
      * @param currentIndex Index of the current
      * @return Reversal potential in [@f$\si{\milli\volt}@f$]
      * @warning Current indexed [1..m]
-     */ const Real ReversalPotential(modigliani_base::Size currentIndex) const {
+     */
+    Real ReversalPotential(modigliani_base::Size currentIndex) const {
       assert((currentIndex > 0) && (currentIndex - 1 < NumberCurrents()));
       return (custom_current_vec_[currentIndex - 1].reversal_potential);
     }
@@ -180,7 +182,8 @@ namespace modigliani_core {
      *
      * @param newTemp Temperature in [@f$\si{celsius}@f$]
      * @return Success or failure
-     */ virtual modigliani_base::ReturnEnum set_temperature
+     */
+    virtual modigliani_base::ReturnEnum set_temperature
      (modigliani_base::Real newTemp) override {
       Membrane_compartment::set_temperature(newTemp);
       nernst_multiplier = 1000 * modigliani_base::R *
