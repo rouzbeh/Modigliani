@@ -34,8 +34,8 @@ Ion_channels::Ion_channels(modigliani_base::Size numNewChannels,
                            Transition_rate_matrix* probMatrix,
                            modigliani_base::Real newTimeStep)
     : Object(), _probMatrix(probMatrix),
-      num_channels_(numNewChannels), num_states_(
-        numNewStates) {
+      num_states_(numNewStates),
+      num_channels_(numNewChannels) {
   set_timestep(newTimeStep);
   statePersistenceProbVec.resize(num_states());
   stateCounterVec.resize(num_states() + 1);

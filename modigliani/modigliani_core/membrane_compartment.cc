@@ -32,7 +32,7 @@ Membrane_compartment::Membrane_compartment(
     const modigliani_base::Real newArea /* in muMeter^2 */,
     const modigliani_base::Real newTemperature,
     const modigliani_base::Real newCm, const modigliani_base::Real newRa)
-    : ra_(newRa), cm_(newCm), area_(newArea) {
+    : cm_(newCm), ra_(newRa), area_(newArea) {
   vm_ = 0;
   i_inj_ = 0;
   set_temperature(newTemperature);

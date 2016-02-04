@@ -34,8 +34,8 @@ Cylindrical_compartment::Cylindrical_compartment(
     const modigliani_base::Real newTemperature)
     : Membrane_compartment(M_PI * newDiameter * newLength,
                            newTemperature, newCm, newRa),
-      length_(newLength), diameter_(
-          newDiameter), volume_(M_PI *
+      diameter_(newDiameter),
+      length_(newLength),  volume_(M_PI *
                                 (newDiameter *
                                  newDiameter / 4) * newLength) {
 }

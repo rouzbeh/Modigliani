@@ -3,7 +3,7 @@
  * \brief Leak_current class implementation
  *
  * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
- * 
+ *
  * Copyright (C) 2013 Mohammad Ali Neishabouri
  *
  * @section LICENSE
@@ -29,8 +29,8 @@ Leak_current::Leak_current(modigliani_base::Real newArea,
                            modigliani_base::Real newLeakConductance,
                            modigliani_base::Real newReversalPotential) :
     Membrane_current(newReversalPotential),
-    area_(newArea),
-    max_conductivity_(newLeakConductance) {
+    max_conductivity_(newLeakConductance),
+    area_(newArea) {
   assert(max_conductivity_ >= 0);
   assert(area_ >= 0);
   set_simulation_mode(DETERMINISTIC);
