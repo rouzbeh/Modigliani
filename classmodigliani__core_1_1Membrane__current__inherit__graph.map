@@ -1,11 +1,11 @@
 <map id="modigliani_core::Membrane_current" name="modigliani_core::Membrane_current">
-<area shape="rect" id="node4" href="$classmodigliani__core_1_1Leak__current.html" title="Simulates a leak current. " alt="" coords="5,777,248,972"/>
-<area shape="rect" id="node5" href="$classmodigliani__core_1_1Network__synapse.html" title="This class acts as a simplified synapse for use in neuronal network simulations. " alt="" coords="273,785,535,965"/>
-<area shape="rect" id="node6" href="$classmodigliani__core_1_1Synaptic__background.html" title="This class represents a synaptic background current. " alt="" coords="560,792,832,957"/>
-<area shape="rect" id="node7" href="$classmodigliani__core_1_1Voltage__gated__ion__channel__current.html" title="Base class for voltage gated ion channels. " alt="" coords="857,719,1149,1031"/>
-<area shape="rect" id="node2" href="$classmodigliani__core_1_1Object.html" title="Base class for all objects in modigliani_core. " alt="" coords="423,189,675,340"/>
-<area shape="rect" id="node3" href="$classmodigliani__base_1_1Obj.html" title="Master class for all objects. " alt="" coords="438,5,661,141"/>
-<area shape="rect" id="node8" href="$classmodigliani__core_1_1File__based__stochastic__voltage__gated__channel.html" title="Voltage gated ion channel with transition probabilities stored in a file. " alt="" coords="565,1079,837,1391"/>
-<area shape="rect" id="node9" href="$classmodigliani__core_1_1Lua__based__deterministic__voltage__gated__channel.html" title="This class contains can read a lua script and interpret it to simualte an ion channel deterministical..." alt="" coords="861,1115,1144,1354"/>
-<area shape="rect" id="node10" href="$classmodigliani__core_1_1Lua__based__stochastic__voltage__gated__channel.html" title="Stochastic ion channel with transition probabilities read from a lua script. " alt="" coords="1168,1108,1440,1361"/>
+<area shape="rect" id="node4" href="$classmodigliani__core_1_1Leak__current.html" title="Simulates a leak current. " alt="" coords="5,777,176,972"/>
+<area shape="rect" id="node5" href="$classmodigliani__core_1_1Network__synapse.html" title="This class acts as a simplified synapse for use in neuronal network simulations. " alt="" coords="200,785,371,965"/>
+<area shape="rect" id="node6" href="$classmodigliani__core_1_1Synaptic__background.html" title="This class represents a synaptic background current. " alt="" coords="395,792,570,957"/>
+<area shape="rect" id="node7" href="$classmodigliani__core_1_1Voltage__gated__ion__channel__current.html" title="Base class for voltage gated ion channels. " alt="" coords="595,719,787,1031"/>
+<area shape="rect" id="node2" href="$classmodigliani__core_1_1Object.html" title="Base class for all objects in modigliani_core. " alt="" coords="305,189,463,340"/>
+<area shape="rect" id="node3" href="$classmodigliani__base_1_1Obj.html" title="Master class for all objects. " alt="" coords="313,5,455,141"/>
+<area shape="rect" id="node8" href="$classmodigliani__core_1_1File__based__stochastic__voltage__gated__channel.html" title="Voltage gated ion channel with transition probabilities stored in a file. " alt="" coords="395,1079,573,1391"/>
+<area shape="rect" id="node9" href="$classmodigliani__core_1_1Lua__based__deterministic__voltage__gated__channel.html" title="This class contains can read a lua script and interpret it to simualte an ion channel deterministical..." alt="" coords="597,1115,784,1354"/>
+<area shape="rect" id="node10" href="$classmodigliani__core_1_1Lua__based__stochastic__voltage__gated__channel.html" title="Stochastic ion channel with transition probabilities read from a lua script. " alt="" coords="808,1108,987,1361"/>
 </map>

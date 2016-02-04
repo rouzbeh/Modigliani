@@ -1,8 +1,8 @@
 <map id="modigliani_core::Voltage_gated_ion_channel_current" name="modigliani_core::Voltage_gated_ion_channel_current">
-<area shape="rect" id="node5" href="$classmodigliani__core_1_1File__based__stochastic__voltage__gated__channel.html" title="Voltage gated ion channel with transition probabilities stored in a file. " alt="" coords="5,1079,277,1391"/>
-<area shape="rect" id="node6" href="$classmodigliani__core_1_1Lua__based__deterministic__voltage__gated__channel.html" title="This class contains can read a lua script and interpret it to simualte an ion channel deterministical..." alt="" coords="301,1115,584,1354"/>
-<area shape="rect" id="node7" href="$classmodigliani__core_1_1Lua__based__stochastic__voltage__gated__channel.html" title="Stochastic ion channel with transition probabilities read from a lua script. " alt="" coords="608,1108,880,1361"/>
-<area shape="rect" id="node2" href="$classmodigliani__core_1_1Membrane__current.html" title="Membrane_current class. " alt="" coords="301,388,584,671"/>
-<area shape="rect" id="node3" href="$classmodigliani__core_1_1Object.html" title="Base class for all objects in modigliani_core. " alt="" coords="317,189,569,340"/>
-<area shape="rect" id="node4" href="$classmodigliani__base_1_1Obj.html" title="Master class for all objects. " alt="" coords="331,5,554,141"/>
+<area shape="rect" id="node5" href="$classmodigliani__core_1_1File__based__stochastic__voltage__gated__channel.html" title="Voltage gated ion channel with transition probabilities stored in a file. " alt="" coords="5,1079,184,1391"/>
+<area shape="rect" id="node6" href="$classmodigliani__core_1_1Lua__based__deterministic__voltage__gated__channel.html" title="This class contains can read a lua script and interpret it to simualte an ion channel deterministical..." alt="" coords="208,1115,395,1354"/>
+<area shape="rect" id="node7" href="$classmodigliani__core_1_1Lua__based__stochastic__voltage__gated__channel.html" title="Stochastic ion channel with transition probabilities read from a lua script. " alt="" coords="419,1108,597,1361"/>
+<area shape="rect" id="node2" href="$classmodigliani__core_1_1Membrane__current.html" title="Membrane_current class. " alt="" coords="211,388,392,671"/>
+<area shape="rect" id="node3" href="$classmodigliani__core_1_1Object.html" title="Base class for all objects in modigliani_core. " alt="" coords="222,189,381,340"/>
+<area shape="rect" id="node4" href="$classmodigliani__base_1_1Obj.html" title="Master class for all objects. " alt="" coords="230,5,373,141"/>
 </map>
