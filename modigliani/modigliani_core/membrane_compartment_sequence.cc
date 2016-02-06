@@ -1,9 +1,9 @@
 /**
  * @file membrane_compartment_sequence.cc
  * Membrane_compartment_sequence class implementation
- * @author Ahmed Aldo Faisal &copy; created 26.3.2001  
+ * @author Ahmed Aldo Faisal &copy; created 26.3.2001
  * @version   0.5
- * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    
+ * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
  *
  * @section LICENSE
  * This library is free software; you can redistribute it and/or
@@ -104,9 +104,9 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::Step() {
     bool integrateStep = false;
     modigliani_base::Real newDeltaT;
     modigliani_base::Real maxDeltaT;
-    
+
     modigliani_base::Real tStar = 0.0;
-    
+
     do {
       // BLOCK 2
       std::cerr << "GILLESPIE STEP" << std::endl;
@@ -132,11 +132,11 @@ modigliani_base::ReturnEnum Membrane_compartment_sequence::Step() {
       set_timestep(newDeltaT);
       tStar += newDeltaT;
     } while (integrateStep == false);
-    
+
     std::cerr << "INTEGRATOR STEP WITH T_STAR=" << tStar << std::endl;
     set_timestep(tStar);
   }
-  
+
   std::vector<modigliani_base::Real> tmpVVec;
   modigliani_base::Real omega = 0.0;
   modigliani_base::Size ll = 0;
