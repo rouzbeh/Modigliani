@@ -46,4 +46,4 @@ network_synapse.h
 
 noinst_HEADERS = aux_func.h
 
-AM_CXXFLAGS = $(all_includes) -I$(abs_top_srcdir)/modigliani -ansi -pedantic -Wshadow -Wno-vla -malign-double -std=c++11
+AM_CXXFLAGS = $(all_includes) -I$(abs_top_srcdir)/src -ansi -pedantic -Wshadow -Wno-vla -malign-double -std=c++11

@@ -97,9 +97,9 @@ all_libraries="$all_libraries $USER_LDFLAGS"
 AC_SUBST(all_libraries)
 
 AC_CONFIG_FILES([Makefile
-                 modigliani/Makefile
-                 modigliani/auxsrc/Makefile
-                 modigliani/modigliani_core/Makefile
-                 modigliani/modigliani_base/Makefile])
+                 src/Makefile
+                 src/auxsrc/Makefile
+                 src/modigliani_core/Makefile
+                 src/modigliani_base/Makefile])
 
 AC_OUTPUT

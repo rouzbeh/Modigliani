@@ -13,8 +13,8 @@ config.log
 .deps/*
 *.a
 
-modigliani/auxsrc/generate_white_noise
-modigliani/auxsrc/modigliani
+src/auxsrc/generate_white_noise
+src/auxsrc/modigliani
 *.log
 Makefile.in
 autom4te.cache*
@@ -26,8 +26,8 @@ doc/html/
 compile
 install-sh
 missing
-modigliani/auxsrc/network
-modigliani/auxsrc/resting_potential
+src/auxsrc/network
+src/auxsrc/resting_potential
 *.DS_Store
 stamp-h1
 depcomp
