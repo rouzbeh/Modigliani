@@ -31,3 +31,4 @@ modigliani/auxsrc/resting_potential
 *.DS_Store
 stamp-h1
 depcomp
+show_binary_file
