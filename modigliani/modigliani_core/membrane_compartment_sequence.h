@@ -26,7 +26,7 @@
 #include <vector>
 #include <fstream>
 #include "modigliani_core/membrane.h"
-#include "modigliani_core/cylindrical_compartment.h"
+#include "modigliani_core/membrane_compartment.h"
 
 namespace modigliani_core {
 /**
@@ -63,7 +63,7 @@ namespace modigliani_core {
  * @return     Whether the compartment was added successfully
  * @warning    no update of SOLVER dimensionality or SOVLER INIT done
  */
-     modigliani_base::ReturnEnum PushBack(Cylindrical_compartment * compartPtr);
+     modigliani_base::ReturnEnum PushBack(Membrane_compartment * compartPtr);
 
 /**
    @brief Initialises the propagation compartment sequence
@@ -145,12 +145,12 @@ namespace modigliani_core {
  * @return Pointer to the requested compartment
  * @warning Currents indexed [1..m]
  */
-    Cylindrical_compartment *ReturnCompartment(modigliani_base::Size index);
+    Membrane_compartment *ReturnCompartment(modigliani_base::Size index);
 
 /**
  * @brief Holds pointers to member compartments
  */
-    std::vector < Cylindrical_compartment * > compartment_vec_;
+    std::vector < Membrane_compartment * > compartment_vec_;
 
     static bool seed_set_;
 
@@ -177,8 +177,8 @@ namespace modigliani_core {
                                    &r) const;
 
   private:
-    modigliani_base::Real _sigma(const Cylindrical_compartment * from,
-                                   const Cylindrical_compartment * to) const;
+    modigliani_base::Real _sigma(const Membrane_compartment * from,
+                                   const Membrane_compartment * to) const;
 
     std::vector < modigliani_base::Real > l_vec_;
     std::vector < modigliani_base::Real > d_vec_;
