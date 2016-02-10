@@ -35,7 +35,6 @@ extern "C" {
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/foreach.hpp>
 #include <boost/filesystem.hpp>
-#include <tnt/tnt.h>
 #include <string>
 #include <ctime>
 #include <fstream>
