@@ -50,6 +50,7 @@ extern "C" {
 #include "modigliani_core/lua_based_stochastic_voltage_gated_channel.h"
 #include "modigliani_core/lua_based_deterministic_voltage_gated_channel.h"
 #include "modigliani_core/cylindrical_compartment.h"
+#include "modigliani_core/spherical_compartment.h"
 #include "modigliani_core/leak_current.h"
 
 using std::string;
@@ -75,10 +76,10 @@ namespace modigliani_core {
  * @param compArea The membrane area of the target compartment in [@f$\si{\micro\meter\squared}@f$]
  * @return Density in [@f$\si{\per\micro\meter\squared} @f$]
  */
-  modigliani_base::Real CorrectedChannelDensity(modigliani_base::
-                                                  Real chDensity,
-                                                  modigliani_base::
-                                                  Real compArea);
+        modigliani_base::Real CorrectedChannelDensity(modigliani_base::
+                                                      Real chDensity,
+                                                      modigliani_base::
+                                                      Real compArea);
 
 /**
  * @brief Creates a new folder in the output directory
@@ -89,13 +90,13 @@ namespace modigliani_core {
  * @param outputFolder Containing folder
  * @return Name of the newly created folder
  */
-  string CreateOutputFolder(string outputFolder);
+        string CreateOutputFolder(string outputFolder);
 
 /**
- * @brief Creates a cylindrical compartment using the parameters
+ * @brief Creates a compartment using the parameters
  * supplied in the parameters structs supplied.
  *
- * The cylindriacl compartment object is created using the parameters
+ * The membrane compartment object is created using the parameters
  * contained in the ptrees given to this function. This function the
  * calls AttachCurrent() to attach different currents to the
  * generated compartment.
@@ -124,15 +125,16 @@ namespace modigliani_core {
  * :
  *   - 1 Deterministic
  *   - 4 Binomial population
- * 
+ *
  * @return Pointer to the constructed compartment.
  * @warning Check the list of required parameters for AttachCurrent().
  */
-  Cylindrical_compartment *
-    CreateCompartment(boost::property_tree::ptree config_root,
-                       boost::property_tree::ptree simulation_parameters,
-                       boost::property_tree::ptree compartment_parameters,
-                       modigliani_base::Size force_alg);
+        Membrane_compartment *
+        CreateCompartment(bool spheriacl,
+                          boost::property_tree::ptree config_root,
+                          boost::property_tree::ptree simulation_parameters,
+                          boost::property_tree::ptree compartment_parameters,
+                          modigliani_base::Size force_alg);
 
 /**
  * @brief Creates current objects and adds them to the given compartment
@@ -175,11 +177,11 @@ namespace modigliani_core {
  *   - 1 Deterministic
  *   - 4 Binomial population
  */
-  void AttachCurrent(modigliani_core::Membrane_compartment * compartment,
-                      const boost::property_tree::ptree currents,
-                      boost::property_tree::ptree config_root,
-                      bool randomise_densities,
-                      modigliani_base::Size force_alg);
+        void AttachCurrent(modigliani_core::Membrane_compartment * compartment,
+                           const boost::property_tree::ptree currents,
+                           boost::property_tree::ptree config_root,
+                           bool randomise_densities,
+                           modigliani_base::Size force_alg);
 
 /**
  * @brief Opens a new file in write mode.
@@ -190,8 +192,8 @@ namespace modigliani_core {
  * @param outStream Reference to ofstream to the opened file.
  * @param extension File extension
  */
-  void OpenOutputFile(string outputFolder, string prefix, ofstream & outStream,
-                      string extension = ".txt");
+        void OpenOutputFile(string outputFolder, string prefix, ofstream & outStream,
+                            string extension = ".txt");
 
 /**
  * @brief Opens a new file in write mode, postfixing the name with
@@ -205,8 +207,8 @@ namespace modigliani_core {
  * @return Pointer to ofstream pointing to the file
  * the newly created file.
  */
-  ofstream *OpenOutputFile(string outputFolder, string prefix, int counter,
-                           string extension = ".txt");
+        ofstream *OpenOutputFile(string outputFolder, string prefix, int counter,
+                                 string extension = ".txt");
 
 /**
  * @brief Creates an axon based on parameters given.
@@ -244,11 +246,11 @@ namespace modigliani_core {
  *   - 4 Binomial population
  * @return Pointer to the constructed axon.
  */
-  Membrane_compartment_sequence *
-    CreateAxon(boost::property_tree::ptree config_root,
-                ofstream & TypePerCompartmentFile,
-                ofstream & LengthPerCompartmentFile,
-                modigliani_base::Size force_alg);
+        Membrane_compartment_sequence *
+        CreateAxon(boost::property_tree::ptree config_root,
+                   ofstream & TypePerCompartmentFile,
+                   ofstream & LengthPerCompartmentFile,
+                   modigliani_base::Size force_alg);
 
 /**
  * Reads the parameters in the file given as argument.
@@ -256,7 +258,7 @@ namespace modigliani_core {
  * @param fileName Input file.
  * @return A ptree structure containing the parameters
  */
-  boost::property_tree::ptree ReadConfig(string fileName);
+        boost::property_tree::ptree ReadConfig(string fileName);
 
 /**
  * @brief Returns the compartments from which data will be recorded.
@@ -269,8 +271,8 @@ namespace modigliani_core {
  * will then be recorded.
  * @return Vector of compartment indexes
  */
-  std::vector < modigliani_base::Size >
-    GetElectrods(boost::property_tree::ptree root_config);
+        std::vector < modigliani_base::Size >
+        GetElectrods(boost::property_tree::ptree root_config);
 
 /**
  * @brief Adds a folder to the path variable of the given Lua
@@ -280,6 +282,6 @@ namespace modigliani_core {
  * @param path Folder to add to path
  * @return 0 if successful
  */
-int SetLuaPath(lua_State * L, const string path);
+        int SetLuaPath(lua_State * L, const string path);
 }  // namespace modigliani_core
 #endif  // MODIGLIANI_MODIGLIANI_CORE_AUX_FUNC_H_
