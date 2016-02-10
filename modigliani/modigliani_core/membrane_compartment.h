@@ -116,7 +116,7 @@ namespace modigliani_core {
  * to cell.
  * @param current Current to inject in [nA]
  * @return Success or failure
- */   
+ */
     modigliani_base::ReturnEnum InjectCurrent(modigliani_base::Real current);
 
 /**
@@ -125,10 +125,10 @@ namespace modigliani_core {
  *
  * You can think of this as returning @f$G*m(t)^3*h(t)@f$ for a
  * Hodgkin-Huxley sodium channel.
- * @param currentIndex The current source we are interested in. 
+ * @param currentIndex The current source we are interested in.
  * @return Conductance in [mS]
  * @warning Currents are index as in Matlab : [1..m]
- */   
+ */
     modigliani_base::
       Real AttachedConductance(modigliani_base::Size currentIndex) {
       assert((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
@@ -139,10 +139,10 @@ namespace modigliani_core {
  * @brief Returns the reversal potential of the attached conductance
  * source.
  *
- * @param currentIndex The current source we are interested in. 
+ * @param currentIndex The current source we are interested in.
  * @return Reversal potential in [mV]
  * @warning Currents are index as in Matlab : [1..m]
- */      
+ */
     modigliani_base::
       Real AttachedReversalPotential(modigliani_base::Size currentIndex) {
       assert((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
@@ -169,7 +169,7 @@ namespace modigliani_core {
 
 /**
  * @brief Writes the current flwoing through all attached
- * Membrane_current instances to a binary file.   
+ * Membrane_current instances to a binary file.
  *
  * The values are written sequentially as float32. There are no
  * delimiters. They can be reshaped into a matrix using the number
@@ -194,7 +194,7 @@ namespace modigliani_core {
  *
  * @return Pointer to the Membrane_current object
  * @warning Currents are index as in Matlab : [1..m]
- */  
+ */
     const Membrane_current* Current(modigliani_base::Size currentIndex) const {
       assert((currentIndex > 0) && (currentIndex - 1 < current_vec_.size()));
       return (current_vec_[currentIndex - 1]);
@@ -204,7 +204,21 @@ namespace modigliani_core {
  * @brief Returns the membrane surface area
  *
  * @return Membrane area in [@f$\si{\micro\meter\squared}@f$]
- */   
+ */
+    virtual modigliani_base::Real radius() const = 0;
+
+/**
+ * @brief Returns the membrane surface area
+ *
+ * @return Membrane area in [@f$\si{\micro\meter\squared}@f$]
+ */
+    virtual modigliani_base::Real length() const = 0;
+
+/**
+ * @brief Returns the membrane surface area
+ *
+ * @return Membrane area in [@f$\si{\micro\meter\squared}@f$]
+ */
     modigliani_base::Real area() const {
       return (area_);
     }
@@ -213,7 +227,7 @@ namespace modigliani_core {
  * @brief Returns the membrane potential
  *
  * @return Membrane potential in [@f$\si{\milli\volt}@f$]
- */ 
+ */
     modigliani_base::Real vm() const {
       return (vm_);
     }
@@ -222,7 +236,7 @@ namespace modigliani_core {
  * @brief Sets the membrane potential
  *
  * @param newVoltage Membrane potential in [@f$\si{milli\volt}@f$]
- */ 
+ */
     void set_vm(modigliani_base::Real newVoltage) {
       vm_ = newVoltage;
     }
@@ -232,7 +246,7 @@ namespace modigliani_core {
  * @brief Sets the membrane capacitance per surface area
  *
  * @return capacitance in [@f$\si{\micro\farad\per\centi\meter\squared}@f$]
- */ 
+ */
     modigliani_base::Real cm() const {
       return (cm_);
     }
@@ -275,14 +289,14 @@ namespace modigliani_core {
  * @brief Returns total compartment capacitance
  *
  * @return Capacitance in [@f$\si{\micro\farad}@f$]
- */    
+ */
     modigliani_base::Real CompartmentMembraneCapacitance() const;
 
 /**
  * @brief Returns net membrane current
  *
  * @return Current in [@f$\si{\nano\ampere}@f$]
- */      
+ */
     modigliani_base::Real CompartmentMembraneNetCurrent()const;
 
 /**
