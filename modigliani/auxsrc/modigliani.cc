@@ -1,11 +1,11 @@
 /**
- * @file axon_simulator.cc
+ * @file modigliani.cc
  * @brief Can simulate arbitrary axons using configuration given in a
  * json file.
  *
  * Copyright (C) 1998,1999,2000,2001 Ahmed Aldo Faisal
  *
- * Copyright (C) 2010, 2011, 2012, 2013 Mohammad Ali Neishabouri
+ * Copyright (C) 2016 Mohammad Ali Neishabouri
  *
  * @section LICENCE
  * This file is part of Modigliani.
@@ -33,9 +33,9 @@
 #include <boost/property_tree/exceptions.hpp>
 
 #ifdef WITH_PLPLOT
-#include <plplot/plplot.h>
-#include <plplot/plstream.h>
-#endif
+# include <plplot/plplot.h>
+# include <plplot/plstream.h>
+#endif // ifdef WITH_PLPLOT
 
 #include <vector>
 #include <sstream>
@@ -52,21 +52,22 @@ int Simulate(boost::program_options::variables_map vm) {
   boost::property_tree::ptree config_root;
   try {
     read_json(vm["config-file"].as<string>(), config_root);
-  } catch(const exception &e) {
+  } catch (const exception& e) {
     // report to the user the failure and their locations in the document.
     std::cerr << "Failed to parse configuration\n" << e.what();
     exit(1);
   }
-
   string timedOutputFolder;
+
   // What compartments to save
   auto electrods_vec = modigliani_core::GetElectrods(config_root);
+
   // We write each compartment's potential and currents into a single file.
   ofstream TimeFile, LengthPerCompartmentFile, TypePerCompartmentFile, log_file;
 
   if (config_root.get<Size>("simulation_parameters.sampN") > 0) {
     timedOutputFolder = modigliani_core::CreateOutputFolder(
-        config_root.get<string>("simulation_parameters.outputFolder"));
+      config_root.get<string>("simulation_parameters.outputFolder"));
 
     std::ifstream ifs(vm["config-file"].as<string>(), std::ios::binary);
     string temp_string = timedOutputFolder;
@@ -84,12 +85,11 @@ int Simulate(boost::program_options::variables_map vm) {
                                     LengthPerCompartmentFile);
     modigliani_core::OpenOutputFile(timedOutputFolder, "log", log_file, ".log");
     TimeFile << "% in ms" << std::endl;
-
   } else {
     modigliani_core::OpenOutputFile("/tmp", "log", log_file, ".log");
   }
 
-  lua_State* L_inject_current = luaL_newstate();
+  lua_State *L_inject_current = luaL_newstate();
   std::vector<float> inputData(1000000);
 
   // We can inject currents in two ways. Either execute a lua program,
@@ -98,15 +98,17 @@ int Simulate(boost::program_options::variables_map vm) {
   if (vm.count("input-file")) {
     // Read input file only once. Store its content in memory.
     ifstream dataFile(vm["input-file"].as<string>());
+
     if (dataFile.fail()) {
       std::cerr
-          << "Could not open input file "
-          << config_root.get<string>("simulation_parameters.inputFile").c_str()
-          << std::endl;
+        << "Could not open input file "
+        << config_root.get<string>("simulation_parameters.inputFile").c_str()
+        << std::endl;
       exit(1);
     }
 
     modigliani_base::Size index = 0;
+
     while (dataFile.good()) {
       if (index < inputData.size()) {
         char tmp[100];
@@ -121,29 +123,33 @@ int Simulate(boost::program_options::variables_map vm) {
     dataFile.close();
   } else {
     string lua_inject_script = config_root.get<string>(
-        "simulation_parameters.inject_current_lua");
+      "simulation_parameters.inject_current_lua");
     luaL_openlibs(L_inject_current);
     luaL_dostring(L_inject_current, lua_inject_script.c_str());
   }
 
   bool verbose = false;
+
   if (vm.count("verbose")) {
     verbose = true;
   }
 
   bool show_bar = false;
+
   if (vm.count("progressbar")) {
     show_bar = true;
   }
 
 #ifdef WITH_PLPLOT
   Size plot = 0;
+
   if (vm.count("plot")) {
     plot = vm["plot"].as<Size>();
   }
-#endif
+#endif // ifdef WITH_PLPLOT
 
   Size force_alg = 0;
+
   if (vm.count("algorithm")) {
     force_alg = vm["algorithm"].as<int>();
   }
@@ -151,37 +157,35 @@ int Simulate(boost::program_options::variables_map vm) {
   Size num_trials = 1;
   try {
     num_trials = config_root.get<Size>("simulation_parameters.numTrials");
-  } catch(const boost::property_tree::ptree_bad_path& e) {
+  } catch (const boost::property_tree::ptree_bad_path& e) {
     std::cout << "Warning : numTrials not found in simulation parameters."
               << std::endl;
   }
-
   // Do we want to simulate an electrod injecting current somewhere?
-  lua_State* L_change_potential = luaL_newstate();
-  bool change_potentials = true;
+  lua_State *L_change_potential = luaL_newstate();
+  bool change_potentials        = true;
   try {
     string lua_change_potential_script = config_root.get<string>(
-        "simulation_parameters.change_potential_lua");
+      "simulation_parameters.change_potential_lua");
     luaL_openlibs(L_change_potential);
     luaL_dostring(L_change_potential, lua_change_potential_script.c_str());
     change_potentials = true;
-  } catch(const boost::property_tree::ptree_bad_path& e) {
+  } catch (const boost::property_tree::ptree_bad_path& e) {
     // No need to change potentials
     change_potentials = false;
     lua_close(L_change_potential);
   }
-
-  auto output_files = vector<string>(0);
-  boost::progress_display* show_progress = 0;
+  auto output_files                      = vector<string>(0);
+  boost::progress_display *show_progress = 0;
 
   /* *** Trials loop *** */
   for (modigliani_base::Size lTrials = 0; lTrials < num_trials; lTrials++) {
     modigliani_base::Real inp_current = 0;
 
     /* Model setup */
-    modigliani_core::Membrane_compartment_sequence* oModel =
-        modigliani_core::CreateAxon(config_root, TypePerCompartmentFile,
-                                     LengthPerCompartmentFile, force_alg);
+    modigliani_core::Membrane_compartment_sequence *oModel =
+      modigliani_core::CreateAxon(config_root, TypePerCompartmentFile,
+                                  LengthPerCompartmentFile, force_alg);
 
     if (!lTrials) {
       TypePerCompartmentFile.close();
@@ -193,50 +197,55 @@ int Simulate(boost::program_options::variables_map vm) {
     PLFLT voltVec[oModel->num_compartments()];
     PLFLT x[oModel->num_compartments()];
     x[0] = 0;
-#endif
+#endif // ifdef WITH_PLPLOT
 
     numCompartments = oModel->num_compartments();
     log_file << "Total number of compartments(in oModel)" << numCompartments
              << std::endl;
-    std::vector<modigliani_base::Real> leakCurrVec(numCompartments);
-    std::vector<modigliani_base::Real> naCurrVec(numCompartments);
-    std::vector<modigliani_base::Real> kCurrVec(numCompartments);
+
+    // std::vector<modigliani_base::Real> leakCurrVec(numCompartments);
+    // std::vector<modigliani_base::Real> naCurrVec(numCompartments);
+    // std::vector<modigliani_base::Real> kCurrVec(numCompartments);
 
 #ifdef WITH_PLPLOT
     /* Graphics init */
-    plstream* pls = 0;
+    plstream *pls = 0;
+
     if (plot > 0) {
       pls = new plstream();
+
       // Initialize plplot.
       // pls->sdev("qt");
       pls->scolbg(255, 255, 255);
       pls->scol0(1, 0, 0, 0);
       pls->init();
     }
-#endif
+#endif // ifdef WITH_PLPLOT
 
     std::cerr << "MainLoop started" << std::endl;
 
-    if (show_bar && show_progress == 0)
+    if (show_bar && (show_progress == 0))
       show_progress = new boost::progress_display(
-          config_root.get<Size>("simulation_parameters.numIter") * num_trials
-              / 100);
+        config_root.get<Size>("simulation_parameters.numIter") * num_trials
+        / 100);
 
     modigliani_base::Real timeInMS = 0;
-    int dataRead = 0;
+    int dataRead                   = 0;
+
     for (modigliani_base::Size lt = 0;
-        lt < config_root.get<Size>("simulation_parameters.numIter"); lt++) {
+         lt < config_root.get<Size>("simulation_parameters.numIter"); lt++) {
       timeInMS += oModel->timestep();
 
       // Write number of columns
-      if (config_root.get<int>("simulation_parameters.sampN") > 0 && lt == 0
-          && lTrials == 0) {
+      if ((config_root.get<int>("simulation_parameters.sampN") > 0) && (lt == 0)
+          && (lTrials == 0)) {
         modigliani_base::Size counter = 0;
+
         for (auto ci = electrods_vec.begin(); ci != electrods_vec.end(); ci++) {
           if (*ci >= oModel->compartment_vec_.size())
             std::cerr
-                << "Warning : Electrod requested in non existing compartment "
-                << *ci << " ignored." << std::endl;
+              << "Warning : Electrod requested in non existing compartment "
+              << *ci << " ignored." << std::endl;
 
           stringstream ss(stringstream::in | stringstream::out);
           ss << timedOutputFolder << "/compartments/" << "compartment" << "_"
@@ -248,24 +257,29 @@ int Simulate(boost::program_options::variables_map vm) {
           counter++;
         }
       }
-      if (config_root.get<int>("simulation_parameters.sampN") > 0 && lt == 0
-          && lTrials != 0) {
+
+      if ((config_root.get<int>("simulation_parameters.sampN") > 0) && (lt == 0)
+          && (lTrials != 0)) {
         modigliani_base::Size counter = 0;
+
         for (auto ci : electrods_vec) {
           oModel->compartment_vec_[ci]->SetupOutput(output_files[counter++]);
         }
       }
 
       // the "sampling ratio" used for "measurement" to disk
-      if (config_root.get<int>("simulation_parameters.sampN") > 0
-          && (lt+1) % config_root.get<int>("simulation_parameters.sampN") == 0) {
+      if ((config_root.get<int>("simulation_parameters.sampN") > 0)
+          && ((lt + 1) % config_root.get<int>("simulation_parameters.sampN") ==
+              0)) {
         for (auto ci = electrods_vec.begin(); ci != electrods_vec.end(); ci++) {
           oModel->compartment_vec_[*ci]->WriteOutput();
         }
+
         if (!lTrials) TimeFile << timeInMS << std::endl;
       }
 
 #ifdef WITH_PLPLOT
+
       if (plot > 0) {
         if (lt == 0) {
           for (modigliani_base::Size lc = 1; lc < numCompartments; lc++) {
@@ -273,13 +287,16 @@ int Simulate(boost::program_options::variables_map vm) {
           }
           pls->env(0, x[numCompartments - 1], -100, 100, 0, 0);
         }
+
         if (lt % plot == 0) {
           pls->clear();
           pls->box("abcnt", 0, 0, "anvbct", 0, 0);
+
           for (modigliani_base::Size ll = 0; ll < oModel->num_compartments();
-              ll++) {
+               ll++) {
             voltVec[ll] = oModel->compartment_vec_[ll]->vm();
           }
+
           for (auto iv : voltVec) {
             if (modigliani_base::IsNAN(iv)) {
               log_file << "ERROR at t=" << timeInMS << " voltage is NaN."
@@ -292,17 +309,17 @@ int Simulate(boost::program_options::variables_map vm) {
               std::exit(1);
             }
           }
-          pls->line((PLINT) oModel->num_compartments(), x, voltVec);
+          pls->line((PLINT)oModel->num_compartments(), x, voltVec);
           pls->flush();
         }
       }
-#endif
+#endif // ifdef WITH_PLPLOT
 
       if (vm.count("input-file")) {
         if (lt % config_root.get<int>("simulation_parameters.readN") == 0) {
           inp_current = (inputData[dataRead]
-              * config_root.get<double>("simulation_parameters.inpISDV"))
-              + config_root.get<double>("simulation_parameters.inpI");
+                         * config_root.get<double>("simulation_parameters.inpISDV"))
+                        + config_root.get<double>("simulation_parameters.inpI");
           dataRead++;
           cout << inp_current << endl;
         }
@@ -313,6 +330,7 @@ int Simulate(boost::program_options::variables_map vm) {
         inp_current = lua_tonumber(L_inject_current, -1);
         lua_pop(L_inject_current, 1);
       }
+
       if (verbose) cout << lt << "\t" << inp_current << endl;
       oModel->InjectCurrent(inp_current, 1);
 
@@ -326,51 +344,53 @@ int Simulate(boost::program_options::variables_map vm) {
           auto change_in_potential = lua_tonumber(L_change_potential, -1);
           lua_pop(L_change_potential, 1);
           oModel->compartment_vec_[lc]->set_vm(
-              oModel->compartment_vec_[lc]->vm() + change_in_potential);
+            oModel->compartment_vec_[lc]->vm() + change_in_potential);
         }
       }
 
       oModel->Step();
 
-      if (show_bar && lt % 100 == 0) show_progress->operator ++();
+      if (show_bar && (lt % 100 == 0)) show_progress->operator++();
     }
 #ifdef WITH_PLPLOT
+
     if (pls) {
       delete pls;
     }
-#endif
+#endif // ifdef WITH_PLPLOT
     delete oModel;
-  }  // lTrials
+  } // lTrials
   lua_close(L_inject_current);
   log_file << "Simulation completed." << std::endl;
   log_file.close();
 
-  return (0);
+  return 0;
 }
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
   using modigliani_base::Real;
   using modigliani_base::Size;
   namespace po = boost::program_options;
-// Declare the supported options.
+
+  // Declare supported options.
   po::options_description desc("Allowed options");
   desc.add_options()("help,h", "produce help message")(
-      "config-file", po::value<string>(), "which configuration file to use")(
-      "algorithm,a", po::value<int>(), "set algorithm")("trials,t",
-                                                        po::value<Size>(),
-                                                        "set number of trials")(
-      "verbose,v", "activate debug messages")("input-file,i",
-                                              po::value<string>(),
-                                              "set input file")(
-      "progressbar,b", "Show a progress bar")
+    "config-file", po::value<string>(), "which configuration file to use")(
+    "algorithm,a", po::value<int>(), "set algorithm")("trials,t",
+                                                      po::value<Size>(),
+                                                      "set number of trials")(
+    "verbose,v", "activate debug messages")("input-file,i",
+                                            po::          value<string>(),
+                                            "set input file")(
+    "progressbar,b", "Show a progress bar")
 #ifdef WITH_PLPLOT
   ("plot,p", po::value<Size>(), "plot every <arg> step.")
-#endif
+#endif // ifdef WITH_PLPLOT
   ;
 
   if (argc < 2) {
     cout << desc << "\n";
-    return (1);
+    return 1;
   }
 
   po::positional_options_description p;
@@ -378,14 +398,14 @@ int main(int argc, char* argv[]) {
 
   po::variables_map vm;
   po::store(
-      po::command_line_parser(argc, argv).options(desc).positional(p).run(),
-      vm);
+    po::command_line_parser(argc, argv).options(desc).positional(p).run(),
+    vm);
   po::notify(vm);
 
   if (vm.count("help")) {
     cout << desc << "\n";
-    return (0);
+    return 0;
   }
 
-  return (Simulate(vm));
+  return Simulate(vm);
 }
