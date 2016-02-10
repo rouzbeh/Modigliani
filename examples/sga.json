@@ -1,0 +1,52 @@
+{
+    "temperature" : 6.3,
+    "diameter" : 10,
+    "eLeak" : -54.4011,
+    "vBase" : 0,
+
+    "compartments_parameters":[
+    {
+	  "length" : 20,
+	  "Ra" : 35.4,
+	  "Cm" : 1,
+
+	  "currents" : [
+	      {
+		  "type" : "leak",
+		  "GLeak" : 0.3
+	      },
+	      {
+		  "type" : "lua",
+		  "chModel" : "SGA_sodium.lua",
+		  "chAlg" : 4,
+		  "chDen" : 60,
+		  "chCond" : 20,
+		  "chRevPot" : 50
+	      },
+	      {
+		  "type" : "lua",
+		  "chModel" : "SGA_potassium.lua",
+		  "chAlg" : 4,
+		  "chDen" : 18,
+		  "chCond" : 20,
+		  "chRevPot" :-77
+	      }
+	  ]
+      }],
+
+    "anatomy_lua" : "compartments={};for i=0,0 do table.insert(compartments,0); end;",
+    "electrods_lua" : "electrods={};for i=0,0 do table.insert(electrods,i); end;",
+
+    "simulation_parameters":{
+        "randomise_densities" : true,
+        "inject_current_lua" : "function current(t) if (t>30 and t<30.1) then return 0.2 else return 0; end; end;",
+	"outputFolder" : "/tmp/",
+	"readN" : 1000,
+	"inpI" : 0.0,
+	"inpISDV" : 0.01,
+	"sampN" : 10,
+	"timeStep" : 0.001,
+	"numIter" : 50000,
+	"numTrials" : 1
+    }
+}

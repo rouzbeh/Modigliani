@@ -4,30 +4,22 @@ local time = require('timestep')
 timestep = time.timestep
 set_timestep = time.set_timestep
 
--- Kinetics
+-- General data
 base_temperature = 6.3
-q10m = 3
-q10h = 3
+q10 = 1
 
-
-function AlphaM(vM)
-   if vM==-40 then return 1 end;
-   return 0.1*(vM+40)/(1-exponential(-0.1*(vM+40)))
-end
-    
-function BetaM(vM)
-   return 4*exponential(-0.0556*(vM+65))
+-- Kinetics
+function AlphaN(vM)
+    if vM==-55 then return 0.01 end;
+    return 0.01*(vM+55)/(1-math.exp(-0.1*(vM+55)))
 end
 
-function AlphaH(vM)
-   return 0.07*exponential(-0.05*(vM+65))
+function BetaN(vM)
+   return 0.125*math.exp(-0.0125*(vM+65))
 end
 
-function BetaH(vM)
-   return 1/(1+exponential(-0.1*(vM+35)))
-end
 
-local channel_functions=require('8_state_sodium')
+local channel_functions=require('5_state_potassium')
 
 number_states = channel_functions.number_states
 open_states = channel_functions.open_states
