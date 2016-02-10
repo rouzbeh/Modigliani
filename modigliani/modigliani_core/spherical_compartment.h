@@ -2,9 +2,9 @@
  * \file spherical_compartment.h
  * \brief Spherical_compartment class header
  *
- * @author Ahmed Aldo Faisal &copy; created 19.3.2001  
+ * @author Ahmed Aldo Faisal &copy; created 19.3.2001
  * @version   0.5
- * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    
+ * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
  *
  * @section LICENSE
  * This library is free software; you can redistribute it and/or
@@ -43,7 +43,8 @@ class Spherical_compartment : public Membrane_compartment {
  * [@f$\si{\micro\farad\per\centi\meter\squared}@f$]
  */
     Spherical_compartment(modigliani_base::Real radius,
-                          modigliani_base::Real cM);
+                          modigliani_base::Real cM,
+                          modigliani_base::Real newTemperature);
 
 /**
  * @brief Constructs a new spherical compartment using parameters
@@ -72,6 +73,14 @@ class Spherical_compartment : public Membrane_compartment {
  * @return Radius in [@f$\si{\micro\meter}@f$]
  */
     modigliani_base::Real radius() const {
+      return (radius_);
+    }
+
+/**
+ * @brief Returns the length.
+ * @return Radius in [@f$\si{\micro\meter}@f$]
+ */
+    modigliani_base::Real length() const {
       return (radius_);
     }
 

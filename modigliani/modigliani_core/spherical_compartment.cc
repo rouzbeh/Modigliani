@@ -26,21 +26,20 @@
 
 namespace modigliani_core {
 Spherical_compartment::Spherical_compartment(modigliani_base::Real newRadius,
-                                             modigliani_base::Real newCm)
-    : Membrane_compartment(4 * M_PI * newRadius * newRadius, 6.3,
-                           newCm, 35.4), radius_(newRadius) {
-}
+                                             modigliani_base::Real newCm,
+                                             modigliani_base::Real newTemperature)
+  : Membrane_compartment
+    (4 * M_PI * newRadius * newRadius, newTemperature,
+    newCm, 35.4), radius_(newRadius) {}
 
 Spherical_compartment::Spherical_compartment(
-    boost::property_tree::ptree compartment_parameters)
-    : Membrane_compartment(
-        4 * M_PI * compartment_parameters.get<double>("radius")
-            * compartment_parameters.get<double>("radius"),
-        6.3, compartment_parameters.get<double>("Cm"),
-        compartment_parameters.get<double>("Ra")), radius_(
-        compartment_parameters.get<double>("radius")) {
-}
+  boost::property_tree::ptree compartment_parameters)
+  : Membrane_compartment(
+    4 * M_PI * compartment_parameters.get<double>("radius")
+    * compartment_parameters.get<double>("radius"),
+    6.3, compartment_parameters.get<double>("Cm"),
+    compartment_parameters.get<double>("Ra")), radius_(
+    compartment_parameters.get<double>("radius")) {}
 
-Spherical_compartment::~Spherical_compartment() {
-}
-}  // namespace modigliani_core
+Spherical_compartment::~Spherical_compartment() {}
+} // namespace modigliani_core
