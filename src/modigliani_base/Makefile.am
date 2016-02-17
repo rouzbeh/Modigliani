@@ -14,4 +14,4 @@ multidim_array.h\
 ring_buffer.h\
 physical_constants.h
 
-AM_CXXFLAGS = $(all_includes) -I$(abs_top_srcdir)/src -ansi -pedantic -Wshadow -Wno-vla -malign-double -std=c++11
+AM_CXXFLAGS = $(all_includes) -I$(abs_top_srcdir)/src -ansi -pedantic -Wshadow -Wno-vla -std=c++11
