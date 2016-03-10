@@ -1,4 +1,4 @@
-AM_CPPFLAGS = -I../src
+AM_CPPFLAGS = -I../src -std=c++11
 
 bin_PROGRAMS = tests
 
