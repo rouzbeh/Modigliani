@@ -26,7 +26,7 @@ elif test 1; then
 	AC_CHECK_LIB([boost_filesystem], [main],[HAVE_BOOSTFILESYSTEM=1],[AC_MSG_ERROR([libboost_filesystem missing])])
 	AC_CHECK_LIB([boost_system], [main],[HAVE_BOOSTSYSTEM=1],[AC_MSG_ERROR([libboost_system missing])])
 fi
-#PKG_CHECK_MODULES([lua], [lua], [], [PKG_CHECK_MODULES([lua],[lualib52])])
+PKG_CHECK_MODULES([lua], [lua], [], [PKG_CHECK_MODULES([lua],[lua5.2])])
 PKG_CHECK_MODULES([gsl],[gsl],[HAVE_GSL="yes"],[HAVE_GSL="no"])
 PKG_CHECK_MODULES([plplotd],[plplotd],[HAVE_PLPLOT="yes"],[HAVE_PLPLOT="no"])
 
