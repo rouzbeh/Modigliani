@@ -8,6 +8,7 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
+            - boost-latest
           packages:
             - g++-5
             - libboost-filesystem1.55-dev
@@ -25,6 +26,7 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-precise-3.7
+            - boost-latest
           packages:
             - clang-3.7
             - libboost-filesystem1.55-dev
