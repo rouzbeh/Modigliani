@@ -1,8 +1,10 @@
 # Modigliani
+[![Build Status](https://travis-ci.org/rouzbeh/Modigliani.svg?branch=master)](https://travis-ci.org/rouzbeh/Modigliani)
 
-Modigliani is a set of libraries for stochastic simulations of neurons. Modigliani was first started at the University of Cambridge by Aldo Faisal. 
 
-From 2010 to 2015, Modigliani was developed and maintained by Ali Neishabouri at Imperial College London. 
+Modigliani is a set of libraries for stochastic simulations of neurons. Modigliani was first started at the University of Cambridge by Aldo Faisal.
+
+From 2010 to 2015, Modigliani was developed and maintained by Ali Neishabouri at Imperial College London.
 
 ## Documentation
 Doxygen generated documentation is available at http://rouzbeh.github.io/Modigliani
