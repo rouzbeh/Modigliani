@@ -13,7 +13,9 @@ matrix:
           source:
             - boost-latest
           packages:
-            - boost-build
+            - libboost-filesystem-dev
+            - libboost-program-options-dev
+            - libboost-random-dev
             - lua5.2
       env: COMPILER=g++-5
     - compiler: clang
@@ -27,7 +29,9 @@ matrix:
           source:
             - boost-latest
           packages:
-            - boost-build
+            - libboost-filesystem-dev
+            - libboost-program-options-dev
+            - libboost-random-dev
             - lua5.2
       env: COMPILER=clang++-3.7
 compiler:
