@@ -10,9 +10,9 @@ matrix:
             - ubuntu-toolchain-r-test
           packages:
             - g++-5
-            - libboost-filesystem-dev
-            - libboost-program-options-dev
-            - libboost-random-dev
+            - libboost-filesystem1.55-dev
+            - libboost-program-options1.55-dev
+            - libboost-random1.55-dev
             - lua5.2
             - liblua5.2-0
             - liblua5.2-dev
@@ -27,9 +27,9 @@ matrix:
             - llvm-toolchain-precise-3.7
           packages:
             - clang-3.7
-            - libboost-filesystem-dev
-            - libboost-program-options-dev
-            - libboost-random-dev
+            - libboost-filesystem1.55-dev
+            - libboost-program-options1.55-dev
+            - libboost-random1.55-dev
             - lua5.2
             - liblua5.2-0
             - liblua5.2-dev
