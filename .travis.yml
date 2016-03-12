@@ -13,8 +13,8 @@ matrix:
           source:
             - boost-latest
           packages:
-            - boost
-            - lua
+            - boost-build
+            - lua5.2
       env: COMPILER=g++-5
     - compiler: clang
       addons:
@@ -27,8 +27,8 @@ matrix:
           source:
             - boost-latest
           packages:
-            - boost
-            - lua
+            - boost-build
+            - lua5.2
       env: COMPILER=clang++-3.7
 compiler:
   - gcc
