@@ -42,7 +42,7 @@ matrix:
 # Build steps
 script:
   - autoreconf -fvi
-  - CC=$COMPILER CXX=$COMPILERXX ./configure
+  - CC=$COMPILER CXX=$COMPILERXX CXXFLAGS=-I/usr/include/lua5.2 ./configure
   - make
   - make test
   - test/tests
