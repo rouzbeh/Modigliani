@@ -25,4 +25,4 @@ generate_white_noise_LDADD = $(BOOST_LINKS) -lstdc++ $(top_builddir)/src/modigli
 modigliani_SOURCES = modigliani.cc
 modigliani_LDADD = $(top_builddir)/src/modigliani_core/libmodigliani_core.a $(top_builddir)/src/modigliani_base/libmodigliani_base.a $(MAYBE_GSL) -lm @LUA_LIBS@ $(BOOST_LINKS) $(MAYBE_PLPLOT) -lstdc++
 
-AM_CXXFLAGS = $(all_includes) -I$(abs_top_srcdir)/src -march=native -mtune=native -ansi -pedantic -Wshadow -Wno-vla -std=c++11
+AM_CXXFLAGS = $(all_includes) -I$(abs_top_srcdir)/src -march=native -mtune=native -ansi -pedantic -Wshadow -Wno-vla -std=c++11 @LUA_CFLAGS@
