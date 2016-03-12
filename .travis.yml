@@ -17,9 +17,8 @@ matrix:
             - liblua5.2-0
             - liblua5.2-dev
       env:
-        - COMPILER=g++-5
-        - CC=gcc-5
-        - CXX=g++-5
+        - COMPILER=gcc-5
+        - COMPILERXX=g++-5
     - compiler: clang
       addons:
         apt:
@@ -35,12 +34,13 @@ matrix:
             - liblua5.2-0
             - liblua5.2-dev
       env:
-        - COMPILER=clang++-3.7
+        - COMPILERXX=clang++-3.7
+        - COMPILER=clang-3.7
 
 # Build steps
 script:
   - autoreconf -fvi
-  - ./configure
+  - CC=$COMPILER CXX=$COMPILERXX ./configure
   - make
   - make test
   - test/tests
