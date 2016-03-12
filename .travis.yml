@@ -1,5 +1,5 @@
 sudo: false
-language: C++
+language: cpp
 
 matrix:
   include:
@@ -10,8 +10,6 @@ matrix:
             - ubuntu-toolchain-r-test
           packages:
             - g++-5
-          source:
-            - boost-latest
           packages:
             - libboost-filesystem-dev
             - libboost-program-options-dev
@@ -28,8 +26,6 @@ matrix:
             - llvm-toolchain-precise-3.7
           packages:
             - clang-3.7
-          source:
-            - boost-latest
           packages:
             - libboost-filesystem-dev
             - libboost-program-options-dev
@@ -43,6 +39,8 @@ compiler:
   - clang
 # Build steps
 script:
+  - if [ "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
+  - if [ "$CXX" = "clang++" ]; then export CXX="clang++-3.7" CC="clang-3.7"; fi
   - autoreconf -fvi
   - ./configure
   - make
