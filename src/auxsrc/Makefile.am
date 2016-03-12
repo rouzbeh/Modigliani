@@ -1,7 +1,6 @@
 bin_PROGRAMS = show_binary_file \
 generate_white_noise \
-modigliani \
-network
+modigliani
 
 if WITH_PLPLOT
   MAYBE_PLPLOT = -lplplotcxxd -lplplotd
@@ -24,8 +23,6 @@ show_binary_file_LDADD = $(BOOST_LINKS) -lstdc++
 generate_white_noise_SOURCES = generate_white_noise.cc
 generate_white_noise_LDADD = $(BOOST_LINKS) -lstdc++ $(top_builddir)/src/modigliani_base/libmodigliani_base.a
 modigliani_SOURCES = modigliani.cc
-modigliani_LDADD = $(top_builddir)/src/modigliani_core/libmodigliani_core.a $(top_builddir)/src/modigliani_base/libmodigliani_base.a $(MAYBE_GSL) -lm -llua $(BOOST_LINKS) $(MAYBE_PLPLOT) -lstdc++
-network_SOURCES = modigliani.cc
-network_LDADD = $(top_builddir)/src/modigliani_core/libmodigliani_core.a $(top_builddir)/src/modigliani_base/libmodigliani_base.a $(MAYBE_GSL) -lm -llua $(BOOST_LINKS) $(MAYBE_PLPLOT) -lstdc++
+modigliani_LDADD = $(top_builddir)/src/modigliani_core/libmodigliani_core.a $(top_builddir)/src/modigliani_base/libmodigliani_base.a $(MAYBE_GSL) -lm @LUA_LIBS@ $(BOOST_LINKS) $(MAYBE_PLPLOT) -lstdc++
 
 AM_CXXFLAGS = $(all_includes) -I$(abs_top_srcdir)/src -march=native -mtune=native -ansi -pedantic -Wshadow -Wno-vla -std=c++11
