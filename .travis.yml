@@ -1,21 +1,5 @@
 sudo: false
 language: C++
-addons:
-  apt:
-    source:
-    - boost-latest
-    packages:
-    - boost
-    - lua
-    sources:
-    # add PPAs with more up-to-date toolchains
-    - ubuntu-toolchain-r-test
-    - llvm-toolchain-precise-3.6
-    packages:
-    # install toolchains
-    - gcc-5
-    - g++-5
-    - clang-3.6
 
 matrix:
   include:
@@ -25,25 +9,13 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-            - g++-4.9
-      env: COMPILER=g++-4.9
-    - compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
             - g++-5
-      env: COMPILER=g++-5
-    - compiler: clang
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.6
+          source:
+            - boost-latest
           packages:
-            - clang-3.6
-      env: COMPILER=clang++-3.6
+            - boost
+            - lua
+      env: COMPILER=g++-5
     - compiler: clang
       addons:
         apt:
@@ -52,6 +24,11 @@ matrix:
             - llvm-toolchain-precise-3.7
           packages:
             - clang-3.7
+          source:
+            - boost-latest
+          packages:
+            - boost
+            - lua
       env: COMPILER=clang++-3.7
 compiler:
   - gcc
