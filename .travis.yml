@@ -16,8 +16,8 @@ matrix:
             - libboost-filesystem-dev
             - libboost-program-options-dev
             - libboost-random-dev
-            - lua5.2-0
-            - liblua5.2-0-dev
+            - liblua5.2-0
+            - liblua5.2-dev
       env: COMPILER=g++-5
     - compiler: clang
       addons:
@@ -33,8 +33,8 @@ matrix:
             - libboost-filesystem-dev
             - libboost-program-options-dev
             - libboost-random-dev
-            - lua5.2-0
-            - liblua5.2-0-dev
+            - liblua5.2-0
+            - liblua5.2-dev
       env: COMPILER=clang++-3.7
 compiler:
   - gcc
