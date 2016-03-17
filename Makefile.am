@@ -1,3 +1,4 @@
+ACLOCAL_AMFLAGS = -I m4
 AUTOMAKE_OPTIONS = foreign
 
 SUBDIRS = src test
@@ -11,7 +12,7 @@ uninstall:
 	make -C ./src uninstall
 clean:
 	make -C ./src clean
-test:
-	make -C ./test test
+test:	all
+	./test/tests
 
 EXTRA_DIST = AUTHORS LICENCE README.md modigliani.lsm Modigliani.Doxyfile

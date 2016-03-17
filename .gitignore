@@ -12,6 +12,14 @@ config.log
 *.Po
 .deps/*
 *.a
+*.lo
+*.la
+**/.deps/
+**/.libs/
+config.guess
+config.sub
+libtool
+ltmain.sh
 
 src/auxsrc/generate_white_noise
 src/auxsrc/modigliani

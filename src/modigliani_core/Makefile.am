@@ -1,6 +1,8 @@
-noinst_LIBRARIES = libmodigliani_core.a
+modiglianidir = $(includedir)/modigliani
 
-libmodigliani_core_a_SOURCES = \
+lib_LTLIBRARIES = libmodigliani_core.la
+
+libmodigliani_core_la_SOURCES = \
 leak_current.cc\
 ion_channels.cc\
 lua_based_deterministic_voltage_gated_channel.cc\
@@ -21,7 +23,8 @@ spherical_compartment.cc\
 synaptic_background.cc\
 network_synapse.cc
 
-EXTRA_DIST = $(libmodigliani_core_a_SOURCES) \
+modigliani_HEADERS = \
+aux_func.h\
 leak_current.h\
 ion_channels.h\
 lua_based_deterministic_voltage_gated_channel.h\
@@ -42,8 +45,4 @@ spherical_compartment.h\
 synaptic_background.h\
 network_synapse.h
 
-# set the include path found by configure
-
-noinst_HEADERS = aux_func.h
-
-AM_CXXFLAGS = $(all_includes) -I$(abs_top_srcdir)/src -ansi -pedantic -Wshadow -Wno-vla -std=c++11 @LUA_CFLAGS@
+AM_CXXFLAGS = $(all_includes) -I$(abs_top_srcdir)/src -ansi -pedantic -std=c++11 @LUA_CFLAGS@ $(BOOST_CPPFLAGS)

@@ -1,11 +1,12 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.57)
-AC_INIT(Modigliani, 2.0 , ali@neishabouri.net)
+AC_INIT(Modigliani, 2.0.10 , ali@neishabouri.net)
 AM_INIT_AUTOMAKE([foreign])
+LT_INIT
 AC_CONFIG_SRCDIR([modigliani.lsm])
 AC_CONFIG_HEADERS([config.h])
-
+AC_CONFIG_MACRO_DIRS([m4])
 # Checks for programs.
 AC_PROG_CXX
 AC_PROG_CC
@@ -14,13 +15,15 @@ AC_PROG_LEX
 AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
-AC_PROG_RANLIB
 
 AC_LANG(C++)
 
 # Checks for libraries.
-AC_CHECK_LIB([boost_filesystem], [main],[HAVE_BOOSTFILESYSTEM=1],[AC_MSG_ERROR([libboost_filesystem missing])])
-AC_CHECK_LIB([boost_system], [main],[HAVE_BOOSTSYSTEM=1],[AC_MSG_ERROR([libboost_system missing])])
+AX_BOOST_BASE([1.55],, [AC_MSG_ERROR([Modigliani needs Boost, but it was not found in your system])])
+AX_BOOST_RANDOM
+AX_BOOST_FILESYSTEM
+AX_BOOST_PROGRAM_OPTIONS
+AX_BOOST_SYSTEM
 PKG_CHECK_MODULES([LUA], [lua >= 5.2], [], [PKG_CHECK_MODULES([LUA],[lua5.2])])
 PKG_CHECK_MODULES([plplotd],[plplotd],[HAVE_PLPLOT="yes"],[HAVE_PLPLOT="no"])
 
@@ -30,13 +33,6 @@ AC_FUNC_ALLOCA
 AC_HEADER_DIRENT
 AC_HEADER_STDC
 AC_REQUIRE_CPP
-AC_LANG_PUSH([C++])
-AC_CHECK_HEADERS([boost/random/mersenne_twister.hpp], [],
-    [AC_MSG_ERROR(You need the Boost libraries.)])
-AC_CHECK_HEADERS([boost/random/binomial_distribution.hpp], [],
-    [AC_MSG_ERROR(You need the Boost libraries.)])
-AC_LANG_POP([C++])
-
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_HEADER_STDBOOL
