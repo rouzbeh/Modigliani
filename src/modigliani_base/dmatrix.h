@@ -139,8 +139,8 @@ namespace modigliani_base {
 
     /**
      * @brief Prints the matrix
-     * @param  str ostream to output into
-     * @param  self
+     * @param  is ostream to output into
+     * @param  m The matrix
      * @return ostream
      */
     friend std::istream & operator>>(std::istream &, DMatrix &);

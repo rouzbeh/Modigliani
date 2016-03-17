@@ -38,7 +38,7 @@ extern "C" {
 namespace modigliani_core {
   /**
    * @class Lua_based_deterministic_voltage_gated_channel
-   * @brief This class contains can read a lua script and interpret it to simualte
+   * @brief This class contains can read a lua script and interpret it to simulate
    * an ion channel deterministically.
    */
   class Lua_based_deterministic_voltage_gated_channel:

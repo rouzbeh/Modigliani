@@ -45,8 +45,8 @@ namespace modigliani_base {
  public:
     /**
      * @brief Creates a Histogram
-     * @param minValue Minimum value, default 0
-     * @param maxValue Maximum value, default 1
+     * @param minVal Minimum value, default 0
+     * @param maxVal Maximum value, default 1
      * @param numberOfBins Number of bins, default 10
      */
     Histogram(Real minVal = 0, Real maxVal = 1, Size numberOfBins = 10);

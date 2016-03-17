@@ -73,7 +73,7 @@ class Cylindrical_compartment : public Membrane_compartment {
  * @return Cross-sectional area in [@f$\si{\micro\meter\squared}@f$]
  */
     modigliani_base::Real CrosssectionalArea() const {
-      return (radius() * radius() * M_PI);
+      return (radius() * radius() * modigliani_base::pi_);
     }
 
 /**

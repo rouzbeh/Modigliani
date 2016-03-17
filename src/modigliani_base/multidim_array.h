@@ -98,9 +98,9 @@ namespace modigliani_base {
 
     /**
      * @brief Access element at given coordinate position
-     * @param coordinteVec Vector of coordinates
-     * @return Element
-     * @warning    no range checking done on the coordinates
+     * @param coordinateVec Vector of coordinates
+     * @return Element at the index
+     * @warning No range checking done on the coordinates
      */
     T & Elem(const std::vector < Size > &coordinateVec) {
       Size hash = Hash(coordinateVec);
@@ -111,14 +111,14 @@ namespace modigliani_base {
     /**
      * @brief access a element with a "meaningless" index
      *
-     * The index is guaranteed to touch all elements
-     * but has no assigned meaning as to the position of
-     * element in relation to others. However index in $[0,num^dim]$
-     * is guaranteed and will touch all elements once.
+     * The index is guaranteed to touch all elements but has no
+     * assigned meaning as to the position of element in relation to
+     * others. However index is guaranteed to be in @f$[0,num^dim]@f$
+     * and will touch all elements once.
      * @param index The index
      * @return     The element at given index
-     * @warning    Arbitrary index, no information inferable from the index,
-     * might change anytime (only range remains guaranteed).
+     * @warning Arbitrary index, no information inferable from the
+     * index, might change anytime (only range remains guaranteed).
      */
     const T & ElemByIndex(Size index) const {
       M_ASSERT((index < TotalNumElem()));
