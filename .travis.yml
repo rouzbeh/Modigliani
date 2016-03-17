@@ -20,7 +20,7 @@ matrix:
       env:
         - COMPILER=gcc-5
         - COMPILERXX=g++-5
-        - WINE=
+
     - compiler: clang
       addons:
         apt:
@@ -39,28 +39,6 @@ matrix:
       env:
         - COMPILERXX=clang++-3.7
         - COMPILER=clang-3.7
-        - WINE=
-    - compiler: mingw
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-            - boost-latest
-          packages:
-            - g++-mingw-w64
-            - gcc-mingw-w64
-            - binutils-mingw-w64
-            - wine
-            - libboost-filesystem1.55-dev
-            - libboost-program-options1.55-dev
-            - libboost-random1.55-dev
-            - lua5.2
-            - liblua5.2-0
-            - liblua5.2-dev
-      env:
-        - COMPILER=mingw-w64
-        - COMPILERXX=
-        - WINE=wine
 
 # Build steps
 script:
@@ -68,5 +46,5 @@ script:
   - CC=$COMPILER CXX=$COMPILERXX ./configure
   - make
   - make test
-  - $WINE test/tests
+  - test/tests
 install: true
