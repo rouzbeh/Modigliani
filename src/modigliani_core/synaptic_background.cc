@@ -3,7 +3,7 @@
  *
  * @brief Synaptic_background class implementation
  *
- * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal    
+ * Copyright (C) 1998,1999,2000 Ahmed Aldo Faisal
  *
  * @section LICENCE
  * This file is part of Modigliani.
@@ -27,6 +27,7 @@
 namespace modigliani_core {
 
 bool Synaptic_background::seed_set_ = false;
+unsigned int Synaptic_background::seed_ = 0;
 
 Synaptic_background::Synaptic_background(
     modigliani_base::Real newAvgSynBkCond, /* in nS */
@@ -50,7 +51,7 @@ Synaptic_background::Synaptic_background(
   rng_ = boost::random::mt19937();
   rng_.seed(Synaptic_background::seed_++);
   norm_ = boost::random::normal_distribution<>();
-  
+
   gT = 0.0;
   amplitude = 0.0;
 }
