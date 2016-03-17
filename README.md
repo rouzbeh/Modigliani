@@ -9,6 +9,11 @@ From 2010 to 2015, Modigliani was developed and maintained by Ali Neishabouri at
 ## Documentation
 Doxygen generated documentation is available at http://rouzbeh.github.io/Modigliani
 
+## Installing on Mac via homebrew
+Run `brew tap rouzbeh/tap` to add my collection of homebrew formulae.
+
+Then `brew install Modigliani` to install Modigliani and its dependencies.
+
 ## Build instructions
 Run `autoreconf -f -v -i`
 
