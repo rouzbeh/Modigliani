@@ -23,6 +23,10 @@ spherical_compartment.cc\
 synaptic_background.cc\
 network_synapse.cc
 
+libmodigliani_core_la_LIBADD = @LUA_LIBS@\
+$(BOOST_FILESYSTEM_LIB)\
+$(BOOST_SYSTEM_LIB)
+
 modigliani_HEADERS = \
 aux_func.h\
 leak_current.h\
