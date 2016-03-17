@@ -19,15 +19,9 @@ AC_PROG_RANLIB
 AC_LANG(C++)
 
 # Checks for libraries.
-if test "x$host" = xi486-mingw32; then
-	AC_CHECK_LIB([boost_system-mt], [main],[HAVE_BOOSTSYSTEM=1],[AC_MSG_ERROR([libboost_system missing])])
-	AC_CHECK_LIB([boost_filesystem-mt], [main],[HAVE_BOOSTFILESYSTEM=1],[AC_MSG_ERROR([libboost_filesystem missing])])
-elif test 1; then
-	AC_CHECK_LIB([boost_filesystem], [main],[HAVE_BOOSTFILESYSTEM=1],[AC_MSG_ERROR([libboost_filesystem missing])])
-	AC_CHECK_LIB([boost_system], [main],[HAVE_BOOSTSYSTEM=1],[AC_MSG_ERROR([libboost_system missing])])
-fi
-PKG_CHECK_MODULES([LUA], [lua], [], [PKG_CHECK_MODULES([LUA],[lua5.2])])
-PKG_CHECK_MODULES([gsl],[gsl],[HAVE_GSL="yes"],[HAVE_GSL="no"])
+AC_CHECK_LIB([boost_filesystem], [main],[HAVE_BOOSTFILESYSTEM=1],[AC_MSG_ERROR([libboost_filesystem missing])])
+AC_CHECK_LIB([boost_system], [main],[HAVE_BOOSTSYSTEM=1],[AC_MSG_ERROR([libboost_system missing])])
+PKG_CHECK_MODULES([LUA], [lua >= 5.2], [], [PKG_CHECK_MODULES([LUA],[lua5.2])])
 PKG_CHECK_MODULES([plplotd],[plplotd],[HAVE_PLPLOT="yes"],[HAVE_PLPLOT="no"])
 
 # Checks for header files.
@@ -56,9 +50,6 @@ AC_STRUCT_TM
 AC_C_VOLATILE
 AC_CHECK_TYPES([ptrdiff_t])
 
-# Are we cross compiling?
-AM_CONDITIONAL([MINGW], [test "x$host" = "xi486-mingw32"])
-
 # Checks for library functions.
 AC_FUNC_CLOSEDIR_VOID
 AC_FUNC_ERROR_AT_LINE
@@ -71,10 +62,9 @@ AC_FUNC_STRFTIME
 AC_FUNC_VPRINTF
 AC_CHECK_FUNCS([alarm fesetround floor ftime getcwd gettimeofday memchr memmove memset pathconf pow regcomp rint select setlocale sqrt strchr strcspn strerror strpbrk strrchr strspn strstr strtol strtoul uname])
 
-dnl Make sure we register this option with Automake, so we know whether to
-dnl descend into ctempl ate for more configuration or not
+# Make sure we register this option with Automake, so we know whether to
+# descend into ctempl ate for more configuration or not
 AM_CONDITIONAL([WITH_PLPLOT], [test "x$HAVE_PLPLOT" = "xyes"])
-AM_CONDITIONAL([WITH_GSL], [test "x$HAVE_GSL" = "xyes"])
 
 # Define CTEMPLATE in config.h if we're going to compile against it
 if test "x$HAVE_PLPLOT" = "xyes"; then
@@ -82,12 +72,6 @@ if test "x$HAVE_PLPLOT" = "xyes"; then
     AC_MSG_NOTICE([PLPlot will be used])
 else
     AC_MSG_NOTICE([PLPlot will not be used])
-fi
-if test "x$HAVE_GSL" = "xyes"; then
-    AC_DEFINE([GSL], [], ["build using GSL library"])
-    AC_MSG_NOTICE([GSL will be used])
-else
-    AC_MSG_NOTICE([GSL will not be used])
 fi
 
 all_includes="$all_includes $USER_INCLUDES"
