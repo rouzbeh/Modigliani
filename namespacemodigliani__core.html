@@ -81,7 +81,7 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simulates a leak current.  <a href="classmodigliani__core_1_1Leak__current.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmodigliani__core_1_1Lua__based__deterministic__voltage__gated__channel.html">Lua_based_deterministic_voltage_gated_channel</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class contains can read a lua script and interpret it to simualte an ion channel deterministically.  <a href="classmodigliani__core_1_1Lua__based__deterministic__voltage__gated__channel.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class contains can read a lua script and interpret it to simulate an ion channel deterministically.  <a href="classmodigliani__core_1_1Lua__based__deterministic__voltage__gated__channel.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmodigliani__core_1_1Lua__based__stochastic__voltage__gated__channel.html">Lua_based_stochastic_voltage_gated_channel</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stochastic ion channel with transition probabilities read from a lua script.  <a href="classmodigliani__core_1_1Lua__based__stochastic__voltage__gated__channel.html#details">More...</a><br /></td></tr>
@@ -131,9 +131,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a1e3d792ddbada55418ce46ee389ee8ec"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemodigliani__core.html#a1e3d792ddbada55418ce46ee389ee8ec">CreateOutputFolder</a> (string outputFolder)</td></tr>
 <tr class="memdesc:a1e3d792ddbada55418ce46ee389ee8ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new folder in the output directory and puts a timestamp in its name.  <a href="#a1e3d792ddbada55418ce46ee389ee8ec">More...</a><br /></td></tr>
 <tr class="separator:a1e3d792ddbada55418ce46ee389ee8ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a462a7ee7c8cbcbe78c681ea94e485425"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmodigliani__core_1_1Cylindrical__compartment.html">Cylindrical_compartment</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemodigliani__core.html#a462a7ee7c8cbcbe78c681ea94e485425">CreateCompartment</a> (boost::property_tree::ptree config_root, boost::property_tree::ptree simulation_parameters, boost::property_tree::ptree compartment_parameters, modigliani_base::Size force_alg)</td></tr>
-<tr class="memdesc:a462a7ee7c8cbcbe78c681ea94e485425"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a cylindrical compartment using the parameters supplied in the parameters structs supplied.  <a href="#a462a7ee7c8cbcbe78c681ea94e485425">More...</a><br /></td></tr>
-<tr class="separator:a462a7ee7c8cbcbe78c681ea94e485425"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63457a0d185cfbc8233c6155a6269014"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmodigliani__core_1_1Membrane__compartment.html">Membrane_compartment</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemodigliani__core.html#a63457a0d185cfbc8233c6155a6269014">CreateCompartment</a> (bool spheriacl, boost::property_tree::ptree config_root, boost::property_tree::ptree simulation_parameters, boost::property_tree::ptree compartment_parameters, modigliani_base::Size force_alg)</td></tr>
+<tr class="memdesc:a63457a0d185cfbc8233c6155a6269014"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a compartment using the parameters supplied in the parameters structs supplied.  <a href="#a63457a0d185cfbc8233c6155a6269014">More...</a><br /></td></tr>
+<tr class="separator:a63457a0d185cfbc8233c6155a6269014"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f64070990d983b93fdcd13b3a35994e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemodigliani__core.html#a5f64070990d983b93fdcd13b3a35994e">AttachCurrent</a> (<a class="el" href="classmodigliani__core_1_1Membrane__compartment.html">modigliani_core::Membrane_compartment</a> *compartment, const boost::property_tree::ptree currents, boost::property_tree::ptree config_root, bool randomise_densities, modigliani_base::Size force_alg)</td></tr>
 <tr class="memdesc:a5f64070990d983b93fdcd13b3a35994e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates current objects and adds them to the given compartment.  <a href="#a5f64070990d983b93fdcd13b3a35994e">More...</a><br /></td></tr>
 <tr class="separator:a5f64070990d983b93fdcd13b3a35994e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -166,11 +166,11 @@ Functions</h2></td></tr>
 Variables</h2></td></tr>
 <tr class="memitem:ae63ebb9961508ba00e54c5d6d9abb610"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae63ebb9961508ba00e54c5d6d9abb610"></a>
 const modigliani_base::Real&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemodigliani__core.html#ae63ebb9961508ba00e54c5d6d9abb610">TIMESTEP</a> = 0.001</td></tr>
-<tr class="memdesc:ae63ebb9961508ba00e54c5d6d9abb610"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base timestep in [ <img class="formulaInl" alt="$\si{\milli\second}$" src="form_15.png"/>]. <br /></td></tr>
+<tr class="memdesc:ae63ebb9961508ba00e54c5d6d9abb610"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base timestep in [ <img class="formulaInl" alt="$\si{\milli\second}$" src="form_16.png"/>]. <br /></td></tr>
 <tr class="separator:ae63ebb9961508ba00e54c5d6d9abb610"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a773adc28b5fcd0f7682ae5ec0b87d84b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a773adc28b5fcd0f7682ae5ec0b87d84b"></a>
 const modigliani_base::Real&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemodigliani__core.html#a773adc28b5fcd0f7682ae5ec0b87d84b">STD_TEMPERATURE</a> = 6.3</td></tr>
-<tr class="memdesc:a773adc28b5fcd0f7682ae5ec0b87d84b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base temperature in [ <img class="formulaInl" alt="$\si{celsius}$" src="form_11.png"/>]. <br /></td></tr>
+<tr class="memdesc:a773adc28b5fcd0f7682ae5ec0b87d84b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base temperature in [ <img class="formulaInl" alt="$\si{celsius}$" src="form_12.png"/>]. <br /></td></tr>
 <tr class="separator:a773adc28b5fcd0f7682ae5ec0b87d84b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -320,12 +320,12 @@ const modigliani_base::Real&#160;</td><td class="memItemRight" valign="bottom"><
 <p>Returns a random channel density calculated so that the average is preserved. </p>
 <p>This function generates a binomial random number used to determine the number of channels is a compartment. In stochastic simulations, it can be usefull to study the effects of the random distribution of ion channels over the membrane. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">chDensity</td><td>Average density [ <img class="formulaInl" alt="$\si{\per\micro\meter\squared}$" src="form_2.png"/>] </td></tr>
-    <tr><td class="paramname">compArea</td><td>The membrane area of the target compartment in [ <img class="formulaInl" alt="$\si{\micro\meter\squared}$" src="form_3.png"/>] </td></tr>
+    <tr><td class="paramname">chDensity</td><td>Average density [ <img class="formulaInl" alt="$\si{\per\micro\meter\squared}$" src="form_3.png"/>] </td></tr>
+    <tr><td class="paramname">compArea</td><td>The membrane area of the target compartment in [ <img class="formulaInl" alt="$\si{\micro\meter\squared}$" src="form_4.png"/>] </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Density in [ <img class="formulaInl" alt="$\si{\per\micro\meter\squared} $" src="form_4.png"/>] </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Density in [ <img class="formulaInl" alt="$\si{\per\micro\meter\squared} $" src="form_5.png"/>] </dd></dl>
 
 </div>
 </div>
@@ -366,7 +366,7 @@ const modigliani_base::Real&#160;</td><td class="memItemRight" valign="bottom"><
 </div><div class="memdoc">
 
 <p>Creates an axon based on parameters given. </p>
-<p>The axon is an instance of Membrane_Compartment_Sequence. The parameters 'anatomy_lua' of config_root is executed in a lua interpreter. The variable 'compartments' is then read from the interpreter memory. 'compartments' is assumed to contain an array of integers. This integers are used to index the 'compartments_parameters' array, again in 'config_root', whose members contain the necessary parameters to construct a compartment. </p><dl class="section see"><dt>See also</dt><dd>The documentation for <a class="el" href="namespacemodigliani__core.html#a462a7ee7c8cbcbe78c681ea94e485425" title="Creates a cylindrical compartment using the parameters supplied in the parameters structs supplied...">CreateCompartment()</a> for the list of parameters each member of 'compartments_parameters' must provide.</dd></dl>
+<p>The axon is an instance of Membrane_Compartment_Sequence. The parameters 'anatomy_lua' of config_root is executed in a lua interpreter. The variable 'compartments' is then read from the interpreter memory. 'compartments' is assumed to contain an array of integers. This integers are used to index the 'compartments_parameters' array, again in 'config_root', whose members contain the necessary parameters to construct a compartment. </p><dl class="section see"><dt>See also</dt><dd>The documentation for <a class="el" href="namespacemodigliani__core.html#a63457a0d185cfbc8233c6155a6269014" title="Creates a compartment using the parameters supplied in the parameters structs supplied. ">CreateCompartment()</a> for the list of parameters each member of 'compartments_parameters' must provide.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">config_root</td><td>ptree containing general parameters. Usually this is the root of the ptree generated by parsing a JSON file. The following parameters are expected :<ul>
@@ -389,13 +389,19 @@ const modigliani_base::Real&#160;</td><td class="memItemRight" valign="bottom"><
 
 </div>
 </div>
-<a class="anchor" id="a462a7ee7c8cbcbe78c681ea94e485425"></a>
+<a class="anchor" id="a63457a0d185cfbc8233c6155a6269014"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classmodigliani__core_1_1Cylindrical__compartment.html">Cylindrical_compartment</a> * modigliani_core::CreateCompartment </td>
+          <td class="memname"><a class="el" href="classmodigliani__core_1_1Membrane__compartment.html">Membrane_compartment</a> * modigliani_core::CreateCompartment </td>
           <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>spheriacl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">boost::property_tree::ptree&#160;</td>
           <td class="paramname"><em>config_root</em>, </td>
         </tr>
@@ -425,12 +431,12 @@ const modigliani_base::Real&#160;</td><td class="memItemRight" valign="bottom"><
       </table>
 </div><div class="memdoc">
 
-<p>Creates a cylindrical compartment using the parameters supplied in the parameters structs supplied. </p>
-<p>The cylindriacl compartment object is created using the parameters contained in the ptrees given to this function. This function the calls <a class="el" href="namespacemodigliani__core.html#a5f64070990d983b93fdcd13b3a35994e" title="Creates current objects and adds them to the given compartment. ">AttachCurrent()</a> to attach different currents to the generated compartment. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="namespacemodigliani__core.html#a5f64070990d983b93fdcd13b3a35994e" title="Creates current objects and adds them to the given compartment. ">AttachCurrent()</a> for more details.</dd></dl>
+<p>Creates a compartment using the parameters supplied in the parameters structs supplied. </p>
+<p>The membrane compartment object is created using the parameters contained in the ptrees given to this function. This function the calls <a class="el" href="namespacemodigliani__core.html#a5f64070990d983b93fdcd13b3a35994e" title="Creates current objects and adds them to the given compartment. ">AttachCurrent()</a> to attach different currents to the generated compartment. </p><dl class="section see"><dt>See also</dt><dd><a class="el" href="namespacemodigliani__core.html#a5f64070990d983b93fdcd13b3a35994e" title="Creates current objects and adds them to the given compartment. ">AttachCurrent()</a> for more details.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">config_root</td><td>ptree containing general parameters. Usually this is the root of the ptree generated by parsing a JSON file. The following parameters are expected :<ul>
-<li>double diameter in [ <img class="formulaInl" alt="$\si{\micro\meter}$" src="form_5.png"/>]</li>
+<li>double diameter in [ <img class="formulaInl" alt="$\si{\micro\meter}$" src="form_6.png"/>]</li>
 <li>double temperature [C] </li>
 </ul>
 </td></tr>
@@ -440,9 +446,9 @@ const modigliani_base::Real&#160;</td><td class="memItemRight" valign="bottom"><
 </ul>
 </td></tr>
     <tr><td class="paramname">compartment_parameters</td><td>List of parameter for building compartments. The following parameters are expected :<ul>
-<li>double length [ <img class="formulaInl" alt="$\si{\micro\meter}$" src="form_5.png"/>]</li>
-<li>double Cm [ <img class="formulaInl" alt="$\si{\micro\farad\per\centi\meter\squared}$" src="form_6.png"/>]</li>
-<li>double Ra [ <img class="formulaInl" alt="$\si{\ohm\centi\meter}$" src="form_7.png"/>]</li>
+<li>double length [ <img class="formulaInl" alt="$\si{\micro\meter}$" src="form_6.png"/>]</li>
+<li>double Cm [ <img class="formulaInl" alt="$\si{\micro\farad\per\centi\meter\squared}$" src="form_7.png"/>]</li>
+<li>double Ra [ <img class="formulaInl" alt="$\si{\ohm\centi\meter}$" src="form_8.png"/>]</li>
 <li>ptree currents A list of ptree, each one for one type of membrane current to be attached to some compartments. </li>
 </ul>
 </td></tr>
@@ -545,13 +551,13 @@ const modigliani_base::Real&#160;</td><td class="memItemRight" valign="bottom"><
 <p>Compute length constant of a passive cable. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">diameter</td><td>Diameter in [ <img class="formulaInl" alt="$\si{\micro\meter}$" src="form_5.png"/>] </td></tr>
-    <tr><td class="paramname">rAxoplasmic</td><td>Axoplasmic resistance in [ <img class="formulaInl" alt="$\si{\ohm\centi\meter}$" src="form_7.png"/>] </td></tr>
-    <tr><td class="paramname">gLeak</td><td>Leak conductance in [ <img class="formulaInl" alt="$\si{\milli\siemens\per\centi\meter\squared}$" src="form_17.png"/>] </td></tr>
+    <tr><td class="paramname">diameter</td><td>Diameter in [ <img class="formulaInl" alt="$\si{\micro\meter}$" src="form_6.png"/>] </td></tr>
+    <tr><td class="paramname">rAxoplasmic</td><td>Axoplasmic resistance in [ <img class="formulaInl" alt="$\si{\ohm\centi\meter}$" src="form_8.png"/>] </td></tr>
+    <tr><td class="paramname">gLeak</td><td>Leak conductance in [ <img class="formulaInl" alt="$\si{\milli\siemens\per\centi\meter\squared}$" src="form_18.png"/>] </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Length constant in [ <img class="formulaInl" alt="$\si{\micro\meter}$" src="form_5.png"/>] </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Length constant in [ <img class="formulaInl" alt="$\si{\micro\meter}$" src="form_6.png"/>] </dd></dl>
 
 </div>
 </div>
@@ -748,8 +754,8 @@ const modigliani_base::Real&#160;</td><td class="memItemRight" valign="bottom"><
 <p>Converts kinetics to be used at a different temperature than the one at which they were recorded. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">temp</td><td>Simulation temperature in [ <img class="formulaInl" alt="$\si{\celsius}$" src="form_8.png"/>] </td></tr>
-    <tr><td class="paramname">baseTemp</td><td>Recording temperature in [ <img class="formulaInl" alt="$\si{\celsius}$" src="form_8.png"/>] </td></tr>
+    <tr><td class="paramname">temp</td><td>Simulation temperature in [ <img class="formulaInl" alt="$\si{\celsius}$" src="form_9.png"/>] </td></tr>
+    <tr><td class="paramname">baseTemp</td><td>Recording temperature in [ <img class="formulaInl" alt="$\si{\celsius}$" src="form_9.png"/>] </td></tr>
     <tr><td class="paramname">q10</td><td>The Q10 factor </td></tr>
   </table>
   </dd>
@@ -767,7 +773,7 @@ const modigliani_base::Real&#160;</td><td class="memItemRight" valign="bottom"><
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Feb 4 2016 14:19:37 for Modigliani by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Mar 19 2016 16:06:57 for Modigliani by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

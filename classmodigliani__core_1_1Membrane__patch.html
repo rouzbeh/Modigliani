@@ -124,6 +124,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8769c15fc0508522d1b4012e57e0b640 inherit pub_methods_classmodigliani__core_1_1Membrane__compartment"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classmodigliani__core_1_1Membrane__current.html">Membrane_current</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmodigliani__core_1_1Membrane__compartment.html#a8769c15fc0508522d1b4012e57e0b640">Current</a> (modigliani_base::Size currentIndex) const </td></tr>
 <tr class="memdesc:a8769c15fc0508522d1b4012e57e0b640 inherit pub_methods_classmodigliani__core_1_1Membrane__compartment"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current object at the given index.  <a href="#a8769c15fc0508522d1b4012e57e0b640">More...</a><br /></td></tr>
 <tr class="separator:a8769c15fc0508522d1b4012e57e0b640 inherit pub_methods_classmodigliani__core_1_1Membrane__compartment"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abef763a7d8926d1f11c86f7ea8f11829 inherit pub_methods_classmodigliani__core_1_1Membrane__compartment"><td class="memItemLeft" align="right" valign="top">virtual modigliani_base::Real&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmodigliani__core_1_1Membrane__compartment.html#abef763a7d8926d1f11c86f7ea8f11829">radius</a> () const =0</td></tr>
+<tr class="memdesc:abef763a7d8926d1f11c86f7ea8f11829 inherit pub_methods_classmodigliani__core_1_1Membrane__compartment"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the membrane surface area.  <a href="#abef763a7d8926d1f11c86f7ea8f11829">More...</a><br /></td></tr>
+<tr class="separator:abef763a7d8926d1f11c86f7ea8f11829 inherit pub_methods_classmodigliani__core_1_1Membrane__compartment"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f69bce2b60815179e1c8b78aea713f8 inherit pub_methods_classmodigliani__core_1_1Membrane__compartment"><td class="memItemLeft" align="right" valign="top">virtual modigliani_base::Real&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmodigliani__core_1_1Membrane__compartment.html#a9f69bce2b60815179e1c8b78aea713f8">length</a> () const =0</td></tr>
+<tr class="memdesc:a9f69bce2b60815179e1c8b78aea713f8 inherit pub_methods_classmodigliani__core_1_1Membrane__compartment"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the membrane surface area.  <a href="#a9f69bce2b60815179e1c8b78aea713f8">More...</a><br /></td></tr>
+<tr class="separator:a9f69bce2b60815179e1c8b78aea713f8 inherit pub_methods_classmodigliani__core_1_1Membrane__compartment"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0410e6c0413eff89a72e9669be1cda8 inherit pub_methods_classmodigliani__core_1_1Membrane__compartment"><td class="memItemLeft" align="right" valign="top">modigliani_base::Real&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmodigliani__core_1_1Membrane__compartment.html#ab0410e6c0413eff89a72e9669be1cda8">area</a> () const </td></tr>
 <tr class="memdesc:ab0410e6c0413eff89a72e9669be1cda8 inherit pub_methods_classmodigliani__core_1_1Membrane__compartment"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the membrane surface area.  <a href="#ab0410e6c0413eff89a72e9669be1cda8">More...</a><br /></td></tr>
 <tr class="separator:ab0410e6c0413eff89a72e9669be1cda8 inherit pub_methods_classmodigliani__core_1_1Membrane__compartment"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -204,8 +210,8 @@ Public Member Functions</h2></td></tr>
 <p>Constructor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">area</td><td><a class="el" href="classmodigliani__core_1_1Membrane.html" title="Membrane class. ">Membrane</a> surface area in [ <img class="formulaInl" alt="$\si{\micro\meter\squared}$" src="form_3.png"/>] </td></tr>
-    <tr><td class="paramname">newCM</td><td><a class="el" href="classmodigliani__core_1_1Membrane.html" title="Membrane class. ">Membrane</a> capcacitance in [ <img class="formulaInl" alt="$\si{\micro\farad\per\centi\meter\squared}$" src="form_6.png"/>] </td></tr>
+    <tr><td class="paramname">area</td><td><a class="el" href="classmodigliani__core_1_1Membrane.html" title="Membrane class. ">Membrane</a> surface area in [ <img class="formulaInl" alt="$\si{\micro\meter\squared}$" src="form_4.png"/>] </td></tr>
+    <tr><td class="paramname">newCM</td><td><a class="el" href="classmodigliani__core_1_1Membrane.html" title="Membrane class. ">Membrane</a> capcacitance in [ <img class="formulaInl" alt="$\si{\micro\farad\per\centi\meter\squared}$" src="form_7.png"/>] </td></tr>
   </table>
   </dd>
 </dl>
@@ -254,7 +260,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns total memrane current. </p>
-<dl class="section return"><dt>Returns</dt><dd>Current in [ <img class="formulaInl" alt="$\si{\nano\ampere}$" src="form_22.png"/>] </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Current in [ <img class="formulaInl" alt="$\si{\nano\ampere}$" src="form_23.png"/>] </dd></dl>
 
 </div>
 </div>
@@ -287,8 +293,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>modigliani/modigliani_core/<a class="el" href="membrane__patch_8h_source.html">membrane_patch.h</a></li>
-<li>modigliani/modigliani_core/membrane_patch.cc</li>
+<li>src/modigliani_core/<a class="el" href="membrane__patch_8h_source.html">membrane_patch.h</a></li>
+<li>src/modigliani_core/membrane_patch.cc</li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
@@ -299,7 +305,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Feb 4 2016 14:19:37 for Modigliani by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Mar 19 2016 16:06:58 for Modigliani by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

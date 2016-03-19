@@ -60,7 +60,7 @@
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classmodigliani__core_1_1Membrane__compartment-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">modigliani_core::Membrane_compartment Class Reference</div>  </div>
+<div class="title">modigliani_core::Membrane_compartment Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -75,7 +75,7 @@
 <map name="modigliani__core_1_1Membrane__compartment_inherit__map" id="modigliani__core_1_1Membrane__compartment_inherit__map">
 <area shape="rect" id="node4" href="classmodigliani__core_1_1Cylindrical__compartment.html" title="Cylindrical membrane compartment. " alt="" coords="26,689,219,913"/>
 <area shape="rect" id="node6" href="classmodigliani__core_1_1Membrane__patch.html" title="Membrane_patch class. " alt="" coords="244,711,425,891"/>
-<area shape="rect" id="node7" href="classmodigliani__core_1_1Spherical__compartment.html" title="This class simulates a spherical Hodgkin&#45;Huxley neuron. " alt="" coords="449,719,636,884"/>
+<area shape="rect" id="node7" href="classmodigliani__core_1_1Spherical__compartment.html" title="This class simulates a spherical Hodgkin&#45;Huxley neuron. " alt="" coords="449,711,636,891"/>
 <area shape="rect" id="node2" href="classmodigliani__core_1_1Object.html" title="Base class for all objects in modigliani_core. " alt="" coords="255,189,414,340"/>
 <area shape="rect" id="node3" href="classmodigliani__base_1_1Obj.html" title="Master class for all objects. " alt="" coords="263,5,406,141"/>
 <area shape="rect" id="node5" href="classmodigliani__core_1_1Custom__cylindrical__compartment.html" title="This class is used to take concentrations into account. " alt="" coords="5,961,240,1303"/>
@@ -117,6 +117,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8769c15fc0508522d1b4012e57e0b640"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classmodigliani__core_1_1Membrane__current.html">Membrane_current</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmodigliani__core_1_1Membrane__compartment.html#a8769c15fc0508522d1b4012e57e0b640">Current</a> (modigliani_base::Size currentIndex) const </td></tr>
 <tr class="memdesc:a8769c15fc0508522d1b4012e57e0b640"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current object at the given index.  <a href="#a8769c15fc0508522d1b4012e57e0b640">More...</a><br /></td></tr>
 <tr class="separator:a8769c15fc0508522d1b4012e57e0b640"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abef763a7d8926d1f11c86f7ea8f11829"><td class="memItemLeft" align="right" valign="top">virtual modigliani_base::Real&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmodigliani__core_1_1Membrane__compartment.html#abef763a7d8926d1f11c86f7ea8f11829">radius</a> () const =0</td></tr>
+<tr class="memdesc:abef763a7d8926d1f11c86f7ea8f11829"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the membrane surface area.  <a href="#abef763a7d8926d1f11c86f7ea8f11829">More...</a><br /></td></tr>
+<tr class="separator:abef763a7d8926d1f11c86f7ea8f11829"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f69bce2b60815179e1c8b78aea713f8"><td class="memItemLeft" align="right" valign="top">virtual modigliani_base::Real&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmodigliani__core_1_1Membrane__compartment.html#a9f69bce2b60815179e1c8b78aea713f8">length</a> () const =0</td></tr>
+<tr class="memdesc:a9f69bce2b60815179e1c8b78aea713f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the membrane surface area.  <a href="#a9f69bce2b60815179e1c8b78aea713f8">More...</a><br /></td></tr>
+<tr class="separator:a9f69bce2b60815179e1c8b78aea713f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0410e6c0413eff89a72e9669be1cda8"><td class="memItemLeft" align="right" valign="top">modigliani_base::Real&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmodigliani__core_1_1Membrane__compartment.html#ab0410e6c0413eff89a72e9669be1cda8">area</a> () const </td></tr>
 <tr class="memdesc:ab0410e6c0413eff89a72e9669be1cda8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the membrane surface area.  <a href="#ab0410e6c0413eff89a72e9669be1cda8">More...</a><br /></td></tr>
 <tr class="separator:ab0410e6c0413eff89a72e9669be1cda8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -209,10 +215,10 @@ Public Member Functions</h2></td></tr>
 <p>Constructor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">newArea</td><td><a class="el" href="classmodigliani__core_1_1Membrane.html" title="Membrane class. ">Membrane</a> surface area in [ <img class="formulaInl" alt="$\si{\micro\meter\squared}$" src="form_3.png"/>] </td></tr>
+    <tr><td class="paramname">newArea</td><td><a class="el" href="classmodigliani__core_1_1Membrane.html" title="Membrane class. ">Membrane</a> surface area in [ <img class="formulaInl" alt="$\si{\micro\meter\squared}$" src="form_4.png"/>] </td></tr>
     <tr><td class="paramname">newTemperature</td><td>Temperature in [C] </td></tr>
-    <tr><td class="paramname">newCm</td><td><a class="el" href="classmodigliani__core_1_1Membrane.html" title="Membrane class. ">Membrane</a> capacitance in [ <img class="formulaInl" alt="$\si{\micro\farad\per\centi\meter\squared}$" src="form_6.png"/>] </td></tr>
-    <tr><td class="paramname">newRa</td><td>Axoplasmic resistance in [ <img class="formulaInl" alt="$\si{ohm,\centi\meter}$" src="form_18.png"/>] </td></tr>
+    <tr><td class="paramname">newCm</td><td><a class="el" href="classmodigliani__core_1_1Membrane.html" title="Membrane class. ">Membrane</a> capacitance in [ <img class="formulaInl" alt="$\si{\micro\farad\per\centi\meter\squared}$" src="form_7.png"/>] </td></tr>
+    <tr><td class="paramname">newRa</td><td>Axoplasmic resistance in [ <img class="formulaInl" alt="$\si{ohm,\centi\meter}$" src="form_19.png"/>] </td></tr>
   </table>
   </dd>
 </dl>
@@ -242,7 +248,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the membrane surface area. </p>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classmodigliani__core_1_1Membrane.html" title="Membrane class. ">Membrane</a> area in [ <img class="formulaInl" alt="$\si{\micro\meter\squared}$" src="form_3.png"/>] </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classmodigliani__core_1_1Membrane.html" title="Membrane class. ">Membrane</a> area in [ <img class="formulaInl" alt="$\si{\micro\meter\squared}$" src="form_4.png"/>] </dd></dl>
 
 </div>
 </div>
@@ -314,7 +320,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the current conductance of the attached conductance source. </p>
-<p>You can think of this as returning <img class="formulaInl" alt="$G*m(t)^3*h(t)$" src="form_19.png"/> for a Hodgkin-Huxley sodium channel. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>You can think of this as returning <img class="formulaInl" alt="$G*m(t)^3*h(t)$" src="form_20.png"/> for a Hodgkin-Huxley sodium channel. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">currentIndex</td><td>The current source we are interested in. </td></tr>
   </table>
@@ -381,7 +387,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the membrane capacitance per surface area. </p>
-<dl class="section return"><dt>Returns</dt><dd>capacitance in [ <img class="formulaInl" alt="$\si{\micro\farad\per\centi\meter\squared}$" src="form_6.png"/>] </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>capacitance in [ <img class="formulaInl" alt="$\si{\micro\farad\per\centi\meter\squared}$" src="form_7.png"/>] </dd></dl>
 
 </div>
 </div>
@@ -399,7 +405,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sum of escape rates from current state. </p>
-<p>This is useful for the Gillespie algorithm. </p><dl class="section return"><dt>Returns</dt><dd>Escape rate in <img class="formulaInl" alt="$[\si{\kilo\hertz}$" src="form_23.png"/>] </dd></dl>
+<p>This is useful for the Gillespie algorithm. </p><dl class="section return"><dt>Returns</dt><dd>Escape rate in <img class="formulaInl" alt="$[\si{\kilo\hertz}$" src="form_24.png"/>] </dd></dl>
 
 </div>
 </div>
@@ -417,7 +423,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns total compartment capacitance. </p>
-<dl class="section return"><dt>Returns</dt><dd>Capacitance in [ <img class="formulaInl" alt="$\si{\micro\farad}$" src="form_21.png"/>] </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Capacitance in [ <img class="formulaInl" alt="$\si{\micro\farad}$" src="form_22.png"/>] </dd></dl>
 
 </div>
 </div>
@@ -435,7 +441,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns net membrane current. </p>
-<dl class="section return"><dt>Returns</dt><dd>Current in [ <img class="formulaInl" alt="$\si{\nano\ampere}$" src="form_22.png"/>] </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Current in [ <img class="formulaInl" alt="$\si{\nano\ampere}$" src="form_23.png"/>] </dd></dl>
 
 </div>
 </div>
@@ -536,6 +542,34 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a9f69bce2b60815179e1c8b78aea713f8"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual modigliani_base::Real modigliani_core::Membrane_compartment::length </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the membrane surface area. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classmodigliani__core_1_1Membrane.html" title="Membrane class. ">Membrane</a> area in [ <img class="formulaInl" alt="$\si{\micro\meter\squared}$" src="form_4.png"/>] </dd></dl>
+
+<p>Implemented in <a class="el" href="classmodigliani__core_1_1Cylindrical__compartment.html#a6c443a60e516d7df42dd8c2e9798bfa4">modigliani_core::Cylindrical_compartment</a>, and <a class="el" href="classmodigliani__core_1_1Spherical__compartment.html#acb6c2b406c7b2abe13d43fcec9c73613">modigliani_core::Spherical_compartment</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a258159702132aaad3a39f4d0eb2fcc19"></a>
 <div class="memitem">
 <div class="memproto">
@@ -576,7 +610,35 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets the axial resistance. </p>
-<dl class="section return"><dt>Returns</dt><dd>axial resistance in [ <img class="formulaInl" alt="$\si{\ohm\centi\meter}$" src="form_7.png"/>] </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>axial resistance in [ <img class="formulaInl" alt="$\si{\ohm\centi\meter}$" src="form_8.png"/>] </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="abef763a7d8926d1f11c86f7ea8f11829"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual modigliani_base::Real modigliani_core::Membrane_compartment::radius </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the membrane surface area. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classmodigliani__core_1_1Membrane.html" title="Membrane class. ">Membrane</a> area in [ <img class="formulaInl" alt="$\si{\micro\meter\squared}$" src="form_4.png"/>] </dd></dl>
+
+<p>Implemented in <a class="el" href="classmodigliani__core_1_1Cylindrical__compartment.html#aea5913c9624746907c82766ebd670fe4">modigliani_core::Cylindrical_compartment</a>, and <a class="el" href="classmodigliani__core_1_1Spherical__compartment.html#a0a4476b6a9dea7b5485387389279a9d0">modigliani_core::Spherical_compartment</a>.</p>
 
 </div>
 </div>
@@ -606,7 +668,7 @@ Public Member Functions</h2></td></tr>
 <p>This also affects future attached currents.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">newTemp</td><td>New temperature in [ <img class="formulaInl" alt="$\si{\celsius}$" src="form_8.png"/>] </td></tr>
+    <tr><td class="paramname">newTemp</td><td>New temperature in [ <img class="formulaInl" alt="$\si{\celsius}$" src="form_9.png"/>] </td></tr>
   </table>
   </dd>
 </dl>
@@ -640,7 +702,7 @@ Public Member Functions</h2></td></tr>
 <p>Sets the membrane potential. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">newVoltage</td><td><a class="el" href="classmodigliani__core_1_1Membrane.html" title="Membrane class. ">Membrane</a> potential in [ <img class="formulaInl" alt="$\si{milli\volt}$" src="form_20.png"/>] </td></tr>
+    <tr><td class="paramname">newVoltage</td><td><a class="el" href="classmodigliani__core_1_1Membrane.html" title="Membrane class. ">Membrane</a> potential in [ <img class="formulaInl" alt="$\si{milli\volt}$" src="form_21.png"/>] </td></tr>
   </table>
   </dd>
 </dl>
@@ -770,7 +832,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns temperature in compartment. </p>
-<dl class="section return"><dt>Returns</dt><dd>Temperature in [ <img class="formulaInl" alt="$\si{\celsius}$" src="form_8.png"/>] </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Temperature in [ <img class="formulaInl" alt="$\si{\celsius}$" src="form_9.png"/>] </dd></dl>
 
 </div>
 </div>
@@ -823,7 +885,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the membrane potential. </p>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classmodigliani__core_1_1Membrane.html" title="Membrane class. ">Membrane</a> potential in [ <img class="formulaInl" alt="$\si{\milli\volt}$" src="form_10.png"/>] </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classmodigliani__core_1_1Membrane.html" title="Membrane class. ">Membrane</a> potential in [ <img class="formulaInl" alt="$\si{\milli\volt}$" src="form_11.png"/>] </dd></dl>
 
 </div>
 </div>
@@ -841,7 +903,7 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns the sum of attached conductance weighted by the difference between the membrane potential and the reversal potential. </p>
-<dl class="section return"><dt>Returns</dt><dd>Current in [ <img class="formulaInl" alt="$\si{\micro\ampere}$" src="form_24.png"/>] </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Current in [ <img class="formulaInl" alt="$\si{\micro\ampere}$" src="form_25.png"/>] </dd></dl>
 
 </div>
 </div>
@@ -875,8 +937,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>modigliani/modigliani_core/<a class="el" href="membrane__compartment_8h_source.html">membrane_compartment.h</a></li>
-<li>modigliani/modigliani_core/membrane_compartment.cc</li>
+<li>src/modigliani_core/<a class="el" href="membrane__compartment_8h_source.html">membrane_compartment.h</a></li>
+<li>src/modigliani_core/membrane_compartment.cc</li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
@@ -887,7 +949,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Feb 4 2016 14:19:37 for Modigliani by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Mar 19 2016 16:06:58 for Modigliani by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

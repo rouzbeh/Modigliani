@@ -260,11 +260,11 @@ Public Member Functions</h2></td></tr>
 <p>Construct a new cylindrical compartment. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">length</td><td>Length in [ <img class="formulaInl" alt="$\si{\micro\meter}$" src="form_5.png"/>] </td></tr>
-    <tr><td class="paramname">diameter</td><td>Diameter in [ <img class="formulaInl" alt="$\si{\micro\meter}$" src="form_5.png"/>] </td></tr>
-    <tr><td class="paramname">cM</td><td><a class="el" href="classmodigliani__core_1_1Membrane.html" title="Membrane class. ">Membrane</a> capacitance in [ <img class="formulaInl" alt="$\si{\micro\farad\per\centi\meter\squared}$" src="form_6.png"/>] </td></tr>
-    <tr><td class="paramname">rA</td><td>Axoplasmic resistance in [ <img class="formulaInl" alt="$\si{\ohm\centi\meter}$" src="form_7.png"/>] </td></tr>
-    <tr><td class="paramname">newTemperature</td><td>Temperature in [ <img class="formulaInl" alt="$\si{\celsius}$" src="form_8.png"/>] </td></tr>
+    <tr><td class="paramname">length</td><td>Length in [ <img class="formulaInl" alt="$\si{\micro\meter}$" src="form_6.png"/>] </td></tr>
+    <tr><td class="paramname">diameter</td><td>Diameter in [ <img class="formulaInl" alt="$\si{\micro\meter}$" src="form_6.png"/>] </td></tr>
+    <tr><td class="paramname">cM</td><td><a class="el" href="classmodigliani__core_1_1Membrane.html" title="Membrane class. ">Membrane</a> capacitance in [ <img class="formulaInl" alt="$\si{\micro\farad\per\centi\meter\squared}$" src="form_7.png"/>] </td></tr>
+    <tr><td class="paramname">rA</td><td>Axoplasmic resistance in [ <img class="formulaInl" alt="$\si{\ohm\centi\meter}$" src="form_8.png"/>] </td></tr>
+    <tr><td class="paramname">newTemperature</td><td>Temperature in [ <img class="formulaInl" alt="$\si{\celsius}$" src="form_9.png"/>] </td></tr>
     <tr><td class="paramname">vouvinratio</td><td>Ratio of external volume to internal volume. The default value is taken from Ng, L.J. (2013). Computer Modeling of Mild Axonal Injury. Neural Comput. </td></tr>
   </table>
   </dd>
@@ -363,8 +363,8 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">currentPtr</td><td>Pointer to the <a class="el" href="classmodigliani__core_1_1Membrane__current.html" title="Membrane_current class. ">Membrane_current</a> object </td></tr>
-    <tr><td class="paramname">concentration_inside</td><td>Inside concentration in [ <img class="formulaInl" alt="$\si{\milli M}$" src="form_9.png"/>] </td></tr>
-    <tr><td class="paramname">concentration_outside</td><td>Outside concentration in [ <img class="formulaInl" alt="$\si{\milli M}$" src="form_9.png"/>] </td></tr>
+    <tr><td class="paramname">concentration_inside</td><td>Inside concentration in [ <img class="formulaInl" alt="$\si{\milli M}$" src="form_10.png"/>] </td></tr>
+    <tr><td class="paramname">concentration_outside</td><td>Outside concentration in [ <img class="formulaInl" alt="$\si{\milli M}$" src="form_10.png"/>] </td></tr>
   </table>
   </dd>
 </dl>
@@ -400,7 +400,7 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Inside concentration in [ <img class="formulaInl" alt="$\si{\milli M}$" src="form_9.png"/>] </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Inside concentration in [ <img class="formulaInl" alt="$\si{\milli M}$" src="form_10.png"/>] </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>Current indexed [1..m] </dd></dl>
 
 </div>
@@ -434,7 +434,7 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Outside concentration in [ <img class="formulaInl" alt="$\si{\milli M}$" src="form_9.png"/>] </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Outside concentration in [ <img class="formulaInl" alt="$\si{\milli M}$" src="form_10.png"/>] </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>Current indexed [1..m] </dd></dl>
 
 </div>
@@ -468,7 +468,7 @@ Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Reversal potential in [ <img class="formulaInl" alt="$\si{\milli\volt}$" src="form_10.png"/>] </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Reversal potential in [ <img class="formulaInl" alt="$\si{\milli\volt}$" src="form_11.png"/>] </dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>Current indexed [1..m] </dd></dl>
 
 </div>
@@ -499,7 +499,7 @@ Public Member Functions</h2></td></tr>
 <p>Change of temperature also affects reversal potentials.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">newTemp</td><td>Temperature in [ <img class="formulaInl" alt="$\si{celsius}$" src="form_11.png"/>] </td></tr>
+    <tr><td class="paramname">newTemp</td><td>Temperature in [ <img class="formulaInl" alt="$\si{celsius}$" src="form_12.png"/>] </td></tr>
   </table>
   </dd>
 </dl>
@@ -537,7 +537,7 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">currentIndex</td><td>Index of the current </td></tr>
-    <tr><td class="paramname">new_concentration</td><td>Concentration in [ <img class="formulaInl" alt="$\si{\milli M}$" src="form_9.png"/>] </td></tr>
+    <tr><td class="paramname">new_concentration</td><td>Concentration in [ <img class="formulaInl" alt="$\si{\milli M}$" src="form_10.png"/>] </td></tr>
   </table>
   </dd>
 </dl>
@@ -573,7 +573,7 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">currentIndex</td><td>Index of the current </td></tr>
-    <tr><td class="paramname">new_concentration</td><td>Concentration in [ <img class="formulaInl" alt="$\si{\milli M}$" src="form_9.png"/>] </td></tr>
+    <tr><td class="paramname">new_concentration</td><td>Concentration in [ <img class="formulaInl" alt="$\si{\milli M}$" src="form_10.png"/>] </td></tr>
   </table>
   </dd>
 </dl>
@@ -642,7 +642,7 @@ Public Member Functions</h2></td></tr>
 <p>Runs one step of simulation and update ionic concentrations accordingly. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">newVM</td><td><a class="el" href="classmodigliani__core_1_1Membrane.html" title="Membrane class. ">Membrane</a> potential in [ <img class="formulaInl" alt="$\si{\milli\volt}$" src="form_10.png"/>] </td></tr>
+    <tr><td class="paramname">newVM</td><td><a class="el" href="classmodigliani__core_1_1Membrane.html" title="Membrane class. ">Membrane</a> potential in [ <img class="formulaInl" alt="$\si{\milli\volt}$" src="form_11.png"/>] </td></tr>
   </table>
   </dd>
 </dl>
@@ -681,8 +681,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>modigliani/modigliani_core/<a class="el" href="custom__cylindrical__compartment_8h_source.html">custom_cylindrical_compartment.h</a></li>
-<li>modigliani/modigliani_core/custom_cylindrical_compartment.cc</li>
+<li>src/modigliani_core/<a class="el" href="custom__cylindrical__compartment_8h_source.html">custom_cylindrical_compartment.h</a></li>
+<li>src/modigliani_core/custom_cylindrical_compartment.cc</li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
@@ -693,7 +693,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Feb 4 2016 14:19:37 for Modigliani by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Mar 19 2016 16:06:57 for Modigliani by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>

@@ -182,12 +182,12 @@ template&lt;class T &gt; </div>
 <p>Access element at given coordinate position. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">coordinteVec</td><td>Vector of coordinates </td></tr>
+    <tr><td class="paramname">coordinateVec</td><td>Vector of coordinates </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Element </dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>no range checking done on the coordinates </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Element at the index </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>No range checking done on the coordinates </dd></dl>
 
 </div>
 </div>
@@ -252,7 +252,7 @@ template&lt;class T &gt; </div>
 </div><div class="memdoc">
 
 <p>access a element with a "meaningless" index </p>
-<p>The index is guaranteed to touch all elements but has no assigned meaning as to the position of element in relation to others. However index in $[0,num^dim]$ is guaranteed and will touch all elements once. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>The index is guaranteed to touch all elements but has no assigned meaning as to the position of element in relation to others. However index is guaranteed to be in <img class="formulaInl" alt="$[0,num^dim]$" src="form_1.png"/> and will touch all elements once. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">index</td><td>The index </td></tr>
   </table>
@@ -326,7 +326,7 @@ template&lt;class T &gt; </div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>modigliani/modigliani_base/<a class="el" href="multidim__array_8h_source.html">multidim_array.h</a></li>
+<li>src/modigliani_base/<a class="el" href="multidim__array_8h_source.html">multidim_array.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.8-->
@@ -337,7 +337,7 @@ template&lt;class T &gt; </div>
 </div>
 </div>
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Feb 4 2016 14:19:37 for Modigliani by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Mar 19 2016 16:06:57 for Modigliani by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.11
 </small></address>
