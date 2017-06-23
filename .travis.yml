@@ -3,42 +3,42 @@ language: cpp
 
 matrix:
   include:
-    - compiler: gcc
+    - compiler: gcc-6
       addons:
         apt:
           sources:
             - ubuntu-toolchain-r-test
             - boost-latest
           packages:
-            - g++-5
-            - libboost-filesystem1.55-dev
-            - libboost-program-options1.55-dev
-            - libboost-random1.55-dev
+            - g++-6
+            - libboost-filesystem1.60-dev
+            - libboost-program-options1.60-dev
+            - libboost-random1.60-dev
             - lua5.2
             - liblua5.2-0
             - liblua5.2-dev
       env:
-        - COMPILER=gcc-5
-        - COMPILERXX=g++-5
+        - COMPILER=gcc-6
+        - COMPILERXX=g++-6
 
-    - compiler: clang
+    - compiler: clang-3.9
       addons:
         apt:
           sources:
             - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.7
+            - llvm-toolchain-precise-3.9
             - boost-latest
           packages:
             - clang-3.7
-            - libboost-filesystem1.55-dev
-            - libboost-program-options1.55-dev
-            - libboost-random1.55-dev
+            - libboost-filesystem1.60-dev
+            - libboost-program-options1.60-dev
+            - libboost-random1.60-dev
             - lua5.2
             - liblua5.2-0
             - liblua5.2-dev
       env:
-        - COMPILERXX=clang++-3.7
-        - COMPILER=clang-3.7
+        - COMPILERXX=clang++-3.9
+        - COMPILER=clang-3.9
 
 # Build steps
 script:
