@@ -1,4 +1,4 @@
-SUBDIRS = modigliani_base modigliani_core auxsrc
+SUBDIRS = modigliani auxsrc
 
 # the library search path.
 LDFLAGS = $(all_libraries)

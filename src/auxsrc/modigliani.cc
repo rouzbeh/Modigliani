@@ -24,8 +24,8 @@
  * along with Modigliani.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <modigliani_core/aux_func.h>
-#include <modigliani_base/aux_math_func.h>
+#include <modigliani/aux_func.h>
+#include <modigliani/aux_math_func.h>
 
 #include <boost/program_options.hpp>
 #include <boost/progress.hpp>
@@ -47,7 +47,7 @@
  * \return Status
  */
 int Simulate(boost::program_options::variables_map vm) {
-  using modigliani_base::Size;
+  using modigliani::Size;
   Size numCompartments;
   boost::property_tree::ptree config_root;
   try {
@@ -60,13 +60,13 @@ int Simulate(boost::program_options::variables_map vm) {
   string timedOutputFolder;
 
   // What compartments to save
-  auto electrods_vec = modigliani_core::GetElectrods(config_root);
+  auto electrods_vec = modigliani::GetElectrods(config_root);
 
   // We write each compartment's potential and currents into a single file.
   ofstream TimeFile, LengthPerCompartmentFile, TypePerCompartmentFile, log_file;
 
   if (config_root.get<Size>("simulation_parameters.sampN") > 0) {
-    timedOutputFolder = modigliani_core::CreateOutputFolder(
+    timedOutputFolder = modigliani::CreateOutputFolder(
       config_root.get<string>("simulation_parameters.outputFolder"));
 
     std::ifstream ifs(vm["config-file"].as<string>(), std::ios::binary);
@@ -78,15 +78,15 @@ int Simulate(boost::program_options::variables_map vm) {
     ofs.close();
     ifs.close();
 
-    modigliani_core::OpenOutputFile(timedOutputFolder, "Time", TimeFile);
-    modigliani_core::OpenOutputFile(timedOutputFolder, "TypePerCompartment",
+    modigliani::OpenOutputFile(timedOutputFolder, "Time", TimeFile);
+    modigliani::OpenOutputFile(timedOutputFolder, "TypePerCompartment",
                                     TypePerCompartmentFile);
-    modigliani_core::OpenOutputFile(timedOutputFolder, "LengthPerCompartment",
+    modigliani::OpenOutputFile(timedOutputFolder, "LengthPerCompartment",
                                     LengthPerCompartmentFile);
-    modigliani_core::OpenOutputFile(timedOutputFolder, "log", log_file, ".log");
+    modigliani::OpenOutputFile(timedOutputFolder, "log", log_file, ".log");
     TimeFile << "% in ms" << std::endl;
   } else {
-    modigliani_core::OpenOutputFile("/tmp", "log", log_file, ".log");
+    modigliani::OpenOutputFile("/tmp", "log", log_file, ".log");
   }
 
   lua_State *L_inject_current = luaL_newstate();
@@ -107,7 +107,7 @@ int Simulate(boost::program_options::variables_map vm) {
       exit(1);
     }
 
-    modigliani_base::Size index = 0;
+    modigliani::Size index = 0;
 
     while (dataFile.good()) {
       if (index < inputData.size()) {
@@ -179,12 +179,12 @@ int Simulate(boost::program_options::variables_map vm) {
   boost::progress_display *show_progress = 0;
 
   /* *** Trials loop *** */
-  for (modigliani_base::Size lTrials = 0; lTrials < num_trials; lTrials++) {
-    modigliani_base::Real inp_current = 0;
+  for (modigliani::Size lTrials = 0; lTrials < num_trials; lTrials++) {
+    modigliani::Real inp_current = 0;
 
     /* Model setup */
-    modigliani_core::Membrane_compartment_sequence *oModel =
-      modigliani_core::CreateAxon(config_root, TypePerCompartmentFile,
+    modigliani::Membrane_compartment_sequence *oModel =
+      modigliani::CreateAxon(config_root, TypePerCompartmentFile,
                                   LengthPerCompartmentFile, force_alg);
 
     if (!lTrials) {
@@ -203,9 +203,9 @@ int Simulate(boost::program_options::variables_map vm) {
     log_file << "Total number of compartments(in oModel)" << numCompartments
              << std::endl;
 
-    // std::vector<modigliani_base::Real> leakCurrVec(numCompartments);
-    // std::vector<modigliani_base::Real> naCurrVec(numCompartments);
-    // std::vector<modigliani_base::Real> kCurrVec(numCompartments);
+    // std::vector<modigliani::Real> leakCurrVec(numCompartments);
+    // std::vector<modigliani::Real> naCurrVec(numCompartments);
+    // std::vector<modigliani::Real> kCurrVec(numCompartments);
 
 #ifdef WITH_PLPLOT
     /* Graphics init */
@@ -229,17 +229,17 @@ int Simulate(boost::program_options::variables_map vm) {
         config_root.get<Size>("simulation_parameters.numIter") * num_trials
         / 100);
 
-    modigliani_base::Real timeInMS = 0;
+    modigliani::Real timeInMS = 0;
     int dataRead                   = 0;
 
-    for (modigliani_base::Size lt = 0;
+    for (modigliani::Size lt = 0;
          lt < config_root.get<Size>("simulation_parameters.numIter"); lt++) {
       timeInMS += oModel->timestep();
 
       // Write number of columns
       if ((config_root.get<int>("simulation_parameters.sampN") > 0) && (lt == 0)
           && (lTrials == 0)) {
-        modigliani_base::Size counter = 0;
+        modigliani::Size counter = 0;
 
         for (auto ci = electrods_vec.begin(); ci != electrods_vec.end(); ci++) {
           if (*ci >= oModel->compartment_vec_.size())
@@ -260,7 +260,7 @@ int Simulate(boost::program_options::variables_map vm) {
 
       if ((config_root.get<int>("simulation_parameters.sampN") > 0) && (lt == 0)
           && (lTrials != 0)) {
-        modigliani_base::Size counter = 0;
+        modigliani::Size counter = 0;
 
         for (auto ci : electrods_vec) {
           oModel->compartment_vec_[ci]->SetupOutput(output_files[counter++]);
@@ -282,7 +282,7 @@ int Simulate(boost::program_options::variables_map vm) {
 
       if (plot > 0) {
         if (lt == 0) {
-          for (modigliani_base::Size lc = 1; lc < numCompartments; lc++) {
+          for (modigliani::Size lc = 1; lc < numCompartments; lc++) {
             x[lc] = x[lc - 1] + oModel->compartment_vec_[lc]->length();
           }
           pls->env(0, x[numCompartments - 1], -100, 100, 0, 0);
@@ -292,13 +292,13 @@ int Simulate(boost::program_options::variables_map vm) {
           pls->clear();
           pls->box("abcnt", 0, 0, "anvbct", 0, 0);
 
-          for (modigliani_base::Size ll = 0; ll < oModel->num_compartments();
+          for (modigliani::Size ll = 0; ll < oModel->num_compartments();
                ll++) {
             voltVec[ll] = oModel->compartment_vec_[ll]->vm();
           }
 
           for (auto iv : voltVec) {
-            if (modigliani_base::IsNAN(iv)) {
+            if (modigliani::IsNAN(iv)) {
               log_file << "ERROR at t=" << timeInMS << " voltage is NaN."
                        << std::endl;
               std::exit(1);
@@ -335,7 +335,7 @@ int Simulate(boost::program_options::variables_map vm) {
       oModel->InjectCurrent(inp_current, 1);
 
       if (change_potentials) {
-        for (modigliani_base::Size lc = 0; lc < numCompartments; lc++) {
+        for (modigliani::Size lc = 0; lc < numCompartments; lc++) {
           // Get value from lua
           lua_getglobal(L_change_potential, "change_in_potential");
           lua_pushnumber(L_change_potential, timeInMS);
@@ -368,8 +368,8 @@ int Simulate(boost::program_options::variables_map vm) {
 }
 
 int main(int argc, char *argv[]) {
-  using modigliani_base::Real;
-  using modigliani_base::Size;
+  using modigliani::Real;
+  using modigliani::Size;
   namespace po = boost::program_options;
 
   // Declare supported options.

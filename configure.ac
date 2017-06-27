@@ -80,7 +80,6 @@ AC_CONFIG_FILES([Makefile
                  test/Makefile
                  src/Makefile
                  src/auxsrc/Makefile
-                 src/modigliani_core/Makefile
-                 src/modigliani_base/Makefile])
+                 src/modigliani/Makefile])
 
 AC_OUTPUT

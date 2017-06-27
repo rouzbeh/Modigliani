@@ -27,7 +27,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <vector>
-#include "modigliani_base/sequential_statistics.h"
+#include "modigliani/sequential_statistics.h"
 
 #define NUM_NON_COLUMN_PARAM 3
 
@@ -52,7 +52,7 @@ main(int argc, char* argv[]) {
         exit(1);
     }
     std::string filename = argv[1];
-    modigliani_base::Size numNumbers = atoi(argv[2]);
+    modigliani::Size numNumbers = atoi(argv[2]);
 
     bool ascii = false;
     auto mode = std::ios::binary;
@@ -68,9 +68,9 @@ main(int argc, char* argv[]) {
         exit(2);
     }
 
-    modigliani_base::Sequential_statistics stats;
+    modigliani::Sequential_statistics stats;
 
-    for (modigliani_base::Size ll = 0; ll < numNumbers; ll++) {
+    for (modigliani::Size ll = 0; ll < numNumbers; ll++) {
       value = static_cast<float>(norm(rng));
       stats.Add(value);
       if (argc > ascii)

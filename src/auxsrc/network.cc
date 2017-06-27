@@ -24,9 +24,9 @@
  * along with Modigliani.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <modigliani_core/aux_func.h>
-#include <modigliani_core/network_synapse.h>
-#include <modigliani_core/spherical_compartment.h>
+#include <modigliani/aux_func.h>
+#include <modigliani/network_synapse.h>
+#include <modigliani/spherical_compartment.h>
 
 #include <boost/program_options.hpp>
 #include <sstream>
@@ -38,10 +38,10 @@
  * \return Status
  */
 int Simulate(boost::program_options::variables_map vm) {
-  using modigliani_base::Size;
-  using modigliani_base::Real;
-  using modigliani_core::Spherical_compartment;
-  using modigliani_core::Network_synapse;
+  using modigliani::Size;
+  using modigliani::Real;
+  using modigliani::Spherical_compartment;
+  using modigliani::Network_synapse;
   using std::vector;
 
   boost::property_tree::ptree config_root;
@@ -60,7 +60,7 @@ int Simulate(boost::program_options::variables_map vm) {
 
   std::vector<ofstream*> pot_current_files;
   if (config_root.get<Size>("simulation_parameters.sampN") > 0) {
-    timedOutputFolder = modigliani_core::CreateOutputFolder(
+    timedOutputFolder = modigliani::CreateOutputFolder(
         config_root.get<string>("simulation_parameters.outputFolder"));
 
     std::ifstream ifs(vm["config-file"].as<string>(), std::ios::binary);
@@ -72,17 +72,17 @@ int Simulate(boost::program_options::variables_map vm) {
     ofs.close();
     ifs.close();
 
-    modigliani_core::OpenOutputFile(timedOutputFolder, "Time", time_file);
-    modigliani_core::OpenOutputFile(timedOutputFolder, "log", log_file, ".log");
+    modigliani::OpenOutputFile(timedOutputFolder, "Time", time_file);
+    modigliani::OpenOutputFile(timedOutputFolder, "log", log_file, ".log");
     time_file << "% in ms" << std::endl;
 
     for (Size i = 0; i < num_neurons; i++) {
       pot_current_files.push_back(
-          modigliani_core::OpenOutputFile(timedOutputFolder, "neuron", i,
+          modigliani::OpenOutputFile(timedOutputFolder, "neuron", i,
                                           ".bin"));
     };
   } else {
-    modigliani_core::OpenOutputFile("/tmp", "log", log_file, ".log");
+    modigliani::OpenOutputFile("/tmp", "log", log_file, ".log");
   }
 
   vector<vector<float>> input_data(0);
@@ -175,28 +175,28 @@ int Simulate(boost::program_options::variables_map vm) {
     if(verbose) {
       std::cout << "MainLoop started" << std::endl;
     }
-    modigliani_base::Real timeInMS = 0;
+    modigliani::Real timeInMS = 0;
     int dataRead = 0;
-    for (modigliani_base::Size lt = 0;
+    for (modigliani::Size lt = 0;
         lt < config_root.get<Size>("simulation_parameters.numIter"); lt++) {
       timeInMS += config_root.get<double>("simulation_parameters.timeStep");
       // Write number of columns
       if (config_root.get<int>("simulation_parameters.sampN") > 0 && lt == 0
           && lTrials == 0) {
-        modigliani_base::Size counter = 0;
+        modigliani::Size counter = 0;
         for (auto ci = network_vector.begin(); ci != network_vector.end();
             ci++) {
-          modigliani_base::Size number_of_columns = (*ci)->NumberCurrents() + 1;
+          modigliani::Size number_of_columns = (*ci)->NumberCurrents() + 1;
           pot_current_files[counter++]->write(
               reinterpret_cast<char*>(&number_of_columns),
-              sizeof(modigliani_base::Size));
+              sizeof(modigliani::Size));
         }
       }
 
       // the "sampling ratio" used for "measurement" to disk
       if (config_root.get<int>("simulation_parameters.sampN") > 0
           && lt % config_root.get<int>("simulation_parameters.sampN") == 0) {
-        modigliani_base::Size counter = 0;
+        modigliani::Size counter = 0;
         for (auto ci = network_vector.begin(); ci != network_vector.end();
             ci++) {
 
@@ -242,8 +242,8 @@ int Simulate(boost::program_options::variables_map vm) {
 }
 
 int main(int argc, char* argv[]) {
-  using modigliani_base::Real;
-  using modigliani_base::Size;
+  using modigliani::Real;
+  using modigliani::Size;
   namespace po = boost::program_options;
 // Declare the supported options.
   po::options_description desc("Allowed options");
