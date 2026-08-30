@@ -73,7 +73,7 @@ main(int argc, char* argv[]) {
     for (modigliani::Size ll = 0; ll < numNumbers; ll++) {
       value = static_cast<float>(norm(rng));
       stats.Add(value);
-      if (argc > ascii)
+      if (ascii)
         output_file << value << std::endl;
       else
         output_file.write(reinterpret_cast<char*>(&value), sizeof(value));

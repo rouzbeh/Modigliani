@@ -28,8 +28,14 @@
 #include <modigliani/aux_math_func.h>
 
 #include <boost/program_options.hpp>
-#include <boost/progress.hpp>
-#include <boost/timer.hpp>
+#include <boost/version.hpp>
+#if BOOST_VERSION >= 107200
+# include <boost/timer/progress_display.hpp>
+typedef boost::timer::progress_display modigliani_progress_display;
+#else
+# include <boost/progress.hpp>
+typedef boost::progress_display modigliani_progress_display;
+#endif
 #include <boost/property_tree/exceptions.hpp>
 
 #ifdef WITH_PLPLOT
@@ -59,13 +65,19 @@ int Simulate(boost::program_options::variables_map vm) {
   }
   string timedOutputFolder;
 
+  // Simulation parameters used by the main loop.  Reading these out of the
+  // property tree costs a string parse and a tree walk each time, so pull
+  // them out once here rather than on every iteration.
+  const int sampN = config_root.get<int>("simulation_parameters.sampN");
+  const Size numIter = config_root.get<Size>("simulation_parameters.numIter");
+
   // What compartments to save
   auto electrods_vec = modigliani::GetElectrods(config_root);
 
   // We write each compartment's potential and currents into a single file.
   ofstream TimeFile, LengthPerCompartmentFile, TypePerCompartmentFile, log_file;
 
-  if (config_root.get<Size>("simulation_parameters.sampN") > 0) {
+  if (sampN > 0) {
     timedOutputFolder = modigliani::CreateOutputFolder(
       config_root.get<string>("simulation_parameters.outputFolder"));
 
@@ -90,7 +102,11 @@ int Simulate(boost::program_options::variables_map vm) {
   }
 
   lua_State *L_inject_current = luaL_newstate();
-  std::vector<float> inputData(1000000);
+  std::vector<float> inputData;
+  modigliani::Size inputSamples = 0;
+  int readN = 1;
+  double inpI = 0.0;
+  double inpISDV = 0.0;
 
   // We can inject currents in two ways. Either execute a lua program,
   // or read from a file. The choice is made depending on the presence of
@@ -107,25 +123,42 @@ int Simulate(boost::program_options::variables_map vm) {
       exit(1);
     }
 
-    modigliani::Size index = 0;
+    string line;
 
-    while (dataFile.good()) {
-      if (index < inputData.size()) {
-        char tmp[100];
-        dataFile.getline(tmp, 100);
-        std::stringstream convertor(tmp);
-        convertor >> inputData[index];
-        index++;
-      } else {
-        inputData.resize(inputData.size() + 100000);
-      }
+    while (std::getline(dataFile, line)) {
+      std::stringstream convertor(line);
+      float value = 0;
+
+      if (convertor >> value) inputData.push_back(value);
     }
     dataFile.close();
+    inputSamples = inputData.size();
+
+    if (0 == inputSamples) {
+      std::cerr << "Input file " << vm["input-file"].as<string>()
+                << " contained no samples." << std::endl;
+      exit(1);
+    }
+
+    readN   = config_root.get<int>("simulation_parameters.readN");
+    inpI    = config_root.get<double>("simulation_parameters.inpI");
+    inpISDV = config_root.get<double>("simulation_parameters.inpISDV");
+
+    if (readN < 1) {
+      std::cerr << "simulation_parameters.readN must be at least 1, got "
+                << readN << "." << std::endl;
+      exit(1);
+    }
   } else {
     string lua_inject_script = config_root.get<string>(
       "simulation_parameters.inject_current_lua");
     luaL_openlibs(L_inject_current);
-    luaL_dostring(L_inject_current, lua_inject_script.c_str());
+
+    if (luaL_dostring(L_inject_current, lua_inject_script.c_str())) {
+      std::cerr << "Failed to run inject_current_lua : "
+                << lua_tostring(L_inject_current, -1) << std::endl;
+      exit(1);
+    }
   }
 
   bool verbose = false;
@@ -168,7 +201,13 @@ int Simulate(boost::program_options::variables_map vm) {
     string lua_change_potential_script = config_root.get<string>(
       "simulation_parameters.change_potential_lua");
     luaL_openlibs(L_change_potential);
-    luaL_dostring(L_change_potential, lua_change_potential_script.c_str());
+
+    if (luaL_dostring(L_change_potential,
+                      lua_change_potential_script.c_str())) {
+      std::cerr << "Failed to run change_potential_lua : "
+                << lua_tostring(L_change_potential, -1) << std::endl;
+      exit(1);
+    }
     change_potentials = true;
   } catch (const boost::property_tree::ptree_bad_path& e) {
     // No need to change potentials
@@ -176,7 +215,7 @@ int Simulate(boost::program_options::variables_map vm) {
     lua_close(L_change_potential);
   }
   auto output_files                      = vector<string>(0);
-  boost::progress_display *show_progress = 0;
+  modigliani_progress_display *show_progress = 0;
 
   /* *** Trials loop *** */
   for (modigliani::Size lTrials = 0; lTrials < num_trials; lTrials++) {
@@ -203,6 +242,24 @@ int Simulate(boost::program_options::variables_map vm) {
     log_file << "Total number of compartments(in oModel)" << numCompartments
              << std::endl;
 
+    // Drop electrodes that name a compartment the model does not have, once,
+    // here: every use of electrods_vec below indexes compartment_vec_
+    // directly.
+    if (!lTrials) {
+      auto valid_electrods = std::vector<modigliani::Size>();
+
+      for (auto ci : electrods_vec) {
+        if (ci >= oModel->compartment_vec_.size()) {
+          std::cerr
+            << "Warning : Electrod requested in non existing compartment "
+            << ci << " ignored." << std::endl;
+          continue;
+        }
+        valid_electrods.push_back(ci);
+      }
+      electrods_vec = valid_electrods;
+    }
+
     // std::vector<modigliani::Real> leakCurrVec(numCompartments);
     // std::vector<modigliani::Real> naCurrVec(numCompartments);
     // std::vector<modigliani::Real> kCurrVec(numCompartments);
@@ -225,52 +282,42 @@ int Simulate(boost::program_options::variables_map vm) {
     std::cerr << "MainLoop started" << std::endl;
 
     if (show_bar && (show_progress == 0))
-      show_progress = new boost::progress_display(
-        config_root.get<Size>("simulation_parameters.numIter") * num_trials
-        / 100);
+      show_progress = new modigliani_progress_display(
+        numIter * num_trials / 100);
 
     modigliani::Real timeInMS = 0;
     int dataRead                   = 0;
 
-    for (modigliani::Size lt = 0;
-         lt < config_root.get<Size>("simulation_parameters.numIter"); lt++) {
+    for (modigliani::Size lt = 0; lt < numIter; lt++) {
       timeInMS += oModel->timestep();
 
       // Write number of columns
-      if ((config_root.get<int>("simulation_parameters.sampN") > 0) && (lt == 0)
-          && (lTrials == 0)) {
+      if ((sampN > 0) && (lt == 0) && (lTrials == 0)) {
         modigliani::Size counter = 0;
 
         for (auto ci = electrods_vec.begin(); ci != electrods_vec.end(); ci++) {
-          if (*ci >= oModel->compartment_vec_.size())
-            std::cerr
-              << "Warning : Electrod requested in non existing compartment "
-              << *ci << " ignored." << std::endl;
-
           stringstream ss(stringstream::in | stringstream::out);
           ss << timedOutputFolder << "/compartments/" << "compartment" << "_"
              << counter << ".bin";
-          string temp_name;
-          ss >> temp_name;
+          // str(), not operator>>: the output folder may contain spaces.
+          string temp_name = ss.str();
           output_files.push_back(temp_name);
           oModel->compartment_vec_[*ci]->SetupOutput(temp_name);
           counter++;
         }
       }
 
-      if ((config_root.get<int>("simulation_parameters.sampN") > 0) && (lt == 0)
-          && (lTrials != 0)) {
+      if ((sampN > 0) && (lt == 0) && (lTrials != 0)) {
         modigliani::Size counter = 0;
 
         for (auto ci : electrods_vec) {
+          if (counter >= output_files.size()) break;
           oModel->compartment_vec_[ci]->SetupOutput(output_files[counter++]);
         }
       }
 
       // the "sampling ratio" used for "measurement" to disk
-      if ((config_root.get<int>("simulation_parameters.sampN") > 0)
-          && ((lt + 1) % config_root.get<int>("simulation_parameters.sampN") ==
-              0)) {
+      if ((sampN > 0) && ((lt + 1) % sampN == 0)) {
         for (auto ci = electrods_vec.begin(); ci != electrods_vec.end(); ci++) {
           oModel->compartment_vec_[*ci]->WriteOutput();
         }
@@ -297,18 +344,6 @@ int Simulate(boost::program_options::variables_map vm) {
             voltVec[ll] = oModel->compartment_vec_[ll]->vm();
           }
 
-          for (auto iv : voltVec) {
-            if (modigliani::IsNAN(iv)) {
-              log_file << "ERROR at t=" << timeInMS << " voltage is NaN."
-                       << std::endl;
-              std::exit(1);
-            } else if (iv > 200.0 /* mV */) {
-              log_file << "ERROR at t=" << timeInMS
-                       << " voltage in compartment  is " << iv << "."
-                       << std::endl;
-              std::exit(1);
-            }
-          }
           pls->line((PLINT)oModel->num_compartments(), x, voltVec);
           pls->flush();
         }
@@ -316,10 +351,15 @@ int Simulate(boost::program_options::variables_map vm) {
 #endif // ifdef WITH_PLPLOT
 
       if (vm.count("input-file")) {
-        if (lt % config_root.get<int>("simulation_parameters.readN") == 0) {
-          inp_current = (inputData[dataRead]
-                         * config_root.get<double>("simulation_parameters.inpISDV"))
-                        + config_root.get<double>("simulation_parameters.inpI");
+        if (lt % readN == 0) {
+          if (static_cast<modigliani::Size>(dataRead) >= inputSamples) {
+            std::cerr << "Input file exhausted after " << inputSamples
+                      << " samples at t=" << timeInMS
+                      << " ms; increase readN or supply more data."
+                      << std::endl;
+            exit(1);
+          }
+          inp_current = (inputData[dataRead] * inpISDV) + inpI;
           dataRead++;
           cout << inp_current << endl;
         }
@@ -349,6 +389,27 @@ int Simulate(boost::program_options::variables_map vm) {
       }
 
       oModel->Step();
+
+      // Divergence detection.  This used to live inside the PLplot-only
+      // plotting block, so a build without PLplot - the usual case - would
+      // happily write out NaNs.
+      for (modigliani::Size lc = 0; lc < numCompartments; lc++) {
+        modigliani::Real iv = oModel->compartment_vec_[lc]->vm();
+
+        if (modigliani::IsNAN(iv)) {
+          log_file << "ERROR at t=" << timeInMS << " voltage in compartment "
+                   << lc << " is NaN." << std::endl;
+          std::cerr << "ERROR at t=" << timeInMS << " voltage in compartment "
+                    << lc << " is NaN." << std::endl;
+          std::exit(1);
+        } else if (iv > 200.0 /* mV */) {
+          log_file << "ERROR at t=" << timeInMS << " voltage in compartment "
+                   << lc << " is " << iv << "." << std::endl;
+          std::cerr << "ERROR at t=" << timeInMS << " voltage in compartment "
+                    << lc << " is " << iv << "." << std::endl;
+          std::exit(1);
+        }
+      }
 
       if (show_bar && (lt % 100 == 0)) show_progress->operator++();
     }

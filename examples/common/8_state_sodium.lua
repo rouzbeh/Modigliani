@@ -8,8 +8,8 @@ M.h = AlphaH(-0)/(AlphaH(-0)+BetaH(-0))
 
 -- Deterministic
 function M.set_temp(new_temp)
-   M.q10mfactor = math.pow(q10m, (new_temp - base_temperature) / 10.0)
-   M.q10hfactor = math.pow(q10h, (new_temp - base_temperature) / 10.0)
+   M.q10mfactor = q10m ^ ((new_temp - base_temperature) / 10.0)
+   M.q10hfactor = q10h ^ ((new_temp - base_temperature) / 10.0)
 end
 
 function M.compute_conductance()

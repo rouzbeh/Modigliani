@@ -31,9 +31,9 @@ namespace modigliani {
                                                  modigliani::Real new_max,
                                                  modigliani::Real new_step)
   :min_(new_min), max_(new_max), step_(new_step), num_states_(new_num_states) {
-    max_index_ = GetIndex(new_max);
-    int length =
-      (floor((max_ - min_) / step_ + 0.5) + 1) * num_states_ * num_states_;
+    max_index_ =
+      static_cast<modigliani::Size>(floor((max_ - min_) / step_ + 0.5));
+    int length = (max_index_ + 1) * num_states_ * num_states_;
       prob_matrices_ = new modigliani::Real[length];
     for (int i = 0; i < length; i++) {
       prob_matrices_[i] = 0;
@@ -52,7 +52,7 @@ namespace modigliani {
                                                         Size stop,
                                                         modigliani::
                                                         Real probability) {
-    modigliani::Size index = floor((voltage - min_) / step_ + 0.5);
+    modigliani::Size index = GetIndex(voltage);
     prob_matrices_[index * num_states_ * num_states_ + (start - 1) * num_states_
                   + (stop - 1)] = probability;
   }
@@ -71,16 +71,27 @@ namespace modigliani {
 
 modigliani::Size Transition_rate_matrix::GetIndex(modigliani::
                                                           Real voltage) {
-    return (floor((voltage - min_) / step_ + 0.5));
+    // Bounds-check the bin, not the raw voltage: rounding can put a
+    // voltage a hair outside [min_, max_] while still landing on a valid
+    // bin.  The conversion itself must be guarded because turning a
+    // negative double into an unsigned Size is undefined behaviour - it
+    // saturates to 0 on arm64 (silently returning the minV bin) and wraps
+    // to ~4.29e9 on x86-64 (an out-of-bounds read).
+    modigliani::Real index = floor((voltage - min_) / step_ + 0.5);
+
+    if (index < 0.0) {
+      throw std::out_of_range("Voltage smaller than minimum authorized value.");
+    }
+    if (index > static_cast<modigliani::Real>(max_index_)) {
+      throw std::out_of_range("Voltage greater than maximum authorized value.");
+    }
+    return (static_cast<modigliani::Size>(index));
   }
 
   modigliani::Real Transition_rate_matrix::
     GetTransitionProbability(modigliani::Real voltage,
                              modigliani::Size start,
                              modigliani::Size stop) {
-    if (voltage > max_) {
-      throw std::out_of_range("Voltage greater than maximum authorized value.");
-    }
     return (prob_matrices_[GetIndex(voltage) * num_states_ * num_states_
                           + (start - 1) * num_states_ + (stop - 1)]);
   }

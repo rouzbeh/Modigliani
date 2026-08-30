@@ -5,7 +5,7 @@ M.q10factor = 0
 
 -- Deterministic
 function M.set_temp(new_temp)
-   M.q10factor = math.pow(q10, (new_temp - base_temperature) / 10.0)
+   M.q10factor = q10 ^ ((new_temp - base_temperature) / 10.0)
 end
 
 function M.compute_conductance()

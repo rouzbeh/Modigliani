@@ -20,7 +20,10 @@ AC_LANG(C++)
 
 # Checks for libraries.
 AX_BOOST_BASE([1.55],, [AC_MSG_ERROR([Modigliani needs Boost, but it was not found in your system])])
-AX_BOOST_RANDOM
+# Boost.Random is header-only for the distributions we use (mt19937,
+# uniform_01, binomial_distribution, normal_distribution), so AX_BOOST_BASE
+# is enough.  There is no AX_BOOST_RANDOM call here: the macro was never
+# shipped in m4/ and expanded to a shell syntax error at configure time.
 AX_BOOST_FILESYSTEM
 AX_BOOST_PROGRAM_OPTIONS
 AX_BOOST_SYSTEM
