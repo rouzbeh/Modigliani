@@ -1,0 +1,9 @@
+<map id="modigliani::Synaptic_background" name="modigliani::Synaptic_background">
+<area shape="rect" id="Node000001" title="This class represents a synaptic background current." alt="" coords="5,640,191,740"/>
+<area shape="rect" id="Node000002" href="$classmodigliani_1_1Membrane__current.html" title="Membrane_current class." alt="" coords="6,252,190,592"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,606,101,640,95,640,95,606"/>
+<area shape="rect" id="Node000003" href="$classmodigliani_1_1Object.html" title="Base class for all objects in modigliani." alt="" coords="31,119,165,204"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="101,218,101,252,95,252,95,218"/>
+<area shape="rect" id="Node000004" href="$classmodigliani_1_1Obj.html" title="Master class for all objects." alt="" coords="41,5,155,71"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="101,85,101,119,95,119,95,85"/>
+</map>

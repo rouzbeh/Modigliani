@@ -1,0 +1,7 @@
+<map id="modigliani::Transition_rate_matrix" name="modigliani::Transition_rate_matrix">
+<area shape="rect" id="Node000001" title="Holds voltage dependent transition rates for a Markov chain." alt="" coords="5,252,200,432"/>
+<area shape="rect" id="Node000002" href="$classmodigliani_1_1Object.html" title="Base class for all objects in modigliani." alt="" coords="36,119,169,204"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,218,105,252,100,252,100,218"/>
+<area shape="rect" id="Node000003" href="$classmodigliani_1_1Obj.html" title="Master class for all objects." alt="" coords="46,5,159,71"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="105,85,105,119,100,119,100,85"/>
+</map>

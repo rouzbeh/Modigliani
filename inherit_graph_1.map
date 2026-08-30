@@ -1,0 +1,47 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classmodigliani_1_1Obj.html" title="Master class for all objects." alt="" coords="5,189,127,214"/>
+<area shape="rect" id="Node000001" href="$classmodigliani_1_1Histogram.html" title="Histogram class." alt="" coords="175,74,342,99"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="87,177,125,143,173,110,203,97,206,102,176,114,129,147,91,181"/>
+<area shape="rect" id="Node000002" href="$classmodigliani_1_1Multidim__array.html" title="Multidimensional array." alt="" coords="180,124,337,164"/>
+<area shape="poly" id="edge2_Node000000_Node000002" title=" " alt="" coords="122,182,190,161,192,167,123,187"/>
+<area shape="rect" id="Node000003" href="$classmodigliani_1_1Object.html" title="Base class for all objects in modigliani." alt="" coords="188,189,329,214"/>
+<area shape="poly" id="edge3_Node000000_Node000003" title=" " alt="" coords="140,199,188,199,188,204,140,204"/>
+<area shape="rect" id="Node000021" href="$classmodigliani_1_1Sequential__statistics.html" title="Sequential_statistics class." alt="" coords="175,239,343,279"/>
+<area shape="poly" id="edge21_Node000000_Node000021" title=" " alt="" coords="123,215,192,236,190,241,122,220"/>
+<area shape="rect" id="Node000022" href="$classmodigliani_1_1Timing.html" title="a stopwatch like measurement object." alt="" coords="187,303,331,329"/>
+<area shape="poly" id="edge22_Node000000_Node000022" title=" " alt="" coords="91,222,129,256,176,288,206,301,203,306,173,293,125,260,87,226"/>
+<area shape="rect" id="Node000004" href="$classmodigliani_1_1Ion__channels.html" title="Base class for all ion channels." alt="" coords="391,82,575,107"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="328,181,341,174,356,160,364,146,373,131,389,116,413,105,415,110,392,121,377,134,369,148,360,163,344,178,331,186"/>
+<area shape="rect" id="Node000005" href="$classmodigliani_1_1Membrane.html" title="Membrane class." alt="" coords="398,131,567,157"/>
+<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="321,183,432,154,433,159,323,188"/>
+<area shape="rect" id="Node000007" href="$classmodigliani_1_1Membrane__compartment.html" title="Membrane_compartment class acts as a &quot;container + glue&quot; for the various membrane_current classes that..." alt="" coords="398,181,567,221"/>
+<area shape="poly" id="edge7_Node000003_Node000007" title=" " alt="" coords="343,199,398,199,398,204,343,204"/>
+<area shape="rect" id="Node000012" href="$classmodigliani_1_1Membrane__current.html" title="Membrane_current class." alt="" coords="398,271,567,311"/>
+<area shape="poly" id="edge12_Node000003_Node000012" title=" " alt="" coords="319,216,344,224,442,268,440,273,342,229,317,221"/>
+<area shape="rect" id="Node000020" href="$classmodigliani_1_1Transition__rate__matrix.html" title="Holds voltage dependent transition rates for a Markov chain." alt="" coords="401,335,564,375"/>
+<area shape="poly" id="edge20_Node000003_Node000020" title=" " alt="" coords="336,218,345,225,363,249,369,274,376,298,393,321,409,332,406,337,389,325,371,300,364,275,358,251,341,229,333,223"/>
+<area shape="rect" id="Node000006" href="$classmodigliani_1_1Membrane__compartment__sequence.html" title="Sequence of cylindrical membrane compartments, basically a cable." alt="" coords="631,5,818,45"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="560,124,573,117,588,102,596,87,605,71,621,55,643,43,645,48,624,59,609,74,601,89,592,105,576,121,563,128"/>
+<area shape="rect" id="Node000008" href="$classmodigliani_1_1Cylindrical__compartment.html" title="Cylindrical membrane compartment." alt="" coords="641,69,809,109"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="560,173,573,166,587,154,596,143,606,131,621,119,646,107,648,112,624,124,610,135,601,146,591,158,576,170,563,178"/>
+<area shape="rect" id="Node000010" href="$classmodigliani_1_1Membrane__patch.html" title="Membrane_patch class." alt="" coords="640,133,809,173"/>
+<area shape="poly" id="edge10_Node000007_Node000010" title=" " alt="" coords="580,179,639,167,640,173,581,185"/>
+<area shape="rect" id="Node000011" href="$classmodigliani_1_1Spherical__compartment.html" title="This class simulates a spherical Hodgkin&#45;Huxley neuron." alt="" coords="645,197,804,237"/>
+<area shape="poly" id="edge11_Node000007_Node000011" title=" " alt="" coords="581,205,645,209,645,215,581,210"/>
+<area shape="rect" id="Node000009" href="$classmodigliani_1_1Custom__cylindrical__compartment.html" title="This class is used to take concentrations into account." alt="" coords="877,69,1067,109"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="822,87,877,87,877,92,822,92"/>
+<area shape="rect" id="Node000013" href="$classmodigliani_1_1Leak__current.html" title="Simulates a leak current." alt="" coords="633,262,816,287"/>
+<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="581,282,633,278,634,283,581,287"/>
+<area shape="rect" id="Node000014" href="$classmodigliani_1_1Network__synapse.html" title="This class acts as a simplified synapse for use in neuronal network simulations." alt="" coords="647,312,802,352"/>
+<area shape="poly" id="edge14_Node000012_Node000014" title=" " alt="" coords="581,305,648,316,647,321,580,310"/>
+<area shape="rect" id="Node000015" href="$classmodigliani_1_1Synaptic__background.html" title="This class represents a synaptic background current." alt="" coords="647,376,802,416"/>
+<area shape="poly" id="edge15_Node000012_Node000015" title=" " alt="" coords="564,314,576,320,591,331,601,342,610,352,624,362,649,373,647,378,621,366,606,356,597,345,587,335,573,325,561,319"/>
+<area shape="rect" id="Node000016" href="$classmodigliani_1_1Voltage__gated__ion__channel__current.html" title="Base class for voltage gated ion channels." alt="" coords="623,440,827,480"/>
+<area shape="poly" id="edge16_Node000012_Node000016" title=" " alt="" coords="571,316,577,321,588,334,595,348,601,375,607,401,613,414,624,426,642,438,638,442,621,430,609,417,602,403,596,376,590,350,584,337,573,325,568,320"/>
+<area shape="rect" id="Node000017" href="$classmodigliani_1_1File__based__stochastic__voltage__gated__channel.html" title="Voltage gated ion channel with transition probabilities stored in a file." alt="" coords="875,354,1069,409"/>
+<area shape="poly" id="edge17_Node000016_Node000017" title=" " alt="" coords="801,433,826,425,886,406,887,411,827,431,803,438"/>
+<area shape="rect" id="Node000018" href="$classmodigliani_1_1Lua__based__deterministic__voltage__gated__channel.html" title="This class contains can read a lua script and interpret it to simulate an ion channel deterministical..." alt="" coords="887,433,1057,487"/>
+<area shape="poly" id="edge18_Node000016_Node000018" title=" " alt="" coords="840,457,886,457,886,463,840,463"/>
+<area shape="rect" id="Node000019" href="$classmodigliani_1_1Lua__based__stochastic__voltage__gated__channel.html" title="Stochastic ion channel with transition probabilities read from a lua script." alt="" coords="875,511,1069,566"/>
+<area shape="poly" id="edge19_Node000016_Node000019" title=" " alt="" coords="802,482,886,509,885,514,800,487"/>
+</map>

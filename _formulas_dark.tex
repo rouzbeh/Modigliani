@@ -1,0 +1,114 @@
+\documentclass{article}
+\usepackage{ifthen}
+\usepackage{epsfig}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\color{white}
+\pagecolor{black}
+% Packages requested by user
+\usepackage{siunitx}
+
+\usepackage{newunicodechar}
+  \makeatletter
+    \def\doxynewunicodechar#1#2{%
+    \@tempswafalse
+    \edef\nuc@tempa{\detokenize{#1}}%
+    \if\relax\nuc@tempa\relax
+      \nuc@emptyargerr
+    \else
+      \edef\@tempb{\expandafter\@car\nuc@tempa\@nil}%
+      \nuc@check
+      \if@tempswa
+        \@namedef{u8:\nuc@tempa}{#2}%
+      \fi
+    \fi
+  }
+  \makeatother
+  \doxynewunicodechar{⁻}{${}^{-}$}% Superscript minus
+  \doxynewunicodechar{²}{${}^{2}$}% Superscript two
+  \doxynewunicodechar{³}{${}^{3}$}% Superscript three
+
+\pagestyle{empty}
+\begin{document}
+$\si{\per\micro\meter\squared}$
+\pagebreak
+
+$\si{\micro\meter\squared}$
+\pagebreak
+
+$\si{\per\micro\meter\squared} $
+\pagebreak
+
+$\si{\micro\meter}$
+\pagebreak
+
+$\si{\micro\farad\per\centi\meter\squared}$
+\pagebreak
+
+$\si{\ohm\centi\meter}$
+\pagebreak
+
+$p\times log(p)$
+\pagebreak
+
+$\si{\celsius}$
+\pagebreak
+
+$\si{\milli M}$
+\pagebreak
+
+$\si{\milli\volt}$
+\pagebreak
+
+$\si{celsius}$
+\pagebreak
+
+$\si{\micro\meter\cubed}$
+\pagebreak
+
+$\SI{10}{\milli\volt}$
+\pagebreak
+
+$\si{\milli\siemens}$
+\pagebreak
+
+$\si{\milli\second}$
+\pagebreak
+
+$\si{\per\second}$
+\pagebreak
+
+$\si{\milli\siemens\per\centi\meter\squared}$
+\pagebreak
+
+$\si{ohm,\centi\meter}$
+\pagebreak
+
+$G*m(t)^3*h(t)$
+\pagebreak
+
+$\si{milli\volt}$
+\pagebreak
+
+$\si{\micro\farad}$
+\pagebreak
+
+$\si{\nano\ampere}$
+\pagebreak
+
+$[\si{\kilo\hertz}$
+\pagebreak
+
+$\si{\micro\ampere}$
+\pagebreak
+
+$\si{\per\milli\second}$
+\pagebreak
+
+$[0,num^dim]$
+\pagebreak
+
+$\si{\second}$
+\pagebreak
+
+\end{document}

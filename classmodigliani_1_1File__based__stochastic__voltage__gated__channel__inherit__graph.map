@@ -1,0 +1,11 @@
+<map id="modigliani::File_based_stochastic_voltage_gated_channel" name="modigliani::File_based_stochastic_voltage_gated_channel">
+<area shape="rect" id="Node000001" title="Voltage gated ion channel with transition probabilities stored in a file." alt="" coords="10,943,207,1152"/>
+<area shape="rect" id="Node000002" href="$classmodigliani_1_1Voltage__gated__ion__channel__current.html" title="Base class for voltage gated ion channels." alt="" coords="5,640,212,895"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,908,111,943,106,943,106,908"/>
+<area shape="rect" id="Node000003" href="$classmodigliani_1_1Membrane__current.html" title="Membrane_current class." alt="" coords="17,252,201,592"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="111,606,111,640,106,640,106,606"/>
+<area shape="rect" id="Node000004" href="$classmodigliani_1_1Object.html" title="Base class for all objects in modigliani." alt="" coords="42,119,175,204"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="111,218,111,252,106,252,106,218"/>
+<area shape="rect" id="Node000005" href="$classmodigliani_1_1Obj.html" title="Master class for all objects." alt="" coords="52,5,165,71"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="111,85,111,119,106,119,106,85"/>
+</map>

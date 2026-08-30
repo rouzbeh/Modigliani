@@ -1,0 +1,15 @@
+<map id="modigliani::Membrane_compartment" name="modigliani::Membrane_compartment">
+<area shape="rect" id="Node000001" title="Membrane_compartment class acts as a &quot;container + glue&quot; for the various membrane_current classes that..." alt="" coords="235,252,447,532"/>
+<area shape="rect" id="Node000004" href="$classmodigliani_1_1Cylindrical__compartment.html" title="Cylindrical membrane compartment." alt="" coords="33,580,235,780"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="234,545,208,581,204,578,230,542"/>
+<area shape="rect" id="Node000006" href="$classmodigliani_1_1Membrane__patch.html" title="Membrane_patch class." alt="" coords="260,610,421,750"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="343,546,343,610,338,610,338,546"/>
+<area shape="rect" id="Node000007" href="$classmodigliani_1_1Spherical__compartment.html" title="This class simulates a spherical Hodgkin&#45;Huxley neuron." alt="" coords="445,610,639,750"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="449,542,496,608,491,611,445,545"/>
+<area shape="rect" id="Node000002" href="$classmodigliani_1_1Object.html" title="Base class for all objects in modigliani." alt="" coords="274,119,407,204"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="343,218,343,252,338,252,338,218"/>
+<area shape="rect" id="Node000003" href="$classmodigliani_1_1Obj.html" title="Master class for all objects." alt="" coords="284,5,397,71"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="343,85,343,119,338,119,338,85"/>
+<area shape="rect" id="Node000005" href="$classmodigliani_1_1Custom__cylindrical__compartment.html" title="This class is used to take concentrations into account." alt="" coords="5,828,263,1143"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="137,794,137,828,131,828,131,794"/>
+</map>

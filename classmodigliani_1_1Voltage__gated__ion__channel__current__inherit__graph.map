@@ -1,0 +1,15 @@
+<map id="modigliani::Voltage_gated_ion_channel_current" name="modigliani::Voltage_gated_ion_channel_current">
+<area shape="rect" id="Node000001" title="Base class for voltage gated ion channels." alt="" coords="222,640,429,895"/>
+<area shape="rect" id="Node000005" href="$classmodigliani_1_1File__based__stochastic__voltage__gated__channel.html" title="Voltage gated ion channel with transition probabilities stored in a file." alt="" coords="5,943,203,1152"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="218,907,189,944,184,941,214,904"/>
+<area shape="rect" id="Node000006" href="$classmodigliani_1_1Lua__based__deterministic__voltage__gated__channel.html" title="This class contains can read a lua script and interpret it to simulate an ion channel deterministical..." alt="" coords="227,963,424,1132"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="328,908,328,962,323,962,323,908"/>
+<area shape="rect" id="Node000007" href="$classmodigliani_1_1Lua__based__stochastic__voltage__gated__channel.html" title="Stochastic ion channel with transition probabilities read from a lua script." alt="" coords="448,953,645,1142"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="436,904,474,951,470,954,432,907"/>
+<area shape="rect" id="Node000002" href="$classmodigliani_1_1Membrane__current.html" title="Membrane_current class." alt="" coords="233,252,417,592"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="328,606,328,640,323,640,323,606"/>
+<area shape="rect" id="Node000003" href="$classmodigliani_1_1Object.html" title="Base class for all objects in modigliani." alt="" coords="259,119,392,204"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="328,218,328,252,323,252,323,218"/>
+<area shape="rect" id="Node000004" href="$classmodigliani_1_1Obj.html" title="Master class for all objects." alt="" coords="269,5,382,71"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="328,85,328,119,323,119,323,85"/>
+</map>

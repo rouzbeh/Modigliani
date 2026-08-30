@@ -1,0 +1,9 @@
+<map id="modigliani::Membrane" name="modigliani::Membrane">
+<area shape="rect" id="Node000001" title="Membrane class." alt="" coords="42,252,203,317"/>
+<area shape="rect" id="Node000004" href="$classmodigliani_1_1Membrane__compartment__sequence.html" title="Sequence of cylindrical membrane compartments, basically a cable." alt="" coords="5,365,240,689"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="125,331,125,365,120,365,120,331"/>
+<area shape="rect" id="Node000002" href="$classmodigliani_1_1Object.html" title="Base class for all objects in modigliani." alt="" coords="56,119,189,204"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,218,125,252,120,252,120,218"/>
+<area shape="rect" id="Node000003" href="$classmodigliani_1_1Obj.html" title="Master class for all objects." alt="" coords="66,5,179,71"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="125,85,125,119,120,119,120,85"/>
+</map>
