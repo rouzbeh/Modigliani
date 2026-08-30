@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
-"""Assert that --seed makes a run reproducible, and that its absence does not.
+"""Assert that runs are independent by default and repeatable on demand.
 
-Modigliani used to seed every generator from time(NULL), so any two runs
-started within the same second produced byte-identical output - a job array
-of "independent" trials was one trial repeated. This guards the fix from
-both sides:
+Both properties matter for Monte Carlo work: a batch of trials launched
+together must not collapse into copies of a single trial, and a result worth
+keeping must be reproducible. Checked from both sides:
 
   * the same --seed twice must give identical recordings, and
   * two unseeded runs, started back to back, must not.

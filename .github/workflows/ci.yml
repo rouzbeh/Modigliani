@@ -64,21 +64,20 @@ jobs:
       - name: Unit tests
         run: ./build/test/tests
 
-      # The suprathreshold example must produce an action potential. This
-      # catches the whole pipeline going quietly wrong in a way that
-      # compiling and unit tests would not.
+      # The evidence that the model is intact is in the recording, not in
+      # whether it compiled: require a real action potential.
       - name: Check the simulation spikes
         run: python3 .github/check_spike.py build/src/auxsrc/modigliani
 
-      # Same assertion with the channel noise switched off, so a regression
-      # in the deterministic solver cannot hide behind the stochastic one.
+      # Same assertion with the channel noise switched off, so the
+      # deterministic solver is covered on its own terms.
       - name: Check the deterministic solver spikes
         run: |
           python3 .github/check_spike.py build/src/auxsrc/modigliani \
             examples/sga_suprathreshold.json --algorithm 1
 
-      # The at-threshold example is not asserted on - it fires about eight
-      # times in ten by design - but it must still run cleanly.
+      # The at-threshold example fires about eight times in ten by design,
+      # so it is run for cleanliness rather than asserted on.
       - name: Run the at-threshold example
         run: |
           cd examples

@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 """Smoke test: run an example and assert that it produced an action potential.
 
-The simulator can fail in ways neither compiling nor the unit tests notice -
-channels silently not attached, a step algorithm quietly discarding its
-timestep, a diverging integration writing NaNs. All of those show up in the
-recording, so check the recording.
+Compiling and the unit tests say very little about a simulator. The evidence
+that the model is intact is in the recording: the right number of columns, a
+plausible resting potential, a real spike, no NaNs. Check that.
 
 Uses examples/sga_suprathreshold.json, which fires under every algorithm.
-examples/sga.json is deliberately left sitting at threshold and only fires
-about eight times in ten, so it is not something CI can assert on.
+examples/sga.json sits at threshold and fires about eight times in ten, so
+it is not something to assert on.
 
 Usage:
     check_spike.py <simulator> [config.json] [extra sim args...]
