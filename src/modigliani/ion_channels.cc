@@ -94,7 +94,13 @@ modigliani::ReturnEnum Ion_channels::SingleChannelStep(modigliani::Real voltage)
   if (!num_channels_) return (modigliani::ReturnEnum::SUCCESS);
   modigliani::Real rv = 0;
   std::vector<int> oldStateCounterVec = stateCounterVec;
-  modigliani::Size matrix_index = _probMatrix->GetIndex(voltage);
+  modigliani::Size matrix_index = 0;
+  try {
+    matrix_index = _probMatrix->GetIndex(voltage);
+  } catch(const std::out_of_range &e) {
+    std::cerr << "Ion_channels::SingleChannelStep - " << e.what() << std::endl;
+    return (modigliani::ReturnEnum::FAIL);
+  }
   for (modigliani::Size current_state = 1;
       current_state < num_states() + 1; current_state++) {
     for (int llc = 1; llc < oldStateCounterVec[current_state] + 1; llc++) {
@@ -211,13 +217,24 @@ modigliani::ReturnEnum Ion_channels::BinomialStep(
     modigliani::Real voltage) {
   using modigliani::Size;
   if (!num_channels()) return (modigliani::ReturnEnum::SUCCESS);
-  std::vector<int> newStateCounterVec = stateCounterVec;
+  std::vector<int> newStateCounterVec;
   // This operation is costly. So we do it only once.
-  modigliani::Size matrix_index = _probMatrix->GetIndex(voltage);
+  modigliani::Size matrix_index = 0;
+  try {
+    matrix_index = _probMatrix->GetIndex(voltage);
+  } catch(const std::out_of_range &e) {
+    std::cerr << "Ion_channels::BinomialStep - " << e.what() << std::endl;
+    return (modigliani::ReturnEnum::FAIL);
+  }
   bool loop = false;
   modigliani::Size loopCounter = 0;
 
   do {
+    // Restart from the committed state on every attempt.  Retrying on top
+    // of the half-updated vector from the previous attempt only piles more
+    // deltas onto an already invalid distribution, so the loop could never
+    // recover and always burnt all its attempts.
+    newStateCounterVec = stateCounterVec;
     loop = false;
     loopCounter++;
     for (modigliani::Size currentState = 1;
@@ -249,11 +266,13 @@ modigliani::ReturnEnum Ion_channels::BinomialStep(
     }
     if (check != num_channels_) loop = true;
   } while ((true == loop) && (loopCounter < 100));
-  if (loopCounter >= 100) {
+  if (true == loop) {
+    // The step could not be made: report it instead of claiming success
+    // while silently freezing the channel population for this timestep.
     std::cerr
         << "ERROR: Binominal step loop counter limit reached."
         << std::endl;
-    return (modigliani::ReturnEnum::SUCCESS);
+    return (modigliani::ReturnEnum::FAIL);
   }
   stateCounterVec = newStateCounterVec;
   return (modigliani::ReturnEnum::SUCCESS);
@@ -261,13 +280,21 @@ modigliani::ReturnEnum Ion_channels::BinomialStep(
 
 modigliani::ReturnEnum Ion_channels::DeterministicStep(
     const modigliani::Real voltage) {
-  std::vector<int> newStateCounterVec = stateCounterVec;
+  std::vector<int> newStateCounterVec;
   // This operation is costly. So we do it only once.
-  modigliani::Size matrix_index = _probMatrix->GetIndex(voltage);
+  modigliani::Size matrix_index = 0;
+  try {
+    matrix_index = _probMatrix->GetIndex(voltage);
+  } catch(const std::out_of_range &e) {
+    std::cerr << "Ion_channels::DeterministicStep - " << e.what() << std::endl;
+    return (modigliani::ReturnEnum::FAIL);
+  }
   bool loop = false;
   modigliani::Size loopCounter = 0;
 
   do {
+    // See BinomialStep: each attempt has to start from the committed state.
+    newStateCounterVec = stateCounterVec;
     loop = false;
     loopCounter++;
     for (modigliani::Size currentState = 1;
@@ -300,10 +327,10 @@ modigliani::ReturnEnum Ion_channels::DeterministicStep(
     }
     if (check != num_channels()) loop = true;
   } while ((true == loop) && (loopCounter < 100));
-  if (loopCounter >= 100) {
+  if (true == loop) {
     std::cerr << "ERROR: deterministic step loop counter limit reached."
               << std::endl;
-    return (modigliani::ReturnEnum::SUCCESS);
+    return (modigliani::ReturnEnum::FAIL);
   }
   stateCounterVec = newStateCounterVec;
   return (modigliani::ReturnEnum::SUCCESS);

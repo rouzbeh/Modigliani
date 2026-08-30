@@ -172,9 +172,16 @@ void AttachCurrent(modigliani::Membrane_compartment *compartment,
 
       if (force_alg) alg = force_alg;
 
-      if (4 == alg) file_current->set_simulation_mode(BINOMIALPOPULATION);
-
-      if (2 == alg) file_current->set_simulation_mode(SINGLECHANNEL);
+      if (4 == alg) {
+        file_current->set_simulation_mode(BINOMIALPOPULATION);
+      } else if (2 == alg) {
+        file_current->set_simulation_mode(SINGLECHANNEL);
+      } else {
+        std::cerr << "Unsupported chAlg " << alg << " for a \"file\" current."
+                  << " Supported values are 2 (single channel) and"
+                  << " 4 (binomial population)." << std::endl;
+        exit(1);
+      }
       compartment->AttachCurrent(file_current, IONIC);
       continue;
     }
@@ -237,11 +244,19 @@ void AttachCurrent(modigliani::Membrane_compartment *compartment,
                                                            string>
                                                            ("chModel"));
 
-        if (4 == alg) lua_current->set_simulation_mode(BINOMIALPOPULATION);
-
-        if (2 == alg) lua_current->set_simulation_mode(SINGLECHANNEL);
+        if (4 == alg) {
+          lua_current->set_simulation_mode(BINOMIALPOPULATION);
+        } else {
+          lua_current->set_simulation_mode(SINGLECHANNEL);
+        }
         compartment->AttachCurrent(lua_current, IONIC);
         continue;
+      } else {
+        std::cerr << "Unsupported chAlg " << alg << " for a \"lua\" current."
+                  << " Supported values are 1 (deterministic),"
+                  << " 2 (single channel) and 4 (binomial population)."
+                  << std::endl;
+        exit(1);
       }
     }
   }

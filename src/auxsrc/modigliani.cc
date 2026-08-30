@@ -96,7 +96,8 @@ int Simulate(boost::program_options::variables_map vm) {
   }
 
   lua_State *L_inject_current = luaL_newstate();
-  std::vector<float> inputData(1000000);
+  std::vector<float> inputData;
+  modigliani::Size inputSamples = 0;
 
   // We can inject currents in two ways. Either execute a lua program,
   // or read from a file. The choice is made depending on the presence of
@@ -113,20 +114,22 @@ int Simulate(boost::program_options::variables_map vm) {
       exit(1);
     }
 
-    modigliani::Size index = 0;
+    string line;
 
-    while (dataFile.good()) {
-      if (index < inputData.size()) {
-        char tmp[100];
-        dataFile.getline(tmp, 100);
-        std::stringstream convertor(tmp);
-        convertor >> inputData[index];
-        index++;
-      } else {
-        inputData.resize(inputData.size() + 100000);
-      }
+    while (std::getline(dataFile, line)) {
+      std::stringstream convertor(line);
+      float value = 0;
+
+      if (convertor >> value) inputData.push_back(value);
     }
     dataFile.close();
+    inputSamples = inputData.size();
+
+    if (0 == inputSamples) {
+      std::cerr << "Input file " << vm["input-file"].as<string>()
+                << " contained no samples." << std::endl;
+      exit(1);
+    }
   } else {
     string lua_inject_script = config_root.get<string>(
       "simulation_parameters.inject_current_lua");
@@ -328,18 +331,6 @@ int Simulate(boost::program_options::variables_map vm) {
             voltVec[ll] = oModel->compartment_vec_[ll]->vm();
           }
 
-          for (auto iv : voltVec) {
-            if (modigliani::IsNAN(iv)) {
-              log_file << "ERROR at t=" << timeInMS << " voltage is NaN."
-                       << std::endl;
-              std::exit(1);
-            } else if (iv > 200.0 /* mV */) {
-              log_file << "ERROR at t=" << timeInMS
-                       << " voltage in compartment  is " << iv << "."
-                       << std::endl;
-              std::exit(1);
-            }
-          }
           pls->line((PLINT)oModel->num_compartments(), x, voltVec);
           pls->flush();
         }
@@ -348,6 +339,13 @@ int Simulate(boost::program_options::variables_map vm) {
 
       if (vm.count("input-file")) {
         if (lt % config_root.get<int>("simulation_parameters.readN") == 0) {
+          if (static_cast<modigliani::Size>(dataRead) >= inputSamples) {
+            std::cerr << "Input file exhausted after " << inputSamples
+                      << " samples at t=" << timeInMS
+                      << " ms; increase readN or supply more data."
+                      << std::endl;
+            exit(1);
+          }
           inp_current = (inputData[dataRead]
                          * config_root.get<double>("simulation_parameters.inpISDV"))
                         + config_root.get<double>("simulation_parameters.inpI");
@@ -380,6 +378,27 @@ int Simulate(boost::program_options::variables_map vm) {
       }
 
       oModel->Step();
+
+      // Divergence detection.  This used to live inside the PLplot-only
+      // plotting block, so a build without PLplot - the usual case - would
+      // happily write out NaNs.
+      for (modigliani::Size lc = 0; lc < numCompartments; lc++) {
+        modigliani::Real iv = oModel->compartment_vec_[lc]->vm();
+
+        if (modigliani::IsNAN(iv)) {
+          log_file << "ERROR at t=" << timeInMS << " voltage in compartment "
+                   << lc << " is NaN." << std::endl;
+          std::cerr << "ERROR at t=" << timeInMS << " voltage in compartment "
+                    << lc << " is NaN." << std::endl;
+          std::exit(1);
+        } else if (iv > 200.0 /* mV */) {
+          log_file << "ERROR at t=" << timeInMS << " voltage in compartment "
+                   << lc << " is " << iv << "." << std::endl;
+          std::cerr << "ERROR at t=" << timeInMS << " voltage in compartment "
+                    << lc << " is " << iv << "." << std::endl;
+          std::exit(1);
+        }
+      }
 
       if (show_bar && (lt % 100 == 0)) show_progress->operator++();
     }
