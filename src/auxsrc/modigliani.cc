@@ -65,13 +65,19 @@ int Simulate(boost::program_options::variables_map vm) {
   }
   string timedOutputFolder;
 
+  // Simulation parameters used by the main loop.  Reading these out of the
+  // property tree costs a string parse and a tree walk each time, so pull
+  // them out once here rather than on every iteration.
+  const int sampN = config_root.get<int>("simulation_parameters.sampN");
+  const Size numIter = config_root.get<Size>("simulation_parameters.numIter");
+
   // What compartments to save
   auto electrods_vec = modigliani::GetElectrods(config_root);
 
   // We write each compartment's potential and currents into a single file.
   ofstream TimeFile, LengthPerCompartmentFile, TypePerCompartmentFile, log_file;
 
-  if (config_root.get<Size>("simulation_parameters.sampN") > 0) {
+  if (sampN > 0) {
     timedOutputFolder = modigliani::CreateOutputFolder(
       config_root.get<string>("simulation_parameters.outputFolder"));
 
@@ -98,6 +104,9 @@ int Simulate(boost::program_options::variables_map vm) {
   lua_State *L_inject_current = luaL_newstate();
   std::vector<float> inputData;
   modigliani::Size inputSamples = 0;
+  int readN = 1;
+  double inpI = 0.0;
+  double inpISDV = 0.0;
 
   // We can inject currents in two ways. Either execute a lua program,
   // or read from a file. The choice is made depending on the presence of
@@ -128,6 +137,16 @@ int Simulate(boost::program_options::variables_map vm) {
     if (0 == inputSamples) {
       std::cerr << "Input file " << vm["input-file"].as<string>()
                 << " contained no samples." << std::endl;
+      exit(1);
+    }
+
+    readN   = config_root.get<int>("simulation_parameters.readN");
+    inpI    = config_root.get<double>("simulation_parameters.inpI");
+    inpISDV = config_root.get<double>("simulation_parameters.inpISDV");
+
+    if (readN < 1) {
+      std::cerr << "simulation_parameters.readN must be at least 1, got "
+                << readN << "." << std::endl;
       exit(1);
     }
   } else {
@@ -264,19 +283,16 @@ int Simulate(boost::program_options::variables_map vm) {
 
     if (show_bar && (show_progress == 0))
       show_progress = new modigliani_progress_display(
-        config_root.get<Size>("simulation_parameters.numIter") * num_trials
-        / 100);
+        numIter * num_trials / 100);
 
     modigliani::Real timeInMS = 0;
     int dataRead                   = 0;
 
-    for (modigliani::Size lt = 0;
-         lt < config_root.get<Size>("simulation_parameters.numIter"); lt++) {
+    for (modigliani::Size lt = 0; lt < numIter; lt++) {
       timeInMS += oModel->timestep();
 
       // Write number of columns
-      if ((config_root.get<int>("simulation_parameters.sampN") > 0) && (lt == 0)
-          && (lTrials == 0)) {
+      if ((sampN > 0) && (lt == 0) && (lTrials == 0)) {
         modigliani::Size counter = 0;
 
         for (auto ci = electrods_vec.begin(); ci != electrods_vec.end(); ci++) {
@@ -291,8 +307,7 @@ int Simulate(boost::program_options::variables_map vm) {
         }
       }
 
-      if ((config_root.get<int>("simulation_parameters.sampN") > 0) && (lt == 0)
-          && (lTrials != 0)) {
+      if ((sampN > 0) && (lt == 0) && (lTrials != 0)) {
         modigliani::Size counter = 0;
 
         for (auto ci : electrods_vec) {
@@ -302,9 +317,7 @@ int Simulate(boost::program_options::variables_map vm) {
       }
 
       // the "sampling ratio" used for "measurement" to disk
-      if ((config_root.get<int>("simulation_parameters.sampN") > 0)
-          && ((lt + 1) % config_root.get<int>("simulation_parameters.sampN") ==
-              0)) {
+      if ((sampN > 0) && ((lt + 1) % sampN == 0)) {
         for (auto ci = electrods_vec.begin(); ci != electrods_vec.end(); ci++) {
           oModel->compartment_vec_[*ci]->WriteOutput();
         }
@@ -338,7 +351,7 @@ int Simulate(boost::program_options::variables_map vm) {
 #endif // ifdef WITH_PLPLOT
 
       if (vm.count("input-file")) {
-        if (lt % config_root.get<int>("simulation_parameters.readN") == 0) {
+        if (lt % readN == 0) {
           if (static_cast<modigliani::Size>(dataRead) >= inputSamples) {
             std::cerr << "Input file exhausted after " << inputSamples
                       << " samples at t=" << timeInMS
@@ -346,9 +359,7 @@ int Simulate(boost::program_options::variables_map vm) {
                       << std::endl;
             exit(1);
           }
-          inp_current = (inputData[dataRead]
-                         * config_root.get<double>("simulation_parameters.inpISDV"))
-                        + config_root.get<double>("simulation_parameters.inpI");
+          inp_current = (inputData[dataRead] * inpISDV) + inpI;
           dataRead++;
           cout << inp_current << endl;
         }
