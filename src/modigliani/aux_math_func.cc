@@ -23,7 +23,58 @@
 
 #include "modigliani/aux_math_func.h"
 
+#include <chrono>
+#include <iostream>
+#include <random>
+
 using modigliani::Real;
+
+namespace {
+/**
+ * A cheap 32-bit avalanche (splitmix style). Seeding several Mersenne
+ * twisters with consecutive integers correlates their initial output, so
+ * spread the counter across the whole word before handing it out.
+ */
+unsigned int Mix(unsigned int value) {
+  value += 0x9e3779b9u;
+  value = (value ^ (value >> 16)) * 0x21f0aaadu;
+  value = (value ^ (value >> 15)) * 0x735a2d97u;
+  return value ^ (value >> 15);
+}
+
+bool base_chosen = false;
+unsigned int base_seed = 0;
+unsigned int seed_counter = 0;
+}  // namespace
+
+void modigliani::SetSeedBase(unsigned int base) {
+  base_seed = base;
+  base_chosen = true;
+  seed_counter = 0;
+}
+
+unsigned int modigliani::SeedBase() {
+  if (!base_chosen) {
+    // std::random_device is allowed to be a deterministic fallback, so mix
+    // in a high resolution timestamp too. The previous code used
+    // time(NULL) alone, which gave every process started within the same
+    // second an identical stream.
+    std::random_device device;
+    unsigned int now = static_cast<unsigned int>(
+      std::chrono::high_resolution_clock::now().time_since_epoch().count());
+    base_seed = device() ^ Mix(now);
+    base_chosen = true;
+    seed_counter = 0;
+    std::cout << "Modigliani RNG base seed = " << base_seed
+              << " (repeat this run with --seed " << base_seed << ")"
+              << std::endl;
+  }
+  return base_seed;
+}
+
+unsigned int modigliani::NextSeed() {
+  return Mix(SeedBase() + seed_counter++);
+}
 
 Real modigliani::ComputePLogP(Real prob) {
     if (0.0 == prob)

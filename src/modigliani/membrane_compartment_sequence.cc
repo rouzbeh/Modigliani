@@ -23,8 +23,9 @@
 
 #include "membrane_compartment_sequence.h"
 
+#include "modigliani/aux_math_func.h"
+
 namespace modigliani {
-bool Membrane_compartment_sequence::seed_set_ = false;
 
 Membrane_compartment_sequence::Membrane_compartment_sequence(bool use_gillespie)
   : Membrane(),
@@ -38,13 +39,8 @@ Membrane_compartment_sequence::Membrane_compartment_sequence(bool use_gillespie)
   d_vec_.resize(1);
   r_vec_.resize(1);
 
-  if (Membrane_compartment_sequence::seed_set_ == false) {
-    seed_ = time(NULL);
-    std::cout << "Initial seed = " << seed_ << std::endl;
-    Membrane_compartment_sequence::seed_set_ = true;
-  }
   rng_ = boost::random::mt19937();
-  rng_.seed(seed_++);
+  rng_.seed(NextSeed());
   uni_ = boost::random::uniform_01<>();
 }
 

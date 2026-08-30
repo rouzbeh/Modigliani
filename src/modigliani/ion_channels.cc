@@ -25,9 +25,9 @@
 
 #include "modigliani/ion_channels.h"
 
-namespace modigliani {
+#include "modigliani/aux_math_func.h"
 
-bool Ion_channels::seed_set_ = 0;
+namespace modigliani {
 
 Ion_channels::Ion_channels(modigliani::Size numNewChannels,
                            modigliani::Size numNewStates,
@@ -39,13 +39,8 @@ Ion_channels::Ion_channels(modigliani::Size numNewChannels,
   set_timestep(newTimeStep);
   statePersistenceProbVec.resize(num_states());
   stateCounterVec.resize(num_states() + 1);
-  if (!Ion_channels::seed_set_) {
-    Ion_channels::seed = time(NULL);
-    std::cout << "Initial seed = " << Ion_channels::seed << std::endl;
-    Ion_channels::seed_set_ = true;
-  }
   rng = boost::random::mt19937();
-  rng.seed(Ion_channels::seed++);
+  rng.seed(NextSeed());
   bin = boost::random::binomial_distribution<>(10, 0);
   uni = boost::random::uniform_01<>();
   stateCounterVec[0] = 0;

@@ -24,6 +24,8 @@
 
 #include "modigliani/aux_func.h"
 
+#include "modigliani/aux_math_func.h"
+
 namespace modigliani {
 modigliani::Real CorrectedChannelDensity(modigliani::Real chDensity,
                                               modigliani::
@@ -32,10 +34,11 @@ modigliani::Real CorrectedChannelDensity(modigliani::Real chDensity,
   modigliani::Real pChFloor         =
     (ceil(chPerCompartment) - chPerCompartment);
 
-  boost::random::uniform_01<> uni = boost::random::uniform_01<>();
-  boost::random::mt19937 rng      = boost::random::mt19937();
-
-  rng.seed(time(NULL));
+  // One generator for the whole program, seeded once. Rebuilding it per
+  // call and seeding it from time(NULL) handed every compartment created
+  // in the same second the identical "random" density.
+  static boost::random::uniform_01<> uni = boost::random::uniform_01<>();
+  static boost::random::mt19937 rng = boost::random::mt19937(NextSeed());
 
   /* compute number of channels, such that average density is achieved */
   modigliani::Real indChDensity =

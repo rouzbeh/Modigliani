@@ -50,6 +50,33 @@ namespace modigliani {
    Real Round(Real value);
 
   /**
+   * @brief Fix the base value from which all RNG seeds are derived.
+   *
+   * Call this before constructing any model object to make a run
+   * reproducible. Without it the base is drawn from std::random_device.
+   * @param base The base seed
+   */
+  extern void SetSeedBase(unsigned int base);
+
+  /**
+   * @brief The base seed in use, drawing one if that has not happened yet.
+   *
+   * Log this and pass it back via SetSeedBase() to repeat a run.
+   * @return The base seed
+   */
+  extern unsigned int SeedBase();
+
+  /**
+   * @brief Return the next distinct seed for a random number generator.
+   *
+   * Every generator in the program - one per ion channel population, per
+   * compartment, per synaptic background process - must get its own seed.
+   * Successive calls return well separated values derived from SeedBase().
+   * @return A seed
+   */
+  extern unsigned int NextSeed();
+
+  /**
    * @brief Compute the logarithm of the Gamma function.
    *
    * Taken from function 'gammln' Numerical Recipes in C (Press et

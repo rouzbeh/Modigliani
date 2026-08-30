@@ -152,7 +152,6 @@ namespace modigliani {
  */
     std::vector < Membrane_compartment * > compartment_vec_;
 
-    static bool seed_set_;
 
   protected:
 
@@ -192,7 +191,6 @@ namespace modigliani {
     boost::random::mt19937 rng_;
     boost::random::binomial_distribution <> bin_;
     boost::random::uniform_01 <> uni_;
-    unsigned int seed_;
   };
 }  // namespace modigliani
 #endif  // MODIGLIANI_MODIGLIANI_CORE_MEMBRANE_COMPARTMENT_SEQUENCE_H_

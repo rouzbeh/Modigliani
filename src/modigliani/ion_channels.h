@@ -175,10 +175,7 @@ class Ion_channels : public Object {
     virtual modigliani::Real ComputeChannelStateTimeConstant(
         modigliani::Real voltage) const;
 
-/**
- * @brief Is the seed for the RNG set?
- */
-    static bool seed_set_;
+
 
     protected:
       std::vector<modigliani::Real> statePersistenceProbVec;
@@ -194,7 +191,6 @@ class Ion_channels : public Object {
     std::vector<modigliani::Size> open_states_;
     const modigliani::Size num_states_;
     const modigliani::Size num_channels_;
-    unsigned int seed;
   };
 }  // namespace modigliani
 #endif  // MODIGLIANI_MODIGLIANI_CORE_ION_CHANNELS_H_
