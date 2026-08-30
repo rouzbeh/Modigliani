@@ -253,8 +253,8 @@ void OpenOutputFile(string outputFolder, string prefix,
   stringstream ss(stringstream::in | stringstream::out);
 
   ss << outputFolder << "/" << prefix << extension;
-  string temp_name;
-  ss >> temp_name;
+  // str(), not operator>>: the output folder may contain spaces.
+  string temp_name = ss.str();
 
   outStream.open(temp_name.c_str(), std::ios::binary);
 
@@ -271,8 +271,8 @@ ofstream* OpenOutputFile(string outputFolder, string prefix,
 
   ss << outputFolder << "/compartments/" << prefix << "_" << counter
      << extension;
-  string temp_name;
-  ss >> temp_name;
+  // str(), not operator>>: the output folder may contain spaces.
+  string temp_name = ss.str();
 
   ofstream *out_stream = new ofstream(temp_name.c_str(), std::ios::binary);
 
@@ -292,10 +292,23 @@ CreateAxon(boost::property_tree::ptree config_root,
   lua_State *L      = luaL_newstate();
 
   luaL_openlibs(L);
-  luaL_dostring(L, lua_script.c_str());
+
+  if (luaL_dostring(L, lua_script.c_str())) {
+    std::cerr << "Failed to run anatomy_lua : " << lua_tostring(L, -1)
+              << std::endl;
+    lua_close(L);
+    exit(1);
+  }
 
   auto compartment_types = std::vector<int>();
   lua_getglobal(L, "compartments");
+
+  if (!lua_istable(L, -1)) {
+    std::cerr << "anatomy_lua did not define a table named 'compartments'."
+              << std::endl;
+    lua_close(L);
+    exit(1);
+  }
 
   /* table is in the stack at index 't' */
   lua_pushnil(L); /* first key */
@@ -324,6 +337,13 @@ CreateAxon(boost::property_tree::ptree config_root,
 
   for (std::vector<int>::iterator it = compartment_types.begin();
        it != compartment_types.end(); ++it) {
+    if (*it < 0 || static_cast<size_t>(*it) >= num_compartments) {
+      std::cerr << "anatomy_lua refers to compartment type " << *it
+                << ", but only " << num_compartments
+                << " entries are defined in compartments_parameters."
+                << std::endl;
+      exit(1);
+    }
     TypePerCompartmentFile << *it << std::endl;
     LengthPerCompartmentFile
       << compartments_parameters[*it].get<std::string>
@@ -358,9 +378,22 @@ GetElectrods(boost::property_tree::ptree root_config) {
   lua_State *L      = luaL_newstate();
 
   luaL_openlibs(L);
-  luaL_dostring(L, lua_script.c_str());
+
+  if (luaL_dostring(L, lua_script.c_str())) {
+    std::cerr << "Failed to run electrods_lua : " << lua_tostring(L, -1)
+              << std::endl;
+    lua_close(L);
+    exit(1);
+  }
 
   lua_getglobal(L, "electrods");
+
+  if (!lua_istable(L, -1)) {
+    std::cerr << "electrods_lua did not define a table named 'electrods'."
+              << std::endl;
+    lua_close(L);
+    exit(1);
+  }
 
   /* table is in the stack at index 't' */
   lua_pushnil(L); /* first key */

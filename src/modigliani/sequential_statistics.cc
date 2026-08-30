@@ -21,6 +21,8 @@
  * along with Modigliani.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <limits>
+
 #include "modigliani/sequential_statistics.h"
 
 namespace modigliani {
@@ -36,8 +38,8 @@ void Sequential_statistics::Reset() {
   average_ = 0.0;
   val_square_average_ = 0.0;
   variance_ = 0.0;
-  min_ = 1 / 0.0;  // MAXFLOAT;//numeric_limits<Real>::max();
-  max_ = -1 / 0.0;  // MINFLOAT;//numeric_limits<Real>::min();
+  min_ = std::numeric_limits<Real>::infinity();
+  max_ = -std::numeric_limits<Real>::infinity();
 }
 
 void Sequential_statistics::Add(Real val) {
@@ -47,9 +49,12 @@ void Sequential_statistics::Add(Real val) {
   val_square_average_ = UpdateAverage(val_square_average_, val * val, counter_);
   variance_ = val_square_average_ - average_ * average_;
   
+  // These must be independent tests: with an "else if" the very first
+  // sample only ever updates min_, leaving max_ at -infinity, and any
+  // sample that sets a new minimum can never also set the maximum.
   if (val < min_)
     min_ = val;
-  else if (val > max_)
+  if (val > max_)
     max_ = val;
 }
 

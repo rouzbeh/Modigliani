@@ -98,7 +98,7 @@ local function buildMemoizedFunction(f)
       insertInCache(globalCache[f], {...}, results)
     end
     
-    return unpack(results)
+    return table.unpack(results)
   end
 end
 

@@ -131,7 +131,12 @@ int Simulate(boost::program_options::variables_map vm) {
     string lua_inject_script = config_root.get<string>(
       "simulation_parameters.inject_current_lua");
     luaL_openlibs(L_inject_current);
-    luaL_dostring(L_inject_current, lua_inject_script.c_str());
+
+    if (luaL_dostring(L_inject_current, lua_inject_script.c_str())) {
+      std::cerr << "Failed to run inject_current_lua : "
+                << lua_tostring(L_inject_current, -1) << std::endl;
+      exit(1);
+    }
   }
 
   bool verbose = false;
@@ -174,7 +179,13 @@ int Simulate(boost::program_options::variables_map vm) {
     string lua_change_potential_script = config_root.get<string>(
       "simulation_parameters.change_potential_lua");
     luaL_openlibs(L_change_potential);
-    luaL_dostring(L_change_potential, lua_change_potential_script.c_str());
+
+    if (luaL_dostring(L_change_potential,
+                      lua_change_potential_script.c_str())) {
+      std::cerr << "Failed to run change_potential_lua : "
+                << lua_tostring(L_change_potential, -1) << std::endl;
+      exit(1);
+    }
     change_potentials = true;
   } catch (const boost::property_tree::ptree_bad_path& e) {
     // No need to change potentials
@@ -208,6 +219,24 @@ int Simulate(boost::program_options::variables_map vm) {
     numCompartments = oModel->num_compartments();
     log_file << "Total number of compartments(in oModel)" << numCompartments
              << std::endl;
+
+    // Drop electrodes that name a compartment the model does not have, once,
+    // here: every use of electrods_vec below indexes compartment_vec_
+    // directly.
+    if (!lTrials) {
+      auto valid_electrods = std::vector<modigliani::Size>();
+
+      for (auto ci : electrods_vec) {
+        if (ci >= oModel->compartment_vec_.size()) {
+          std::cerr
+            << "Warning : Electrod requested in non existing compartment "
+            << ci << " ignored." << std::endl;
+          continue;
+        }
+        valid_electrods.push_back(ci);
+      }
+      electrods_vec = valid_electrods;
+    }
 
     // std::vector<modigliani::Real> leakCurrVec(numCompartments);
     // std::vector<modigliani::Real> naCurrVec(numCompartments);
@@ -248,16 +277,11 @@ int Simulate(boost::program_options::variables_map vm) {
         modigliani::Size counter = 0;
 
         for (auto ci = electrods_vec.begin(); ci != electrods_vec.end(); ci++) {
-          if (*ci >= oModel->compartment_vec_.size())
-            std::cerr
-              << "Warning : Electrod requested in non existing compartment "
-              << *ci << " ignored." << std::endl;
-
           stringstream ss(stringstream::in | stringstream::out);
           ss << timedOutputFolder << "/compartments/" << "compartment" << "_"
              << counter << ".bin";
-          string temp_name;
-          ss >> temp_name;
+          // str(), not operator>>: the output folder may contain spaces.
+          string temp_name = ss.str();
           output_files.push_back(temp_name);
           oModel->compartment_vec_[*ci]->SetupOutput(temp_name);
           counter++;
@@ -269,6 +293,7 @@ int Simulate(boost::program_options::variables_map vm) {
         modigliani::Size counter = 0;
 
         for (auto ci : electrods_vec) {
+          if (counter >= output_files.size()) break;
           oModel->compartment_vec_[ci]->SetupOutput(output_files[counter++]);
         }
       }
