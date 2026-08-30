@@ -31,8 +31,8 @@ how long the stimulus lasts:
 
 Configuration              | Stimulus          | Behaviour
 -------------------------- | ----------------- | ------------------------------------------
-`sga_suprathreshold.json`  | 0.2 nA for 1 ms   | Fires on every run
-`sga.json`                 | 0.2 nA for 0.1 ms | Sits at threshold, fires about 8 runs in 10
+`sga_suprathreshold.json`  | 0.2 nA for 1 ms   | Fires reliably
+`sga.json`                 | 0.2 nA for 0.1 ms | Sits at threshold, fires on most runs
 
 Start with `sga_suprathreshold.json`. Once the output makes sense, `sga.json`
 is the more interesting of the two - see @ref sga_threshold.
@@ -140,8 +140,8 @@ threshold and makes it worth running more than once.
 
 Algorithm                       | Result
 ------------------------------- | ------------------------------------------
-`--algorithm 1`, deterministic  | Never fires; peaks at -58.2 mV every time
-`--algorithm 4`, binomial       | Fires on roughly 8 runs in 10
+`--algorithm 1`, deterministic  | Does not fire
+`--algorithm 4`, binomial       | Fires on most runs
 
 0.2 nA for 0.1 ms is below threshold for this patch, and the deterministic
 solver reports exactly that. Given identical parameters, the stochastic
