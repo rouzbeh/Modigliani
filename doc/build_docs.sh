@@ -38,9 +38,8 @@ fi
 [ -x "$sim" ] || { echo "no simulator at $sim" >&2; exit 1; }
 
 # ------------------------------------------------------------- simulate ----
-# The figure uses the suprathreshold example: examples/sga.json deliberately
-# sits at threshold and only fires about eight times in ten, which would make
-# the documentation illustrate nothing roughly one build in five.
+# The figure uses the suprathreshold example, which fires on every run.
+# examples/sga.json sits at threshold and fires about eight times in ten.
 echo "==> running the SGA example"
 run=$(python3 "$root/doc/run_example.py" \
         "$sim" "$root/examples/sga_suprathreshold.json" "$work/out")

@@ -9,10 +9,9 @@ From 2010 to 2015, Modigliani was developed and maintained by Ali Neishabouri at
 ## Documentation
 Doxygen generated documentation is available at https://rouzbeh.github.io/Modigliani
 
-It is rebuilt and republished automatically on every push to `master`. The
-[squid giant axon walkthrough](https://rouzbeh.github.io/Modigliani/sga_example.html)
-covers running the bundled example, and its figure is regenerated from a real
-simulation each time the documentation is built.
+It is rebuilt and republished automatically on every push to `master`. Start
+with the [squid giant axon walkthrough](https://rouzbeh.github.io/Modigliani/sga_example.html),
+which covers running the bundled example and reading its output.
 
 To build the documentation locally you need `doxygen`, `graphviz` and
 `python3`:

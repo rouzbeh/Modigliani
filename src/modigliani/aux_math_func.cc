@@ -55,10 +55,9 @@ void modigliani::SetSeedBase(unsigned int base) {
 
 unsigned int modigliani::SeedBase() {
   if (!base_chosen) {
-    // std::random_device is allowed to be a deterministic fallback, so mix
-    // in a high resolution timestamp too. The previous code used
-    // time(NULL) alone, which gave every process started within the same
-    // second an identical stream.
+    // std::random_device is permitted to be a deterministic fallback, so
+    // mix in a high resolution timestamp: processes started in the same
+    // second must still get independent streams.
     std::random_device device;
     unsigned int now = static_cast<unsigned int>(
       std::chrono::high_resolution_clock::now().time_since_epoch().count());

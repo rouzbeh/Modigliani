@@ -34,9 +34,8 @@ modigliani::Real CorrectedChannelDensity(modigliani::Real chDensity,
   modigliani::Real pChFloor         =
     (ceil(chPerCompartment) - chPerCompartment);
 
-  // One generator for the whole program, seeded once. Rebuilding it per
-  // call and seeding it from time(NULL) handed every compartment created
-  // in the same second the identical "random" density.
+  // One generator for the whole program, seeded once, so that every
+  // compartment draws an independent density.
   static boost::random::uniform_01<> uni = boost::random::uniform_01<>();
   static boost::random::mt19937 rng = boost::random::mt19937(NextSeed());
 
