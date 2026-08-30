@@ -1,5 +1,5 @@
 # Modigliani
-[![Build Status](https://travis-ci.org/rouzbeh/Modigliani.svg?branch=master)](https://travis-ci.org/rouzbeh/Modigliani)
+[![CI](https://github.com/rouzbeh/Modigliani/actions/workflows/ci.yml/badge.svg)](https://github.com/rouzbeh/Modigliani/actions/workflows/ci.yml)
 
 
 Modigliani is a set of libraries for stochastic simulations of neurons. Modigliani was first started at the University of Cambridge by Aldo Faisal.
@@ -7,12 +7,39 @@ Modigliani is a set of libraries for stochastic simulations of neurons. Modiglia
 From 2010 to 2015, Modigliani was developed and maintained by Ali Neishabouri at Imperial College London.
 
 ## Documentation
-Doxygen generated documentation is available at http://rouzbeh.github.io/Modigliani
+Doxygen generated documentation is available at https://rouzbeh.github.io/Modigliani
+
+It is rebuilt and republished automatically on every push to `master`. The
+[squid giant axon walkthrough](https://rouzbeh.github.io/Modigliani/sga_example.html)
+covers running the bundled example, and its figure is regenerated from a real
+simulation each time the documentation is built.
+
+To build the documentation locally you need `doxygen`, `graphviz` and
+`python3`:
+
+    ./doc/build_docs.sh
+
+The result is written to `doc/html/index.html`.
 
 ## Installing on Mac via homebrew
 Run `brew tap rouzbeh/tap` to add my collection of homebrew formulae.
 
 Then `brew install Modigliani` to install Modigliani and its dependencies.
+
+## Dependencies
+Boost (filesystem, program\_options, random, system), Lua 5.2 or later, and
+the autotools. PLplot is optional; if `pkg-config` finds it, live plotting is
+compiled in.
+
+On Debian/Ubuntu:
+
+    sudo apt-get install autoconf automake libtool pkg-config \
+        libboost-filesystem-dev libboost-program-options-dev \
+        libboost-random-dev libboost-system-dev liblua5.4-dev lua5.4
+
+On macOS:
+
+    brew install autoconf automake libtool pkg-config boost lua
 
 ## Build instructions
 Run `autoreconf -f -v -i`
