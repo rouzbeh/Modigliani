@@ -25,8 +25,9 @@
 
 #include "membrane_compartment.h"
 
+#include "modigliani/aux_math_func.h"
+
 namespace modigliani {
-bool Membrane_compartment::seed_set_ = false;
 
 Membrane_compartment::Membrane_compartment(
   const modigliani::Real newArea /* in muMeter^2 */,
@@ -39,13 +40,8 @@ Membrane_compartment::Membrane_compartment(
   current_vec_ = std::vector<Membrane_current *>(0);
   output_file  = 0;
 
-  if (Membrane_compartment::seed_set_ == false) {
-    Membrane_compartment::seed_ = time(NULL);
-    std::cout << "Initial seed = " << Membrane_compartment::seed_ << std::endl;
-    Membrane_compartment::seed_set_ = true;
-  }
   rng_ = boost::random::mt19937();
-  rng_.seed(Membrane_compartment::seed_++);
+  rng_.seed(NextSeed());
   uni_ = boost::random::uniform_01<>();
 }
 

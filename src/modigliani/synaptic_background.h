@@ -55,7 +55,6 @@ namespace modigliani {
 
      virtual ~ Synaptic_background();
 
-    static bool seed_set_;
 
   private:
      modigliani::Real avgSynBkCond;        /* ns */
@@ -68,7 +67,6 @@ namespace modigliani {
 
      boost::random::mt19937 rng_;
      boost::random::normal_distribution <> norm_;
-    static unsigned int seed_;
 
   };
 }                               // namespace modigliani

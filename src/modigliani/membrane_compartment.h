@@ -339,7 +339,6 @@ namespace modigliani {
       return current_vec_;
     }
 
-    static bool seed_set_;
 
  protected :
     std::ofstream * output_file = 0;
@@ -369,7 +368,6 @@ namespace modigliani {
     boost::random::mt19937 rng_;
     boost::random::binomial_distribution <> bin_;
     boost::random::uniform_01 <> uni_;
-    unsigned int seed_;
   };
 }  // namespace modigliani
 #endif  // MODIGLIANI_MODIGLIANI_CORE_MEMBRANE_COMPARTMENT_H_

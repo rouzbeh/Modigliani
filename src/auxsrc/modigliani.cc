@@ -65,6 +65,14 @@ int Simulate(boost::program_options::variables_map vm) {
   }
   string timedOutputFolder;
 
+  // Must happen before any model object is built, since they draw their
+  // generator seeds from here as they are constructed.
+  if (vm.count("seed")) {
+    modigliani::SetSeedBase(vm["seed"].as<unsigned int>());
+    std::cerr << "Modigliani RNG base seed = " << vm["seed"].as<unsigned int>()
+              << " (from --seed)" << std::endl;
+  }
+
   // Simulation parameters used by the main loop.  Reading these out of the
   // property tree costs a string parse and a tree walk each time, so pull
   // them out once here rather than on every iteration.
@@ -443,7 +451,9 @@ int main(int argc, char *argv[]) {
     "verbose,v", "activate debug messages")("input-file,i",
                                             po::          value<string>(),
                                             "set input file")(
-    "progressbar,b", "Show a progress bar")
+    "progressbar,b", "Show a progress bar")(
+    "seed", po::value<unsigned int>(),
+    "seed the random number generators for a reproducible run")
 #ifdef WITH_PLPLOT
   ("plot,p", po::value<Size>(), "plot every <arg> step.")
 #endif // ifdef WITH_PLPLOT

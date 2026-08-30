@@ -24,10 +24,9 @@
 
 #include "synaptic_background.h"
 
-namespace modigliani {
+#include "modigliani/aux_math_func.h"
 
-bool Synaptic_background::seed_set_ = false;
-unsigned int Synaptic_background::seed_ = 0;
+namespace modigliani {
 
 Synaptic_background::Synaptic_background(
     modigliani::Real newAvgSynBkCond, /* in nS */
@@ -43,13 +42,8 @@ Synaptic_background::Synaptic_background(
   synVar = synSigma * synSigma;
   vBase = newVBase;
 
-  if (Synaptic_background::seed_set_ == false) {
-    Synaptic_background::seed_ = time(NULL);
-    std::cout << "Initial seed = " << Synaptic_background::seed_ << std::endl;
-    Synaptic_background::seed_set_ = true;
-  }
   rng_ = boost::random::mt19937();
-  rng_.seed(Synaptic_background::seed_++);
+  rng_.seed(NextSeed());
   norm_ = boost::random::normal_distribution<>();
 
   gT = 0.0;
