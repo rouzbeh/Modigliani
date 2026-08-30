@@ -28,8 +28,14 @@
 #include <modigliani/aux_math_func.h>
 
 #include <boost/program_options.hpp>
-#include <boost/progress.hpp>
-#include <boost/timer.hpp>
+#include <boost/version.hpp>
+#if BOOST_VERSION >= 107200
+# include <boost/timer/progress_display.hpp>
+typedef boost::timer::progress_display modigliani_progress_display;
+#else
+# include <boost/progress.hpp>
+typedef boost::progress_display modigliani_progress_display;
+#endif
 #include <boost/property_tree/exceptions.hpp>
 
 #ifdef WITH_PLPLOT
@@ -176,7 +182,7 @@ int Simulate(boost::program_options::variables_map vm) {
     lua_close(L_change_potential);
   }
   auto output_files                      = vector<string>(0);
-  boost::progress_display *show_progress = 0;
+  modigliani_progress_display *show_progress = 0;
 
   /* *** Trials loop *** */
   for (modigliani::Size lTrials = 0; lTrials < num_trials; lTrials++) {
@@ -225,7 +231,7 @@ int Simulate(boost::program_options::variables_map vm) {
     std::cerr << "MainLoop started" << std::endl;
 
     if (show_bar && (show_progress == 0))
-      show_progress = new boost::progress_display(
+      show_progress = new modigliani_progress_display(
         config_root.get<Size>("simulation_parameters.numIter") * num_trials
         / 100);
 
