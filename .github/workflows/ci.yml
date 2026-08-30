@@ -28,7 +28,9 @@ jobs:
             cxx: clang++
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
 
       - name: Install dependencies (Linux)
         if: runner.os == 'Linux'
@@ -42,7 +44,9 @@ jobs:
 
       - name: Install dependencies (macOS)
         if: runner.os == 'macOS'
-        run: brew install autoconf automake libtool pkg-config boost lua
+        run: |
+          brew untap aws/tap || true
+          brew install autoconf automake libtool pkg-config boost lua
 
       - name: Configure
         env:
@@ -93,7 +97,11 @@ jobs:
     needs: build
 
     steps:
-      - uses: actions/checkout@v4
+      # The gh-pages push below carries its own token, so the checkout has no
+      # reason to leave credentials behind in the workspace.
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
 
       - name: Install dependencies
         run: |
@@ -108,7 +116,7 @@ jobs:
       - name: Build the documentation
         run: ./doc/build_docs.sh "$GITHUB_WORKSPACE/build"
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: html-documentation
           path: doc/html
